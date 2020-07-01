@@ -1,0 +1,103 @@
+{
+  "name": "alpheios-alignment-editor",
+  "version": "1.0.0",
+  "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs",
+    "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alpheios-project/alignment-editor-new.git"
+  },
+  "author": "The Alpheios Project, Ltd.",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/runtime": "^7.10.2",
+    "alpheios-node-build": "github:alpheios-project/node-build#v3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "bytes": "^3.1.0",
+    "command-line-args": "^5.1.1",
+    "coveralls": "^3.1.0",
+    "css-loader": "^3.6.0",
+    "eslint": "^7.2.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-jsdoc": "^27.0.7",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "eslint-scope": "^5.0.0",
+    "git-branch": "^2.0.1",
+    "imagemin": "^7.0.1",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0",
+    "inspectpack": "^4.5.2",
+    "jest": "^26.0.1",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-safe-important": "^1.2.0",
+    "postcss-scss": "^2.1.1",
+    "raw-loader": "^4.0.1",
+    "sass": "^1.26.9",
+    "sass-loader": "^8.0.2",
+    "source-map-loader": "^1.0.0",
+    "style-loader": "^1.2.1",
+    "terser-webpack-plugin": "^3.0.5",
+    "vue": "^2.6.11",
+    "vue-eslint-parser": "^7.1.0",
+    "vue-jest": "^3.0.5",
+    "vue-loader": "^15.9.2",
+    "vue-multiselect": "^2.1.6",
+    "vue-style-loader": "^4.1.2",
+    "vue-svg-loader": "^0.16.0",
+    "vue-template-compiler": "^2.6.11",
+    "vue-template-loader": "^1.1.0",
+    "webpack": "^5.0.0-beta.18",
+    "webpack-bundle-analyzer": "^3.8.0",
+    "webpack-cleanup-plugin": "^0.5.1",
+    "webpack-merge": "^4.2.2"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleNameMapper": {
+      "^@[/](.+)": "<rootDir>/src/$1"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard",
+      "plugin:jsdoc/recommended",
+      "plugin:vue/essential"
+    ],
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parserOptions": {
+      "parser": "babel-eslint",
+      "ecmaVersion": 2019,
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+    },
+    "rules": {
+      "no-prototype-builtins": "warn",
+      "dot-notation": "warn",
+      "accessor-pairs": "warn"
+    }
+  },
+  "eslintIgnore": [
+    "**/dist",
+    "**/support"
+  ]
+}
