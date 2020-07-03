@@ -1,5 +1,6 @@
-import Bar from '@/bar'
+import Style from '@/styles/style.scss'
+import AppController from '@/lib/app-controller.js'
 
 export {
-  Bar
+  Style, AppController
 }
