@@ -37,7 +37,7 @@ export default {
       required: false
     },
     hideEditor: {
-      type: Boolean,
+      type: Number,
       required: false
     }
   },

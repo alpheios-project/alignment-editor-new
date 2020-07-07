@@ -15,6 +15,19 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements:  */
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -8767,10 +8780,10 @@ class Download {
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
+/***/ "./lib/format-text.js":
+/*!****************************!*\
+  !*** ./lib/format-text.js ***!
+  \****************************/
 /*! namespace exports */
 /*! export default [provided] [used] [could be renamed] */
 /*! other exports [not provided] [unused] */
@@ -8779,8 +8792,66 @@ class Download {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ FormatText
+/* harmony export */ });
+class FormatText {
+  static get punctuation () {
+    return ".,;:!?'\"(){}\\[\\]<>\\\u00A0\u2010\u2011\u2012\u2013\u2014\u2015\u2018\u2019\u201C\u201D\u0387\u00B7\n\r\u200C\u200D\u000D"
+  }
+
+  static defineIdentification (text, idPrefix, typeText) {
+    let formattedText = text.split('\u000D').join('<br/> ')
+    const checkRegExp = `[${this.punctuation}]`
+
+    let indexWord = 0
+
+    formattedText = formattedText.split(' ').map(word => {
+      if (word.substr(0, 1) === '<') { return word }
+
+      const index = word.search(checkRegExp)
+      let resultWord
+      const idWord = `${idPrefix}-${indexWord}`
+      indexWord = indexWord + 1
+
+      if (index > -1) {
+        resultWord = `<span data-type="${typeText}" id="${idWord}">${word.substr(0, index)}</span>${word.substr(index)}`
+      } else {
+        resultWord = `<span id="${idWord}">${word}</span>`
+      }
+
+      return resultWord
+    })
+
+    return formattedText.join(' ')
+  }
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _lib_format_text_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/format-text.js */ "./lib/format-text.js");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8792,20 +8863,23 @@ class Download {
 //
 //
 
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignEditor',
   components: {},
   props: {
     sourceText: {
       type: Object,
-      required: true
+      required: false
     },
     translationText: {
       type: Object,
-      required: true
+      required: false
     },
     showEditor: {
-      type: Boolean,
+      type: Number,
       required: false
     }
   },
@@ -8815,18 +8889,36 @@ class Download {
     }
   },
   watch: {
-    showEditor () {
+    async showEditor () {
       this.defineAlignShow = true
+
+      await _vue_runtime__WEBPACK_IMPORTED_MODULE_1__.default.nextTick()
+      const elements = document.querySelectorAll('.alpheios-alignment-editor-align-text span')
+      elements.forEach(el => {
+        el.addEventListener('click', this.clickWord)
+      })
     }
   },
   computed: {
     defineAlignShowLabel () {
       return this.defineAlignShow ? 'hide' : 'show'
+    },
+    sourceFormattedText () {
+      return _lib_format_text_js__WEBPACK_IMPORTED_MODULE_0__.default.defineIdentification(this.sourceText.text, 'L1:1', 'source')
+    },
+    translationFormattedText () {
+      return _lib_format_text_js__WEBPACK_IMPORTED_MODULE_0__.default.defineIdentification(this.translationText.text, 'L2:1', 'translation')
+    },
+    showAlignEditor () {
+      return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
     }
   },
   methods: {
     toggleDefineAlignShow () {
       this.defineAlignShow = !this.defineAlignShow
+    },
+    clickWord (e) {
+      console.info('clickWord - e', e.target, e)
     }
   }
 });
@@ -8872,7 +8964,6 @@ class Download {
 //
 //
 //
-//
 
 
 
@@ -8893,12 +8984,9 @@ class Download {
       translationText: {},
       updatedData: null,
       hideTextEditor: 0,
-      showAlignEditor: 0
-    }
-  },
-  computed: {
-    alignEditorAvailable () {
-      return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
+      showAlignEditor: 0,
+      sourceTextForAlign: {},
+      translationTextForAlign: {}
     }
   },
   methods: {
@@ -8940,8 +9028,12 @@ class Download {
     },
 
     alignTexts () {
+      this.sourceTextForAlign = this.sourceText
+
+      this.translationTextForAlign = this.translationText
+
       this.hideTextEditor = this.hideTextEditor + 1
-      this.showAlignEditor = this.showAlignEditor + 1
+      this.showAlignEditor = this.showAlignEditor + 1      
     }
   }
 });
@@ -9106,6 +9198,10 @@ class Download {
     textDirectionRadio (dir) {
       return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
     },
+    updateAvaLang () {
+      this.selectedOtherLang = null
+      this.updateText()
+    },
     updateText () {
       this.$emit('update-text', {
         text: this.textData,
@@ -9173,7 +9269,7 @@ class Download {
       required: false
     },
     hideEditor: {
-      type: Boolean,
+      type: Number,
       required: false
     }
   },
@@ -9230,7 +9326,9 @@ class Download {
 /* harmony export */ });
 /* harmony import */ var _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor.vue?vue&type=template&id=d51e2a30& */ "./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&");
 /* harmony import */ var _align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -9238,7 +9336,7 @@ class Download {
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.render,
   _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -9429,6 +9527,23 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 if (false) { var api; }
 component.options.__file = "vue/text-editor/text-editor.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************!*\
+  !*** ./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [unused] [could be renamed] */
+/*! other exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+ /* unused harmony default export */ var _unused_webpack_default_export = ((/* unused pure expression or super */ null && (mod))); 
 
 /***/ }),
 
@@ -9720,37 +9835,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-alignment-editor-container" }, [
-    _c("h2", [
-      _vm._v("Define Alignment for Source and Translation Texts\n      ("),
-      _c(
-        "span",
+  return _c(
+    "div",
+    {
+      directives: [
         {
-          staticClass:
-            "alpheios-alignment-editor-text-define-container__show-label",
-          on: { click: _vm.toggleDefineAlignShow }
-        },
-        [_vm._v(_vm._s(_vm.defineAlignShowLabel))]
-      ),
-      _vm._v(")\n    ")
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
+          name: "show",
+          rawName: "v-show",
+          value: _vm.showAlignEditor,
+          expression: "showAlignEditor"
+        }
+      ],
+      staticClass: "alpheios-alignment-editor-container"
+    },
+    [
+      _c("h2", [
+        _vm._v("Define Alignment for Source and Translation Texts\n      ("),
+        _c(
+          "span",
           {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.defineAlignShow,
-            expression: "defineAlignShow"
-          }
-        ],
-        staticClass: "alpheios-alignment-editor-align-define-container"
-      },
-      [_vm._v("\n        Alignment Container\n    ")]
-    )
-  ])
+            staticClass:
+              "alpheios-alignment-editor-text-define-container__show-label",
+            on: { click: _vm.toggleDefineAlignShow }
+          },
+          [_vm._v(_vm._s(_vm.defineAlignShowLabel))]
+        ),
+        _vm._v(")\n    ")
+      ]),
+      _vm._v(" "),
+      _vm.showAlignEditor
+        ? _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.defineAlignShow,
+                  expression: "defineAlignShow"
+                }
+              ],
+              staticClass: "alpheios-alignment-editor-align-define-container"
+            },
+            [
+              _c("div", {
+                staticClass:
+                  "alpheios-alignment-editor-align-text alpheios-alignment-editor-align__source",
+                attrs: {
+                  dir: _vm.sourceText.direction,
+                  lang: _vm.sourceText.lang
+                },
+                domProps: { innerHTML: _vm._s(_vm.sourceFormattedText) }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass:
+                  "alpheios-alignment-editor-align-text alpheios-alignment-editor-align__translation",
+                attrs: {
+                  dir: _vm.translationText.direction,
+                  lang: _vm.translationText.lang
+                },
+                domProps: { innerHTML: _vm._s(_vm.translationFormattedText) }
+              })
+            ]
+          )
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9805,15 +9956,13 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm.alignEditorAvailable
-        ? _c("align-editor", {
-            attrs: {
-              "source-text": _vm.sourceText,
-              "translation-text": _vm.translationText,
-              "show-editor": _vm.showAlignEditor
-            }
-          })
-        : _vm._e()
+      _c("align-editor", {
+        attrs: {
+          "source-text": _vm.sourceTextForAlign,
+          "translation-text": _vm.translationTextForAlign,
+          "show-editor": _vm.showAlignEditor
+        }
+      })
     ],
     1
   )
@@ -10063,7 +10212,7 @@ var render = function() {
                   ? $$selectedVal
                   : $$selectedVal[0]
               },
-              _vm.updateText
+              _vm.updateAvaLang
             ]
           }
         },

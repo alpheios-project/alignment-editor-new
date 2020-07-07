@@ -11,7 +11,7 @@
       <textarea :id="textareaId" v-model="textData" :dir="textDirection" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateText">
+          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang">
             <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
           </select>
       </p>
@@ -85,6 +85,10 @@ export default {
   methods: {
     textDirectionRadio (dir) {
       return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
+    },
+    updateAvaLang () {
+      this.selectedOtherLang = null
+      this.updateText()
     },
     updateText () {
       this.$emit('update-text', {

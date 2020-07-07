@@ -12,9 +12,8 @@
         :hide-editor = "hideTextEditor"
       />
       <align-editor 
-        v-if = "alignEditorAvailable"
-        :source-text = "sourceText" 
-        :translation-text = "translationText" 
+        :source-text = "sourceTextForAlign" 
+        :translation-text = "translationTextForAlign" 
         :show-editor = "showAlignEditor"
       />
   </div>
@@ -39,12 +38,9 @@ export default {
       translationText: {},
       updatedData: null,
       hideTextEditor: 0,
-      showAlignEditor: 0
-    }
-  },
-  computed: {
-    alignEditorAvailable () {
-      return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
+      showAlignEditor: 0,
+      sourceTextForAlign: {},
+      translationTextForAlign: {}
     }
   },
   methods: {
@@ -86,8 +82,12 @@ export default {
     },
 
     alignTexts () {
+      this.sourceTextForAlign = this.sourceText
+
+      this.translationTextForAlign = this.translationText
+
       this.hideTextEditor = this.hideTextEditor + 1
-      this.showAlignEditor = this.showAlignEditor + 1
+      this.showAlignEditor = this.showAlignEditor + 1      
     }
   }
 }
