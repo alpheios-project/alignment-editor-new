@@ -8816,7 +8816,7 @@ class FormatText {
       if (index > -1) {
         resultWord = `<span data-type="${typeText}" id="${idWord}">${word.substr(0, index)}</span>${word.substr(index)}`
       } else {
-        resultWord = `<span id="${idWord}">${word}</span>`
+        resultWord = `<span data-type="${typeText}" id="${idWord}">${word}</span>`
       }
 
       return resultWord
