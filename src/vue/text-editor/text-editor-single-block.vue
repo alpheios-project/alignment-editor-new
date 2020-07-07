@@ -3,15 +3,15 @@
       <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>Text Direction: </span>
-          <input type="radio" :id="textDirectionRadio('ltr')" value="ltr" v-model="textDirection" tabindex="1">
+          <input type="radio" :id="textDirectionRadio('ltr')" value="ltr" v-model="textDirection" tabindex="1" @change="updateText">
           <label :for="textDirectionRadio('ltr')">Left to Right</label>
-          <input type="radio" :id="textDirectionRadio('rtl')" value="rtl" v-model="textDirection" tabindex="1">
+          <input type="radio" :id="textDirectionRadio('rtl')" value="rtl" v-model="textDirection" tabindex="1" @change="updateText">
           <label :for="textDirectionRadio('rtl')">Right to Left</label>
       </p>
-      <textarea :id="textareaId" v-model="textData" :dir="textDirection" tabindex="2" :lang="selectedLang" ></textarea>
+      <textarea :id="textareaId" v-model="textData" :dir="textDirection" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang">
+          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateText">
             <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
           </select>
       </p>
@@ -19,7 +19,7 @@
         <div class="alpheios-alignment-editor-text-block__other-lang">
           <span>Or Other Language:</span>
           <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang">
+            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText">
             <p class="alpheios-alignment-editor-text-block__other-lang__description">
               Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages
             </p>
@@ -30,14 +30,18 @@
   </div>
 </template>
 <script>
-import LangsList from '@/vue/langs-list.json'
+import LangsList from '@/vue/text-editor/langs-list.json'
 
 export default {
-  name: 'EditorTextBlock',
+  name: 'TextEditorSingleBlock',
   props: {
     textId: {
       type: String,
       required: true
+    },
+    externalText: {
+      type: Object,
+      required: false
     }
   },
   components: {},
@@ -52,6 +56,14 @@ export default {
   },
   mounted () {
     this.langsList = LangsList
+    this.selectedAvaLang = this.langsList[0].value
+  },
+  watch: {
+    externalText (data) {
+      this.textData = data.text
+      this.textDirection = data.dir
+      this.selectedOtherLang = data.lang
+    }
   },
   computed: {
     textareaId () {
@@ -73,6 +85,13 @@ export default {
   methods: {
     textDirectionRadio (dir) {
       return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
+    },
+    updateText () {
+      this.$emit('update-text', {
+        text: this.textData,
+        direction: this.textDirection,
+        lang: this.selectedLang
+      })
     }
   }
 }

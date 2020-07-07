@@ -156,7 +156,7 @@ input.alpheios-input::-ms-input-placeholder {
   color: #fff !important;
 }
 
-.alpheios-button-primary, .alpheios-button {
+.alpheios-button-tertiary, button.alpheios-button-tertiary, .alpheios-button-primary, .alpheios-button {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -174,14 +174,14 @@ input.alpheios-input::-ms-input-placeholder {
   border-radius: 0.6em;
   cursor: pointer;
 }
-.alpheios-button-primary::-moz-focus-inner, .alpheios-button::-moz-focus-inner {
+.alpheios-button-tertiary::-moz-focus-inner, .alpheios-button-primary::-moz-focus-inner, .alpheios-button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-.alpheios-button-primary:hover, .alpheios-button:hover {
+.alpheios-button-tertiary:hover, .alpheios-button-primary:hover, .alpheios-button:hover {
   text-decoration: none;
 }
-.alpheios-button-primary:focus, .alpheios-button:focus {
+.alpheios-button-tertiary:focus, .alpheios-button-primary:focus, .alpheios-button:focus {
   outline: none;
 }
 
@@ -203,11 +203,34 @@ input.alpheios-input::-ms-input-placeholder {
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
 
+.alpheios-button-tertiary, button.alpheios-button-tertiary {
+  color: #185F6D;
+  background: #fff;
+  border-color: #185F6D;
+}
+.alpheios-button-tertiary:hover, .alpheios-button-tertiary:focus, button.alpheios-button-tertiary:hover, button.alpheios-button-tertiary:focus {
+  color: #fff;
+  background: #185F6D;
+  border-color: #185F6D;
+  box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
+}
+.alpheios-button-tertiary:active, button.alpheios-button-tertiary:active {
+  color: #fff;
+  background: #185F6D;
+  border-color: #185F6D;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
+
 .alpheios-alignment-app-container {
   font-family: "Source Sans Pro", sans-serif;
 }
 .alpheios-alignment-app-container * {
   box-sizing: border-box;
+}
+.alpheios-alignment-app-menu__buttons,
+.alpheios-alignment-app-menu__upload-block {
+  padding: 15px 15px 0;
+  text-align: left;
 }
 .alpheios-alignment-editor-text-block textarea {
   width: 100%;
@@ -232,13 +255,6 @@ input.alpheios-input::-ms-input-placeholder {
 .alpheios-alignment-editor-text-block .alpheios-alignment-editor-text-block__other-lang__description {
   font-size: 90%;
   color: #888;
-}
-.alpheios-alignment-editor-container {
-  padding: 15px;
-}
-.alpheios-alignment-editor-container h2 {
-  margin: 0;
-  padding: 0;
 }
 .alpheios-alignment-editor-text-define-container-inner:before, .alpheios-alignment-editor-text-define-container-inner:after {
   content: "";
@@ -265,6 +281,13 @@ input.alpheios-input::-ms-input-placeholder {
   font-size: 90%;
   text-decoration: underline;
   color: #185F6D;
+}
+.alpheios-alignment-editor-container {
+  padding: 15px 15px 0;
+}
+.alpheios-alignment-editor-container h2 {
+  margin: 0;
+  padding: 0;
 }
 
 /*# sourceMappingURL=style-alignment-editor.css.map*/
