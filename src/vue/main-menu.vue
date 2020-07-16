@@ -24,6 +24,7 @@ export default {
     },
     loadTextFromFile(ev) {
       const file = ev.target.files[0]
+      if (!file) { return }
       const reader = new FileReader()
 
       reader.onload = e => {

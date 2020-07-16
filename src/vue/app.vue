@@ -68,12 +68,14 @@ export default {
         source: {
           text: data[0].replace(/\t/g, '\u000D'),
           dir: data[1],
-          lang: data[2]
+          lang: data[2],
+          textType: 'source'
         },
         translation: {
           text: data[3].replace(/\t/g, '\u000D'),
           dir: data[4],
-          lang: data[5]
+          lang: data[5],
+          textType: 'translation'
         }
       }
       this.updatedData = formattedData

@@ -4,24 +4,21 @@
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
-          <div class="alpheios-alignment-editor-align-text alpheios-alignment-editor-align__source"
-            v-html = "sourceFormattedText"
-            :dir = "sourceText.direction" :lang = "sourceText.lang" 
-          ></div>
-          <div class="alpheios-alignment-editor-align-text alpheios-alignment-editor-align__translation"
-            v-html = "translationFormattedText"
-            :dir = "translationText.direction" :lang = "translationText.lang" 
-          ></div>
+          <align-text :align-text-data="sourceText" :prefix-id = "1" @clickWord="clickWord"/>
+          <align-text :align-text-data="translationText" :prefix-id = "2" @clickWord="clickWord"/>
       </div>
   </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
 import FormatText from '@/lib/format-text.js'
+import AlignText from '@/vue/align-editor/align-text.vue'
 
 export default {
   name: 'AlignEditor',
-  components: {},
+  components: {
+    alignText: AlignText
+  },
   props: {
     sourceText: {
       type: Object,
@@ -38,29 +35,21 @@ export default {
   },
   data () {
     return {
-      defineAlignShow: false
+      defineAlignShow: false,
+      alignments: [],
+      currentAlignment: {},
+      alignmentId: 0,
+      prevClickedWordType: null
     }
   },
   watch: {
     async showEditor () {
       this.defineAlignShow = true
-
-      await Vue.nextTick()
-      const elements = document.querySelectorAll('.alpheios-alignment-editor-align-text span')
-      elements.forEach(el => {
-        el.addEventListener('click', this.clickWord)
-      })
     }
   },
   computed: {
     defineAlignShowLabel () {
       return this.defineAlignShow ? 'hide' : 'show'
-    },
-    sourceFormattedText () {
-      return FormatText.defineIdentification(this.sourceText.text, 'L1:1', 'source')
-    },
-    translationFormattedText () {
-      return FormatText.defineIdentification(this.translationText.text, 'L2:1', 'translation')
     },
     showAlignEditor () {
       return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
@@ -70,8 +59,22 @@ export default {
     toggleDefineAlignShow () {
       this.defineAlignShow = !this.defineAlignShow
     },
-    clickWord (e) {
-      console.info('clickWord - e', e.target, e)
+    clickWord (textWord) {
+      console.info('clickWord ', textWord)
+      if (textWord.textType === 'source' && (!this.prevClickedWordType || this.prevClickedWordType === 'source')) {
+        this.finishCurrentAlignment()
+        this.startNewAlignment(textWord)
+      } else {
+        this.addToAlignment(textWord)
+      }
+      this.prevClickedWordType = textWord.textType
+    },
+    startNewAlignment (textWord) {
+      this.alignmentId = this.alignmentId + 1
+    },
+    finishCurrentAlignment () {
+    },
+    addToAlignment (textWord) {
     }
   }
 }
@@ -89,33 +92,6 @@ export default {
             clear: both;
             display: table;
             content: '';
-        }
-
-        .alpheios-alignment-editor-align-text {
-            float: left;
-            width: 50%;
-        }
-
-        .alpheios-alignment-editor-align__source {
-            border-right: 2px solid #ddd;
-            padding-right: 20px;
-        }
-
-        .alpheios-alignment-editor-align__translation {
-            padding-left: 20px;
-        }
-
-        .alpheios-alignment-editor-align-text {
-            span {
-                cursor: pointer;
-                padding: 4px;
-                border: 1px solid transparent;
-
-                &:hover {
-                    border-color: #FFC24F;
-                    background: #FFD27D;
-                }
-            }
         }
     }
 </style>
