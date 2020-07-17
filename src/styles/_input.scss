@@ -1,0 +1,67 @@
+// We're using a double selector here to protect from styles leaked from the pages
+input.alpheios-input {
+
+  &,
+  // The second selector below is required to override aggressive styling of some pages
+  &[type] {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: inherit;
+    max-width: 100%;
+    width: 100%;
+    border: 1px solid #757575;
+    border-radius: 10px;
+    padding: 8px;
+    background:#fff;
+    color:  #757575;
+    vertical-align: middle;
+    display: inline-block;
+    -webkit-appearance: none;
+  }
+
+  &[type="search"]::-webkit-search-cancel-button,
+  &[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+  }
+
+  &::-moz-placeholder {
+    opacity: 1;
+  }
+
+  &:not(input) {
+    line-height: 40px;
+  }
+
+  &:focus,
+  // The second selector below is required to override aggressive styling of some pages
+  &[type]:focus {
+    outline: none;
+    border: inherit;
+    // Include below is to override custom styles set by a page
+    border: 1px solid #757575;
+    border: 1px solid #757575;
+    border-radius: 10px;
+  }
+
+  &:disabled {
+    background-color: #757575;
+    color: #fff;
+    // Include below is to override custom styles set by a page
+    border: 1px solid #757575;
+    border-radius: 10px;
+  }
+
+  &::placeholder {
+    color: #fff;
+  }
+
+  &::-ms-input-placeholder {
+    color: #fff !important;
+  }
+}

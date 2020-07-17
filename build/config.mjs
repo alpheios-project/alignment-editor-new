@@ -14,7 +14,7 @@ const webpack = {
     },
     resolve: {
       alias: {
-        '@vue-runtime': path.join(projectRoot, '../../node_modules/vue/dist/vue.runtime.esm.js'),
+        '@vue-runtime': path.join(projectRoot, '/node_modules/vue/dist/vue.runtime.esm.js'),
         '@': path.join(projectRoot, 'src')
       }
     },

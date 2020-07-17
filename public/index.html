@@ -3,16 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Alpheios Embedded Library Developer Test Page</title>
+    <title>Alpheios Alignment Editor</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="../dist/style/style-alignment-editor.css"/>
     <script src="../dist/alpheios-alignment-editor.js"></script>
 </head>
 
 <body>
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(event) {
-          new window.AlignmentEditor.Bar()
+          new window.AlignmentEditor.AppController({
+            appId: 'alpheios-alignment-editor'
+          })
         });
     </script>
-    <h1>Alignment Editor</h1>
+    <div class="container">
+      <div class="header">
+        <div class="header-logo">
+          <img src="images/alpheios-logo-only.png">
+        </div>
+        <div class="header-title">
+          <h1>Alpheios Alignment Editor</h1>
+        </div>
+      </div>
+
+      <div class="container-inner">
+        <div id="alpheios-alignment-editor"></div>
+      </div>
+    </div>
 </body>
 </html>
