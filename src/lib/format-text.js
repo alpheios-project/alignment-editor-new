@@ -10,8 +10,14 @@ export default class FormatText {
     textLines.forEach((textLine, index) => {
       const prefix = `L${idPrefix}:${index + 1}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, textType)
-      finalText.push(finalTextLine)
+
+      const lastWord = finalTextLine[finalTextLine.length - 1]
+
+      lastWord.hasLineBreak = true
+      finalText.push(...finalTextLine)
     })
+
+    console.info('finalText - ', finalText)
 
     return finalText
   }
@@ -22,12 +28,18 @@ export default class FormatText {
 
   static simpleWordTokenization (textLine, prefix, textType) {
     const delimiter = ' '
+    if (textLine.trim().length === 0) {
+      return [{}]
+    }
+    let textWords
     if (textLine.indexOf(delimiter) === -1) {
-      return [textLine]
+      textWords = [textLine]
+    } else {
+      textWords = textLine.split(delimiter)
     }
     const checkRegExp = `[${this.punctuation}]`
 
-    const formattedText = textLine.split(delimiter).map((word, indexWord) => {
+    const formattedText = textWords.map((word, indexWord) => {
       const index = word.search(checkRegExp)
       let resultWord
       const idWord = `${prefix}-${indexWord + 1}`
