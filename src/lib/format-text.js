@@ -16,9 +16,6 @@ export default class FormatText {
       lastWord.hasLineBreak = true
       finalText.push(...finalTextLine)
     })
-
-    console.info('finalText - ', finalText)
-
     return finalText
   }
 

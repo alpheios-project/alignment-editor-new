@@ -6,14 +6,15 @@
         @align-texts = "alignTexts"
       />
       <text-editor 
-        @update-source-text = "updateSourceText" 
-        @update-translation-text = "updateTranslationText"
+        @update-origin-text = "updateOriginText" 
+        @update-target-text = "updateTargetText"
         :updated-data = "updatedData"
         :hide-editor = "hideTextEditor"
       />
       <align-editor 
-        :source-text = "sourceTextForAlign" 
-        :translation-text = "translationTextForAlign" 
+        v-if="textC"
+        :origin-text = "textC.originAlignedText" 
+        :target-text = "textC.targetAlignedText" 
         :show-editor = "showAlignEditor"
       />
   </div>
@@ -24,6 +25,7 @@ import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
 
 import Download from '@/lib/download.js'
+import TextsController from '@/lib/texts-controller.js'
 
 export default {
   name: 'App',
@@ -34,30 +36,43 @@ export default {
   },
   data () {
     return {
-      sourceText: {},
-      translationText: {},
+      textC: null,
+      originText: {},
+      targetText: {},
       updatedData: null,
       hideTextEditor: 0,
-      showAlignEditor: 0,
-      sourceTextForAlign: {},
-      translationTextForAlign: {}
+      showAlignEditor: 0
     }
   },
   methods: {
-    updateSourceText (text) {
-      this.sourceText = text
+    createTextController () {
+      if (!this.textC) {
+        this.textC = TextsController.createAlignment(this.originText)
+      }
+    },
+    updateOriginText (text) {
+      this.originText = text
+      this.createTextController()
+
+      this.textC.updateAlignment({
+        originSourceText: this.originText
+      })
     },
 
-    updateTranslationText (text) {
-      this.translationText = text
+    updateTargetText (text) {
+      this.targetText = text
+
+      this.textC.updateAlignment({
+        targetSourceText: this.targetText
+      })
     },
 
     downloadData () {
-      const fields = [ this.sourceText.text, this.sourceText.direction, this.sourceText.lang, 
-                this.translationText.text, this.translationText.direction, this.translationText.lang 
+      const fields = [ this.originText.text, this.originText.direction, this.originText.lang, 
+                this.targetText.text, this.targetText.direction, this.targetText.lang 
               ]
 
-      const fileName = `alignment-${this.sourceText.lang}-${this.translationText.lang}`
+      const fileName = `alignment-${this.originText.lang}-${this.targetText.lang}`
       Download.downloadFileOneColumn(fields, fileName)
     },
 
@@ -65,28 +80,29 @@ export default {
       data = data.split(/\n/)
 
       const formattedData = {
-        source: {
+        origin: {
           text: data[0].replace(/\t/g, '\u000D'),
           dir: data[1],
           lang: data[2],
-          textType: 'source'
+          textType: 'origin'
         },
-        translation: {
+        target: {
           text: data[3].replace(/\t/g, '\u000D'),
           dir: data[4],
           lang: data[5],
-          textType: 'translation'
+          textType: 'target'
         }
       }
       this.updatedData = formattedData
-      this.sourceText = formattedData.source
-      this.translationText = formattedData.translation
+      this.updateOriginText(formattedData.origin)
+      this.updateTargetText(formattedData.target)
     },
 
     alignTexts () {
-      this.sourceTextForAlign = this.sourceText
-
-      this.translationTextForAlign = this.translationText
+      this.textC.updateAlignment({
+        originAlignedText: this.originText,
+        targetAlignedText: this.targetText
+      })
 
       this.hideTextEditor = this.hideTextEditor + 1
       this.showAlignEditor = this.showAlignEditor + 1      

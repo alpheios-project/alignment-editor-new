@@ -265,10 +265,10 @@ input.alpheios-input::-ms-input-placeholder {
   width: 50%;
   float: left;
 }
-.alpheios-alignment-editor-source-text-container {
+.alpheios-alignment-editor-origin-text-container {
   padding-right: 10px;
 }
-.alpheios-alignment-editor-translation-text-container {
+.alpheios-alignment-editor-target-text-container {
   padding-left: 10px;
 }
 .alpheios-alignment-editor-container-footer {
@@ -286,11 +286,11 @@ input.alpheios-input::-ms-input-placeholder {
   float: left;
   width: 50%;
 }
-.alpheios-alignment-editor-align__source {
+.alpheios-alignment-editor-align__origin {
   border-right: 2px solid #ddd;
   padding-right: 20px;
 }
-.alpheios-alignment-editor-align__translation {
+.alpheios-alignment-editor-align__target {
   padding-left: 20px;
 }
 .alpheios-alignment-editor-align-text span {

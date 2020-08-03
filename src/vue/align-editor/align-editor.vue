@@ -1,17 +1,17 @@
 <template>
   <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
-      <h2>Define Alignment for Source and Translation Texts
+      <h2>Define Alignment for Origin and Target Texts
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
           <align-text 
-            :align-text-data="sourceText" :prefix-id = "1" 
+            :align-text-data="originText" :prefix-id = "1" 
             :show-alignment="showAlignment"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
             @clickEmptyText="clickEmptyText"
           />
           <align-text 
-            :align-text-data="translationText" :prefix-id = "2"
+            :align-text-data="targetText" :prefix-id = "2"
             :show-alignment="showAlignment"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
             @clickEmptyText="clickEmptyText"
@@ -30,11 +30,11 @@ export default {
     alignText: AlignText
   },
   props: {
-    sourceText: {
+    originText: {
       type: Object,
       required: false
     },
-    translationText: {
+    targetText: {
       type: Object,
       required: false
     },
@@ -64,7 +64,7 @@ export default {
       return this.defineAlignShow ? 'hide' : 'show'
     },
     showAlignEditor () {
-      return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
+      return this.originText && this.originText.text && this.targetText && this.targetText.text
     }
   },
   methods: {
@@ -73,7 +73,7 @@ export default {
     },
     clickWord (textWord) {
       // console.info('clickWord ', textWord)
-      if (textWord.textType === 'source' && (!this.prevClickedWordType || this.prevClickedWordType !== 'source')) {
+      if (textWord.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
         this.finishCurrentAlignment()
         this.startNewAlignment(textWord)
       } else {
@@ -86,8 +86,8 @@ export default {
       this.alignmentId = this.alignmentId + 1
       this.currentAlignment = {
         id: this.alignmentId,
-        source: [ textWord.idWord ],
-        translation: []
+        origin: [ textWord.idWord ],
+        target: []
       }
       // console.info('startNewAlignment - currentAlignment', this.currentAlignment)
     },
@@ -95,8 +95,8 @@ export default {
       if (this.alignmentId > 0) {
         this.alignments.push(this.currentAlignment)
         // console.info('finishCurrentAlignment - ', this.alignments)
-        this.alignedIds.push(...this.currentAlignment.source)
-        this.alignedIds.push(...this.currentAlignment.translation)
+        this.alignedIds.push(...this.currentAlignment.origin)
+        this.alignedIds.push(...this.currentAlignment.target)
         // console.info('finishCurrentAlignment - alignedIds', this.alignedIds)
       }
     },
@@ -109,10 +109,10 @@ export default {
       // console.info('hoverWord started ', textWord)
       const searchId = textWord.idWord
       if (this.alignedIds.includes(searchId)) {
-        const showAlignmentObj = this.alignments.find(al => al.source.includes(searchId) || al.translation.includes(searchId))
+        const showAlignmentObj = this.alignments.find(al => al.origin.includes(searchId) || al.target.includes(searchId))
         this.showAlignment = []
-        this.showAlignment.push(...showAlignmentObj.source)
-        this.showAlignment.push(...showAlignmentObj.translation)
+        this.showAlignment.push(...showAlignmentObj.origin)
+        this.showAlignment.push(...showAlignmentObj.target)
         // console.info('showAlignment - ', this.showAlignment)
       }
     },

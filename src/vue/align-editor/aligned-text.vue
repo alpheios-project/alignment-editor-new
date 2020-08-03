@@ -92,12 +92,12 @@ export default {
         width: 50%;
     }
 
-    .alpheios-alignment-editor-align__source {
+    .alpheios-alignment-editor-align__origin {
         border-right: 2px solid #ddd;
         padding-right: 20px;
     }
 
-    .alpheios-alignment-editor-align__translation {
+    .alpheios-alignment-editor-align__target {
         padding-left: 20px;
     }
 

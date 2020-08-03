@@ -93,6 +93,278 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/uuid/index.js":
+/*!*************************************!*\
+  !*** ../node_modules/uuid/index.js ***!
+  \*************************************/
+/*! unknown exports (runtime-defined) */
+/*! export v4 [maybe provided (runtime-defined)] [used] [usage and provision prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var v1 = __webpack_require__(/*! ./v1 */ "../node_modules/uuid/v1.js");
+var v4 = __webpack_require__(/*! ./v4 */ "../node_modules/uuid/v4.js");
+
+var uuid = v4;
+uuid.v1 = v1;
+uuid.v4 = v4;
+
+module.exports = uuid;
+
+
+/***/ }),
+
+/***/ "../node_modules/uuid/lib/bytesToUuid.js":
+/*!***********************************************!*\
+  !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
+  \***********************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
+  return ([
+    bth[buf[i++]], bth[buf[i++]],
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]], '-',
+    bth[buf[i++]], bth[buf[i++]],
+    bth[buf[i++]], bth[buf[i++]],
+    bth[buf[i++]], bth[buf[i++]]
+  ]).join('');
+}
+
+module.exports = bytesToUuid;
+
+
+/***/ }),
+
+/***/ "../node_modules/uuid/lib/rng-browser.js":
+/*!***********************************************!*\
+  !*** ../node_modules/uuid/lib/rng-browser.js ***!
+  \***********************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+
+// getRandomValues needs to be invoked in a context where "this" is a Crypto
+// implementation. Also, find the complete implementation of crypto on IE11.
+var getRandomValues = (typeof(crypto) != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
+                      (typeof(msCrypto) != 'undefined' && typeof window.msCrypto.getRandomValues == 'function' && msCrypto.getRandomValues.bind(msCrypto));
+
+if (getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16); // eslint-disable-line no-undef
+
+  module.exports = function whatwgRNG() {
+    getRandomValues(rnds8);
+    return rnds8;
+  };
+} else {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var rnds = new Array(16);
+
+  module.exports = function mathRNG() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/uuid/v1.js":
+/*!**********************************!*\
+  !*** ../node_modules/uuid/v1.js ***!
+  \**********************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var rng = __webpack_require__(/*! ./lib/rng */ "../node_modules/uuid/lib/rng-browser.js");
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ "../node_modules/uuid/lib/bytesToUuid.js");
+
+// **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+
+var _nodeId;
+var _clockseq;
+
+// Previous uuid creation time
+var _lastMSecs = 0;
+var _lastNSecs = 0;
+
+// See https://github.com/uuidjs/uuid for API details
+function v1(options, buf, offset) {
+  var i = buf && offset || 0;
+  var b = buf || [];
+
+  options = options || {};
+  var node = options.node || _nodeId;
+  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
+
+  // node and clockseq need to be initialized to random values if they're not
+  // specified.  We do this lazily to minimize issues related to insufficient
+  // system entropy.  See #189
+  if (node == null || clockseq == null) {
+    var seedBytes = rng();
+    if (node == null) {
+      // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+      node = _nodeId = [
+        seedBytes[0] | 0x01,
+        seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]
+      ];
+    }
+    if (clockseq == null) {
+      // Per 4.2.2, randomize (14 bit) clockseq
+      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+    }
+  }
+
+  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
+
+  // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
+
+  // Time since last uuid creation (in msecs)
+  var dt = (msecs - _lastMSecs) + (nsecs - _lastNSecs)/10000;
+
+  // Per 4.2.1.2, Bump clockseq on clock regression
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  }
+
+  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  }
+
+  // Per 4.2.1.2 Throw error if too many uuids are requested
+  if (nsecs >= 10000) {
+    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq;
+
+  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+  msecs += 12219292800000;
+
+  // `time_low`
+  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff;
+
+  // `time_mid`
+  var tmh = (msecs / 0x100000000 * 10000) & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff;
+
+  // `time_high_and_version`
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+  b[i++] = tmh >>> 16 & 0xff;
+
+  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+  b[i++] = clockseq >>> 8 | 0x80;
+
+  // `clock_seq_low`
+  b[i++] = clockseq & 0xff;
+
+  // `node`
+  for (var n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf ? buf : bytesToUuid(b);
+}
+
+module.exports = v1;
+
+
+/***/ }),
+
+/***/ "../node_modules/uuid/v4.js":
+/*!**********************************!*\
+  !*** ../node_modules/uuid/v4.js ***!
+  \**********************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [maybe used (runtime-defined)] */
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var rng = __webpack_require__(/*! ./lib/rng */ "../node_modules/uuid/lib/rng-browser.js");
+var bytesToUuid = __webpack_require__(/*! ./lib/bytesToUuid */ "../node_modules/uuid/lib/bytesToUuid.js");
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options === 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!*********************************************************************!*\
   !*** ../node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -8825,9 +9097,6 @@ class FormatText {
       lastWord.hasLineBreak = true
       finalText.push(...finalTextLine)
     })
-
-    console.info('finalText - ', finalText)
-
     return finalText
   }
 
@@ -8872,6 +9141,46 @@ class FormatText {
     })
 
     return formattedText
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/texts-controller.js":
+/*!*********************************!*\
+  !*** ./lib/texts-controller.js ***!
+  \*********************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ TextsController
+/* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class TextsController {
+  constructor (originText, targetText) {
+    this.alignmentId = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+    this.originText = originText
+    this.targetText = targetText
+  }
+
+  static createAlignment (originText, targetText) {
+    return new this(originText, targetText)
+  }
+
+  updateAlignment ({ originSourceText, targetSourceText, originAlignedText, targetAlignedText }) {
+    if (originSourceText) { this.originSourceText = originSourceText }
+    if (targetSourceText) { this.targetSourceText = targetSourceText }
+    if (originAlignedText) { this.originAlignedText = originAlignedText }
+    if (targetAlignedText) { this.targetAlignedText = targetAlignedText }
   }
 }
 
@@ -8926,11 +9235,11 @@ class FormatText {
     alignText: _vue_align_editor_aligned_text_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
-    sourceText: {
+    originText: {
       type: Object,
       required: false
     },
-    translationText: {
+    targetText: {
       type: Object,
       required: false
     },
@@ -8960,7 +9269,7 @@ class FormatText {
       return this.defineAlignShow ? 'hide' : 'show'
     },
     showAlignEditor () {
-      return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
+      return this.originText && this.originText.text && this.targetText && this.targetText.text
     }
   },
   methods: {
@@ -8969,7 +9278,7 @@ class FormatText {
     },
     clickWord (textWord) {
       // console.info('clickWord ', textWord)
-      if (textWord.textType === 'source' && (!this.prevClickedWordType || this.prevClickedWordType !== 'source')) {
+      if (textWord.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
         this.finishCurrentAlignment()
         this.startNewAlignment(textWord)
       } else {
@@ -8982,8 +9291,8 @@ class FormatText {
       this.alignmentId = this.alignmentId + 1
       this.currentAlignment = {
         id: this.alignmentId,
-        source: [ textWord.idWord ],
-        translation: []
+        origin: [ textWord.idWord ],
+        target: []
       }
       // console.info('startNewAlignment - currentAlignment', this.currentAlignment)
     },
@@ -8991,8 +9300,8 @@ class FormatText {
       if (this.alignmentId > 0) {
         this.alignments.push(this.currentAlignment)
         // console.info('finishCurrentAlignment - ', this.alignments)
-        this.alignedIds.push(...this.currentAlignment.source)
-        this.alignedIds.push(...this.currentAlignment.translation)
+        this.alignedIds.push(...this.currentAlignment.origin)
+        this.alignedIds.push(...this.currentAlignment.target)
         // console.info('finishCurrentAlignment - alignedIds', this.alignedIds)
       }
     },
@@ -9005,10 +9314,10 @@ class FormatText {
       // console.info('hoverWord started ', textWord)
       const searchId = textWord.idWord
       if (this.alignedIds.includes(searchId)) {
-        const showAlignmentObj = this.alignments.find(al => al.source.includes(searchId) || al.translation.includes(searchId))
+        const showAlignmentObj = this.alignments.find(al => al.origin.includes(searchId) || al.target.includes(searchId))
         this.showAlignment = []
-        this.showAlignment.push(...showAlignmentObj.source)
-        this.showAlignment.push(...showAlignmentObj.translation)
+        this.showAlignment.push(...showAlignmentObj.origin)
+        this.showAlignment.push(...showAlignmentObj.target)
         // console.info('showAlignment - ', this.showAlignment)
       }
     },
@@ -9209,6 +9518,7 @@ class FormatText {
 /* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
 /* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
 /* harmony import */ var _lib_download_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/download.js */ "./lib/download.js");
+/* harmony import */ var _lib_texts_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/texts-controller.js */ "./lib/texts-controller.js");
 //
 //
 //
@@ -9229,6 +9539,8 @@ class FormatText {
 //
 //
 //
+//
+
 
 
 
@@ -9245,30 +9557,43 @@ class FormatText {
   },
   data () {
     return {
-      sourceText: {},
-      translationText: {},
+      textC: null,
+      originText: {},
+      targetText: {},
       updatedData: null,
       hideTextEditor: 0,
-      showAlignEditor: 0,
-      sourceTextForAlign: {},
-      translationTextForAlign: {}
+      showAlignEditor: 0
     }
   },
   methods: {
-    updateSourceText (text) {
-      this.sourceText = text
+    createTextController () {
+      if (!this.textC) {
+        this.textC = _lib_texts_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.createAlignment(this.originText)
+      }
+    },
+    updateOriginText (text) {
+      this.originText = text
+      this.createTextController()
+
+      this.textC.updateAlignment({
+        originSourceText: this.originText
+      })
     },
 
-    updateTranslationText (text) {
-      this.translationText = text
+    updateTargetText (text) {
+      this.targetText = text
+
+      this.textC.updateAlignment({
+        targetSourceText: this.targetText
+      })
     },
 
     downloadData () {
-      const fields = [ this.sourceText.text, this.sourceText.direction, this.sourceText.lang, 
-                this.translationText.text, this.translationText.direction, this.translationText.lang 
+      const fields = [ this.originText.text, this.originText.direction, this.originText.lang, 
+                this.targetText.text, this.targetText.direction, this.targetText.lang 
               ]
 
-      const fileName = `alignment-${this.sourceText.lang}-${this.translationText.lang}`
+      const fileName = `alignment-${this.originText.lang}-${this.targetText.lang}`
       _lib_download_js__WEBPACK_IMPORTED_MODULE_3__.default.downloadFileOneColumn(fields, fileName)
     },
 
@@ -9276,28 +9601,29 @@ class FormatText {
       data = data.split(/\n/)
 
       const formattedData = {
-        source: {
+        origin: {
           text: data[0].replace(/\t/g, '\u000D'),
           dir: data[1],
           lang: data[2],
-          textType: 'source'
+          textType: 'origin'
         },
-        translation: {
+        target: {
           text: data[3].replace(/\t/g, '\u000D'),
           dir: data[4],
           lang: data[5],
-          textType: 'translation'
+          textType: 'target'
         }
       }
       this.updatedData = formattedData
-      this.sourceText = formattedData.source
-      this.translationText = formattedData.translation
+      this.updateOriginText(formattedData.origin)
+      this.updateTargetText(formattedData.target)
     },
 
     alignTexts () {
-      this.sourceTextForAlign = this.sourceText
-
-      this.translationTextForAlign = this.translationText
+      this.textC.updateAlignment({
+        originAlignedText: this.originText,
+        targetAlignedText: this.targetText
+      })
 
       this.hideTextEditor = this.hideTextEditor + 1
       this.showAlignEditor = this.showAlignEditor + 1      
@@ -9555,22 +9881,22 @@ class FormatText {
     defineTextsShowLabel () {
       return this.defineTextsShow ? 'hide' : 'show'
     },
-    updatedSource () {
-      return this.updatedData && this.updatedData.source ?  this.updatedData.source : null
+    updatedOrigin () {
+      return this.updatedData && this.updatedData.origin ?  this.updatedData.origin : null
     },
-    updatedTranslation () {
-      return this.updatedData && this.updatedData.translation ?  this.updatedData.translation : null
+    updatedTarget () {
+      return this.updatedData && this.updatedData.target ?  this.updatedData.target : null
     }
   },
   methods: {
     toggleDefineTextsShow () {
       this.defineTextsShow = !this.defineTextsShow
     },
-    updateSourceText (text) {
-      this.$emit('update-source-text', text)
+    updateOriginText (text) {
+      this.$emit('update-origin-text', text)
     },
-    updateTranslationText (text) {
-      this.$emit('update-translation-text', text)
+    updateTargetText (text) {
+      this.$emit('update-target-text', text)
     }
   }
 });
@@ -10301,7 +10627,7 @@ var render = function() {
     },
     [
       _c("h2", [
-        _vm._v("Define Alignment for Source and Translation Texts\n      ("),
+        _vm._v("Define Alignment for Origin and Target Texts\n      ("),
         _c(
           "span",
           {
@@ -10331,7 +10657,7 @@ var render = function() {
             [
               _c("align-text", {
                 attrs: {
-                  "align-text-data": _vm.sourceText,
+                  "align-text-data": _vm.originText,
                   "prefix-id": 1,
                   "show-alignment": _vm.showAlignment
                 },
@@ -10345,7 +10671,7 @@ var render = function() {
               _vm._v(" "),
               _c("align-text", {
                 attrs: {
-                  "align-text-data": _vm.translationText,
+                  "align-text-data": _vm.targetText,
                   "prefix-id": 2,
                   "show-alignment": _vm.showAlignment
                 },
@@ -10523,18 +10849,20 @@ var render = function() {
           "hide-editor": _vm.hideTextEditor
         },
         on: {
-          "update-source-text": _vm.updateSourceText,
-          "update-translation-text": _vm.updateTranslationText
+          "update-origin-text": _vm.updateOriginText,
+          "update-target-text": _vm.updateTargetText
         }
       }),
       _vm._v(" "),
-      _c("align-editor", {
-        attrs: {
-          "source-text": _vm.sourceTextForAlign,
-          "translation-text": _vm.translationTextForAlign,
-          "show-editor": _vm.showAlignEditor
-        }
-      })
+      _vm.textC
+        ? _c("align-editor", {
+            attrs: {
+              "origin-text": _vm.textC.originAlignedText,
+              "target-text": _vm.textC.targetAlignedText,
+              "show-editor": _vm.showAlignEditor
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -10889,7 +11217,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios-alignment-editor-container" }, [
     _c("h2", [
-      _vm._v("Define Source and Translation Texts \n      ("),
+      _vm._v("Define Origin and Target Texts \n      ("),
       _c(
         "span",
         {
@@ -10926,15 +11254,15 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-source-text-container"
+                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container"
               },
               [
                 _c("text-editor-single-block", {
                   attrs: {
-                    "text-id": "source",
-                    "external-text": _vm.updatedSource
+                    "text-id": "origin",
+                    "external-text": _vm.updatedOrigin
                   },
-                  on: { "update-text": _vm.updateSourceText }
+                  on: { "update-text": _vm.updateOriginText }
                 })
               ],
               1
@@ -10944,15 +11272,15 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-translation-text-container"
+                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container"
               },
               [
                 _c("text-editor-single-block", {
                   attrs: {
-                    "text-id": "translation",
-                    "external-text": _vm.updatedTranslation
+                    "text-id": "target",
+                    "external-text": _vm.updatedTarget
                   },
-                  on: { "update-text": _vm.updateTranslationText }
+                  on: { "update-text": _vm.updateTargetText }
                 })
               ],
               1
