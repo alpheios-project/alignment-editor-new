@@ -8,14 +8,18 @@
       <text-editor 
         @update-origin-text = "updateOriginText" 
         @update-target-text = "updateTargetText"
-        :updated-data = "updatedData"
+        :origin-text = "originText"
+        :origin-text-updated = "originTextUpdated"
+        :target-text = "targetText"
+        :target-text-updated = "targetTextUpdated"
         :hide-editor = "hideTextEditor"
       />
       <align-editor 
-        v-if="textC"
-        :origin-text = "textC.originAlignedText" 
-        :target-text = "textC.targetAlignedText" 
+        :origin-text = "originAlignedText" 
+        :target-text = "targetAlignedText" 
         :show-editor = "showAlignEditor"
+        @start-new-alignment-group = "startNewAlignmentGroup"
+        @add-to-alignment-group = "addToAlignmentGroup"
       />
   </div>
 </template>
@@ -23,9 +27,6 @@
 import MainMenu from '@/vue/main-menu.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
-
-import Download from '@/lib/download.js'
-import TextsController from '@/lib/texts-controller.js'
 
 export default {
   name: 'App',
@@ -36,76 +37,91 @@ export default {
   },
   data () {
     return {
-      textC: null,
-      originText: {},
-      targetText: {},
-      updatedData: null,
+      originTextUpdated: 0,
+      targetTextUpdated: 0,
+      originAlignedUpdated: 0,
+      targetAlignedUpdated: 0,
       hideTextEditor: 0,
       showAlignEditor: 0
     }
   },
-  methods: {
-    createTextController () {
-      if (!this.textC) {
-        this.textC = TextsController.createAlignment(this.originText)
-      }
+  computed: {
+    originText () {
+      return this.originTextUpdated ? this.$textC.originDocSource : {}
     },
-    updateOriginText (text) {
-      this.originText = text
-      this.createTextController()
+    targetText () {
+      return this.targetTextUpdated ? this.$textC.targetDocSource : {}
+    },
+    originAlignedText () {
+      return this.originAlignedUpdated ? this.$textC.originAlignedText : {}
+    },
+    targetAlignedText () {
+      return this.targetAlignedUpdated ? this.$textC.targetAlignedText : {}
+    }
+  },
+  methods: {
+    updateOriginTextEditor () {
+      this.originTextUpdated = this.originTextUpdated + 1
+    },
 
-      this.textC.updateAlignment({
-        originSourceText: this.originText
-      })
+    updateTargetTextEditor () {
+      this.targetTextUpdated = this.targetTextUpdated + 1
+    },
+
+    updateOriginAlignedEditor () {
+      this.originAlignedUpdated = this.originAlignedUpdated + 1
+    },
+
+    updateTargetAlignedEditor () {
+      this.targetAlignedUpdated = this.targetAlignedUpdated + 1
+    },
+
+    hideTextEditorM () {
+      this.hideTextEditor = this.hideTextEditor + 1
+    },
+
+    showAlignEditorM () {
+      this.showAlignEditor = this.showAlignEditor + 1
+    },
+
+    updateOriginText (text) {
+      this.$textC.updateOriginSourceText(text)
+      this.updateOriginTextEditor()
     },
 
     updateTargetText (text) {
-      this.targetText = text
-
-      this.textC.updateAlignment({
-        targetSourceText: this.targetText
-      })
+      this.$textC.updateTargetDocSource(text)
+      this.updateTargetTextEditor()
     },
 
     downloadData () {
-      const fields = [ this.originText.text, this.originText.direction, this.originText.lang, 
-                this.targetText.text, this.targetText.direction, this.targetText.lang 
-              ]
-
-      const fileName = `alignment-${this.originText.lang}-${this.targetText.lang}`
-      Download.downloadFileOneColumn(fields, fileName)
+      this.$textC.downloadData()
     },
 
-    uploadData (data) {
-      data = data.split(/\n/)
-
-      const formattedData = {
-        origin: {
-          text: data[0].replace(/\t/g, '\u000D'),
-          dir: data[1],
-          lang: data[2],
-          textType: 'origin'
-        },
-        target: {
-          text: data[3].replace(/\t/g, '\u000D'),
-          dir: data[4],
-          lang: data[5],
-          textType: 'target'
-        }
-      }
-      this.updatedData = formattedData
-      this.updateOriginText(formattedData.origin)
-      this.updateTargetText(formattedData.target)
+    uploadData (fileData) {
+      this.$textC.uploadDocSourceFromFile(fileData)
+      this.updateOriginTextEditor()
+      this.updateTargetTextEditor()
     },
 
     alignTexts () {
-      this.textC.updateAlignment({
-        originAlignedText: this.originText,
-        targetAlignedText: this.targetText
-      })
+      this.$textC.createAlignedTexts()
+      this.updateOriginAlignedEditor()
+      this.updateTargetAlignedEditor()
+      this.hideTextEditorM()
+      this.showAlignEditorM()    
+    },
 
-      this.hideTextEditor = this.hideTextEditor + 1
-      this.showAlignEditor = this.showAlignEditor + 1      
+    startNewAlignmentGroup (token) {
+      this.$textC.startNewAlignmentGroup(token)
+    },
+
+    addToAlignmentGroup (token) {
+      this.$textC.addToAlignmentGroup(token)
+    },
+
+    finishCurrentAlignmentGroup () {
+      this.$textC.finishCurrentAlignmentGroup()
     }
   }
 }

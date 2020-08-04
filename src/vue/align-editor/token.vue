@@ -31,11 +31,9 @@ export default {
       this.$emit('clickWord', this.textWord)
     },
     addHoverWord () {
-      // console.info('hoverWord - textWord', textWord)
       this.$emit('addHoverWord', this.textWord)
     },
     removeHoverWord () {
-      // console.info('hoverWord - textWord', textWord)
       this.$emit('removeHoverWord', this.textWord)
     }
   }

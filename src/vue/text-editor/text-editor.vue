@@ -32,9 +32,21 @@ export default {
     textEditorSingleBlock: TextEditorSingleBlock
   },
   props: {
-    updatedData: {
+    originText: {
       type: Object,
       required: false
+    },
+    targetText: {
+      type: Object,
+      required: false
+    },   
+    originTextUpdated: {
+      type: Number,
+      required: true
+    },
+    targetTextUpdated: {
+      type: Number,
+      required: true
     },
     hideEditor: {
       type: Number,
@@ -43,7 +55,9 @@ export default {
   },
   data () {
     return {
-      defineTextsShow: true
+      defineTextsShow: true,
+      updatedOriginText: null,
+      updatedTargetText: null
     }
   },
   watch: {
@@ -56,10 +70,10 @@ export default {
       return this.defineTextsShow ? 'hide' : 'show'
     },
     updatedOrigin () {
-      return this.updatedData && this.updatedData.origin ?  this.updatedData.origin : null
+      return this.originTextUpdated && this.originText ?  this.originText : null
     },
     updatedTarget () {
-      return this.updatedData && this.updatedData.target ?  this.updatedData.target : null
+      return this.targetTextUpdated && this.targetText ?  this.targetText : null
     }
   },
   methods: {

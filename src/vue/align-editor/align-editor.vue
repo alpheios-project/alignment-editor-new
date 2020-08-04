@@ -21,7 +21,7 @@
 </template>
 <script>
 import Vue from '@vue-runtime'
-import FormatText from '@/lib/format-text.js'
+import FormatText from '@/lib/utilities/format-text.js'
 import AlignText from '@/vue/align-editor/aligned-text.vue'
 
 export default {
@@ -46,10 +46,6 @@ export default {
   data () {
     return {
       defineAlignShow: false,
-      alignments: [],
-      alignedIds: [],
-      currentAlignment: {},
-      alignmentId: 0, 
       prevClickedWordType: null,
       showAlignment: []
     }
@@ -64,63 +60,43 @@ export default {
       return this.defineAlignShow ? 'hide' : 'show'
     },
     showAlignEditor () {
-      return this.originText && this.originText.text && this.targetText && this.targetText.text
+      return this.originText && this.originText.tokens && this.targetText && this.targetText.tokens
     }
   },
   methods: {
     toggleDefineAlignShow () {
       this.defineAlignShow = !this.defineAlignShow
     },
-    clickWord (textWord) {
-      // console.info('clickWord ', textWord)
-      if (textWord.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
-        this.finishCurrentAlignment()
-        this.startNewAlignment(textWord)
+    clickWord (token) {
+      if (token.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
+        this.finishCurrentAlignmentGroup()
+        this.startNewAlignmentGroup(token)
       } else {
-        this.addToAlignment(textWord)
+        this.addToAlignmentGroup(token)
       }
-      this.prevClickedWordType = textWord.textType
+      this.prevClickedWordType = token.textType
     },
-    startNewAlignment (textWord) {
-      // console.info('startNewAlignment - textWord', textWord)
-      this.alignmentId = this.alignmentId + 1
-      this.currentAlignment = {
-        id: this.alignmentId,
-        origin: [ textWord.idWord ],
-        target: []
-      }
-      // console.info('startNewAlignment - currentAlignment', this.currentAlignment)
+    startNewAlignmentGroup (token) {
+      this.$textC.startNewAlignmentGroup(token)
     },
-    finishCurrentAlignment () {
-      if (this.alignmentId > 0) {
-        this.alignments.push(this.currentAlignment)
-        // console.info('finishCurrentAlignment - ', this.alignments)
-        this.alignedIds.push(...this.currentAlignment.origin)
-        this.alignedIds.push(...this.currentAlignment.target)
-        // console.info('finishCurrentAlignment - alignedIds', this.alignedIds)
-      }
+    finishCurrentAlignmentGroup () {
+      this.$textC.finishCurrentAlignmentGroup()
     },
-    addToAlignment (textWord) {
-      // console.info('addToAlignment - textWord', textWord)
-      // console.info('addToAlignment - currentAlignment', this.currentAlignment)
-      this.currentAlignment[textWord.textType].push(textWord.idWord)
+    addToAlignmentGroup (token) {
+      this.$textC.addToAlignmentGroup(token)
     },
-    addHoverWord (textWord) {
-      // console.info('hoverWord started ', textWord)
-      const searchId = textWord.idWord
-      if (this.alignedIds.includes(searchId)) {
-        const showAlignmentObj = this.alignments.find(al => al.origin.includes(searchId) || al.target.includes(searchId))
-        this.showAlignment = []
-        this.showAlignment.push(...showAlignmentObj.origin)
-        this.showAlignment.push(...showAlignmentObj.target)
-        // console.info('showAlignment - ', this.showAlignment)
+    addHoverWord (token) {
+      const activeAlignmentGroup = this.$textC.findAlignmentGroup(token)
+      if (activeAlignmentGroup) {
+        this.showAlignment = activeAlignmentGroup
       }
     },
     removeHoverWord (textWord) {
       this.showAlignment = []
     },
     clickEmptyText (textType) {
-      this.finishCurrentAlignment()
+      this.finishCurrentAlignmentGroup()
+      this.prevClickedWordType = null
     }
   }
 }

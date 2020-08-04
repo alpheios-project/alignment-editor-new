@@ -3,12 +3,12 @@
       <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>Text Direction: </span>
-          <input type="radio" :id="textDirectionRadio('ltr')" value="ltr" v-model="textDirection" tabindex="1" @change="updateText">
-          <label :for="textDirectionRadio('ltr')">Left to Right</label>
-          <input type="radio" :id="textDirectionRadio('rtl')" value="rtl" v-model="textDirection" tabindex="1" @change="updateText">
-          <label :for="textDirectionRadio('rtl')">Right to Left</label>
+          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
+          <label :for="directionRadioId('ltr')">Left to Right</label>
+          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText">
+          <label :for="directionRadioId('rtl')">Right to Left</label>
       </p>
-      <textarea :id="textareaId" v-model="textData" :dir="textDirection" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
           <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang">
@@ -47,8 +47,8 @@ export default {
   components: {},
   data () {
     return {
-      textData: null,
-      textDirection: 'ltr',
+      text: null,
+      direction: 'ltr',
       langsList: [],
       selectedAvaLang: null,
       selectedOtherLang: null
@@ -60,9 +60,9 @@ export default {
   },
   watch: {
     externalText (data) {
-      this.textData = data.text
-      this.textDirection = data.dir
-      this.selectedOtherLang = data.lang
+      this.text = data.text
+      this.direction = data.direction
+      this.updateLang(data.lang)
     }
   },
   computed: {
@@ -83,17 +83,26 @@ export default {
     }
   },
   methods: {
-    textDirectionRadio (dir) {
+    directionRadioId (dir) {
       return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
     },
     updateAvaLang () {
       this.selectedOtherLang = null
       this.updateText()
     },
+    updateLang (lang) {
+      const langFromList = this.langsList.find(langOb => langOb.value === lang)
+
+      if (langFromList) {
+        this.selectedAvaLang = langFromList.value
+      } else {
+        this.selectedOtherLang = lang
+      }
+    },
     updateText () {
       this.$emit('update-text', {
-        text: this.textData,
-        direction: this.textDirection,
+        text: this.text,
+        direction: this.direction,
         lang: this.selectedLang
       })
     }
