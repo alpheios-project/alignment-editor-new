@@ -9,6 +9,7 @@ export default class AppController {
 
   attachVueComponents (appId) {
     const textCInstance = new TextsController()
+
     Vue.prototype.$textC = textCInstance
 
     const rootVi = new Vue()
@@ -19,10 +20,7 @@ export default class AppController {
     const AppComponent = Vue.extend(App)
 
     this._viAppComp = new AppComponent({
-      parent: rootVi,
-      data: {
-        textCInstance: new TextsController()
-      }
+      parent: rootVi
     })
 
     this._viAppComp.$mount(appContainerEl)

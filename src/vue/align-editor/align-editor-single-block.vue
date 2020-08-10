@@ -18,11 +18,10 @@
     </div>
 </template>
 <script>
-import FormatText from '@/lib/utilities/format-text.js'
 import Token from '@/vue/align-editor/token.vue'
 
 export default {
-  name: 'AlignedText',
+  name: 'AlignEditorSingleBlock',
   components: {
     token: Token
   },

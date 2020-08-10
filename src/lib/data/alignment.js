@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import FormatText from '@/lib/utilities/format-text.js'
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 export default class Alignment {
   constructor (docSource) {
@@ -31,15 +31,22 @@ export default class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
+    const tokenizeMethod = TokenizeController.tokenize(tokenizer)
+
+    if (!tokenizeMethod) {
+      console.error('Tokenization was cancelled.')
+      return
+    }
+
     this.origin.alignedText = {
       textType: 'origin',
-      tokens: FormatText.defineIdentification(this.origin.docSource.text, '1', 'origin'),
+      tokens: tokenizeMethod(this.origin.docSource.text, '1', 'origin'),
       direction: this.origin.docSource.direction,
       lang: this.origin.docSource.lang
     }
     this.target.alignedText = {
       textType: 'target',
-      tokens: FormatText.defineIdentification(this.target.docSource.text, '2', 'target'),
+      tokens: tokenizeMethod(this.target.docSource.text, '2', 'target'),
       direction: this.target.docSource.direction,
       lang: this.target.docSource.lang
     }

@@ -4,14 +4,14 @@
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
-          <align-text 
-            :align-text-data="originText" :prefix-id = "1" 
+          <align-editor-single-block
+            :align-text-data="originAlignedText" :prefix-id = "1" 
             :show-alignment="showAlignment"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
             @clickEmptyText="clickEmptyText"
           />
-          <align-text 
-            :align-text-data="targetText" :prefix-id = "2"
+          <align-editor-single-block 
+            :align-text-data="targetAlignedText" :prefix-id = "2"
             :show-alignment="showAlignment"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
             @clickEmptyText="clickEmptyText"
@@ -21,23 +21,14 @@
 </template>
 <script>
 import Vue from '@vue-runtime'
-import FormatText from '@/lib/utilities/format-text.js'
-import AlignText from '@/vue/align-editor/aligned-text.vue'
+import AlignEditorSingleBlock from '@/vue/align-editor/align-editor-single-block.vue'
 
 export default {
   name: 'AlignEditor',
   components: {
-    alignText: AlignText
+    alignEditorSingleBlock: AlignEditorSingleBlock
   },
   props: {
-    originText: {
-      type: Object,
-      required: false
-    },
-    targetText: {
-      type: Object,
-      required: false
-    },
     showEditor: {
       type: Number,
       required: false
@@ -47,12 +38,16 @@ export default {
     return {
       defineAlignShow: false,
       prevClickedWordType: null,
-      showAlignment: []
+      showAlignment: [],
+      originUpdated: 1,
+      targetUpdated: 1
     }
   },
   watch: {
     async showEditor () {
       this.defineAlignShow = true
+      this.updateOriginEditor()
+      this.updateTargetEditor()
     }
   },
   computed: {
@@ -60,10 +55,24 @@ export default {
       return this.defineAlignShow ? 'hide' : 'show'
     },
     showAlignEditor () {
-      return this.originText && this.originText.tokens && this.targetText && this.targetText.tokens
+      return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
+    },
+    originAlignedText () {
+      return this.originUpdated ? this.$textC.originAlignedText : {}
+    },
+    targetAlignedText () {
+      return this.targetUpdated ? this.$textC.targetAlignedText : {}
     }
   },
   methods: {
+    updateOriginEditor () {
+      this.originUpdated = this.originUpdated + 1
+    },
+
+    updateTargetEditor () {
+      this.targetUpdated = this.targetUpdated + 1
+    },
+
     toggleDefineAlignShow () {
       this.defineAlignShow = !this.defineAlignShow
     },

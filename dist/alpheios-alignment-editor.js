@@ -15,10 +15,10 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [unused] */
 /*! runtime requirements:  */
@@ -28,9 +28,9 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/aligned-text.vue?vue&type=style&index=0&lang=scss&":
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/aligned-text.vue?vue&type=style&index=0&lang=scss& ***!
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! exports [maybe provided (runtime-defined)] [unused] */
@@ -8993,6 +8993,7 @@ class AppController {
 
   attachVueComponents (appId) {
     const textCInstance = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default()
+
     _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default.prototype.$textC = textCInstance
 
     const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default()
@@ -9003,13 +9004,50 @@ class AppController {
     const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
-      parent: rootVi,
-      data: {
-        textCInstance: new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default()
-      }
+      parent: rootVi
     })
 
     this._viAppComp.$mount(appContainerEl)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/controllers/download-controller.js":
+/*!************************************************!*\
+  !*** ./lib/controllers/download-controller.js ***!
+  \************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ DownloadController
+/* harmony export */ });
+/* harmony import */ var _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-one-column.js */ "./lib/download/download-file-one-column.js");
+
+
+class DownloadController {
+  static download (downloadType, data) {
+    switch (downloadType) {
+      case 'plainSourceDownload':
+        return this.plainSourceDownload(data)
+      default:
+        console.error(`Download type ${downloadType} is not defined.`)
+    }
+  }
+
+  static plainSourceDownload ({ originDocSource, targetDocSource }) {
+    const fields = [originDocSource.text, originDocSource.direction, originDocSource.lang,
+      targetDocSource.text, targetDocSource.direction, targetDocSource.lang
+    ]
+
+    const fileName = `alignment-${originDocSource.lang}-${targetDocSource.lang}`
+    _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
   }
 }
 
@@ -9031,8 +9069,10 @@ class AppController {
 /* harmony export */   "default": () => /* binding */ TextsController
 /* harmony export */ });
 /* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
-/* harmony import */ var _lib_utilities_download_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utilities/download.js */ "./lib/utilities/download.js");
+/* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
+/* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
 // import { v4 as uuidv4 } from 'uuid'
+
 
 
 
@@ -9042,7 +9082,7 @@ class TextsController {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource)
   }
 
-  updateOriginSourceText (originDocSource) {
+  updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
       this.createAlignment(originDocSource)
     } else {
@@ -9067,34 +9107,21 @@ class TextsController {
   }
 
   uploadDocSourceFromFile (fileData) {
-    fileData = fileData.split(/\n/)
+    const uploadType = 'plainSourceUploadFromFile'
 
-    const formattedData = {
-      origin: {
-        text: fileData[0].replace(/\t/g, '\u000D'),
-        direction: fileData[1],
-        lang: fileData[2],
-        textType: 'origin'
-      },
-      target: {
-        text: fileData[3].replace(/\t/g, '\u000D'),
-        direction: fileData[4],
-        lang: fileData[5],
-        textType: 'target'
-      }
-    }
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
 
-    this.updateOriginSourceText(formattedData.origin)
-    this.updateTargetDocSource(formattedData.target)
+    this.updateOriginDocSource(result.originDocSource)
+    this.updateTargetDocSource(result.targetDocSource)
   }
 
   downloadData () {
-    const fields = [this.originDocSource.text, this.originDocSource.direction, this.originDocSource.lang,
-      this.targetDocSource.text, this.targetDocSource.direction, this.targetDocSource.lang
-    ]
-
-    const fileName = `alignment-${this.originDocSource.lang}-${this.targetDocSource.lang}`
-    _lib_utilities_download_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadFileOneColumn(fields, fileName)
+    const downloadType = 'plainSourceDownload'
+    const data = {
+      originDocSource: this.originDocSource,
+      targetDocSource: this.targetDocSource
+    }
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
   }
 
   createAlignedTexts () {
@@ -9103,11 +9130,11 @@ class TextsController {
   }
 
   get originAlignedText () {
-    return this.alignment.originAlignedText
+    return this.alignment ? this.alignment.originAlignedText : {}
   }
 
   get targetAlignedText () {
-    return this.alignment.targetAlignedText
+    return this.alignment ? this.alignment.targetAlignedText : {}
   }
 
   startNewAlignmentGroup (token) {
@@ -9130,6 +9157,94 @@ class TextsController {
 
 /***/ }),
 
+/***/ "./lib/controllers/tokenize-controller.js":
+/*!************************************************!*\
+  !*** ./lib/controllers/tokenize-controller.js ***!
+  \************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ TokenizeController
+/* harmony export */ });
+/* harmony import */ var _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/tokenizers/simple-local-tokenizer.js */ "./lib/tokenizers/simple-local-tokenizer.js");
+
+
+class TokenizeController {
+  static tokenize (tokenizer) {
+    let tokenizeMethod = null
+
+    switch (tokenizer) {
+      case 'simpleWordTokenization':
+        tokenizeMethod = _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default)
+        break
+      default:
+        console.error(`Tokenizer method ${tokenizer} is not registered`)
+    }
+
+    return tokenizeMethod
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/controllers/upload-controller.js":
+/*!**********************************************!*\
+  !*** ./lib/controllers/upload-controller.js ***!
+  \**********************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ UploadController
+/* harmony export */ });
+class UploadController {
+  static upload (uploadType, data) {
+    switch (uploadType) {
+      case 'plainSourceUploadFromFile':
+        return this.plainSourceUploadFromFile(data)
+      default:
+        console.error(`Upload type ${uploadType} is not defined.`)
+    }
+  }
+
+  static plainSourceUploadFromFile (fileData) {
+    fileData = fileData.split(/\n/)
+
+    const formattedData = {
+      origin: {
+        text: fileData[0].replace(/\t/g, '\u000D'),
+        direction: fileData[1],
+        lang: fileData[2],
+        textType: 'origin'
+      },
+      target: {
+        text: fileData[3].replace(/\t/g, '\u000D'),
+        direction: fileData[4],
+        lang: fileData[5],
+        textType: 'target'
+      }
+    }
+
+    return {
+      originDocSource: formattedData.origin,
+      targetDocSource: formattedData.target
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/data/alignment.js":
 /*!*******************************!*\
   !*** ./lib/data/alignment.js ***!
@@ -9146,7 +9261,7 @@ class TextsController {
 /* harmony export */ });
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_utilities_format_text_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utilities/format-text.js */ "./lib/utilities/format-text.js");
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 
 
 
@@ -9180,15 +9295,22 @@ class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
+    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize(tokenizer)
+
+    if (!tokenizeMethod) {
+      console.error('Tokenization was cancelled.')
+      return
+    }
+
     this.origin.alignedText = {
       textType: 'origin',
-      tokens: _lib_utilities_format_text_js__WEBPACK_IMPORTED_MODULE_1__.default.defineIdentification(this.origin.docSource.text, '1', 'origin'),
+      tokens: tokenizeMethod(this.origin.docSource.text, '1', 'origin'),
       direction: this.origin.docSource.direction,
       lang: this.origin.docSource.lang
     }
     this.target.alignedText = {
       textType: 'target',
-      tokens: _lib_utilities_format_text_js__WEBPACK_IMPORTED_MODULE_1__.default.defineIdentification(this.target.docSource.text, '2', 'target'),
+      tokens: tokenizeMethod(this.target.docSource.text, '2', 'target'),
       direction: this.target.docSource.direction,
       lang: this.target.docSource.lang
     }
@@ -9250,10 +9372,10 @@ class Alignment {
 
 /***/ }),
 
-/***/ "./lib/utilities/download.js":
-/*!***********************************!*\
-  !*** ./lib/utilities/download.js ***!
-  \***********************************/
+/***/ "./lib/download/download-file-one-column.js":
+/*!**************************************************!*\
+  !*** ./lib/download/download-file-one-column.js ***!
+  \**************************************************/
 /*! namespace exports */
 /*! export default [provided] [used] [could be renamed] */
 /*! other exports [not provided] [unused] */
@@ -9262,11 +9384,11 @@ class Alignment {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Download
+/* harmony export */   "default": () => /* binding */ DownloadFileOneColumn
 /* harmony export */ });
 const idForButton = 'alpheios-alignment-app-container'
 
-class Download {
+class DownloadFileOneColumn {
   static collectionToCSV (delimiter, keys = [], withHeaders = true) {
     return (collection = []) => {
       const headers = withHeaders ? keys.map(key => `${key}`).join(delimiter) : []
@@ -9291,7 +9413,7 @@ class Download {
     return true
   }
 
-  static downloadFileOneColumn (fields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
+  static download (fields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
     const tabChar = '\u0009'
     fields = fields.map(item => {
       return { data: item.replace(/\r\n|\r|\n/gi, tabChar) }
@@ -9307,10 +9429,10 @@ class Download {
 
 /***/ }),
 
-/***/ "./lib/utilities/format-text.js":
-/*!**************************************!*\
-  !*** ./lib/utilities/format-text.js ***!
-  \**************************************/
+/***/ "./lib/tokenizers/simple-local-tokenizer.js":
+/*!**************************************************!*\
+  !*** ./lib/tokenizers/simple-local-tokenizer.js ***!
+  \**************************************************/
 /*! namespace exports */
 /*! export default [provided] [used] [could be renamed] */
 /*! other exports [not provided] [unused] */
@@ -9319,9 +9441,13 @@ class Download {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ FormatText
+/* harmony export */   "default": () => /* binding */ SimpleLocalTokenizer
 /* harmony export */ });
-class FormatText {
+class SimpleLocalTokenizer {
+  static tokenize (text, idPrefix, textType) {
+    return this.defineIdentification(text, idPrefix, textType)
+  }
+
   static get punctuation () {
     return ".,;:!?'\"(){}\\[\\]<>\\\u00A0\u2010\u2011\u2012\u2013\u2014\u2015\u2018\u2019\u201C\u201D\u0387\u00B7\n\r\u200C\u200D\u000D"
   }
@@ -9389,10 +9515,10 @@ class FormatText {
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-single-block.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-single-block.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [used] [could be renamed] */
 /*! other exports [not provided] [unused] */
@@ -9403,8 +9529,7 @@ class FormatText {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _lib_utilities_format_text_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/utilities/format-text.js */ "./lib/utilities/format-text.js");
-/* harmony import */ var _vue_align_editor_aligned_text_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/aligned-text.vue */ "./vue/align-editor/aligned-text.vue");
+/* harmony import */ var _vue_align_editor_token_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token.vue */ "./vue/align-editor/token.vue");
 //
 //
 //
@@ -9424,136 +9549,13 @@ class FormatText {
 //
 //
 //
-//
-//
-
-
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignEditor',
+  name: 'AlignEditorSingleBlock',
   components: {
-    alignText: _vue_align_editor_aligned_text_vue__WEBPACK_IMPORTED_MODULE_1__.default
-  },
-  props: {
-    originText: {
-      type: Object,
-      required: false
-    },
-    targetText: {
-      type: Object,
-      required: false
-    },
-    showEditor: {
-      type: Number,
-      required: false
-    }
-  },
-  data () {
-    return {
-      defineAlignShow: false,
-      prevClickedWordType: null,
-      showAlignment: []
-    }
-  },
-  watch: {
-    async showEditor () {
-      this.defineAlignShow = true
-    }
-  },
-  computed: {
-    defineAlignShowLabel () {
-      return this.defineAlignShow ? 'hide' : 'show'
-    },
-    showAlignEditor () {
-      return this.originText && this.originText.tokens && this.targetText && this.targetText.tokens
-    }
-  },
-  methods: {
-    toggleDefineAlignShow () {
-      this.defineAlignShow = !this.defineAlignShow
-    },
-    clickWord (token) {
-      if (token.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
-        this.finishCurrentAlignmentGroup()
-        this.startNewAlignmentGroup(token)
-      } else {
-        this.addToAlignmentGroup(token)
-      }
-      this.prevClickedWordType = token.textType
-    },
-    startNewAlignmentGroup (token) {
-      this.$textC.startNewAlignmentGroup(token)
-    },
-    finishCurrentAlignmentGroup () {
-      this.$textC.finishCurrentAlignmentGroup()
-    },
-    addToAlignmentGroup (token) {
-      this.$textC.addToAlignmentGroup(token)
-    },
-    addHoverWord (token) {
-      const activeAlignmentGroup = this.$textC.findAlignmentGroup(token)
-      if (activeAlignmentGroup) {
-        this.showAlignment = activeAlignmentGroup
-      }
-    },
-    removeHoverWord (textWord) {
-      this.showAlignment = []
-    },
-    clickEmptyText (textType) {
-      this.finishCurrentAlignmentGroup()
-      this.prevClickedWordType = null
-    }
-  }
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/aligned-text.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/aligned-text.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _lib_utilities_format_text_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/utilities/format-text.js */ "./lib/utilities/format-text.js");
-/* harmony import */ var _vue_align_editor_token_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/token.vue */ "./vue/align-editor/token.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignedText',
-  components: {
-    token: _vue_align_editor_token_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    token: _vue_align_editor_token_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
     alignTextData: {
@@ -9604,6 +9606,136 @@ class FormatText {
     },
     clickEmptyText () {
       this.$emit('clickEmptyText', this.textType)
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _vue_align_editor_align_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-single-block.vue */ "./vue/align-editor/align-editor-single-block.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignEditor',
+  components: {
+    alignEditorSingleBlock: _vue_align_editor_align_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    showEditor: {
+      type: Number,
+      required: false
+    }
+  },
+  data () {
+    return {
+      defineAlignShow: false,
+      prevClickedWordType: null,
+      showAlignment: [],
+      originUpdated: 1,
+      targetUpdated: 1
+    }
+  },
+  watch: {
+    async showEditor () {
+      this.defineAlignShow = true
+      this.updateOriginEditor()
+      this.updateTargetEditor()
+    }
+  },
+  computed: {
+    defineAlignShowLabel () {
+      return this.defineAlignShow ? 'hide' : 'show'
+    },
+    showAlignEditor () {
+      return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
+    },
+    originAlignedText () {
+      return this.originUpdated ? this.$textC.originAlignedText : {}
+    },
+    targetAlignedText () {
+      return this.targetUpdated ? this.$textC.targetAlignedText : {}
+    }
+  },
+  methods: {
+    updateOriginEditor () {
+      this.originUpdated = this.originUpdated + 1
+    },
+
+    updateTargetEditor () {
+      this.targetUpdated = this.targetUpdated + 1
+    },
+
+    toggleDefineAlignShow () {
+      this.defineAlignShow = !this.defineAlignShow
+    },
+    clickWord (token) {
+      if (token.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
+        this.finishCurrentAlignmentGroup()
+        this.startNewAlignmentGroup(token)
+      } else {
+        this.addToAlignmentGroup(token)
+      }
+      this.prevClickedWordType = token.textType
+    },
+    startNewAlignmentGroup (token) {
+      this.$textC.startNewAlignmentGroup(token)
+    },
+    finishCurrentAlignmentGroup () {
+      this.$textC.finishCurrentAlignmentGroup()
+    },
+    addToAlignmentGroup (token) {
+      this.$textC.addToAlignmentGroup(token)
+    },
+    addHoverWord (token) {
+      const activeAlignmentGroup = this.$textC.findAlignmentGroup(token)
+      if (activeAlignmentGroup) {
+        this.showAlignment = activeAlignmentGroup
+      }
+    },
+    removeHoverWord (textWord) {
+      this.showAlignment = []
+    },
+    clickEmptyText (textType) {
+      this.finishCurrentAlignmentGroup()
+      this.prevClickedWordType = null
     }
   }
 });
@@ -9703,14 +9835,6 @@ class FormatText {
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -9734,18 +9858,6 @@ class FormatText {
     }
   },
   computed: {
-    originText () {
-      return this.originTextUpdated ? this.$textC.originDocSource : {}
-    },
-    targetText () {
-      return this.targetTextUpdated ? this.$textC.targetDocSource : {}
-    },
-    originAlignedText () {
-      return this.originAlignedUpdated ? this.$textC.originAlignedText : {}
-    },
-    targetAlignedText () {
-      return this.targetAlignedUpdated ? this.$textC.targetAlignedText : {}
-    }
   },
   methods: {
     updateOriginTextEditor () {
@@ -9756,30 +9868,12 @@ class FormatText {
       this.targetTextUpdated = this.targetTextUpdated + 1
     },
 
-    updateOriginAlignedEditor () {
-      this.originAlignedUpdated = this.originAlignedUpdated + 1
-    },
-
-    updateTargetAlignedEditor () {
-      this.targetAlignedUpdated = this.targetAlignedUpdated + 1
-    },
-
     hideTextEditorM () {
       this.hideTextEditor = this.hideTextEditor + 1
     },
 
     showAlignEditorM () {
       this.showAlignEditor = this.showAlignEditor + 1
-    },
-
-    updateOriginText (text) {
-      this.$textC.updateOriginSourceText(text)
-      this.updateOriginTextEditor()
-    },
-
-    updateTargetText (text) {
-      this.$textC.updateTargetDocSource(text)
-      this.updateTargetTextEditor()
     },
 
     downloadData () {
@@ -9794,22 +9888,8 @@ class FormatText {
 
     alignTexts () {
       this.$textC.createAlignedTexts()
-      this.updateOriginAlignedEditor()
-      this.updateTargetAlignedEditor()
       this.hideTextEditorM()
       this.showAlignEditorM()    
-    },
-
-    startNewAlignmentGroup (token) {
-      this.$textC.startNewAlignmentGroup(token)
-    },
-
-    addToAlignmentGroup (token) {
-      this.$textC.addToAlignmentGroup(token)
-    },
-
-    finishCurrentAlignmentGroup () {
-      this.$textC.finishCurrentAlignmentGroup()
     }
   }
 });
@@ -10049,20 +10129,12 @@ class FormatText {
   components: {
     textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: {
-    originText: {
-      type: Object,
-      required: false
-    },
-    targetText: {
-      type: Object,
-      required: false
-    },   
-    originTextUpdated: {
+  props: {  
+    originUpdated: {
       type: Number,
       required: true
     },
-    targetTextUpdated: {
+    targetUpdated: {
       type: Number,
       required: true
     },
@@ -10088,10 +10160,16 @@ class FormatText {
       return this.defineTextsShow ? 'hide' : 'show'
     },
     updatedOrigin () {
-      return this.originTextUpdated && this.originText ?  this.originText : null
+      return this.originUpdated && this.originText ?  this.originText : null
     },
     updatedTarget () {
-      return this.targetTextUpdated && this.targetText ?  this.targetText : null
+      return this.targetUpdated && this.targetText ?  this.targetText : null
+    },
+    originText () {
+      return this.originUpdated ? this.$textC.originDocSource : {}
+    },
+    targetText () {
+      return this.targetUpdated ? this.$textC.targetDocSource : {}
     }
   },
   methods: {
@@ -10099,14 +10177,58 @@ class FormatText {
       this.defineTextsShow = !this.defineTextsShow
     },
     updateOriginText (text) {
-      this.$emit('update-origin-text', text)
+      this.$textC.updateOriginDocSource(text)
     },
     updateTargetText (text) {
-      this.$emit('update-target-text', text)
+      this.$textC.updateTargetDocSource(text)
     }
   }
 });
 
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-single-block.vue":
+/*!********************************************************!*\
+  !*** ./vue/align-editor/align-editor-single-block.vue ***!
+  \********************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _align_editor_single_block_vue_vue_type_template_id_09b9e53d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-single-block.vue?vue&type=template&id=09b9e53d& */ "./vue/align-editor/align-editor-single-block.vue?vue&type=template&id=09b9e53d&");
+/* harmony import */ var _align_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-single-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-single-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _align_editor_single_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-single-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-single-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _align_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _align_editor_single_block_vue_vue_type_template_id_09b9e53d___WEBPACK_IMPORTED_MODULE_0__.render,
+  _align_editor_single_block_vue_vue_type_template_id_09b9e53d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/align-editor/align-editor-single-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
@@ -10150,50 +10272,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "vue/align-editor/align-editor.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./vue/align-editor/aligned-text.vue":
-/*!*******************************************!*\
-  !*** ./vue/align-editor/aligned-text.vue ***!
-  \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _aligned_text_vue_vue_type_template_id_75bc07ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./aligned-text.vue?vue&type=template&id=75bc07ae& */ "./vue/align-editor/aligned-text.vue?vue&type=template&id=75bc07ae&");
-/* harmony import */ var _aligned_text_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./aligned-text.vue?vue&type=script&lang=js& */ "./vue/align-editor/aligned-text.vue?vue&type=script&lang=js&");
-/* harmony import */ var _aligned_text_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./aligned-text.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/aligned-text.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _aligned_text_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _aligned_text_vue_vue_type_template_id_75bc07ae___WEBPACK_IMPORTED_MODULE_0__.render,
-  _aligned_text_vue_vue_type_template_id_75bc07ae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/align-editor/aligned-text.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -10416,6 +10494,23 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 
 /***/ }),
 
+/***/ "./vue/align-editor/align-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [unused] [could be renamed] */
+/*! other exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_single_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-single-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-single-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_single_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_single_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+ /* unused harmony default export */ var _unused_webpack_default_export = ((/* unused pure expression or super */ null && (mod))); 
+
+/***/ }),
+
 /***/ "./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
@@ -10429,23 +10524,6 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 "use strict";
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
- /* unused harmony default export */ var _unused_webpack_default_export = ((/* unused pure expression or super */ null && (mod))); 
-
-/***/ }),
-
-/***/ "./vue/align-editor/aligned-text.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************!*\
-  !*** ./vue/align-editor/aligned-text.vue?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [unused] [could be renamed] */
-/*! other exports [maybe provided (runtime-defined)] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_aligned_text_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./aligned-text.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/aligned-text.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_aligned_text_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_aligned_text_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
  /* unused harmony default export */ var _unused_webpack_default_export = ((/* unused pure expression or super */ null && (mod))); 
 
 /***/ }),
@@ -10518,6 +10596,25 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 
 /***/ }),
 
+/***/ "./vue/align-editor/align-editor-single-block.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-single-block.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-single-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-single-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
@@ -10534,25 +10631,6 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
-/***/ "./vue/align-editor/aligned-text.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*\
-  !*** ./vue/align-editor/aligned-text.vue?vue&type=script&lang=js& ***!
-  \********************************************************************/
-/*! namespace exports */
-/*! export default [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_aligned_text_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./aligned-text.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/aligned-text.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_aligned_text_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -10651,6 +10729,27 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 
 /***/ }),
 
+/***/ "./vue/align-editor/align-editor-single-block.vue?vue&type=template&id=09b9e53d&":
+/*!***************************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-single-block.vue?vue&type=template&id=09b9e53d& ***!
+  \***************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! export staticRenderFns [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_single_block_vue_vue_type_template_id_09b9e53d___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_single_block_vue_vue_type_template_id_09b9e53d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_single_block_vue_vue_type_template_id_09b9e53d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-single-block.vue?vue&type=template&id=09b9e53d& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-single-block.vue?vue&type=template&id=09b9e53d&");
+
+
+/***/ }),
+
 /***/ "./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
 /*!**************************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
@@ -10668,27 +10767,6 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor.vue?vue&type=template&id=d51e2a30& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&");
-
-
-/***/ }),
-
-/***/ "./vue/align-editor/aligned-text.vue?vue&type=template&id=75bc07ae&":
-/*!**************************************************************************!*\
-  !*** ./vue/align-editor/aligned-text.vue?vue&type=template&id=75bc07ae& ***!
-  \**************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! export staticRenderFns [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_aligned_text_vue_vue_type_template_id_75bc07ae___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_aligned_text_vue_vue_type_template_id_75bc07ae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_aligned_text_vue_vue_type_template_id_75bc07ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./aligned-text.vue?vue&type=template&id=75bc07ae& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/aligned-text.vue?vue&type=template&id=75bc07ae&");
 
 
 /***/ }),
@@ -10798,6 +10876,67 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-single-block.vue?vue&type=template&id=09b9e53d&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-single-block.vue?vue&type=template&id=09b9e53d& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [used] [could be renamed] */
+/*! export staticRenderFns [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "alpheios-alignment-editor-align-text",
+      class: _vm.alignTextClass,
+      attrs: { dir: _vm.direction, lang: _vm.lang },
+      on: { click: _vm.clickEmptyText }
+    },
+    [
+      _vm._l(_vm.alignTextData.tokens, function(token) {
+        return [
+          token.word
+            ? _c("token", {
+                attrs: {
+                  "text-type": _vm.textType,
+                  "text-word": token,
+                  selected:
+                    _vm.updated && _vm.showAlignment.includes(token.idWord)
+                },
+                on: {
+                  clickWord: _vm.clickWord,
+                  addHoverWord: _vm.addHoverWord,
+                  removeHoverWord: _vm.removeHoverWord
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          token.hasLineBreak ? _c("br") : _vm._e()
+        ]
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
@@ -10861,9 +11000,9 @@ var render = function() {
               staticClass: "alpheios-alignment-editor-align-define-container"
             },
             [
-              _c("align-text", {
+              _c("align-editor-single-block", {
                 attrs: {
-                  "align-text-data": _vm.originText,
+                  "align-text-data": _vm.originAlignedText,
                   "prefix-id": 1,
                   "show-alignment": _vm.showAlignment
                 },
@@ -10875,9 +11014,9 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("align-text", {
+              _c("align-editor-single-block", {
                 attrs: {
-                  "align-text-data": _vm.targetText,
+                  "align-text-data": _vm.targetAlignedText,
                   "prefix-id": 2,
                   "show-alignment": _vm.showAlignment
                 },
@@ -10893,67 +11032,6 @@ var render = function() {
           )
         : _vm._e()
     ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/aligned-text.vue?vue&type=template&id=75bc07ae&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/aligned-text.vue?vue&type=template&id=75bc07ae& ***!
-  \*******************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [used] [could be renamed] */
-/*! export staticRenderFns [provided] [used] [could be renamed] */
-/*! other exports [not provided] [unused] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "alpheios-alignment-editor-align-text",
-      class: _vm.alignTextClass,
-      attrs: { dir: _vm.direction, lang: _vm.lang },
-      on: { click: _vm.clickEmptyText }
-    },
-    [
-      _vm._l(_vm.alignTextData.tokens, function(token) {
-        return [
-          token.word
-            ? _c("token", {
-                attrs: {
-                  "text-type": _vm.textType,
-                  "text-word": token,
-                  selected:
-                    _vm.updated && _vm.showAlignment.includes(token.idWord)
-                },
-                on: {
-                  clickWord: _vm.clickWord,
-                  addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          token.hasLineBreak ? _c("br") : _vm._e()
-        ]
-      })
-    ],
-    2
   )
 }
 var staticRenderFns = []
@@ -11051,29 +11129,13 @@ var render = function() {
       _vm._v(" "),
       _c("text-editor", {
         attrs: {
-          "origin-text": _vm.originText,
-          "origin-text-updated": _vm.originTextUpdated,
-          "target-text": _vm.targetText,
-          "target-text-updated": _vm.targetTextUpdated,
+          "origin-updated": _vm.originTextUpdated,
+          "target-updated": _vm.targetTextUpdated,
           "hide-editor": _vm.hideTextEditor
-        },
-        on: {
-          "update-origin-text": _vm.updateOriginText,
-          "update-target-text": _vm.updateTargetText
         }
       }),
       _vm._v(" "),
-      _c("align-editor", {
-        attrs: {
-          "origin-text": _vm.originAlignedText,
-          "target-text": _vm.targetAlignedText,
-          "show-editor": _vm.showAlignEditor
-        },
-        on: {
-          "start-new-alignment-group": _vm.startNewAlignmentGroup,
-          "add-to-alignment-group": _vm.addToAlignmentGroup
-        }
-      })
+      _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } })
     ],
     1
   )

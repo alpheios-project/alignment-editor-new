@@ -31,20 +31,12 @@ export default {
   components: {
     textEditorSingleBlock: TextEditorSingleBlock
   },
-  props: {
-    originText: {
-      type: Object,
-      required: false
-    },
-    targetText: {
-      type: Object,
-      required: false
-    },   
-    originTextUpdated: {
+  props: {  
+    originUpdated: {
       type: Number,
       required: true
     },
-    targetTextUpdated: {
+    targetUpdated: {
       type: Number,
       required: true
     },
@@ -70,10 +62,16 @@ export default {
       return this.defineTextsShow ? 'hide' : 'show'
     },
     updatedOrigin () {
-      return this.originTextUpdated && this.originText ?  this.originText : null
+      return this.originUpdated && this.originText ?  this.originText : null
     },
     updatedTarget () {
-      return this.targetTextUpdated && this.targetText ?  this.targetText : null
+      return this.targetUpdated && this.targetText ?  this.targetText : null
+    },
+    originText () {
+      return this.originUpdated ? this.$textC.originDocSource : {}
+    },
+    targetText () {
+      return this.targetUpdated ? this.$textC.targetDocSource : {}
     }
   },
   methods: {
@@ -81,10 +79,10 @@ export default {
       this.defineTextsShow = !this.defineTextsShow
     },
     updateOriginText (text) {
-      this.$emit('update-origin-text', text)
+      this.$textC.updateOriginDocSource(text)
     },
     updateTargetText (text) {
-      this.$emit('update-target-text', text)
+      this.$textC.updateTargetDocSource(text)
     }
   }
 }

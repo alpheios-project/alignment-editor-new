@@ -6,20 +6,12 @@
         @align-texts = "alignTexts"
       />
       <text-editor 
-        @update-origin-text = "updateOriginText" 
-        @update-target-text = "updateTargetText"
-        :origin-text = "originText"
-        :origin-text-updated = "originTextUpdated"
-        :target-text = "targetText"
-        :target-text-updated = "targetTextUpdated"
+        :origin-updated = "originTextUpdated"
+        :target-updated = "targetTextUpdated"
         :hide-editor = "hideTextEditor"
       />
       <align-editor 
-        :origin-text = "originAlignedText" 
-        :target-text = "targetAlignedText" 
         :show-editor = "showAlignEditor"
-        @start-new-alignment-group = "startNewAlignmentGroup"
-        @add-to-alignment-group = "addToAlignmentGroup"
       />
   </div>
 </template>
@@ -46,18 +38,6 @@ export default {
     }
   },
   computed: {
-    originText () {
-      return this.originTextUpdated ? this.$textC.originDocSource : {}
-    },
-    targetText () {
-      return this.targetTextUpdated ? this.$textC.targetDocSource : {}
-    },
-    originAlignedText () {
-      return this.originAlignedUpdated ? this.$textC.originAlignedText : {}
-    },
-    targetAlignedText () {
-      return this.targetAlignedUpdated ? this.$textC.targetAlignedText : {}
-    }
   },
   methods: {
     updateOriginTextEditor () {
@@ -68,30 +48,12 @@ export default {
       this.targetTextUpdated = this.targetTextUpdated + 1
     },
 
-    updateOriginAlignedEditor () {
-      this.originAlignedUpdated = this.originAlignedUpdated + 1
-    },
-
-    updateTargetAlignedEditor () {
-      this.targetAlignedUpdated = this.targetAlignedUpdated + 1
-    },
-
     hideTextEditorM () {
       this.hideTextEditor = this.hideTextEditor + 1
     },
 
     showAlignEditorM () {
       this.showAlignEditor = this.showAlignEditor + 1
-    },
-
-    updateOriginText (text) {
-      this.$textC.updateOriginSourceText(text)
-      this.updateOriginTextEditor()
-    },
-
-    updateTargetText (text) {
-      this.$textC.updateTargetDocSource(text)
-      this.updateTargetTextEditor()
     },
 
     downloadData () {
@@ -106,22 +68,8 @@ export default {
 
     alignTexts () {
       this.$textC.createAlignedTexts()
-      this.updateOriginAlignedEditor()
-      this.updateTargetAlignedEditor()
       this.hideTextEditorM()
       this.showAlignEditorM()    
-    },
-
-    startNewAlignmentGroup (token) {
-      this.$textC.startNewAlignmentGroup(token)
-    },
-
-    addToAlignmentGroup (token) {
-      this.$textC.addToAlignmentGroup(token)
-    },
-
-    finishCurrentAlignmentGroup () {
-      this.$textC.finishCurrentAlignmentGroup()
     }
   }
 }

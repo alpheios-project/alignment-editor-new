@@ -1,14 +1,15 @@
 // import { v4 as uuidv4 } from 'uuid'
 
 import Alignment from '@/lib/data/alignment'
-import Download from '@/lib/utilities/download.js'
+import DownloadController from '@/lib/controllers/download-controller.js'
+import UploadController from '@/lib/controllers/upload-controller.js'
 
 export default class TextsController {
   createAlignment (originDocSource) {
     this.alignment = new Alignment(originDocSource)
   }
 
-  updateOriginSourceText (originDocSource) {
+  updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
       this.createAlignment(originDocSource)
     } else {
@@ -33,34 +34,21 @@ export default class TextsController {
   }
 
   uploadDocSourceFromFile (fileData) {
-    fileData = fileData.split(/\n/)
+    const uploadType = 'plainSourceUploadFromFile'
 
-    const formattedData = {
-      origin: {
-        text: fileData[0].replace(/\t/g, '\u000D'),
-        direction: fileData[1],
-        lang: fileData[2],
-        textType: 'origin'
-      },
-      target: {
-        text: fileData[3].replace(/\t/g, '\u000D'),
-        direction: fileData[4],
-        lang: fileData[5],
-        textType: 'target'
-      }
-    }
+    const result = UploadController.upload(uploadType, fileData)
 
-    this.updateOriginSourceText(formattedData.origin)
-    this.updateTargetDocSource(formattedData.target)
+    this.updateOriginDocSource(result.originDocSource)
+    this.updateTargetDocSource(result.targetDocSource)
   }
 
   downloadData () {
-    const fields = [this.originDocSource.text, this.originDocSource.direction, this.originDocSource.lang,
-      this.targetDocSource.text, this.targetDocSource.direction, this.targetDocSource.lang
-    ]
-
-    const fileName = `alignment-${this.originDocSource.lang}-${this.targetDocSource.lang}`
-    Download.downloadFileOneColumn(fields, fileName)
+    const downloadType = 'plainSourceDownload'
+    const data = {
+      originDocSource: this.originDocSource,
+      targetDocSource: this.targetDocSource
+    }
+    return DownloadController.download(downloadType, data)
   }
 
   createAlignedTexts () {
@@ -69,11 +57,11 @@ export default class TextsController {
   }
 
   get originAlignedText () {
-    return this.alignment.originAlignedText
+    return this.alignment ? this.alignment.originAlignedText : {}
   }
 
   get targetAlignedText () {
-    return this.alignment.targetAlignedText
+    return this.alignment ? this.alignment.targetAlignedText : {}
   }
 
   startNewAlignmentGroup (token) {
