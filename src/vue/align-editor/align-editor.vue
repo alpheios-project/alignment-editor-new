@@ -1,33 +1,34 @@
 <template>
   <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
-      <h2>Define Alignment for Source and Translation Texts
+      <h2>Define Alignment for Origin and Target Texts
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
-          <align-text :align-text-data="sourceText" :prefix-id = "1" @clickWord="clickWord"/>
-          <align-text :align-text-data="translationText" :prefix-id = "2" @clickWord="clickWord"/>
+          <align-editor-single-block
+            :align-text-data="originAlignedText" :prefix-id = "1" 
+            :show-alignment="showAlignment"
+            @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
+            @clickEmptyText="clickEmptyText"
+          />
+          <align-editor-single-block 
+            :align-text-data="targetAlignedText" :prefix-id = "2"
+            :show-alignment="showAlignment"
+            @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
+            @clickEmptyText="clickEmptyText"
+          />
       </div>
   </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
-import FormatText from '@/lib/format-text.js'
-import AlignText from '@/vue/align-editor/align-text.vue'
+import AlignEditorSingleBlock from '@/vue/align-editor/align-editor-single-block.vue'
 
 export default {
   name: 'AlignEditor',
   components: {
-    alignText: AlignText
+    alignEditorSingleBlock: AlignEditorSingleBlock
   },
   props: {
-    sourceText: {
-      type: Object,
-      required: false
-    },
-    translationText: {
-      type: Object,
-      required: false
-    },
     showEditor: {
       type: Number,
       required: false
@@ -36,15 +37,17 @@ export default {
   data () {
     return {
       defineAlignShow: false,
-      alignments: [],
-      currentAlignment: {},
-      alignmentId: 0,
-      prevClickedWordType: null
+      prevClickedWordType: null,
+      showAlignment: [],
+      originUpdated: 1,
+      targetUpdated: 1
     }
   },
   watch: {
-    async showEditor () {
+    showEditor () {
       this.defineAlignShow = true
+      this.updateOriginEditor()
+      this.updateTargetEditor()
     }
   },
   computed: {
@@ -52,29 +55,57 @@ export default {
       return this.defineAlignShow ? 'hide' : 'show'
     },
     showAlignEditor () {
-      return this.sourceText && this.sourceText.text && this.translationText && this.translationText.text
+      return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
+    },
+    originAlignedText () {
+      return this.originUpdated ? this.$textC.originAlignedText : {}
+    },
+    targetAlignedText () {
+      return this.targetUpdated ? this.$textC.targetAlignedText : {}
     }
   },
   methods: {
+    updateOriginEditor () {
+      this.originUpdated = this.originUpdated + 1
+    },
+
+    updateTargetEditor () {
+      this.targetUpdated = this.targetUpdated + 1
+    },
+
     toggleDefineAlignShow () {
       this.defineAlignShow = !this.defineAlignShow
     },
-    clickWord (textWord) {
-      console.info('clickWord ', textWord)
-      if (textWord.textType === 'source' && (!this.prevClickedWordType || this.prevClickedWordType === 'source')) {
-        this.finishCurrentAlignment()
-        this.startNewAlignment(textWord)
+    clickWord (token) {
+      if (token.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
+        this.finishCurrentAlignmentGroup()
+        this.startNewAlignmentGroup(token)
       } else {
-        this.addToAlignment(textWord)
+        this.addToAlignmentGroup(token)
       }
-      this.prevClickedWordType = textWord.textType
+      this.prevClickedWordType = token.textType
     },
-    startNewAlignment (textWord) {
-      this.alignmentId = this.alignmentId + 1
+    startNewAlignmentGroup (token) {
+      this.$textC.startNewAlignmentGroup(token)
     },
-    finishCurrentAlignment () {
+    finishCurrentAlignmentGroup () {
+      this.$textC.finishCurrentAlignmentGroup()
     },
-    addToAlignment (textWord) {
+    addToAlignmentGroup (token) {
+      this.$textC.addToAlignmentGroup(token)
+    },
+    addHoverWord (token) {
+      const activeAlignmentGroup = this.$textC.findAlignmentGroup(token)
+      if (activeAlignmentGroup) {
+        this.showAlignment = activeAlignmentGroup
+      }
+    },
+    removeHoverWord (textWord) {
+      this.showAlignment = []
+    },
+    clickEmptyText (textType) {
+      this.finishCurrentAlignmentGroup()
+      this.prevClickedWordType = null
     }
   }
 }

@@ -2,24 +2,37 @@
     <div class  ="alpheios-alignment-editor-align-text"
          :class = "alignTextClass" 
          :dir = "direction" :lang = "lang" 
+         @click = "clickEmptyText"
     >
-    <p v-for = "(textLine, indexLine) in formattedText" :key="indexLine">
-        <span v-for = "(textWord, indexWord) in textLine" :key="indexWord"
-        :data-type = "textType" :id="textWord.idWord"
-        @click = "clickWord(textWord)"
-        >{{ textWord.word }}{{ textWord.afterWord }}</span>
-    </p>
+      <template v-for = "token in alignTextData.tokens">
+        <token
+          v-if ="token.word"
+          :text-type = "textType" :text-word = "token"
+          @clickWord = "clickWord"
+          @addHoverWord = "addHoverWord"
+          @removeHoverWord = "removeHoverWord"
+          :selected = "updated && showAlignment.includes(token.idWord)"
+        />
+        <br v-if="token.hasLineBreak" />
+      </template>
     </div>
 </template>
 <script>
-import FormatText from '@/lib/format-text.js'
+import Token from '@/vue/align-editor/token.vue'
 
 export default {
-  name: 'AlignText',
-  components: {},
+  name: 'AlignEditorSingleBlock',
+  components: {
+    token: Token
+  },
   props: {
     alignTextData: {
       type: Object,
+      required: false
+    },
+
+    showAlignment: {
+      type: Array,
       required: false
     },
     prefixId: {
@@ -30,7 +43,7 @@ export default {
   },
   data () {
     return {
-    
+      updated: 1
     }
   },
   computed: {
@@ -44,16 +57,23 @@ export default {
       return this.alignTextData.lang
     },
     alignTextClass () {
-      console.info('this.alignTextData - ', this.alignTextData)
       return `alpheios-alignment-editor-align__${this.textType}`
-    },
-    formattedText () {
-      return FormatText.defineIdentification(this.alignTextData.text, this.prefixId, this.textType)
     }
   },
   methods: {
-    clickWord (textWord) {
-      this.$emit('clickWord', textWord)
+    clickWord (token) {
+      this.$emit('clickWord', token)
+    },
+    addHoverWord (token) {
+      this.$emit('addHoverWord', token)
+      this.updated = this.updated + 1
+    },
+    removeHoverWord (token) {
+      this.$emit('removeHoverWord', token)
+      this.updated = this.updated + 1
+    },
+    clickEmptyText () {
+      this.$emit('clickEmptyText', this.textType)
     }
   }
 }
@@ -64,20 +84,16 @@ export default {
         width: 50%;
     }
 
-    .alpheios-alignment-editor-align__source {
+    .alpheios-alignment-editor-align__origin {
         border-right: 2px solid #ddd;
         padding-right: 20px;
     }
 
-    .alpheios-alignment-editor-align__translation {
+    .alpheios-alignment-editor-align__target {
         padding-left: 20px;
     }
 
     .alpheios-alignment-editor-align-text {
-        p {
-            margin: 0;
-            line-height: 1.2;
-        }
         span {
             cursor: pointer;
             padding: 4px;
@@ -87,6 +103,11 @@ export default {
             &:hover {
                 border-color: #FFC24F;
                 background: #FFD27D;
+            }
+
+            &.alpheios-token-selected {
+              border-color: #f59d6e;
+              background: #f59d6e;
             }
         }
     }

@@ -1,5 +1,6 @@
 import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
+import TextsController from '@/lib/controllers/texts-controller.js'
 
 export default class AppController {
   constructor ({ appId }) {
@@ -7,8 +8,11 @@ export default class AppController {
   }
 
   attachVueComponents (appId) {
-    const rootVi = new Vue()
+    const textCInstance = new TextsController()
 
+    Vue.prototype.$textC = textCInstance
+
+    const rootVi = new Vue()
     const mountEl = document.getElementById(appId)
     const appContainer = document.createElement('div')
 
@@ -18,6 +22,7 @@ export default class AppController {
     this._viAppComp = new AppComponent({
       parent: rootVi
     })
+
     this._viAppComp.$mount(appContainerEl)
   }
 }

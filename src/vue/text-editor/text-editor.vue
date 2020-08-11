@@ -1,23 +1,23 @@
 <template>
   <div class="alpheios-alignment-editor-container">
-      <h2>Define Source and Translation Texts 
+      <h2>Define Origin and Target Texts 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineTextsShow">{{ defineTextsShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-text-define-container" v-show="defineTextsShow">
         <div class="alpheios-alignment-editor-text-define-container-inner">
-          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-source-text-container">
+          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
             <text-editor-single-block 
-                text-id="source" 
-                @update-text = "updateSourceText" 
-                :external-text = "updatedSource"
+                text-id="origin" 
+                @update-text = "updateOriginText" 
+                :external-text = "updatedOrigin"
             />
           </div>
 
-          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-translation-text-container">
+          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container">
             <text-editor-single-block 
-                text-id="translation" 
-                @update-text = "updateTranslationText" 
-                :external-text = "updatedTranslation"    
+                text-id="target" 
+                @update-text = "updateTargetText" 
+                :external-text = "updatedTarget"    
             />
           </div>
         </div>
@@ -31,10 +31,14 @@ export default {
   components: {
     textEditorSingleBlock: TextEditorSingleBlock
   },
-  props: {
-    updatedData: {
-      type: Object,
-      required: false
+  props: {  
+    originUpdated: {
+      type: Number,
+      required: true
+    },
+    targetUpdated: {
+      type: Number,
+      required: true
     },
     hideEditor: {
       type: Number,
@@ -43,7 +47,9 @@ export default {
   },
   data () {
     return {
-      defineTextsShow: true
+      defineTextsShow: true,
+      updatedOriginText: null,
+      updatedTargetText: null
     }
   },
   watch: {
@@ -55,22 +61,28 @@ export default {
     defineTextsShowLabel () {
       return this.defineTextsShow ? 'hide' : 'show'
     },
-    updatedSource () {
-      return this.updatedData && this.updatedData.source ?  this.updatedData.source : null
+    updatedOrigin () {
+      return this.originUpdated && this.originText ?  this.originText : null
     },
-    updatedTranslation () {
-      return this.updatedData && this.updatedData.translation ?  this.updatedData.translation : null
+    updatedTarget () {
+      return this.targetUpdated && this.targetText ?  this.targetText : null
+    },
+    originText () {
+      return this.originUpdated ? this.$textC.originDocSource : {}
+    },
+    targetText () {
+      return this.targetUpdated ? this.$textC.targetDocSource : {}
     }
   },
   methods: {
     toggleDefineTextsShow () {
       this.defineTextsShow = !this.defineTextsShow
     },
-    updateSourceText (text) {
-      this.$emit('update-source-text', text)
+    updateOriginText (text) {
+      this.$textC.updateOriginDocSource(text)
     },
-    updateTranslationText (text) {
-      this.$emit('update-translation-text', text)
+    updateTargetText (text) {
+      this.$textC.updateTargetDocSource(text)
     }
   }
 }
@@ -92,11 +104,11 @@ export default {
         }
     }
 
-    .alpheios-alignment-editor-source-text-container {
+    .alpheios-alignment-editor-origin-text-container {
       padding-right: 10px;
     }
 
-    .alpheios-alignment-editor-translation-text-container {
+    .alpheios-alignment-editor-target-text-container {
       padding-left: 10px;
     }
 
