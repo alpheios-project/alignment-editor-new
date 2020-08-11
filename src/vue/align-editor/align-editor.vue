@@ -44,7 +44,7 @@ export default {
     }
   },
   watch: {
-    async showEditor () {
+    showEditor () {
       this.defineAlignShow = true
       this.updateOriginEditor()
       this.updateTargetEditor()

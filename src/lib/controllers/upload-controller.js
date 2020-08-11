@@ -9,7 +9,12 @@ export default class UploadController {
   }
 
   static plainSourceUploadFromFile (fileData) {
-    fileData = fileData.split(/\n/)
+    fileData = fileData.split(/\r\n|\r|\n/)
+
+    if (!Array.isArray(fileData) || fileData.length < 6) {
+      console.error('Uploaded file has wrong format for the type - plainSourceUploadFromFile')
+      return
+    }
 
     const formattedData = {
       origin: {

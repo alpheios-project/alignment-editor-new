@@ -1,7 +1,7 @@
 import SimpleLocalTokenizer from '@/lib/tokenizers/simple-local-tokenizer.js'
 
 export default class TokenizeController {
-  static tokenize (tokenizer) {
+  static getTokenizer (tokenizer) {
     let tokenizeMethod = null
 
     switch (tokenizer) {

@@ -19,27 +19,28 @@ export default class TextsController {
 
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment()
+      console.error('Alignment should be created from selecting a word from origin text')
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
   }
 
   get originDocSource () {
-    return this.alignment.originDocSource
+    return this.alignment ? this.alignment.originDocSource : null
   }
 
   get targetDocSource () {
-    return this.alignment.targetDocSource
+    return this.alignment ? this.alignment.targetDocSource : null
   }
 
   uploadDocSourceFromFile (fileData) {
     const uploadType = 'plainSourceUploadFromFile'
 
     const result = UploadController.upload(uploadType, fileData)
-
-    this.updateOriginDocSource(result.originDocSource)
-    this.updateTargetDocSource(result.targetDocSource)
+    if (result) {
+      this.updateOriginDocSource(result.originDocSource)
+      this.updateTargetDocSource(result.targetDocSource)
+    }
   }
 
   downloadData () {

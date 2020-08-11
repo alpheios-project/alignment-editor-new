@@ -9042,6 +9042,10 @@ class DownloadController {
   }
 
   static plainSourceDownload ({ originDocSource, targetDocSource }) {
+    if (!originDocSource || targetDocSource) {
+      console.error('You should define origin and target texts first')
+      return
+    }
     const fields = [originDocSource.text, originDocSource.direction, originDocSource.lang,
       targetDocSource.text, targetDocSource.direction, targetDocSource.lang
     ]
@@ -9092,27 +9096,28 @@ class TextsController {
 
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment()
+      console.error('Alignment should be created from selecting a word from origin text')
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
   }
 
   get originDocSource () {
-    return this.alignment.originDocSource
+    return this.alignment ? this.alignment.originDocSource : null
   }
 
   get targetDocSource () {
-    return this.alignment.targetDocSource
+    return this.alignment ? this.alignment.targetDocSource : null
   }
 
   uploadDocSourceFromFile (fileData) {
     const uploadType = 'plainSourceUploadFromFile'
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
-
-    this.updateOriginDocSource(result.originDocSource)
-    this.updateTargetDocSource(result.targetDocSource)
+    if (result) {
+      this.updateOriginDocSource(result.originDocSource)
+      this.updateTargetDocSource(result.targetDocSource)
+    }
   }
 
   downloadData () {
@@ -9175,7 +9180,7 @@ class TextsController {
 
 
 class TokenizeController {
-  static tokenize (tokenizer) {
+  static getTokenizer (tokenizer) {
     let tokenizeMethod = null
 
     switch (tokenizer) {
@@ -9218,7 +9223,12 @@ class UploadController {
   }
 
   static plainSourceUploadFromFile (fileData) {
-    fileData = fileData.split(/\n/)
+    fileData = fileData.split(/\r\n|\r|\n/)
+
+    if (!Array.isArray(fileData) || fileData.length < 6) {
+      console.error('Uploaded file has wrong format for the type - plainSourceUploadFromFile')
+      return
+    }
 
     const formattedData = {
       origin: {
@@ -9295,7 +9305,7 @@ class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
-    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize(tokenizer)
+    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getTokenizer(tokenizer)
 
     if (!tokenizeMethod) {
       console.error('Tokenization was cancelled.')
@@ -9325,7 +9335,6 @@ class Alignment {
   }
 
   startNewAlignmentGroup (token) {
-    console.info('startNewAlignmentGroup - start')
     const alignmetGroupId = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.currentAlignmentGroup = {
       id: alignmetGroupId,
@@ -9335,9 +9344,7 @@ class Alignment {
   }
 
   addToAlignmentGroup (token) {
-    console.info('addToAlignmentGroup - start')
     if (this.currentAlignmentGroup[token.textType]) {
-      console.info('addToAlignmentGroup - added')
       this.currentAlignmentGroup[token.textType].push(token.idWord)
     } else {
       console.error('Start alignment from origin text please!')
@@ -9345,15 +9352,12 @@ class Alignment {
   }
 
   finishCurrentAlignmentGroup () {
-    console.info('finishCurrentAlignmentGroup - started')
     if (this.currentAlignmentGroup && this.currentAlignmentGroup.id && this.currentAlignmentGroup.target && this.currentAlignmentGroup.target.length > 0) {
       this.alignmentGroups.push(this.currentAlignmentGroup)
       this.alignmentGroupsIds.push(...this.currentAlignmentGroup.origin)
       this.alignmentGroupsIds.push(...this.currentAlignmentGroup.target)
     }
     this.currentAlignmentGroup = {}
-
-    console.info('alignmentGroupsIds - ', this.alignmentGroupsIds)
   }
 
   findAlignmentGroup (token) {
@@ -9449,7 +9453,7 @@ class SimpleLocalTokenizer {
   }
 
   static get punctuation () {
-    return ".,;:!?'\"(){}\\[\\]<>\\\u00A0\u2010\u2011\u2012\u2013\u2014\u2015\u2018\u2019\u201C\u201D\u0387\u00B7\n\r\u200C\u200D\u000D"
+    return ".,;:!?'\"(){}\\[\\]<>\\\u2010\u2011\u2012\u2013\u2014\u2015\u2018\u2019\u201C\u201D\u0387\u00B7\n\r\u200C\u200D\u000D\t\u2B7E"
   }
 
   static defineIdentification (text, idPrefix, textType) {
@@ -9674,7 +9678,7 @@ class SimpleLocalTokenizer {
     }
   },
   watch: {
-    async showEditor () {
+    showEditor () {
       this.defineAlignShow = true
       this.updateOriginEditor()
       this.updateTargetEditor()

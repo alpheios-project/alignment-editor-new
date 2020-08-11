@@ -11,6 +11,10 @@ export default class DownloadController {
   }
 
   static plainSourceDownload ({ originDocSource, targetDocSource }) {
+    if (!originDocSource || targetDocSource) {
+      console.error('You should define origin and target texts first')
+      return
+    }
     const fields = [originDocSource.text, originDocSource.direction, originDocSource.lang,
       targetDocSource.text, targetDocSource.direction, targetDocSource.lang
     ]

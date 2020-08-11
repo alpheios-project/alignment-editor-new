@@ -31,7 +31,7 @@ export default class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
-    const tokenizeMethod = TokenizeController.tokenize(tokenizer)
+    const tokenizeMethod = TokenizeController.getTokenizer(tokenizer)
 
     if (!tokenizeMethod) {
       console.error('Tokenization was cancelled.')
@@ -61,7 +61,6 @@ export default class Alignment {
   }
 
   startNewAlignmentGroup (token) {
-    console.info('startNewAlignmentGroup - start')
     const alignmetGroupId = uuidv4()
     this.currentAlignmentGroup = {
       id: alignmetGroupId,
@@ -71,9 +70,7 @@ export default class Alignment {
   }
 
   addToAlignmentGroup (token) {
-    console.info('addToAlignmentGroup - start')
     if (this.currentAlignmentGroup[token.textType]) {
-      console.info('addToAlignmentGroup - added')
       this.currentAlignmentGroup[token.textType].push(token.idWord)
     } else {
       console.error('Start alignment from origin text please!')
@@ -81,15 +78,12 @@ export default class Alignment {
   }
 
   finishCurrentAlignmentGroup () {
-    console.info('finishCurrentAlignmentGroup - started')
     if (this.currentAlignmentGroup && this.currentAlignmentGroup.id && this.currentAlignmentGroup.target && this.currentAlignmentGroup.target.length > 0) {
       this.alignmentGroups.push(this.currentAlignmentGroup)
       this.alignmentGroupsIds.push(...this.currentAlignmentGroup.origin)
       this.alignmentGroupsIds.push(...this.currentAlignmentGroup.target)
     }
     this.currentAlignmentGroup = {}
-
-    console.info('alignmentGroupsIds - ', this.alignmentGroupsIds)
   }
 
   findAlignmentGroup (token) {
