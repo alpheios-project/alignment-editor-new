@@ -7,7 +7,7 @@
       <template v-for = "token in alignTextData.tokens">
         <token
           v-if ="token.word"
-          :text-type = "textType" :text-word = "token"
+          :text-type = "textType" :text-word = "token" :key = "token.idWord"
           @clickWord = "clickWord"
           @addHoverWord = "addHoverWord"
           @removeHoverWord = "removeHoverWord"
@@ -57,6 +57,7 @@ export default {
       return this.alignTextData.lang
     },
     alignTextClass () {
+      console.info('alignTextData.tokens - ', this.alignTextData.tokens)
       return `alpheios-alignment-editor-align__${this.textType}`
     }
   },

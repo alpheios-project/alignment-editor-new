@@ -9593,6 +9593,7 @@ class SimpleLocalTokenizer {
       return this.alignTextData.lang
     },
     alignTextClass () {
+      console.info('alignTextData.tokens - ', this.alignTextData.tokens)
       return `alpheios-alignment-editor-align__${this.textType}`
     }
   },
@@ -10913,6 +10914,7 @@ var render = function() {
         return [
           token.word
             ? _c("token", {
+                key: token.idWord,
                 attrs: {
                   "text-type": _vm.textType,
                   "text-word": token,
