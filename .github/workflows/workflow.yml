@@ -25,5 +25,5 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: 'us-east-2'
         SOURCE_DIR: '.'
-        DEST_DIR: 'alignment-editor'
+        DEST_DIR: 'alignment-editor/public'
     
