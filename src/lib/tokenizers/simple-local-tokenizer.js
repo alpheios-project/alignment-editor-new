@@ -15,53 +15,87 @@ export default class SimpleLocalTokenizer {
       const prefix = `L${idPrefix}:${index + 1}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, textType)
 
-      const lastWord = finalTextLine[finalTextLine.length - 1]
+      if (finalTextLine.length > 0) {
+        const lastWord = finalTextLine[finalTextLine.length - 1]
 
-      lastWord.hasLineBreak = true
+        lastWord.hasLineBreak = true
+      }
       finalText.push(...finalTextLine)
     })
     return finalText
   }
 
   static simpleLineTokenization (text) {
-    return text.split('\u000D')
+    const lineBreaks = /\u000D|\u2028|\u2029|\u0085|\u000A/ // eslint-disable-line no-control-regex
+    return text.split(lineBreaks)
   }
 
   static simpleWordTokenization (textLine, prefix, textType) {
-    const delimiter = ' '
-    if (textLine.trim().length === 0) {
-      return [{}]
-    }
-    let textWords
-    if (textLine.indexOf(delimiter) === -1) {
-      textWords = [textLine]
-    } else {
-      textWords = textLine.split(delimiter)
-    }
-    const checkRegExp = `[${this.punctuation}]`
+    const formattedText = [{}]
 
-    const formattedText = textWords.map((word, indexWord) => {
-      const index = word.search(checkRegExp)
-      let resultWord
-      const idWord = `${prefix}-${indexWord + 1}`
+    if ((/^\s*$/).test(textLine)) { // it is an empty line
+      return formattedText
+    }
 
-      if (index > -1) {
-        resultWord = {
+    const textAll = textLine.split(/(?=[.\s]|\b)/)
+    let beforeWord = ''
+    let afterWord = ''
+    let word = ''
+    let wordEnded = true
+    let indexWord = 0
+
+    for (let i = 0; i < textAll.length; i++) {
+      const item = textAll[i]
+
+      if (!(/^\w.*/gi).test(item) && (item !== '-') && (i === 0)) { // it is not a word and not a part of the word, and it is a start of line
+        beforeWord = item
+      } else if (item === '-') { // it is inside the word
+        word = word + item
+        wordEnded = false
+      } else if ((/^\w.*/gi).test(item) && wordEnded) { // it is a word or the first part of it
+        word = item
+      } else if ((/^\w.*/gi).test(item) && !wordEnded) { // it is the seconf part of the word
+        word = word + item
+      } else { // it is a word diviver
+        let beforeNextWord = ''
+        if ((/^\s+.*/).test(item)) { // there are dividers for different words
+          beforeNextWord = item.match(/^\s+(.*)/)[0]
+          afterWord = item.substr(0, item.length - beforeNextWord.length)
+        } else { // simple divider
+          afterWord = item
+        }
+
+        wordEnded = true
+        indexWord = indexWord + 1
+        const idWord = `${prefix}-${indexWord}`
+
+        const resultWord = {
           textType,
           idWord,
-          word: word.substr(0, index),
-          afterWord: word.substr(index)
+          word,
+          beforeWord,
+          afterWord
         }
-      } else {
-        resultWord = {
-          textType,
-          idWord,
-          word: word
-        }
+        beforeWord = beforeNextWord
+        afterWord = ''
+        word = ''
+
+        formattedText.push(resultWord)
+      }
+    }
+
+    if (!wordEnded || word) {
+      indexWord = indexWord + 1
+      const idWord = `${prefix}-${indexWord}`
+      const resultWord = {
+        textType,
+        idWord,
+        word,
+        beforeWord
       }
 
-      return resultWord
-    })
+      formattedText.push(resultWord)
+    }
 
     return formattedText
   }
