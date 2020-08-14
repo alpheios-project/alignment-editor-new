@@ -5,7 +5,7 @@
           @mouseout = "removeHoverWord"
           :class="{ 'alpheios-token-selected': selected }"
     >
-        {{ textWord.word }}{{ textWord.afterWord }}
+        {{ textWord.beforeWord }}{{ textWord.word }}{{ textWord.afterWord }}
     </span>
 </template>
 <script>

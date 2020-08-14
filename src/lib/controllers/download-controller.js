@@ -11,7 +11,7 @@ export default class DownloadController {
   }
 
   static plainSourceDownload ({ originDocSource, targetDocSource }) {
-    if (!originDocSource || targetDocSource) {
+    if (!originDocSource || !targetDocSource) {
       console.error('You should define origin and target texts first')
       return
     }
