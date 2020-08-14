@@ -1,9 +1,9 @@
 <template>
   <div class="alpheios-alignment-app-menu">
       <div class="alpheios-alignment-app-menu__buttons">
-        <button class="alpheios-button-tertiary" @click="$emit('download-data')" >Download</button>
-        <button class="alpheios-button-tertiary" @click="uploadTexts" >Upload</button>
-        <button class="alpheios-button-tertiary" @click="$emit('align-texts')" >Align</button>
+        <button class="alpheios-button-tertiary" @click="$emit('download-data')" >{{ $l10n.getMsg('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" @click="uploadTexts" >{{ $l10n.getMsg('MAIN_MENU_UPLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" @click="$emit('align-texts')" >{{ $l10n.getMsg('MAIN_MENU_ALIGN_TITLE') }}</button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" v-show="showUploadBlock">
         <input type="file" @change="loadTextFromFile">

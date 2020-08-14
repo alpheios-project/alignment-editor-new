@@ -1,18 +1,27 @@
 export default class UploadController {
-  static upload (uploadType, data) {
+  static upload (uploadType, data, l10n) {
     switch (uploadType) {
       case 'plainSourceUploadFromFile':
-        return this.plainSourceUploadFromFile(data)
+        return this.plainSourceUploadFromFile(data, l10n)
       default:
-        console.error(`Upload type ${uploadType} is not defined.`)
+        if (l10n) {
+          console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+        } else {
+          console.error(`Upload type ${uploadType} is not defined.`)
+        }
     }
   }
 
-  static plainSourceUploadFromFile (fileData) {
+  static plainSourceUploadFromFile (fileData, l10n) {
     fileData = fileData.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      console.error('Uploaded file has wrong format for the type - plainSourceUploadFromFile')
+      if (l10n) {
+        console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      } else {
+        console.error('Uploaded file has wrong format for the type - plainSourceUploadFromFile')
+      }
+
       return
     }
 

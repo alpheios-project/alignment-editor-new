@@ -1,0 +1,17 @@
+{
+    "ALIGN_EDITOR_HEADING": {
+      "message": "Define Origin and Target Texts",
+      "description": "A heading for align editor",
+      "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_HIDE": {
+      "message": "hide",
+      "description": "A label for hide/show links",
+      "component": "AlignEditor"
+    },
+    "ALIGN_EDITOR_SHOW": {
+      "message": "show",
+      "description": "A label for hide/show links",
+      "component": "AlignEditor"
+    }
+}

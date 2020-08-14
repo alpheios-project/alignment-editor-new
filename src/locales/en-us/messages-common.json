@@ -1,0 +1,47 @@
+{
+    "DOWNLOAD_CONTROLLER_ERROR_TYPE": {
+      "message": "Download type {downloadType} is not defined.",
+      "description": "An error message for download process",
+      "component": "DownloadController",
+      "params": ["downloadType"]
+    },
+    "DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS": {
+      "message": "You should define origin and target texts first",
+      "description": "An error message for download process",
+      "component": "DownloadController"
+    },
+    "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
+      "message": "Alignment should be created from selecting a word from origin text",
+      "description": "An error message for alignment creation workflow",
+      "component": "TextsController"
+    },
+    "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {
+      "message": "Tokenization was cancelled.",
+      "description": "An error message for tokenization workflow",
+      "component": "Alignment"
+    },
+    "ALIGNMENT_ERROR_ADD_TO_ALIGNMENT": {
+      "message": "Start alignment from origin text please!.",
+      "description": "An error message for alignment workflow",
+      "component": "Alignment"
+    },
+    "TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED": {
+      "message": "Tokenizer method {tokenizer} is not registered",
+      "description": "An error message for tokenization workflow",
+      "component": "TokenizeController",
+      "params": ["tokenizer"]
+    },
+    "UPLOAD_CONTROLLER_ERROR_TYPE": {
+      "message": "Upload type {uploadType} is not defined.",
+      "description": "An error message for upload workflow",
+      "component": "UploadController",
+      "params": ["uploadType"]
+    },
+    "UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT": {
+      "message": "Uploaded file has wrong format for the type - plainSourceUploadFromFile.",
+      "description": "An error message for upload workflow",
+      "component": "UploadController"
+    }
+
+    
+}

@@ -2,11 +2,11 @@
   <div class="alpheios-alignment-editor-text-block">
       <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
       <p class="alpheios-alignment-editor-text-block__direction">
-          <span>Text Direction: </span>
+          <span>{{ $l10n.getMsg('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
           <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
-          <label :for="directionRadioId('ltr')">Left to Right</label>
+          <label :for="directionRadioId('ltr')">{{ $l10n.getMsg('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
           <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText">
-          <label :for="directionRadioId('rtl')">Right to Left</label>
+          <label :for="directionRadioId('rtl')">{{ $l10n.getMsg('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
       </p>
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
@@ -17,11 +17,11 @@
       </p>
       <div class="alpheios-alignment-editor-text-block__other-lang-block">
         <div class="alpheios-alignment-editor-text-block__other-lang">
-          <span>Or Other Language:</span>
+          <span>{{ $l10n.getMsg('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
           <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
             <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText">
             <p class="alpheios-alignment-editor-text-block__other-lang__description">
-              Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages
+              {{ $l10n.getMsg('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
             </p>
           </div>
         </div>
@@ -73,10 +73,10 @@ export default {
       return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
     },
     textBlockTitle () {
-      return `Enter Text in ${ this.textIdFormatted } Language:`
+      return this.$l10n.getMsg('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
     }, 
     chooseAvaLangLabel () {
-      return `${ this.textIdFormatted } Language:`
+      return this.$l10n.getMsg('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
     },
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang

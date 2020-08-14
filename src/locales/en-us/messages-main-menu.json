@@ -1,0 +1,17 @@
+{
+    "MAIN_MENU_DOWNLOAD_TITLE": {
+      "message": "Download",
+      "description": "Button in main menu",
+      "component": "MainMenu"
+    },
+    "MAIN_MENU_UPLOAD_TITLE": {
+      "message": "Upload",
+      "description": "Button in main menu",
+      "component": "MainMenu"
+    },
+    "MAIN_MENU_ALIGN_TITLE": {
+      "message": "Align",
+      "description": "Button in main menu",
+      "component": "MainMenu"
+    }
+}

@@ -57,7 +57,6 @@ export default {
       return this.alignTextData.lang
     },
     alignTextClass () {
-      console.info('alignTextData.tokens - ', this.alignTextData.tokens)
       return `alpheios-alignment-editor-align__${this.textType}`
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-container">
-      <h2>Define Origin and Target Texts 
+      <h2>{{ $l10n.getMsg('TEXT_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineTextsShow">{{ defineTextsShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-text-define-container" v-show="defineTextsShow">
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     defineTextsShowLabel () {
-      return this.defineTextsShow ? 'hide' : 'show'
+      return this.defineTextsShow ? this.$l10n.getMsg('TEXT_EDITOR_HIDE') : this.$l10n.getMsg('TEXT_EDITOR_SHOW')
     },
     updatedOrigin () {
       return this.originUpdated && this.originText ?  this.originText : null
