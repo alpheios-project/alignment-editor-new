@@ -55,7 +55,14 @@ export default {
     }
   },
   mounted () {
-    this.langsList = LangsList
+    this.langsList = LangsList.map(langData => {
+      const l10nLabel = `LANG_${langData.value.toUpperCase()}`
+      const l10nMessage = this.$l10n.getMsg(l10nLabel)
+      return {
+        value: langData.value,
+        label: l10nMessage ? l10nMessage : langData.label
+      }
+    })
     this.selectedAvaLang = this.langsList[0].value
   },
   watch: {

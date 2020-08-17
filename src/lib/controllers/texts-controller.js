@@ -23,11 +23,7 @@ export default class TextsController {
 
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      if (this.l10n) {
-        console.error(this.l10n.getMsg('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
-      } else {
-        console.error('Alignment should be created from selecting a word from origin text')
-      }
+      console.error(this.l10n.getMsg('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }

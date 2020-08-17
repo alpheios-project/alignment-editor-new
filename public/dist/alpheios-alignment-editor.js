@@ -13459,15 +13459,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ AppController
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 /* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
+/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
+/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
+/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+
 
 
 
@@ -13490,12 +13492,12 @@ class AppController {
     this.defineL10Support()
     this.defineTextController(this.l10n)
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_9__.default()
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default()
     const mountEl = document.getElementById(appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_9__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -13506,7 +13508,7 @@ class AppController {
 
   defineTextController (l10n) {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(l10n)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_9__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
   }
 
   defineL10Support () {
@@ -13514,17 +13516,18 @@ class AppController {
       defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US,
       messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.bundleArr([
         [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_4__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_5__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_6__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_GB]
+        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_5__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
+        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_6__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
+        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
+        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
+        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_GB]
       ])
     }
     this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_2__.default()
     config.messageBundles.forEach(mb => this.l10n.addMessageBundle(mb))
     this.l10n.setLocale(config.defaultLocale)
 
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_9__.default.prototype.$l10n = this.l10n
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$l10n = this.l10n
   }
 }
 
@@ -13554,21 +13557,13 @@ class DownloadController {
       case 'plainSourceDownload':
         return this.plainSourceDownload(data, l10n)
       default:
-        if (l10n) {
-          console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-        } else {
-          console.error(`Download type ${downloadType} is not defined.`)
-        }
+        console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     }
   }
 
   static plainSourceDownload (data, l10n) {
     if (!data.originDocSource || !data.targetDocSource) {
-      if (l10n) {
-        console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      } else {
-        console.error('You should define origin and target texts first')
-      }
+      console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,
@@ -13625,11 +13620,7 @@ class TextsController {
 
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      if (this.l10n) {
-        console.error(this.l10n.getMsg('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
-      } else {
-        console.error('Alignment should be created from selecting a word from origin text')
-      }
+      console.error(this.l10n.getMsg('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -13721,11 +13712,7 @@ class TokenizeController {
         tokenizeMethod = _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default)
         break
       default:
-        if (l10n) {
-          console.error(l10n.getMsg('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
-        } else {
-          console.error(`Tokenizer method ${tokenizer} is not registered`)
-        }
+        console.error(l10n.getMsg('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     }
 
     return tokenizeMethod
@@ -13755,11 +13742,7 @@ class UploadController {
       case 'plainSourceUploadFromFile':
         return this.plainSourceUploadFromFile(data, l10n)
       default:
-        if (l10n) {
-          console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
-        } else {
-          console.error(`Upload type ${uploadType} is not defined.`)
-        }
+        console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     }
   }
 
@@ -13767,12 +13750,7 @@ class UploadController {
     fileData = fileData.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      if (l10n) {
-        console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      } else {
-        console.error('Uploaded file has wrong format for the type - plainSourceUploadFromFile')
-      }
-
+      console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 
@@ -13856,12 +13834,7 @@ class Alignment {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getTokenizer(tokenizer, this.l10n)
 
     if (!tokenizeMethod) {
-      if (this.l10n) {
-        console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
-      } else {
-        console.error('Tokenization was cancelled.')
-      }
-      return
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
     }
 
     this.origin.alignedText = {
@@ -13899,11 +13872,7 @@ class Alignment {
     if (this.currentAlignmentGroup[token.textType]) {
       this.currentAlignmentGroup[token.textType].push(token.idWord)
     } else {
-      if (this.l10n) {
-        console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
-      } else {
-        console.error('Start alignment from origin text please!')
-      }
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 
@@ -14533,11 +14502,13 @@ class SimpleLocalTokenizer {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
+/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
+/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
+/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+
 
 
 
@@ -14550,8 +14521,8 @@ class SimpleLocalTokenizer {
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_2__],
-  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_4__]
+  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__],
+  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_5__]
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -14565,7 +14536,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_5__.default(messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_6__.default(messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -14575,7 +14546,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_5__.default(...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_6__.default(...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -14584,7 +14555,7 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = [] // eslint-disable-line prefer-const
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_5__.default(m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_6__.default(m, locale)))
     }
     return msgArray
   }
@@ -15102,7 +15073,14 @@ const availableMessages = {
     }
   },
   mounted () {
-    this.langsList = _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__
+    this.langsList = _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
+      const l10nLabel = `LANG_${langData.value.toUpperCase()}`
+      const l10nMessage = this.$l10n.getMsg(l10nLabel)
+      return {
+        value: langData.value,
+        label: l10nMessage ? l10nMessage : langData.label
+      }
+    })
     this.selectedAvaLang = this.langsList[0].value
   },
   watch: {
@@ -16778,6 +16756,665 @@ module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"
 
 /***/ }),
 
+/***/ "./locales/en-us/messages-languages.json":
+/*!***********************************************!*\
+  !*** ./locales/en-us/messages-languages.json ***!
+  \***********************************************/
+/*! default exports */
+/*! export LANG_AFR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_AKK [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_AMH [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ANG [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ARA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ARC [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ARG [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_AST [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_AVE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_AZE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_BEN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_BER [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_BOD [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_BOS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_BRE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_BUL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_CAT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_CES [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_CHG [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_CHU [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_COP [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_COR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_CYM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_DAN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_DEU [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_DUM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_EGY [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ELL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ELX [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ENG [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ENM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_EST [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_EUS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_FAS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_FIN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_FRA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_FRM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_FRO [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GEZ [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GLA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GLE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GMH [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GOH [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GOT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GRC [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GSW [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_GUJ [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_HEB [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_HIN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_HIT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_HRV [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_HUN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_HYE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_IND [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ISL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ITA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_JAV [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_JPN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_KAN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_KAT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_KHM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_KOR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_KUR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_LAD [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_LAT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_LIT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_MAR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_MGA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_MSA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_MYA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NDS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NEP [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NEW [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NLD [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NNO [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NOB [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NON [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NOR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_NWC [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_OSS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_OTA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PAL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PAN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PEO [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PHN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PLI [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_POL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_POR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PRA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PRO [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_PUS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_RAJ [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ROM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_RON [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_RUS [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SAM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SAN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SCN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SCO [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SGA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SIN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SLK [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SLV [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SND [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SOG [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SPA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SQI [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SRP [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SUX [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SWA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SWE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SYC [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_SYR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TAM [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TAT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TEL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TGK [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TGL [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_THA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TUK [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_TUR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_UGA [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_UKR [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_URD [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_UZB [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_VIE [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_WLN [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_YID [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! export LANG_ZH [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
+/*! other exports [not provided] [maybe used (runtime-defined)] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"1English\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAT\":{\"message\":\"Latin\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GRC\":{\"message\":\"Greek (Ancient –1453)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARA\":{\"message\":\"Arabic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ZH\":{\"message\":\"Chinese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AFR\":{\"message\":\"Afrikaans\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AKK\":{\"message\":\"Akkadian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SQI\":{\"message\":\"Albanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AMH\":{\"message\":\"Amharic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARG\":{\"message\":\"Aragonese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARC\":{\"message\":\"Aramaic (Imperial- 700 BC–300 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAM\":{\"message\":\"Aramaic (Samaritan)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HYE\":{\"message\":\"Armenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AST\":{\"message\":\"Asturian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AVE\":{\"message\":\"Avestan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AZE\":{\"message\":\"Azerbaijani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EUS\":{\"message\":\"Basque\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BEN\":{\"message\":\"Bengali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BER\":{\"message\":\"Berber\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOS\":{\"message\":\"Bosnian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BRE\":{\"message\":\"Breton\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BUL\":{\"message\":\"Bulgarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHU\":{\"message\":\"Bulgarian (Old, Old Church Slavonic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MYA\":{\"message\":\"Burmese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CAT\":{\"message\":\"Catalan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHG\":{\"message\":\"Chagatai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COP\":{\"message\":\"Coptic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COR\":{\"message\":\"Cornish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HRV\":{\"message\":\"Croatian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CES\":{\"message\":\"Czech\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DAN\":{\"message\":\"Danish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NLD\":{\"message\":\"Dutch (Flemish)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DUM\":{\"message\":\"Dutch (Middle, 1050–1350)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EGY\":{\"message\":\"Egyptian (Ancient)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELX\":{\"message\":\"Elamite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ENM\":{\"message\":\"English (Middle, 1100–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ANG\":{\"message\":\"English (Old, 450–1100)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EST\":{\"message\":\"Estonian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FIN\":{\"message\":\"Finnish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRA\":{\"message\":\"French\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRM\":{\"message\":\"French (Middle, 1400—1600)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRO\":{\"message\":\"French (Old, 842—c. 1400)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GEZ\":{\"message\":\"Ge'ez\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAT\":{\"message\":\"Georgian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NDS\":{\"message\":\"German (Low, Low Saxon)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GMH\":{\"message\":\"German (Middle-High, 1050–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOH\":{\"message\":\"German (Old-High, 750–1050)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DEU\":{\"message\":\"German\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOT\":{\"message\":\"Gothic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELL\":{\"message\":\"Greek (Modern, 1453–)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GUJ\":{\"message\":\"Gujarati\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HEB\":{\"message\":\"Hebrew\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIN\":{\"message\":\"Hindi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIT\":{\"message\":\"Hittite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HUN\":{\"message\":\"Hungarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ISL\":{\"message\":\"Icelandic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_IND\":{\"message\":\"Indonesian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLE\":{\"message\":\"Irish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MGA\":{\"message\":\"Irish (Middle 900–1200)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SGA\":{\"message\":\"Irish (Old, to 900)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ITA\":{\"message\":\"Italian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JPN\":{\"message\":\"Japanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JAV\":{\"message\":\"Javanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAN\":{\"message\":\"Kannada\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KHM\":{\"message\":\"Khmer (Central)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KOR\":{\"message\":\"Korean\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KUR\":{\"message\":\"Kurdish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAD\":{\"message\":\"Ladino\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LIT\":{\"message\":\"Lithuanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MSA\":{\"message\":\"Malay\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MAR\":{\"message\":\"Marathi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEW\":{\"message\":\"Nepal Bhasa (Newari)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEP\":{\"message\":\"Nepali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NWC\":{\"message\":\"Newari\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NON\":{\"message\":\"Norse (Old)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOR\":{\"message\":\"Norwegian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOB\":{\"message\":\"Norwegian (Bokmål)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NNO\":{\"message\":\"Norwegian (Nynorsk)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OSS\":{\"message\":\"Ossetian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAL\":{\"message\":\"Pahlavi (Middle Persian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PLI\":{\"message\":\"Pali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PUS\":{\"message\":\"Pashto\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FAS\":{\"message\":\"Persian (Farsi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PEO\":{\"message\":\"Persian (Old, 600–400 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PHN\":{\"message\":\"Phoenician\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POL\":{\"message\":\"Polish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POR\":{\"message\":\"Portuguese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRA\":{\"message\":\"Prakrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRO\":{\"message\":\"Provençal (Occitan, –1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAN\":{\"message\":\"Punjabi (Panjabi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RAJ\":{\"message\":\"Rajasthani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RON\":{\"message\":\"Romanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ROM\":{\"message\":\"Romany\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RUS\":{\"message\":\"Russian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAN\":{\"message\":\"Sanskrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCO\":{\"message\":\"Scots\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLA\":{\"message\":\"Scottish (Gaelic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SRP\":{\"message\":\"Serbian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCN\":{\"message\":\"Sicilian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SND\":{\"message\":\"Sindhi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SIN\":{\"message\":\"Sinhalese (Sinhala)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLK\":{\"message\":\"Slovak\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLV\":{\"message\":\"Slovenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SOG\":{\"message\":\"Sogdian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SPA\":{\"message\":\"Spanish (Castilian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SUX\":{\"message\":\"Sumerian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWA\":{\"message\":\"Swahili\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWE\":{\"message\":\"Swedish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GSW\":{\"message\":\"Swiss German (Alsatian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYC\":{\"message\":\"Syriac (Classical)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYR\":{\"message\":\"Syriac (Northeastern, Neo-Aramaic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGL\":{\"message\":\"Tagalog\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGK\":{\"message\":\"Tajik\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAM\":{\"message\":\"Tamil\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAT\":{\"message\":\"Tatar\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TEL\":{\"message\":\"Telugu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_THA\":{\"message\":\"Thai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOD\":{\"message\":\"Tibetan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUR\":{\"message\":\"Turkish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OTA\":{\"message\":\"Turkish (Ottoman, 1500–1928)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUK\":{\"message\":\"Turkmen\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UGA\":{\"message\":\"Ugaritic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UKR\":{\"message\":\"Ukainian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_URD\":{\"message\":\"Urdu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UZB\":{\"message\":\"Uzbek\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_VIE\":{\"message\":\"Vietnamese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_WLN\":{\"message\":\"Walloon\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CYM\":{\"message\":\"Welsh\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_YID\":{\"message\":\"Yiddish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"}}");
+
+/***/ }),
+
 /***/ "./locales/en-us/messages-main-menu.json":
 /*!***********************************************!*\
   !*** ./locales/en-us/messages-main-menu.json ***!
@@ -16882,523 +17519,524 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
   !*** ./vue/text-editor/langs-list.json ***!
   \*****************************************/
 /*! default exports */
-/*! export 0 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 0 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 1 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 1 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 10 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 10 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 100 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 100 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 101 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 101 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 102 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 102 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 103 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 103 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 104 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 104 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 105 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 105 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 106 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 106 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 107 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 107 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 108 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 108 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 109 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 109 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 11 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 11 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 110 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 110 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 111 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 111 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 112 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 112 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 113 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 113 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 114 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 114 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 115 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 115 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 116 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 116 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 117 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 117 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 118 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 118 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 119 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 119 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 12 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 12 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 120 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 120 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 121 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 121 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 122 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 122 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 123 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 123 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 124 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 124 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 125 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 125 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 126 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 126 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 127 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 127 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 128 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 128 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 13 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 13 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 14 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 14 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 15 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 15 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 16 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 16 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 17 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 17 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 18 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 18 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 19 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 19 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 2 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 2 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 20 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 20 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 21 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 21 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 22 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 22 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 23 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 23 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 24 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 24 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 25 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 25 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 26 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 26 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 27 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 27 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 28 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 28 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 29 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 29 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 3 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 3 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 30 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 30 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 31 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 31 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 32 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 32 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 33 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 33 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 34 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 34 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 35 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 35 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 36 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 36 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 37 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 37 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 38 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 38 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 39 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 39 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 4 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 4 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 40 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 40 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 41 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 41 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 42 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 42 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 43 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 43 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 44 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 44 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 45 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 45 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 46 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 46 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 47 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 47 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 48 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 48 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 49 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 49 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 5 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 5 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 50 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 50 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 51 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 51 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 52 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 52 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 53 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 53 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 54 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 54 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 55 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 55 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 56 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 56 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 57 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 57 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 58 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 58 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 59 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 59 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 6 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 6 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 60 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 60 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 61 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 61 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 62 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 62 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 63 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 63 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 64 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 64 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 65 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 65 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 66 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 66 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 67 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 67 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 68 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 68 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 69 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 69 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 7 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 7 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 70 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 70 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 71 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 71 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 72 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 72 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 73 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 73 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 74 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 74 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 75 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 75 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 76 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 76 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 77 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 77 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 78 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 78 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 79 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 79 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 8 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 8 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 80 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 80 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 81 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 81 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 82 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 82 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 83 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 83 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 84 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 84 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 85 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 85 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 86 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 86 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 87 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 87 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 88 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 88 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 89 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 89 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 9 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 9 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 90 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 90 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 91 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 91 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 92 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 92 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 93 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 93 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 94 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 94 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 95 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 95 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 96 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 96 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 97 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 97 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 98 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 98 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! export 99 [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*! export 99 [provided] [unused] [could be renamed] */
 /*!   export label [provided] [unused] [could be renamed] */
 /*!   export value [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
-/*! other exports [not provided] [maybe used (runtime-defined)] */
+/*! export map [not provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
 /*! runtime requirements: module */
 /***/ ((module) => {
 

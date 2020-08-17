@@ -6,21 +6,13 @@ export default class DownloadController {
       case 'plainSourceDownload':
         return this.plainSourceDownload(data, l10n)
       default:
-        if (l10n) {
-          console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-        } else {
-          console.error(`Download type ${downloadType} is not defined.`)
-        }
+        console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     }
   }
 
   static plainSourceDownload (data, l10n) {
     if (!data.originDocSource || !data.targetDocSource) {
-      if (l10n) {
-        console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      } else {
-        console.error('You should define origin and target texts first')
-      }
+      console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,

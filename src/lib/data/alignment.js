@@ -36,12 +36,7 @@ export default class Alignment {
     const tokenizeMethod = TokenizeController.getTokenizer(tokenizer, this.l10n)
 
     if (!tokenizeMethod) {
-      if (this.l10n) {
-        console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
-      } else {
-        console.error('Tokenization was cancelled.')
-      }
-      return
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
     }
 
     this.origin.alignedText = {
@@ -79,11 +74,7 @@ export default class Alignment {
     if (this.currentAlignmentGroup[token.textType]) {
       this.currentAlignmentGroup[token.textType].push(token.idWord)
     } else {
-      if (this.l10n) {
-        console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
-      } else {
-        console.error('Start alignment from origin text please!')
-      }
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 

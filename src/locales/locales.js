@@ -1,4 +1,5 @@
 import EnUsCommon from '@/locales/en-us/messages-common.json'
+import EnUsLanguages from '@/locales/en-us/messages-languages.json'
 import EnUsTextEditor from '@/locales/en-us/messages-text-editor.json'
 import EnUsAlignEditor from '@/locales/en-us/messages-align-editor.json'
 import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
@@ -10,7 +11,7 @@ import MessageBundle from '@/lib/l10n/message-bundle'
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [EnUsCommon, EnUsTextEditor, EnUsMainMenu, EnUsAlignEditor],
+  [localeEnUs]: [EnUsCommon, EnUsTextEditor, EnUsMainMenu, EnUsAlignEditor, EnUsLanguages],
   [localeEnGb]: [EnGb]
 }
 
