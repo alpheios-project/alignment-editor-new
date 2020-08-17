@@ -1,7 +1,7 @@
 import SimpleLocalTokenizer from '@/lib/tokenizers/simple-local-tokenizer.js'
 
 export default class TokenizeController {
-  static getTokenizer (tokenizer) {
+  static getTokenizer (tokenizer, l10n) {
     let tokenizeMethod = null
 
     switch (tokenizer) {
@@ -9,7 +9,7 @@ export default class TokenizeController {
         tokenizeMethod = SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer)
         break
       default:
-        console.error(`Tokenizer method ${tokenizer} is not registered`)
+        console.error(l10n.getMsg('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     }
 
     return tokenizeMethod

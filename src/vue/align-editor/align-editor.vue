@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
-      <h2>Define Alignment for Origin and Target Texts
+      <h2>{{ $l10n.getMsg('ALIGN_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     defineAlignShowLabel () {
-      return this.defineAlignShow ? 'hide' : 'show'
+      return this.defineAlignShow ? this.$l10n.getMsg('ALIGN_EDITOR_HIDE') : this.$l10n.getMsg('ALIGN_EDITOR_SHOW')
     },
     showAlignEditor () {
       return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens

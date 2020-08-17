@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 export default class Alignment {
-  constructor (docSource) {
+  constructor (docSource, l10n) {
     this.id = uuidv4()
     this.origin = {}
     this.target = {}
@@ -12,6 +12,8 @@ export default class Alignment {
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
     this.currentAlignmentGroup = null
+
+    this.l10n = l10n
   }
 
   updateOriginDocSource (docSource) {
@@ -31,11 +33,10 @@ export default class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
-    const tokenizeMethod = TokenizeController.getTokenizer(tokenizer)
+    const tokenizeMethod = TokenizeController.getTokenizer(tokenizer, this.l10n)
 
     if (!tokenizeMethod) {
-      console.error('Tokenization was cancelled.')
-      return
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
     }
 
     this.origin.alignedText = {
@@ -73,7 +74,7 @@ export default class Alignment {
     if (this.currentAlignmentGroup[token.textType]) {
       this.currentAlignmentGroup[token.textType].push(token.idWord)
     } else {
-      console.error('Start alignment from origin text please!')
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 

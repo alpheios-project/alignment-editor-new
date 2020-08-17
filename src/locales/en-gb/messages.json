@@ -1,0 +1,7 @@
+{
+  "COOKIE_TEST_MESSAGE": {
+    "message": "This is a test message about a cookie.",
+    "description": "A test message that is shown in a panel",
+    "component": "Panel"
+  }
+}

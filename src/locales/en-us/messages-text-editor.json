@@ -1,0 +1,54 @@
+{
+  "TEXT_EDITOR_HEADING": {
+    "message": "Define Origin and Target Texts",
+    "description": "A heading for text editor",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_HIDE": {
+    "message": "hide",
+    "description": "A label for hide/show links",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_SHOW": {
+    "message": "show",
+    "description": "A label for hide/show links",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_TEXT_BLOCK_TITLE": {
+    "message": "Enter Text in { textType } Language:",
+    "description": "A tytle for text block area",
+    "component": "TextEditor",
+    "params": ["textType"]
+  },
+  "TEXT_EDITOR_DIRECTION_LABEL": {
+    "message": "Text Direction:",
+    "description": "A label for text direction select",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT": {
+    "message": "Left to Right",
+    "description": "A label for text direction select option",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT": {
+    "message": "Right to Left",
+    "description": "A label for text direction select option",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_AVA_LANGUAGE_TITLE": {
+    "message": "{ textType } Language:",
+    "description": "A title for available languages select",
+    "component": "TextEditor",
+    "params": ["textType"]
+  },
+  "TEXT_EDITOR_LANGUAGE_OTHER_LABEL": {
+    "message": "Or Other Language:",
+    "description": "A label for other language text input",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION": {
+    "message": "Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages",
+    "description": "A description for other language text input",
+    "component": "TextEditor"
+  }
+}

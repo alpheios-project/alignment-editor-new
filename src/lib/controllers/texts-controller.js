@@ -5,8 +5,12 @@ import DownloadController from '@/lib/controllers/download-controller.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
 
 export default class TextsController {
+  constructor (l10n) {
+    this.l10n = l10n
+  }
+
   createAlignment (originDocSource) {
-    this.alignment = new Alignment(originDocSource)
+    this.alignment = new Alignment(originDocSource, this.l10n)
   }
 
   updateOriginDocSource (originDocSource) {
@@ -19,7 +23,7 @@ export default class TextsController {
 
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      console.error('Alignment should be created from selecting a word from origin text')
+      console.error(this.l10n.getMsg('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -36,7 +40,7 @@ export default class TextsController {
   uploadDocSourceFromFile (fileData) {
     const uploadType = 'plainSourceUploadFromFile'
 
-    const result = UploadController.upload(uploadType, fileData)
+    const result = UploadController.upload(uploadType, fileData, this.l10n)
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
@@ -49,7 +53,7 @@ export default class TextsController {
       originDocSource: this.originDocSource,
       targetDocSource: this.targetDocSource
     }
-    return DownloadController.download(downloadType, data)
+    return DownloadController.download(downloadType, data, this.l10n)
   }
 
   createAlignedTexts () {
