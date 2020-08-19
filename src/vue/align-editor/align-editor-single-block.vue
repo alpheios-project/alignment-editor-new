@@ -14,6 +14,7 @@
           :selected = "updated && selectedToken(token)"
           :grouped = "updated && groupedToken(token)"
           :inUnfinishedGroup = "updated && inUnfinishedGroup(token)"
+          :firstInUnfinishedGroup = "updated && isFirstInUnfinishedGroup(token)"
         />
         <br v-if="token.hasLineBreak" />
       </template>
@@ -92,6 +93,9 @@ export default {
     },
     inUnfinishedGroup (token) {
       return this.$alignedC.tokenInUnfinishedGroup(token)
+    },
+    isFirstInUnfinishedGroup (token) {
+      return this.$alignedC.isFirstInUnfinishedGroup(token)
     }
   }
 }

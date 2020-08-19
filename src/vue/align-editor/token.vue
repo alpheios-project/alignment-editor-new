@@ -35,6 +35,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    firstInUnfinishedGroup: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -46,7 +51,8 @@ export default {
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
-        'alpheios-token-clicked': this.inUnfinishedGroup
+        'alpheios-token-clicked': this.inUnfinishedGroup,
+        'alpheios-token-clicked-first': this.firstInUnfinishedGroup
       }
     }
   },
@@ -90,6 +96,12 @@ export default {
             &.alpheios-token-clicked {
               border-color: #f59d6e;
               background: #f59d6e;
+            }
+
+            &.alpheios-token-clicked-first {
+              border-color: #f06d26;
+              background: #f06d26;
+              color: #fff;
             }
         }
     }

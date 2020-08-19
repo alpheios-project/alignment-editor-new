@@ -13523,6 +13523,10 @@ class AlignedController {
   tokenInUnfinishedGroup (token) {
     return this.alignment.tokenInUnfinishedGroup(token)
   }
+
+  isFirstInUnfinishedGroup (token) {
+    return this.alignment.isFirstInUnfinishedGroup(token)
+  }
 }
 
 
@@ -13872,7 +13876,6 @@ class AlignmentGroup {
   add (token) {
     this[token.textType].push(token.idWord)
     this.steps.push({ textType: token.textType, id: token.idWord })
-    console.info('this.steps - ', this.steps)
   }
 
   get lastStepTextType () {
@@ -13896,6 +13899,10 @@ class AlignmentGroup {
 
   includesToken (token) {
     return this.origin.includes(token.idWord) || this.target.includes(token.idWord)
+  }
+
+  isFirstToken (token) {
+    return this.steps.length > 0 && this.steps[0].id === token.idWord
   }
 }
 
@@ -14025,6 +14032,10 @@ class Alignment {
 
   tokenInUnfinishedGroup (token) {
     return this.currentAlignmentGroup && this.currentAlignmentGroup.includesToken(token)
+  }
+
+  isFirstInUnfinishedGroup (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
   }
 }
 
@@ -14730,6 +14741,7 @@ const availableMessages = {
 //
 //
 //
+//
 
 
 
@@ -14803,6 +14815,9 @@ const availableMessages = {
     },
     inUnfinishedGroup (token) {
       return this.$alignedC.tokenInUnfinishedGroup(token)
+    },
+    isFirstInUnfinishedGroup (token) {
+      return this.$alignedC.isFirstInUnfinishedGroup(token)
     }
   }
 });
@@ -14981,6 +14996,11 @@ const availableMessages = {
       type: Boolean,
       required: false,
       default: false
+    },
+    firstInUnfinishedGroup: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -14992,7 +15012,8 @@ const availableMessages = {
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
-        'alpheios-token-clicked': this.inUnfinishedGroup
+        'alpheios-token-clicked': this.inUnfinishedGroup,
+        'alpheios-token-clicked-first': this.firstInUnfinishedGroup
       }
     }
   },
@@ -16157,7 +16178,10 @@ var render = function() {
                   "text-word": token,
                   selected: _vm.updated && _vm.selectedToken(token),
                   grouped: _vm.updated && _vm.groupedToken(token),
-                  inUnfinishedGroup: _vm.updated && _vm.inUnfinishedGroup(token)
+                  inUnfinishedGroup:
+                    _vm.updated && _vm.inUnfinishedGroup(token),
+                  firstInUnfinishedGroup:
+                    _vm.updated && _vm.isFirstInUnfinishedGroup(token)
                 },
                 on: {
                   clickWord: _vm.clickWord,

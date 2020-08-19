@@ -305,6 +305,11 @@ input.alpheios-input::-ms-input-placeholder {
   border-color: #f59d6e;
   background: #f59d6e;
 }
+.alpheios-alignment-editor-align-text span.alpheios-token-clicked-first {
+  border-color: #f06d26;
+  background: #f06d26;
+  color: #fff;
+}
 .alpheios-alignment-editor-align-text {
   float: left;
   width: 50%;

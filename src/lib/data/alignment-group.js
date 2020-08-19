@@ -12,7 +12,6 @@ export default class AlignmentGroup {
   add (token) {
     this[token.textType].push(token.idWord)
     this.steps.push({ textType: token.textType, id: token.idWord })
-    console.info('this.steps - ', this.steps)
   }
 
   get lastStepTextType () {
@@ -36,5 +35,9 @@ export default class AlignmentGroup {
 
   includesToken (token) {
     return this.origin.includes(token.idWord) || this.target.includes(token.idWord)
+  }
+
+  isFirstToken (token) {
+    return this.steps.length > 0 && this.steps[0].id === token.idWord
   }
 }

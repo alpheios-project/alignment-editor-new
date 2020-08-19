@@ -104,4 +104,8 @@ export default class Alignment {
   tokenInUnfinishedGroup (token) {
     return this.currentAlignmentGroup && this.currentAlignmentGroup.includesToken(token)
   }
+
+  isFirstInUnfinishedGroup (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
+  }
 }

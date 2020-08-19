@@ -50,4 +50,8 @@ export default class AlignedController {
   tokenInUnfinishedGroup (token) {
     return this.alignment.tokenInUnfinishedGroup(token)
   }
+
+  isFirstInUnfinishedGroup (token) {
+    return this.alignment.isFirstInUnfinishedGroup(token)
+  }
 }
