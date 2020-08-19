@@ -2,7 +2,7 @@
     <div class  ="alpheios-alignment-editor-align-text"
          :class = "alignTextClass" 
          :dir = "direction" :lang = "lang" 
-         @click = "clickEmptyText"
+         @click.stop = "clickEmptyText"
     >
       <template v-for = "token in alignTextData.tokens">
         <token
@@ -11,13 +11,17 @@
           @clickWord = "clickWord"
           @addHoverWord = "addHoverWord"
           @removeHoverWord = "removeHoverWord"
-          :selected = "updated && showAlignment.includes(token.idWord)"
+          :selected = "updated && selectedToken(token)"
+          :grouped = "updated && groupedToken(token)"
+          :inUnfinishedGroup = "updated && inUnfinishedGroup(token)"
         />
         <br v-if="token.hasLineBreak" />
       </template>
     </div>
 </template>
 <script>
+import Vue from '@vue-runtime'
+
 import Token from '@/vue/align-editor/token.vue'
 
 export default {
@@ -35,15 +39,21 @@ export default {
       type: Array,
       required: false
     },
-    prefixId: {
+
+    alignmentUpdated : {
       type: Number,
-      required: true,
-      default: '1'
+      required: false,
+      default: 0
     }
   },
   data () {
     return {
       updated: 1
+    }
+  },
+  watch: {
+    alignmentUpdated () {
+      this.updated = this.updated + 1
     }
   },
   computed: {
@@ -66,14 +76,22 @@ export default {
     },
     addHoverWord (token) {
       this.$emit('addHoverWord', token)
-      this.updated = this.updated + 1
     },
     removeHoverWord (token) {
       this.$emit('removeHoverWord', token)
-      this.updated = this.updated + 1
     },
     clickEmptyText () {
       this.$emit('clickEmptyText', this.textType)
+    },
+
+    selectedToken (token) {
+      return this.showAlignment.includes(token.idWord)
+    },
+    groupedToken (token) {
+      return this.$alignedC.tokenIsGrouped(token)
+    },
+    inUnfinishedGroup (token) {
+      return this.$alignedC.tokenInUnfinishedGroup(token)
     }
   }
 }
@@ -93,22 +111,4 @@ export default {
         padding-left: 20px;
     }
 
-    .alpheios-alignment-editor-align-text {
-        span {
-            cursor: pointer;
-            padding: 4px;
-            border: 1px solid transparent;
-            display: inline-block;
-
-            &:hover {
-                border-color: #FFC24F;
-                background: #FFD27D;
-            }
-
-            &.alpheios-token-selected {
-              border-color: #f59d6e;
-              background: #f59d6e;
-            }
-        }
-    }
 </style>

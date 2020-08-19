@@ -67,7 +67,7 @@ export default {
     },
 
     alignTexts () {
-      this.$textC.createAlignedTexts()
+      this.$alignedC.createAlignedTexts(this.$textC.alignment)
       this.hideTextEditorM()
       this.showAlignEditorM()    
     }

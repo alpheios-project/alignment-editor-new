@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import AlignmentGroup from '@/lib/data/alignment-group'
 
 export default class Alignment {
   constructor (docSource, l10n) {
@@ -61,41 +62,46 @@ export default class Alignment {
     return this.target.alignedText
   }
 
+  shouldStartNewAlignmentGroup (token) {
+    return !this.currentAlignmentGroup || !this.currentAlignmentGroup.couldBeAdded(token)
+  }
+
   startNewAlignmentGroup (token) {
-    const alignmetGroupId = uuidv4()
-    this.currentAlignmentGroup = {
-      id: alignmetGroupId,
-      origin: [token.idWord],
-      target: []
-    }
+    this.currentAlignmentGroup = new AlignmentGroup(token)
   }
 
   addToAlignmentGroup (token) {
     if (this.currentAlignmentGroup[token.textType]) {
-      this.currentAlignmentGroup[token.textType].push(token.idWord)
+      this.currentAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 
   finishCurrentAlignmentGroup () {
-    if (this.currentAlignmentGroup && this.currentAlignmentGroup.id && this.currentAlignmentGroup.target && this.currentAlignmentGroup.target.length > 0) {
+    if (this.currentAlignmentGroup && this.currentAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.currentAlignmentGroup)
-      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.origin)
-      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.target)
+      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.allIds)
     }
-    this.currentAlignmentGroup = {}
+
+    this.currentAlignmentGroup = null
   }
 
   findAlignmentGroup (token) {
-    const searchId = token.idWord
-    if (this.alignmentGroupsIds.includes(searchId)) {
-      const alignmentGroup = this.alignmentGroups.find(al => al.origin.includes(searchId) || al.target.includes(searchId))
+    if (this.tokenIsGrouped(token)) {
+      const alignmentGroup = this.alignmentGroups.find(al => al.includesToken(token))
       const activeAlignmentGroup = []
-      activeAlignmentGroup.push(...alignmentGroup.origin)
-      activeAlignmentGroup.push(...alignmentGroup.target)
+      activeAlignmentGroup.push(...alignmentGroup.allIds)
       return activeAlignmentGroup
     }
-    return false
+    return []
+  }
+
+  tokenIsGrouped (token) {
+    return this.alignmentGroupsIds.includes(token.idWord)
+  }
+
+  tokenInUnfinishedGroup (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.includesToken(token)
   }
 }
