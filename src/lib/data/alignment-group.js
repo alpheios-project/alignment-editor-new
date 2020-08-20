@@ -40,4 +40,8 @@ export default class AlignmentGroup {
   isFirstToken (token) {
     return this.steps.length > 0 && this.steps[0].id === token.idWord
   }
+
+  tokenTheSameTextTypeAsStart (token) {
+    return this.steps.length > 0 && this.steps[0].textType === token.textType
+  }
 }

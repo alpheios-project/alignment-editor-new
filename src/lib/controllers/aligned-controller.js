@@ -18,10 +18,12 @@ export default class AlignedController {
   }
 
   addTokenToGroup (token) {
-    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
+    if (this.alignment.shouldFinishAlignmentGroup(token)) {
       this.finishCurrentAlignmentGroup()
+      return
+    }
+    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
       this.startNewAlignmentGroup(token)
-      return true
     } else {
       this.addToAlignmentGroup(token)
     }

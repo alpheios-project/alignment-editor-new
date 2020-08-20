@@ -62,8 +62,12 @@ export default class Alignment {
     return this.target.alignedText
   }
 
+  shouldFinishAlignmentGroup (token) {
+    return this.tokenInUnfinishedGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+  }
+
   shouldStartNewAlignmentGroup (token) {
-    return !this.currentAlignmentGroup || !this.currentAlignmentGroup.couldBeAdded(token)
+    return !this.currentAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
@@ -107,5 +111,9 @@ export default class Alignment {
 
   isFirstInUnfinishedGroup (token) {
     return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
+  }
+
+  tokenTheSameTextTypeAsStart (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 }

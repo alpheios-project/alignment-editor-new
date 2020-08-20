@@ -2,7 +2,6 @@
     <div class  ="alpheios-alignment-editor-align-text"
          :class = "alignTextClass" 
          :dir = "direction" :lang = "lang" 
-         @click.stop = "clickEmptyText"
     >
       <template v-for = "token in alignTextData.tokens">
         <token
@@ -81,10 +80,6 @@ export default {
     removeHoverWord (token) {
       this.$emit('removeHoverWord', token)
     },
-    clickEmptyText () {
-      this.$emit('clickEmptyText', this.textType)
-    },
-
     selectedToken (token) {
       return this.showAlignment.includes(token.idWord)
     },

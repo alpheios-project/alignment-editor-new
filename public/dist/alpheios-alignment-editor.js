@@ -13491,10 +13491,12 @@ class AlignedController {
   }
 
   addTokenToGroup (token) {
-    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
+    if (this.alignment.shouldFinishAlignmentGroup(token)) {
       this.finishCurrentAlignmentGroup()
+      return
+    }
+    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
       this.startNewAlignmentGroup(token)
-      return true
     } else {
       this.addToAlignmentGroup(token)
     }
@@ -13904,6 +13906,10 @@ class AlignmentGroup {
   isFirstToken (token) {
     return this.steps.length > 0 && this.steps[0].id === token.idWord
   }
+
+  tokenTheSameTextTypeAsStart (token) {
+    return this.steps.length > 0 && this.steps[0].textType === token.textType
+  }
 }
 
 
@@ -13991,8 +13997,12 @@ class Alignment {
     return this.target.alignedText
   }
 
+  shouldFinishAlignmentGroup (token) {
+    return this.tokenInUnfinishedGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+  }
+
   shouldStartNewAlignmentGroup (token) {
-    return !this.currentAlignmentGroup || !this.currentAlignmentGroup.couldBeAdded(token)
+    return !this.currentAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
@@ -14036,6 +14046,10 @@ class Alignment {
 
   isFirstInUnfinishedGroup (token) {
     return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
+  }
+
+  tokenTheSameTextTypeAsStart (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 }
 
@@ -14741,7 +14755,6 @@ const availableMessages = {
 //
 //
 //
-//
 
 
 
@@ -14803,10 +14816,6 @@ const availableMessages = {
     removeHoverWord (token) {
       this.$emit('removeHoverWord', token)
     },
-    clickEmptyText () {
-      this.$emit('clickEmptyText', this.textType)
-    },
-
     selectedToken (token) {
       return this.showAlignment.includes(token.idWord)
     },
@@ -14840,8 +14849,6 @@ const availableMessages = {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_align_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-single-block.vue */ "./vue/align-editor/align-editor-single-block.vue");
-//
-//
 //
 //
 //
@@ -14933,10 +14940,6 @@ const availableMessages = {
     },
     removeHoverWord (textWord) {
       this.showAlignment = []
-      this.updateTokenClasses()
-    },
-    clickEmptyText () {
-      this.$alignedC.finishCurrentAlignmentGroup()
       this.updateTokenClasses()
     }
   }
@@ -16159,13 +16162,7 @@ var render = function() {
     {
       staticClass: "alpheios-alignment-editor-align-text",
       class: _vm.alignTextClass,
-      attrs: { dir: _vm.direction, lang: _vm.lang },
-      on: {
-        click: function($event) {
-          $event.stopPropagation()
-          return _vm.clickEmptyText($event)
-        }
-      }
+      attrs: { dir: _vm.direction, lang: _vm.lang }
     },
     [
       _vm._l(_vm.alignTextData.tokens, function(token) {
@@ -16236,8 +16233,7 @@ var render = function() {
           expression: "showAlignEditor"
         }
       ],
-      staticClass: "alpheios-alignment-editor-container",
-      on: { click: _vm.clickEmptyText }
+      staticClass: "alpheios-alignment-editor-container"
     },
     [
       _c("h2", [
@@ -16278,8 +16274,7 @@ var render = function() {
                 on: {
                   clickWord: _vm.clickWord,
                   addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord,
-                  clickEmptyText: _vm.clickEmptyText
+                  removeHoverWord: _vm.removeHoverWord
                 }
               }),
               _vm._v(" "),
@@ -16292,8 +16287,7 @@ var render = function() {
                 on: {
                   clickWord: _vm.clickWord,
                   addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord,
-                  clickEmptyText: _vm.clickEmptyText
+                  removeHoverWord: _vm.removeHoverWord
                 }
               })
             ],

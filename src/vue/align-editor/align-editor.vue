@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-editor-container" v-show="showAlignEditor" @click="clickEmptyText">
+  <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
       <h2>{{ $l10n.getMsg('ALIGN_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
@@ -9,14 +9,12 @@
             :show-alignment="showAlignment"
             :alignment-updated = "alignmentUpdated"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
-            @clickEmptyText="clickEmptyText"
           />
           <align-editor-single-block 
             :align-text-data="targetAlignedText"
             :show-alignment="showAlignment"
             :alignment-updated = "alignmentUpdated"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
-            @clickEmptyText="clickEmptyText"
           />
       </div>
   </div>
@@ -91,10 +89,6 @@ export default {
     },
     removeHoverWord (textWord) {
       this.showAlignment = []
-      this.updateTokenClasses()
-    },
-    clickEmptyText () {
-      this.$alignedC.finishCurrentAlignmentGroup()
       this.updateTokenClasses()
     }
   }
