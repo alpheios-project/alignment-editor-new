@@ -22,10 +22,6 @@ export default class AlignmentGroup {
     return this.id && this.origin && this.origin.length > 0 && this.target && this.target.length > 0
   }
 
-  couldBeAdded (token) {
-    return !this.couldBeFinished || (this.lastStepTextType === token.textType)
-  }
-
   get allIds () {
     const ids = []
     ids.push(...this.origin)

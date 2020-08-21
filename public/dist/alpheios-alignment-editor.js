@@ -13491,10 +13491,15 @@ class AlignedController {
   }
 
   addTokenToGroup (token) {
+    if (this.tokenIsGrouped(token)) {
+      return
+    }
+
     if (this.alignment.shouldFinishAlignmentGroup(token)) {
       this.finishCurrentAlignmentGroup()
       return
     }
+
     if (this.alignment.shouldStartNewAlignmentGroup(token)) {
       this.startNewAlignmentGroup(token)
     } else {
@@ -13886,10 +13891,6 @@ class AlignmentGroup {
 
   get couldBeFinished () {
     return this.id && this.origin && this.origin.length > 0 && this.target && this.target.length > 0
-  }
-
-  couldBeAdded (token) {
-    return !this.couldBeFinished || (this.lastStepTextType === token.textType)
   }
 
   get allIds () {
