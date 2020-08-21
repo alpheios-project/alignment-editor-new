@@ -5,16 +5,16 @@
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
           <align-editor-single-block
-            :align-text-data="originAlignedText" :prefix-id = "1" 
+            :align-text-data="originAlignedText" 
             :show-alignment="showAlignment"
+            :alignment-updated = "alignmentUpdated"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
-            @clickEmptyText="clickEmptyText"
           />
           <align-editor-single-block 
-            :align-text-data="targetAlignedText" :prefix-id = "2"
+            :align-text-data="targetAlignedText"
             :show-alignment="showAlignment"
+            :alignment-updated = "alignmentUpdated"
             @clickWord="clickWord" @addHoverWord="addHoverWord" @removeHoverWord="removeHoverWord"
-            @clickEmptyText="clickEmptyText"
           />
       </div>
   </div>
@@ -37,10 +37,10 @@ export default {
   data () {
     return {
       defineAlignShow: false,
-      prevClickedWordType: null,
       showAlignment: [],
       originUpdated: 1,
-      targetUpdated: 1
+      targetUpdated: 1,
+      alignmentUpdated: 1
     }
   },
   watch: {
@@ -58,13 +58,16 @@ export default {
       return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
     },
     originAlignedText () {
-      return this.originUpdated ? this.$textC.originAlignedText : {}
+      return this.originUpdated ? this.$alignedC.originAlignedText : {}
     },
     targetAlignedText () {
-      return this.targetUpdated ? this.$textC.targetAlignedText : {}
+      return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
     }
   },
   methods: {
+    updateTokenClasses () {
+      this.alignmentUpdated = this.alignmentUpdated + 1
+    },
     updateOriginEditor () {
       this.originUpdated = this.originUpdated + 1
     },
@@ -77,35 +80,16 @@ export default {
       this.defineAlignShow = !this.defineAlignShow
     },
     clickWord (token) {
-      if (token.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
-        this.finishCurrentAlignmentGroup()
-        this.startNewAlignmentGroup(token)
-      } else {
-        this.addToAlignmentGroup(token)
-      }
-      this.prevClickedWordType = token.textType
-    },
-    startNewAlignmentGroup (token) {
-      this.$textC.startNewAlignmentGroup(token)
-    },
-    finishCurrentAlignmentGroup () {
-      this.$textC.finishCurrentAlignmentGroup()
-    },
-    addToAlignmentGroup (token) {
-      this.$textC.addToAlignmentGroup(token)
+      this.$alignedC.addTokenToGroup(token)
+      this.updateTokenClasses()
     },
     addHoverWord (token) {
-      const activeAlignmentGroup = this.$textC.findAlignmentGroup(token)
-      if (activeAlignmentGroup) {
-        this.showAlignment = activeAlignmentGroup
-      }
+      this.showAlignment = this.$alignedC.findAlignmentGroup(token)
+      this.updateTokenClasses()
     },
     removeHoverWord (textWord) {
       this.showAlignment = []
-    },
-    clickEmptyText (textType) {
-      this.finishCurrentAlignmentGroup()
-      this.prevClickedWordType = null
+      this.updateTokenClasses()
     }
   }
 }

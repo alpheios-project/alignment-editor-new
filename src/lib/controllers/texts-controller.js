@@ -55,33 +55,4 @@ export default class TextsController {
     }
     return DownloadController.download(downloadType, data, this.l10n)
   }
-
-  createAlignedTexts () {
-    const tokenizer = 'simpleWordTokenization'
-    this.alignment.createAlignedTexts(tokenizer)
-  }
-
-  get originAlignedText () {
-    return this.alignment ? this.alignment.originAlignedText : {}
-  }
-
-  get targetAlignedText () {
-    return this.alignment ? this.alignment.targetAlignedText : {}
-  }
-
-  startNewAlignmentGroup (token) {
-    this.alignment.startNewAlignmentGroup(token)
-  }
-
-  addToAlignmentGroup (token) {
-    this.alignment.addToAlignmentGroup(token)
-  }
-
-  finishCurrentAlignmentGroup (token) {
-    this.alignment.finishCurrentAlignmentGroup()
-  }
-
-  findAlignmentGroup (token) {
-    return this.alignment.findAlignmentGroup(token)
-  }
 }

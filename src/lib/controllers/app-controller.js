@@ -2,6 +2,7 @@ import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
+import AlignedController from '@/lib/controllers/aligned-controller.js'
 
 import L10n from '@/lib/l10n/l10n.js'
 import Locales from '@/locales/locales.js'
@@ -20,6 +21,7 @@ export default class AppController {
   attachVueComponents (appId) {
     this.defineL10Support()
     this.defineTextController(this.l10n)
+    this.defineAlignedController(this.l10n)
 
     const rootVi = new Vue()
     const mountEl = document.getElementById(appId)
@@ -38,6 +40,11 @@ export default class AppController {
   defineTextController (l10n) {
     this.textC = new TextsController(l10n)
     Vue.prototype.$textC = this.textC
+  }
+
+  defineAlignedController (l10n) {
+    this.alignedC = new AlignedController(l10n)
+    Vue.prototype.$alignedC = this.alignedC
   }
 
   defineL10Support () {

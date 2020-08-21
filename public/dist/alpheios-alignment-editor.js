@@ -41,6 +41,19 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements:  */
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -13444,6 +13457,88 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./lib/controllers/aligned-controller.js":
+/*!***********************************************!*\
+  !*** ./lib/controllers/aligned-controller.js ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ AlignedController
+/* harmony export */ });
+class AlignedController {
+  constructor (l10n) {
+    this.l10n = l10n
+  }
+
+  createAlignedTexts (alignment) {
+    this.alignment = alignment
+    const tokenizer = 'simpleWordTokenization'
+    this.alignment.createAlignedTexts(tokenizer)
+  }
+
+  get originAlignedText () {
+    return this.alignment ? this.alignment.originAlignedText : {}
+  }
+
+  get targetAlignedText () {
+    return this.alignment ? this.alignment.targetAlignedText : {}
+  }
+
+  addTokenToGroup (token) {
+    if (this.tokenIsGrouped(token)) {
+      return
+    }
+
+    if (this.alignment.shouldFinishAlignmentGroup(token)) {
+      this.finishCurrentAlignmentGroup()
+      return
+    }
+
+    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
+      this.startNewAlignmentGroup(token)
+    } else {
+      this.addToAlignmentGroup(token)
+    }
+  }
+
+  startNewAlignmentGroup (token) {
+    this.alignment.startNewAlignmentGroup(token)
+  }
+
+  addToAlignmentGroup (token) {
+    this.alignment.addToAlignmentGroup(token)
+  }
+
+  finishCurrentAlignmentGroup () {
+    this.alignment.finishCurrentAlignmentGroup()
+  }
+
+  findAlignmentGroup (token) {
+    return this.alignment.findAlignmentGroup(token)
+  }
+
+  tokenIsGrouped (token) {
+    return this.alignment.tokenIsGrouped(token)
+  }
+
+  tokenInUnfinishedGroup (token) {
+    return this.alignment.tokenInUnfinishedGroup(token)
+  }
+
+  isFirstInUnfinishedGroup (token) {
+    return this.alignment.isFirstInUnfinishedGroup(token)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/controllers/app-controller.js":
 /*!*******************************************!*\
   !*** ./lib/controllers/app-controller.js ***!
@@ -13459,16 +13554,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ AppController
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
+/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
+/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
+/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
+/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+
 
 
 
@@ -13491,13 +13588,14 @@ class AppController {
   attachVueComponents (appId) {
     this.defineL10Support()
     this.defineTextController(this.l10n)
+    this.defineAlignedController(this.l10n)
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default()
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default()
     const mountEl = document.getElementById(appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -13508,26 +13606,31 @@ class AppController {
 
   defineTextController (l10n) {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(l10n)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
+  }
+
+  defineAlignedController (l10n) {
+    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(l10n)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedC = this.alignedC
   }
 
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.bundleArr([
-        [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_4__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_5__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_6__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_US],
-        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_3__.default.en_GB]
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.bundleArr([
+        [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_5__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
+        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_6__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
+        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
+        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
+        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
+        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_GB]
       ])
     }
-    this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_2__.default()
+    this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default()
     config.messageBundles.forEach(mb => this.l10n.addMessageBundle(mb))
     this.l10n.setLocale(config.defaultLocale)
 
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$l10n = this.l10n
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$l10n = this.l10n
   }
 }
 
@@ -13652,35 +13755,6 @@ class TextsController {
     }
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data, this.l10n)
   }
-
-  createAlignedTexts () {
-    const tokenizer = 'simpleWordTokenization'
-    this.alignment.createAlignedTexts(tokenizer)
-  }
-
-  get originAlignedText () {
-    return this.alignment ? this.alignment.originAlignedText : {}
-  }
-
-  get targetAlignedText () {
-    return this.alignment ? this.alignment.targetAlignedText : {}
-  }
-
-  startNewAlignmentGroup (token) {
-    this.alignment.startNewAlignmentGroup(token)
-  }
-
-  addToAlignmentGroup (token) {
-    this.alignment.addToAlignmentGroup(token)
-  }
-
-  finishCurrentAlignmentGroup (token) {
-    this.alignment.finishCurrentAlignmentGroup()
-  }
-
-  findAlignmentGroup (token) {
-    return this.alignment.findAlignmentGroup(token)
-  }
 }
 
 
@@ -13779,6 +13853,69 @@ class UploadController {
 
 /***/ }),
 
+/***/ "./lib/data/alignment-group.js":
+/*!*************************************!*\
+  !*** ./lib/data/alignment-group.js ***!
+  \*************************************/
+/*! namespace exports */
+/*! export default [provided] [used] [could be renamed] */
+/*! other exports [not provided] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ AlignmentGroup
+/* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class AlignmentGroup {
+  constructor (token) {
+    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+    this.origin = []
+    this.target = []
+    this.steps = []
+    this.add(token)
+  }
+
+  add (token) {
+    this[token.textType].push(token.idWord)
+    this.steps.push({ textType: token.textType, id: token.idWord })
+  }
+
+  get lastStepTextType () {
+    return this.steps[this.steps.length - 1].textType
+  }
+
+  get couldBeFinished () {
+    return this.id && this.origin && this.origin.length > 0 && this.target && this.target.length > 0
+  }
+
+  get allIds () {
+    const ids = []
+    ids.push(...this.origin)
+    ids.push(...this.target)
+    return ids
+  }
+
+  includesToken (token) {
+    return this.origin.includes(token.idWord) || this.target.includes(token.idWord)
+  }
+
+  isFirstToken (token) {
+    return this.steps.length > 0 && this.steps[0].id === token.idWord
+  }
+
+  tokenTheSameTextTypeAsStart (token) {
+    return this.steps.length > 0 && this.steps[0].textType === token.textType
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/data/alignment.js":
 /*!*******************************!*\
   !*** ./lib/data/alignment.js ***!
@@ -13796,6 +13933,8 @@ class UploadController {
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/alignment-group */ "./lib/data/alignment-group.js");
+
 
 
 
@@ -13859,42 +13998,59 @@ class Alignment {
     return this.target.alignedText
   }
 
+  shouldFinishAlignmentGroup (token) {
+    return this.tokenInUnfinishedGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+  }
+
+  shouldStartNewAlignmentGroup (token) {
+    return !this.currentAlignmentGroup
+  }
+
   startNewAlignmentGroup (token) {
-    const alignmetGroupId = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-    this.currentAlignmentGroup = {
-      id: alignmetGroupId,
-      origin: [token.idWord],
-      target: []
-    }
+    this.currentAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__.default(token)
   }
 
   addToAlignmentGroup (token) {
     if (this.currentAlignmentGroup[token.textType]) {
-      this.currentAlignmentGroup[token.textType].push(token.idWord)
+      this.currentAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 
   finishCurrentAlignmentGroup () {
-    if (this.currentAlignmentGroup && this.currentAlignmentGroup.id && this.currentAlignmentGroup.target && this.currentAlignmentGroup.target.length > 0) {
+    if (this.currentAlignmentGroup && this.currentAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.currentAlignmentGroup)
-      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.origin)
-      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.target)
+      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.allIds)
     }
-    this.currentAlignmentGroup = {}
+
+    this.currentAlignmentGroup = null
   }
 
   findAlignmentGroup (token) {
-    const searchId = token.idWord
-    if (this.alignmentGroupsIds.includes(searchId)) {
-      const alignmentGroup = this.alignmentGroups.find(al => al.origin.includes(searchId) || al.target.includes(searchId))
+    if (this.tokenIsGrouped(token)) {
+      const alignmentGroup = this.alignmentGroups.find(al => al.includesToken(token))
       const activeAlignmentGroup = []
-      activeAlignmentGroup.push(...alignmentGroup.origin)
-      activeAlignmentGroup.push(...alignmentGroup.target)
+      activeAlignmentGroup.push(...alignmentGroup.allIds)
       return activeAlignmentGroup
     }
-    return false
+    return []
+  }
+
+  tokenIsGrouped (token) {
+    return this.alignmentGroupsIds.includes(token.idWord)
+  }
+
+  tokenInUnfinishedGroup (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.includesToken(token)
+  }
+
+  isFirstInUnfinishedGroup (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
+  }
+
+  tokenTheSameTextTypeAsStart (token) {
+    return this.currentAlignmentGroup && this.currentAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 }
 
@@ -14598,6 +14754,10 @@ const availableMessages = {
 //
 //
 //
+//
+//
+
+
 
 
 
@@ -14616,15 +14776,21 @@ const availableMessages = {
       type: Array,
       required: false
     },
-    prefixId: {
+
+    alignmentUpdated : {
       type: Number,
-      required: true,
-      default: '1'
+      required: false,
+      default: 0
     }
   },
   data () {
     return {
       updated: 1
+    }
+  },
+  watch: {
+    alignmentUpdated () {
+      this.updated = this.updated + 1
     }
   },
   computed: {
@@ -14647,14 +14813,21 @@ const availableMessages = {
     },
     addHoverWord (token) {
       this.$emit('addHoverWord', token)
-      this.updated = this.updated + 1
     },
     removeHoverWord (token) {
       this.$emit('removeHoverWord', token)
-      this.updated = this.updated + 1
     },
-    clickEmptyText () {
-      this.$emit('clickEmptyText', this.textType)
+    selectedToken (token) {
+      return this.showAlignment.includes(token.idWord)
+    },
+    groupedToken (token) {
+      return this.$alignedC.tokenIsGrouped(token)
+    },
+    inUnfinishedGroup (token) {
+      return this.$alignedC.tokenInUnfinishedGroup(token)
+    },
+    isFirstInUnfinishedGroup (token) {
+      return this.$alignedC.isFirstInUnfinishedGroup(token)
     }
   }
 });
@@ -14716,10 +14889,10 @@ const availableMessages = {
   data () {
     return {
       defineAlignShow: false,
-      prevClickedWordType: null,
       showAlignment: [],
       originUpdated: 1,
-      targetUpdated: 1
+      targetUpdated: 1,
+      alignmentUpdated: 1
     }
   },
   watch: {
@@ -14737,13 +14910,16 @@ const availableMessages = {
       return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
     },
     originAlignedText () {
-      return this.originUpdated ? this.$textC.originAlignedText : {}
+      return this.originUpdated ? this.$alignedC.originAlignedText : {}
     },
     targetAlignedText () {
-      return this.targetUpdated ? this.$textC.targetAlignedText : {}
+      return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
     }
   },
   methods: {
+    updateTokenClasses () {
+      this.alignmentUpdated = this.alignmentUpdated + 1
+    },
     updateOriginEditor () {
       this.originUpdated = this.originUpdated + 1
     },
@@ -14756,35 +14932,16 @@ const availableMessages = {
       this.defineAlignShow = !this.defineAlignShow
     },
     clickWord (token) {
-      if (token.textType === 'origin' && (!this.prevClickedWordType || this.prevClickedWordType !== 'origin')) {
-        this.finishCurrentAlignmentGroup()
-        this.startNewAlignmentGroup(token)
-      } else {
-        this.addToAlignmentGroup(token)
-      }
-      this.prevClickedWordType = token.textType
-    },
-    startNewAlignmentGroup (token) {
-      this.$textC.startNewAlignmentGroup(token)
-    },
-    finishCurrentAlignmentGroup () {
-      this.$textC.finishCurrentAlignmentGroup()
-    },
-    addToAlignmentGroup (token) {
-      this.$textC.addToAlignmentGroup(token)
+      this.$alignedC.addTokenToGroup(token)
+      this.updateTokenClasses()
     },
     addHoverWord (token) {
-      const activeAlignmentGroup = this.$textC.findAlignmentGroup(token)
-      if (activeAlignmentGroup) {
-        this.showAlignment = activeAlignmentGroup
-      }
+      this.showAlignment = this.$alignedC.findAlignmentGroup(token)
+      this.updateTokenClasses()
     },
     removeHoverWord (textWord) {
       this.showAlignment = []
-    },
-    clickEmptyText (textType) {
-      this.finishCurrentAlignmentGroup()
-      this.prevClickedWordType = null
+      this.updateTokenClasses()
     }
   }
 });
@@ -14816,6 +14973,7 @@ const availableMessages = {
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Token',
@@ -14832,6 +14990,35 @@ const availableMessages = {
       type: Boolean,
       required: false,
       default: false
+    },
+    grouped: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    inUnfinishedGroup: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    firstInUnfinishedGroup: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  data () {
+    return {
+    }
+  },
+  computed: {
+    tokenClasses () {
+      return { 
+        'alpheios-token-selected': this.selected, 
+        'alpheios-token-grouped': this.grouped ,
+        'alpheios-token-clicked': this.inUnfinishedGroup,
+        'alpheios-token-clicked-first': this.firstInUnfinishedGroup
+      }
     }
   },
   methods: {
@@ -14936,7 +15123,7 @@ const availableMessages = {
     },
 
     alignTexts () {
-      this.$textC.createAlignedTexts()
+      this.$alignedC.createAlignedTexts(this.$textC.alignment)
       this.hideTextEditorM()
       this.showAlignEditorM()    
     }
@@ -15348,7 +15535,9 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 /* harmony export */ });
 /* harmony import */ var _token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token.vue?vue&type=template&id=441a2ad6& */ "./vue/align-editor/token.vue?vue&type=template&id=441a2ad6&");
 /* harmony import */ var _token_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token.vue?vue&type=script&lang=js& */ "./vue/align-editor/token.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./token.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -15356,7 +15545,7 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 
 /* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _token_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__.render,
   _token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -15580,6 +15769,23 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 "use strict";
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+ /* unused harmony default export */ var _unused_webpack_default_export = ((/* unused pure expression or super */ null && (mod))); 
+
+/***/ }),
+
+/***/ "./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************!*\
+  !*** ./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************/
+/*! namespace exports */
+/*! export default [provided] [unused] [could be renamed] */
+/*! other exports [maybe provided (runtime-defined)] [unused] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
  /* unused harmony default export */ var _unused_webpack_default_export = ((/* unused pure expression or super */ null && (mod))); 
 
 /***/ }),
@@ -15957,8 +16163,7 @@ var render = function() {
     {
       staticClass: "alpheios-alignment-editor-align-text",
       class: _vm.alignTextClass,
-      attrs: { dir: _vm.direction, lang: _vm.lang },
-      on: { click: _vm.clickEmptyText }
+      attrs: { dir: _vm.direction, lang: _vm.lang }
     },
     [
       _vm._l(_vm.alignTextData.tokens, function(token) {
@@ -15969,8 +16174,12 @@ var render = function() {
                 attrs: {
                   "text-type": _vm.textType,
                   "text-word": token,
-                  selected:
-                    _vm.updated && _vm.showAlignment.includes(token.idWord)
+                  selected: _vm.updated && _vm.selectedToken(token),
+                  grouped: _vm.updated && _vm.groupedToken(token),
+                  inUnfinishedGroup:
+                    _vm.updated && _vm.inUnfinishedGroup(token),
+                  firstInUnfinishedGroup:
+                    _vm.updated && _vm.isFirstInUnfinishedGroup(token)
                 },
                 on: {
                   clickWord: _vm.clickWord,
@@ -16060,28 +16269,26 @@ var render = function() {
               _c("align-editor-single-block", {
                 attrs: {
                   "align-text-data": _vm.originAlignedText,
-                  "prefix-id": 1,
-                  "show-alignment": _vm.showAlignment
+                  "show-alignment": _vm.showAlignment,
+                  "alignment-updated": _vm.alignmentUpdated
                 },
                 on: {
                   clickWord: _vm.clickWord,
                   addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord,
-                  clickEmptyText: _vm.clickEmptyText
+                  removeHoverWord: _vm.removeHoverWord
                 }
               }),
               _vm._v(" "),
               _c("align-editor-single-block", {
                 attrs: {
                   "align-text-data": _vm.targetAlignedText,
-                  "prefix-id": 2,
-                  "show-alignment": _vm.showAlignment
+                  "show-alignment": _vm.showAlignment,
+                  "alignment-updated": _vm.alignmentUpdated
                 },
                 on: {
                   clickWord: _vm.clickWord,
                   addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord,
-                  clickEmptyText: _vm.clickEmptyText
+                  removeHoverWord: _vm.removeHoverWord
                 }
               })
             ],
@@ -16121,7 +16328,8 @@ var render = function() {
   return _c(
     "span",
     {
-      class: { "alpheios-token-selected": _vm.selected },
+      staticClass: "alpheios-token",
+      class: _vm.tokenClasses,
       attrs: { "data-type": _vm.textType, id: _vm.textWord.idWord },
       on: {
         click: function($event) {
@@ -17411,7 +17619,7 @@ module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"1English\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAT\":{\"message\":\"Latin\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GRC\":{\"message\":\"Greek (Ancient –1453)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARA\":{\"message\":\"Arabic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ZH\":{\"message\":\"Chinese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AFR\":{\"message\":\"Afrikaans\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AKK\":{\"message\":\"Akkadian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SQI\":{\"message\":\"Albanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AMH\":{\"message\":\"Amharic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARG\":{\"message\":\"Aragonese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARC\":{\"message\":\"Aramaic (Imperial- 700 BC–300 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAM\":{\"message\":\"Aramaic (Samaritan)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HYE\":{\"message\":\"Armenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AST\":{\"message\":\"Asturian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AVE\":{\"message\":\"Avestan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AZE\":{\"message\":\"Azerbaijani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EUS\":{\"message\":\"Basque\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BEN\":{\"message\":\"Bengali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BER\":{\"message\":\"Berber\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOS\":{\"message\":\"Bosnian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BRE\":{\"message\":\"Breton\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BUL\":{\"message\":\"Bulgarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHU\":{\"message\":\"Bulgarian (Old, Old Church Slavonic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MYA\":{\"message\":\"Burmese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CAT\":{\"message\":\"Catalan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHG\":{\"message\":\"Chagatai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COP\":{\"message\":\"Coptic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COR\":{\"message\":\"Cornish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HRV\":{\"message\":\"Croatian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CES\":{\"message\":\"Czech\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DAN\":{\"message\":\"Danish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NLD\":{\"message\":\"Dutch (Flemish)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DUM\":{\"message\":\"Dutch (Middle, 1050–1350)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EGY\":{\"message\":\"Egyptian (Ancient)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELX\":{\"message\":\"Elamite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ENM\":{\"message\":\"English (Middle, 1100–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ANG\":{\"message\":\"English (Old, 450–1100)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EST\":{\"message\":\"Estonian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FIN\":{\"message\":\"Finnish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRA\":{\"message\":\"French\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRM\":{\"message\":\"French (Middle, 1400—1600)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRO\":{\"message\":\"French (Old, 842—c. 1400)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GEZ\":{\"message\":\"Ge'ez\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAT\":{\"message\":\"Georgian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NDS\":{\"message\":\"German (Low, Low Saxon)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GMH\":{\"message\":\"German (Middle-High, 1050–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOH\":{\"message\":\"German (Old-High, 750–1050)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DEU\":{\"message\":\"German\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOT\":{\"message\":\"Gothic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELL\":{\"message\":\"Greek (Modern, 1453–)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GUJ\":{\"message\":\"Gujarati\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HEB\":{\"message\":\"Hebrew\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIN\":{\"message\":\"Hindi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIT\":{\"message\":\"Hittite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HUN\":{\"message\":\"Hungarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ISL\":{\"message\":\"Icelandic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_IND\":{\"message\":\"Indonesian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLE\":{\"message\":\"Irish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MGA\":{\"message\":\"Irish (Middle 900–1200)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SGA\":{\"message\":\"Irish (Old, to 900)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ITA\":{\"message\":\"Italian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JPN\":{\"message\":\"Japanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JAV\":{\"message\":\"Javanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAN\":{\"message\":\"Kannada\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KHM\":{\"message\":\"Khmer (Central)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KOR\":{\"message\":\"Korean\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KUR\":{\"message\":\"Kurdish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAD\":{\"message\":\"Ladino\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LIT\":{\"message\":\"Lithuanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MSA\":{\"message\":\"Malay\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MAR\":{\"message\":\"Marathi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEW\":{\"message\":\"Nepal Bhasa (Newari)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEP\":{\"message\":\"Nepali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NWC\":{\"message\":\"Newari\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NON\":{\"message\":\"Norse (Old)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOR\":{\"message\":\"Norwegian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOB\":{\"message\":\"Norwegian (Bokmål)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NNO\":{\"message\":\"Norwegian (Nynorsk)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OSS\":{\"message\":\"Ossetian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAL\":{\"message\":\"Pahlavi (Middle Persian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PLI\":{\"message\":\"Pali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PUS\":{\"message\":\"Pashto\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FAS\":{\"message\":\"Persian (Farsi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PEO\":{\"message\":\"Persian (Old, 600–400 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PHN\":{\"message\":\"Phoenician\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POL\":{\"message\":\"Polish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POR\":{\"message\":\"Portuguese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRA\":{\"message\":\"Prakrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRO\":{\"message\":\"Provençal (Occitan, –1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAN\":{\"message\":\"Punjabi (Panjabi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RAJ\":{\"message\":\"Rajasthani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RON\":{\"message\":\"Romanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ROM\":{\"message\":\"Romany\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RUS\":{\"message\":\"Russian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAN\":{\"message\":\"Sanskrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCO\":{\"message\":\"Scots\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLA\":{\"message\":\"Scottish (Gaelic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SRP\":{\"message\":\"Serbian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCN\":{\"message\":\"Sicilian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SND\":{\"message\":\"Sindhi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SIN\":{\"message\":\"Sinhalese (Sinhala)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLK\":{\"message\":\"Slovak\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLV\":{\"message\":\"Slovenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SOG\":{\"message\":\"Sogdian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SPA\":{\"message\":\"Spanish (Castilian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SUX\":{\"message\":\"Sumerian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWA\":{\"message\":\"Swahili\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWE\":{\"message\":\"Swedish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GSW\":{\"message\":\"Swiss German (Alsatian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYC\":{\"message\":\"Syriac (Classical)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYR\":{\"message\":\"Syriac (Northeastern, Neo-Aramaic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGL\":{\"message\":\"Tagalog\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGK\":{\"message\":\"Tajik\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAM\":{\"message\":\"Tamil\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAT\":{\"message\":\"Tatar\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TEL\":{\"message\":\"Telugu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_THA\":{\"message\":\"Thai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOD\":{\"message\":\"Tibetan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUR\":{\"message\":\"Turkish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OTA\":{\"message\":\"Turkish (Ottoman, 1500–1928)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUK\":{\"message\":\"Turkmen\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UGA\":{\"message\":\"Ugaritic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UKR\":{\"message\":\"Ukainian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_URD\":{\"message\":\"Urdu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UZB\":{\"message\":\"Uzbek\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_VIE\":{\"message\":\"Vietnamese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_WLN\":{\"message\":\"Walloon\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CYM\":{\"message\":\"Welsh\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_YID\":{\"message\":\"Yiddish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"}}");
+module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAT\":{\"message\":\"Latin\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GRC\":{\"message\":\"Greek (Ancient –1453)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARA\":{\"message\":\"Arabic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ZH\":{\"message\":\"Chinese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AFR\":{\"message\":\"Afrikaans\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AKK\":{\"message\":\"Akkadian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SQI\":{\"message\":\"Albanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AMH\":{\"message\":\"Amharic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARG\":{\"message\":\"Aragonese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARC\":{\"message\":\"Aramaic (Imperial- 700 BC–300 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAM\":{\"message\":\"Aramaic (Samaritan)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HYE\":{\"message\":\"Armenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AST\":{\"message\":\"Asturian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AVE\":{\"message\":\"Avestan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AZE\":{\"message\":\"Azerbaijani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EUS\":{\"message\":\"Basque\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BEN\":{\"message\":\"Bengali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BER\":{\"message\":\"Berber\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOS\":{\"message\":\"Bosnian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BRE\":{\"message\":\"Breton\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BUL\":{\"message\":\"Bulgarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHU\":{\"message\":\"Bulgarian (Old, Old Church Slavonic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MYA\":{\"message\":\"Burmese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CAT\":{\"message\":\"Catalan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHG\":{\"message\":\"Chagatai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COP\":{\"message\":\"Coptic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COR\":{\"message\":\"Cornish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HRV\":{\"message\":\"Croatian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CES\":{\"message\":\"Czech\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DAN\":{\"message\":\"Danish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NLD\":{\"message\":\"Dutch (Flemish)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DUM\":{\"message\":\"Dutch (Middle, 1050–1350)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EGY\":{\"message\":\"Egyptian (Ancient)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELX\":{\"message\":\"Elamite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ENM\":{\"message\":\"English (Middle, 1100–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ANG\":{\"message\":\"English (Old, 450–1100)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EST\":{\"message\":\"Estonian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FIN\":{\"message\":\"Finnish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRA\":{\"message\":\"French\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRM\":{\"message\":\"French (Middle, 1400—1600)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRO\":{\"message\":\"French (Old, 842—c. 1400)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GEZ\":{\"message\":\"Ge'ez\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAT\":{\"message\":\"Georgian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NDS\":{\"message\":\"German (Low, Low Saxon)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GMH\":{\"message\":\"German (Middle-High, 1050–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOH\":{\"message\":\"German (Old-High, 750–1050)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DEU\":{\"message\":\"German\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOT\":{\"message\":\"Gothic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELL\":{\"message\":\"Greek (Modern, 1453–)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GUJ\":{\"message\":\"Gujarati\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HEB\":{\"message\":\"Hebrew\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIN\":{\"message\":\"Hindi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIT\":{\"message\":\"Hittite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HUN\":{\"message\":\"Hungarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ISL\":{\"message\":\"Icelandic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_IND\":{\"message\":\"Indonesian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLE\":{\"message\":\"Irish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MGA\":{\"message\":\"Irish (Middle 900–1200)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SGA\":{\"message\":\"Irish (Old, to 900)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ITA\":{\"message\":\"Italian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JPN\":{\"message\":\"Japanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JAV\":{\"message\":\"Javanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAN\":{\"message\":\"Kannada\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KHM\":{\"message\":\"Khmer (Central)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KOR\":{\"message\":\"Korean\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KUR\":{\"message\":\"Kurdish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAD\":{\"message\":\"Ladino\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LIT\":{\"message\":\"Lithuanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MSA\":{\"message\":\"Malay\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MAR\":{\"message\":\"Marathi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEW\":{\"message\":\"Nepal Bhasa (Newari)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEP\":{\"message\":\"Nepali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NWC\":{\"message\":\"Newari\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NON\":{\"message\":\"Norse (Old)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOR\":{\"message\":\"Norwegian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOB\":{\"message\":\"Norwegian (Bokmål)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NNO\":{\"message\":\"Norwegian (Nynorsk)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OSS\":{\"message\":\"Ossetian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAL\":{\"message\":\"Pahlavi (Middle Persian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PLI\":{\"message\":\"Pali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PUS\":{\"message\":\"Pashto\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FAS\":{\"message\":\"Persian (Farsi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PEO\":{\"message\":\"Persian (Old, 600–400 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PHN\":{\"message\":\"Phoenician\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POL\":{\"message\":\"Polish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POR\":{\"message\":\"Portuguese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRA\":{\"message\":\"Prakrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRO\":{\"message\":\"Provençal (Occitan, –1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAN\":{\"message\":\"Punjabi (Panjabi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RAJ\":{\"message\":\"Rajasthani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RON\":{\"message\":\"Romanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ROM\":{\"message\":\"Romany\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RUS\":{\"message\":\"Russian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAN\":{\"message\":\"Sanskrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCO\":{\"message\":\"Scots\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLA\":{\"message\":\"Scottish (Gaelic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SRP\":{\"message\":\"Serbian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCN\":{\"message\":\"Sicilian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SND\":{\"message\":\"Sindhi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SIN\":{\"message\":\"Sinhalese (Sinhala)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLK\":{\"message\":\"Slovak\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLV\":{\"message\":\"Slovenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SOG\":{\"message\":\"Sogdian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SPA\":{\"message\":\"Spanish (Castilian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SUX\":{\"message\":\"Sumerian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWA\":{\"message\":\"Swahili\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWE\":{\"message\":\"Swedish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GSW\":{\"message\":\"Swiss German (Alsatian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYC\":{\"message\":\"Syriac (Classical)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYR\":{\"message\":\"Syriac (Northeastern, Neo-Aramaic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGL\":{\"message\":\"Tagalog\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGK\":{\"message\":\"Tajik\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAM\":{\"message\":\"Tamil\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAT\":{\"message\":\"Tatar\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TEL\":{\"message\":\"Telugu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_THA\":{\"message\":\"Thai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOD\":{\"message\":\"Tibetan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUR\":{\"message\":\"Turkish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OTA\":{\"message\":\"Turkish (Ottoman, 1500–1928)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUK\":{\"message\":\"Turkmen\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UGA\":{\"message\":\"Ugaritic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UKR\":{\"message\":\"Ukainian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_URD\":{\"message\":\"Urdu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UZB\":{\"message\":\"Uzbek\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_VIE\":{\"message\":\"Vietnamese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_WLN\":{\"message\":\"Walloon\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CYM\":{\"message\":\"Welsh\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_YID\":{\"message\":\"Yiddish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"}}");
 
 /***/ }),
 
