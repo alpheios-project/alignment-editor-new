@@ -17,20 +17,23 @@ export default class AlignedController {
     return this.alignment ? this.alignment.targetAlignedText : {}
   }
 
-  addTokenToGroup (token) {
-    if (this.tokenIsGrouped(token)) {
-      return
-    }
-
-    if (this.alignment.shouldFinishAlignmentGroup(token)) {
-      this.finishCurrentAlignmentGroup()
-      return
-    }
-
-    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
-      this.startNewAlignmentGroup(token)
+  clickToken (token) {
+    if (!this.hasActiveAlignment) {
+      if (this.tokenIsGrouped(token)) {
+        this.activateGroupByToken(token)
+      } else {
+        this.startNewAlignmentGroup(token)
+      }
     } else {
-      this.addToAlignmentGroup(token)
+      if (this.alignment.shouldFinishAlignmentGroup(token)) {
+        this.finishActiveAlignmentGroup()
+      } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
+        this.alignment.removeFromAlignmentGroup(token)
+      } else if (this.tokenIsGrouped(token)) {
+        this.mergeActiveGroupWithAnotherByToken(token)
+      } else {
+        this.addToAlignmentGroup(token)
+      }
     }
   }
 
@@ -42,23 +45,39 @@ export default class AlignedController {
     this.alignment.addToAlignmentGroup(token)
   }
 
-  finishCurrentAlignmentGroup () {
-    this.alignment.finishCurrentAlignmentGroup()
+  finishActiveAlignmentGroup () {
+    this.alignment.finishActiveAlignmentGroup()
+  }
+
+  mergeActiveGroupWithAnotherByToken (token) {
+    this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   findAlignmentGroup (token) {
-    return this.alignment.findAlignmentGroup(token)
+    return this.alignment && this.alignment.findAlignmentGroup(token)
+  }
+
+  findAlignmentGroupIds (token) {
+    return this.alignment && this.alignment.findAlignmentGroupIds(token)
   }
 
   tokenIsGrouped (token) {
-    return this.alignment.tokenIsGrouped(token)
+    return this.alignment && this.alignment.tokenIsGrouped(token)
   }
 
-  tokenInUnfinishedGroup (token) {
-    return this.alignment.tokenInUnfinishedGroup(token)
+  tokenInActiveGroup (token) {
+    return this.alignment && this.alignment.tokenInActiveGroup(token)
   }
 
-  isFirstInUnfinishedGroup (token) {
-    return this.alignment.isFirstInUnfinishedGroup(token)
+  isFirstInActiveGroup (token) {
+    return this.alignment && this.alignment.isFirstInActiveGroup(token)
+  }
+
+  get hasActiveAlignment () {
+    return this.alignment && this.alignment.hasActiveAlignment
+  }
+
+  activateGroupByToken (token) {
+    this.alignment.activateGroupByToken(token)
   }
 }

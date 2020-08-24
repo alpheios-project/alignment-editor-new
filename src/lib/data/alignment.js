@@ -12,7 +12,7 @@ export default class Alignment {
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
-    this.currentAlignmentGroup = null
+    this.activeAlignmentGroup = null
 
     this.l10n = l10n
   }
@@ -63,57 +63,110 @@ export default class Alignment {
   }
 
   shouldFinishAlignmentGroup (token) {
-    return this.tokenInUnfinishedGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+    return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+  }
+
+  shouldBeRemovedFromAlignmentGroup (token) {
+    return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
   shouldStartNewAlignmentGroup (token) {
-    return !this.currentAlignmentGroup
+    return !this.activeAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
-    this.currentAlignmentGroup = new AlignmentGroup(token)
+    this.activeAlignmentGroup = new AlignmentGroup(token)
   }
 
   addToAlignmentGroup (token) {
-    if (this.currentAlignmentGroup[token.textType]) {
-      this.currentAlignmentGroup.add(token)
+    if (this.activeAlignmentGroup[token.textType]) {
+      this.activeAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 
-  finishCurrentAlignmentGroup () {
-    if (this.currentAlignmentGroup && this.currentAlignmentGroup.couldBeFinished) {
-      this.alignmentGroups.push(this.currentAlignmentGroup)
-      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.allIds)
+  removeFromAlignmentGroup (token) {
+    if (this.activeAlignmentGroup[token.textType]) {
+      this.activeAlignmentGroup.remove(token)
+      this.removeFromAlignmentIds(token.idWord)
+    } else {
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+    }
+  }
+
+  finishActiveAlignmentGroup () {
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
+      this.alignmentGroups.push(this.activeAlignmentGroup)
+      this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
     }
 
-    this.currentAlignmentGroup = null
+    this.activeAlignmentGroup = null
   }
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      const alignmentGroup = this.alignmentGroups.find(al => al.includesToken(token))
-      const activeAlignmentGroup = []
-      activeAlignmentGroup.push(...alignmentGroup.allIds)
-      return activeAlignmentGroup
+      return this.alignmentGroups.find(al => al.includesToken(token))
+    }
+  }
+
+  findAlignmentGroupIds (token) {
+    const alignedGroup = this.findAlignmentGroup(token)
+    if (alignedGroup) {
+      const alignedGroupIds = []
+      alignedGroupIds.push(...alignedGroup.allIds)
+      return alignedGroupIds
     }
     return []
+  }
+
+  removeFromAlignmentIds (idWord) {
+    const tokenIndex = this.alignmentGroupsIds.findIndex(tokenId => tokenId === idWord)
+    if (tokenIndex >= 0) {
+      this.alignmentGroupsIds.splice(tokenIndex, 1)
+    }
+  }
+
+  removeGroupFromAlignmentIds (alignedGroup) {
+    alignedGroup.allIds.forEach(idWord => {
+      this.removeFromAlignmentIds(idWord)
+    })
   }
 
   tokenIsGrouped (token) {
     return this.alignmentGroupsIds.includes(token.idWord)
   }
 
-  tokenInUnfinishedGroup (token) {
-    return this.currentAlignmentGroup && this.currentAlignmentGroup.includesToken(token)
+  tokenInActiveGroup (token) {
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
   }
 
-  isFirstInUnfinishedGroup (token) {
-    return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
+  isFirstInActiveGroup (token) {
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.currentAlignmentGroup && this.currentAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+  }
+
+  get hasActiveAlignment () {
+    return Boolean(this.activeAlignmentGroup)
+  }
+
+  activateGroupByToken (token) {
+    const tokensGroup = this.findAlignmentGroup(token)
+    if (tokensGroup) {
+      this.activeAlignmentGroup = tokensGroup
+      this.activeAlignmentGroup.updateFirstStep(token)
+      this.removeGroupFromAlignmentIds(tokensGroup)
+    }
+  }
+
+  mergeActiveGroupWithAnotherByToken (token) {
+    const tokensGroup = this.findAlignmentGroup(token)
+    if (tokensGroup) {
+      this.removeGroupFromAlignmentIds(tokensGroup)
+      this.activeAlignmentGroup.merge(tokensGroup)
+    }
   }
 }

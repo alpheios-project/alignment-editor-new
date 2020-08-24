@@ -80,11 +80,11 @@ export default {
       this.defineAlignShow = !this.defineAlignShow
     },
     clickWord (token) {
-      this.$alignedC.addTokenToGroup(token)
+      this.$alignedC.clickToken(token)
       this.updateTokenClasses()
     },
     addHoverWord (token) {
-      this.showAlignment = this.$alignedC.findAlignmentGroup(token)
+      this.showAlignment = this.$alignedC.findAlignmentGroupIds(token)
       this.updateTokenClasses()
     },
     removeHoverWord (textWord) {

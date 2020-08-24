@@ -12,8 +12,8 @@
           @removeHoverWord = "removeHoverWord"
           :selected = "updated && selectedToken(token)"
           :grouped = "updated && groupedToken(token)"
-          :inUnfinishedGroup = "updated && inUnfinishedGroup(token)"
-          :firstInUnfinishedGroup = "updated && isFirstInUnfinishedGroup(token)"
+          :inActiveGroup = "updated && inActiveGroup(token)"
+          :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
         />
         <br v-if="token.hasLineBreak" />
       </template>
@@ -86,11 +86,11 @@ export default {
     groupedToken (token) {
       return this.$alignedC.tokenIsGrouped(token)
     },
-    inUnfinishedGroup (token) {
-      return this.$alignedC.tokenInUnfinishedGroup(token)
+    inActiveGroup (token) {
+      return this.$alignedC.tokenInActiveGroup(token)
     },
-    isFirstInUnfinishedGroup (token) {
-      return this.$alignedC.isFirstInUnfinishedGroup(token)
+    isFirstInActiveGroup (token) {
+      return this.$alignedC.isFirstInActiveGroup(token)
     }
   }
 }

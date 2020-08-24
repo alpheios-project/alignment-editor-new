@@ -25,6 +25,11 @@
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },
+    "ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT": {
+      "message": "Alignment doesn't have such tokens.",
+      "description": "An error message for alignment workflow",
+      "component": "Alignment"
+    },
     "TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED": {
       "message": "Tokenizer method {tokenizer} is not registered",
       "description": "An error message for tokenization workflow",

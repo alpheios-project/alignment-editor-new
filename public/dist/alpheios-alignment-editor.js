@@ -13490,20 +13490,23 @@ class AlignedController {
     return this.alignment ? this.alignment.targetAlignedText : {}
   }
 
-  addTokenToGroup (token) {
-    if (this.tokenIsGrouped(token)) {
-      return
-    }
-
-    if (this.alignment.shouldFinishAlignmentGroup(token)) {
-      this.finishCurrentAlignmentGroup()
-      return
-    }
-
-    if (this.alignment.shouldStartNewAlignmentGroup(token)) {
-      this.startNewAlignmentGroup(token)
+  clickToken (token) {
+    if (!this.hasActiveAlignment) {
+      if (this.tokenIsGrouped(token)) {
+        this.activateGroupByToken(token)
+      } else {
+        this.startNewAlignmentGroup(token)
+      }
     } else {
-      this.addToAlignmentGroup(token)
+      if (this.alignment.shouldFinishAlignmentGroup(token)) {
+        this.finishActiveAlignmentGroup()
+      } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
+        this.alignment.removeFromAlignmentGroup(token)
+      } else if (this.tokenIsGrouped(token)) {
+        this.mergeActiveGroupWithAnotherByToken(token)
+      } else {
+        this.addToAlignmentGroup(token)
+      }
     }
   }
 
@@ -13515,24 +13518,40 @@ class AlignedController {
     this.alignment.addToAlignmentGroup(token)
   }
 
-  finishCurrentAlignmentGroup () {
-    this.alignment.finishCurrentAlignmentGroup()
+  finishActiveAlignmentGroup () {
+    this.alignment.finishActiveAlignmentGroup()
+  }
+
+  mergeActiveGroupWithAnotherByToken (token) {
+    this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   findAlignmentGroup (token) {
-    return this.alignment.findAlignmentGroup(token)
+    return this.alignment && this.alignment.findAlignmentGroup(token)
+  }
+
+  findAlignmentGroupIds (token) {
+    return this.alignment && this.alignment.findAlignmentGroupIds(token)
   }
 
   tokenIsGrouped (token) {
-    return this.alignment.tokenIsGrouped(token)
+    return this.alignment && this.alignment.tokenIsGrouped(token)
   }
 
-  tokenInUnfinishedGroup (token) {
-    return this.alignment.tokenInUnfinishedGroup(token)
+  tokenInActiveGroup (token) {
+    return this.alignment && this.alignment.tokenInActiveGroup(token)
   }
 
-  isFirstInUnfinishedGroup (token) {
-    return this.alignment.isFirstInUnfinishedGroup(token)
+  isFirstInActiveGroup (token) {
+    return this.alignment && this.alignment.isFirstInActiveGroup(token)
+  }
+
+  get hasActiveAlignment () {
+    return this.alignment && this.alignment.hasActiveAlignment
+  }
+
+  activateGroupByToken (token) {
+    this.alignment.activateGroupByToken(token)
   }
 }
 
@@ -13882,7 +13901,20 @@ class AlignmentGroup {
 
   add (token) {
     this[token.textType].push(token.idWord)
-    this.steps.push({ textType: token.textType, id: token.idWord })
+    this.steps.push({ textType: token.textType, id: token.idWord, type: 'add' })
+
+    if (!this.firstStep) {
+      this.firstStep = this.steps[0]
+    }
+  }
+
+  remove (token) {
+    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    if (tokenIndex >= 0) {
+      this[token.textType].splice(tokenIndex, 1)
+      this.steps.push({ textType: token.textType, id: token.idWord, type: 'remove' })
+    }
   }
 
   get lastStepTextType () {
@@ -13905,11 +13937,28 @@ class AlignmentGroup {
   }
 
   isFirstToken (token) {
-    return this.steps.length > 0 && this.steps[0].id === token.idWord
+    return this.firstStep.id === token.idWord
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.steps[0].textType === token.textType
+    return this.steps.length > 0 && this.firstStep.textType === token.textType
+  }
+
+  updateFirstStep (token) {
+    this.firstStep = { textType: token.textType, id: token.idWord }
+  }
+
+  merge (tokensGroup) {
+    this.origin.push(...tokensGroup.origin)
+    this.target.push(...tokensGroup.target)
+
+    tokensGroup.origin.forEach(idWord => {
+      this.steps.push({ textType: 'origin', id: idWord, type: 'merge' })
+    })
+
+    tokensGroup.target.forEach(idWord => {
+      this.steps.push({ textType: 'target', id: idWord, type: 'merge' })
+    })
   }
 }
 
@@ -13948,7 +13997,7 @@ class Alignment {
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
-    this.currentAlignmentGroup = null
+    this.activeAlignmentGroup = null
 
     this.l10n = l10n
   }
@@ -13999,58 +14048,111 @@ class Alignment {
   }
 
   shouldFinishAlignmentGroup (token) {
-    return this.tokenInUnfinishedGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+    return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+  }
+
+  shouldBeRemovedFromAlignmentGroup (token) {
+    return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
   shouldStartNewAlignmentGroup (token) {
-    return !this.currentAlignmentGroup
+    return !this.activeAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
-    this.currentAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__.default(token)
+    this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__.default(token)
   }
 
   addToAlignmentGroup (token) {
-    if (this.currentAlignmentGroup[token.textType]) {
-      this.currentAlignmentGroup.add(token)
+    if (this.activeAlignmentGroup[token.textType]) {
+      this.activeAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
     }
   }
 
-  finishCurrentAlignmentGroup () {
-    if (this.currentAlignmentGroup && this.currentAlignmentGroup.couldBeFinished) {
-      this.alignmentGroups.push(this.currentAlignmentGroup)
-      this.alignmentGroupsIds.push(...this.currentAlignmentGroup.allIds)
+  removeFromAlignmentGroup (token) {
+    if (this.activeAlignmentGroup[token.textType]) {
+      this.activeAlignmentGroup.remove(token)
+      this.removeFromAlignmentIds(token.idWord)
+    } else {
+      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+    }
+  }
+
+  finishActiveAlignmentGroup () {
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
+      this.alignmentGroups.push(this.activeAlignmentGroup)
+      this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
     }
 
-    this.currentAlignmentGroup = null
+    this.activeAlignmentGroup = null
   }
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      const alignmentGroup = this.alignmentGroups.find(al => al.includesToken(token))
-      const activeAlignmentGroup = []
-      activeAlignmentGroup.push(...alignmentGroup.allIds)
-      return activeAlignmentGroup
+      return this.alignmentGroups.find(al => al.includesToken(token))
+    }
+  }
+
+  findAlignmentGroupIds (token) {
+    const alignedGroup = this.findAlignmentGroup(token)
+    if (alignedGroup) {
+      const alignedGroupIds = []
+      alignedGroupIds.push(...alignedGroup.allIds)
+      return alignedGroupIds
     }
     return []
+  }
+
+  removeFromAlignmentIds (idWord) {
+    const tokenIndex = this.alignmentGroupsIds.findIndex(tokenId => tokenId === idWord)
+    if (tokenIndex >= 0) {
+      this.alignmentGroupsIds.splice(tokenIndex, 1)
+    }
+  }
+
+  removeGroupFromAlignmentIds (alignedGroup) {
+    alignedGroup.allIds.forEach(idWord => {
+      this.removeFromAlignmentIds(idWord)
+    })
   }
 
   tokenIsGrouped (token) {
     return this.alignmentGroupsIds.includes(token.idWord)
   }
 
-  tokenInUnfinishedGroup (token) {
-    return this.currentAlignmentGroup && this.currentAlignmentGroup.includesToken(token)
+  tokenInActiveGroup (token) {
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
   }
 
-  isFirstInUnfinishedGroup (token) {
-    return this.currentAlignmentGroup && this.currentAlignmentGroup.isFirstToken(token)
+  isFirstInActiveGroup (token) {
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.currentAlignmentGroup && this.currentAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+  }
+
+  get hasActiveAlignment () {
+    return Boolean(this.activeAlignmentGroup)
+  }
+
+  activateGroupByToken (token) {
+    const tokensGroup = this.findAlignmentGroup(token)
+    if (tokensGroup) {
+      this.activeAlignmentGroup = tokensGroup
+      this.activeAlignmentGroup.updateFirstStep(token)
+      this.removeGroupFromAlignmentIds(tokensGroup)
+    }
+  }
+
+  mergeActiveGroupWithAnotherByToken (token) {
+    const tokensGroup = this.findAlignmentGroup(token)
+    if (tokensGroup) {
+      this.removeGroupFromAlignmentIds(tokensGroup)
+      this.activeAlignmentGroup.merge(tokensGroup)
+    }
   }
 }
 
@@ -14823,11 +14925,11 @@ const availableMessages = {
     groupedToken (token) {
       return this.$alignedC.tokenIsGrouped(token)
     },
-    inUnfinishedGroup (token) {
-      return this.$alignedC.tokenInUnfinishedGroup(token)
+    inActiveGroup (token) {
+      return this.$alignedC.tokenInActiveGroup(token)
     },
-    isFirstInUnfinishedGroup (token) {
-      return this.$alignedC.isFirstInUnfinishedGroup(token)
+    isFirstInActiveGroup (token) {
+      return this.$alignedC.isFirstInActiveGroup(token)
     }
   }
 });
@@ -14932,11 +15034,11 @@ const availableMessages = {
       this.defineAlignShow = !this.defineAlignShow
     },
     clickWord (token) {
-      this.$alignedC.addTokenToGroup(token)
+      this.$alignedC.clickToken(token)
       this.updateTokenClasses()
     },
     addHoverWord (token) {
-      this.showAlignment = this.$alignedC.findAlignmentGroup(token)
+      this.showAlignment = this.$alignedC.findAlignmentGroupIds(token)
       this.updateTokenClasses()
     },
     removeHoverWord (textWord) {
@@ -14996,12 +15098,12 @@ const availableMessages = {
       required: false,
       default: false
     },
-    inUnfinishedGroup: {
+    inActiveGroup: {
       type: Boolean,
       required: false,
       default: false
     },
-    firstInUnfinishedGroup: {
+    firstInActiveGroup: {
       type: Boolean,
       required: false,
       default: false
@@ -15016,8 +15118,8 @@ const availableMessages = {
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
-        'alpheios-token-clicked': this.inUnfinishedGroup,
-        'alpheios-token-clicked-first': this.firstInUnfinishedGroup
+        'alpheios-token-clicked': this.inActiveGroup,
+        'alpheios-token-clicked-first': this.firstInActiveGroup
       }
     }
   },
@@ -16176,10 +16278,9 @@ var render = function() {
                   "text-word": token,
                   selected: _vm.updated && _vm.selectedToken(token),
                   grouped: _vm.updated && _vm.groupedToken(token),
-                  inUnfinishedGroup:
-                    _vm.updated && _vm.inUnfinishedGroup(token),
-                  firstInUnfinishedGroup:
-                    _vm.updated && _vm.isFirstInUnfinishedGroup(token)
+                  inActiveGroup: _vm.updated && _vm.inActiveGroup(token),
+                  firstInActiveGroup:
+                    _vm.updated && _vm.isFirstInActiveGroup(token)
                 },
                 on: {
                   clickWord: _vm.clickWord,
@@ -16911,6 +17012,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /*!   export description [provided] [unused] [could be renamed] */
 /*!   export message [provided] [unused] [could be renamed] */
 /*!   other exports [not provided] [unused] */
+/*! export ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
+/*!   export component [provided] [unused] [could be renamed] */
+/*!   export description [provided] [unused] [could be renamed] */
+/*!   export message [provided] [unused] [could be renamed] */
+/*!   other exports [not provided] [unused] */
 /*! export ALIGNMENT_ERROR_TOKENIZATION_CANCELLED [provided] [maybe used (runtime-defined)] [usage prevents renaming] */
 /*!   export component [provided] [unused] [could be renamed] */
 /*!   export description [provided] [unused] [could be renamed] */
@@ -16960,7 +17066,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"Alignment should be created from selecting a word from origin text\",\"description\":\"An error message for alignment creation workflow\",\"component\":\"TextsController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"Alignment should be created from selecting a word from origin text\",\"description\":\"An error message for alignment creation workflow\",\"component\":\"TextsController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
 
 /***/ }),
 
