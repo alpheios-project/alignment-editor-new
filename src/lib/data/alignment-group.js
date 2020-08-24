@@ -11,7 +11,20 @@ export default class AlignmentGroup {
 
   add (token) {
     this[token.textType].push(token.idWord)
-    this.steps.push({ textType: token.textType, id: token.idWord })
+    this.steps.push({ textType: token.textType, id: token.idWord, type: 'add' })
+
+    if (!this.firstStep) {
+      this.firstStep = this.steps[0]
+    }
+  }
+
+  remove (token) {
+    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    if (tokenIndex >= 0) {
+      this[token.textType].splice(tokenIndex, 1)
+      this.steps.push({ textType: token.textType, id: token.idWord, type: 'remove' })
+    }
   }
 
   get lastStepTextType () {
@@ -34,10 +47,27 @@ export default class AlignmentGroup {
   }
 
   isFirstToken (token) {
-    return this.steps.length > 0 && this.steps[0].id === token.idWord
+    return this.firstStep.id === token.idWord
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.steps[0].textType === token.textType
+    return this.steps.length > 0 && this.firstStep.textType === token.textType
+  }
+
+  updateFirstStep (token) {
+    this.firstStep = { textType: token.textType, id: token.idWord }
+  }
+
+  merge (tokensGroup) {
+    this.origin.push(...tokensGroup.origin)
+    this.target.push(...tokensGroup.target)
+
+    tokensGroup.origin.forEach(idWord => {
+      this.steps.push({ textType: 'origin', id: idWord, type: 'merge' })
+    })
+
+    tokensGroup.target.forEach(idWord => {
+      this.steps.push({ textType: 'target', id: idWord, type: 'merge' })
+    })
   }
 }

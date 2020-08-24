@@ -31,12 +31,12 @@ export default {
       required: false,
       default: false
     },
-    inUnfinishedGroup: {
+    inActiveGroup: {
       type: Boolean,
       required: false,
       default: false
     },
-    firstInUnfinishedGroup: {
+    firstInActiveGroup: {
       type: Boolean,
       required: false,
       default: false
@@ -51,8 +51,8 @@ export default {
       return { 
         'alpheios-token-selected': this.selected, 
         'alpheios-token-grouped': this.grouped ,
-        'alpheios-token-clicked': this.inUnfinishedGroup,
-        'alpheios-token-clicked-first': this.firstInUnfinishedGroup
+        'alpheios-token-clicked': this.inActiveGroup,
+        'alpheios-token-clicked-first': this.firstInActiveGroup
       }
     }
   },
