@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "build": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs",
-    "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js"
+    "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
+    "test-lib": "jest tests/lib --coverage",
+    "test-a": "jest tests/lib/controllers/texts-controller.test.js --coverage"
   },
   "repository": {
     "type": "git",
@@ -14,19 +16,27 @@
   "author": "The Alpheios Project, Ltd.",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/plugin-transform-runtime": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/runtime": "^7.10.2",
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/register": "^7.10.5",
+    "@babel/runtime": "^7.11.2",
+    "@vue/test-utils": "^1.0.3",
     "alpheios-node-build": "github:alpheios-project/node-build#v3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.0.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-module-resolver": "^4.0.0",
+
     "bytes": "^3.1.0",
     "command-line-args": "^5.1.1",
     "coveralls": "^3.1.0",
     "css-loader": "^3.6.0",
-    "eslint": "^7.2.0",
+    "eslint": "^7.7.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsdoc": "^27.0.7",
@@ -35,14 +45,16 @@
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.2.2",
     "eslint-scope": "^5.0.0",
+    "file-loader": "^6.0.0",
     "git-branch": "^2.0.1",
     "imagemin": "^7.0.1",
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^8.0.0",
+    "imports-loader": "^1.1.0",
     "inspectpack": "^4.5.2",
-    "intl-messageformat": "^9.2.3",
-    "jest": "^26.0.1",
+    "intl-messageformat": "^9.3.5",
+    "jest": "^26.4.2",
     "mini-css-extract-plugin": "^0.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-import": "^12.0.1",
@@ -50,22 +62,22 @@
     "postcss-safe-important": "^1.2.0",
     "postcss-scss": "^2.1.1",
     "raw-loader": "^4.0.1",
-    "sass": "^1.26.9",
+    "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
-    "source-map-loader": "^1.0.0",
+    "source-map-loader": "^1.0.2",
     "style-loader": "^1.2.1",
-    "terser-webpack-plugin": "^3.0.5",
+    "terser-webpack-plugin": "^3.1.0",
     "uuid": "^3.4.0",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-eslint-parser": "^7.1.0",
-    "vue-jest": "^3.0.5",
+    "vue-jest": "^3.0.6",
     "vue-loader": "^15.9.2",
     "vue-multiselect": "^2.1.6",
     "vue-style-loader": "^4.1.2",
     "vue-svg-loader": "^0.16.0",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "^2.6.12",
     "vue-template-loader": "^1.1.0",
-    "webpack": "^5.0.0-beta.18",
+    "webpack": "^5.0.0-beta.28",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-merge": "^4.2.2"
@@ -73,8 +85,23 @@
   "jest": {
     "verbose": true,
     "moduleNameMapper": {
-      "^@[/](.+)": "<rootDir>/src/$1"
-    }
+      "^@[/](.+)": "<rootDir>/src/$1",
+      "^@vue-runtime$": "vue/dist/vue.runtime.common.js"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest",
+      ".*\\.(vue)$": "vue-jest",
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransform.js",
+      "^.*\\.svg$": "<rootDir>/svgTransform.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ]
   },
   "eslintConfig": {
     "extends": [

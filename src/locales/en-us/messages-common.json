@@ -10,9 +10,9 @@
       "description": "An error message for download process",
       "component": "DownloadController"
     },
-    "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
-      "message": "Alignment should be created from selecting a word from origin text",
-      "description": "An error message for alignment creation workflow",
+    "TEXTS_CONTROLLER_EMPTY_FILE_DATA": {
+      "message": "There is no data in file to upload",
+      "description": "An error message for upload data from file.",
       "component": "TextsController"
     },
     "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {

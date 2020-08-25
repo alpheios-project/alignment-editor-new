@@ -14,17 +14,37 @@ import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
 import enGB from '@/locales/en-gb/messages.json'
 
 export default class AppController {
+  /**
+   *
+   * @param {String} appId - id attribute of the HTML element where Vue application should be attached
+   */
   constructor ({ appId }) {
-    this.attachVueComponents(appId)
+    if (!appId) {
+      console.error('You should define id inside AppController initialization to start the application.')
+      return
+    }
+    this.appId = appId
   }
 
-  attachVueComponents (appId) {
+  /**
+   * Executes methods for initialization and attaching components to the current HTML layout with defined properties
+   */
+  init () {
+    if (this.appId) {
+      this.attachVueComponents()
+    }
+  }
+
+  /**
+   * Creates and attaches App Vue component, defines additional controllers
+   */
+  attachVueComponents () {
     this.defineL10Support()
     this.defineTextController(this.l10n)
     this.defineAlignedController(this.l10n)
 
     const rootVi = new Vue()
-    const mountEl = document.getElementById(appId)
+    const mountEl = document.getElementById(this.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
@@ -37,16 +57,28 @@ export default class AppController {
     this._viAppComp.$mount(appContainerEl)
   }
 
+  /**
+   * Creates TextController and attaches to Vue components
+   * @param {L10n} l10n - initialized L10n module
+   */
   defineTextController (l10n) {
     this.textC = new TextsController(l10n)
     Vue.prototype.$textC = this.textC
   }
 
+  /**
+   * Creates AlignedController and attaches to Vue components
+   * @param {L10n} l10n - initialized L10n module
+   */
   defineAlignedController (l10n) {
     this.alignedC = new AlignedController(l10n)
     Vue.prototype.$alignedC = this.alignedC
   }
 
+  /**
+   * Defines L10n module and attaches to Vue components
+   * @param {L10n} l10n - initialized L10n module
+   */
   defineL10Support () {
     const config = {
       defaultLocale: Locales.en_US,

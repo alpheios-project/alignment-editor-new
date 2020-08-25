@@ -3,12 +3,18 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import AlignmentGroup from '@/lib/data/alignment-group'
 
 export default class Alignment {
-  constructor (docSource, l10n) {
+  constructor (originDocSource, targetDocSource, l10n) {
     this.id = uuidv4()
     this.origin = {}
     this.target = {}
 
-    this.origin.docSource = docSource
+    if (originDocSource) {
+      this.origin.docSource = originDocSource
+    }
+
+    if (targetDocSource) {
+      this.target.docSource = targetDocSource
+    }
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
