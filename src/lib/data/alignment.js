@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import AlignmentGroup from '@/lib/data/alignment-group'
+import Token from '@/lib/data/token'
 
 export default class Alignment {
   constructor (originDocSource, targetDocSource, l10n) {
@@ -21,6 +22,18 @@ export default class Alignment {
     this.activeAlignmentGroup = null
 
     this.l10n = l10n
+  }
+
+  get readyForTokenize () {
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
+  }
+
+  get originDocSourceFullyDefined () {
+    return Boolean(this.origin.docSource && this.origin.docSource.text && this.origin.docSource.direction && this.origin.docSource.lang)
+  }
+
+  get targetDocSourceFullyDefined () {
+    return Boolean(this.target.docSource && this.target.docSource.text && this.target.docSource.direction && this.target.docSource.lang)
   }
 
   updateOriginDocSource (docSource) {
@@ -44,20 +57,33 @@ export default class Alignment {
 
     if (!tokenizeMethod) {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      return false
     }
 
     this.origin.alignedText = {
       textType: 'origin',
-      tokens: tokenizeMethod(this.origin.docSource.text, '1', 'origin'),
+      tokens: this.converToTokens(tokenizeMethod(this.origin.docSource.text, '1', 'origin')),
       direction: this.origin.docSource.direction,
       lang: this.origin.docSource.lang
     }
+
     this.target.alignedText = {
       textType: 'target',
-      tokens: tokenizeMethod(this.target.docSource.text, '2', 'target'),
+      tokens: this.converToTokens(tokenizeMethod(this.target.docSource.text, '2', 'target')),
       direction: this.target.docSource.direction,
       lang: this.target.docSource.lang
     }
+
+    return true
+  }
+
+  converToTokens (tokens) {
+    const tokensFormatted = []
+    tokens.forEach(token => {
+      const tokenFormat = new Token(token)
+      tokensFormatted.push(tokenFormat)
+    })
+    return tokensFormatted
   }
 
   get originAlignedText () {
@@ -76,19 +102,21 @@ export default class Alignment {
     return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
-  shouldStartNewAlignmentGroup (token) {
+  shouldStartNewAlignmentGroup () {
     return !this.activeAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
     this.activeAlignmentGroup = new AlignmentGroup(token)
+    return Boolean(this.activeAlignmentGroup)
   }
 
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup[token.textType]) {
-      this.activeAlignmentGroup.add(token)
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
+      return this.activeAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      return false
     }
   }
 
@@ -105,15 +133,17 @@ export default class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
+      this.activeAlignmentGroup = null
+      return true
     }
-
-    this.activeAlignmentGroup = null
+    return false
   }
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return this.alignmentGroups.find(al => al.includesToken(token))
+      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token))
     }
+    return false
   }
 
   findAlignmentGroupIds (token) {
@@ -165,14 +195,18 @@ export default class Alignment {
       this.activeAlignmentGroup = tokensGroup
       this.activeAlignmentGroup.updateFirstStep(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
+      return true
     }
+    return false
   }
 
   mergeActiveGroupWithAnotherByToken (token) {
     const tokensGroup = this.findAlignmentGroup(token)
-    if (tokensGroup) {
+    if (this.activeAlignmentGroup && tokensGroup) {
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
+      return true
     }
+    return false
   }
 }

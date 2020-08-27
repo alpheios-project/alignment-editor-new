@@ -13511,7 +13511,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13519,15 +13519,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ AlignedController
 /* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+
+
 class AlignedController {
   constructor (l10n) {
+    if (!(l10n instanceof _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default)) {
+      console.error('An instance of L10n should be passed to constructor')
+      return
+    }
     this.l10n = l10n
   }
 
   createAlignedTexts (alignment) {
     this.alignment = alignment
-    const tokenizer = 'simpleWordTokenization'
-    this.alignment.createAlignedTexts(tokenizer)
+    if (alignment && this.alignment.readyForTokenize) {
+      const tokenizer = 'simpleWordTokenization'
+      return this.alignment.createAlignedTexts(tokenizer)
+    }
+    console.error(this.l10n.getMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+    return false
   }
 
   get originAlignedText () {
@@ -13559,19 +13570,19 @@ class AlignedController {
   }
 
   startNewAlignmentGroup (token) {
-    this.alignment.startNewAlignmentGroup(token)
+    return this.alignment && this.alignment.startNewAlignmentGroup(token)
   }
 
   addToAlignmentGroup (token) {
-    this.alignment.addToAlignmentGroup(token)
+    return this.alignment && this.alignment.addToAlignmentGroup(token)
   }
 
   finishActiveAlignmentGroup () {
-    this.alignment.finishActiveAlignmentGroup()
+    return this.alignment && this.alignment.finishActiveAlignmentGroup()
   }
 
   mergeActiveGroupWithAnotherByToken (token) {
-    this.alignment.mergeActiveGroupWithAnotherByToken(token)
+    return this.alignment && this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   findAlignmentGroup (token) {
@@ -13599,7 +13610,7 @@ class AlignedController {
   }
 
   activateGroupByToken (token) {
-    this.alignment.activateGroupByToken(token)
+    return this.alignment && this.alignment.activateGroupByToken(token)
   }
 }
 
@@ -13809,6 +13820,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class TextsController {
+  /**
+   *
+   * @param {L10n} l10n - L10n module
+   */
   constructor (l10n) {
     if (!(l10n instanceof _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default)) {
       console.error('An instance of L10n should be passed to constructor')
@@ -13817,10 +13832,20 @@ class TextsController {
     this.l10n = l10n
   }
 
+  /**
+   * Creates an Alignment and uploads source documents, if they are defined
+   * @param {String} originDocSource
+   * @param {String} targetDocSource
+   */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource, this.l10n)
   }
 
+  /**
+   * Uploads origin source document to the alignment object.
+   * If an alignment is not created yet, it would be created.
+   * @param {String} originDocSource
+   */
   updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
       this.createAlignment(originDocSource)
@@ -13829,6 +13854,11 @@ class TextsController {
     }
   }
 
+  /**
+   * Uploads target source document to the alignment object.
+   * If an alignment is not created yet, it would be created.
+   * @param {String} targetDocSource
+   */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
       this.createAlignment(null, targetDocSource)
@@ -13837,15 +13867,29 @@ class TextsController {
     }
   }
 
+  /**
+   * Returns origin document source if alignment is defined
+   */
   get originDocSource () {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  /**
+   * Returns target document source if alignment is defined
+   */
   get targetDocSource () {
     return this.alignment ? this.alignment.targetDocSource : null
   }
 
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
   uploadDocSourceFromFile (fileData) {
+    if (!fileData) {
+      console.error(this.l10n.getMsg('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      return
+    }
     const uploadType = 'plainSourceUploadFromFile'
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData, this.l10n)
@@ -13855,6 +13899,9 @@ class TextsController {
     }
   }
 
+  /**
+   * Prepares and download source data
+   */
   downloadData () {
     const downloadType = 'plainSourceDownload'
     const data = {
@@ -13992,21 +14039,31 @@ class AlignmentGroup {
   }
 
   add (token) {
+    if (!token.couldBeUsedForAlignment) {
+      return false
+    }
+
     this[token.textType].push(token.idWord)
     this.steps.push({ textType: token.textType, id: token.idWord, type: 'add' })
 
     if (!this.firstStep) {
       this.firstStep = this.steps[0]
     }
+    return true
   }
 
   remove (token) {
+    if (!token.couldBeUsedForAlignment) {
+      return false
+    }
+
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
       this.steps.push({ textType: token.textType, id: token.idWord, type: 'remove' })
     }
+    return true
   }
 
   get lastStepTextType () {
@@ -14051,6 +14108,7 @@ class AlignmentGroup {
     tokensGroup.target.forEach(idWord => {
       this.steps.push({ textType: 'target', id: idWord, type: 'merge' })
     })
+    return true
   }
 }
 
@@ -14076,6 +14134,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/alignment-group */ "./lib/data/alignment-group.js");
+/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+
 
 
 
@@ -14101,6 +14161,18 @@ class Alignment {
     this.l10n = l10n
   }
 
+  get readyForTokenize () {
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
+  }
+
+  get originDocSourceFullyDefined () {
+    return Boolean(this.origin.docSource && this.origin.docSource.text && this.origin.docSource.direction && this.origin.docSource.lang)
+  }
+
+  get targetDocSourceFullyDefined () {
+    return Boolean(this.target.docSource && this.target.docSource.text && this.target.docSource.direction && this.target.docSource.lang)
+  }
+
   updateOriginDocSource (docSource) {
     this.origin.docSource = docSource
   }
@@ -14122,20 +14194,33 @@ class Alignment {
 
     if (!tokenizeMethod) {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      return false
     }
 
     this.origin.alignedText = {
       textType: 'origin',
-      tokens: tokenizeMethod(this.origin.docSource.text, '1', 'origin'),
+      tokens: this.converToTokens(tokenizeMethod(this.origin.docSource.text, '1', 'origin')),
       direction: this.origin.docSource.direction,
       lang: this.origin.docSource.lang
     }
+
     this.target.alignedText = {
       textType: 'target',
-      tokens: tokenizeMethod(this.target.docSource.text, '2', 'target'),
+      tokens: this.converToTokens(tokenizeMethod(this.target.docSource.text, '2', 'target')),
       direction: this.target.docSource.direction,
       lang: this.target.docSource.lang
     }
+
+    return true
+  }
+
+  converToTokens (tokens) {
+    const tokensFormatted = []
+    tokens.forEach(token => {
+      const tokenFormat = new _lib_data_token__WEBPACK_IMPORTED_MODULE_3__.default(token)
+      tokensFormatted.push(tokenFormat)
+    })
+    return tokensFormatted
   }
 
   get originAlignedText () {
@@ -14154,19 +14239,21 @@ class Alignment {
     return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
-  shouldStartNewAlignmentGroup (token) {
+  shouldStartNewAlignmentGroup () {
     return !this.activeAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
     this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__.default(token)
+    return Boolean(this.activeAlignmentGroup)
   }
 
   addToAlignmentGroup (token) {
     if (this.activeAlignmentGroup[token.textType]) {
-      this.activeAlignmentGroup.add(token)
+      return this.activeAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      return false
     }
   }
 
@@ -14252,6 +14339,39 @@ class Alignment {
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
     }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/token.js":
+/*!***************************!*\
+  !*** ./lib/data/token.js ***!
+  \***************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ Token
+/* harmony export */ });
+class Token {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak }) {
+    this.textType = textType
+    this.idWord = idWord
+    this.word = word
+    this.beforeWord = beforeWord
+    this.afterWord = afterWord
+    this.hasLineBreak = hasLineBreak
+  }
+
+  get couldBeUsedForAlignment () {
+    return this.textType && this.idWord && this.word
   }
 }
 
@@ -14776,7 +14896,7 @@ class SimpleLocalTokenizer {
   }
 
   static simpleWordTokenization (textLine, prefix, textType) {
-    const formattedText = [{}]
+    const formattedText = []
 
     if ((/^\s*$/).test(textLine)) { // it is an empty line
       return formattedText
@@ -14842,6 +14962,9 @@ class SimpleLocalTokenizer {
       formattedText.push(resultWord)
     }
 
+    if (formattedText.length === 0) {
+      formattedText.push({})
+    }
     return formattedText
   }
 }
@@ -15334,9 +15457,10 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     alignTexts () {
-      this.$alignedC.createAlignedTexts(this.$textC.alignment)
-      this.hideTextEditorM()
-      this.showAlignEditorM()    
+      if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
+        this.hideTextEditorM()
+        this.showAlignEditorM()    
+      }
     }
   }
 });
@@ -17196,6 +17320,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
   !*** ./locales/en-us/messages-common.json ***!
   \********************************************/
 /*! default exports */
+/*! export ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export ALIGNMENT_ERROR_ADD_TO_ALIGNMENT [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -17224,7 +17353,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     other exports [not provided] [no usage info] */
 /*!   other exports [not provided] [no usage info] */
-/*! export TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export TEXTS_CONTROLLER_EMPTY_FILE_DATA [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
@@ -17255,7 +17384,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"Alignment should be created from selecting a word from origin text\",\"description\":\"An error message for alignment creation workflow\",\"component\":\"TextsController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
 
 /***/ }),
 

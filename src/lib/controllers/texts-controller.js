@@ -7,7 +7,7 @@ import L10n from '@/lib/l10n/l10n.js'
 
 export default class TextsController {
   /**
-   * 
+   *
    * @param {L10n} l10n - L10n module
    */
   constructor (l10n) {
@@ -20,17 +20,17 @@ export default class TextsController {
 
   /**
    * Creates an Alignment and uploads source documents, if they are defined
-   * @param {String} originDocSource 
-   * @param {String} targetDocSource 
+   * @param {String} originDocSource
+   * @param {String} targetDocSource
    */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new Alignment(originDocSource, targetDocSource, this.l10n)
   }
 
   /**
-   * Uploads origin source document to the alignment object. 
+   * Uploads origin source document to the alignment object.
    * If an alignment is not created yet, it would be created.
-   * @param {String} originDocSource 
+   * @param {String} originDocSource
    */
   updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
@@ -41,9 +41,9 @@ export default class TextsController {
   }
 
   /**
-   * Uploads target source document to the alignment object. 
+   * Uploads target source document to the alignment object.
    * If an alignment is not created yet, it would be created.
-   * @param {String} targetDocSource 
+   * @param {String} targetDocSource
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
@@ -86,7 +86,7 @@ export default class TextsController {
   }
 
   /**
-   * Prepares and download source data 
+   * Prepares and download source data
    */
   downloadData () {
     const downloadType = 'plainSourceDownload'

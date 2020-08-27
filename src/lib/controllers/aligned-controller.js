@@ -1,12 +1,22 @@
+import L10n from '@/lib/l10n/l10n.js'
+
 export default class AlignedController {
   constructor (l10n) {
+    if (!(l10n instanceof L10n)) {
+      console.error('An instance of L10n should be passed to constructor')
+      return
+    }
     this.l10n = l10n
   }
 
   createAlignedTexts (alignment) {
     this.alignment = alignment
-    const tokenizer = 'simpleWordTokenization'
-    this.alignment.createAlignedTexts(tokenizer)
+    if (alignment && this.alignment.readyForTokenize) {
+      const tokenizer = 'simpleWordTokenization'
+      return this.alignment.createAlignedTexts(tokenizer)
+    }
+    console.error(this.l10n.getMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+    return false
   }
 
   get originAlignedText () {
@@ -38,19 +48,19 @@ export default class AlignedController {
   }
 
   startNewAlignmentGroup (token) {
-    this.alignment.startNewAlignmentGroup(token)
+    return this.alignment && this.alignment.startNewAlignmentGroup(token)
   }
 
   addToAlignmentGroup (token) {
-    this.alignment.addToAlignmentGroup(token)
+    return this.alignment && this.alignment.addToAlignmentGroup(token)
   }
 
   finishActiveAlignmentGroup () {
-    this.alignment.finishActiveAlignmentGroup()
+    return this.alignment && this.alignment.finishActiveAlignmentGroup()
   }
 
   mergeActiveGroupWithAnotherByToken (token) {
-    this.alignment.mergeActiveGroupWithAnotherByToken(token)
+    return this.alignment && this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   findAlignmentGroup (token) {
@@ -58,7 +68,7 @@ export default class AlignedController {
   }
 
   findAlignmentGroupIds (token) {
-    return this.alignment && this.alignment.findAlignmentGroupIds(token)
+    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []
   }
 
   tokenIsGrouped (token) {
@@ -78,6 +88,6 @@ export default class AlignedController {
   }
 
   activateGroupByToken (token) {
-    this.alignment.activateGroupByToken(token)
+    return this.alignment && this.alignment.activateGroupByToken(token)
   }
 }

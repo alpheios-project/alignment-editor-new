@@ -15,6 +15,11 @@
       "description": "An error message for upload data from file.",
       "component": "TextsController"
     },
+    "ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION": {
+      "message": "Document source texts are not ready for tokenization.",
+      "description": "An error message creating alignment.",
+      "component": "AlignedController"
+    },
     "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {
       "message": "Tokenization was cancelled.",
       "description": "An error message for tokenization workflow",
