@@ -57,6 +57,9 @@ export default {
       this.defineTextsShow = false
     }
   },
+  created () {
+    this.$textC.createAlignment()
+  },
   computed: {
     defineTextsShowLabel () {
       return this.defineTextsShow ? this.$l10n.getMsg('TEXT_EDITOR_HIDE') : this.$l10n.getMsg('TEXT_EDITOR_SHOW')

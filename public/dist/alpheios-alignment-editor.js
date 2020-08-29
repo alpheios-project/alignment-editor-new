@@ -13523,6 +13523,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AlignedController {
+  /**
+   *
+   * @param {L10n} l10n - L10n module
+   */
   constructor (l10n) {
     if (!(l10n instanceof _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default)) {
       console.error('An instance of L10n should be passed to constructor')
@@ -13531,6 +13535,11 @@ class AlignedController {
     this.l10n = l10n
   }
 
+  /**
+   * Checks the ability to align and creats sets of tokens for each text - origin, target and saves it to the alignment
+   * @param {Alignment} alignment
+   * @return {Boolean} result, true - aligned texts were created, false - were not
+   */
   createAlignedTexts (alignment) {
     this.alignment = alignment
     if (alignment && this.alignment.readyForTokenize) {
@@ -13541,14 +13550,30 @@ class AlignedController {
     return false
   }
 
+  /**
+   * @return { {} | AlignedText } origin aligned text
+   */
   get originAlignedText () {
     return this.alignment ? this.alignment.originAlignedText : {}
   }
 
+  /**
+   * @return { {} | AlignedText } target aligned text
+   */
   get targetAlignedText () {
     return this.alignment ? this.alignment.targetAlignedText : {}
   }
 
+  /**
+   * This method realizes the main workflow - creating/updating aligned groups:
+   * If there is no active alignment and token is already grouped - activateGroupByToken
+   * If there is no active alignment and token is not grouped - startNewAlignmentGroup
+   * If there is an active alignment and token fits conditions to finish an active alignment - finishActiveAlignmentGroup
+   * If there is an active alignment and token fits conditions to remove from an active alignment - removeFromAlignmentGroup
+   * If there is an active alignment and token is grouped (in another aligned group) - mergeActiveGroupWithAnotherByToken
+   * If there is an active alignment and token is not grouped - addToAlignmentGroup
+   * @param {Token} token
+   */
   clickToken (token) {
     if (!this.hasActiveAlignment) {
       if (this.tokenIsGrouped(token)) {
@@ -13569,46 +13594,91 @@ class AlignedController {
     }
   }
 
+  /**
+   * Creates a new alignment group and active alignment group is defined with it
+   * @param {Token} token
+   * @return {Boolean} true - if a new active alignment group is defined, false - not
+   */
   startNewAlignmentGroup (token) {
     return this.alignment && this.alignment.startNewAlignmentGroup(token)
   }
 
+  /**
+   * Adds token to an active alignment group
+   * @param {Token} token
+   * @return {Boolean} true - if the token was added, false - not
+   */
   addToAlignmentGroup (token) {
     return this.alignment && this.alignment.addToAlignmentGroup(token)
   }
 
+  /**
+   * Saves active alignment group to the list and sets active alignment group to be null
+   * @return {Boolean} true - if alignment group was saved to the list, false - not
+   */
   finishActiveAlignmentGroup () {
     return this.alignment && this.alignment.finishActiveAlignmentGroup()
   }
 
+  /**
+   * Finds an alignment group by token, removes from the groups list and merge with active alignment group
+   * @return {Boolean} true - if groups were merged, false - not
+   */
   mergeActiveGroupWithAnotherByToken (token) {
     return this.alignment && this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
+  /**
+   * Finds an alignment group by token in the list
+   * @return {AlignmentGroup | Boolean} AlignmentGroup - if a group was found, false - not
+   */
   findAlignmentGroup (token) {
     return this.alignment && this.alignment.findAlignmentGroup(token)
   }
 
+  /**
+   * Finds an alignment group by token and returns all ids from it
+   * @return {Array | Boolean} Array - if a group was found, false - not
+   */
   findAlignmentGroupIds (token) {
-    return this.alignment && this.alignment.findAlignmentGroupIds(token)
+    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []
   }
 
+  /**
+   * Checks if the token is already saved in some alignment group
+   * @param {Token} token
+   */
   tokenIsGrouped (token) {
     return this.alignment && this.alignment.tokenIsGrouped(token)
   }
 
+  /**
+   * Checks if the token is already added in an active alignment group
+   * @param {Token} token
+   */
   tokenInActiveGroup (token) {
     return this.alignment && this.alignment.tokenInActiveGroup(token)
   }
 
+  /**
+   * Checks if the token is defined as first token in an active alignment group
+   * @param {Token} token
+   */
   isFirstInActiveGroup (token) {
     return this.alignment && this.alignment.isFirstInActiveGroup(token)
   }
 
+  /**
+   * Checks if there is an active alignment group
+   */
   get hasActiveAlignment () {
     return this.alignment && this.alignment.hasActiveAlignment
   }
 
+  /**
+   * Checks if the token is saved in some alignment group and makes this alignment group active
+   * @param {Token} token
+   */
   activateGroupByToken (token) {
     return this.alignment && this.alignment.activateGroupByToken(token)
   }
@@ -13767,26 +13837,48 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class DownloadController {
-  static download (downloadType, data, l10n) {
-    switch (downloadType) {
-      case 'plainSourceDownload':
-        return this.plainSourceDownload(data, l10n)
-      default:
-        console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+  /**
+   * The list with registered variants of download workflows
+   */
+  static get downloadMethods () {
+    return {
+      plainSourceDownload: this.plainSourceDownload
     }
   }
 
+  /**
+   * Defines a download method and executes it
+   * @param {String} downloadType  - defines the download workflow
+   * @param {Object} data - all data for download
+   * @param {L10n} l10n - L10n module
+   * @return {Boolean} - true - download was done, false - not
+   */
+  static download (downloadType, data, l10n) {
+    if (this.downloadMethods[downloadType]) {
+      return this.downloadMethods[downloadType](data, l10n)
+    }
+    console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    return false
+  }
+
+  /**
+   * Executes download workflow for downloading: one origin, one target text - only source state
+   * Data.originDocSource and data.targetDocSource - are obligatory data
+   * @param {Object} data - all data for download
+   * @param {L10n} l10n - L10n module
+   * @return {Boolean} - true - download was done, false - not
+   */
   static plainSourceDownload (data, l10n) {
-    if (!data.originDocSource || !data.targetDocSource) {
+    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
       console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      return
+      return false
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,
       data.targetDocSource.text, data.targetDocSource.direction, data.targetDocSource.lang
     ]
 
     const fileName = `alignment-${data.originDocSource.lang}-${data.targetDocSource.lang}`
-    _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
+    return _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
   }
 }
 
@@ -13844,11 +13936,11 @@ class TextsController {
   /**
    * Uploads origin source document to the alignment object.
    * If an alignment is not created yet, it would be created.
-   * @param {String} originDocSource
+   * @param {Object} originDocSource
    */
   updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
-      this.createAlignment(originDocSource)
+      this.createAlignment(originDocSource, null, this.l10n)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
@@ -13857,11 +13949,11 @@ class TextsController {
   /**
    * Uploads target source document to the alignment object.
    * If an alignment is not created yet, it would be created.
-   * @param {String} targetDocSource
+   * @param {Object} targetDocSource
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource)
+      this.createAlignment(null, targetDocSource, this.l10n)
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -13959,7 +14051,7 @@ class TokenizeController {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13967,43 +14059,108 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ UploadController
 /* harmony export */ });
+/* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
+
+
 class UploadController {
-  static upload (uploadType, data, l10n) {
-    switch (uploadType) {
-      case 'plainSourceUploadFromFile':
-        return this.plainSourceUploadFromFile(data, l10n)
-      default:
-        console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+  /**
+   * The list with registered variants of upload workflows
+   */
+  static get uploadMethods () {
+    return {
+      plainSourceUploadFromFile: this.plainSourceUploadFromFile
     }
   }
 
-  static plainSourceUploadFromFile (fileData, l10n) {
-    fileData = fileData.split(/\r\n|\r|\n/)
+  /**
+   * Defines an upload method and executes it
+   * @param {String} downloadType  - defines the upload workflow
+   * @param {Object} data - all data for parsing
+   * @param {L10n} l10n - L10n module
+   * @return {Boolean} - true - upload was done, false - not
+   */
+  static upload (uploadType, data, l10n) {
+    if (this.uploadMethods[uploadType]) {
+      return this.uploadMethods[uploadType](data, l10n)
+    }
+    console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    return false
+  }
+
+  /**
+   * Executes upload workflow: one origin, one target text - only source state
+   * fileData should contain 6 rows: origin.text, origin.direction, origin.lang, target.text, target.direction, target.lang
+   * @param {Object} data - all data for download
+   * @param {L10n} l10n - L10n module
+   * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
+   */
+  static plainSourceUploadFromFile (fileString, l10n) {
+    if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
+      console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      return
+    }
+    const fileData = fileString.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
       console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 
-    const formattedData = {
-      origin: {
-        text: fileData[0].replace(/\t/g, '\u000D'),
-        direction: fileData[1],
-        lang: fileData[2],
-        textType: 'origin'
-      },
-      target: {
-        text: fileData[3].replace(/\t/g, '\u000D'),
-        direction: fileData[4],
-        lang: fileData[5],
-        textType: 'target'
-      }
-    }
-
     return {
-      originDocSource: formattedData.origin,
-      targetDocSource: formattedData.target
+      originDocSource: new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] }),
+      targetDocSource: new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default('target', { text: fileData[3], direction: fileData[4], lang: fileData[5] })
     }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/aligned-text.js":
+/*!**********************************!*\
+  !*** ./lib/data/aligned-text.js ***!
+  \**********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ AlignedText
+/* harmony export */ });
+/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+
+
+class AlignedText {
+  constructor ({ textType, docSource, tokenizeMethod }) {
+    this.textType = textType
+    this.tokenizeMethod = tokenizeMethod
+    this.direction = docSource.direction
+    this.lang = docSource.lang
+
+    this.tokenize(docSource)
+  }
+
+  get tokenPrefix () {
+    return this.textType === 'origin' ? '1' : '2'
+  }
+
+  tokenize (docSource) {
+    const tokens = this.tokenizeMethod(docSource.text, this.tokenPrefix, this.textType)
+    this.tokens = this.convertToTokens(tokens)
+  }
+
+  convertToTokens (tokens) {
+    const tokensFormatted = []
+
+    tokens.forEach(token => {
+      const tokenFormat = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token)
+      tokensFormatted.push(tokenFormat)
+    })
+    return tokensFormatted
   }
 }
 
@@ -14134,11 +14291,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/alignment-group */ "./lib/data/alignment-group.js");
-/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+/* harmony import */ var _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/aligned-text */ "./lib/data/aligned-text.js");
+/* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 
 
 
 
+
+// import Token from '@/lib/data/token'
 
 class Alignment {
   constructor (originDocSource, targetDocSource, l10n) {
@@ -14146,13 +14306,8 @@ class Alignment {
     this.origin = {}
     this.target = {}
 
-    if (originDocSource) {
-      this.origin.docSource = originDocSource
-    }
-
-    if (targetDocSource) {
-      this.target.docSource = targetDocSource
-    }
+    this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_4__.default('origin', originDocSource)
+    this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_4__.default('target', targetDocSource)
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -14166,19 +14321,19 @@ class Alignment {
   }
 
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.text && this.origin.docSource.direction && this.origin.docSource.lang)
+    return Boolean(this.origin.docSource && this.origin.docSource.fullDefined)
   }
 
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.text && this.target.docSource.direction && this.target.docSource.lang)
+    return Boolean(this.target.docSource && this.target.docSource.fullDefined)
   }
 
   updateOriginDocSource (docSource) {
-    this.origin.docSource = docSource
+    this.origin.docSource.update(docSource)
   }
 
   updateTargetDocSource (docSource) {
-    this.target.docSource = docSource
+    this.target.docSource.update(docSource)
   }
 
   get originDocSource () {
@@ -14197,30 +14352,19 @@ class Alignment {
       return false
     }
 
-    this.origin.alignedText = {
+    this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_3__.default({
       textType: 'origin',
-      tokens: this.converToTokens(tokenizeMethod(this.origin.docSource.text, '1', 'origin')),
-      direction: this.origin.docSource.direction,
-      lang: this.origin.docSource.lang
-    }
+      docSource: this.origin.docSource,
+      tokenizeMethod
+    })
 
-    this.target.alignedText = {
+    this.target.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_3__.default({
       textType: 'target',
-      tokens: this.converToTokens(tokenizeMethod(this.target.docSource.text, '2', 'target')),
-      direction: this.target.docSource.direction,
-      lang: this.target.docSource.lang
-    }
+      docSource: this.target.docSource,
+      tokenizeMethod
+    })
 
     return true
-  }
-
-  converToTokens (tokens) {
-    const tokensFormatted = []
-    tokens.forEach(token => {
-      const tokenFormat = new _lib_data_token__WEBPACK_IMPORTED_MODULE_3__.default(token)
-      tokensFormatted.push(tokenFormat)
-    })
-    return tokensFormatted
   }
 
   get originAlignedText () {
@@ -14249,7 +14393,7 @@ class Alignment {
   }
 
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup[token.textType]) {
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -14270,15 +14414,17 @@ class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
+      this.activeAlignmentGroup = null
+      return true
     }
-
-    this.activeAlignmentGroup = null
+    return false
   }
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return this.alignmentGroups.find(al => al.includesToken(token))
+      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token))
     }
+    return false
   }
 
   findAlignmentGroupIds (token) {
@@ -14330,15 +14476,91 @@ class Alignment {
       this.activeAlignmentGroup = tokensGroup
       this.activeAlignmentGroup.updateFirstStep(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
+      return true
     }
+    return false
   }
 
   mergeActiveGroupWithAnotherByToken (token) {
     const tokensGroup = this.findAlignmentGroup(token)
-    if (tokensGroup) {
+    if (this.activeAlignmentGroup && tokensGroup) {
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
+      return true
     }
+    return false
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/source-text.js":
+/*!*********************************!*\
+  !*** ./lib/data/source-text.js ***!
+  \*********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ SourceText
+/* harmony export */ });
+class SourceText {
+  /**
+   *
+   * @param {String} textType - origin or target
+   * @param {Object} docSource
+   * @param {String} docSource.text
+   * @param {String} docSource.direction
+   * @param {String} docSource.lang
+   */
+  constructor (textType, docSource) {
+    this.textType = textType
+    this.text = docSource ? docSource.text : ''
+    this.direction = docSource ? docSource.direction : ''
+    this.lang = docSource ? docSource.lang : ''
+  }
+
+  /**
+   * updates properties: text, direction, lang
+   * @param {Object} docSource
+   * @param {String} docSource.text
+   * @param {String} docSource.direction
+   * @param {String} docSource.lang
+   */
+  update (docSource) {
+    this.text = docSource.text
+    this.direction = docSource.direction
+    this.lang = docSource.lang
+  }
+
+  /**
+   * Checks if all obligatory properties are defined: text, direction, lang
+   * @return {Boolean}
+   */
+  get fullDefined () {
+    return Boolean(this.text && this.direction && this.lang)
+  }
+
+  /**
+   *
+   * @param {String} textType origin or target
+   * @param {Object} jsonData
+   * @param {String} jsonData.text
+   * @param {String} jsonData.direction
+   * @param {String} jsonData.lang
+   */
+  static convertFromJSON (textType, jsonData) {
+    const text = jsonData.text.replace(/\t/g, '\u000D')
+    const direction = jsonData.direction
+    const lang = jsonData.lang
+
+    return new SourceText(textType, { text, direction, lang })
   }
 }
 
@@ -14429,7 +14651,7 @@ class DownloadFileOneColumn {
     const exportFields = ['data']
 
     const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
-    this.downloadBlob(result, `${fileName}.${fileExtension}`)
+    return this.downloadBlob(result, `${fileName}.${fileExtension}`)
   }
 }
 
@@ -15735,6 +15957,9 @@ __webpack_require__.r(__webpack_exports__);
     hideEditor () {
       this.defineTextsShow = false
     }
+  },
+  created () {
+    this.$textC.createAlignment()
   },
   computed: {
     defineTextsShowLabel () {

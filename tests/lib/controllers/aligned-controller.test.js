@@ -14,8 +14,8 @@ describe('texts-controller.test.js', () => {
   console.warn = function () {}
   
   beforeEach(() => {
+    jest.clearAllMocks()
     jest.spyOn(console, 'error')
-
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })

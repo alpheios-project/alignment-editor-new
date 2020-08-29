@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import AlignmentGroup from '@/lib/data/alignment-group'
-import Token from '@/lib/data/token'
+import AlignedText from '@/lib/data/aligned-text'
+import SourceText from '@/lib/data/source-text'
+// import Token from '@/lib/data/token'
 
 export default class Alignment {
   constructor (originDocSource, targetDocSource, l10n) {
@@ -9,13 +11,8 @@ export default class Alignment {
     this.origin = {}
     this.target = {}
 
-    if (originDocSource) {
-      this.origin.docSource = originDocSource
-    }
-
-    if (targetDocSource) {
-      this.target.docSource = targetDocSource
-    }
+    this.origin.docSource = new SourceText('origin', originDocSource)
+    this.target.docSource = new SourceText('target', targetDocSource)
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -29,19 +26,19 @@ export default class Alignment {
   }
 
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.text && this.origin.docSource.direction && this.origin.docSource.lang)
+    return Boolean(this.origin.docSource && this.origin.docSource.fullDefined)
   }
 
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.text && this.target.docSource.direction && this.target.docSource.lang)
+    return Boolean(this.target.docSource && this.target.docSource.fullDefined)
   }
 
   updateOriginDocSource (docSource) {
-    this.origin.docSource = docSource
+    this.origin.docSource.update(docSource)
   }
 
   updateTargetDocSource (docSource) {
-    this.target.docSource = docSource
+    this.target.docSource.update(docSource)
   }
 
   get originDocSource () {
@@ -60,30 +57,19 @@ export default class Alignment {
       return false
     }
 
-    this.origin.alignedText = {
+    this.origin.alignedText = new AlignedText({
       textType: 'origin',
-      tokens: this.converToTokens(tokenizeMethod(this.origin.docSource.text, '1', 'origin')),
-      direction: this.origin.docSource.direction,
-      lang: this.origin.docSource.lang
-    }
+      docSource: this.origin.docSource,
+      tokenizeMethod
+    })
 
-    this.target.alignedText = {
+    this.target.alignedText = new AlignedText({
       textType: 'target',
-      tokens: this.converToTokens(tokenizeMethod(this.target.docSource.text, '2', 'target')),
-      direction: this.target.docSource.direction,
-      lang: this.target.docSource.lang
-    }
+      docSource: this.target.docSource,
+      tokenizeMethod
+    })
 
     return true
-  }
-
-  converToTokens (tokens) {
-    const tokensFormatted = []
-    tokens.forEach(token => {
-      const tokenFormat = new Token(token)
-      tokensFormatted.push(tokenFormat)
-    })
-    return tokensFormatted
   }
 
   get originAlignedText () {

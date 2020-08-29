@@ -21,6 +21,7 @@ describe('app-controller.test.js', () => {
   })
 
   beforeEach(() => {
+    jest.clearAllMocks()
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')

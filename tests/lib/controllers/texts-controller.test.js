@@ -7,6 +7,7 @@ import L10n from '@/lib/l10n/l10n.js'
 import Alignment from '@/lib/data/alignment'
 import UploadController from '@/lib/controllers/upload-controller.js'
 import DownloadController from '@/lib/controllers/download-controller.js'
+import SourceText from '@/lib/data/source-text'
 
 describe('texts-controller.test.js', () => {
 
@@ -15,6 +16,7 @@ describe('texts-controller.test.js', () => {
   console.warn = function () {}
 
   beforeEach(() => {
+    jest.clearAllMocks()
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
@@ -39,7 +41,7 @@ describe('texts-controller.test.js', () => {
     const l10n = new L10n()
     const textsC = new TextsController(l10n)
 
-    textsC.createAlignment('originText', 'targetText', l10n)
+    textsC.createAlignment(null, null, l10n)
 
     expect(textsC.alignment).toBeInstanceOf(Alignment)
   })
@@ -49,10 +51,11 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(l10n)
 
     textsC.createAlignment = jest.fn()
-    textsC.updateOriginDocSource('originDocSource')
+    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateOriginDocSource(docSource)
 
     expect(textsC.alignment).not.toBeDefined()
-    expect(textsC.createAlignment).toHaveBeenCalledWith('originDocSource')
+    expect(textsC.createAlignment).toHaveBeenCalledWith(docSource, null, l10n)
   })
 
   it('5 TextsController - updateOriginDocSource updates origin document source to an existed alignment object ', () => {
@@ -64,10 +67,11 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC, 'createAlignment')
     jest.spyOn(textsC.alignment, 'updateOriginDocSource')
 
-    textsC.updateOriginDocSource('originDocSource')
+    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateOriginDocSource(docSource)
 
     expect(textsC.createAlignment).not.toHaveBeenCalled()
-    expect(textsC.alignment.updateOriginDocSource).toHaveBeenCalledWith('originDocSource')
+    expect(textsC.alignment.updateOriginDocSource).toHaveBeenCalledWith(docSource)
   })
 
   it('6 TextsController - updateTargetDocSource creates alignment if it is not created yet ', () => {
@@ -75,25 +79,28 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(l10n)
 
     textsC.createAlignment = jest.fn()
-    textsC.updateTargetDocSource('targetDocSource')
+    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateTargetDocSource(docSource)
 
     expect(textsC.alignment).not.toBeDefined()
-    expect(textsC.createAlignment).toHaveBeenCalledWith(null, 'targetDocSource')
+    expect(textsC.createAlignment).toHaveBeenCalledWith(null, docSource, l10n)
   })
 
   it('7 TextsController - updateTargetDocSource updates target document source to an existed alignment object ', () => {
     const l10n = new L10n()
     const textsC = new TextsController(l10n)
 
+
     textsC.createAlignment(null, null, l10n)
 
     jest.spyOn(textsC, 'createAlignment')
     jest.spyOn(textsC.alignment, 'updateTargetDocSource')
 
-    textsC.updateTargetDocSource('targetDocSource')
+    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateTargetDocSource(docSource)
 
     expect(textsC.createAlignment).not.toHaveBeenCalled()
-    expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith('targetDocSource')
+    expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith(docSource)
   })
 
   it('8 TextsController - originDocSource returns origin document source if alignment is defined otherwise it returns null ', () => {
@@ -101,8 +108,10 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(l10n)
 
     expect(textsC.originDocSource).toBeNull()
-    textsC.updateOriginDocSource('originDocSource')
-    expect(textsC.originDocSource).toEqual('originDocSource')
+
+    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateOriginDocSource(docSource)
+    expect(textsC.originDocSource).toBeInstanceOf(SourceText)
   })
 
   it('9 TextsController - targetDocSource returns target document source if alignment is defined otherwise it returns null ', () => {
@@ -110,8 +119,10 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(l10n)
 
     expect(textsC.targetDocSource).toBeNull()
-    textsC.updateTargetDocSource('targetDocSource')
-    expect(textsC.targetDocSource).toEqual('targetDocSource')
+
+    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateTargetDocSource(docSource)
+    expect(textsC.targetDocSource).toBeInstanceOf(SourceText)
   })
 
   it('10 TextsController - uploadDocSourceFromFile prints error if fileData is empty', () => {
@@ -130,14 +141,14 @@ describe('texts-controller.test.js', () => {
     expect(textsC.updateTargetDocSource).not.toHaveBeenCalled()
   })
 
-  it('11 TextsController - uploadDocSourceFromFile executes UploadController.upload and update document source texts from ', () => {
+  it('11 TextsController - uploadDocSourceFromFile executes UploadController.upload and update document source texts from it', () => {
     const l10n = new L10n()
     const textsC = new TextsController(l10n)
 
     UploadController.upload = jest.fn(() => {
       return {
-        originDocSource: 'originDocSource',
-        targetDocSource: 'targetDocSource'
+        originDocSource: { text: 'originDocSource', direction: 'ltr', lang: 'lat' },
+        targetDocSource: { text: 'targetDocSource', direction: 'ltr', lang: 'eng' }
       }
     })
 
@@ -147,11 +158,27 @@ describe('texts-controller.test.js', () => {
     textsC.uploadDocSourceFromFile('some file document')
 
     expect(UploadController.upload).toHaveBeenCalled()
-    expect(textsC.updateOriginDocSource).toHaveBeenCalledWith('originDocSource')
-    expect(textsC.updateTargetDocSource).toHaveBeenCalledWith('targetDocSource')
+    expect(textsC.updateOriginDocSource).toHaveBeenCalledWith({ text: 'originDocSource', direction: 'ltr', lang: 'lat' })
+    expect(textsC.updateTargetDocSource).toHaveBeenCalledWith({ text: 'targetDocSource', direction: 'ltr', lang: 'eng' })
   })
 
-  it('12 TextsController - downloadData executes DownloadController.download', () => {
+  it('12 TextsController - uploadDocSourceFromFile executes UploadController.upload and does not update document source texts if upload result is false ', () => {
+    const l10n = new L10n()
+    const textsC = new TextsController(l10n)
+
+    UploadController.upload = jest.fn(() => false)
+
+    jest.spyOn(textsC, 'updateOriginDocSource')
+    jest.spyOn(textsC, 'updateTargetDocSource')
+
+    textsC.uploadDocSourceFromFile('some file document')
+
+    expect(UploadController.upload).toHaveBeenCalled()
+    expect(textsC.updateOriginDocSource).not.toHaveBeenCalled()
+    expect(textsC.updateTargetDocSource).not.toHaveBeenCalled()
+  })
+
+  it('13 TextsController - downloadData executes DownloadController.download', () => {
     const l10n = new L10n()
     const textsC = new TextsController(l10n)
 

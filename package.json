@@ -7,7 +7,7 @@
     "build": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs",
     "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
     "test-lib": "jest tests/lib --coverage",
-    "test-a": "jest tests/lib/controllers/aligned-controller.test.js --coverage"
+    "test-a": "jest tests/lib/controllers/upload-controller.test.js --coverage"
   },
   "repository": {
     "type": "git",

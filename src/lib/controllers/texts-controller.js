@@ -30,11 +30,11 @@ export default class TextsController {
   /**
    * Uploads origin source document to the alignment object.
    * If an alignment is not created yet, it would be created.
-   * @param {String} originDocSource
+   * @param {Object} originDocSource
    */
   updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
-      this.createAlignment(originDocSource)
+      this.createAlignment(originDocSource, null, this.l10n)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
@@ -43,11 +43,11 @@ export default class TextsController {
   /**
    * Uploads target source document to the alignment object.
    * If an alignment is not created yet, it would be created.
-   * @param {String} targetDocSource
+   * @param {Object} targetDocSource
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource)
+      this.createAlignment(null, targetDocSource, this.l10n)
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
