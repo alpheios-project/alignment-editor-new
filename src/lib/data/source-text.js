@@ -36,7 +36,7 @@ export default class SourceText {
   }
 
   /**
-   *
+   * Converts jsonObject to SourceText instance if data is defined correctly
    * @param {String} textType origin or target
    * @param {Object} jsonData
    * @param {String} jsonData.text
