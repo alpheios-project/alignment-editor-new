@@ -2,10 +2,10 @@
 /* eslint-disable no-unused-vars */
 
 import AlignedController from '@/lib/controllers/aligned-controller.js'
-import L10n from '@/lib/l10n/l10n.js'
 import Alignment from '@/lib/data/alignment'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import Token from '@/lib/data/token'
+import AppController from '@/lib/controllers/app-controller.js'
 
 describe('texts-controller.test.js', () => {
 
@@ -13,6 +13,13 @@ describe('texts-controller.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
   
+  beforeAll(() => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+    appC.defineL10Support()
+  })
+
   beforeEach(() => {
     jest.clearAllMocks()
     jest.spyOn(console, 'error')
@@ -20,24 +27,8 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(console, 'warn')
   })
 
-  it('1 AlignedController - creates AlignedController and uploads l10n from parameters, l10n is an Instance of L10n module', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-
-    expect(console.error).not.toHaveBeenCalled()
-    expect(alignedC.l10n).toBeInstanceOf(L10n)
-  })
-
-  it('2 AlignedController - creates AlignedController and prints an error, if l10n is not an Instance of L10n module', () => {
+  it('1 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not defined', () => {
     const alignedC = new AlignedController()
-
-    expect(console.error).toHaveBeenCalled()
-    expect(alignedC.l10n).not.toBeDefined()
-  })
-
-  it('3 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
 
     const result = alignedC.createAlignedTexts()
 
@@ -45,12 +36,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('4 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not ready', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-
+  it('2 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not ready', () => {
+    const alignedC = new AlignedController()
     
-    const alignment = new Alignment({ text: 'origin' }, { text: 'target' }, l10n)
+    const alignment = new Alignment({ text: 'origin' }, { text: 'target' })
 
     const result = alignment.createAlignedTexts(alignment)
     jest.spyOn(alignment, 'createAlignedTexts')
@@ -61,11 +50,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('5 AlignedController - createAlignedTexts defines alignment and executes tokenizer', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('3 AlignedController - createAlignedTexts defines alignment and executes tokenizer', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     jest.spyOn(alignment, 'createAlignedTexts')
     
     const result = alignedC.createAlignedTexts(alignment)
@@ -75,18 +63,16 @@ describe('texts-controller.test.js', () => {
   })
 
   it('6 AlignedController - originAlignedText returns empty object if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+    const alignedC = new AlignedController()
 
     const result = alignedC.originAlignedText
     expect(result).toEqual({})
   })
 
-  it('7 AlignedController - originAlignedText returns originAlignedText from the defined alignment', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('4 AlignedController - originAlignedText returns originAlignedText from the defined alignment', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const result = alignedC.originAlignedText
@@ -97,20 +83,18 @@ describe('texts-controller.test.js', () => {
     expect(result.tokens.length).toEqual(1)
   })
 
-  it('8 AlignedController - targetAlignedText returns empty object if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('5 AlignedController - targetAlignedText returns empty object if alignment is not defined', () => {
+    const alignedC = new AlignedController()
     
     const result = alignedC.targetAlignedText
     expect(result).toEqual({})
   })
 
 
-  it('9 AlignedController - targetAlignedText returns targetAlignedText from the defined alignment', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('6 AlignedController - targetAlignedText returns targetAlignedText from the defined alignment', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const result = alignedC.targetAlignedText
@@ -121,10 +105,9 @@ describe('texts-controller.test.js', () => {
     expect(result.tokens.length).toEqual(1)
   })
 
-  it('10 AlignedController - clickToken executes activateGroupByToken if there is no active alignment and token is already grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('7 AlignedController - clickToken executes activateGroupByToken if there is no active alignment and token is already grouped', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     alignedC.activateGroupByToken = jest.fn()
@@ -154,10 +137,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
   })
 
-  it('11 AlignedController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('8 AlignedController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     alignedC.activateGroupByToken = jest.fn()
@@ -187,10 +169,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
   })
 
-  it('12 AlignedController - clickToken executes finishActiveAlignmentGroup if there is an active alignment and token meets the conditions for finishing group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('9 AlignedController - clickToken executes finishActiveAlignmentGroup if there is an active alignment and token meets the conditions for finishing group', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     alignedC.activateGroupByToken = jest.fn()
@@ -221,10 +202,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
   })
 
-  it('13 AlignedController - clickToken executes removeFromAlignmentGroup if there is an active alignment and token meets the conditions for removing from a group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('10 AlignedController - clickToken executes removeFromAlignmentGroup if there is an active alignment and token meets the conditions for removing from a group', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     alignedC.activateGroupByToken = jest.fn()
@@ -257,10 +237,9 @@ describe('texts-controller.test.js', () => {
     
   })
 
-  it('14 AlignedController - clickToken executes mergeActiveGroupWithAnotherByToken if there is an active alignment and token is in another group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('11 AlignedController - clickToken executes mergeActiveGroupWithAnotherByToken if there is an active alignment and token is in another group', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     alignedC.activateGroupByToken = jest.fn()
@@ -294,10 +273,9 @@ describe('texts-controller.test.js', () => {
     
   })
 
-  it('15 AlignedController - clickToken executes addToAlignmentGroup if there is an active alignment and token should be added', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('12 AlignedController - clickToken executes addToAlignmentGroup if there is an active alignment and token should be added', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     alignedC.activateGroupByToken = jest.fn()
@@ -331,9 +309,8 @@ describe('texts-controller.test.js', () => {
     
   })
 
-  it('16 AlignedController - startNewAlignmentGroup returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('13 AlignedController - startNewAlignmentGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -345,10 +322,9 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('17 AlignedController - startNewAlignmentGroup returns true and executes alignment.startNewAlignmentGroup if alignment is defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('14 AlignedController - startNewAlignmentGroup returns true and executes alignment.startNewAlignmentGroup if alignment is defined', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -365,9 +341,8 @@ describe('texts-controller.test.js', () => {
     expect(alignment.startNewAlignmentGroup).toHaveBeenCalledWith(token)
   })
 
-  it('18 AlignedController - addToAlignmentGroup returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('15 AlignedController - addToAlignmentGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -379,10 +354,9 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('19 AlignedController - addToAlignmentGroup returns false, executes alignment.addToAlignmentGroup and prints error if alignment is defined and activeAlignmentGroup is not  defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('16 AlignedController - addToAlignmentGroup returns false, executes alignment.addToAlignmentGroup and prints error if alignment is defined and activeAlignmentGroup is not  defined', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -399,10 +373,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.addToAlignmentGroup).toHaveBeenCalledWith(token)
   })
 
-  it('20 AlignedController - addToAlignmentGroup returns true and executes alignment.addToAlignmentGroup if alignment and activeAlignmentGroup are defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('17 AlignedController - addToAlignmentGroup returns true and executes alignment.addToAlignmentGroup if alignment and activeAlignmentGroup are defined', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -427,9 +400,8 @@ describe('texts-controller.test.js', () => {
     expect(alignment.addToAlignmentGroup).toHaveBeenCalledWith(token2)
   })
 
-  it('21 AlignedController - finishActiveAlignmentGroup returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('18 AlignedController - finishActiveAlignmentGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -441,10 +413,9 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('22 AlignedController - finishActiveAlignmentGroup returns false, executes alignment.finishActiveAlignmentGroup with false return if alignment is not ready to be finished', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('19 AlignedController - finishActiveAlignmentGroup returns false, executes alignment.finishActiveAlignmentGroup with false return if alignment is not ready to be finished', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -462,10 +433,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.finishActiveAlignmentGroup).toHaveBeenCalled()
   })
 
-  it('23 AlignedController - finishActiveAlignmentGroup returns true, executes alignment.finishActiveAlignmentGroup with true return if alignment is ready to be finished', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('20 AlignedController - finishActiveAlignmentGroup returns true, executes alignment.finishActiveAlignmentGroup with true return if alignment is ready to be finished', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -490,10 +460,8 @@ describe('texts-controller.test.js', () => {
     expect(alignment.finishActiveAlignmentGroup).toHaveBeenCalled()
   })
 
-  it('24 AlignedController - mergeActiveGroupWithAnotherByToken returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-
+  it('21 AlignedController - mergeActiveGroupWithAnotherByToken returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
     const token = new Token({ 
       textType: 'origin',
       idWord: 'L1:1-4',
@@ -504,10 +472,9 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('25 AlignedController - mergeActiveGroupWithAnotherByToken returns false, executes alignment.mergeActiveGroupWithAnotherByToken with false return if passed tokensGroup does not exists and activeAlignmentGroup is defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('22 AlignedController - mergeActiveGroupWithAnotherByToken returns false, executes alignment.mergeActiveGroupWithAnotherByToken with false return if passed tokensGroup does not exists and activeAlignmentGroup is defined', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -537,10 +504,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.mergeActiveGroupWithAnotherByToken).toHaveBeenCalled()
   })
 
-  it('26 AlignedController - mergeActiveGroupWithAnotherByToken returns true, executes alignment.mergeActiveGroupWithAnotherByToken with true, if passed tokensGroup exists and activeAlignmentGroup is defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('23 AlignedController - mergeActiveGroupWithAnotherByToken returns true, executes alignment.mergeActiveGroupWithAnotherByToken with true, if passed tokensGroup exists and activeAlignmentGroup is defined', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -573,9 +539,8 @@ describe('texts-controller.test.js', () => {
     expect(alignment.mergeActiveGroupWithAnotherByToken).toHaveBeenCalled()
   })
 
-  it('27 AlignedController - findAlignmentGroup returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('24 AlignedController - findAlignmentGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -587,10 +552,9 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('28 AlignedController - findAlignmentGroup returns false if token is not grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('25 AlignedController - findAlignmentGroup returns false if token is not grouped', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     jest.spyOn(alignment, 'findAlignmentGroup')
@@ -605,10 +569,9 @@ describe('texts-controller.test.js', () => {
     expect(alignment.findAlignmentGroup).toHaveBeenCalled()
   })
 
-  it('29 AlignedController - findAlignmentGroup returns AlignmentGroup if token is grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('26 AlignedController - findAlignmentGroup returns AlignmentGroup if token is grouped', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     jest.spyOn(alignment, 'findAlignmentGroup')
@@ -633,9 +596,8 @@ describe('texts-controller.test.js', () => {
     expect(alignment.findAlignmentGroup).toHaveBeenCalledWith(token)
   })
 
-  it('30 AlignedController - findAlignmentGroupIds returns empty array if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('27 AlignedController - findAlignmentGroupIds returns empty array if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -647,11 +609,10 @@ describe('texts-controller.test.js', () => {
     expect(result.length).toEqual(0)
   })
 
-  it('31 AlignedController - findAlignmentGroupIds returns empty array if alignment is defined but there is no alignment group with this token', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('28 AlignedController - findAlignmentGroupIds returns empty array if alignment is defined but there is no alignment group with this token', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -664,11 +625,10 @@ describe('texts-controller.test.js', () => {
     expect(result.length).toEqual(0)
   })
 
-  it('32 AlignedController - findAlignmentGroupIds returns array all ids fro alignmentGroup that contains passed token', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('29 AlignedController - findAlignmentGroupIds returns array all ids fro alignmentGroup that contains passed token', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     const token = new Token({ 
@@ -690,9 +650,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toEqual([ 'L1:1-4', 'L2:1-4' ])
   })
 
-  it('33 AlignedController - tokenIsGrouped returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('30 AlignedController - tokenIsGrouped returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -704,11 +663,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('34 AlignedController - tokenIsGrouped returns false if token is not grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('31 AlignedController - tokenIsGrouped returns false if token is not grouped', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -721,11 +679,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('35 AlignedController - tokenIsGrouped returns true if token is grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('32 AlignedController - tokenIsGrouped returns true if token is grouped', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -747,9 +704,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeTruthy()
   })
 
-  it('36 AlignedController - tokenInActiveGroup returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('33 AlignedController - tokenInActiveGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -761,11 +717,9 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('37 AlignedController - tokenInActiveGroup returns false if token is not in active group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+  it('34 AlignedController - tokenInActiveGroup returns false if token is not in active group', () => {
+    const alignedC = new AlignedController()
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -778,11 +732,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('38 AlignedController - tokenInActiveGroup returns true if token is in active group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('35 AlignedController - tokenInActiveGroup returns true if token is in active group', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -797,9 +750,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeTruthy()
   })
 
-  it('39 AlignedController - isFirstInActiveGroup returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('36 AlignedController - isFirstInActiveGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -811,11 +763,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('40 AlignedController - isFirstInActiveGroup returns false if token is not in active group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('37 AlignedController - isFirstInActiveGroup returns false if token is not in active group', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -828,11 +779,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('41 AlignedController - isFirstInActiveGroup returns false if token is in active group but it is not the first token', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('38 AlignedController - isFirstInActiveGroup returns false if token is in active group but it is not the first token', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -853,11 +803,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('42 AlignedController - isFirstInActiveGroup returns true if token is in active group and it is the first token', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('39 AlignedController - isFirstInActiveGroup returns true if token is in active group and it is the first token', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -878,30 +827,27 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeTruthy()
   })
 
-  it('43 AlignedController - hasActiveAlignment returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('40 AlignedController - hasActiveAlignment returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const result = alignedC.hasActiveAlignment
     expect(result).toBeFalsy()
   })
 
-  it('44 AlignedController - hasActiveAlignment returns false if alignment defined but there is no activeAlignmentGroup', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('41 AlignedController - hasActiveAlignment returns false if alignment defined but there is no activeAlignmentGroup', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const result = alignedC.hasActiveAlignment
     expect(result).toBeFalsy()
   })
 
-  it('45 AlignedController - hasActiveAlignment returns false if alignment defined but there is no activeAlignmentGroup', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('42 AlignedController - hasActiveAlignment returns false if alignment defined but there is no activeAlignmentGroup', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -916,9 +862,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeTruthy()
   })
 
-  it('46 AlignedController - activateGroupByToken returns false if alignment is not defined', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('43 AlignedController - activateGroupByToken returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController()
 
     const token = new Token({ 
       textType: 'origin',
@@ -930,11 +875,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('47 AlignedController - activateGroupByToken returns false if alignment is defined but token is not grouped', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('44 AlignedController - activateGroupByToken returns false if alignment is defined but token is not grouped', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
     const token = new Token({ 
@@ -947,11 +891,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('48 AlignedController - activateGroupByToken returns false if alignment is defined but token is in active group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('45 AlignedController - activateGroupByToken returns false if alignment is defined but token is in active group', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     const token = new Token({ 
@@ -966,11 +909,10 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('49 AlignedController - activateGroupByToken returns true if alignment is defined and token is in saved group', () => {
-    const l10n = new L10n()
-    const alignedC = new AlignedController(l10n)
+  it('46 AlignedController - activateGroupByToken returns true if alignment is defined and token is in saved group', () => {
+    const alignedC = new AlignedController()
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' }, l10n)
+    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
     
     const token = new Token({ 

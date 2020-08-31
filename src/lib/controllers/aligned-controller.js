@@ -2,18 +2,6 @@ import L10n from '@/lib/l10n/l10n.js'
 
 export default class AlignedController {
   /**
-   *
-   * @param {L10n} l10n - L10n module
-   */
-  constructor (l10n) {
-    if (!(l10n instanceof L10n)) {
-      console.error('An instance of L10n should be passed to constructor')
-      return
-    }
-    this.l10n = l10n
-  }
-
-  /**
    * Checks the ability to align and creats sets of tokens for each text - origin, target and saves it to the alignment
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
@@ -24,7 +12,7 @@ export default class AlignedController {
       const tokenizer = 'simpleWordTokenization'
       return this.alignment.createAlignedTexts(tokenizer)
     }
-    console.error(this.l10n.getMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+    console.error(L10n.l10NGetMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
     return false
   }
 

@@ -1,5 +1,7 @@
 import MessageBundle from '@/lib/l10n/message-bundle'
 
+let l10NInstanceInner
+
 /**
  * Combines several message bundles of different locales.
  */
@@ -7,7 +9,17 @@ export default class L10n {
   constructor () {
     this.selectedLocale = undefined // A locale that currently selected
     this.bundles = new Map() // Maps message bundles to their locales
+
+    l10NInstanceInner = this
     return this
+  }
+
+  static get l10NInstance () {
+    return l10NInstanceInner
+  }
+
+  static l10NGetMsg (...params) {
+    return l10NInstanceInner.getMsg(...params)
   }
 
   /**

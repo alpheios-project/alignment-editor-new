@@ -40,8 +40,8 @@ export default class AppController {
    */
   attachVueComponents () {
     this.defineL10Support()
-    this.defineTextController(this.l10n)
-    this.defineAlignedController(this.l10n)
+    this.defineTextController()
+    this.defineAlignedController()
 
     const rootVi = new Vue()
     const mountEl = document.getElementById(this.appId)
@@ -59,25 +59,22 @@ export default class AppController {
 
   /**
    * Creates TextController and attaches to Vue components
-   * @param {L10n} l10n - initialized L10n module
    */
-  defineTextController (l10n) {
-    this.textC = new TextsController(l10n)
+  defineTextController () {
+    this.textC = new TextsController()
     Vue.prototype.$textC = this.textC
   }
 
   /**
    * Creates AlignedController and attaches to Vue components
-   * @param {L10n} l10n - initialized L10n module
    */
-  defineAlignedController (l10n) {
-    this.alignedC = new AlignedController(l10n)
+  defineAlignedController () {
+    this.alignedC = new AlignedController()
     Vue.prototype.$alignedC = this.alignedC
   }
 
   /**
-   * Defines L10n module and attaches to Vue components
-   * @param {L10n} l10n - initialized L10n module
+   * Defines L10n module
    */
   defineL10Support () {
     const config = {
@@ -91,10 +88,9 @@ export default class AppController {
         [enGB, Locales.en_GB]
       ])
     }
-    this.l10n = new L10n()
-    config.messageBundles.forEach(mb => this.l10n.addMessageBundle(mb))
-    this.l10n.setLocale(config.defaultLocale)
-
-    Vue.prototype.$l10n = this.l10n
+    const l10n = new L10n()
+    config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
+    l10n.setLocale(config.defaultLocale)
+    return l10n
   }
 }

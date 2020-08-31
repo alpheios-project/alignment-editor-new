@@ -3,14 +3,21 @@
 
 import DownloadController from '@/lib/controllers/download-controller.js'
 import DownloadFileOneColumn from '@/lib/download/download-file-one-column.js'
-import L10n from '@/lib/l10n/l10n.js'
 import SourceText from '@/lib/data/source-text'
+import AppController from '@/lib/controllers/app-controller.js'
 
 describe('download-controller.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-    
+
+  beforeAll(() => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+    appC.defineL10Support()
+  })
+
   beforeEach(() => {
     jest.clearAllMocks()
     jest.spyOn(console, 'error')
@@ -26,7 +33,6 @@ describe('download-controller.test.js', () => {
   })
 
   it('2 DownloadController - static download method prints error if downloadType is not registered ', () => {
-    const l10n = new L10n()
     const downloadType = 'fakeMethod'
     const data = {
       originDocSource: {
@@ -37,14 +43,13 @@ describe('download-controller.test.js', () => {
       }
     }
   
-    const result = DownloadController.download(downloadType, data, l10n)
+    const result = DownloadController.download(downloadType, data)
 
     expect(result).toBeFalsy()
     expect(console.error).toHaveBeenCalled()
   })
 
   it('3 DownloadController - static download method executes defined method by workflow ', () => {
-    const l10n = new L10n()
     const downloadType = 'plainSourceDownload'
     const data = {
       originDocSource: {
@@ -56,19 +61,18 @@ describe('download-controller.test.js', () => {
     }
     
     jest.spyOn(DownloadController, 'plainSourceDownload')
-    DownloadController.download(downloadType, data, l10n)
+    DownloadController.download(downloadType, data)
 
-    expect(DownloadController.plainSourceDownload).toHaveBeenCalledWith(data, l10n)
+    expect(DownloadController.plainSourceDownload).toHaveBeenCalledWith(data)
   })
 
   it('4 DownloadController - static plainSourceDownload method prints error if data is not correctly defined ', () => {
-    const l10n = new L10n()
     let data, result
     jest.spyOn(DownloadFileOneColumn, 'download')
     
     // no data
     data = {} 
-    result = DownloadController.plainSourceDownload(data, l10n)
+    result = DownloadController.plainSourceDownload(data)
 
     expect(result).toBeFalsy()
     expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
@@ -79,7 +83,7 @@ describe('download-controller.test.js', () => {
         text: 'targetText', direction: 'ltr', lang: 'eng'
       })
     } 
-    result = DownloadController.plainSourceDownload(data, l10n)
+    result = DownloadController.plainSourceDownload(data)
 
     expect(result).toBeFalsy()
     expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
@@ -91,7 +95,7 @@ describe('download-controller.test.js', () => {
       })
     }
       
-    result = DownloadController.plainSourceDownload({}, l10n)
+    result = DownloadController.plainSourceDownload({})
   
     expect(result).toBeFalsy()
     expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
@@ -106,7 +110,7 @@ describe('download-controller.test.js', () => {
       })
     }
       
-    result = DownloadController.plainSourceDownload({}, l10n)
+    result = DownloadController.plainSourceDownload({})
   
     expect(result).toBeFalsy()
     expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
@@ -121,7 +125,7 @@ describe('download-controller.test.js', () => {
       })
     }
     
-    result = DownloadController.plainSourceDownload({}, l10n)
+    result = DownloadController.plainSourceDownload({})
 
     expect(result).toBeFalsy()
     expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
@@ -129,7 +133,6 @@ describe('download-controller.test.js', () => {
   })
 
   it('5 DownloadController - static plainSourceDownload method executes DownloadFileOneColumn.download if data is correctly defined ', () => {
-    const l10n = new L10n()
     DownloadFileOneColumn.download = jest.fn()
     
     const data = {
@@ -140,7 +143,7 @@ describe('download-controller.test.js', () => {
         text: 'targetText', direction: 'ltr', lang: 'eng'
       })
     } 
-    DownloadController.plainSourceDownload(data, l10n)
+    DownloadController.plainSourceDownload(data)
 
     expect(DownloadFileOneColumn.download).toHaveBeenCalled()
   })

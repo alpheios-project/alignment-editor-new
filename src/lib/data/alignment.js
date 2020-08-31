@@ -3,10 +3,10 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AlignedText from '@/lib/data/aligned-text'
 import SourceText from '@/lib/data/source-text'
-// import Token from '@/lib/data/token'
+import L10n from '@/lib/l10n/l10n.js'
 
 export default class Alignment {
-  constructor (originDocSource, targetDocSource, l10n) {
+  constructor (originDocSource, targetDocSource) {
     this.id = uuidv4()
     this.origin = {}
     this.target = {}
@@ -17,8 +17,6 @@ export default class Alignment {
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
     this.activeAlignmentGroup = null
-
-    this.l10n = l10n
   }
 
   get readyForTokenize () {
@@ -50,10 +48,10 @@ export default class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
-    const tokenizeMethod = TokenizeController.getTokenizer(tokenizer, this.l10n)
+    const tokenizeMethod = TokenizeController.getTokenizer(tokenizer)
 
     if (!tokenizeMethod) {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      console.error(L10n.l10NGetMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       return false
     }
 
@@ -101,7 +99,7 @@ export default class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      console.error(L10n.l10NGetMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
   }
@@ -111,7 +109,7 @@ export default class Alignment {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
     } else {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      console.error(L10n.l10NGetMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 

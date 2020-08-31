@@ -2,11 +2,11 @@
   <div class="alpheios-alignment-editor-text-block">
       <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
       <p class="alpheios-alignment-editor-text-block__direction">
-          <span>{{ $l10n.getMsg('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
+          <span>{{ l10nGetMsg('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
           <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
-          <label :for="directionRadioId('ltr')">{{ $l10n.getMsg('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
+          <label :for="directionRadioId('ltr')">{{ l10nGetMsg('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
           <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText">
-          <label :for="directionRadioId('rtl')">{{ $l10n.getMsg('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
+          <label :for="directionRadioId('rtl')">{{ l10nGetMsg('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
       </p>
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
@@ -17,11 +17,11 @@
       </p>
       <div class="alpheios-alignment-editor-text-block__other-lang-block">
         <div class="alpheios-alignment-editor-text-block__other-lang">
-          <span>{{ $l10n.getMsg('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
+          <span>{{ l10nGetMsg('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
           <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
             <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText">
             <p class="alpheios-alignment-editor-text-block__other-lang__description">
-              {{ $l10n.getMsg('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
+              {{ l10nGetMsg('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
             </p>
           </div>
         </div>
@@ -31,6 +31,7 @@
 </template>
 <script>
 import LangsList from '@/vue/text-editor/langs-list.json'
+import L10n from '@/lib/l10n/l10n.js'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -57,7 +58,7 @@ export default {
   mounted () {
     this.langsList = LangsList.map(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
-      const l10nMessage = this.$l10n.getMsg(l10nLabel)
+      const l10nMessage = this.l10nGetMsg(l10nLabel)
       return {
         value: langData.value,
         label: l10nMessage ? l10nMessage : langData.label
@@ -80,10 +81,10 @@ export default {
       return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
     },
     textBlockTitle () {
-      return this.$l10n.getMsg('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
+      return this.l10nGetMsg('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
     }, 
     chooseAvaLangLabel () {
-      return this.$l10n.getMsg('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
+      return this.l10nGetMsg('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
     },
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
@@ -112,6 +113,9 @@ export default {
         direction: this.direction,
         lang: this.selectedLang
       })
+    },
+    l10nGetMsg (...params) {
+      return L10n.l10NGetMsg(...params)
     }
   }
 }

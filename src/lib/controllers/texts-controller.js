@@ -7,24 +7,12 @@ import L10n from '@/lib/l10n/l10n.js'
 
 export default class TextsController {
   /**
-   *
-   * @param {L10n} l10n - L10n module
-   */
-  constructor (l10n) {
-    if (!(l10n instanceof L10n)) {
-      console.error('An instance of L10n should be passed to constructor')
-      return
-    }
-    this.l10n = l10n
-  }
-
-  /**
    * Creates an Alignment and uploads source documents, if they are defined
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
   createAlignment (originDocSource, targetDocSource) {
-    this.alignment = new Alignment(originDocSource, targetDocSource, this.l10n)
+    this.alignment = new Alignment(originDocSource, targetDocSource)
   }
 
   /**
@@ -34,7 +22,7 @@ export default class TextsController {
    */
   updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
-      this.createAlignment(originDocSource, null, this.l10n)
+      this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
@@ -47,7 +35,7 @@ export default class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource, this.l10n)
+      this.createAlignment(null, targetDocSource)
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -73,12 +61,12 @@ export default class TextsController {
    */
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
-      console.error(this.l10n.getMsg('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      console.error(L10n.l10NGetMsg('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       return
     }
     const uploadType = 'plainSourceUploadFromFile'
 
-    const result = UploadController.upload(uploadType, fileData, this.l10n)
+    const result = UploadController.upload(uploadType, fileData)
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
@@ -94,6 +82,6 @@ export default class TextsController {
       originDocSource: this.originDocSource,
       targetDocSource: this.targetDocSource
     }
-    return DownloadController.download(downloadType, data, this.l10n)
+    return DownloadController.download(downloadType, data)
   }
 }

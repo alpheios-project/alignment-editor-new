@@ -1,4 +1,5 @@
 import DownloadFileOneColumn from '@/lib/download/download-file-one-column.js'
+import L10n from '@/lib/l10n/l10n.js'
 
 export default class DownloadController {
   /**
@@ -14,14 +15,13 @@ export default class DownloadController {
    * Defines a download method and executes it
    * @param {String} downloadType  - defines the download workflow
    * @param {Object} data - all data for download
-   * @param {L10n} l10n - L10n module
    * @return {Boolean} - true - download was done, false - not
    */
-  static download (downloadType, data, l10n) {
+  static download (downloadType, data) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType](data, l10n)
+      return this.downloadMethods[downloadType](data)
     }
-    console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    console.error(L10n.l10NGetMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     return false
   }
 
@@ -29,12 +29,11 @@ export default class DownloadController {
    * Executes download workflow for downloading: one origin, one target text - only source state
    * Data.originDocSource and data.targetDocSource - are obligatory data
    * @param {Object} data - all data for download
-   * @param {L10n} l10n - L10n module
    * @return {Boolean} - true - download was done, false - not
    */
-  static plainSourceDownload (data, l10n) {
+  static plainSourceDownload (data) {
     if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
-      console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      console.error(L10n.l10NGetMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,

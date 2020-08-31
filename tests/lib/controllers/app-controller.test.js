@@ -126,14 +126,9 @@ describe('app-controller.test.js', () => {
     })
 
     appC.attachVueComponents = jest.fn()
-    appC.init()
 
-    expect(appC.l10n).not.toBeDefined()
-    expect(Vue.prototype.$l10n).not.toBeDefined()
+    const result = appC.defineL10Support()
 
-    appC.defineL10Support()
-
-    expect(appC.l10n).toBeInstanceOf(L10n)
-    expect(Vue.prototype.$l10n).toBeInstanceOf(L10n)
+    expect(result).toBeInstanceOf(L10n)
   })
 })

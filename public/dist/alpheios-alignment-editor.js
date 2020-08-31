@@ -13524,18 +13524,6 @@ __webpack_require__.r(__webpack_exports__);
 
 class AlignedController {
   /**
-   *
-   * @param {L10n} l10n - L10n module
-   */
-  constructor (l10n) {
-    if (!(l10n instanceof _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default)) {
-      console.error('An instance of L10n should be passed to constructor')
-      return
-    }
-    this.l10n = l10n
-  }
-
-  /**
    * Checks the ability to align and creats sets of tokens for each text - origin, target and saves it to the alignment
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
@@ -13546,7 +13534,7 @@ class AlignedController {
       const tokenizer = 'simpleWordTokenization'
       return this.alignment.createAlignedTexts(tokenizer)
     }
-    console.error(this.l10n.getMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default.l10NGetMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
     return false
   }
 
@@ -13756,8 +13744,8 @@ class AppController {
    */
   attachVueComponents () {
     this.defineL10Support()
-    this.defineTextController(this.l10n)
-    this.defineAlignedController(this.l10n)
+    this.defineTextController()
+    this.defineAlignedController()
 
     const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default()
     const mountEl = document.getElementById(this.appId)
@@ -13775,25 +13763,22 @@ class AppController {
 
   /**
    * Creates TextController and attaches to Vue components
-   * @param {L10n} l10n - initialized L10n module
    */
-  defineTextController (l10n) {
-    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(l10n)
+  defineTextController () {
+    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default()
     _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
   }
 
   /**
    * Creates AlignedController and attaches to Vue components
-   * @param {L10n} l10n - initialized L10n module
    */
-  defineAlignedController (l10n) {
-    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(l10n)
+  defineAlignedController () {
+    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default()
     _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedC = this.alignedC
   }
 
   /**
-   * Defines L10n module and attaches to Vue components
-   * @param {L10n} l10n - initialized L10n module
+   * Defines L10n module
    */
   defineL10Support () {
     const config = {
@@ -13807,11 +13792,10 @@ class AppController {
         [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_GB]
       ])
     }
-    this.l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default()
-    config.messageBundles.forEach(mb => this.l10n.addMessageBundle(mb))
-    this.l10n.setLocale(config.defaultLocale)
-
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$l10n = this.l10n
+    const l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
+    l10n.setLocale(config.defaultLocale)
+    return l10n
   }
 }
 
@@ -13834,6 +13818,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ DownloadController
 /* harmony export */ });
 /* harmony import */ var _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-one-column.js */ "./lib/download/download-file-one-column.js");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+
 
 
 class DownloadController {
@@ -13850,14 +13836,13 @@ class DownloadController {
    * Defines a download method and executes it
    * @param {String} downloadType  - defines the download workflow
    * @param {Object} data - all data for download
-   * @param {L10n} l10n - L10n module
    * @return {Boolean} - true - download was done, false - not
    */
-  static download (downloadType, data, l10n) {
+  static download (downloadType, data) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType](data, l10n)
+      return this.downloadMethods[downloadType](data)
     }
-    console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     return false
   }
 
@@ -13865,12 +13850,11 @@ class DownloadController {
    * Executes download workflow for downloading: one origin, one target text - only source state
    * Data.originDocSource and data.targetDocSource - are obligatory data
    * @param {Object} data - all data for download
-   * @param {L10n} l10n - L10n module
    * @return {Boolean} - true - download was done, false - not
    */
-  static plainSourceDownload (data, l10n) {
+  static plainSourceDownload (data) {
     if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
-      console.error(l10n.getMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,
@@ -13913,24 +13897,12 @@ __webpack_require__.r(__webpack_exports__);
 
 class TextsController {
   /**
-   *
-   * @param {L10n} l10n - L10n module
-   */
-  constructor (l10n) {
-    if (!(l10n instanceof _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default)) {
-      console.error('An instance of L10n should be passed to constructor')
-      return
-    }
-    this.l10n = l10n
-  }
-
-  /**
    * Creates an Alignment and uploads source documents, if they are defined
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
   createAlignment (originDocSource, targetDocSource) {
-    this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource, this.l10n)
+    this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource)
   }
 
   /**
@@ -13940,7 +13912,7 @@ class TextsController {
    */
   updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
-      this.createAlignment(originDocSource, null, this.l10n)
+      this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
@@ -13953,7 +13925,7 @@ class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource, this.l10n)
+      this.createAlignment(null, targetDocSource)
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -13979,12 +13951,12 @@ class TextsController {
    */
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
-      console.error(this.l10n.getMsg('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default.l10NGetMsg('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       return
     }
     const uploadType = 'plainSourceUploadFromFile'
 
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData, this.l10n)
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
@@ -14000,7 +13972,7 @@ class TextsController {
       originDocSource: this.originDocSource,
       targetDocSource: this.targetDocSource
     }
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data, this.l10n)
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
   }
 }
 
@@ -14023,10 +13995,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ TokenizeController
 /* harmony export */ });
 /* harmony import */ var _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/tokenizers/simple-local-tokenizer.js */ "./lib/tokenizers/simple-local-tokenizer.js");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+
 
 
 class TokenizeController {
-  static getTokenizer (tokenizer, l10n) {
+  static getTokenizer (tokenizer) {
     let tokenizeMethod = null
 
     switch (tokenizer) {
@@ -14034,7 +14008,7 @@ class TokenizeController {
         tokenizeMethod = _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default)
         break
       default:
-        console.error(l10n.getMsg('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+        console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     }
 
     return tokenizeMethod
@@ -14060,6 +14034,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ UploadController
 /* harmony export */ });
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+
 
 
 class UploadController {
@@ -14076,14 +14052,13 @@ class UploadController {
    * Defines an upload method and executes it
    * @param {String} downloadType  - defines the upload workflow
    * @param {Object} data - all data for parsing
-   * @param {L10n} l10n - L10n module
    * @return {Boolean} - true - upload was done, false - not
    */
-  static upload (uploadType, data, l10n) {
+  static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data, l10n)
+      return this.uploadMethods[uploadType](data)
     }
-    console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     return false
   }
 
@@ -14091,18 +14066,17 @@ class UploadController {
    * Executes upload workflow: one origin, one target text - only source state
    * fileData should contain 6 rows: origin.text, origin.direction, origin.lang, target.text, target.direction, target.lang
    * @param {Object} data - all data for download
-   * @param {L10n} l10n - L10n module
-   * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
+    * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFile (fileString, l10n) {
+  static plainSourceUploadFromFile (fileString) {
     if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
-      console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
     const fileData = fileString.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 
@@ -14293,15 +14267,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/alignment-group */ "./lib/data/alignment-group.js");
 /* harmony import */ var _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/aligned-text */ "./lib/data/aligned-text.js");
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 
 
 
 
 
-// import Token from '@/lib/data/token'
+
 
 class Alignment {
-  constructor (originDocSource, targetDocSource, l10n) {
+  constructor (originDocSource, targetDocSource) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.origin = {}
     this.target = {}
@@ -14312,8 +14287,6 @@ class Alignment {
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
     this.activeAlignmentGroup = null
-
-    this.l10n = l10n
   }
 
   get readyForTokenize () {
@@ -14345,10 +14318,10 @@ class Alignment {
   }
 
   createAlignedTexts (tokenizer) {
-    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getTokenizer(tokenizer, this.l10n)
+    const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getTokenizer(tokenizer)
 
     if (!tokenizeMethod) {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_5__.default.l10NGetMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       return false
     }
 
@@ -14396,7 +14369,7 @@ class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_5__.default.l10NGetMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
   }
@@ -14406,7 +14379,7 @@ class Alignment {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
     } else {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_5__.default.l10NGetMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 
@@ -14548,7 +14521,7 @@ class SourceText {
   }
 
   /**
-   *
+   * Converts jsonObject to SourceText instance if data is defined correctly
    * @param {String} textType origin or target
    * @param {Object} jsonData
    * @param {String} jsonData.text
@@ -14556,10 +14529,11 @@ class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
-    if (!jsonData.text || jsonData.direction || jsonData.lang) {
+    if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
       console.error('Json file doesn\'t have all obligatory fields. Source Text won\'t be created.')
       return false
     }
+
     const text = jsonData.text.replace(/\t/g, '\u000D')
     const direction = jsonData.direction
     const lang = jsonData.lang
@@ -14680,6 +14654,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
 
 
+let l10NInstanceInner
+
 /**
  * Combines several message bundles of different locales.
  */
@@ -14687,7 +14663,17 @@ class L10n {
   constructor () {
     this.selectedLocale = undefined // A locale that currently selected
     this.bundles = new Map() // Maps message bundles to their locales
+
+    l10NInstanceInner = this
     return this
+  }
+
+  static get l10NInstance () {
+    return l10NInstanceInner
+  }
+
+  static l10NGetMsg (...params) {
+    return l10NInstanceInner.getMsg(...params)
   }
 
   /**
@@ -15408,6 +15394,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_align_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-single-block.vue */ "./vue/align-editor/align-editor-single-block.vue");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 //
 //
 //
@@ -15429,6 +15416,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -15462,7 +15450,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     defineAlignShowLabel () {
-      return this.defineAlignShow ? this.$l10n.getMsg('ALIGN_EDITOR_HIDE') : this.$l10n.getMsg('ALIGN_EDITOR_SHOW')
+      return this.defineAlignShow ? this.l10nGetMsg('ALIGN_EDITOR_HIDE') : this.l10nGetMsg('ALIGN_EDITOR_SHOW')
     },
     showAlignEditor () {
       return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
@@ -15500,6 +15488,9 @@ __webpack_require__.r(__webpack_exports__);
     removeHoverWord (textWord) {
       this.showAlignment = []
       this.updateTokenClasses()
+    },
+    l10nGetMsg (...params) {
+      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg(...params)
     }
   }
 });
@@ -15701,7 +15692,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15709,6 +15700,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 //
 //
 //
@@ -15721,6 +15713,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
@@ -15743,6 +15737,9 @@ __webpack_require__.r(__webpack_exports__);
         this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
+    l10nGetMsg (...params) {
+      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default.l10NGetMsg(...params)
     }
   }
 });
@@ -15766,6 +15763,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/langs-list.json */ "./vue/text-editor/langs-list.json");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 //
 //
 //
@@ -15797,6 +15795,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -15825,7 +15824,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted () {
     this.langsList = _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
-      const l10nMessage = this.$l10n.getMsg(l10nLabel)
+      const l10nMessage = this.l10nGetMsg(l10nLabel)
       return {
         value: langData.value,
         label: l10nMessage ? l10nMessage : langData.label
@@ -15848,10 +15847,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
     },
     textBlockTitle () {
-      return this.$l10n.getMsg('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
+      return this.l10nGetMsg('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
     }, 
     chooseAvaLangLabel () {
-      return this.$l10n.getMsg('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
+      return this.l10nGetMsg('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
     },
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
@@ -15880,6 +15879,9 @@ __webpack_require__.r(__webpack_exports__);
         direction: this.direction,
         lang: this.selectedLang
       })
+    },
+    l10nGetMsg (...params) {
+      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg(...params)
     }
   }
 });
@@ -15903,6 +15905,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 //
 //
 //
@@ -15929,6 +15932,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -15967,7 +15972,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     defineTextsShowLabel () {
-      return this.defineTextsShow ? this.$l10n.getMsg('TEXT_EDITOR_HIDE') : this.$l10n.getMsg('TEXT_EDITOR_SHOW')
+      return this.defineTextsShow ? this.l10nGetMsg('TEXT_EDITOR_HIDE') : this.l10nGetMsg('TEXT_EDITOR_SHOW')
     },
     updatedOrigin () {
       return this.originUpdated && this.originText ?  this.originText : null
@@ -15991,6 +15996,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateTargetText (text) {
       this.$textC.updateTargetDocSource(text)
+    },
+    l10nGetMsg (...params) {
+      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.l10NGetMsg(...params)
     }
   }
 });
@@ -16876,7 +16884,7 @@ var render = function() {
     },
     [
       _c("h2", [
-        _vm._v(_vm._s(_vm.$l10n.getMsg("ALIGN_EDITOR_HEADING")) + " \n      ("),
+        _vm._v(_vm._s(_vm.l10nGetMsg("ALIGN_EDITOR_HEADING")) + " \n      ("),
         _c(
           "span",
           {
@@ -17086,7 +17094,7 @@ var render = function() {
             }
           }
         },
-        [_vm._v(_vm._s(_vm.$l10n.getMsg("MAIN_MENU_DOWNLOAD_TITLE")))]
+        [_vm._v(_vm._s(_vm.l10nGetMsg("MAIN_MENU_DOWNLOAD_TITLE")))]
       ),
       _vm._v(" "),
       _c(
@@ -17095,7 +17103,7 @@ var render = function() {
           staticClass: "alpheios-button-tertiary",
           on: { click: _vm.uploadTexts }
         },
-        [_vm._v(_vm._s(_vm.$l10n.getMsg("MAIN_MENU_UPLOAD_TITLE")))]
+        [_vm._v(_vm._s(_vm.l10nGetMsg("MAIN_MENU_UPLOAD_TITLE")))]
       ),
       _vm._v(" "),
       _c(
@@ -17108,7 +17116,7 @@ var render = function() {
             }
           }
         },
-        [_vm._v(_vm._s(_vm.$l10n.getMsg("MAIN_MENU_ALIGN_TITLE")))]
+        [_vm._v(_vm._s(_vm.l10nGetMsg("MAIN_MENU_ALIGN_TITLE")))]
       )
     ]),
     _vm._v(" "),
@@ -17172,7 +17180,7 @@ var render = function() {
       { staticClass: "alpheios-alignment-editor-text-block__direction" },
       [
         _c("span", [
-          _vm._v(_vm._s(_vm.$l10n.getMsg("TEXT_EDITOR_DIRECTION_LABEL")) + "  ")
+          _vm._v(_vm._s(_vm.l10nGetMsg("TEXT_EDITOR_DIRECTION_LABEL")) + "  ")
         ]),
         _vm._v(" "),
         _c("input", {
@@ -17202,9 +17210,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("label", { attrs: { for: _vm.directionRadioId("ltr") } }, [
-          _vm._v(
-            _vm._s(_vm.$l10n.getMsg("TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT"))
-          )
+          _vm._v(_vm._s(_vm.l10nGetMsg("TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT")))
         ]),
         _vm._v(" "),
         _c("input", {
@@ -17234,9 +17240,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("label", { attrs: { for: _vm.directionRadioId("rtl") } }, [
-          _vm._v(
-            _vm._s(_vm.$l10n.getMsg("TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT"))
-          )
+          _vm._v(_vm._s(_vm.l10nGetMsg("TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT")))
         ])
       ]
     ),
@@ -17323,9 +17327,7 @@ var render = function() {
           { staticClass: "alpheios-alignment-editor-text-block__other-lang" },
           [
             _c("span", [
-              _vm._v(
-                _vm._s(_vm.$l10n.getMsg("TEXT_EDITOR_LANGUAGE_OTHER_LABEL"))
-              )
+              _vm._v(_vm._s(_vm.l10nGetMsg("TEXT_EDITOR_LANGUAGE_OTHER_LABEL")))
             ]),
             _vm._v(" "),
             _c(
@@ -17369,7 +17371,7 @@ var render = function() {
                     _vm._v(
                       "\n            " +
                         _vm._s(
-                          _vm.$l10n.getMsg(
+                          _vm.l10nGetMsg(
                             "TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION"
                           )
                         ) +
@@ -17415,7 +17417,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios-alignment-editor-container" }, [
     _c("h2", [
-      _vm._v(_vm._s(_vm.$l10n.getMsg("TEXT_EDITOR_HEADING")) + " \n      ("),
+      _vm._v(_vm._s(_vm.l10nGetMsg("TEXT_EDITOR_HEADING")) + " \n      ("),
       _c(
         "span",
         {
