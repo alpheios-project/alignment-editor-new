@@ -21,7 +21,7 @@ export default class UploadController {
     if (this.uploadMethods[uploadType]) {
       return this.uploadMethods[uploadType](data)
     }
-    console.error(L10n.l10NGetMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    console.error(L10n.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     return false
   }
 
@@ -33,13 +33,13 @@ export default class UploadController {
    */
   static plainSourceUploadFromFile (fileString) {
     if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
-      console.error(L10n.l10NGetMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(L10n.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
     const fileData = fileString.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      console.error(L10n.l10NGetMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(L10n.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 

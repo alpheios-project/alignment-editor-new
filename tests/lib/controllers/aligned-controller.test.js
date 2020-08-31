@@ -40,10 +40,8 @@ describe('texts-controller.test.js', () => {
     const alignedC = new AlignedController()
     
     const alignment = new Alignment({ text: 'origin' }, { text: 'target' })
-
-    const result = alignment.createAlignedTexts(alignment)
     jest.spyOn(alignment, 'createAlignedTexts')
-    alignedC.createAlignedTexts(alignment)
+    const result = alignedC.createAlignedTexts(alignment)
 
     expect(console.error).toHaveBeenCalled()
     expect(alignment.createAlignedTexts).not.toHaveBeenCalled()
@@ -934,4 +932,5 @@ describe('texts-controller.test.js', () => {
     const result = alignedC.activateGroupByToken(token)
     expect(result).toBeTruthy()
   })
+
 })

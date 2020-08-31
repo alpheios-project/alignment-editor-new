@@ -10,7 +10,7 @@ export default class TokenizeController {
         tokenizeMethod = SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer)
         break
       default:
-        console.error(L10n.l10NGetMsg('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+        console.error(L10n.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     }
 
     return tokenizeMethod

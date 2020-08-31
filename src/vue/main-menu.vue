@@ -1,9 +1,9 @@
 <template>
   <div class="alpheios-alignment-app-menu">
       <div class="alpheios-alignment-app-menu__buttons">
-        <button class="alpheios-button-tertiary" @click="$emit('download-data')" >{{ l10nGetMsg('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" @click="uploadTexts" >{{ l10nGetMsg('MAIN_MENU_UPLOAD_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" @click="$emit('align-texts')" >{{ l10nGetMsg('MAIN_MENU_ALIGN_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" @click="$emit('align-texts')" >{{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}</button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" v-show="showUploadBlock">
         <input type="file" @change="loadTextFromFile">
@@ -20,6 +20,11 @@ export default {
       showUploadBlock: false
     }
   },
+  computed: {
+    l10n () {
+      return L10n
+    }
+  },
   methods: {
     uploadTexts () {
       this.showUploadBlock = true
@@ -34,9 +39,6 @@ export default {
         this.showUploadBlock = false
       }
       reader.readAsText(file)
-    },
-    l10nGetMsg (...params) {
-      return L10n.l10NGetMsg(...params)
     }
   }
 }

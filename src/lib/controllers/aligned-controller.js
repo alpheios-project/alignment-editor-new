@@ -12,7 +12,7 @@ export default class AlignedController {
       const tokenizer = 'simpleWordTokenization'
       return this.alignment.createAlignedTexts(tokenizer)
     }
-    console.error(L10n.l10NGetMsg('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+    console.error(L10n.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
     return false
   }
 

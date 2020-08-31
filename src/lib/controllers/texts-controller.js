@@ -61,7 +61,7 @@ export default class TextsController {
    */
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
-      console.error(L10n.l10NGetMsg('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      console.error(L10n.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       return
     }
     const uploadType = 'plainSourceUploadFromFile'

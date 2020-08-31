@@ -9,6 +9,6 @@ export default class Token {
   }
 
   get couldBeUsedForAlignment () {
-    return this.textType && this.idWord && this.word
+    return Boolean(this.textType && this.idWord && this.word)
   }
 }

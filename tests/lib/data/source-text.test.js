@@ -2,12 +2,20 @@
 /* eslint-disable no-unused-vars */
 
 import SourceText from '@/lib/data/source-text'
+import AppController from '@/lib/controllers/app-controller.js'
 
 describe('source-text.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-    
+
+  beforeAll(() => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+    appC.defineL10Support()
+  })
+
   beforeEach(() => {
     jest.clearAllMocks()
     jest.spyOn(console, 'error')

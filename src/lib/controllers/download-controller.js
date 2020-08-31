@@ -21,7 +21,7 @@ export default class DownloadController {
     if (this.downloadMethods[downloadType]) {
       return this.downloadMethods[downloadType](data)
     }
-    console.error(L10n.l10NGetMsg('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    console.error(L10n.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     return false
   }
 
@@ -33,7 +33,7 @@ export default class DownloadController {
    */
   static plainSourceDownload (data) {
     if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
-      console.error(L10n.l10NGetMsg('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      console.error(L10n.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,

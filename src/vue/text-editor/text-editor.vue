@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-container">
-      <h2>{{ l10nGetMsg('TEXT_EDITOR_HEADING') }} 
+      <h2>{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineTextsShow">{{ defineTextsShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-text-define-container" v-show="defineTextsShow">
@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     defineTextsShowLabel () {
-      return this.defineTextsShow ? this.l10nGetMsg('TEXT_EDITOR_HIDE') : this.l10nGetMsg('TEXT_EDITOR_SHOW')
+      return this.defineTextsShow ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
     },
     updatedOrigin () {
       return this.originUpdated && this.originText ?  this.originText : null
@@ -77,6 +77,9 @@ export default {
     },
     targetText () {
       return this.targetUpdated ? this.$textC.targetDocSource : {}
+    },
+    l10n () {
+      return L10n
     }
   },
   methods: {
@@ -88,9 +91,6 @@ export default {
     },
     updateTargetText (text) {
       this.$textC.updateTargetDocSource(text)
-    },
-    l10nGetMsg (...params) {
-      return L10n.l10NGetMsg(...params)
     }
   }
 }
