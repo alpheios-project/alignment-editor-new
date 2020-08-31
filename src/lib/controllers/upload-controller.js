@@ -45,8 +45,8 @@ export default class UploadController {
     }
 
     return {
-      originDocSource: new SourceText('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] }),
-      targetDocSource: new SourceText('target', { text: fileData[3], direction: fileData[4], lang: fileData[5] })
+      originDocSource: SourceText.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] }),
+      targetDocSource: SourceText.convertFromJSON('target', { text: fileData[3], direction: fileData[4], lang: fileData[5] })
     }
   }
 }

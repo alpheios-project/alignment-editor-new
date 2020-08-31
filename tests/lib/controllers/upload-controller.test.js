@@ -73,7 +73,6 @@ describe('upload-controller.test.js', () => {
     const l10n = new L10n()
     let data, result
     
-    // no data
     data = 'originText \n ltr \n lat \n targetText \n ltr \n eng' 
     result = UploadController.plainSourceUploadFromFile(data, l10n)
 

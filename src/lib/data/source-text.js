@@ -32,7 +32,7 @@ export default class SourceText {
    * @return {Boolean}
    */
   get fullDefined () {
-    return Boolean(this.text && this.direction && this.lang)
+    return Boolean(this.textType && this.text && this.direction && this.lang)
   }
 
   /**
@@ -44,6 +44,11 @@ export default class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
+    if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
+      console.error('Json file doesn\'t have all obligatory fields. Source Text won\'t be created.')
+      return false
+    }
+
     const text = jsonData.text.replace(/\t/g, '\u000D')
     const direction = jsonData.direction
     const lang = jsonData.lang

@@ -14107,8 +14107,8 @@ class UploadController {
     }
 
     return {
-      originDocSource: new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] }),
-      targetDocSource: new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default('target', { text: fileData[3], direction: fileData[4], lang: fileData[5] })
+      originDocSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] }),
+      targetDocSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { text: fileData[3], direction: fileData[4], lang: fileData[5] })
     }
   }
 }
@@ -14544,7 +14544,7 @@ class SourceText {
    * @return {Boolean}
    */
   get fullDefined () {
-    return Boolean(this.text && this.direction && this.lang)
+    return Boolean(this.textType && this.text && this.direction && this.lang)
   }
 
   /**
@@ -14556,6 +14556,10 @@ class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
+    if (!jsonData.text || jsonData.direction || jsonData.lang) {
+      console.error('Json file doesn\'t have all obligatory fields. Source Text won\'t be created.')
+      return false
+    }
     const text = jsonData.text.replace(/\t/g, '\u000D')
     const direction = jsonData.direction
     const lang = jsonData.lang
