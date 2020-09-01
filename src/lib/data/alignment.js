@@ -121,7 +121,7 @@ export default class Alignment {
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token))
+      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token.idWord))
     }
     return false
   }
@@ -154,7 +154,7 @@ export default class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token.idWord)
   }
 
   isFirstInActiveGroup (token) {

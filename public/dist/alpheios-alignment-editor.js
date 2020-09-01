@@ -14185,25 +14185,23 @@ class AlignmentGroup {
     this.origin = []
     this.target = []
     this.steps = []
-    this.add(token)
+    if (token) { this.add(token) }
   }
 
   add (token) {
-    if (!token.couldBeUsedForAlignment) {
+    if (!token || !token.couldBeUsedForAlignment) {
       return false
     }
 
     this[token.textType].push(token.idWord)
     this.steps.push({ textType: token.textType, id: token.idWord, type: 'add' })
 
-    if (!this.firstStep) {
-      this.firstStep = this.steps[0]
-    }
+    this.defineFirstStep()
     return true
   }
 
   remove (token) {
-    if (!token.couldBeUsedForAlignment) {
+    if (!token || !token.couldBeUsedForAlignment) {
       return false
     }
 
@@ -14212,12 +14210,29 @@ class AlignmentGroup {
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
       this.steps.push({ textType: token.textType, id: token.idWord, type: 'remove' })
+      this.defineFirstStep()
+      return true
     }
-    return true
+    return false
+  }
+
+  get fistStepNeedToBeUpdated () {
+    return !this.firstStep || !this.includesToken(this.firstStep.id)
+  }
+
+  defineFirstStep () {
+    if (this.fistStepNeedToBeUpdated) {
+      for (let i = 0; i < this.steps.length; i++) {
+        if (this.includesToken(this.steps[i].id)) {
+          this.firstStep = this.steps[i]
+          break
+        }
+      }
+    }
   }
 
   get lastStepTextType () {
-    return this.steps[this.steps.length - 1].textType
+    return this.lastStep.textType
   }
 
   get couldBeFinished () {
@@ -14231,8 +14246,8 @@ class AlignmentGroup {
     return ids
   }
 
-  includesToken (token) {
-    return this.origin.includes(token.idWord) || this.target.includes(token.idWord)
+  includesToken (idWord) {
+    return this.origin.includes(idWord) || this.target.includes(idWord)
   }
 
   isFirstToken (token) {
@@ -14409,7 +14424,7 @@ class Alignment {
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token))
+      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token.idWord))
     }
     return false
   }
@@ -14442,7 +14457,7 @@ class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
+    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token.idWord)
   }
 
   isFirstInActiveGroup (token) {

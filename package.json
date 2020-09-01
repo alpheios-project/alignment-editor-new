@@ -8,7 +8,7 @@
     "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
     "test-lib": "jest tests/lib --coverage",
     "test-a": "jest tests/lib/controllers/aligned-controller.test.js --coverage",
-    "test-b": "jest tests/lib/data/aligned-text.test.js --coverage"
+    "test-b": "jest tests/lib/data/alignment-group.test.js --coverage"
   },
   "repository": {
     "type": "git",
