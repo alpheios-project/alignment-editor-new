@@ -154,15 +154,15 @@ export default class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
   }
 
   isFirstInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 
   get hasActiveAlignment () {

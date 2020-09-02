@@ -13,7 +13,7 @@ export default class UploadController {
 
   /**
    * Defines an upload method and executes it
-   * @param {String} downloadType  - defines the upload workflow
+   * @param {String} uploadType  - defines the upload workflow
    * @param {Object} data - all data for parsing
    * @return {Boolean} - true - upload was done, false - not
    */

@@ -7,7 +7,7 @@ export default class AlignedText {
    * @param {SourceText} docSource
    * @param {String} tokenizer - the name of tokenizer approach
    */
-  constructor ({ docSource, tokenizer }) {
+  constructor ({ docSource, tokenizer } = {}) {
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction

@@ -13529,13 +13529,13 @@ class AlignedController {
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
   createAlignedTexts (alignment) {
-    this.alignment = alignment
-    if (alignment && this.alignment.readyForTokenize) {
-      const tokenizer = 'simpleWordTokenization'
-      return this.alignment.createAlignedTexts(tokenizer)
+    if (!alignment || !alignment.readyForTokenize) {
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+      return false
     }
-    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
-    return false
+    this.alignment = alignment
+    const tokenizer = 'simpleWordTokenization'
+    return this.alignment.createAlignedTexts(tokenizer)
   }
 
   /**
@@ -13588,7 +13588,7 @@ class AlignedController {
    * @return {Boolean} true - if a new active alignment group is defined, false - not
    */
   startNewAlignmentGroup (token) {
-    return this.alignment && this.alignment.startNewAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token)
   }
 
   /**
@@ -13597,7 +13597,7 @@ class AlignedController {
    * @return {Boolean} true - if the token was added, false - not
    */
   addToAlignmentGroup (token) {
-    return this.alignment && this.alignment.addToAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token)
   }
 
   /**
@@ -13605,7 +13605,7 @@ class AlignedController {
    * @return {Boolean} true - if alignment group was saved to the list, false - not
    */
   finishActiveAlignmentGroup () {
-    return this.alignment && this.alignment.finishActiveAlignmentGroup()
+    return Boolean(this.alignment) && this.alignment.finishActiveAlignmentGroup()
   }
 
   /**
@@ -13613,7 +13613,7 @@ class AlignedController {
    * @return {Boolean} true - if groups were merged, false - not
    */
   mergeActiveGroupWithAnotherByToken (token) {
-    return this.alignment && this.alignment.mergeActiveGroupWithAnotherByToken(token)
+    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   /**
@@ -13621,7 +13621,7 @@ class AlignedController {
    * @return {AlignmentGroup | Boolean} AlignmentGroup - if a group was found, false - not
    */
   findAlignmentGroup (token) {
-    return this.alignment && this.alignment.findAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
   }
 
   /**
@@ -13637,7 +13637,7 @@ class AlignedController {
    * @param {Token} token
    */
   tokenIsGrouped (token) {
-    return this.alignment && this.alignment.tokenIsGrouped(token)
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
   }
 
   /**
@@ -13645,7 +13645,7 @@ class AlignedController {
    * @param {Token} token
    */
   tokenInActiveGroup (token) {
-    return this.alignment && this.alignment.tokenInActiveGroup(token)
+    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
   }
 
   /**
@@ -13653,14 +13653,14 @@ class AlignedController {
    * @param {Token} token
    */
   isFirstInActiveGroup (token) {
-    return this.alignment && this.alignment.isFirstInActiveGroup(token)
+    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
   }
 
   /**
    * Checks if there is an active alignment group
    */
   get hasActiveAlignment () {
-    return this.alignment && this.alignment.hasActiveAlignment
+    return Boolean(this.alignment) && this.alignment.hasActiveAlignment
   }
 
   /**
@@ -13668,7 +13668,7 @@ class AlignedController {
    * @param {Token} token
    */
   activateGroupByToken (token) {
-    return this.alignment && this.alignment.activateGroupByToken(token)
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
   }
 }
 
@@ -14442,15 +14442,15 @@ class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
   }
 
   isFirstInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 
   get hasActiveAlignment () {
