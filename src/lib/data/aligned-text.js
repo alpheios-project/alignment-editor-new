@@ -4,6 +4,7 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 export default class AlignedText {
   /**
    *
+   *
    * @param {SourceText} docSource
    * @param {String} tokenizer - the name of tokenizer approach
    */
@@ -18,6 +19,7 @@ export default class AlignedText {
 
   /**
    * Defines prefix for token creations
+   * @return {String}
    */
   get tokenPrefix () {
     return this.textType === 'origin' ? '1' : '2'
@@ -36,6 +38,7 @@ export default class AlignedText {
   /**
    * Formats tokens from simple objects to Token class objects
    * @param {Array[Object]} tokens
+   * @return {Array[Token]}
    */
   convertToTokens (tokens) {
     const tokensFormatted = []

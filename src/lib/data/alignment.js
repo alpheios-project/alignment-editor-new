@@ -11,8 +11,12 @@ export default class Alignment {
     this.origin = {}
     this.target = {}
 
-    this.origin.docSource = new SourceText('origin', originDocSource)
-    this.target.docSource = new SourceText('target', targetDocSource)
+    if (originDocSource) {
+      this.origin.docSource = new SourceText('origin', originDocSource)
+    }
+    if (targetDocSource) {
+      this.target.docSource = new SourceText('target', targetDocSource)
+    }
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -24,27 +28,35 @@ export default class Alignment {
   }
 
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.fullDefined)
+    return Boolean(this.origin.docSource && this.origin.docSource.fullyDefined)
   }
 
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.fullDefined)
+    return Boolean(this.target.docSource && this.target.docSource.fullyDefined)
   }
 
   updateOriginDocSource (docSource) {
-    this.origin.docSource.update(docSource)
+    if (!this.origin.docSource) {
+      this.origin.docSource = new SourceText('origin', docSource)
+    } else {
+      this.origin.docSource.update(docSource)
+    }
   }
 
   updateTargetDocSource (docSource) {
-    this.target.docSource.update(docSource)
+    if (!this.target.docSource) {
+      this.target.docSource = new SourceText('target', docSource)
+    } else {
+      this.target.docSource.update(docSource)
+    }
   }
 
   get originDocSource () {
-    return this.origin.docSource
+    return this.origin.docSource ? this.origin.docSource : null
   }
 
   get targetDocSource () {
-    return this.target.docSource
+    return this.target.docSource ? this.target.docSource : null
   }
 
   createAlignedTexts (tokenizer) {

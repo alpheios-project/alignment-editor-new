@@ -4,6 +4,7 @@ import L10n from '@/lib/l10n/l10n.js'
 export default class UploadController {
   /**
    * The list with registered variants of upload workflows
+   * @return {Object} - each property is one of the defined upload method
    */
   static get uploadMethods () {
     return {

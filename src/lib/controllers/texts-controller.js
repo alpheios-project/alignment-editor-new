@@ -35,7 +35,7 @@ export default class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource)
+      console.error(L10n.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -43,6 +43,7 @@ export default class TextsController {
 
   /**
    * Returns origin document source if alignment is defined
+   * @returns {SourceText} - origin source text
    */
   get originDocSource () {
     return this.alignment ? this.alignment.originDocSource : null
@@ -50,6 +51,7 @@ export default class TextsController {
 
   /**
    * Returns target document source if alignment is defined
+   * @returns {SourceText} - target source text
    */
   get targetDocSource () {
     return this.alignment ? this.alignment.targetDocSource : null
@@ -75,6 +77,7 @@ export default class TextsController {
 
   /**
    * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
     const downloadType = 'plainSourceDownload'

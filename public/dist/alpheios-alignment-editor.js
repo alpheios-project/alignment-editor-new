@@ -13635,6 +13635,7 @@ class AlignedController {
   /**
    * Checks if the token is already saved in some alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
   tokenIsGrouped (token) {
     return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
@@ -13643,6 +13644,7 @@ class AlignedController {
   /**
    * Checks if the token is already added in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
   tokenInActiveGroup (token) {
     return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
@@ -13651,6 +13653,7 @@ class AlignedController {
   /**
    * Checks if the token is defined as first token in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
   isFirstInActiveGroup (token) {
     return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
@@ -13658,6 +13661,7 @@ class AlignedController {
 
   /**
    * Checks if there is an active alignment group
+   * @return {Boolean} true - if there is an active alignment group, false - not
    */
   get hasActiveAlignment () {
     return Boolean(this.alignment) && this.alignment.hasActiveAlignment
@@ -13666,6 +13670,7 @@ class AlignedController {
   /**
    * Checks if the token is saved in some alignment group and makes this alignment group active
    * @param {Token} token
+   * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
   activateGroupByToken (token) {
     return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
@@ -13722,7 +13727,7 @@ class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId }) {
+  constructor ({ appId } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
@@ -13825,6 +13830,7 @@ __webpack_require__.r(__webpack_exports__);
 class DownloadController {
   /**
    * The list with registered variants of download workflows
+   * @return {Object} - each property is one of the defined download method
    */
   static get downloadMethods () {
     return {
@@ -13853,7 +13859,7 @@ class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownload (data) {
-    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
+    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullyDefined || !data.targetDocSource.fullyDefined) {
       console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }
@@ -13925,7 +13931,7 @@ class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource)
+      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -13933,6 +13939,7 @@ class TextsController {
 
   /**
    * Returns origin document source if alignment is defined
+   * @returns {SourceText} - origin source text
    */
   get originDocSource () {
     return this.alignment ? this.alignment.originDocSource : null
@@ -13940,6 +13947,7 @@ class TextsController {
 
   /**
    * Returns target document source if alignment is defined
+   * @returns {SourceText} - target source text
    */
   get targetDocSource () {
     return this.alignment ? this.alignment.targetDocSource : null
@@ -13965,6 +13973,7 @@ class TextsController {
 
   /**
    * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
     const downloadType = 'plainSourceDownload'
@@ -14041,6 +14050,7 @@ __webpack_require__.r(__webpack_exports__);
 class UploadController {
   /**
    * The list with registered variants of upload workflows
+   * @return {Object} - each property is one of the defined upload method
    */
   static get uploadMethods () {
     return {
@@ -14050,7 +14060,7 @@ class UploadController {
 
   /**
    * Defines an upload method and executes it
-   * @param {String} downloadType  - defines the upload workflow
+   * @param {String} uploadType  - defines the upload workflow
    * @param {Object} data - all data for parsing
    * @return {Boolean} - true - upload was done, false - not
    */
@@ -14113,10 +14123,11 @@ __webpack_require__.r(__webpack_exports__);
 class AlignedText {
   /**
    *
+   *
    * @param {SourceText} docSource
    * @param {String} tokenizer - the name of tokenizer approach
    */
-  constructor ({ docSource, tokenizer }) {
+  constructor ({ docSource, tokenizer } = {}) {
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction
@@ -14127,6 +14138,7 @@ class AlignedText {
 
   /**
    * Defines prefix for token creations
+   * @return {String}
    */
   get tokenPrefix () {
     return this.textType === 'origin' ? '1' : '2'
@@ -14145,6 +14157,7 @@ class AlignedText {
   /**
    * Formats tokens from simple objects to Token class objects
    * @param {Array[Object]} tokens
+   * @return {Array[Token]}
    */
   convertToTokens (tokens) {
     const tokensFormatted = []
@@ -14189,7 +14202,7 @@ class AlignmentGroup {
   }
 
   add (token) {
-    if (!token.couldBeUsedForAlignment) {
+    if (!token.isAlignable) {
       return false
     }
 
@@ -14203,7 +14216,7 @@ class AlignmentGroup {
   }
 
   remove (token) {
-    if (!token.couldBeUsedForAlignment) {
+    if (!token.isAlignable) {
       return false
     }
 
@@ -14312,11 +14325,11 @@ class Alignment {
   }
 
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.fullDefined)
+    return Boolean(this.origin.docSource && this.origin.docSource.fullyDefined)
   }
 
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.fullDefined)
+    return Boolean(this.target.docSource && this.target.docSource.fullyDefined)
   }
 
   updateOriginDocSource (docSource) {
@@ -14530,7 +14543,7 @@ class SourceText {
    * Checks if all obligatory properties are defined: text, direction, lang
    * @return {Boolean}
    */
-  get fullDefined () {
+  get fullyDefined () {
     return Boolean(this.textType && this.text && this.direction && this.lang)
   }
 
@@ -14584,7 +14597,7 @@ class Token {
     this.hasLineBreak = hasLineBreak
   }
 
-  get couldBeUsedForAlignment () {
+  get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
   }
 }
@@ -17607,6 +17620,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   other exports [not provided] [no usage info] */
+/*! export TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -17633,7 +17651,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
 
 /***/ }),
 

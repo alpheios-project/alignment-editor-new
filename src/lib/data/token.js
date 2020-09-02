@@ -8,7 +8,7 @@ export default class Token {
     this.hasLineBreak = hasLineBreak
   }
 
-  get couldBeUsedForAlignment () {
+  get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
   }
 }

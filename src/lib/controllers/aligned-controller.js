@@ -113,6 +113,7 @@ export default class AlignedController {
   /**
    * Checks if the token is already saved in some alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
   tokenIsGrouped (token) {
     return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
@@ -121,6 +122,7 @@ export default class AlignedController {
   /**
    * Checks if the token is already added in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
   tokenInActiveGroup (token) {
     return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
@@ -129,6 +131,7 @@ export default class AlignedController {
   /**
    * Checks if the token is defined as first token in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
   isFirstInActiveGroup (token) {
     return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
@@ -136,6 +139,7 @@ export default class AlignedController {
 
   /**
    * Checks if there is an active alignment group
+   * @return {Boolean} true - if there is an active alignment group, false - not
    */
   get hasActiveAlignment () {
     return Boolean(this.alignment) && this.alignment.hasActiveAlignment
@@ -144,6 +148,7 @@ export default class AlignedController {
   /**
    * Checks if the token is saved in some alignment group and makes this alignment group active
    * @param {Token} token
+   * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
   activateGroupByToken (token) {
     return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)

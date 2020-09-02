@@ -4,6 +4,7 @@ import L10n from '@/lib/l10n/l10n.js'
 export default class DownloadController {
   /**
    * The list with registered variants of download workflows
+   * @return {Object} - each property is one of the defined download method
    */
   static get downloadMethods () {
     return {
@@ -32,7 +33,7 @@ export default class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownload (data) {
-    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
+    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullyDefined || !data.targetDocSource.fullyDefined) {
       console.error(L10n.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }

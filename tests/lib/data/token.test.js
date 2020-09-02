@@ -36,26 +36,26 @@ describe('token.test.js', () => {
     expect(token).toHaveProperty('hasLineBreak', true)
   })
 
-  it('2 Token - couldBeUsedForAlignment returns true only if all obligtory properties are defined - textType, idWord, word', () => {
+  it('2 Token - isAlignable returns true only if all obligtory properties are defined - textType, idWord, word', () => {
     let token = new Token({
       textType: 'origin', idWord: 'L1-10', word: 'male'})
 
-    expect(token.couldBeUsedForAlignment).toBeTruthy()
+    expect(token.isAlignable).toBeTruthy()
 
     token = new Token({
       idWord: 'L1-10', word: 'male'})
   
-    expect(token.couldBeUsedForAlignment).toBeFalsy()
+    expect(token.isAlignable).toBeFalsy()
 
     token = new Token({
       textType: 'origin', word: 'male'})
   
-    expect(token.couldBeUsedForAlignment).toBeFalsy()
+    expect(token.isAlignable).toBeFalsy()
 
     token = new Token({
       textType: 'origin', idWord: 'L1-10'})
   
-    expect(token.couldBeUsedForAlignment).toBeFalsy()
+    expect(token.isAlignable).toBeFalsy()
 
   })
 })

@@ -48,24 +48,24 @@ describe('source-text.test.js', () => {
     expect(sourceText).toHaveProperty('lang', 'lat')
   })
 
-  it('3 SourceText - fullDefined returns true if obligatory fields are defined ', () => {
+  it('3 SourceText - fullyDefined returns true if obligatory fields are defined ', () => {
     let sourceText = new SourceText('origin', {})
-    expect(sourceText.fullDefined).toBeFalsy()
+    expect(sourceText.fullyDefined).toBeFalsy()
 
     sourceText.update({
       text: 'target text'
     })
-    expect(sourceText.fullDefined).toBeFalsy()
+    expect(sourceText.fullyDefined).toBeFalsy()
 
     sourceText.update({
       text: 'target text', direction: 'rtl'
     })
-    expect(sourceText.fullDefined).toBeFalsy()
+    expect(sourceText.fullyDefined).toBeFalsy()
 
     sourceText.update({
       text: 'target text', direction: 'rtl', lang: 'lat'
     })
-    expect(sourceText.fullDefined).toBeTruthy()
+    expect(sourceText.fullyDefined).toBeTruthy()
   })
 
   it('4 SourceText - static convertFromJSON creates SourceText object from json if json is defined correctly', () => {
