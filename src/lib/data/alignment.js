@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AlignedText from '@/lib/data/aligned-text'
 import SourceText from '@/lib/data/source-text'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class Alignment {
   constructor (originDocSource, targetDocSource) {
@@ -61,7 +61,7 @@ export default class Alignment {
 
   createAlignedTexts (tokenizer) {
     if (!tokenizer) {
-      console.error(L10n.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       return false
     }
 
@@ -107,7 +107,7 @@ export default class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(L10n.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
   }
@@ -117,7 +117,7 @@ export default class Alignment {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
     } else {
-      console.error(L10n.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 

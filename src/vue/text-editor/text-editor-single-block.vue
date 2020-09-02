@@ -31,7 +31,7 @@
 </template>
 <script>
 import LangsList from '@/vue/text-editor/langs-list.json'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -90,7 +90,7 @@ export default {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
     l10n () {
-      return L10n
+      return L10nSingleton
     }
   },
   methods: {

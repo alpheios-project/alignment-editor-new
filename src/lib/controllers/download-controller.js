@@ -1,5 +1,5 @@
 import DownloadFileOneColumn from '@/lib/download/download-file-one-column.js'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class DownloadController {
   /**
@@ -22,7 +22,7 @@ export default class DownloadController {
     if (this.downloadMethods[downloadType]) {
       return this.downloadMethods[downloadType](data)
     }
-    console.error(L10n.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     return false
   }
 
@@ -34,7 +34,7 @@ export default class DownloadController {
    */
   static plainSourceDownload (data) {
     if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullyDefined || !data.targetDocSource.fullyDefined) {
-      console.error(L10n.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,

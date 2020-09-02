@@ -1,4 +1,4 @@
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class AlignedController {
   /**
@@ -8,7 +8,7 @@ export default class AlignedController {
    */
   createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
-      console.error(L10n.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+      console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       return false
     }
     this.alignment = alignment

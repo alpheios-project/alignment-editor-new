@@ -3,7 +3,7 @@
 import Alignment from '@/lib/data/alignment'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class TextsController {
   /**
@@ -35,7 +35,7 @@ export default class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      console.error(L10n.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -63,7 +63,7 @@ export default class TextsController {
    */
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
-      console.error(L10n.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       return
     }
     const uploadType = 'plainSourceUploadFromFile'

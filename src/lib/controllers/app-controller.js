@@ -4,7 +4,7 @@ import Vue from '@vue-runtime'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
 import EnUsCommon from '@/locales/en-us/messages-common.json'
 import EnUsLanguages from '@/locales/en-us/messages-languages.json'
@@ -88,7 +88,8 @@ export default class AppController {
         [enGB, Locales.en_GB]
       ])
     }
-    const l10n = new L10n()
+
+    const l10n = new L10nSingleton()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
