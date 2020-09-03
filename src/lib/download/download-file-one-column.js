@@ -34,6 +34,6 @@ export default class DownloadFileOneColumn {
     const exportFields = ['data']
 
     const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
-    this.downloadBlob(result, `${fileName}.${fileExtension}`)
+    return this.downloadBlob(result, `${fileName}.${fileExtension}`)
   }
 }

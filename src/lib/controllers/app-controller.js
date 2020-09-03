@@ -4,7 +4,7 @@ import Vue from '@vue-runtime'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
 import EnUsCommon from '@/locales/en-us/messages-common.json'
 import EnUsLanguages from '@/locales/en-us/messages-languages.json'
@@ -14,17 +14,37 @@ import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
 import enGB from '@/locales/en-gb/messages.json'
 
 export default class AppController {
-  constructor ({ appId }) {
-    this.attachVueComponents(appId)
+  /**
+   *
+   * @param {String} appId - id attribute of the HTML element where Vue application should be attached
+   */
+  constructor ({ appId } = {}) {
+    if (!appId) {
+      console.error('You should define id inside AppController initialization to start the application.')
+      return
+    }
+    this.appId = appId
   }
 
-  attachVueComponents (appId) {
+  /**
+   * Executes methods for initialization and attaching components to the current HTML layout with defined properties
+   */
+  init () {
+    if (this.appId) {
+      this.attachVueComponents()
+    }
+  }
+
+  /**
+   * Creates and attaches App Vue component, defines additional controllers
+   */
+  attachVueComponents () {
     this.defineL10Support()
-    this.defineTextController(this.l10n)
-    this.defineAlignedController(this.l10n)
+    this.defineTextController()
+    this.defineAlignedController()
 
     const rootVi = new Vue()
-    const mountEl = document.getElementById(appId)
+    const mountEl = document.getElementById(this.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
@@ -37,16 +57,25 @@ export default class AppController {
     this._viAppComp.$mount(appContainerEl)
   }
 
-  defineTextController (l10n) {
-    this.textC = new TextsController(l10n)
+  /**
+   * Creates TextController and attaches to Vue components
+   */
+  defineTextController () {
+    this.textC = new TextsController()
     Vue.prototype.$textC = this.textC
   }
 
-  defineAlignedController (l10n) {
-    this.alignedC = new AlignedController(l10n)
+  /**
+   * Creates AlignedController and attaches to Vue components
+   */
+  defineAlignedController () {
+    this.alignedC = new AlignedController()
     Vue.prototype.$alignedC = this.alignedC
   }
 
+  /**
+   * Defines L10n module
+   */
   defineL10Support () {
     const config = {
       defaultLocale: Locales.en_US,
@@ -59,10 +88,10 @@ export default class AppController {
         [enGB, Locales.en_GB]
       ])
     }
-    this.l10n = new L10n()
-    config.messageBundles.forEach(mb => this.l10n.addMessageBundle(mb))
-    this.l10n.setLocale(config.defaultLocale)
 
-    Vue.prototype.$l10n = this.l10n
+    const l10n = new L10nSingleton()
+    config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
+    l10n.setLocale(config.defaultLocale)
+    return l10n
   }
 }

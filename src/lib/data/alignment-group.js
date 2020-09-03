@@ -10,21 +10,31 @@ export default class AlignmentGroup {
   }
 
   add (token) {
+    if (!token.isAlignable) {
+      return false
+    }
+
     this[token.textType].push(token.idWord)
     this.steps.push({ textType: token.textType, id: token.idWord, type: 'add' })
 
     if (!this.firstStep) {
       this.firstStep = this.steps[0]
     }
+    return true
   }
 
   remove (token) {
+    if (!token.isAlignable) {
+      return false
+    }
+
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
       this.steps.push({ textType: token.textType, id: token.idWord, type: 'remove' })
     }
+    return true
   }
 
   get lastStepTextType () {
@@ -69,5 +79,6 @@ export default class AlignmentGroup {
     tokensGroup.target.forEach(idWord => {
       this.steps.push({ textType: 'target', id: idWord, type: 'merge' })
     })
+    return true
   }
 }

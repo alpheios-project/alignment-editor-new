@@ -67,9 +67,10 @@ export default {
     },
 
     alignTexts () {
-      this.$alignedC.createAlignedTexts(this.$textC.alignment)
-      this.hideTextEditorM()
-      this.showAlignEditorM()    
+      if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
+        this.hideTextEditorM()
+        this.showAlignEditorM()    
+      }
     }
   }
 }

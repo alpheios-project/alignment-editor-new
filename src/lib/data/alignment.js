@@ -1,57 +1,81 @@
 import { v4 as uuidv4 } from 'uuid'
-import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+
 import AlignmentGroup from '@/lib/data/alignment-group'
+import AlignedText from '@/lib/data/aligned-text'
+import SourceText from '@/lib/data/source-text'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class Alignment {
-  constructor (docSource, l10n) {
+  constructor (originDocSource, targetDocSource) {
     this.id = uuidv4()
     this.origin = {}
     this.target = {}
 
-    this.origin.docSource = docSource
+    if (originDocSource) {
+      this.origin.docSource = new SourceText('origin', originDocSource)
+    }
+    if (targetDocSource) {
+      this.target.docSource = new SourceText('target', targetDocSource)
+    }
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
     this.activeAlignmentGroup = null
+  }
 
-    this.l10n = l10n
+  get readyForTokenize () {
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
+  }
+
+  get originDocSourceFullyDefined () {
+    return Boolean(this.origin.docSource && this.origin.docSource.fullyDefined)
+  }
+
+  get targetDocSourceFullyDefined () {
+    return Boolean(this.target.docSource && this.target.docSource.fullyDefined)
   }
 
   updateOriginDocSource (docSource) {
-    this.origin.docSource = docSource
+    if (!this.origin.docSource) {
+      this.origin.docSource = new SourceText('origin', docSource)
+    } else {
+      this.origin.docSource.update(docSource)
+    }
   }
 
   updateTargetDocSource (docSource) {
-    this.target.docSource = docSource
+    if (!this.target.docSource) {
+      this.target.docSource = new SourceText('target', docSource)
+    } else {
+      this.target.docSource.update(docSource)
+    }
   }
 
   get originDocSource () {
-    return this.origin.docSource
+    return this.origin.docSource ? this.origin.docSource : null
   }
 
   get targetDocSource () {
-    return this.target.docSource
+    return this.target.docSource ? this.target.docSource : null
   }
 
   createAlignedTexts (tokenizer) {
-    const tokenizeMethod = TokenizeController.getTokenizer(tokenizer, this.l10n)
-
-    if (!tokenizeMethod) {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+    if (!tokenizer) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      return false
     }
 
-    this.origin.alignedText = {
-      textType: 'origin',
-      tokens: tokenizeMethod(this.origin.docSource.text, '1', 'origin'),
-      direction: this.origin.docSource.direction,
-      lang: this.origin.docSource.lang
-    }
-    this.target.alignedText = {
-      textType: 'target',
-      tokens: tokenizeMethod(this.target.docSource.text, '2', 'target'),
-      direction: this.target.docSource.direction,
-      lang: this.target.docSource.lang
-    }
+    this.origin.alignedText = new AlignedText({
+      docSource: this.origin.docSource,
+      tokenizer
+    })
+
+    this.target.alignedText = new AlignedText({
+      docSource: this.target.docSource,
+      tokenizer
+    })
+
+    return true
   }
 
   get originAlignedText () {
@@ -70,19 +94,21 @@ export default class Alignment {
     return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
-  shouldStartNewAlignmentGroup (token) {
+  shouldStartNewAlignmentGroup () {
     return !this.activeAlignmentGroup
   }
 
   startNewAlignmentGroup (token) {
     this.activeAlignmentGroup = new AlignmentGroup(token)
+    return Boolean(this.activeAlignmentGroup)
   }
 
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup[token.textType]) {
-      this.activeAlignmentGroup.add(token)
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
+      return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      return false
     }
   }
 
@@ -91,7 +117,7 @@ export default class Alignment {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
     } else {
-      console.error(this.l10n.getMsg('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 
@@ -99,15 +125,17 @@ export default class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
+      this.activeAlignmentGroup = null
+      return true
     }
-
-    this.activeAlignmentGroup = null
+    return false
   }
 
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return this.alignmentGroups.find(al => al.includesToken(token))
+      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token))
     }
+    return false
   }
 
   findAlignmentGroupIds (token) {
@@ -138,15 +166,15 @@ export default class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
   }
 
   isFirstInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 
   get hasActiveAlignment () {
@@ -159,14 +187,18 @@ export default class Alignment {
       this.activeAlignmentGroup = tokensGroup
       this.activeAlignmentGroup.updateFirstStep(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
+      return true
     }
+    return false
   }
 
   mergeActiveGroupWithAnotherByToken (token) {
     const tokensGroup = this.findAlignmentGroup(token)
-    if (tokensGroup) {
+    if (this.activeAlignmentGroup && tokensGroup) {
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
+      return true
     }
+    return false
   }
 }

@@ -1,39 +1,52 @@
+import SourceText from '@/lib/data/source-text'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
 export default class UploadController {
-  static upload (uploadType, data, l10n) {
-    switch (uploadType) {
-      case 'plainSourceUploadFromFile':
-        return this.plainSourceUploadFromFile(data, l10n)
-      default:
-        console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+  /**
+   * The list with registered variants of upload workflows
+   * @return {Object} - each property is one of the defined upload method
+   */
+  static get uploadMethods () {
+    return {
+      plainSourceUploadFromFile: this.plainSourceUploadFromFile
     }
   }
 
-  static plainSourceUploadFromFile (fileData, l10n) {
-    fileData = fileData.split(/\r\n|\r|\n/)
+  /**
+   * Defines an upload method and executes it
+   * @param {String} uploadType  - defines the upload workflow
+   * @param {Object} data - all data for parsing
+   * @return {Boolean} - true - upload was done, false - not
+   */
+  static upload (uploadType, data) {
+    if (this.uploadMethods[uploadType]) {
+      return this.uploadMethods[uploadType](data)
+    }
+    console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    return false
+  }
+
+  /**
+   * Executes upload workflow: one origin, one target text - only source state
+   * fileData should contain 6 rows: origin.text, origin.direction, origin.lang, target.text, target.direction, target.lang
+   * @param {Object} data - all data for download
+    * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
+   */
+  static plainSourceUploadFromFile (fileString) {
+    if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      return
+    }
+    const fileData = fileString.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      console.error(l10n.getMsg('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 
-    const formattedData = {
-      origin: {
-        text: fileData[0].replace(/\t/g, '\u000D'),
-        direction: fileData[1],
-        lang: fileData[2],
-        textType: 'origin'
-      },
-      target: {
-        text: fileData[3].replace(/\t/g, '\u000D'),
-        direction: fileData[4],
-        lang: fileData[5],
-        textType: 'target'
-      }
-    }
-
     return {
-      originDocSource: formattedData.origin,
-      targetDocSource: formattedData.target
+      originDocSource: SourceText.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] }),
+      targetDocSource: SourceText.convertFromJSON('target', { text: fileData[3], direction: fileData[4], lang: fileData[5] })
     }
   }
 }

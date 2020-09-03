@@ -10,10 +10,20 @@
       "description": "An error message for download process",
       "component": "DownloadController"
     },
-    "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
-      "message": "Alignment should be created from selecting a word from origin text",
-      "description": "An error message for alignment creation workflow",
+    "TEXTS_CONTROLLER_EMPTY_FILE_DATA": {
+      "message": "There is no data in file to upload",
+      "description": "An error message for upload data from file.",
       "component": "TextsController"
+    },
+    "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
+      "message": "You should start from defining origin text first.",
+      "description": "An error message creating alignment.",
+      "component": "TextsController"
+    },
+    "ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION": {
+      "message": "Document source texts are not ready for tokenization.",
+      "description": "An error message creating alignment.",
+      "component": "AlignedController"
     },
     "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {
       "message": "Tokenization was cancelled.",

@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
-      <h2>{{ $l10n.getMsg('ALIGN_EDITOR_HEADING') }} 
+      <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineAlignShow">{{ defineAlignShowLabel }}</span>)
       </h2>
       <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="defineAlignShow">
@@ -22,6 +22,7 @@
 <script>
 import Vue from '@vue-runtime'
 import AlignEditorSingleBlock from '@/vue/align-editor/align-editor-single-block.vue'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'AlignEditor',
@@ -52,7 +53,7 @@ export default {
   },
   computed: {
     defineAlignShowLabel () {
-      return this.defineAlignShow ? this.$l10n.getMsg('ALIGN_EDITOR_HIDE') : this.$l10n.getMsg('ALIGN_EDITOR_SHOW')
+      return this.defineAlignShow ? this.l10n.getMsgS('ALIGN_EDITOR_HIDE') : this.l10n.getMsgS('ALIGN_EDITOR_SHOW')
     },
     showAlignEditor () {
       return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
@@ -62,6 +63,9 @@ export default {
     },
     targetAlignedText () {
       return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
+    },
+    l10n () {
+      return L10nSingleton
     }
   },
   methods: {

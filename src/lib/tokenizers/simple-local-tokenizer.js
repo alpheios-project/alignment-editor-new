@@ -31,7 +31,7 @@ export default class SimpleLocalTokenizer {
   }
 
   static simpleWordTokenization (textLine, prefix, textType) {
-    const formattedText = [{}]
+    const formattedText = []
 
     if ((/^\s*$/).test(textLine)) { // it is an empty line
       return formattedText
@@ -97,6 +97,9 @@ export default class SimpleLocalTokenizer {
       formattedText.push(resultWord)
     }
 
+    if (formattedText.length === 0) {
+      formattedText.push({})
+    }
     return formattedText
   }
 }
