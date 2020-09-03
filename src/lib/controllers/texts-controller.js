@@ -3,7 +3,7 @@
 import Alignment from '@/lib/data/alignment'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class TextsController {
   /**
@@ -35,7 +35,7 @@ export default class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource)
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -43,6 +43,7 @@ export default class TextsController {
 
   /**
    * Returns origin document source if alignment is defined
+   * @returns {SourceText} - origin source text
    */
   get originDocSource () {
     return this.alignment ? this.alignment.originDocSource : null
@@ -50,6 +51,7 @@ export default class TextsController {
 
   /**
    * Returns target document source if alignment is defined
+   * @returns {SourceText} - target source text
    */
   get targetDocSource () {
     return this.alignment ? this.alignment.targetDocSource : null
@@ -61,7 +63,7 @@ export default class TextsController {
    */
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
-      console.error(L10n.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       return
     }
     const uploadType = 'plainSourceUploadFromFile'
@@ -75,6 +77,7 @@ export default class TextsController {
 
   /**
    * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
     const downloadType = 'plainSourceDownload'

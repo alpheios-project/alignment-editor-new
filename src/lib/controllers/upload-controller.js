@@ -1,9 +1,10 @@
 import SourceText from '@/lib/data/source-text'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class UploadController {
   /**
    * The list with registered variants of upload workflows
+   * @return {Object} - each property is one of the defined upload method
    */
   static get uploadMethods () {
     return {
@@ -13,7 +14,7 @@ export default class UploadController {
 
   /**
    * Defines an upload method and executes it
-   * @param {String} downloadType  - defines the upload workflow
+   * @param {String} uploadType  - defines the upload workflow
    * @param {Object} data - all data for parsing
    * @return {Boolean} - true - upload was done, false - not
    */
@@ -21,7 +22,7 @@ export default class UploadController {
     if (this.uploadMethods[uploadType]) {
       return this.uploadMethods[uploadType](data)
     }
-    console.error(L10n.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     return false
   }
 
@@ -33,13 +34,13 @@ export default class UploadController {
    */
   static plainSourceUploadFromFile (fileString) {
     if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
-      console.error(L10n.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
     const fileData = fileString.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      console.error(L10n.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 

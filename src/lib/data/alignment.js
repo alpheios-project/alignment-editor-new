@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AlignedText from '@/lib/data/aligned-text'
 import SourceText from '@/lib/data/source-text'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class Alignment {
   constructor (originDocSource, targetDocSource) {
@@ -11,8 +11,12 @@ export default class Alignment {
     this.origin = {}
     this.target = {}
 
-    this.origin.docSource = new SourceText('origin', originDocSource)
-    this.target.docSource = new SourceText('target', targetDocSource)
+    if (originDocSource) {
+      this.origin.docSource = new SourceText('origin', originDocSource)
+    }
+    if (targetDocSource) {
+      this.target.docSource = new SourceText('target', targetDocSource)
+    }
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -24,32 +28,40 @@ export default class Alignment {
   }
 
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.fullDefined)
+    return Boolean(this.origin.docSource && this.origin.docSource.fullyDefined)
   }
 
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.fullDefined)
+    return Boolean(this.target.docSource && this.target.docSource.fullyDefined)
   }
 
   updateOriginDocSource (docSource) {
-    this.origin.docSource.update(docSource)
+    if (!this.origin.docSource) {
+      this.origin.docSource = new SourceText('origin', docSource)
+    } else {
+      this.origin.docSource.update(docSource)
+    }
   }
 
   updateTargetDocSource (docSource) {
-    this.target.docSource.update(docSource)
+    if (!this.target.docSource) {
+      this.target.docSource = new SourceText('target', docSource)
+    } else {
+      this.target.docSource.update(docSource)
+    }
   }
 
   get originDocSource () {
-    return this.origin.docSource
+    return this.origin.docSource ? this.origin.docSource : null
   }
 
   get targetDocSource () {
-    return this.target.docSource
+    return this.target.docSource ? this.target.docSource : null
   }
 
   createAlignedTexts (tokenizer) {
     if (!tokenizer) {
-      console.error(L10n.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       return false
     }
 
@@ -95,7 +107,7 @@ export default class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(L10n.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
   }
@@ -105,7 +117,7 @@ export default class Alignment {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
     } else {
-      console.error(L10n.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 
@@ -154,15 +166,15 @@ export default class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token.idWord)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token.idWord)
   }
 
   isFirstInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 
   get hasActiveAlignment () {

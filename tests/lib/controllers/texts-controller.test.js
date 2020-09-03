@@ -40,11 +40,11 @@ describe('texts-controller.test.js', () => {
   it('2 TextsController - updateOriginDocSource creates alignment if it is not created yet ', () => {
     const textsC = new TextsController()
 
-    textsC.createAlignment = jest.fn()
+    jest.spyOn(textsC, 'createAlignment')
     const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
     textsC.updateOriginDocSource(docSource)
 
-    expect(textsC.alignment).not.toBeDefined()
+    expect(textsC.alignment).toBeDefined()
     expect(textsC.createAlignment).toHaveBeenCalledWith(docSource, null)
   })
 
@@ -61,17 +61,6 @@ describe('texts-controller.test.js', () => {
 
     expect(textsC.createAlignment).not.toHaveBeenCalled()
     expect(textsC.alignment.updateOriginDocSource).toHaveBeenCalledWith(docSource)
-  })
-
-  it('4 TextsController - updateTargetDocSource creates alignment if it is not created yet ', () => {
-    const textsC = new TextsController()
-
-    textsC.createAlignment = jest.fn()
-    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSource)
-
-    expect(textsC.alignment).not.toBeDefined()
-    expect(textsC.createAlignment).toHaveBeenCalledWith(null, docSource)
   })
 
   it('5 TextsController - updateTargetDocSource updates target document source to an existed alignment object ', () => {
@@ -102,10 +91,13 @@ describe('texts-controller.test.js', () => {
   it('7 TextsController - targetDocSource returns target document source if alignment is defined otherwise it returns null ', () => {
     const textsC = new TextsController()
 
+    const docSourceOrigin = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateOriginDocSource(docSourceOrigin)
+
     expect(textsC.targetDocSource).toBeNull()
 
-    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSource)
+    const docSourceTarget = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.updateTargetDocSource(docSourceTarget)
     expect(textsC.targetDocSource).toBeInstanceOf(SourceText)
   })
 

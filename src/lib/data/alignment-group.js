@@ -10,7 +10,7 @@ export default class AlignmentGroup {
   }
 
   add (token) {
-    if (!token || !token.couldBeUsedForAlignment) {
+    if (!token || !token.isAlignable) {
       return false
     }
 
@@ -22,7 +22,7 @@ export default class AlignmentGroup {
   }
 
   remove (token) {
-    if (!token || !token.couldBeUsedForAlignment) {
+    if (!token || !token.isAlignable) {
       return false
     }
 

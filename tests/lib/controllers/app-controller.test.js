@@ -6,7 +6,7 @@ import AppController from '@/lib/controllers/app-controller.js'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 import Vue from '@vue-runtime'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 describe('app-controller.test.js', () => {
 
@@ -28,7 +28,6 @@ describe('app-controller.test.js', () => {
 
     Vue.prototype.$textC = undefined
     Vue.prototype.$alignedC = undefined
-    Vue.prototype.$l10n = undefined
   })
 
   function timeout (ms) {
@@ -120,7 +119,7 @@ describe('app-controller.test.js', () => {
     expect(Vue.prototype.$alignedC).toBeInstanceOf(AlignedController)
   })
 
-  it('7 AppController - defineL10Support creates L10n and attaches it to Vue component ', async () => {
+  it('7 AppController - defineL10Support creates L10nSingleton and attaches it to Vue component ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
@@ -129,6 +128,6 @@ describe('app-controller.test.js', () => {
 
     const result = appC.defineL10Support()
 
-    expect(result).toBeInstanceOf(L10n)
+    expect(result).toBeInstanceOf(L10nSingleton)
   })
 })

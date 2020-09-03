@@ -15,6 +15,11 @@
       "description": "An error message for upload data from file.",
       "component": "TextsController"
     },
+    "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
+      "message": "You should start from defining origin text first.",
+      "description": "An error message creating alignment.",
+      "component": "TextsController"
+    },
     "ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION": {
       "message": "Document source texts are not ready for tokenization.",
       "description": "An error message creating alignment.",

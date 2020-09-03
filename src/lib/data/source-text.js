@@ -31,7 +31,7 @@ export default class SourceText {
    * Checks if all obligatory properties are defined: text, direction, lang
    * @return {Boolean}
    */
-  get fullDefined () {
+  get fullyDefined () {
     return Boolean(this.textType && this.text && this.direction && this.lang)
   }
 

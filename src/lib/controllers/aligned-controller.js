@@ -1,4 +1,4 @@
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class AlignedController {
   /**
@@ -7,13 +7,13 @@ export default class AlignedController {
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
   createAlignedTexts (alignment) {
-    this.alignment = alignment
-    if (alignment && this.alignment.readyForTokenize) {
-      const tokenizer = 'simpleWordTokenization'
-      return this.alignment.createAlignedTexts(tokenizer)
+    if (!alignment || !alignment.readyForTokenize) {
+      console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+      return false
     }
-    console.error(L10n.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
-    return false
+    this.alignment = alignment
+    const tokenizer = 'simpleWordTokenization'
+    return this.alignment.createAlignedTexts(tokenizer)
   }
 
   /**
@@ -66,7 +66,7 @@ export default class AlignedController {
    * @return {Boolean} true - if a new active alignment group is defined, false - not
    */
   startNewAlignmentGroup (token) {
-    return this.alignment && this.alignment.startNewAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token)
   }
 
   /**
@@ -75,7 +75,7 @@ export default class AlignedController {
    * @return {Boolean} true - if the token was added, false - not
    */
   addToAlignmentGroup (token) {
-    return this.alignment && this.alignment.addToAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token)
   }
 
   /**
@@ -83,7 +83,7 @@ export default class AlignedController {
    * @return {Boolean} true - if alignment group was saved to the list, false - not
    */
   finishActiveAlignmentGroup () {
-    return this.alignment && this.alignment.finishActiveAlignmentGroup()
+    return Boolean(this.alignment) && this.alignment.finishActiveAlignmentGroup()
   }
 
   /**
@@ -91,7 +91,7 @@ export default class AlignedController {
    * @return {Boolean} true - if groups were merged, false - not
    */
   mergeActiveGroupWithAnotherByToken (token) {
-    return this.alignment && this.alignment.mergeActiveGroupWithAnotherByToken(token)
+    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   /**
@@ -99,7 +99,7 @@ export default class AlignedController {
    * @return {AlignmentGroup | Boolean} AlignmentGroup - if a group was found, false - not
    */
   findAlignmentGroup (token) {
-    return this.alignment && this.alignment.findAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
   }
 
   /**
@@ -113,39 +113,44 @@ export default class AlignedController {
   /**
    * Checks if the token is already saved in some alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
   tokenIsGrouped (token) {
-    return this.alignment && this.alignment.tokenIsGrouped(token)
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
   }
 
   /**
    * Checks if the token is already added in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
   tokenInActiveGroup (token) {
-    return this.alignment && this.alignment.tokenInActiveGroup(token)
+    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
   }
 
   /**
    * Checks if the token is defined as first token in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
   isFirstInActiveGroup (token) {
-    return this.alignment && this.alignment.isFirstInActiveGroup(token)
+    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
   }
 
   /**
    * Checks if there is an active alignment group
+   * @return {Boolean} true - if there is an active alignment group, false - not
    */
   get hasActiveAlignment () {
-    return this.alignment && this.alignment.hasActiveAlignment
+    return Boolean(this.alignment) && this.alignment.hasActiveAlignment
   }
 
   /**
    * Checks if the token is saved in some alignment group and makes this alignment group active
    * @param {Token} token
+   * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
   activateGroupByToken (token) {
-    return this.alignment && this.alignment.activateGroupByToken(token)
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
   }
 }

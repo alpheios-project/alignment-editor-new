@@ -26,7 +26,7 @@
 </template>
 <script>
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'TextEditor',
@@ -79,7 +79,7 @@ export default {
       return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
     l10n () {
-      return L10n
+      return L10nSingleton
     }
   },
   methods: {

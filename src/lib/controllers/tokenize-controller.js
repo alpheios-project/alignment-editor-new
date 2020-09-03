@@ -1,5 +1,5 @@
 import SimpleLocalTokenizer from '@/lib/tokenizers/simple-local-tokenizer.js'
-import L10n from '@/lib/l10n/l10n.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class TokenizeController {
   static getTokenizer (tokenizer) {
@@ -10,7 +10,7 @@ export default class TokenizeController {
         tokenizeMethod = SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer)
         break
       default:
-        console.error(L10n.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+        console.error(L10nSingleton.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     }
 
     return tokenizeMethod

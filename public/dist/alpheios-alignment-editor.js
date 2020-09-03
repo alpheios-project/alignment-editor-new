@@ -13519,7 +13519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ AlignedController
 /* harmony export */ });
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 
 
 class AlignedController {
@@ -13529,13 +13529,13 @@ class AlignedController {
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
   createAlignedTexts (alignment) {
-    this.alignment = alignment
-    if (alignment && this.alignment.readyForTokenize) {
-      const tokenizer = 'simpleWordTokenization'
-      return this.alignment.createAlignedTexts(tokenizer)
+    if (!alignment || !alignment.readyForTokenize) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+      return false
     }
-    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
-    return false
+    this.alignment = alignment
+    const tokenizer = 'simpleWordTokenization'
+    return this.alignment.createAlignedTexts(tokenizer)
   }
 
   /**
@@ -13588,7 +13588,7 @@ class AlignedController {
    * @return {Boolean} true - if a new active alignment group is defined, false - not
    */
   startNewAlignmentGroup (token) {
-    return this.alignment && this.alignment.startNewAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token)
   }
 
   /**
@@ -13597,7 +13597,7 @@ class AlignedController {
    * @return {Boolean} true - if the token was added, false - not
    */
   addToAlignmentGroup (token) {
-    return this.alignment && this.alignment.addToAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token)
   }
 
   /**
@@ -13605,7 +13605,7 @@ class AlignedController {
    * @return {Boolean} true - if alignment group was saved to the list, false - not
    */
   finishActiveAlignmentGroup () {
-    return this.alignment && this.alignment.finishActiveAlignmentGroup()
+    return Boolean(this.alignment) && this.alignment.finishActiveAlignmentGroup()
   }
 
   /**
@@ -13613,7 +13613,7 @@ class AlignedController {
    * @return {Boolean} true - if groups were merged, false - not
    */
   mergeActiveGroupWithAnotherByToken (token) {
-    return this.alignment && this.alignment.mergeActiveGroupWithAnotherByToken(token)
+    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token)
   }
 
   /**
@@ -13621,7 +13621,7 @@ class AlignedController {
    * @return {AlignmentGroup | Boolean} AlignmentGroup - if a group was found, false - not
    */
   findAlignmentGroup (token) {
-    return this.alignment && this.alignment.findAlignmentGroup(token)
+    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
   }
 
   /**
@@ -13635,40 +13635,45 @@ class AlignedController {
   /**
    * Checks if the token is already saved in some alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
   tokenIsGrouped (token) {
-    return this.alignment && this.alignment.tokenIsGrouped(token)
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
   }
 
   /**
    * Checks if the token is already added in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
   tokenInActiveGroup (token) {
-    return this.alignment && this.alignment.tokenInActiveGroup(token)
+    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
   }
 
   /**
    * Checks if the token is defined as first token in an active alignment group
    * @param {Token} token
+   * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
   isFirstInActiveGroup (token) {
-    return this.alignment && this.alignment.isFirstInActiveGroup(token)
+    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
   }
 
   /**
    * Checks if there is an active alignment group
+   * @return {Boolean} true - if there is an active alignment group, false - not
    */
   get hasActiveAlignment () {
-    return this.alignment && this.alignment.hasActiveAlignment
+    return Boolean(this.alignment) && this.alignment.hasActiveAlignment
   }
 
   /**
    * Checks if the token is saved in some alignment group and makes this alignment group active
    * @param {Token} token
+   * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
   activateGroupByToken (token) {
-    return this.alignment && this.alignment.activateGroupByToken(token)
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
   }
 }
 
@@ -13694,7 +13699,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 /* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
 /* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
@@ -13722,7 +13727,7 @@ class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId }) {
+  constructor ({ appId } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
@@ -13792,7 +13797,8 @@ class AppController {
         [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_GB]
       ])
     }
-    const l10n = new _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default()
+
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -13818,13 +13824,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ DownloadController
 /* harmony export */ });
 /* harmony import */ var _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-one-column.js */ "./lib/download/download-file-one-column.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 
 
 
 class DownloadController {
   /**
    * The list with registered variants of download workflows
+   * @return {Object} - each property is one of the defined download method
    */
   static get downloadMethods () {
     return {
@@ -13842,7 +13849,7 @@ class DownloadController {
     if (this.downloadMethods[downloadType]) {
       return this.downloadMethods[downloadType](data)
     }
-    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     return false
   }
 
@@ -13853,8 +13860,8 @@ class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownload (data) {
-    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullDefined || !data.targetDocSource.fullDefined) {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullyDefined || !data.targetDocSource.fullyDefined) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       return false
     }
     const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,
@@ -13887,7 +13894,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
 /* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
 /* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 // import { v4 as uuidv4 } from 'uuid'
 
 
@@ -13925,7 +13932,7 @@ class TextsController {
    */
   updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
-      this.createAlignment(null, targetDocSource)
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
       this.alignment.updateTargetDocSource(targetDocSource)
     }
@@ -13933,6 +13940,7 @@ class TextsController {
 
   /**
    * Returns origin document source if alignment is defined
+   * @returns {SourceText} - origin source text
    */
   get originDocSource () {
     return this.alignment ? this.alignment.originDocSource : null
@@ -13940,6 +13948,7 @@ class TextsController {
 
   /**
    * Returns target document source if alignment is defined
+   * @returns {SourceText} - target source text
    */
   get targetDocSource () {
     return this.alignment ? this.alignment.targetDocSource : null
@@ -13951,7 +13960,7 @@ class TextsController {
    */
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       return
     }
     const uploadType = 'plainSourceUploadFromFile'
@@ -13965,6 +13974,7 @@ class TextsController {
 
   /**
    * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
     const downloadType = 'plainSourceDownload'
@@ -13995,7 +14005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ TokenizeController
 /* harmony export */ });
 /* harmony import */ var _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/tokenizers/simple-local-tokenizer.js */ "./lib/tokenizers/simple-local-tokenizer.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 
 
 
@@ -14008,7 +14018,7 @@ class TokenizeController {
         tokenizeMethod = _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default)
         break
       default:
-        console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     }
 
     return tokenizeMethod
@@ -14034,13 +14044,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ UploadController
 /* harmony export */ });
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 
 
 
 class UploadController {
   /**
    * The list with registered variants of upload workflows
+   * @return {Object} - each property is one of the defined upload method
    */
   static get uploadMethods () {
     return {
@@ -14050,7 +14061,7 @@ class UploadController {
 
   /**
    * Defines an upload method and executes it
-   * @param {String} downloadType  - defines the upload workflow
+   * @param {String} uploadType  - defines the upload workflow
    * @param {Object} data - all data for parsing
    * @return {Boolean} - true - upload was done, false - not
    */
@@ -14058,7 +14069,7 @@ class UploadController {
     if (this.uploadMethods[uploadType]) {
       return this.uploadMethods[uploadType](data)
     }
-    console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     return false
   }
 
@@ -14070,13 +14081,13 @@ class UploadController {
    */
   static plainSourceUploadFromFile (fileString) {
     if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
     const fileData = fileString.split(/\r\n|\r|\n/)
 
     if (!Array.isArray(fileData) || fileData.length < 6) {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       return
     }
 
@@ -14113,10 +14124,11 @@ __webpack_require__.r(__webpack_exports__);
 class AlignedText {
   /**
    *
+   *
    * @param {SourceText} docSource
    * @param {String} tokenizer - the name of tokenizer approach
    */
-  constructor ({ docSource, tokenizer }) {
+  constructor ({ docSource, tokenizer } = {}) {
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction
@@ -14127,6 +14139,7 @@ class AlignedText {
 
   /**
    * Defines prefix for token creations
+   * @return {String}
    */
   get tokenPrefix () {
     return this.textType === 'origin' ? '1' : '2'
@@ -14145,6 +14158,7 @@ class AlignedText {
   /**
    * Formats tokens from simple objects to Token class objects
    * @param {Array[Object]} tokens
+   * @return {Array[Token]}
    */
   convertToTokens (tokens) {
     const tokensFormatted = []
@@ -14189,7 +14203,7 @@ class AlignmentGroup {
   }
 
   add (token) {
-    if (!token || !token.couldBeUsedForAlignment) {
+    if (!token || !token.isAlignable) {
       return false
     }
 
@@ -14201,7 +14215,7 @@ class AlignmentGroup {
   }
 
   remove (token) {
-    if (!token || !token.couldBeUsedForAlignment) {
+    if (!token || !token.isAlignable) {
       return false
     }
 
@@ -14300,7 +14314,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment-group */ "./lib/data/alignment-group.js");
 /* harmony import */ var _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/aligned-text */ "./lib/data/aligned-text.js");
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 
 
 
@@ -14314,8 +14328,12 @@ class Alignment {
     this.origin = {}
     this.target = {}
 
-    this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', originDocSource)
-    this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', targetDocSource)
+    if (originDocSource) {
+      this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', originDocSource)
+    }
+    if (targetDocSource) {
+      this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', targetDocSource)
+    }
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -14327,32 +14345,40 @@ class Alignment {
   }
 
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.fullDefined)
+    return Boolean(this.origin.docSource && this.origin.docSource.fullyDefined)
   }
 
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.fullDefined)
+    return Boolean(this.target.docSource && this.target.docSource.fullyDefined)
   }
 
   updateOriginDocSource (docSource) {
-    this.origin.docSource.update(docSource)
+    if (!this.origin.docSource) {
+      this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
+    } else {
+      this.origin.docSource.update(docSource)
+    }
   }
 
   updateTargetDocSource (docSource) {
-    this.target.docSource.update(docSource)
+    if (!this.target.docSource) {
+      this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+    } else {
+      this.target.docSource.update(docSource)
+    }
   }
 
   get originDocSource () {
-    return this.origin.docSource
+    return this.origin.docSource ? this.origin.docSource : null
   }
 
   get targetDocSource () {
-    return this.target.docSource
+    return this.target.docSource ? this.target.docSource : null
   }
 
   createAlignedTexts (tokenizer) {
     if (!tokenizer) {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       return false
     }
 
@@ -14398,7 +14424,7 @@ class Alignment {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
       return this.activeAlignmentGroup.add(token)
     } else {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
   }
@@ -14408,7 +14434,7 @@ class Alignment {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
     } else {
-      console.error(_lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 
@@ -14457,15 +14483,15 @@ class Alignment {
   }
 
   tokenInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.includesToken(token.idWord)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
   }
 
   isFirstInActiveGroup (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.isFirstToken(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
   tokenTheSameTextTypeAsStart (token) {
-    return this.activeAlignmentGroup && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 
   get hasActiveAlignment () {
@@ -14545,7 +14571,7 @@ class SourceText {
    * Checks if all obligatory properties are defined: text, direction, lang
    * @return {Boolean}
    */
-  get fullDefined () {
+  get fullyDefined () {
     return Boolean(this.textType && this.text && this.direction && this.lang)
   }
 
@@ -14599,7 +14625,7 @@ class Token {
     this.hasLineBreak = hasLineBreak
   }
 
-  get couldBeUsedForAlignment () {
+  get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
   }
 }
@@ -14665,6 +14691,49 @@ class DownloadFileOneColumn {
 
 /***/ }),
 
+/***/ "./lib/l10n/l10n-singleton.js":
+/*!************************************!*\
+  !*** ./lib/l10n/l10n-singleton.js ***!
+  \************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ L10nSingleton
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+
+
+let l10NInstance
+
+class L10nSingleton extends _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default {
+  /**
+   * Creates a single instance to be used for all cases
+   */
+  constructor () {
+    super()
+
+    l10NInstance = this
+    return this
+  }
+
+  /**
+   * A single instance would execute the method via static request
+   * @param  {...any} params
+   */
+  static getMsgS (...params) {
+    return l10NInstance.getMsg(...params)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/l10n/l10n.js":
 /*!**************************!*\
   !*** ./lib/l10n/l10n.js ***!
@@ -14683,8 +14752,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
 
 
-let l10NInstance
-
 /**
  * Combines several message bundles of different locales.
  */
@@ -14692,13 +14759,7 @@ class L10n {
   constructor () {
     this.selectedLocale = undefined // A locale that currently selected
     this.bundles = new Map() // Maps message bundles to their locales
-
-    l10NInstance = this
     return this
-  }
-
-  static getMsgS (...params) {
-    return l10NInstance.getMsg(...params)
   }
 
   /**
@@ -15419,7 +15480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_align_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-single-block.vue */ "./vue/align-editor/align-editor-single-block.vue");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -15487,7 +15548,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
     },
     l10n () {
-      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     }
   },
   methods: {
@@ -15725,7 +15786,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -15750,7 +15811,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     }
   },
   methods: {
@@ -15790,7 +15851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/langs-list.json */ "./vue/text-editor/langs-list.json");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -15883,7 +15944,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
     l10n () {
-      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     }
   },
   methods: {
@@ -15932,7 +15993,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
-/* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -16014,7 +16075,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
     l10n () {
-      return _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     }
   },
   methods: {
@@ -17622,6 +17683,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   other exports [not provided] [no usage info] */
+/*! export TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -17648,7 +17714,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"}}");
 
 /***/ }),
 
