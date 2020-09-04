@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import MessageBundle from '@/lib/l10n/message-bundle'
 
 /**

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import Message from '@/lib/l10n/message.js'
 // TODO: Deal with situations when message is not available, but is requested
 

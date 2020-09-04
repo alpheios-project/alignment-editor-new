@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import L10n from '@/lib/l10n/l10n.js'
 
 let l10NInstance

@@ -744,7 +744,6 @@ describe('texts-controller.test.js', () => {
 
     alignedC.startNewAlignmentGroup(token)
 
-    console.info(alignedC.alignment)
     const result = alignedC.tokenInActiveGroup(token)
     expect(result).toBeTruthy()
   })

@@ -187,11 +187,7 @@ describe('alignment.test.js', () => {
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
 
-    expect(alignment.shouldStartNewAlignmentGroup()).toBeFalsy()
-    
-    // console.info(alignment.origin.alignedText)
-    // console.info(alignment.target.alignedText)
-    
+    expect(alignment.shouldStartNewAlignmentGroup()).toBeFalsy()   
   })
 
   it('9 Alignment - startNewAlignmentGroup defines active alignment group', () => {
@@ -251,7 +247,6 @@ describe('alignment.test.js', () => {
     expect(alignment.addToAlignmentGroup(alignment.origin.alignedText.tokens[1])).toBeTruthy()
 
     expect(alignment.activeAlignmentGroup).toEqual(expect.any(AlignmentGroup))
-    // console.info(alignment.activeAlignmentGroup)
     expect(alignment.activeAlignmentGroup.origin.length).toEqual(2)
   })
 
