@@ -595,4 +595,5 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup.origin.length).toEqual(2) 
     expect(alignment.activeAlignmentGroup.target.length).toEqual(2) 
   })
+
 })
