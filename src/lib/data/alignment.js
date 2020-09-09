@@ -8,8 +8,8 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 export default class Alignment {
   /**
    * We could create an empty alignment
-   * @param {SourceText | null} originDocSource 
-   * @param {SourceText | null} targetDocSource 
+   * @param {SourceText | null} originDocSource
+   * @param {SourceText | null} targetDocSource
    */
   constructor (originDocSource, targetDocSource) {
     this.id = uuidv4()
@@ -51,7 +51,7 @@ export default class Alignment {
 
   /**
    * Updates/adds origin docSource
-   * @param {SourceText} docSource 
+   * @param {SourceText} docSource
    */
   updateOriginDocSource (docSource) {
     if (!this.origin.docSource) {
@@ -64,7 +64,7 @@ export default class Alignment {
 
   /**
    * Updates/adds target docSource only if origin is defined
-   * @param {SourceText} docSource 
+   * @param {SourceText} docSource
    */
   updateTargetDocSource (docSource) {
     if (!this.origin.docSource) {
@@ -131,9 +131,9 @@ export default class Alignment {
   }
 
   /**
-   * Defines if the given token should finish the active alignment group - token is already in the group and 
+   * Defines if the given token should finish the active alignment group - token is already in the group and
    * its textType is the same as token that created/activated the group
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {Boolean}
    */
   shouldFinishAlignmentGroup (token) {
@@ -143,7 +143,7 @@ export default class Alignment {
   /**
    * Defines if the given token should be removed from the active alignment group - token is already in the group and
    * its textType is NOT the same as token that created/activated the group
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {Boolean}
    */
   shouldBeRemovedFromAlignmentGroup (token) {
@@ -168,7 +168,7 @@ export default class Alignment {
 
   /**
    * Creates a new alignment group
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {Boolean} - true - if group would be created
    */
   startNewAlignmentGroup (token) {
@@ -178,11 +178,11 @@ export default class Alignment {
 
   /**
    * Adds token to the active alignment group if it is created and token is not in group
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {Boolean} true - if token was added, false - not
    */
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]  && !this.tokenInActiveGroup(token)) {
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -190,9 +190,9 @@ export default class Alignment {
     }
   }
 
-    /**
+  /**
    * Removes token from the active alignment group if the token in the group
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {Boolean} true - if token was removed, false - not
    */
   removeFromAlignmentGroup (token) {
@@ -206,7 +206,7 @@ export default class Alignment {
   }
 
   /**
-   * Saves Active Alignment group data and clears 
+   * Saves Active Alignment group data and clears
    * @returns {Boolean} true - if active alignment group was saved and closed, false - not
    */
   finishActiveAlignmentGroup () {
@@ -221,7 +221,7 @@ export default class Alignment {
 
   /**
    * Finds Alignment Group by token, if token is grouped in some alignment group
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {AlignmentGroup | false}
    */
   findAlignmentGroup (token) {
@@ -233,7 +233,7 @@ export default class Alignment {
 
   /**
    * Finds Alignment Group by token, if token is grouped in some alignment group, and returns all idWords from it
-   * @param {Token} token 
+   * @param {Token} token
    * @returns { Array[Stringt] }
    */
   findAlignmentGroupIds (token) {
@@ -248,7 +248,7 @@ export default class Alignment {
 
   /**
    * Removes idWord from alignmentGroupsIds if it was fount in the list
-   * @param {String} idWord 
+   * @param {String} idWord
    * @returns {Boolean} true - was removed from alignmentGroupsIds, false - was not removed
    */
   removeFromAlignmentIds (idWord) {
@@ -260,9 +260,9 @@ export default class Alignment {
     return false
   }
 
-    /**
+  /**
    * Removes all idWords from alignmentGroupsIds
-   * @param {String} idWord 
+   * @param {String} idWord
    */
 
   removeGroupFromAlignmentIds (alignedGroup) {
@@ -272,8 +272,8 @@ export default class Alignment {
   }
 
   /**
-   * 
-   * @param {Token} token 
+   *
+   * @param {Token} token
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
   tokenIsGrouped (token) {
@@ -281,26 +281,26 @@ export default class Alignment {
   }
 
   /**
-   * 
-   * @param {Token} token 
+   *
+   * @param {Token} token
    * @returns {Boolean} yes - if token is in the active alignment group, false - is not
    */
   tokenInActiveGroup (token) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token.idWord)
   }
 
-    /**
-   * 
-   * @param {Token} token 
+  /**
+   *
+   * @param {Token} token
    * @returns {Boolean} yes - if token is defines as first step in the active group, false - is not
    */
   isFirstInActiveGroup (token) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
-      /**
-   * 
-   * @param {Token} token 
+  /**
+   *
+   * @param {Token} token
    * @returns {Boolean} yes - if token has the same textType as the first in the active alignment group
    */
   tokenTheSameTextTypeAsStart (token) {
@@ -310,7 +310,7 @@ export default class Alignment {
   /**
    * Finds the group by passed token and makes it active.
    * All its tokens are not considered grouped after that  - they are all in active alignment group.
-   * @param {Token} token 
+   * @param {Token} token
    * @returns { Boolean } true - if group was found and activated, false - no group was activated
    */
   activateGroupByToken (token) {
@@ -327,7 +327,7 @@ export default class Alignment {
   /**
    * Merges groups: it is available only if passed token from already saved group, then all tokens from saved groups places to the new merged.
    * Tokens from merged groups are not grouped any more - they are all in active alignment group.
-   * @param {Token} token 
+   * @param {Token} token
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token) {

@@ -10,7 +10,7 @@
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/aligned-controller.test.js --coverage",
-    "test-b": "jest tests/lib/tokenizers/simple-local-tokenizer.test.js --coverage"
+    "test-b": "jest tests/vue/align-editor/align-editor-single-block.test.js --coverage"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,9 @@
 <template>
   <div class="alpheios-alignment-editor-container">
       <h2>{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleDefineTextsShow">{{ defineTextsShowLabel }}</span>)
+        (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowTextsBlocks">{{ showTextsBlocksLabel }}</span>)
       </h2>
-      <div class="alpheios-alignment-editor-text-define-container" v-show="defineTextsShow">
+      <div class="alpheios-alignment-editor-text-define-container" id="alpheios-text-editor-blocks-container" v-show="showTextsBlocks">
         <div class="alpheios-alignment-editor-text-define-container-inner">
           <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
             <text-editor-single-block 
@@ -17,7 +17,8 @@
             <text-editor-single-block 
                 text-id="target" 
                 @update-text = "updateTargetText" 
-                :external-text = "updatedTarget"    
+                :external-text = "updatedTarget" 
+                :disabled = "disableTargetTextBlock"   
             />
           </div>
         </div>
@@ -49,32 +50,56 @@ export default {
   },
   data () {
     return {
-      defineTextsShow: true,
+      showTextsBlocks: true,
       updatedOriginText: null,
-      updatedTargetText: null
+      updatedTargetText: null,
+      disableTargetTextBlock: true
     }
   },
   watch: {
+    /**
+     * Catches property's change from parent component
+     */
     hideEditor () {
-      this.defineTextsShow = false
+      this.showTextsBlocks = false
     }
   },
+  /**
+   * I placed empty alignment here for now, because it is the first point where it should be existed.
+   * Later when we define workflow for creation alignment depending on user authentication,
+   * it could be moved out here
+   */
   created () {
     this.$textC.createAlignment()
   },
   computed: {
-    defineTextsShowLabel () {
-      return this.defineTextsShow ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
+    /**
+     * Defines label show/hide texts block depending on showTextsBlocks
+     */
+    showTextsBlocksLabel () {
+      return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
     },
+    /**
+     * Catches if originUpdated was updated and update origin text from controller
+     */
     updatedOrigin () {
       return this.originUpdated && this.originText ?  this.originText : null
     },
+    /**
+     * Catches if targetUpdated was updated and update target text from controller
+     */
     updatedTarget () {
       return this.targetUpdated && this.targetText ?  this.targetText : null
     },
+    /**
+     * Retrieves origin doc source from controller
+     */
     originText () {
       return this.originUpdated ? this.$textC.originDocSource : {}
     },
+    /**
+     * Retrieves target doc source from controller
+     */
     targetText () {
       return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
@@ -83,14 +108,31 @@ export default {
     }
   },
   methods: {
-    toggleDefineTextsShow () {
-      this.defineTextsShow = !this.defineTextsShow
+    /**
+     * Toggle show/hide texts blocks
+     */
+    toggleShowTextsBlocks () {
+      this.showTextsBlocks = !this.showTextsBlocks
     },
-    updateOriginText (text) {
-      this.$textC.updateOriginDocSource(text)
+    /**
+     * Updates origin doc source via texts controller
+     * @param {Object} textData
+     *        {String} textData.text
+     *        {String} textData.direction
+     *        {String} textData.lang
+     */
+    updateOriginText (textData) {
+      this.$textC.updateOriginDocSource(textData)
     },
-    updateTargetText (text) {
-      this.$textC.updateTargetDocSource(text)
+    /**
+     * Updates target doc source via texts controller
+     * @param {Object} textData
+     *        {String} textData.text
+     *        {String} textData.direction
+     *        {String} textData.lang
+     */
+    updateTargetText (textData) {
+      this.$textC.updateTargetDocSource(textData)
     }
   }
 }

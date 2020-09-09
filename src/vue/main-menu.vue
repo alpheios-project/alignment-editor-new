@@ -1,11 +1,11 @@
 <template>
-  <div class="alpheios-alignment-app-menu">
+  <div class="alpheios-alignment-app-menu" id="alpheios-main-menu">
       <div class="alpheios-alignment-app-menu__buttons">
-        <button class="alpheios-button-tertiary" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" @click="$emit('align-texts')" >{{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-download" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-upload" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-align" @click="$emit('align-texts')" >{{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}</button>
       </div>
-      <div class="alpheios-alignment-app-menu__upload-block" v-show="showUploadBlock">
+      <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock">
         <input type="file" @change="loadTextFromFile">
       </div>
   </div>
@@ -26,9 +26,16 @@ export default {
     }
   },
   methods: {
+    /**
+     * Shows block with choose file input
+     */
     uploadTexts () {
       this.showUploadBlock = true
     },
+
+    /**
+     * Creates FileReader and passes data from file to App component for parsing
+     */
     loadTextFromFile(ev) {
       const file = ev.target.files[0]
       if (!file) { return }

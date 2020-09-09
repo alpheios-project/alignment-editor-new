@@ -38,10 +38,10 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements:  */
 /***/ (() => {
@@ -14010,18 +14010,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class TokenizeController {
-  static getTokenizer (tokenizer) {
-    let tokenizeMethod = null
-
-    switch (tokenizer) {
-      case 'simpleWordTokenization':
-        tokenizeMethod = _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default)
-        break
-      default:
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+  /**
+   * The list with registered variants of upload workflows
+   * @return {Object} - each property is one of the defined upload method
+   */
+  static get tokenizeMethods () {
+    return {
+      simpleWordTokenization: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default)
     }
+  }
 
-    return tokenizeMethod
+  static getTokenizer (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer]
+    }
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
+    return false
   }
 }
 
@@ -14261,7 +14265,7 @@ class AlignmentGroup {
     if (this.fistStepNeedToBeUpdated) {
       let firstStep = null
       for (let i = 0; i < this.steps.length; i++) {
-        if (this.includesToken(this.steps[i].id)) {
+        if (this.includesToken(this.steps[i].idWord)) {
           firstStep = { textType: this.steps[i].textType, idWord: this.steps[i].idWord }
           break
         }
@@ -14323,11 +14327,17 @@ class AlignmentGroup {
    * @param {Token} token
    */
   updateFirstStep (token) {
-    if (this.includesToken(token.idWord)) {
+    if (token && this.includesToken(token.idWord)) {
       this.firstStep = { textType: token.textType, idWord: token.idWord }
+    } else {
+      this.firstStep = null
     }
   }
 
+  /**
+   * Merges current group with passed alignment group
+   * @param { AlignmentGroup } tokensGroup
+   */
   merge (tokensGroup) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
@@ -14375,6 +14385,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Alignment {
+  /**
+   * We could create an empty alignment
+   * @param {SourceText | null} originDocSource
+   * @param {SourceText | null} targetDocSource
+   */
   constructor (originDocSource, targetDocSource) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.origin = {}
@@ -14392,44 +14407,77 @@ class Alignment {
     this.activeAlignmentGroup = null
   }
 
+  /**
+   * Checks if both target and origin are defined with all obligatory fields
+   */
   get readyForTokenize () {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
   }
 
+  /**
+   * Checks if origin.docSource is defined and has all obligatory fields
+   */
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource && this.origin.docSource.fullyDefined)
+    return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
   }
 
+  /**
+   * Checks if target.docSource is defined and has all obligatory fields
+   */
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource && this.target.docSource.fullyDefined)
+    return Boolean(this.target.docSource) && this.target.docSource.fullyDefined
   }
 
+  /**
+   * Updates/adds origin docSource
+   * @param {SourceText} docSource
+   */
   updateOriginDocSource (docSource) {
     if (!this.origin.docSource) {
       this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
     } else {
       this.origin.docSource.update(docSource)
     }
+    return true
   }
 
+  /**
+   * Updates/adds target docSource only if origin is defined
+   * @param {SourceText} docSource
+   */
   updateTargetDocSource (docSource) {
+    if (!this.origin.docSource) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      return false
+    }
     if (!this.target.docSource) {
       this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
     } else {
       this.target.docSource.update(docSource)
     }
+    return true
   }
 
+  /**
+   * @returns { SourceText | null } origin docSource
+   */
   get originDocSource () {
     return this.origin.docSource ? this.origin.docSource : null
   }
 
+  /**
+   * @returns { SourceText | null } target docSource
+   */
   get targetDocSource () {
     return this.target.docSource ? this.target.docSource : null
   }
 
+  /**
+   * Checks if tokenizer is defined, and creates AlignedText for origin and target
+   * @param {String} tokenizer - method's name
+   */
   createAlignedTexts (tokenizer) {
-    if (!tokenizer) {
+    if (!tokenizer || !this.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       return false
     }
@@ -14447,33 +14495,73 @@ class Alignment {
     return true
   }
 
+  /**
+   * @returns { AlignedText | Null } - origin aligned text
+   */
   get originAlignedText () {
-    return this.origin.alignedText
+    return this.origin.alignedText ? this.origin.alignedText : null
   }
 
+  /**
+   * @returns { AlignedText | Null } - target aligned text
+   */
   get targetAlignedText () {
-    return this.target.alignedText
+    return this.target.alignedText ? this.target.alignedText : null
   }
 
+  /**
+   * Defines if the given token should finish the active alignment group - token is already in the group and
+   * its textType is the same as token that created/activated the group
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   shouldFinishAlignmentGroup (token) {
-    return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token)
+    return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
   }
 
+  /**
+   * Defines if the given token should be removed from the active alignment group - token is already in the group and
+   * its textType is NOT the same as token that created/activated the group
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   shouldBeRemovedFromAlignmentGroup (token) {
     return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
+  /**
+   * Defines if a new alignment group should be created
+   * @returns {Boolean}
+   */
   shouldStartNewAlignmentGroup () {
-    return !this.activeAlignmentGroup
+    return !this.hasActiveAlignment
   }
 
+  /**
+   * Defines if there is an active alignment group
+   * @returns {Boolean}
+   */
+  get hasActiveAlignment () {
+    return Boolean(this.activeAlignmentGroup)
+  }
+
+  /**
+   * Creates a new alignment group
+   * @param {Token} token
+   * @returns {Boolean} - true - if group would be created
+   */
   startNewAlignmentGroup (token) {
     this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(token)
     return Boolean(this.activeAlignmentGroup)
   }
 
+  /**
+   * Adds token to the active alignment group if it is created and token is not in group
+   * @param {Token} token
+   * @returns {Boolean} true - if token was added, false - not
+   */
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType]) {
+    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -14481,15 +14569,25 @@ class Alignment {
     }
   }
 
+  /**
+   * Removes token from the active alignment group if the token in the group
+   * @param {Token} token
+   * @returns {Boolean} true - if token was removed, false - not
+   */
   removeFromAlignmentGroup (token) {
-    if (this.activeAlignmentGroup[token.textType]) {
+    if (this.activeAlignmentGroup && this.tokenInActiveGroup(token)) {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
+      return true
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
     }
   }
 
+  /**
+   * Saves Active Alignment group data and clears
+   * @returns {Boolean} true - if active alignment group was saved and closed, false - not
+   */
   finishActiveAlignmentGroup () {
     if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
@@ -14500,13 +14598,23 @@ class Alignment {
     return false
   }
 
+  /**
+   * Finds Alignment Group by token, if token is grouped in some alignment group
+   * @param {Token} token
+   * @returns {AlignmentGroup | false}
+   */
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) && this.alignmentGroups.find(al => al.includesToken(token.idWord))
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token.idWord)) : false
     }
     return false
   }
 
+  /**
+   * Finds Alignment Group by token, if token is grouped in some alignment group, and returns all idWords from it
+   * @param {Token} token
+   * @returns { Array[Stringt] }
+   */
   findAlignmentGroupIds (token) {
     const alignedGroup = this.findAlignmentGroup(token)
     if (alignedGroup) {
@@ -14517,12 +14625,24 @@ class Alignment {
     return []
   }
 
+  /**
+   * Removes idWord from alignmentGroupsIds if it was fount in the list
+   * @param {String} idWord
+   * @returns {Boolean} true - was removed from alignmentGroupsIds, false - was not removed
+   */
   removeFromAlignmentIds (idWord) {
     const tokenIndex = this.alignmentGroupsIds.findIndex(tokenId => tokenId === idWord)
     if (tokenIndex >= 0) {
       this.alignmentGroupsIds.splice(tokenIndex, 1)
+      return true
     }
+    return false
   }
+
+  /**
+   * Removes all idWords from alignmentGroupsIds
+   * @param {String} idWord
+   */
 
   removeGroupFromAlignmentIds (alignedGroup) {
     alignedGroup.allIds.forEach(idWord => {
@@ -14530,26 +14650,48 @@ class Alignment {
     })
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
+   */
   tokenIsGrouped (token) {
     return this.alignmentGroupsIds.includes(token.idWord)
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Boolean} yes - if token is in the active alignment group, false - is not
+   */
   tokenInActiveGroup (token) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token.idWord)
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Boolean} yes - if token is defines as first step in the active group, false - is not
+   */
   isFirstInActiveGroup (token) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Boolean} yes - if token has the same textType as the first in the active alignment group
+   */
   tokenTheSameTextTypeAsStart (token) {
     return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.tokenTheSameTextTypeAsStart(token)
   }
 
-  get hasActiveAlignment () {
-    return Boolean(this.activeAlignmentGroup)
-  }
-
+  /**
+   * Finds the group by passed token and makes it active.
+   * All its tokens are not considered grouped after that  - they are all in active alignment group.
+   * @param {Token} token
+   * @returns { Boolean } true - if group was found and activated, false - no group was activated
+   */
   activateGroupByToken (token) {
     const tokensGroup = this.findAlignmentGroup(token)
     if (tokensGroup) {
@@ -14561,14 +14703,56 @@ class Alignment {
     return false
   }
 
+  /**
+   * Merges groups: it is available only if passed token from already saved group, then all tokens from saved groups places to the new merged.
+   * Tokens from merged groups are not grouped any more - they are all in active alignment group.
+   * @param {Token} token
+   * @returns {Boolean} true - groups were merged, false - was not
+   */
   mergeActiveGroupWithAnotherByToken (token) {
-    const tokensGroup = this.findAlignmentGroup(token)
-    if (this.activeAlignmentGroup && tokensGroup) {
+    if (this.activeAlignmentGroup && this.tokenIsGrouped(token)) {
+      const tokensGroup = this.findAlignmentGroup(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
       return true
     }
     return false
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/langs/langs.js":
+/*!*********************************!*\
+  !*** ./lib/data/langs/langs.js ***!
+  \*********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ Langs
+/* harmony export */ });
+/* harmony import */ var _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/langs/langs-list.json */ "./lib/data/langs/langs-list.json");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+
+
+
+class Langs {
+  static get all () {
+    return _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
+      const l10nLabel = `LANG_${langData.value.toUpperCase()}`
+      const l10nMessage = _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS(l10nLabel)
+      return {
+        value: langData.value,
+        label: l10nMessage || langData.label
+      }
+    })
   }
 }
 
@@ -14759,6 +14943,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ L10nSingleton
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
+/* istanbul ignore file */
 
 
 let l10NInstance
@@ -14802,6 +14987,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ L10n
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+/* istanbul ignore file */
 
 
 /**
@@ -14923,6 +15109,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ MessageBundle
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message.js */ "./lib/l10n/message.js");
+/* istanbul ignore file */
 
 // TODO: Deal with situations when message is not available, but is requested
 
@@ -15118,6 +15305,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ Message
 /* harmony export */ });
 /* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat */ "../node_modules/intl-messageformat/lib/index.js");
+/* istanbul ignore file */
 
 
 /**
@@ -15214,14 +15402,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ SimpleLocalTokenizer
 /* harmony export */ });
 class SimpleLocalTokenizer {
+  /**
+   * Starting point for tokenize workflow
+   * @param {String} text - text for tokenize
+   * @param {String} idPrefix - prefix for creating tokens idWord
+   * @param {String} textType - origin or target
+   * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
+   */
   static tokenize (text, idPrefix, textType) {
     return this.defineIdentification(text, idPrefix, textType)
   }
 
+  /**
+   * It is not used for tokenization now
+   */
   static get punctuation () {
     return ".,;:!?'\"(){}\\[\\]<>\\\u2010\u2011\u2012\u2013\u2014\u2015\u2018\u2019\u201C\u201D\u0387\u00B7\n\r\u200C\u200D\u000D\t\u2B7E"
   }
 
+  /**
+   * The tokenize workflow:
+   *   - divide to lines
+   *   - divide each line to tokens
+   *   - add to the each last token lineBreak flag
+   *
+   * @param {String} text - text for tokenize
+   * @param {String} idPrefix - prefix for creating tokens idWord
+   * @param {String} textType - origin or target
+   * @returns {[Objects]} - array of token-like objects for all text, would be converted to Tokens outside
+   */
   static defineIdentification (text, idPrefix, textType) {
     const textLines = this.simpleLineTokenization(text)
 
@@ -15240,11 +15449,27 @@ class SimpleLocalTokenizer {
     return finalText
   }
 
+  /**
+   * Divides text to lines using defined line breaks
+   * @param {String} text - text for tokenize
+   * @returns {[String]} - array of text lines
+   */
   static simpleLineTokenization (text) {
     const lineBreaks = /\u000D|\u2028|\u2029|\u0085|\u000A/ // eslint-disable-line no-control-regex
     return text.split(lineBreaks)
   }
 
+  /**
+   * It divides textLine on tokens using the following steps:
+   *   - checks if it is empty and return to add a lineBreak (this way we save multiple lines as breaks)
+   *   - divides to words by all types of dividers [.\s]
+   *   - checking each word/word-part/punctuation creates resultWord in a cycle
+   *   - adds the last word if it was not ended
+   * @param {String} text - text line for tokenize
+   * @param {String} idPrefix - prefix for creating tokens idWord
+   * @param {String} textType - origin or target
+   * @returns {[Objects]} - array of token-like objects for the given textLine
+   */
   static simpleWordTokenization (textLine, prefix, textType) {
     const formattedText = []
 
@@ -15261,7 +15486,6 @@ class SimpleLocalTokenizer {
 
     for (let i = 0; i < textAll.length; i++) {
       const item = textAll[i]
-
       if (!(/^\w.*/gi).test(item) && (item !== '-') && (i === 0)) { // it is not a word and not a part of the word, and it is a start of line
         beforeWord = item
       } else if (item === '-') { // it is inside the word
@@ -15281,34 +15505,22 @@ class SimpleLocalTokenizer {
         }
 
         wordEnded = true
-        indexWord = indexWord + 1
-        const idWord = `${prefix}-${indexWord}`
+        if (word) {
+          indexWord = indexWord + 1
+          const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
 
-        const resultWord = {
-          textType,
-          idWord,
-          word,
-          beforeWord,
-          afterWord
+          beforeWord = beforeNextWord
+          afterWord = ''
+          word = ''
+
+          formattedText.push(resultWord)
         }
-        beforeWord = beforeNextWord
-        afterWord = ''
-        word = ''
-
-        formattedText.push(resultWord)
       }
     }
 
     if (!wordEnded || word) {
       indexWord = indexWord + 1
-      const idWord = `${prefix}-${indexWord}`
-      const resultWord = {
-        textType,
-        idWord,
-        word,
-        beforeWord
-      }
-
+      const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
       formattedText.push(resultWord)
     }
 
@@ -15316,6 +15528,29 @@ class SimpleLocalTokenizer {
       formattedText.push({})
     }
     return formattedText
+  }
+
+  /**
+   * Creates token-like objects
+   * @param {String} indexWord - for creating token id
+   * @param {String} prefix  - for creating token id
+   * @param {String} textType - origin/target
+   * @param {String} word
+   * @param {String} beforeWord - punctuation that should be placed before token
+   * @param {String} afterWord  - punctuation that should be placed after token
+   */
+  static fillWordObject (indexWord, prefix, textType, word, beforeWord, afterWord) {
+    const idWord = `${prefix}-${indexWord}`
+    const resultWord = {
+      textType,
+      idWord,
+      word
+    }
+    beforeWord = beforeWord.trim()
+    afterWord = afterWord.trim()
+    if (beforeWord) { resultWord.beforeWord = beforeWord }
+    if (afterWord) { resultWord.afterWord = afterWord }
+    return resultWord
   }
 }
 
@@ -15415,7 +15650,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _vue_align_editor_token_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token.vue */ "./vue/align-editor/token.vue");
+/* harmony import */ var _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token-block.vue */ "./vue/align-editor/token-block.vue");
 //
 //
 //
@@ -15445,17 +15680,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignEditorSingleBlock',
   components: {
-    token: _vue_align_editor_token_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
     alignTextData: {
       type: Object,
-      required: false
+      required: true
     },
 
     showAlignment: {
       type: Array,
-      required: false
+      required: false,
+      default: []
     },
 
     alignmentUpdated : {
@@ -15470,6 +15706,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
+    /**
+     * Catches alignmentUpdated and increments updated flag to redraw css styles
+     */
     alignmentUpdated () {
       this.updated = this.updated + 1
     }
@@ -15484,29 +15723,44 @@ __webpack_require__.r(__webpack_exports__);
     lang () {
       return this.alignTextData.lang
     },
+    /**
+     * Defines the main class for the block depending on textType (origin/target)
+     */
     alignTextClass () {
       return `alpheios-alignment-editor-align__${this.textType}`
     }
   },
   methods: {
-    clickWord (token) {
-      this.$emit('clickWord', token)
+    clickToken (token) {
+      this.$emit('click-token', token)
     },
-    addHoverWord (token) {
-      this.$emit('addHoverWord', token)
+    addHoverToken (token) {
+      this.$emit('add-hover-token', token)
     },
-    removeHoverWord (token) {
-      this.$emit('removeHoverWord', token)
+    removeHoverToken () {
+      this.$emit('remove-hover-token')
     },
+    /**
+     * Used for defining that token is in hovered saved alignmentGroup
+     */
     selectedToken (token) {
       return this.showAlignment.includes(token.idWord)
     },
+    /**
+     * Used for defining that token is in some saved alignmentGroup
+     */
     groupedToken (token) {
       return this.$alignedC.tokenIsGrouped(token)
     },
+    /**
+     * Used for defining that token is in active alignmentGroup
+     */
     inActiveGroup (token) {
       return this.$alignedC.tokenInActiveGroup(token)
     },
+    /**
+     * Used for defining that token is in active alignmentGroup
+     */
     isFirstInActiveGroup (token) {
       return this.$alignedC.isFirstInActiveGroup(token)
     }
@@ -15572,7 +15826,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      defineAlignShow: false,
+      showAlignBlocks: false,
       showAlignment: [],
       originUpdated: 1,
       targetUpdated: 1,
@@ -15580,22 +15834,37 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
+    /**
+     * Controlls if showEditor changes, then showAlignBlocs would be set to truth
+     */
     showEditor () {
-      this.defineAlignShow = true
+      this.showAlignBlocks = true
       this.updateOriginEditor()
       this.updateTargetEditor()
     }
   },
   computed: {
-    defineAlignShowLabel () {
-      return this.defineAlignShow ? this.l10n.getMsgS('ALIGN_EDITOR_HIDE') : this.l10n.getMsgS('ALIGN_EDITOR_SHOW')
+    /**
+     * Defines label show/hide texts block depending on showAlignBlocks
+     */
+    showAlignBlocksLabel () {
+      return this.showAlignBlocks ? this.l10n.getMsgS('ALIGN_EDITOR_HIDE') : this.l10n.getMsgS('ALIGN_EDITOR_SHOW')
     },
+    /**
+     * Checks if there are enough data for rendering editors
+     */
     showAlignEditor () {
-      return this.originAlignedText && this.originAlignedText.tokens && this.targetAlignedText && this.targetAlignedText.tokens
+      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.tokens) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.tokens)
     },
+    /**
+     * Returns originAlignedText from AlignedController
+     */
     originAlignedText () {
       return this.originUpdated ? this.$alignedC.originAlignedText : {}
     },
+    /**
+     * Returns targetAlignedText from AlignedController
+     */
     targetAlignedText () {
       return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
     },
@@ -15604,29 +15873,49 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Updates alignmentUpdated to recalculate css styles for tokens for both origin and target
+     */
     updateTokenClasses () {
       this.alignmentUpdated = this.alignmentUpdated + 1
     },
+    /**
+     * Updates originUpdated flag to reupload originAlignedText from controller
+     */
     updateOriginEditor () {
       this.originUpdated = this.originUpdated + 1
     },
-
+    /**
+     * Updates targetUpdated flag to reupload originAlignedText from controller
+     */
     updateTargetEditor () {
       this.targetUpdated = this.targetUpdated + 1
     },
 
-    toggleDefineAlignShow () {
-      this.defineAlignShow = !this.defineAlignShow
+    /**
+     * Toggle showAlignBlocks to change visibility for aligned blocks
+     */
+    toggleShowAlignBlocks () {
+      this.showAlignBlocks = !this.showAlignBlocks
     },
-    clickWord (token) {
+    /**
+     * Starts change token state in alignment groups workflow and update css classes
+     */
+    clickToken (token) {
       this.$alignedC.clickToken(token)
       this.updateTokenClasses()
     },
-    addHoverWord (token) {
+    /**
+     * Starts showing an alignment group workflow
+     */
+    addHoverToken (token) {
       this.showAlignment = this.$alignedC.findAlignmentGroupIds(token)
       this.updateTokenClasses()
     },
-    removeHoverWord (textWord) {
+    /**
+     * Stops showing an alignment group workflow
+     */
+    removeHoverToken () {
       this.showAlignment = []
       this.updateTokenClasses()
     }
@@ -15636,10 +15925,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -15785,32 +16074,53 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
   },
   methods: {
+    /**
+     * Updates property to reupload origin text in textEditor component
+     */
     updateOriginTextEditor () {
       this.originTextUpdated = this.originTextUpdated + 1
     },
 
+    /**
+     * Updates property to reupload target text in textEditor component
+     */
     updateTargetTextEditor () {
       this.targetTextUpdated = this.targetTextUpdated + 1
     },
 
+    /**
+     *  Updates property to hide TextEditor
+     */
     hideTextEditorM () {
       this.hideTextEditor = this.hideTextEditor + 1
     },
 
+    /**
+     *  Updates property to show AlignEditor
+     */
     showAlignEditorM () {
       this.showAlignEditor = this.showAlignEditor + 1
     },
 
+    /**
+     * Starts download workflow
+     */
     downloadData () {
       this.$textC.downloadData()
     },
 
+    /**
+    * Starts upload workflow
+    */
     uploadData (fileData) {
       this.$textC.uploadDocSourceFromFile(fileData)
       this.updateOriginTextEditor()
       this.updateTargetTextEditor()
     },
 
+    /**
+     * Starts align workflow
+     */
     alignTexts () {
       if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
         this.hideTextEditorM()
@@ -15867,9 +16177,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Shows block with choose file input
+     */
     uploadTexts () {
       this.showUploadBlock = true
     },
+
+    /**
+     * Creates FileReader and passes data from file to App component for parsing
+     */
     loadTextFromFile(ev) {
       const file = ev.target.files[0]
       if (!file) { return }
@@ -15902,8 +16219,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/langs-list.json */ "./vue/text-editor/langs-list.json");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -15961,18 +16278,21 @@ __webpack_require__.r(__webpack_exports__);
       selectedOtherLang: null
     }
   },
+  /**
+   * Uploads lang list from Json and defines default lang
+   */
   mounted () {
-    this.langsList = _vue_text_editor_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
-      const l10nLabel = `LANG_${langData.value.toUpperCase()}`
-      const l10nMessage = this.l10n.getMsgS(l10nLabel)
-      return {
-        value: langData.value,
-        label: l10nMessage ? l10nMessage : langData.label
-      }
-    })
+    this.langsList = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__.default.all
     this.selectedAvaLang = this.langsList[0].value
   },
   watch: {
+    /**
+     * Checks if data was uploaded from external source - upload
+     * @param {Object} data
+     *        {String} data.text
+     *        {String} data.direction
+     *        {String} data.lang
+     */
     externalText (data) {
       this.text = data.text
       this.direction = data.direction
@@ -15980,42 +16300,72 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    /**
+     * Defines unique id for textArea for tracking changes
+     */
     textareaId () {
       return `alpheios-alignment-editor-text-block__${this.textId}`
     },
+    /**
+     * Defines textType from textId
+     */
     textIdFormatted () {
       return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
     },
+    /**
+     * Defines Title for the text block
+     */
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
     }, 
+    /**
+     * Defines Label for available language list
+     */
     chooseAvaLangLabel () {
       return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
     },
+    /**
+     * Defines final language
+     */
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     }
   },
   methods: {
+    /**
+     * Defines unique id for direction input
+     */
     directionRadioId (dir) {
       return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
     },
+    /**
+     * If a user reselects language from select, input[text] would be cleared
+     */
     updateAvaLang () {
       this.selectedOtherLang = null
       this.updateText()
     },
+    /**
+     * It is used when we need to upload lang from external source,
+     * first it checks langs list, and if it is failed, then it would be printed to unput[text]
+     */
     updateLang (lang) {
       const langFromList = this.langsList.find(langOb => langOb.value === lang)
 
       if (langFromList) {
         this.selectedAvaLang = langFromList.value
+        this.selectedOtherLang = null
       } else {
         this.selectedOtherLang = lang
+        this.selectedAvaLang = this.langsList[0].value
       }
     },
+    /**
+     * Emits update-text event with data from properties
+     */
     updateText () {
       this.$emit('update-text', {
         text: this.text,
@@ -16072,6 +16422,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -16097,32 +16448,56 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      defineTextsShow: true,
+      showTextsBlocks: true,
       updatedOriginText: null,
-      updatedTargetText: null
+      updatedTargetText: null,
+      disableTargetTextBlock: true
     }
   },
   watch: {
+    /**
+     * Catches property's change from parent component
+     */
     hideEditor () {
-      this.defineTextsShow = false
+      this.showTextsBlocks = false
     }
   },
+  /**
+   * I placed empty alignment here for now, because it is the first point where it should be existed.
+   * Later when we define workflow for creation alignment depending on user authentication,
+   * it could be moved out here
+   */
   created () {
     this.$textC.createAlignment()
   },
   computed: {
-    defineTextsShowLabel () {
-      return this.defineTextsShow ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
+    /**
+     * Defines label show/hide texts block depending on showTextsBlocks
+     */
+    showTextsBlocksLabel () {
+      return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
     },
+    /**
+     * Catches if originUpdated was updated and update origin text from controller
+     */
     updatedOrigin () {
       return this.originUpdated && this.originText ?  this.originText : null
     },
+    /**
+     * Catches if targetUpdated was updated and update target text from controller
+     */
     updatedTarget () {
       return this.targetUpdated && this.targetText ?  this.targetText : null
     },
+    /**
+     * Retrieves origin doc source from controller
+     */
     originText () {
       return this.originUpdated ? this.$textC.originDocSource : {}
     },
+    /**
+     * Retrieves target doc source from controller
+     */
     targetText () {
       return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
@@ -16131,14 +16506,31 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    toggleDefineTextsShow () {
-      this.defineTextsShow = !this.defineTextsShow
+    /**
+     * Toggle show/hide texts blocks
+     */
+    toggleShowTextsBlocks () {
+      this.showTextsBlocks = !this.showTextsBlocks
     },
-    updateOriginText (text) {
-      this.$textC.updateOriginDocSource(text)
+    /**
+     * Updates origin doc source via texts controller
+     * @param {Object} textData
+     *        {String} textData.text
+     *        {String} textData.direction
+     *        {String} textData.lang
+     */
+    updateOriginText (textData) {
+      this.$textC.updateOriginDocSource(textData)
     },
-    updateTargetText (text) {
-      this.$textC.updateTargetDocSource(text)
+    /**
+     * Updates target doc source via texts controller
+     * @param {Object} textData
+     *        {String} textData.text
+     *        {String} textData.direction
+     *        {String} textData.lang
+     */
+    updateTargetText (textData) {
+      this.$textC.updateTargetDocSource(textData)
     }
   }
 });
@@ -16236,10 +16628,10 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 
 /***/ }),
 
-/***/ "./vue/align-editor/token.vue":
-/*!************************************!*\
-  !*** ./vue/align-editor/token.vue ***!
-  \************************************/
+/***/ "./vue/align-editor/token-block.vue":
+/*!******************************************!*\
+  !*** ./vue/align-editor/token-block.vue ***!
+  \******************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -16251,9 +16643,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token.vue?vue&type=template&id=441a2ad6& */ "./vue/align-editor/token.vue?vue&type=template&id=441a2ad6&");
-/* harmony import */ var _token_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token.vue?vue&type=script&lang=js& */ "./vue/align-editor/token.vue?vue&type=script&lang=js&");
-/* harmony import */ var _token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./token.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token-block.vue?vue&type=template&id=53b7c654& */ "./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&");
+/* harmony import */ var _token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./token-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -16264,9 +16656,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _token_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__.render,
-  _token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.render,
+  _token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -16276,7 +16668,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vue/align-editor/token.vue"
+component.options.__file = "vue/align-editor/token-block.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -16509,13 +16901,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************!*\
-  !*** ./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************/
+/***/ "./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
+/*!****************************************************************************!*\
+  !*** ./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \****************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss& */
+/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -16524,12 +16916,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default())); 
 
 /***/ }),
 
@@ -16669,10 +17061,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/token.vue?vue&type=script&lang=js&":
-/*!*************************************************************!*\
-  !*** ./vue/align-editor/token.vue?vue&type=script&lang=js& ***!
-  \*************************************************************/
+/***/ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -16684,8 +17076,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -16813,13 +17205,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/token.vue?vue&type=template&id=441a2ad6&":
-/*!*******************************************************************!*\
-  !*** ./vue/align-editor/token.vue?vue&type=template&id=441a2ad6& ***!
-  \*******************************************************************/
+/***/ "./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
+/*!*************************************************************************!*\
+  !*** ./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
+  \*************************************************************************/
 /*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=template&id=441a2ad6& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=template&id=441a2ad6& .staticRenderFns */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& .render */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& .staticRenderFns */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -16827,10 +17219,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_vue_vue_type_template_id_441a2ad6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token.vue?vue&type=template&id=441a2ad6& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=template&id=441a2ad6&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-block.vue?vue&type=template&id=53b7c654& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&");
 
 
 /***/ }),
@@ -17030,9 +17422,9 @@ var render = function() {
           {
             staticClass:
               "alpheios-alignment-editor-text-define-container__show-label",
-            on: { click: _vm.toggleDefineAlignShow }
+            on: { click: _vm.toggleShowAlignBlocks }
           },
-          [_vm._v(_vm._s(_vm.defineAlignShowLabel))]
+          [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
         ),
         _vm._v(")\n    ")
       ]),
@@ -17045,8 +17437,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.defineAlignShow,
-                  expression: "defineAlignShow"
+                  value: _vm.showAlignBlocks,
+                  expression: "showAlignBlocks"
                 }
               ],
               staticClass: "alpheios-alignment-editor-align-define-container"
@@ -17059,9 +17451,9 @@ var render = function() {
                   "alignment-updated": _vm.alignmentUpdated
                 },
                 on: {
-                  clickWord: _vm.clickWord,
-                  addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord
+                  "click-token": _vm.clickToken,
+                  "add-hover-token": _vm.addHoverToken,
+                  "remove-hover-token": _vm.removeHoverToken
                 }
               }),
               _vm._v(" "),
@@ -17072,9 +17464,9 @@ var render = function() {
                   "alignment-updated": _vm.alignmentUpdated
                 },
                 on: {
-                  clickWord: _vm.clickWord,
-                  addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord
+                  "click-token": _vm.clickToken,
+                  "add-hover-token": _vm.addHoverToken,
+                  "remove-hover-token": _vm.removeHoverToken
                 }
               })
             ],
@@ -17091,10 +17483,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=template&id=441a2ad6&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token.vue?vue&type=template&id=441a2ad6& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export render [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
@@ -17222,65 +17614,76 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-alignment-app-menu" }, [
-    _c("div", { staticClass: "alpheios-alignment-app-menu__buttons" }, [
-      _c(
-        "button",
-        {
-          staticClass: "alpheios-button-tertiary",
-          on: {
-            click: function($event) {
-              return _vm.$emit("download-data")
-            }
-          }
-        },
-        [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")))]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "alpheios-button-tertiary",
-          on: { click: _vm.uploadTexts }
-        },
-        [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")))]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "alpheios-button-tertiary",
-          on: {
-            click: function($event) {
-              return _vm.$emit("align-texts")
-            }
-          }
-        },
-        [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")))]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
+  return _c(
+    "div",
+    {
+      staticClass: "alpheios-alignment-app-menu",
+      attrs: { id: "alpheios-main-menu" }
+    },
+    [
+      _c("div", { staticClass: "alpheios-alignment-app-menu__buttons" }, [
+        _c(
+          "button",
           {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showUploadBlock,
-            expression: "showUploadBlock"
-          }
-        ],
-        staticClass: "alpheios-alignment-app-menu__upload-block"
-      },
-      [
-        _c("input", {
-          attrs: { type: "file" },
-          on: { change: _vm.loadTextFromFile }
-        })
-      ]
-    )
-  ])
+            staticClass: "alpheios-button-tertiary",
+            attrs: { id: "alpheios-main-menu-download" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("download-data")
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")))]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: { id: "alpheios-main-menu-upload" },
+            on: { click: _vm.uploadTexts }
+          },
+          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")))]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: { id: "alpheios-main-menu-align" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("align-texts")
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")))]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showUploadBlock,
+              expression: "showUploadBlock"
+            }
+          ],
+          staticClass: "alpheios-alignment-app-menu__upload-block",
+          attrs: { id: "alpheios-main-menu-upload-block" }
+        },
+        [
+          _c("input", {
+            attrs: { type: "file" },
+            on: { change: _vm.loadTextFromFile }
+          })
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -17569,9 +17972,9 @@ var render = function() {
         {
           staticClass:
             "alpheios-alignment-editor-text-define-container__show-label",
-          on: { click: _vm.toggleDefineTextsShow }
+          on: { click: _vm.toggleShowTextsBlocks }
         },
-        [_vm._v(_vm._s(_vm.defineTextsShowLabel))]
+        [_vm._v(_vm._s(_vm.showTextsBlocksLabel))]
       ),
       _vm._v(")\n    ")
     ]),
@@ -17583,11 +17986,12 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.defineTextsShow,
-            expression: "defineTextsShow"
+            value: _vm.showTextsBlocks,
+            expression: "showTextsBlocks"
           }
         ],
-        staticClass: "alpheios-alignment-editor-text-define-container"
+        staticClass: "alpheios-alignment-editor-text-define-container",
+        attrs: { id: "alpheios-text-editor-blocks-container" }
       },
       [
         _c(
@@ -17624,7 +18028,8 @@ var render = function() {
                 _c("text-editor-single-block", {
                   attrs: {
                     "text-id": "target",
-                    "external-text": _vm.updatedTarget
+                    "external-text": _vm.updatedTarget,
+                    disabled: _vm.disableTargetTextBlock
                   },
                   on: { "update-text": _vm.updateTargetText }
                 })
@@ -17641,6 +18046,536 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./lib/data/langs/langs-list.json":
+/*!****************************************!*\
+  !*** ./lib/data/langs/langs-list.json ***!
+  \****************************************/
+/*! default exports */
+/*! export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 1 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 10 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 100 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 101 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 102 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 103 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 104 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 105 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 106 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 107 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 108 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 109 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 11 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 110 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 111 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 112 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 113 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 114 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 115 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 116 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 117 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 118 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 119 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 12 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 120 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 121 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 122 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 123 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 124 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 125 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 126 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 127 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 128 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 13 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 14 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 15 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 16 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 17 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 18 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 19 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 2 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 20 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 21 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 22 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 23 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 24 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 25 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 26 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 27 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 28 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 29 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 3 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 30 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 31 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 32 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 33 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 34 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 35 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 36 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 37 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 38 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 39 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 4 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 40 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 41 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 42 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 43 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 44 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 45 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 46 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 47 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 48 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 49 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 5 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 50 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 51 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 52 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 53 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 54 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 55 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 56 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 57 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 58 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 59 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 6 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 60 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 61 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 62 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 63 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 64 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 65 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 66 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 67 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 68 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 69 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 7 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 70 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 71 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 72 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 73 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 74 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 75 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 76 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 77 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 78 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 79 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 8 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 80 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 81 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 82 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 83 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 84 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 85 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 86 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 87 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 88 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 89 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 9 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 90 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 91 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 92 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 93 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 94 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 95 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 96 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 97 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 98 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export 99 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value\":\"lat\",\"label\":\"Latin\"},{\"value\":\"grc\",\"label\":\"Greek (Ancient –1453)\"},{\"value\":\"ara\",\"label\":\"Arabic\"},{\"value\":\"zh\",\"label\":\"Chinese\"},{\"value\":\"afr\",\"label\":\"Afrikaans\"},{\"value\":\"akk\",\"label\":\"Akkadian\"},{\"value\":\"sqi\",\"label\":\"Albanian\"},{\"value\":\"amh\",\"label\":\"Amharic\"},{\"value\":\"arg\",\"label\":\"Aragonese\"},{\"value\":\"arc\",\"label\":\"Aramaic (Imperial- 700 BC–300 BC)\"},{\"value\":\"sam\",\"label\":\"Aramaic (Samaritan)\"},{\"value\":\"hye\",\"label\":\"Armenian\"},{\"value\":\"ast\",\"label\":\"Asturian\"},{\"value\":\"ave\",\"label\":\"Avestan\"},{\"value\":\"aze\",\"label\":\"Azerbaijani\"},{\"value\":\"eus\",\"label\":\"Basque\"},{\"value\":\"ben\",\"label\":\"Bengali\"},{\"value\":\"ber\",\"label\":\"Berber\"},{\"value\":\"bos\",\"label\":\"Bosnian\"},{\"value\":\"bre\",\"label\":\"Breton\"},{\"value\":\"bul\",\"label\":\"Bulgarian\"},{\"value\":\"chu\",\"label\":\"Bulgarian (Old, Old Church Slavonic)\"},{\"value\":\"mya\",\"label\":\"Burmese\"},{\"value\":\"cat\",\"label\":\"Catalan\"},{\"value\":\"chg\",\"label\":\"Chagatai\"},{\"value\":\"cop\",\"label\":\"Coptic\"},{\"value\":\"cor\",\"label\":\"Cornish\"},{\"value\":\"hrv\",\"label\":\"Croatian\"},{\"value\":\"ces\",\"label\":\"Czech\"},{\"value\":\"dan\",\"label\":\"Danish\"},{\"value\":\"nld\",\"label\":\"Dutch (Flemish)\"},{\"value\":\"dum\",\"label\":\"Dutch (Middle, 1050–1350)\"},{\"value\":\"egy\",\"label\":\"Egyptian (Ancient)\"},{\"value\":\"elx\",\"label\":\"Elamite\"},{\"value\":\"enm\",\"label\":\"English (Middle, 1100–1500)\"},{\"value\":\"ang\",\"label\":\"English (Old, 450–1100)\"},{\"value\":\"est\",\"label\":\"Estonian\"},{\"value\":\"fin\",\"label\":\"Finnish\"},{\"value\":\"fra\",\"label\":\"French\"},{\"value\":\"frm\",\"label\":\"French (Middle, 1400—1600)\"},{\"value\":\"fro\",\"label\":\"French (Old, 842—c. 1400)\"},{\"value\":\"gez\",\"label\":\"Ge'ez\"},{\"value\":\"kat\",\"label\":\"Georgian\"},{\"value\":\"nds\",\"label\":\"German (Low, Low Saxon)\"},{\"value\":\"gmh\",\"label\":\"German (Middle-High, 1050–1500)\"},{\"value\":\"goh\",\"label\":\"German (Old-High, 750–1050)\"},{\"value\":\"deu\",\"label\":\"German\"},{\"value\":\"got\",\"label\":\"Gothic\"},{\"value\":\"ell\",\"label\":\"Greek (Modern, 1453–)\"},{\"value\":\"guj\",\"label\":\"Gujarati\"},{\"value\":\"heb\",\"label\":\"Hebrew\"},{\"value\":\"hin\",\"label\":\"Hindi\"},{\"value\":\"hit\",\"label\":\"Hittite\"},{\"value\":\"hun\",\"label\":\"Hungarian\"},{\"value\":\"isl\",\"label\":\"Icelandic\"},{\"value\":\"ind\",\"label\":\"Indonesian\"},{\"value\":\"gle\",\"label\":\"Irish (Modern)\"},{\"value\":\"mga\",\"label\":\"Irish (Middle 900–1200)\"},{\"value\":\"sga\",\"label\":\"Irish (Old, to 900)\"},{\"value\":\"ita\",\"label\":\"Italian\"},{\"value\":\"jpn\",\"label\":\"Japanese\"},{\"value\":\"jav\",\"label\":\"Javanese\"},{\"value\":\"kan\",\"label\":\"Kannada\"},{\"value\":\"khm\",\"label\":\"Khmer (Central)\"},{\"value\":\"kor\",\"label\":\"Korean\"},{\"value\":\"kur\",\"label\":\"Kurdish\"},{\"value\":\"lad\",\"label\":\"Ladino\"},{\"value\":\"lit\",\"label\":\"Lithuanian\"},{\"value\":\"msa\",\"label\":\"Malay\"},{\"value\":\"mar\",\"label\":\"Marathi\"},{\"value\":\"new\",\"label\":\"Nepal Bhasa (Newari)\"},{\"value\":\"nep\",\"label\":\"Nepali\"},{\"value\":\"nwc\",\"label\":\"Newari\"},{\"value\":\"non\",\"label\":\"Norse (Old)\"},{\"value\":\"nor\",\"label\":\"Norwegian\"},{\"value\":\"nob\",\"label\":\"Norwegian (Bokmål)\"},{\"value\":\"nno\",\"label\":\"Norwegian (Nynorsk)\"},{\"value\":\"oss\",\"label\":\"Ossetian\"},{\"value\":\"pal\",\"label\":\"Pahlavi (Middle Persian)\"},{\"value\":\"pli\",\"label\":\"Pali\"},{\"value\":\"pus\",\"label\":\"Pashto\"},{\"value\":\"fas\",\"label\":\"Persian (Farsi)\"},{\"value\":\"peo\",\"label\":\"Persian (Old, 600–400 BC)\"},{\"value\":\"phn\",\"label\":\"Phoenician\"},{\"value\":\"pol\",\"label\":\"Polish\"},{\"value\":\"por\",\"label\":\"Portuguese\"},{\"value\":\"pra\",\"label\":\"Prakrit\"},{\"value\":\"pro\",\"label\":\"Provençal (Occitan, –1500)\"},{\"value\":\"pan\",\"label\":\"Punjabi (Panjabi)\"},{\"value\":\"raj\",\"label\":\"Rajasthani\"},{\"value\":\"ron\",\"label\":\"Romanian\"},{\"value\":\"rom\",\"label\":\"Romany\"},{\"value\":\"rus\",\"label\":\"Russian\"},{\"value\":\"san\",\"label\":\"Sanskrit\"},{\"value\":\"sco\",\"label\":\"Scots\"},{\"value\":\"gla\",\"label\":\"Scottish (Gaelic)\"},{\"value\":\"srp\",\"label\":\"Serbian\"},{\"value\":\"scn\",\"label\":\"Sicilian\"},{\"value\":\"snd\",\"label\":\"Sindhi\"},{\"value\":\"sin\",\"label\":\"Sinhalese (Sinhala)\"},{\"value\":\"slk\",\"label\":\"Slovak\"},{\"value\":\"slv\",\"label\":\"Slovenian\"},{\"value\":\"sog\",\"label\":\"Sogdian\"},{\"value\":\"spa\",\"label\":\"Spanish (Castilian)\"},{\"value\":\"sux\",\"label\":\"Sumerian\"},{\"value\":\"swa\",\"label\":\"Swahili\"},{\"value\":\"swe\",\"label\":\"Swedish\"},{\"value\":\"gsw\",\"label\":\"Swiss German (Alsatian)\"},{\"value\":\"syc\",\"label\":\"Syriac (Classical)\"},{\"value\":\"syr\",\"label\":\"Syriac (Northeastern, Neo-Aramaic)\"},{\"value\":\"tgl\",\"label\":\"Tagalog\"},{\"value\":\"tgk\",\"label\":\"Tajik\"},{\"value\":\"tam\",\"label\":\"Tamil\"},{\"value\":\"tat\",\"label\":\"Tatar\"},{\"value\":\"tel\",\"label\":\"Telugu\"},{\"value\":\"tha\",\"label\":\"Thai\"},{\"value\":\"bod\",\"label\":\"Tibetan\"},{\"value\":\"tur\",\"label\":\"Turkish (Modern)\"},{\"value\":\"ota\",\"label\":\"Turkish (Ottoman, 1500–1928)\"},{\"value\":\"tuk\",\"label\":\"Turkmen\"},{\"value\":\"uga\",\"label\":\"Ugaritic\"},{\"value\":\"ukr\",\"label\":\"Ukainian\"},{\"value\":\"urd\",\"label\":\"Urdu\"},{\"value\":\"uzb\",\"label\":\"Uzbek\"},{\"value\":\"vie\",\"label\":\"Vietnamese\"},{\"value\":\"wln\",\"label\":\"Walloon\"},{\"value\":\"cym\",\"label\":\"Welsh\"},{\"value\":\"yid\",\"label\":\"Yiddish\"}]");
 
 /***/ }),
 
@@ -18525,536 +19460,6 @@ module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Downlo
 
 "use strict";
 module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Origin and Target Texts\",\"description\":\"A heading for text editor\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_TEXT_BLOCK_TITLE\":{\"message\":\"Enter Text in { textType } Language:\",\"description\":\"A tytle for text block area\",\"component\":\"TextEditor\",\"params\":[\"textType\"]},\"TEXT_EDITOR_DIRECTION_LABEL\":{\"message\":\"Text Direction:\",\"description\":\"A label for text direction select\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT\":{\"message\":\"Left to Right\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT\":{\"message\":\"Right to Left\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_AVA_LANGUAGE_TITLE\":{\"message\":\"{ textType } Language:\",\"description\":\"A title for available languages select\",\"component\":\"TextEditor\",\"params\":[\"textType\"]},\"TEXT_EDITOR_LANGUAGE_OTHER_LABEL\":{\"message\":\"Or Other Language:\",\"description\":\"A label for other language text input\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION\":{\"message\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"description\":\"A description for other language text input\",\"component\":\"TextEditor\"}}");
-
-/***/ }),
-
-/***/ "./vue/text-editor/langs-list.json":
-/*!*****************************************!*\
-  !*** ./vue/text-editor/langs-list.json ***!
-  \*****************************************/
-/*! default exports */
-/*! export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 10 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 100 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 101 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 102 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 103 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 104 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 105 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 106 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 107 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 108 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 109 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 11 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 110 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 111 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 112 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 113 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 114 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 115 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 116 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 117 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 118 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 119 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 12 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 120 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 121 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 122 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 123 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 124 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 125 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 126 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 127 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 128 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 13 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 14 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 15 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 16 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 17 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 18 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 19 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 20 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 21 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 22 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 23 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 24 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 25 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 26 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 27 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 28 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 29 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 30 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 31 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 32 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 33 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 34 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 35 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 36 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 37 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 38 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 39 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 40 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 41 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 42 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 43 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 44 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 45 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 46 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 47 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 48 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 49 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 50 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 51 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 52 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 53 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 54 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 55 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 56 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 57 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 58 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 59 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 60 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 61 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 62 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 63 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 64 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 65 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 66 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 67 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 68 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 69 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 7 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 70 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 71 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 72 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 73 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 74 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 75 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 76 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 77 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 78 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 79 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 8 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 80 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 81 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 82 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 83 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 84 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 85 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 86 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 87 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 88 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 89 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 9 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 90 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 91 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 92 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 93 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 94 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 95 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 96 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 97 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 98 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 99 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value\":\"lat\",\"label\":\"Latin\"},{\"value\":\"grc\",\"label\":\"Greek (Ancient –1453)\"},{\"value\":\"ara\",\"label\":\"Arabic\"},{\"value\":\"zh\",\"label\":\"Chinese\"},{\"value\":\"afr\",\"label\":\"Afrikaans\"},{\"value\":\"akk\",\"label\":\"Akkadian\"},{\"value\":\"sqi\",\"label\":\"Albanian\"},{\"value\":\"amh\",\"label\":\"Amharic\"},{\"value\":\"arg\",\"label\":\"Aragonese\"},{\"value\":\"arc\",\"label\":\"Aramaic (Imperial- 700 BC–300 BC)\"},{\"value\":\"sam\",\"label\":\"Aramaic (Samaritan)\"},{\"value\":\"hye\",\"label\":\"Armenian\"},{\"value\":\"ast\",\"label\":\"Asturian\"},{\"value\":\"ave\",\"label\":\"Avestan\"},{\"value\":\"aze\",\"label\":\"Azerbaijani\"},{\"value\":\"eus\",\"label\":\"Basque\"},{\"value\":\"ben\",\"label\":\"Bengali\"},{\"value\":\"ber\",\"label\":\"Berber\"},{\"value\":\"bos\",\"label\":\"Bosnian\"},{\"value\":\"bre\",\"label\":\"Breton\"},{\"value\":\"bul\",\"label\":\"Bulgarian\"},{\"value\":\"chu\",\"label\":\"Bulgarian (Old, Old Church Slavonic)\"},{\"value\":\"mya\",\"label\":\"Burmese\"},{\"value\":\"cat\",\"label\":\"Catalan\"},{\"value\":\"chg\",\"label\":\"Chagatai\"},{\"value\":\"cop\",\"label\":\"Coptic\"},{\"value\":\"cor\",\"label\":\"Cornish\"},{\"value\":\"hrv\",\"label\":\"Croatian\"},{\"value\":\"ces\",\"label\":\"Czech\"},{\"value\":\"dan\",\"label\":\"Danish\"},{\"value\":\"nld\",\"label\":\"Dutch (Flemish)\"},{\"value\":\"dum\",\"label\":\"Dutch (Middle, 1050–1350)\"},{\"value\":\"egy\",\"label\":\"Egyptian (Ancient)\"},{\"value\":\"elx\",\"label\":\"Elamite\"},{\"value\":\"enm\",\"label\":\"English (Middle, 1100–1500)\"},{\"value\":\"ang\",\"label\":\"English (Old, 450–1100)\"},{\"value\":\"est\",\"label\":\"Estonian\"},{\"value\":\"fin\",\"label\":\"Finnish\"},{\"value\":\"fra\",\"label\":\"French\"},{\"value\":\"frm\",\"label\":\"French (Middle, 1400—1600)\"},{\"value\":\"fro\",\"label\":\"French (Old, 842—c. 1400)\"},{\"value\":\"gez\",\"label\":\"Ge'ez\"},{\"value\":\"kat\",\"label\":\"Georgian\"},{\"value\":\"nds\",\"label\":\"German (Low, Low Saxon)\"},{\"value\":\"gmh\",\"label\":\"German (Middle-High, 1050–1500)\"},{\"value\":\"goh\",\"label\":\"German (Old-High, 750–1050)\"},{\"value\":\"deu\",\"label\":\"German\"},{\"value\":\"got\",\"label\":\"Gothic\"},{\"value\":\"ell\",\"label\":\"Greek (Modern, 1453–)\"},{\"value\":\"guj\",\"label\":\"Gujarati\"},{\"value\":\"heb\",\"label\":\"Hebrew\"},{\"value\":\"hin\",\"label\":\"Hindi\"},{\"value\":\"hit\",\"label\":\"Hittite\"},{\"value\":\"hun\",\"label\":\"Hungarian\"},{\"value\":\"isl\",\"label\":\"Icelandic\"},{\"value\":\"ind\",\"label\":\"Indonesian\"},{\"value\":\"gle\",\"label\":\"Irish (Modern)\"},{\"value\":\"mga\",\"label\":\"Irish (Middle 900–1200)\"},{\"value\":\"sga\",\"label\":\"Irish (Old, to 900)\"},{\"value\":\"ita\",\"label\":\"Italian\"},{\"value\":\"jpn\",\"label\":\"Japanese\"},{\"value\":\"jav\",\"label\":\"Javanese\"},{\"value\":\"kan\",\"label\":\"Kannada\"},{\"value\":\"khm\",\"label\":\"Khmer (Central)\"},{\"value\":\"kor\",\"label\":\"Korean\"},{\"value\":\"kur\",\"label\":\"Kurdish\"},{\"value\":\"lad\",\"label\":\"Ladino\"},{\"value\":\"lit\",\"label\":\"Lithuanian\"},{\"value\":\"msa\",\"label\":\"Malay\"},{\"value\":\"mar\",\"label\":\"Marathi\"},{\"value\":\"new\",\"label\":\"Nepal Bhasa (Newari)\"},{\"value\":\"nep\",\"label\":\"Nepali\"},{\"value\":\"nwc\",\"label\":\"Newari\"},{\"value\":\"non\",\"label\":\"Norse (Old)\"},{\"value\":\"nor\",\"label\":\"Norwegian\"},{\"value\":\"nob\",\"label\":\"Norwegian (Bokmål)\"},{\"value\":\"nno\",\"label\":\"Norwegian (Nynorsk)\"},{\"value\":\"oss\",\"label\":\"Ossetian\"},{\"value\":\"pal\",\"label\":\"Pahlavi (Middle Persian)\"},{\"value\":\"pli\",\"label\":\"Pali\"},{\"value\":\"pus\",\"label\":\"Pashto\"},{\"value\":\"fas\",\"label\":\"Persian (Farsi)\"},{\"value\":\"peo\",\"label\":\"Persian (Old, 600–400 BC)\"},{\"value\":\"phn\",\"label\":\"Phoenician\"},{\"value\":\"pol\",\"label\":\"Polish\"},{\"value\":\"por\",\"label\":\"Portuguese\"},{\"value\":\"pra\",\"label\":\"Prakrit\"},{\"value\":\"pro\",\"label\":\"Provençal (Occitan, –1500)\"},{\"value\":\"pan\",\"label\":\"Punjabi (Panjabi)\"},{\"value\":\"raj\",\"label\":\"Rajasthani\"},{\"value\":\"ron\",\"label\":\"Romanian\"},{\"value\":\"rom\",\"label\":\"Romany\"},{\"value\":\"rus\",\"label\":\"Russian\"},{\"value\":\"san\",\"label\":\"Sanskrit\"},{\"value\":\"sco\",\"label\":\"Scots\"},{\"value\":\"gla\",\"label\":\"Scottish (Gaelic)\"},{\"value\":\"srp\",\"label\":\"Serbian\"},{\"value\":\"scn\",\"label\":\"Sicilian\"},{\"value\":\"snd\",\"label\":\"Sindhi\"},{\"value\":\"sin\",\"label\":\"Sinhalese (Sinhala)\"},{\"value\":\"slk\",\"label\":\"Slovak\"},{\"value\":\"slv\",\"label\":\"Slovenian\"},{\"value\":\"sog\",\"label\":\"Sogdian\"},{\"value\":\"spa\",\"label\":\"Spanish (Castilian)\"},{\"value\":\"sux\",\"label\":\"Sumerian\"},{\"value\":\"swa\",\"label\":\"Swahili\"},{\"value\":\"swe\",\"label\":\"Swedish\"},{\"value\":\"gsw\",\"label\":\"Swiss German (Alsatian)\"},{\"value\":\"syc\",\"label\":\"Syriac (Classical)\"},{\"value\":\"syr\",\"label\":\"Syriac (Northeastern, Neo-Aramaic)\"},{\"value\":\"tgl\",\"label\":\"Tagalog\"},{\"value\":\"tgk\",\"label\":\"Tajik\"},{\"value\":\"tam\",\"label\":\"Tamil\"},{\"value\":\"tat\",\"label\":\"Tatar\"},{\"value\":\"tel\",\"label\":\"Telugu\"},{\"value\":\"tha\",\"label\":\"Thai\"},{\"value\":\"bod\",\"label\":\"Tibetan\"},{\"value\":\"tur\",\"label\":\"Turkish (Modern)\"},{\"value\":\"ota\",\"label\":\"Turkish (Ottoman, 1500–1928)\"},{\"value\":\"tuk\",\"label\":\"Turkmen\"},{\"value\":\"uga\",\"label\":\"Ugaritic\"},{\"value\":\"ukr\",\"label\":\"Ukainian\"},{\"value\":\"urd\",\"label\":\"Urdu\"},{\"value\":\"uzb\",\"label\":\"Uzbek\"},{\"value\":\"vie\",\"label\":\"Vietnamese\"},{\"value\":\"wln\",\"label\":\"Walloon\"},{\"value\":\"cym\",\"label\":\"Welsh\"},{\"value\":\"yid\",\"label\":\"Yiddish\"}]");
 
 /***/ })
 

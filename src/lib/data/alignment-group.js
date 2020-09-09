@@ -139,7 +139,7 @@ export default class AlignmentGroup {
 
   /**
    * Merges current group with passed alignment group
-   * @param { AlignmentGroup } tokensGroup 
+   * @param { AlignmentGroup } tokensGroup
    */
   merge (tokensGroup) {
     this.origin.push(...tokensGroup.origin)

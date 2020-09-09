@@ -30,8 +30,8 @@
   </div>
 </template>
 <script>
-import LangsList from '@/vue/text-editor/langs-list.json'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import Langs from '@/lib/data/langs/langs.js'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -55,18 +55,21 @@ export default {
       selectedOtherLang: null
     }
   },
+  /**
+   * Uploads lang list from Json and defines default lang
+   */
   mounted () {
-    this.langsList = LangsList.map(langData => {
-      const l10nLabel = `LANG_${langData.value.toUpperCase()}`
-      const l10nMessage = this.l10n.getMsgS(l10nLabel)
-      return {
-        value: langData.value,
-        label: l10nMessage ? l10nMessage : langData.label
-      }
-    })
+    this.langsList = Langs.all
     this.selectedAvaLang = this.langsList[0].value
   },
   watch: {
+    /**
+     * Checks if data was uploaded from external source - upload
+     * @param {Object} data
+     *        {String} data.text
+     *        {String} data.direction
+     *        {String} data.lang
+     */
     externalText (data) {
       this.text = data.text
       this.direction = data.direction
@@ -74,18 +77,33 @@ export default {
     }
   },
   computed: {
+    /**
+     * Defines unique id for textArea for tracking changes
+     */
     textareaId () {
       return `alpheios-alignment-editor-text-block__${this.textId}`
     },
+    /**
+     * Defines textType from textId
+     */
     textIdFormatted () {
       return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
     },
+    /**
+     * Defines Title for the text block
+     */
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
     }, 
+    /**
+     * Defines Label for available language list
+     */
     chooseAvaLangLabel () {
       return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
     },
+    /**
+     * Defines final language
+     */
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
@@ -94,22 +112,37 @@ export default {
     }
   },
   methods: {
+    /**
+     * Defines unique id for direction input
+     */
     directionRadioId (dir) {
       return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
     },
+    /**
+     * If a user reselects language from select, input[text] would be cleared
+     */
     updateAvaLang () {
       this.selectedOtherLang = null
       this.updateText()
     },
+    /**
+     * It is used when we need to upload lang from external source,
+     * first it checks langs list, and if it is failed, then it would be printed to unput[text]
+     */
     updateLang (lang) {
       const langFromList = this.langsList.find(langOb => langOb.value === lang)
 
       if (langFromList) {
         this.selectedAvaLang = langFromList.value
+        this.selectedOtherLang = null
       } else {
         this.selectedOtherLang = lang
+        this.selectedAvaLang = this.langsList[0].value
       }
     },
+    /**
+     * Emits update-text event with data from properties
+     */
     updateText () {
       this.$emit('update-text', {
         text: this.text,
