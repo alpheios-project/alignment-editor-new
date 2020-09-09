@@ -6,9 +6,11 @@
   "scripts": {
     "build": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs",
     "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
+    "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
+    "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/aligned-controller.test.js --coverage",
-    "test-b": "jest tests/lib/data/aligned-text.test.js --coverage"
+    "test-b": "jest tests/vue/align-editor/align-editor-single-block.test.js --coverage"
   },
   "repository": {
     "type": "git",

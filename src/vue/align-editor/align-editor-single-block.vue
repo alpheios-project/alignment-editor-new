@@ -22,22 +22,23 @@
 <script>
 import Vue from '@vue-runtime'
 
-import Token from '@/vue/align-editor/token.vue'
+import TokenBlock from '@/vue/align-editor/token-block.vue'
 
 export default {
   name: 'AlignEditorSingleBlock',
   components: {
-    token: Token
+    token: TokenBlock
   },
   props: {
     alignTextData: {
       type: Object,
-      required: false
+      required: true
     },
 
     showAlignment: {
       type: Array,
-      required: false
+      required: false,
+      default: []
     },
 
     alignmentUpdated : {
@@ -52,6 +53,9 @@ export default {
     }
   },
   watch: {
+    /**
+     * Catches alignmentUpdated and increments updated flag to redraw css styles
+     */
     alignmentUpdated () {
       this.updated = this.updated + 1
     }
@@ -66,29 +70,44 @@ export default {
     lang () {
       return this.alignTextData.lang
     },
+    /**
+     * Defines the main class for the block depending on textType (origin/target)
+     */
     alignTextClass () {
       return `alpheios-alignment-editor-align__${this.textType}`
     }
   },
   methods: {
-    clickWord (token) {
-      this.$emit('clickWord', token)
+    clickToken (token) {
+      this.$emit('click-token', token)
     },
-    addHoverWord (token) {
-      this.$emit('addHoverWord', token)
+    addHoverToken (token) {
+      this.$emit('add-hover-token', token)
     },
-    removeHoverWord (token) {
-      this.$emit('removeHoverWord', token)
+    removeHoverToken () {
+      this.$emit('remove-hover-token')
     },
+    /**
+     * Used for defining that token is in hovered saved alignmentGroup
+     */
     selectedToken (token) {
       return this.showAlignment.includes(token.idWord)
     },
+    /**
+     * Used for defining that token is in some saved alignmentGroup
+     */
     groupedToken (token) {
       return this.$alignedC.tokenIsGrouped(token)
     },
+    /**
+     * Used for defining that token is in active alignmentGroup
+     */
     inActiveGroup (token) {
       return this.$alignedC.tokenInActiveGroup(token)
     },
+    /**
+     * Used for defining that token is in active alignmentGroup
+     */
     isFirstInActiveGroup (token) {
       return this.$alignedC.isFirstInActiveGroup(token)
     }

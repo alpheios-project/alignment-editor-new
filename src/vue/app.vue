@@ -40,32 +40,53 @@ export default {
   computed: {
   },
   methods: {
+    /**
+     * Updates property to reupload origin text in textEditor component
+     */
     updateOriginTextEditor () {
       this.originTextUpdated = this.originTextUpdated + 1
     },
 
+    /**
+     * Updates property to reupload target text in textEditor component
+     */
     updateTargetTextEditor () {
       this.targetTextUpdated = this.targetTextUpdated + 1
     },
 
+    /**
+     *  Updates property to hide TextEditor
+     */
     hideTextEditorM () {
       this.hideTextEditor = this.hideTextEditor + 1
     },
 
+    /**
+     *  Updates property to show AlignEditor
+     */
     showAlignEditorM () {
       this.showAlignEditor = this.showAlignEditor + 1
     },
 
+    /**
+     * Starts download workflow
+     */
     downloadData () {
       this.$textC.downloadData()
     },
 
+    /**
+    * Starts upload workflow
+    */
     uploadData (fileData) {
       this.$textC.uploadDocSourceFromFile(fileData)
       this.updateOriginTextEditor()
       this.updateTargetTextEditor()
     },
 
+    /**
+     * Starts align workflow
+     */
     alignTexts () {
       if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
         this.hideTextEditorM()
