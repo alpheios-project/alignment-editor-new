@@ -13,5 +13,15 @@
       "message": "Align",
       "description": "Button in main menu",
       "component": "MainMenu"
+    },
+    "MAIN_MENU_REDO_TITLE": {
+      "message": "Redo",
+      "description": "Button in main menu",
+      "component": "MainMenu"
+    },
+    "MAIN_MENU_UNDO_TITLE": {
+      "message": "Undo",
+      "description": "Button in main menu",
+      "component": "MainMenu"
     }
 }

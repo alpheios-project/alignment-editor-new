@@ -182,7 +182,7 @@ export default class Alignment {
    * @returns {Boolean} true - if token was added, false - not
    */
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
+    if (this.hasActiveAlignment && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -196,7 +196,7 @@ export default class Alignment {
    * @returns {Boolean} true - if token was removed, false - not
    */
   removeFromAlignmentGroup (token) {
-    if (this.activeAlignmentGroup && this.tokenInActiveGroup(token)) {
+    if (this.hasActiveAlignment && this.tokenInActiveGroup(token)) {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
       return true
@@ -210,7 +210,7 @@ export default class Alignment {
    * @returns {Boolean} true - if active alignment group was saved and closed, false - not
    */
   finishActiveAlignmentGroup () {
-    if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
+    if (this.hasActiveAlignment && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
       this.activeAlignmentGroup = null
@@ -222,13 +222,13 @@ export default class Alignment {
   /**
    * Finds Alignment Group by token, if token is grouped in some alignment group
    * @param {Token} token
-   * @returns {AlignmentGroup | false}
+   * @returns {AlignmentGroup | Null}
    */
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token.idWord)) : false
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token)) : null
     }
-    return false
+    return null
   }
 
   /**
@@ -286,7 +286,7 @@ export default class Alignment {
    * @returns {Boolean} yes - if token is in the active alignment group, false - is not
    */
   tokenInActiveGroup (token) {
-    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token.idWord)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
   }
 
   /**
@@ -317,7 +317,7 @@ export default class Alignment {
     const tokensGroup = this.findAlignmentGroup(token)
     if (tokensGroup) {
       this.activeAlignmentGroup = tokensGroup
-      this.activeAlignmentGroup.updateFirstStep(token)
+      this.activeAlignmentGroup.updateFirstStepToken(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
       return true
     }
@@ -331,12 +331,30 @@ export default class Alignment {
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token) {
-    if (this.activeAlignmentGroup && this.tokenIsGrouped(token)) {
+    if (this.hasActiveAlignment && this.tokenIsGrouped(token)) {
       const tokensGroup = this.findAlignmentGroup(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
       return true
     }
     return false
+  }
+
+  /**
+   * Step back inside active group
+   */
+  undoInActiveGroup () {
+    if (this.hasActiveAlignment) {
+      this.activeAlignmentGroup.undo()
+    }
+  }
+
+  /**
+   * Step forward inside active group
+   */
+  redoInActiveGroup () {
+    if (this.hasActiveAlignment) {
+      this.activeAlignmentGroup.redo()
+    }
   }
 }

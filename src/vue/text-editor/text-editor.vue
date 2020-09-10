@@ -71,6 +71,7 @@ export default {
    */
   created () {
     this.$textC.createAlignment()
+    this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
     /**

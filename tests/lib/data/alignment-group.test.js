@@ -3,6 +3,7 @@
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AppController from '@/lib/controllers/app-controller.js'
 import Token from '@/lib/data/token'
+import AlignmentStep from '@/lib/data/alignment-step'
 
 describe('alignment-group.test.js', () => {
   console.error = function () {}
@@ -33,7 +34,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(1)
-    expect(alGroup.firstStep).toEqual({ textType: alGroup.steps[0].textType, idWord: alGroup.steps[0].idWord })
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('2 AlignmentGroup - constructor only inits origin, target, steps arrays and creates unique id if a token is not passed', () => {
@@ -43,7 +44,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(0)
-    expect(alGroup.firstStep).toBeNull()
+    expect(alGroup.firstStepToken).toBeNull()
   })
 
   it('3 AlignmentGroup - add method returns false and do nothing if a token is not passed', () => {
@@ -55,7 +56,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(0)
-    expect(alGroup.firstStep).toBeNull()
+    expect(alGroup.firstStepToken).toBeNull()
   })
 
   it('4 AlignmentGroup - add method returns false and do nothing if an incorrect token is passed', () => {
@@ -69,10 +70,10 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(0)
-    expect(alGroup.firstStep).toBeNull()
+    expect(alGroup.firstStepToken).toBeNull()
   })
 
-  it('5 AlignmentGroup - add method returns true and adds token data to origin or target, steps and define firstStep if it is the firstSte is not defined yet', () => {
+  it('5 AlignmentGroup - add method returns true and adds token data to origin or target, steps and define firstStepToken if it is the firstSte is not defined yet', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -83,8 +84,8 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeTruthy()
     expect(alGroup.origin).toEqual([ 'L1-10' ])
     expect(alGroup.target.length).toEqual(0)
-    expect(alGroup.steps[0]).toEqual({ textType: 'origin', idWord: 'L1-10', type: 'add' })
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord: 'L1-10' })
+    expect(alGroup.steps[0]).toEqual(new AlignmentStep(token, 'add'))
+    expect(alGroup.firstStepToken).toEqual(token)
 
     const token2 = new Token({
         textType: 'target', idWord: 'L2-10', word: 'man'})
@@ -94,8 +95,8 @@ describe('alignment-group.test.js', () => {
     expect(result).toBeTruthy()
     expect(alGroup.origin).toEqual([ 'L1-10' ])
     expect(alGroup.target).toEqual([ 'L2-10' ])
-    expect(alGroup.steps[0]).toEqual({ textType: 'origin', idWord: 'L1-10', type: 'add' }, { textType: 'target', idWord: 'L2-10', type: 'add' })
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord: 'L1-10' })
+    expect(alGroup.steps).toEqual([new AlignmentStep(token, 'add'), new AlignmentStep(token2, 'add')])
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('6 AlignmentGroup - remove method returns false and do nothing if a token is not passed', () => {
@@ -110,7 +111,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(1)
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('7 AlignmentGroup - remove method returns false and do nothing if a token is not correct', () => {
@@ -127,7 +128,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(1)
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
   it('8 AlignmentGroup - remove method returns false and do nothing if a token is not in group', () => {
@@ -144,10 +145,10 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(1)
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
-  it('9 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStep if needed', () => {
+  it('9 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
         textType: 'origin', idWord: 'L1-10', word: 'male'})
@@ -164,10 +165,10 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(3)
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
-  it('10 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStep if needed', () => {
+  it('10 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
         textType: 'origin', idWord: 'L1-10', word: 'male'})
@@ -184,10 +185,10 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(1)
     expect(alGroup.steps.length).toEqual(3)
-    expect(alGroup.firstStep).toEqual({ textType: 'target', idWord:'L2-10' })
+    expect(alGroup.firstStepToken).toEqual(token2)
   })
 
-  it('11 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStep if needed', () => {
+  it('11 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
         textType: 'origin', idWord: 'L1-10', word: 'male'})
@@ -204,15 +205,15 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(4)
-    expect(alGroup.firstStep).toBeNull()
+    expect(alGroup.firstStepToken).toBeNull()
   })
 
-  it('12 AlignmentGroup - fistStepNeedToBeUpdated returns true if firstStep is null', () => {
+  it('12 AlignmentGroup - fistStepNeedToBeUpdated returns true if firstStepToken is null', () => {
     const alGroup = new AlignmentGroup()
     expect(alGroup.fistStepNeedToBeUpdated).toBeTruthy()
   })
 
-  it('13 AlignmentGroup - fistStepNeedToBeUpdated returns true if firstStep is not included in group anymore', () => {
+  it('13 AlignmentGroup - fistStepNeedToBeUpdated returns true if firstStepToken is not included in group anymore', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -223,7 +224,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.fistStepNeedToBeUpdated).toBeTruthy()
   })
 
-  it('14 AlignmentGroup - fistStepNeedToBeUpdated returns false if firstStep is correctly defined', () => {
+  it('14 AlignmentGroup - fistStepNeedToBeUpdated returns false if firstStepToken is correctly defined', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -233,7 +234,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.fistStepNeedToBeUpdated).toBeFalsy()
   })
 
-  it('15 AlignmentGroup - defineFirstStep do nothing if first step should not be updated', () => {
+  it('15 AlignmentGroup - defineFirstStepToken do nothing if first step should not be updated', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -249,16 +250,16 @@ describe('alignment-group.test.js', () => {
     alGroup[token2.textType].push(token2.idWord)
     alGroup.steps.push({ textType: token2.textType, idWord:token2.idWord, type: 'add' })
 
-    alGroup.firstStep = { textType: token.textType, idWord:token.idWord }
+    alGroup.firstStepToken = token
 
     expect(alGroup.fistStepNeedToBeUpdated).toBeFalsy()
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    expect(alGroup.firstStepToken).toEqual(token)
     
-    alGroup.defineFirstStep()
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    alGroup.defineFirstStepToken()
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
-  it('15 AlignmentGroup - defineFirstStep updates firstStep with the first existed step if it is null', () => {
+  it('16 AlignmentGroup - defineFirstStepToken updates firstStepToken with the first existed step if it is null', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -268,20 +269,20 @@ describe('alignment-group.test.js', () => {
       textType: 'target', idWord: 'L2-10', word: 'man'})
 
     alGroup[token.textType].push(token.idWord)
-    alGroup.steps.push({ textType: token.textType, idWord:token.idWord, type: 'add' })
+    alGroup.steps.push(new AlignmentStep(token, 'add'))
     
     alGroup[token2.textType].push(token2.idWord)
-    alGroup.steps.push({ textType: token2.textType, idWord:token2.idWord, type: 'add' })
+    alGroup.steps.push(new AlignmentStep(token2, 'add'))
 
 
     expect(alGroup.fistStepNeedToBeUpdated).toBeTruthy()
-    expect(alGroup.firstStep).toBeNull()
+    expect(alGroup.firstStepToken).toBeNull()
     
-    alGroup.defineFirstStep()
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' })
+    alGroup.defineFirstStepToken()
+    expect(alGroup.firstStepToken).toEqual(token)
   })
 
-  it('16 AlignmentGroup - defineFirstStep updates firstStep with the first existed step if it is already not existed in group', () => {
+  it('17 AlignmentGroup - defineFirstStepToken updates firstStep with the first existed step if it is already not existed in group', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -291,23 +292,23 @@ describe('alignment-group.test.js', () => {
       textType: 'target', idWord: 'L2-10', word: 'man'})
 
     alGroup[token.textType].push(token.idWord)
-    alGroup.steps.push({ textType: token.textType, idWord:token.idWord, type: 'add' })
+    alGroup.steps.push(new AlignmentStep(token, 'add'))
     
     alGroup[token2.textType].push(token2.idWord)
-    alGroup.steps.push({ textType: token2.textType, idWord:token2.idWord, type: 'add' })
+    alGroup.steps.push(new AlignmentStep(token2, 'add'))
 
     alGroup[token.textType].splice(0, 1)
-    alGroup.steps.push({ textType: token.textType, idWord:token.idWord, type: 'remove' })
+    alGroup.steps.push(new AlignmentStep(token, 'remove'))
 
-    alGroup.firstStep = { textType: token.textType, idWord:token.idWord }
+    alGroup.firstStepToken = token
 
     expect(alGroup.fistStepNeedToBeUpdated).toBeTruthy()
     
-    alGroup.defineFirstStep()
-    expect(alGroup.firstStep).toEqual({ textType: 'target', idWord:'L2-10' })
+    alGroup.defineFirstStepToken()
+    expect(alGroup.firstStepToken).toEqual(token2)
   })
 
-  it('17 AlignmentGroup - couldBeFinished returns true if origin and target each has one element at least and id is defined', () => {
+  it('18 AlignmentGroup - couldBeFinished returns true if origin and target each has one element at least and id is defined', () => {
     const alGroup = new AlignmentGroup()
     
     expect(alGroup.couldBeFinished).toBeFalsy()
@@ -325,7 +326,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.couldBeFinished).toBeTruthy()
   })
 
-  it('18 AlignmentGroup - allIds returns ids from all tokens included to the group', () => {
+  it('19 AlignmentGroup - allIds returns ids from all tokens included to the group', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -340,7 +341,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.allIds).toEqual([ 'L1-10', 'L2-10' ])
   })
 
-  it('19 AlignmentGroup - includesToken returns true only if token with the passed idWord is included', () => {
+  it('20 AlignmentGroup - includesToken returns true only if token with the passed idWord is included', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -348,16 +349,18 @@ describe('alignment-group.test.js', () => {
 
     const token2 = new Token({
       textType: 'target', idWord: 'L2-10', word: 'man'})
-    
+
+    const token3 = new Token({
+      textType: 'target', idWord: 'L3-10', word: 'man'})
     alGroup.add(token)
     alGroup.add(token2)
 
-    expect(alGroup.includesToken('L1-10')).toBeTruthy()
-    expect(alGroup.includesToken('L2-10')).toBeTruthy()
-    expect(alGroup.includesToken('L3-10')).toBeFalsy()
+    expect(alGroup.includesToken(token)).toBeTruthy()
+    expect(alGroup.includesToken(token2)).toBeTruthy()
+    expect(alGroup.includesToken(token3)).toBeFalsy()
   })
 
-  it('20 AlignmentGroup - isFirstToken returns true only if token with the passed idWord is equal to the first step', () => {
+  it('21 AlignmentGroup - isFirstToken returns true only if token with the passed idWord is equal to the first step', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -377,7 +380,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.isFirstToken(token3)).toBeFalsy()
   })  
 
-  it('21 AlignmentGroup - tokenTheSameTextTypeAsStart returns true only if passed token has the same textType as the first step', () => {
+  it('22 AlignmentGroup - tokenTheSameTextTypeAsStart returns true only if passed token has the same textType as the first step', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -397,7 +400,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.tokenTheSameTextTypeAsStart(token3)).toBeTruthy()
   }) 
 
-  it('22 AlignmentGroup - updateFirstStep updates first step with passed token only if tokens is included in the group', () => {
+  it('23 AlignmentGroup - updateFirstStepToken updates first step with passed token only if tokens is included in the group', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
@@ -412,17 +415,17 @@ describe('alignment-group.test.js', () => {
     alGroup.add(token)
     alGroup.add(token2)
 
-    expect(alGroup.firstStep).toEqual({ textType: 'origin', idWord:'L1-10' }) // token
+    expect(alGroup.firstStepToken).toEqual(token) // token
 
-    alGroup.updateFirstStep(token3)
+    alGroup.updateFirstStepToken(token3)
 
-    expect(alGroup.firstStep).toBeNull()
+    expect(alGroup.firstStepToken).toBeNull()
 
-    alGroup.updateFirstStep(token2)
-    expect(alGroup.firstStep).toEqual({ textType: 'target', idWord:'L2-10' }) // token2
+    alGroup.updateFirstStepToken(token2)
+    expect(alGroup.firstStepToken).toEqual(token2) // token2
   })
 
-  it('23 AlignmentGroup - merge adds allIds to appropriate textTypes and merge steps to steps array', () => {
+  it('24 AlignmentGroup - merge adds allIds to appropriate textTypes and merge steps to steps array', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
@@ -452,10 +455,11 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.steps.length).toEqual(4)
 
     expect(alGroup1.steps).toEqual([
-      { textType: 'origin', idWord: 'L1-10' , type: 'add' },
-      { textType: 'target', idWord: 'L2-10' , type: 'add' },
-      { textType: 'origin', idWord: 'L1-8' , type: 'merge' },
-      { textType: 'target', idWord: 'L2-8' , type: 'merge' }
+      new AlignmentStep(token1, 'add'),
+      new AlignmentStep(token2, 'add'),
+      new AlignmentStep(token3, 'merge'),
+      new AlignmentStep(token4, 'merge')
     ])
   })
+ 
 })

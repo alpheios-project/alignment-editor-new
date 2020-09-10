@@ -4,6 +4,8 @@
         @download-data = "downloadData"
         @upload-data = "uploadData"
         @align-texts = "alignTexts"
+        @redo-action = "redoAction"
+        @undo-action = "undoAction"
       />
       <text-editor 
         :origin-updated = "originTextUpdated"
@@ -83,7 +85,18 @@ export default {
       this.updateOriginTextEditor()
       this.updateTargetTextEditor()
     },
-
+    /**
+     * Starts redo action
+     */
+    redoAction () {
+      this.$historyC.redo()
+    },
+    /**
+     * Starts undo action
+     */
+    undoAction () {
+      this.$historyC.undo()
+    },
     /**
      * Starts align workflow
      */

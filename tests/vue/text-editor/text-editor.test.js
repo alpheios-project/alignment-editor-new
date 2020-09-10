@@ -23,6 +23,7 @@ describe('text-editor.test.js', () => {
     appC.defineL10Support()
     appC.defineTextController()
     appC.defineAlignedController()
+    appC.defineHistoryController()
   })
   
   beforeEach(() => {

@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
+import AlignmentStep from '@/lib/data/alignment-step'
 
 export default class AlignmentGroup {
   /**
@@ -11,7 +12,7 @@ export default class AlignmentGroup {
     this.origin = []
     this.target = []
     this.steps = []
-    this.firstStep = null
+    this.firstStepToken = null
     if (token) { this.add(token) }
   }
 
@@ -26,9 +27,9 @@ export default class AlignmentGroup {
     }
 
     this[token.textType].push(token.idWord)
-    this.steps.push({ textType: token.textType, idWord: token.idWord, type: 'add' })
+    this.steps.push(new AlignmentStep(token, 'add'))
 
-    this.defineFirstStep()
+    this.defineFirstStepToken()
     return true
   }
 
@@ -46,8 +47,8 @@ export default class AlignmentGroup {
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.steps.push({ textType: token.textType, idWord: token.idWord, type: 'remove' })
-      this.defineFirstStep()
+      this.steps.push(new AlignmentStep(token, 'remove'))
+      this.defineFirstStepToken()
       return true
     }
     return false
@@ -58,23 +59,23 @@ export default class AlignmentGroup {
    * @returns { Boolean } true - first step should be updated, false - first step is correct
    */
   get fistStepNeedToBeUpdated () {
-    return !this.firstStep || !this.includesToken(this.firstStep.idWord)
+    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
   }
 
   /**
    * Finds the first token in the steps that is yet included in group, and updates firstStep
    */
-  defineFirstStep () {
+  defineFirstStepToken () {
     if (this.fistStepNeedToBeUpdated) {
-      let firstStep = null
+      let firstStepToken = null
       for (let i = 0; i < this.steps.length; i++) {
-        if (this.includesToken(this.steps[i].idWord)) {
-          firstStep = { textType: this.steps[i].textType, idWord: this.steps[i].idWord }
+        if (this.includesToken(this.steps[i].token)) {
+          firstStepToken = this.steps[i].token
           break
         }
       }
 
-      this.updateFirstStep(firstStep)
+      this.updateFirstStepToken(firstStepToken)
     }
   }
 
@@ -103,8 +104,8 @@ export default class AlignmentGroup {
    * @param {String} Token.idWord
    * @returns {Boolean} true - if is in group, false - not
    */
-  includesToken (idWord) {
-    return this.origin.includes(idWord) || this.target.includes(idWord)
+  includesToken (token) {
+    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
   }
 
   /**
@@ -113,7 +114,7 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token) {
-    return this.firstStep.idWord === token.idWord
+    return this.firstStepToken.idWord === token.idWord
   }
 
   /**
@@ -122,18 +123,18 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.firstStep.textType === token.textType
+    return this.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   /**
    * Update first step with passed token, it is used when we want to activate previously saved alignment group
    * @param {Token} token
    */
-  updateFirstStep (token) {
-    if (token && this.includesToken(token.idWord)) {
-      this.firstStep = { textType: token.textType, idWord: token.idWord }
+  updateFirstStepToken (token) {
+    if (token && this.includesToken(token)) {
+      this.firstStepToken = token
     } else {
-      this.firstStep = null
+      this.firstStepToken = null
     }
   }
 
@@ -146,12 +147,56 @@ export default class AlignmentGroup {
     this.target.push(...tokensGroup.target)
 
     tokensGroup.origin.forEach(idWord => {
-      this.steps.push({ textType: 'origin', idWord: idWord, type: 'merge' })
+      const token = tokensGroup.findTokenByIdWord(idWord)
+      if (token) {
+        this.steps.push(new AlignmentStep(token, 'merge'))
+      }
     })
 
     tokensGroup.target.forEach(idWord => {
-      this.steps.push({ textType: 'target', idWord: idWord, type: 'merge' })
+      const token = tokensGroup.findTokenByIdWord(idWord)
+      if (token) {
+        this.steps.push(new AlignmentStep(token, 'merge'))
+      }
     })
     return true
+  }
+
+  /**
+   * Finds token with the given idWord using steps
+   * @param {String} idWord
+   */
+  findTokenByIdWord (idWord) {
+    const step = this.steps.find(step => step.idWord === idWord)
+    return step ? step.token : null
+  }
+
+  /**
+   * Step back
+   */
+  undo () {
+    /*
+    if (this.steps.length > 1) {
+      const prevStep = this.steps[this.steps.length - 1]
+      const resultStep = this.defineUndoStep(prevStep)
+    } else {
+      console.error('There is only one step in history')
+    }
+    */
+  }
+
+  defineUndoStep (step) {
+    const undoTypes = {
+      add: 'remove',
+      remove: 'add'
+    }
+    return { textType: step.textType, idWord: step.idWord, type: undoTypes[step.type] }
+  }
+
+  /**
+   * Step forward
+   */
+  redo () {
+
   }
 }

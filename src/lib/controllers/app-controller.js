@@ -3,6 +3,7 @@ import Vue from '@vue-runtime'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
+import HistoryController from '@/lib/controllers/history-controller.js'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
@@ -42,6 +43,7 @@ export default class AppController {
     this.defineL10Support()
     this.defineTextController()
     this.defineAlignedController()
+    this.defineHistoryController()
 
     const rootVi = new Vue()
     const mountEl = document.getElementById(this.appId)
@@ -71,6 +73,14 @@ export default class AppController {
   defineAlignedController () {
     this.alignedC = new AlignedController()
     Vue.prototype.$alignedC = this.alignedC
+  }
+
+  /**
+   * Creates HistoryController and attaches to Vue components
+   */
+  defineHistoryController () {
+    this.historyC = new HistoryController()
+    Vue.prototype.$historyC = this.historyC
   }
 
   /**

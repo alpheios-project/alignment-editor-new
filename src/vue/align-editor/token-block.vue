@@ -1,8 +1,8 @@
 <template>
     <span :data-type = "textType" :id = "textWord.idWord"
-          @click.stop = "clickWord"
-          @mouseover = "addHoverWord"
-          @mouseout = "removeHoverWord"
+          @click.stop = "clickToken"
+          @mouseover = "addHoverToken"
+          @mouseout = "removeHoverToken"
           class = "alpheios-token"
           :class="tokenClasses"
     >
@@ -57,14 +57,14 @@ export default {
     }
   },
   methods: {
-    clickWord () {
-      this.$emit('clickWord', this.textWord)
+    clickToken () {
+      this.$emit('click-token', this.textWord)
     },
-    addHoverWord () {
-      this.$emit('addHoverWord', this.textWord)
+    addHoverToken () {
+      this.$emit('add-hover-token', this.textWord)
     },
-    removeHoverWord () {
-      this.$emit('removeHoverWord', this.textWord)
+    removeHoverToken () {
+      this.$emit('remove-hover-token', this.textWord)
     }
   }
 }

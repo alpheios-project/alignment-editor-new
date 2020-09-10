@@ -96,7 +96,7 @@ export default class AlignedController {
 
   /**
    * Finds an alignment group by token in the list
-   * @return {AlignmentGroup | Boolean} AlignmentGroup - if a group was found, false - not
+   * @return {AlignmentGroup | Null} AlignmentGroup - if a group was found, null - not
    */
   findAlignmentGroup (token) {
     return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
@@ -104,7 +104,7 @@ export default class AlignedController {
 
   /**
    * Finds an alignment group by token and returns all ids from it
-   * @return {Array | Boolean} Array - if a group was found, false - not
+   * @return {Array } Array
    */
   findAlignmentGroupIds (token) {
     return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []

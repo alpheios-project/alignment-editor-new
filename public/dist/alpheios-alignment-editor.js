@@ -13618,7 +13618,7 @@ class AlignedController {
 
   /**
    * Finds an alignment group by token in the list
-   * @return {AlignmentGroup | Boolean} AlignmentGroup - if a group was found, false - not
+   * @return {AlignmentGroup | Null} AlignmentGroup - if a group was found, null - not
    */
   findAlignmentGroup (token) {
     return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
@@ -13626,7 +13626,7 @@ class AlignedController {
 
   /**
    * Finds an alignment group by token and returns all ids from it
-   * @return {Array | Boolean} Array - if a group was found, false - not
+   * @return {Array } Array
    */
   findAlignmentGroupIds (token) {
     return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []
@@ -13696,17 +13696,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ AppController
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
+/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
+/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
+/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
+/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+
 
 
 
@@ -13751,13 +13753,14 @@ class AppController {
     this.defineL10Support()
     this.defineTextController()
     this.defineAlignedController()
+    this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default()
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default()
     const mountEl = document.getElementById(this.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -13771,7 +13774,7 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$textC = this.textC
   }
 
   /**
@@ -13779,7 +13782,15 @@ class AppController {
    */
   defineAlignedController () {
     this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedC = this.alignedC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$alignedC = this.alignedC
+  }
+
+  /**
+   * Creates HistoryController and attaches to Vue components
+   */
+  defineHistoryController () {
+    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -13787,18 +13798,18 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.bundleArr([
-        [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_5__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
-        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_6__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
-        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
-        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
-        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_US],
-        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_4__.default.en_GB]
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.bundleArr([
+        [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_6__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US],
+        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_7__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US],
+        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_8__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US],
+        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US],
+        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US],
+        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_GB]
       ])
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -13870,6 +13881,62 @@ class DownloadController {
 
     const fileName = `alignment-${data.originDocSource.lang}-${data.targetDocSource.lang}`
     return _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/controllers/history-controller.js":
+/*!***********************************************!*\
+  !*** ./lib/controllers/history-controller.js ***!
+  \***********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ HistoryController
+/* harmony export */ });
+class HistoryController {
+  /**
+   * Starts saving history for the alignment
+   * @param {Alignment} alignment
+   */
+  startTracking (alignment) {
+    this.alignment = alignment
+  }
+
+  /**
+   * Step back
+   */
+  undo () {
+    this.undoInActiveGroup()
+  }
+
+  /**
+   * Step forward
+   */
+  redo () {
+    this.redoInActiveGroup()
+  }
+
+  /**
+   * Step back inside active group
+   */
+  undoInActiveGroup () {
+    this.alignment.undoInActiveGroup()
+  }
+
+  /**
+   * Step forward inside active group
+   */
+  redoInActiveGroup () {
+    this.alignment.redoInActiveGroup()
   }
 }
 
@@ -14020,6 +14087,10 @@ class TokenizeController {
     }
   }
 
+  /**
+   * Selects correct tokenizer method by its name
+   * @param {String} tokenizer - workflow's name
+   */
   static getTokenizer (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer]
@@ -14195,6 +14266,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment-step */ "./lib/data/alignment-step.js");
+
 
 
 class AlignmentGroup {
@@ -14208,7 +14281,7 @@ class AlignmentGroup {
     this.origin = []
     this.target = []
     this.steps = []
-    this.firstStep = null
+    this.firstStepToken = null
     if (token) { this.add(token) }
   }
 
@@ -14223,9 +14296,9 @@ class AlignmentGroup {
     }
 
     this[token.textType].push(token.idWord)
-    this.steps.push({ textType: token.textType, idWord: token.idWord, type: 'add' })
+    this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'add'))
 
-    this.defineFirstStep()
+    this.defineFirstStepToken()
     return true
   }
 
@@ -14243,8 +14316,8 @@ class AlignmentGroup {
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.steps.push({ textType: token.textType, idWord: token.idWord, type: 'remove' })
-      this.defineFirstStep()
+      this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'remove'))
+      this.defineFirstStepToken()
       return true
     }
     return false
@@ -14255,23 +14328,23 @@ class AlignmentGroup {
    * @returns { Boolean } true - first step should be updated, false - first step is correct
    */
   get fistStepNeedToBeUpdated () {
-    return !this.firstStep || !this.includesToken(this.firstStep.idWord)
+    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
   }
 
   /**
    * Finds the first token in the steps that is yet included in group, and updates firstStep
    */
-  defineFirstStep () {
+  defineFirstStepToken () {
     if (this.fistStepNeedToBeUpdated) {
-      let firstStep = null
+      let firstStepToken = null
       for (let i = 0; i < this.steps.length; i++) {
-        if (this.includesToken(this.steps[i].idWord)) {
-          firstStep = { textType: this.steps[i].textType, idWord: this.steps[i].idWord }
+        if (this.includesToken(this.steps[i].token)) {
+          firstStepToken = this.steps[i].token
           break
         }
       }
 
-      this.updateFirstStep(firstStep)
+      this.updateFirstStepToken(firstStepToken)
     }
   }
 
@@ -14300,8 +14373,8 @@ class AlignmentGroup {
    * @param {String} Token.idWord
    * @returns {Boolean} true - if is in group, false - not
    */
-  includesToken (idWord) {
-    return this.origin.includes(idWord) || this.target.includes(idWord)
+  includesToken (token) {
+    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
   }
 
   /**
@@ -14310,7 +14383,7 @@ class AlignmentGroup {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token) {
-    return this.firstStep.idWord === token.idWord
+    return this.firstStepToken.idWord === token.idWord
   }
 
   /**
@@ -14319,18 +14392,18 @@ class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.firstStep.textType === token.textType
+    return this.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   /**
    * Update first step with passed token, it is used when we want to activate previously saved alignment group
    * @param {Token} token
    */
-  updateFirstStep (token) {
-    if (token && this.includesToken(token.idWord)) {
-      this.firstStep = { textType: token.textType, idWord: token.idWord }
+  updateFirstStepToken (token) {
+    if (token && this.includesToken(token)) {
+      this.firstStepToken = token
     } else {
-      this.firstStep = null
+      this.firstStepToken = null
     }
   }
 
@@ -14343,13 +14416,90 @@ class AlignmentGroup {
     this.target.push(...tokensGroup.target)
 
     tokensGroup.origin.forEach(idWord => {
-      this.steps.push({ textType: 'origin', idWord: idWord, type: 'merge' })
+      const token = tokensGroup.findTokenByIdWord(idWord)
+      if (token) {
+        this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'merge'))
+      }
     })
 
     tokensGroup.target.forEach(idWord => {
-      this.steps.push({ textType: 'target', idWord: idWord, type: 'merge' })
+      const token = tokensGroup.findTokenByIdWord(idWord)
+      if (token) {
+        this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'merge'))
+      }
     })
     return true
+  }
+
+  /**
+   * Finds token with the given idWord using steps
+   * @param {String} idWord
+   */
+  findTokenByIdWord (idWord) {
+    const step = this.steps.find(step => step.idWord === idWord)
+    return step ? step.token : null
+  }
+
+  /**
+   * Step back
+   */
+  undo () {
+    /*
+    if (this.steps.length > 1) {
+      const prevStep = this.steps[this.steps.length - 1]
+      const resultStep = this.defineUndoStep(prevStep)
+    } else {
+      console.error('There is only one step in history')
+    }
+    */
+  }
+
+  defineUndoStep (step) {
+    const undoTypes = {
+      add: 'remove',
+      remove: 'add'
+    }
+    return { textType: step.textType, idWord: step.idWord, type: undoTypes[step.type] }
+  }
+
+  /**
+   * Step forward
+   */
+  redo () {
+
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/alignment-step.js":
+/*!************************************!*\
+  !*** ./lib/data/alignment-step.js ***!
+  \************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ AlignmentStep
+/* harmony export */ });
+class AlignmentStep {
+  constructor (token, type) {
+    this.token = token
+    this.type = type
+  }
+
+  get textType () {
+    return this.token.textType
+  }
+
+  get idWord () {
+    return this.token.idWord
   }
 }
 
@@ -14561,7 +14711,7 @@ class Alignment {
    * @returns {Boolean} true - if token was added, false - not
    */
   addToAlignmentGroup (token) {
-    if (this.activeAlignmentGroup && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
+    if (this.hasActiveAlignment && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -14575,7 +14725,7 @@ class Alignment {
    * @returns {Boolean} true - if token was removed, false - not
    */
   removeFromAlignmentGroup (token) {
-    if (this.activeAlignmentGroup && this.tokenInActiveGroup(token)) {
+    if (this.hasActiveAlignment && this.tokenInActiveGroup(token)) {
       this.activeAlignmentGroup.remove(token)
       this.removeFromAlignmentIds(token.idWord)
       return true
@@ -14589,7 +14739,7 @@ class Alignment {
    * @returns {Boolean} true - if active alignment group was saved and closed, false - not
    */
   finishActiveAlignmentGroup () {
-    if (this.activeAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
+    if (this.hasActiveAlignment && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
       this.activeAlignmentGroup = null
@@ -14601,13 +14751,13 @@ class Alignment {
   /**
    * Finds Alignment Group by token, if token is grouped in some alignment group
    * @param {Token} token
-   * @returns {AlignmentGroup | false}
+   * @returns {AlignmentGroup | Null}
    */
   findAlignmentGroup (token) {
     if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token.idWord)) : false
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token)) : null
     }
-    return false
+    return null
   }
 
   /**
@@ -14665,7 +14815,7 @@ class Alignment {
    * @returns {Boolean} yes - if token is in the active alignment group, false - is not
    */
   tokenInActiveGroup (token) {
-    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token.idWord)
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
   }
 
   /**
@@ -14696,7 +14846,7 @@ class Alignment {
     const tokensGroup = this.findAlignmentGroup(token)
     if (tokensGroup) {
       this.activeAlignmentGroup = tokensGroup
-      this.activeAlignmentGroup.updateFirstStep(token)
+      this.activeAlignmentGroup.updateFirstStepToken(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
       return true
     }
@@ -14710,13 +14860,31 @@ class Alignment {
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token) {
-    if (this.activeAlignmentGroup && this.tokenIsGrouped(token)) {
+    if (this.hasActiveAlignment && this.tokenIsGrouped(token)) {
       const tokensGroup = this.findAlignmentGroup(token)
       this.removeGroupFromAlignmentIds(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup)
       return true
     }
     return false
+  }
+
+  /**
+   * Step back inside active group
+   */
+  undoInActiveGroup () {
+    if (this.hasActiveAlignment) {
+      this.activeAlignmentGroup.undo()
+    }
+  }
+
+  /**
+   * Step forward inside active group
+   */
+  redoInActiveGroup () {
+    if (this.hasActiveAlignment) {
+      this.activeAlignmentGroup.redo()
+    }
   }
 }
 
@@ -15999,14 +16167,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    clickWord () {
-      this.$emit('clickWord', this.textWord)
+    clickToken () {
+      this.$emit('click-token', this.textWord)
     },
-    addHoverWord () {
-      this.$emit('addHoverWord', this.textWord)
+    addHoverToken () {
+      this.$emit('add-hover-token', this.textWord)
     },
-    removeHoverWord () {
-      this.$emit('removeHoverWord', this.textWord)
+    removeHoverToken () {
+      this.$emit('remove-hover-token', this.textWord)
     }
   }
 });
@@ -16032,6 +16200,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
 /* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
 /* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
+//
+//
 //
 //
 //
@@ -16117,7 +16287,18 @@ __webpack_require__.r(__webpack_exports__);
       this.updateOriginTextEditor()
       this.updateTargetTextEditor()
     },
-
+    /**
+     * Starts redo action
+     */
+    redoAction () {
+      this.$historyC.redo()
+    },
+    /**
+     * Starts undo action
+     */
+    undoAction () {
+      this.$historyC.undo()
+    },
     /**
      * Starts align workflow
      */
@@ -16149,6 +16330,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
 //
 //
 //
@@ -16469,6 +16652,7 @@ __webpack_require__.r(__webpack_exports__);
    */
   created () {
     this.$textC.createAlignment()
+    this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
     /**
@@ -17359,9 +17543,9 @@ var render = function() {
                     _vm.updated && _vm.isFirstInActiveGroup(token)
                 },
                 on: {
-                  clickWord: _vm.clickWord,
-                  addHoverWord: _vm.addHoverWord,
-                  removeHoverWord: _vm.removeHoverWord
+                  "click-token": _vm.clickToken,
+                  "add-hover-token": _vm.addHoverToken,
+                  "remove-hover-token": _vm.removeHoverToken
                 }
               })
             : _vm._e(),
@@ -17513,10 +17697,10 @@ var render = function() {
       on: {
         click: function($event) {
           $event.stopPropagation()
-          return _vm.clickWord($event)
+          return _vm.clickToken($event)
         },
-        mouseover: _vm.addHoverWord,
-        mouseout: _vm.removeHoverWord
+        mouseover: _vm.addHoverToken,
+        mouseout: _vm.removeHoverToken
       }
     },
     [
@@ -17569,7 +17753,9 @@ var render = function() {
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
-          "align-texts": _vm.alignTexts
+          "align-texts": _vm.alignTexts,
+          "redo-action": _vm.redoAction,
+          "undo-action": _vm.undoAction
         }
       }),
       _vm._v(" "),
@@ -17658,6 +17844,34 @@ var render = function() {
             }
           },
           [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")))]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: { id: "alpheios-main-menu-redo" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("redo-action")
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_REDO_TITLE")))]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: { id: "alpheios-main-menu-undo" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("undo-action")
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_UNDO_TITLE")))]
         )
       ]),
       _vm._v(" "),
@@ -19379,6 +19593,16 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   other exports [not provided] [no usage info] */
+/*! export MAIN_MENU_REDO_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export MAIN_MENU_UNDO_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export MAIN_MENU_UPLOAD_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -19389,7 +19613,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
 
 /***/ }),
 

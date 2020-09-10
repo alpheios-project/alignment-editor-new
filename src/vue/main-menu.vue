@@ -4,6 +4,8 @@
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-download" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-upload" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-align" @click="$emit('align-texts')" >{{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-redo" @click="$emit('redo-action')" >{{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-undo" @click="$emit('undo-action')" >{{ l10n.getMsgS('MAIN_MENU_UNDO_TITLE') }}</button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock">
         <input type="file" @change="loadTextFromFile">

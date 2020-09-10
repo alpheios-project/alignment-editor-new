@@ -22,6 +22,7 @@ describe('align-editor-single-block.test.js', () => {
     appC.defineL10Support()
     appC.defineTextController()
     appC.defineAlignedController()
+    appC.defineHistoryController()
   
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
