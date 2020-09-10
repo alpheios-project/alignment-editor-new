@@ -14282,6 +14282,7 @@ class AlignmentGroup {
     this.target = []
     this.steps = []
     this.firstStepToken = null
+    this.currentStepIndex = null
     if (token) { this.add(token) }
   }
 
@@ -14299,6 +14300,7 @@ class AlignmentGroup {
     this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'add'))
 
     this.defineFirstStepToken()
+    this.defineCurrentStepIndex()
     return true
   }
 
@@ -14318,6 +14320,7 @@ class AlignmentGroup {
       this[token.textType].splice(tokenIndex, 1)
       this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'remove'))
       this.defineFirstStepToken()
+      this.defineCurrentStepIndex()
       return true
     }
     return false
@@ -14346,6 +14349,10 @@ class AlignmentGroup {
 
       this.updateFirstStepToken(firstStepToken)
     }
+  }
+
+  defineCurrentStepIndex () {
+    this.currentStepIndex = this.steps.length - 1
   }
 
   /**
@@ -14428,6 +14435,7 @@ class AlignmentGroup {
         this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'merge'))
       }
     })
+    this.defineCurrentStepIndex()
     return true
   }
 
@@ -14444,29 +14452,72 @@ class AlignmentGroup {
    * Step back
    */
   undo () {
-    /*
-    if (this.steps.length > 1) {
-      const prevStep = this.steps[this.steps.length - 1]
-      const resultStep = this.defineUndoStep(prevStep)
+    if (this.steps.length > 1 && this.currentStepIndex > 0) {
+      this.alignToStep(this.currentStepIndex - 1)
+      this.currentStepIndex = this.currentStepIndex - 1
     } else {
       console.error('There is only one step in history')
     }
-    */
   }
 
-  defineUndoStep (step) {
-    const undoTypes = {
-      add: 'remove',
-      remove: 'add'
+  alignToStep (stepIndex) {
+    if (this.currentStepIndex > stepIndex) {
+      for (let i = this.currentStepIndex; i > stepIndex; i--) {
+        this.removeStepAction(i)
+      }
+    } else if (this.currentStepIndex < stepIndex) {
+      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
+        this.applyStepAction(i)
+      }
     }
-    return { textType: step.textType, idWord: step.idWord, type: undoTypes[step.type] }
+  }
+
+  removeStepAction (stepIndex) {
+    const step = this.steps[stepIndex]
+    const token = step.token
+    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    switch (step.type) {
+      case 'add' :
+        this[token.textType].splice(tokenIndex, 1)
+        break
+      case 'remove' :
+        this[token.textType].push(token.idWord)
+        break
+      default :
+        console.error(`Undo for the type ${step.type} is not defined yet`)
+        break
+    }
+  }
+
+  applyStepAction (stepIndex) {
+    const step = this.steps[stepIndex]
+    const token = step.token
+    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    switch (step.type) {
+      case 'add' :
+        this[token.textType].push(token.idWord)
+        break
+      case 'remove' :
+        this[token.textType].splice(tokenIndex, 1)
+        break
+      default :
+        console.error(`Redo for the type ${step.type} is not defined yet`)
+        break
+    }
   }
 
   /**
    * Step forward
    */
   redo () {
-
+    if (this.currentStepIndex < (this.steps.length - 1)) {
+      this.alignToStep(this.currentStepIndex + 1)
+      this.currentStepIndex = this.currentStepIndex + 1
+    } else {
+      console.error('There are no steps to go forward')
+    }
   }
 }
 
@@ -15990,6 +16041,10 @@ __webpack_require__.r(__webpack_exports__);
     showEditor: {
       type: Number,
       required: false
+    },
+    cssUpdate: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -16009,6 +16064,12 @@ __webpack_require__.r(__webpack_exports__);
       this.showAlignBlocks = true
       this.updateOriginEditor()
       this.updateTargetEditor()
+    },
+    /**
+     * Controlls if showEditor changes, then showAlignBlocs would be set to truth
+     */
+    cssUpdate () {
+      this.updateTokenClasses()
     }
   },
   computed: {
@@ -16219,6 +16280,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -16238,7 +16300,8 @@ __webpack_require__.r(__webpack_exports__);
       originAlignedUpdated: 0,
       targetAlignedUpdated: 0,
       hideTextEditor: 0,
-      showAlignEditor: 0
+      showAlignEditor: 0,
+      cssUpdate: 1
     }
   },
   computed: {
@@ -16273,6 +16336,13 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
+     *  Updates property to show AlignEditor
+     */
+    cssUpdateM () {
+      this.cssUpdate = this.cssUpdate + 1
+    },
+
+    /**
      * Starts download workflow
      */
     downloadData () {
@@ -16292,12 +16362,14 @@ __webpack_require__.r(__webpack_exports__);
      */
     redoAction () {
       this.$historyC.redo()
+      this.cssUpdateM()
     },
     /**
      * Starts undo action
      */
     undoAction () {
       this.$historyC.undo()
+      this.cssUpdateM()
     },
     /**
      * Starts align workflow
@@ -17767,7 +17839,12 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } })
+      _c("align-editor", {
+        attrs: {
+          "show-editor": _vm.showAlignEditor,
+          "css-update": _vm.cssUpdate
+        }
+      })
     ],
     1
   )

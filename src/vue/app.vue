@@ -14,6 +14,7 @@
       />
       <align-editor 
         :show-editor = "showAlignEditor"
+        :css-update = "cssUpdate"
       />
   </div>
 </template>
@@ -36,7 +37,8 @@ export default {
       originAlignedUpdated: 0,
       targetAlignedUpdated: 0,
       hideTextEditor: 0,
-      showAlignEditor: 0
+      showAlignEditor: 0,
+      cssUpdate: 1
     }
   },
   computed: {
@@ -71,6 +73,13 @@ export default {
     },
 
     /**
+     *  Updates property to show AlignEditor
+     */
+    cssUpdateM () {
+      this.cssUpdate = this.cssUpdate + 1
+    },
+
+    /**
      * Starts download workflow
      */
     downloadData () {
@@ -90,12 +99,14 @@ export default {
      */
     redoAction () {
       this.$historyC.redo()
+      this.cssUpdateM()
     },
     /**
      * Starts undo action
      */
     undoAction () {
       this.$historyC.undo()
+      this.cssUpdateM()
     },
     /**
      * Starts align workflow
@@ -118,4 +129,4 @@ export default {
         padding: 0;
       }
     }
-</style>
+</style> 

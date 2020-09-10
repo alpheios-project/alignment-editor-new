@@ -13,6 +13,7 @@ export default class AlignmentGroup {
     this.target = []
     this.steps = []
     this.firstStepToken = null
+    this.currentStepIndex = null
     if (token) { this.add(token) }
   }
 
@@ -30,6 +31,7 @@ export default class AlignmentGroup {
     this.steps.push(new AlignmentStep(token, 'add'))
 
     this.defineFirstStepToken()
+    this.defineCurrentStepIndex()
     return true
   }
 
@@ -49,6 +51,7 @@ export default class AlignmentGroup {
       this[token.textType].splice(tokenIndex, 1)
       this.steps.push(new AlignmentStep(token, 'remove'))
       this.defineFirstStepToken()
+      this.defineCurrentStepIndex()
       return true
     }
     return false
@@ -77,6 +80,10 @@ export default class AlignmentGroup {
 
       this.updateFirstStepToken(firstStepToken)
     }
+  }
+
+  defineCurrentStepIndex () {
+    this.currentStepIndex = this.steps.length - 1
   }
 
   /**
@@ -159,6 +166,7 @@ export default class AlignmentGroup {
         this.steps.push(new AlignmentStep(token, 'merge'))
       }
     })
+    this.defineCurrentStepIndex()
     return true
   }
 
@@ -175,28 +183,71 @@ export default class AlignmentGroup {
    * Step back
    */
   undo () {
-    /*
-    if (this.steps.length > 1) {
-      const prevStep = this.steps[this.steps.length - 1]
-      const resultStep = this.defineUndoStep(prevStep)
+    if (this.steps.length > 1 && this.currentStepIndex > 0) {
+      this.alignToStep(this.currentStepIndex - 1)
+      this.currentStepIndex = this.currentStepIndex - 1
     } else {
       console.error('There is only one step in history')
     }
-    */
   }
 
-  defineUndoStep (step) {
-    const undoTypes = {
-      add: 'remove',
-      remove: 'add'
+  alignToStep (stepIndex) {
+    if (this.currentStepIndex > stepIndex) {
+      for (let i = this.currentStepIndex; i > stepIndex; i--) {
+        this.removeStepAction(i)
+      }
+    } else if (this.currentStepIndex < stepIndex) {
+      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
+        this.applyStepAction(i)
+      }
     }
-    return { textType: step.textType, idWord: step.idWord, type: undoTypes[step.type] }
+  }
+
+  removeStepAction (stepIndex) {
+    const step = this.steps[stepIndex]
+    const token = step.token
+    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    switch (step.type) {
+      case 'add' :
+        this[token.textType].splice(tokenIndex, 1)
+        break
+      case 'remove' :
+        this[token.textType].push(token.idWord)
+        break
+      default :
+        console.error(`Undo for the type ${step.type} is not defined yet`)
+        break
+    }
+  }
+
+  applyStepAction (stepIndex) {
+    const step = this.steps[stepIndex]
+    const token = step.token
+    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    switch (step.type) {
+      case 'add' :
+        this[token.textType].push(token.idWord)
+        break
+      case 'remove' :
+        this[token.textType].splice(tokenIndex, 1)
+        break
+      default :
+        console.error(`Redo for the type ${step.type} is not defined yet`)
+        break
+    }
   }
 
   /**
    * Step forward
    */
   redo () {
-
+    if (this.currentStepIndex < (this.steps.length - 1)) {
+      this.alignToStep(this.currentStepIndex + 1)
+      this.currentStepIndex = this.currentStepIndex + 1
+    } else {
+      console.error('There are no steps to go forward')
+    }
   }
 }
