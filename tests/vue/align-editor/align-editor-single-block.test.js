@@ -218,7 +218,7 @@ describe('align-editor-single-block.test.js', () => {
     })
 
     const token1 = new Token({
-      textType: 'some', idWord: 'L1:1-2', word: 'some'})
+      textType: 'origin', idWord: 'L1:1-2', word: 'some'})
 
     const token2 = new Token({
       textType: 'target', idWord: 'L2:1-2', word: 'some'})
@@ -244,7 +244,7 @@ describe('align-editor-single-block.test.js', () => {
     })
 
     const token1 = new Token({
-      textType: 'some', idWord: 'L1:1-2', word: 'some'})
+      textType: 'origin', idWord: 'L1:1-2', word: 'some'})
 
     const token2 = new Token({
       textType: 'target', idWord: 'L2:1-2', word: 'some'})

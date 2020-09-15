@@ -48,6 +48,7 @@ describe('text-editor.test.js', () => {
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
     expect(cmp.vm.$textC.alignment).toEqual(expect.any(Alignment))
+    expect(cmp.vm.$historyC.alignment).toEqual(expect.any(Alignment))
   })
 
   it('4 TextEditor - showTextsBlocks defines visibiity for text blocks and could be changed using props from parent', async () => {

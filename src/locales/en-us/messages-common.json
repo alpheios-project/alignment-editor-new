@@ -56,6 +56,16 @@
       "message": "Uploaded file has wrong format for the type - plainSourceUploadFromFile.",
       "description": "An error message for upload workflow",
       "component": "UploadController"
+    },
+    "ALIGNMENT_GROUP_UNDO_ERROR": {
+      "message": "There are no steps to be undone - only one step in history.",
+      "description": "An error message for undo workflow",
+      "component": "AlignmentGroup"
+    },
+    "ALIGNMENT_GROUP_REDO_ERROR": {
+      "message": "There are no steps to be redone - no steps forward in history.",
+      "description": "An error message for redo workflow",
+      "component": "AlignmentGroup"
     }
 
     
