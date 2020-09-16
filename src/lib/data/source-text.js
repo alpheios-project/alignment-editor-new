@@ -1,3 +1,5 @@
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
 export default class SourceText {
   /**
    *
@@ -45,7 +47,7 @@ export default class SourceText {
    */
   static convertFromJSON (textType, jsonData) {
     if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
-      console.error('Json file doesn\'t have all obligatory fields. Source Text won\'t be created.')
+      console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       return false
     }
 

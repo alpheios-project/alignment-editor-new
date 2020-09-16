@@ -14321,7 +14321,7 @@ class AlignmentGroup {
   }
 
   /**
-   * @returns {Number} amount of toens saved in the group
+   * @returns {Number} amount of tokens saved in the group
    */
   get groupLen () {
     return this.origin.length + this.target.length
@@ -14589,6 +14589,11 @@ class AlignmentGroup {
    */
   removeStepAction (stepIndex) {
     const step = this.steps[stepIndex]
+
+    if (!step.hasValidType) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
+      return
+    }
     const token = step.token
 
     let tokenIndex
@@ -14605,9 +14610,6 @@ class AlignmentGroup {
         break
       case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE :
         return this.unmerge(step)
-      default :
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
-        break
     }
   }
 
@@ -14617,6 +14619,11 @@ class AlignmentGroup {
    */
   applyStepAction (stepIndex) {
     const step = this.steps[stepIndex]
+
+    if (!step.hasValidType) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
+      return
+    }
     const token = step.token
     let tokenIndex
     if (step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD || step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE) {
@@ -14633,9 +14640,6 @@ class AlignmentGroup {
       case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE:
         this.origin.push(...step.token.origin)
         this.target.push(...step.token.target)
-        break
-      default :
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
         break
     }
   }
@@ -14691,6 +14695,10 @@ class AlignmentStep {
    */
   get idWord () {
     return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.idWord : null
+  }
+
+  get hasValidType () {
+    return Object.values(AlignmentStep.types).includes(this.type)
   }
 }
 
@@ -15224,7 +15232,7 @@ class Langs {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15232,6 +15240,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ SourceText
 /* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+
+
 class SourceText {
   /**
    *
@@ -15279,7 +15290,7 @@ class SourceText {
    */
   static convertFromJSON (textType, jsonData) {
     if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
-      console.error('Json file doesn\'t have all obligatory fields. Source Text won\'t be created.')
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       return false
     }
 
@@ -19289,6 +19300,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     other exports [not provided] [no usage info] */
 /*!   other exports [not provided] [no usage info] */
+/*! export SOURCE_TEXT_CONVERT_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export TEXTS_CONTROLLER_EMPTY_FILE_DATA [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -19325,7 +19341,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR\":{\"message\":\"Undo for the type {type} is not defined yet.\",\"description\":\"An error message for remove step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR\":{\"message\":\"Redo for the type {type} is not defined yet.\",\"description\":\"An error message for apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR\":{\"message\":\"Undo for the type {type} is not defined yet.\",\"description\":\"An error message for remove step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR\":{\"message\":\"Redo for the type {type} is not defined yet.\",\"description\":\"An error message for apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
 
 /***/ }),
 

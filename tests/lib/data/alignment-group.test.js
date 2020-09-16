@@ -581,6 +581,7 @@ describe('alignment-group.test.js', () => {
 
     alGroup1.undo()
 
+
     expect(alGroup1.groupLen).toEqual(1)
     expect(alGroup1.steps.length).toEqual(2)
 
@@ -597,6 +598,7 @@ describe('alignment-group.test.js', () => {
 
     expect(alGroup1.steps[1]).toHaveProperty('token', token3)
     expect(alGroup1.steps[1]).toHaveProperty('type', 'add')
+
   })
 
   it('28 AlignmentGroup - remove method - would remove undone steps, if we add a new token to a group', () => {
@@ -903,6 +905,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.includesToken(token4)).toBeTruthy()
 
   })
+
 })
 
 

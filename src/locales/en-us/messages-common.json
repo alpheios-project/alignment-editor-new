@@ -78,6 +78,11 @@
       "description": "An error message for apply step process",
       "component": "AlignmentGroup",
       "params": ["type"]
+    },
+    "SOURCE_TEXT_CONVERT_ERROR": {
+      "message": "Json file doesn't have all obligatory fields. Source Text won't be created.",
+      "description": "An error message for converting from JSON process",
+      "component": "SourceText"
     }
 
     

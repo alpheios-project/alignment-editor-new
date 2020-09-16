@@ -28,6 +28,10 @@ export default class AlignmentStep {
   get idWord () {
     return this.token instanceof Token ? this.token.idWord : null
   }
+
+  get hasValidType () {
+    return Object.values(AlignmentStep.types).includes(this.type)
+  }
 }
 
 AlignmentStep.types = {

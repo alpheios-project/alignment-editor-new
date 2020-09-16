@@ -20,7 +20,7 @@ export default class AlignmentGroup {
   }
 
   /**
-   * @returns {Number} amount of toens saved in the group
+   * @returns {Number} amount of tokens saved in the group
    */
   get groupLen () {
     return this.origin.length + this.target.length
@@ -288,6 +288,11 @@ export default class AlignmentGroup {
    */
   removeStepAction (stepIndex) {
     const step = this.steps[stepIndex]
+
+    if (!step.hasValidType) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
+      return
+    }
     const token = step.token
 
     let tokenIndex
@@ -304,9 +309,6 @@ export default class AlignmentGroup {
         break
       case AlignmentStep.types.MERGE :
         return this.unmerge(step)
-      default :
-        console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
-        break
     }
   }
 
@@ -316,6 +318,11 @@ export default class AlignmentGroup {
    */
   applyStepAction (stepIndex) {
     const step = this.steps[stepIndex]
+
+    if (!step.hasValidType) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
+      return
+    }
     const token = step.token
     let tokenIndex
     if (step.type === AlignmentStep.types.ADD || step.type === AlignmentStep.types.REMOVE) {
@@ -332,9 +339,6 @@ export default class AlignmentGroup {
       case AlignmentStep.types.MERGE:
         this.origin.push(...step.token.origin)
         this.target.push(...step.token.target)
-        break
-      default :
-        console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
         break
     }
   }
