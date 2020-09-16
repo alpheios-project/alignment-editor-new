@@ -40,6 +40,12 @@
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },
+    "ALIGNMENT_ERROR_ACTIVATE_BY_INDEX": {
+      "message": "Passed index is out of the group list bounds - {index}",
+      "description": "An error message for alignment workflow",
+      "component": "Alignment",
+      "params": ["index"]
+    },
     "TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED": {
       "message": "Tokenizer method {tokenizer} is not registered",
       "description": "An error message for tokenization workflow",

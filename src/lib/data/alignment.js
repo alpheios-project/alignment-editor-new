@@ -343,6 +343,10 @@ export default class Alignment {
    * @returns {Boolean} - true - group was activated, false - not
    */
   activateGroupByGroupIndex (tokensGroupIndex) {
+    if (tokensGroupIndex >= this.alignmentGroups.length) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX'), { tokensGroupIndex })
+      return
+    }
     const tokensGroup = this.alignmentGroups[tokensGroupIndex]
     return this.activateGroup(tokensGroup)
   }

@@ -12,7 +12,7 @@ export default class HistoryController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get redoAvailable () {
-    return Boolean(this.alignment) && ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) || (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
   }
 
   /**
