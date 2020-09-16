@@ -45,7 +45,6 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      console.info('alignAvailable - ', this.cssUpdate, this.$alignedC)
       return Boolean(this.cssUpdate) && this.$textC.couldStartAlign
     },
     undoAvailable () {

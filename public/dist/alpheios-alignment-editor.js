@@ -16693,7 +16693,6 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignAvailable () {
-      console.info('alignAvailable - ', this.cssUpdate, this.$alignedC)
       return Boolean(this.cssUpdate) && this.$textC.couldStartAlign
     },
     undoAvailable () {
