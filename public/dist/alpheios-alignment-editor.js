@@ -14594,23 +14594,20 @@ class AlignmentGroup {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
       return
     }
-    const token = step.token
 
-    let tokenIndex
-    if (step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD || step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE) {
-      tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+    const actions = {}
+    actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD] = (step) => {
+      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
+      this[step.token.textType].splice(tokenIndex, 1)
+    }
+    actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE] = (step) => {
+      this[step.token.textType].push(step.token.idWord)
+    }
+    actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE] = (step) => {
+      this.unmerge(step)
     }
 
-    switch (step.type) {
-      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD :
-        this[token.textType].splice(tokenIndex, 1)
-        break
-      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE :
-        this[token.textType].push(token.idWord)
-        break
-      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE :
-        return this.unmerge(step)
-    }
+    return actions[step.type](step)
   }
 
   /**
@@ -14624,24 +14621,21 @@ class AlignmentGroup {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
       return
     }
-    const token = step.token
-    let tokenIndex
-    if (step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD || step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE) {
-      tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    const actions = {}
+    actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD] = (step) => {
+      this[step.token.textType].push(step.token.idWord)
+    }
+    actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE] = (step) => {
+      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
+      this[step.token.textType].splice(tokenIndex, 1)
+    }
+    actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE] = (step) => {
+      this.origin.push(...step.token.origin)
+      this.target.push(...step.token.target)
     }
 
-    switch (step.type) {
-      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD :
-        this[token.textType].push(token.idWord)
-        break
-      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE :
-        this[token.textType].splice(tokenIndex, 1)
-        break
-      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE:
-        this.origin.push(...step.token.origin)
-        this.target.push(...step.token.target)
-        break
-    }
+    return actions[step.type](step)
   }
 }
 

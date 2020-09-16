@@ -293,23 +293,20 @@ export default class AlignmentGroup {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
       return
     }
-    const token = step.token
 
-    let tokenIndex
-    if (step.type === AlignmentStep.types.ADD || step.type === AlignmentStep.types.REMOVE) {
-      tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+    const actions = {}
+    actions[AlignmentStep.types.ADD] = (step) => {
+      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
+      this[step.token.textType].splice(tokenIndex, 1)
+    }
+    actions[AlignmentStep.types.REMOVE] = (step) => {
+      this[step.token.textType].push(step.token.idWord)
+    }
+    actions[AlignmentStep.types.MERGE] = (step) => {
+      return this.unmerge(step)
     }
 
-    switch (step.type) {
-      case AlignmentStep.types.ADD :
-        this[token.textType].splice(tokenIndex, 1)
-        break
-      case AlignmentStep.types.REMOVE :
-        this[token.textType].push(token.idWord)
-        break
-      case AlignmentStep.types.MERGE :
-        return this.unmerge(step)
-    }
+    return actions[step.type](step)
   }
 
   /**
@@ -323,23 +320,20 @@ export default class AlignmentGroup {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
       return
     }
-    const token = step.token
-    let tokenIndex
-    if (step.type === AlignmentStep.types.ADD || step.type === AlignmentStep.types.REMOVE) {
-      tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
+
+    const actions = {}
+    actions[AlignmentStep.types.ADD] = (step) => {
+      this[step.token.textType].push(step.token.idWord)
+    }
+    actions[AlignmentStep.types.REMOVE] = (step) => {
+      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
+      this[step.token.textType].splice(tokenIndex, 1)
+    }
+    actions[AlignmentStep.types.MERGE] = (step) => {
+      this.origin.push(...step.token.origin)
+      this.target.push(...step.token.target)
     }
 
-    switch (step.type) {
-      case AlignmentStep.types.ADD :
-        this[token.textType].push(token.idWord)
-        break
-      case AlignmentStep.types.REMOVE :
-        this[token.textType].splice(tokenIndex, 1)
-        break
-      case AlignmentStep.types.MERGE:
-        this.origin.push(...step.token.origin)
-        this.target.push(...step.token.target)
-        break
-    }
+    return actions[step.type](step)
   }
 }

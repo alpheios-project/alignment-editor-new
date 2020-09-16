@@ -783,5 +783,6 @@ describe('alignment.test.js', () => {
     expect(alignment.undoneGroups.length).toEqual(0)
     expect(alignment.activeAlignmentGroup).toEqual(alGroup)
   })
+
 })
 

@@ -11,7 +11,7 @@
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/history-controller.test.js --coverage",
     "test-b": "jest tests/vue/align-editor/align-editor-single-block.test.js --coverage",
-    "test-c": "jest tests/lib/data/alignment-group.test.js --coverage"
+    "test-c": "jest tests/lib/data/alignment.test.js --coverage"
   },
   "repository": {
     "type": "git",
