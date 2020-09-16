@@ -14308,7 +14308,16 @@ class AlignmentGroup {
    * @returns {Boolean} true - there are no undone steps inside the group, false - there are steps that could be redo
    */
   get currentStepOnLast () {
-    return (typeof this.currentStepIndex !== 'undefined') && (this.currentStepIndex === this.steps.length - 1)
+    return (this.currentStepIndex !== null) && (this.currentStepIndex === this.steps.length - 1)
+  }
+
+  /**
+   * Truncates steps to the currentStepIndex
+   */
+  truncateSteps () {
+    if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
+      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
+    }
   }
 
   /**
@@ -14321,12 +14330,10 @@ class AlignmentGroup {
       return false
     }
 
-    if (!this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
+    this.truncateSteps()
 
     this[token.textType].push(token.idWord)
-    this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'add'))
+    this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD))
 
     this.defineFirstStepToken()
     this.defineCurrentStepIndex()
@@ -14343,15 +14350,13 @@ class AlignmentGroup {
       return false
     }
 
-    if (!this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
+    this.truncateSteps()
 
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, 'remove'))
+      this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(token, _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE))
       this.defineFirstStepToken()
       this.defineCurrentStepIndex()
       return true
@@ -14363,7 +14368,7 @@ class AlignmentGroup {
    * Checks if first step is empty or equals to the token that was already removed
    * @returns { Boolean } true - first step should be updated, false - first step is correct
    */
-  get fistStepNeedToBeUpdated () {
+  get firstStepNeedToBeUpdated () {
     return !this.firstStepToken || !this.includesToken(this.firstStepToken)
   }
 
@@ -14371,7 +14376,7 @@ class AlignmentGroup {
    * Finds the first token in the steps that is yet included in group, and updates firstStep
    */
   defineFirstStepToken () {
-    if (this.fistStepNeedToBeUpdated) {
+    if (this.firstStepNeedToBeUpdated) {
       let firstStepToken = null
       for (let i = 0; i < this.steps.length; i++) {
         if (this.includesToken(this.steps[i].token)) {
@@ -14458,7 +14463,7 @@ class AlignmentGroup {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
 
-    this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(tokensGroup, 'merge', { indexDeleted }))
+    this.steps.push(new _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default(tokensGroup, _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE, { indexDeleted }))
     this.defineCurrentStepIndex()
   }
 
@@ -14470,7 +14475,7 @@ class AlignmentGroup {
    *          { Number } indexDeleted - place in group list
    */
   unmerge (step) {
-    const tokensGroup = step.type === 'merge' ? step.token : []
+    const tokensGroup = step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE ? step.token : []
 
     for (let i = 0; i < tokensGroup.origin.length; i++) {
       const tokenIdWord = tokensGroup.origin[i]
@@ -14563,21 +14568,21 @@ class AlignmentGroup {
     const token = step.token
 
     let tokenIndex
-    if (step.type === 'add' || step.type === 'remove') {
+    if (step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD || step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE) {
       tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
     }
 
     switch (step.type) {
-      case 'add' :
+      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD :
         this[token.textType].splice(tokenIndex, 1)
         break
-      case 'remove' :
+      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE :
         this[token.textType].push(token.idWord)
         break
-      case 'merge' :
+      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE :
         return this.unmerge(step)
       default :
-        console.error(`Undo for the type ${step.type} is not defined yet`)
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
         break
     }
   }
@@ -14590,23 +14595,23 @@ class AlignmentGroup {
     const step = this.steps[stepIndex]
     const token = step.token
     let tokenIndex
-    if (step.type === 'add' || step.type === 'remove') {
+    if (step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD || step.type === _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE) {
       tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
     }
 
     switch (step.type) {
-      case 'add' :
+      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD :
         this[token.textType].push(token.idWord)
         break
-      case 'remove' :
+      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE :
         this[token.textType].splice(tokenIndex, 1)
         break
-      case 'merge':
+      case _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE:
         this.origin.push(...step.token.origin)
         this.target.push(...step.token.target)
         break
       default :
-        console.error(`Redo for the type ${step.type} is not defined yet`)
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
         break
     }
   }
@@ -14663,6 +14668,15 @@ class AlignmentStep {
   get idWord () {
     return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.idWord : null
   }
+}
+
+AlignmentStep.types = {
+  // Step type for adding token
+  ADD: 'add',
+  // Step type for removing token
+  REMOVE: 'remove',
+  // Step type for merging with another alignment group
+  MERGE: 'merge'
 }
 
 
@@ -19149,10 +19163,26 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   other exports [not provided] [no usage info] */
+/*! export ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     other exports [not provided] [no usage info] */
+/*!   other exports [not provided] [no usage info] */
 /*! export ALIGNMENT_GROUP_UNDO_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     other exports [not provided] [no usage info] */
 /*!   other exports [not provided] [no usage info] */
 /*! export DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
@@ -19203,7 +19233,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR\":{\"message\":\"Undo for the type {type} is not defined yet.\",\"description\":\"An error message for remove step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR\":{\"message\":\"Redo for the type {type} is not defined yet.\",\"description\":\"An error message for apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]}}");
 
 /***/ }),
 

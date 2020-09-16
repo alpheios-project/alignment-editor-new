@@ -29,3 +29,12 @@ export default class AlignmentStep {
     return this.token instanceof Token ? this.token.idWord : null
   }
 }
+
+AlignmentStep.types = {
+  // Step type for adding token
+  ADD: 'add',
+  // Step type for removing token
+  REMOVE: 'remove',
+  // Step type for merging with another alignment group
+  MERGE: 'merge'
+}

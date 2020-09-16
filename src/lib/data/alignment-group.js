@@ -30,7 +30,16 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - there are no undone steps inside the group, false - there are steps that could be redo
    */
   get currentStepOnLast () {
-    return (typeof this.currentStepIndex !== 'undefined') && (this.currentStepIndex === this.steps.length - 1)
+    return (this.currentStepIndex !== null) && (this.currentStepIndex === this.steps.length - 1)
+  }
+
+  /**
+   * Truncates steps to the currentStepIndex
+   */
+  truncateSteps () {
+    if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
+      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
+    }
   }
 
   /**
@@ -43,12 +52,10 @@ export default class AlignmentGroup {
       return false
     }
 
-    if (!this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
+    this.truncateSteps()
 
     this[token.textType].push(token.idWord)
-    this.steps.push(new AlignmentStep(token, 'add'))
+    this.steps.push(new AlignmentStep(token, AlignmentStep.types.ADD))
 
     this.defineFirstStepToken()
     this.defineCurrentStepIndex()
@@ -65,15 +72,13 @@ export default class AlignmentGroup {
       return false
     }
 
-    if (!this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
+    this.truncateSteps()
 
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.steps.push(new AlignmentStep(token, 'remove'))
+      this.steps.push(new AlignmentStep(token, AlignmentStep.types.REMOVE))
       this.defineFirstStepToken()
       this.defineCurrentStepIndex()
       return true
@@ -85,7 +90,7 @@ export default class AlignmentGroup {
    * Checks if first step is empty or equals to the token that was already removed
    * @returns { Boolean } true - first step should be updated, false - first step is correct
    */
-  get fistStepNeedToBeUpdated () {
+  get firstStepNeedToBeUpdated () {
     return !this.firstStepToken || !this.includesToken(this.firstStepToken)
   }
 
@@ -93,7 +98,7 @@ export default class AlignmentGroup {
    * Finds the first token in the steps that is yet included in group, and updates firstStep
    */
   defineFirstStepToken () {
-    if (this.fistStepNeedToBeUpdated) {
+    if (this.firstStepNeedToBeUpdated) {
       let firstStepToken = null
       for (let i = 0; i < this.steps.length; i++) {
         if (this.includesToken(this.steps[i].token)) {
@@ -180,7 +185,7 @@ export default class AlignmentGroup {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
 
-    this.steps.push(new AlignmentStep(tokensGroup, 'merge', { indexDeleted }))
+    this.steps.push(new AlignmentStep(tokensGroup, AlignmentStep.types.MERGE, { indexDeleted }))
     this.defineCurrentStepIndex()
   }
 
@@ -192,7 +197,7 @@ export default class AlignmentGroup {
    *          { Number } indexDeleted - place in group list
    */
   unmerge (step) {
-    const tokensGroup = step.type === 'merge' ? step.token : []
+    const tokensGroup = step.type === AlignmentStep.types.MERGE ? step.token : []
 
     for (let i = 0; i < tokensGroup.origin.length; i++) {
       const tokenIdWord = tokensGroup.origin[i]
@@ -285,21 +290,21 @@ export default class AlignmentGroup {
     const token = step.token
 
     let tokenIndex
-    if (step.type === 'add' || step.type === 'remove') {
+    if (step.type === AlignmentStep.types.ADD || step.type === AlignmentStep.types.REMOVE) {
       tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
     }
 
     switch (step.type) {
-      case 'add' :
+      case AlignmentStep.types.ADD :
         this[token.textType].splice(tokenIndex, 1)
         break
-      case 'remove' :
+      case AlignmentStep.types.REMOVE :
         this[token.textType].push(token.idWord)
         break
-      case 'merge' :
+      case AlignmentStep.types.MERGE :
         return this.unmerge(step)
       default :
-        console.error(`Undo for the type ${step.type} is not defined yet`)
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
         break
     }
   }
@@ -312,23 +317,23 @@ export default class AlignmentGroup {
     const step = this.steps[stepIndex]
     const token = step.token
     let tokenIndex
-    if (step.type === 'add' || step.type === 'remove') {
+    if (step.type === AlignmentStep.types.ADD || step.type === AlignmentStep.types.REMOVE) {
       tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
     }
 
     switch (step.type) {
-      case 'add' :
+      case AlignmentStep.types.ADD :
         this[token.textType].push(token.idWord)
         break
-      case 'remove' :
+      case AlignmentStep.types.REMOVE :
         this[token.textType].splice(tokenIndex, 1)
         break
-      case 'merge':
+      case AlignmentStep.types.MERGE:
         this.origin.push(...step.token.origin)
         this.target.push(...step.token.target)
         break
       default :
-        console.error(`Redo for the type ${step.type} is not defined yet`)
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
         break
     }
   }

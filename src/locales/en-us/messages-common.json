@@ -66,6 +66,18 @@
       "message": "There are no steps to be redone - no steps forward in history.",
       "description": "An error message for redo workflow",
       "component": "AlignmentGroup"
+    },
+    "ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR": {
+      "message": "Undo for the type {type} is not defined yet.",
+      "description": "An error message for remove step process",
+      "component": "AlignmentGroup",
+      "params": ["type"]
+    },
+    "ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR": {
+      "message": "Redo for the type {type} is not defined yet.",
+      "description": "An error message for apply step process",
+      "component": "AlignmentGroup",
+      "params": ["type"]
     }
 
     
