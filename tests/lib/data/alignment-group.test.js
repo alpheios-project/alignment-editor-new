@@ -6,17 +6,17 @@ import Token from '@/lib/data/token'
 import AlignmentStep from '@/lib/data/alignment-step'
 
 describe('alignment-group.test.js', () => {
-  console.error = function () {}
-  console.log = function () {}
-  console.warn = function () {}
-  
+  console.error = function () { }
+  console.log = function () { }
+  console.warn = function () { }
+
   beforeAll(() => {
     const appC = new AppController({
-      appidWord:'alpheios-alignment-editor'
+      appidWord: 'alpheios-alignment-editor'
     })
     appC.defineL10Support()
   })
-  
+
   beforeEach(() => {
     jest.clearAllMocks()
     jest.spyOn(console, 'error')
@@ -26,7 +26,8 @@ describe('alignment-group.test.js', () => {
 
   it('1 AlignmentGroup - constructor inits origin, target, steps arrays, creates unique id and adds first token, if a token is passed', () => {
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const alGroup = new AlignmentGroup(token)
 
@@ -63,7 +64,8 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-        idWord: 'L1-10', word: 'male'})
+      idWord: 'L1-10', word: 'male'
+    })
     const result = alGroup.add(token)
 
     expect(result).toBeFalsy()
@@ -77,12 +79,13 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     let result = alGroup.add(token)
 
     expect(result).toBeTruthy()
-    expect(alGroup.origin).toEqual([ 'L1-10' ])
+    expect(alGroup.origin).toEqual(['L1-10'])
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps[0]).toHaveProperty('token', token)
     expect(alGroup.steps[0]).toHaveProperty('type', 'add')
@@ -90,13 +93,14 @@ describe('alignment-group.test.js', () => {
     expect(alGroup.firstStepToken).toEqual(token)
 
     const token2 = new Token({
-        textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     result = alGroup.add(token2)
 
     expect(result).toBeTruthy()
-    expect(alGroup.origin).toEqual([ 'L1-10' ])
-    expect(alGroup.target).toEqual([ 'L2-10' ])
+    expect(alGroup.origin).toEqual(['L1-10'])
+    expect(alGroup.target).toEqual(['L2-10'])
 
     expect(alGroup.steps[0]).toHaveProperty('token', token)
     expect(alGroup.steps[0]).toHaveProperty('type', 'add')
@@ -110,7 +114,8 @@ describe('alignment-group.test.js', () => {
   it('6 AlignmentGroup - remove method returns false and do nothing if a token is not passed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
     alGroup.add(token)
 
     const result = alGroup.remove()
@@ -125,11 +130,13 @@ describe('alignment-group.test.js', () => {
   it('7 AlignmentGroup - remove method returns false and do nothing if a token is not correct', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
     alGroup.add(token)
 
     const token2 = new Token({
-        idWord: 'L1-10', word: 'male'})
+      idWord: 'L1-10', word: 'male'
+    })
     const result = alGroup.remove(token2)
 
     expect(result).toBeFalsy()
@@ -142,13 +149,15 @@ describe('alignment-group.test.js', () => {
   it('8 AlignmentGroup - remove method returns false and do nothing if a token is not in group', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
     alGroup.add(token)
 
     const token2 = new Token({
-        textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
     const result = alGroup.remove(token2)
-    
+
     expect(result).toBeFalsy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
@@ -159,16 +168,18 @@ describe('alignment-group.test.js', () => {
   it('9 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-        textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup.add(token)
     alGroup.add(token2)
 
     const result = alGroup.remove(token2)
-    
+
     expect(result).toBeTruthy()
     expect(alGroup.origin.length).toEqual(1)
     expect(alGroup.target.length).toEqual(0)
@@ -179,16 +190,18 @@ describe('alignment-group.test.js', () => {
   it('10 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-        textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup.add(token)
     alGroup.add(token2)
 
     const result = alGroup.remove(token)
-    
+
     expect(result).toBeTruthy()
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(1)
@@ -199,17 +212,19 @@ describe('alignment-group.test.js', () => {
   it('11 AlignmentGroup - remove method returns true, remove token data from origin/target, add ref to steps and updates firstStepToken if needed', () => {
     const alGroup = new AlignmentGroup()
     const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-        textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup.add(token)
     alGroup.add(token2)
 
     alGroup.remove(token)
     alGroup.remove(token2)
-    
+
     expect(alGroup.origin.length).toEqual(0)
     expect(alGroup.target.length).toEqual(0)
     expect(alGroup.steps.length).toEqual(4)
@@ -225,8 +240,9 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
-    alGroup.add(token)  
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
+    alGroup.add(token)
     alGroup.remove(token)
 
     expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
@@ -236,9 +252,10 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
-    alGroup.add(token)  
-    
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
+    alGroup.add(token)
+
     expect(alGroup.firstStepNeedToBeUpdated).toBeFalsy()
   })
 
@@ -246,23 +263,25 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
-    alGroup.add(token)  
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
+    alGroup.add(token)
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup[token.textType].push(token.idWord)
-    alGroup.steps.push({ textType: token.textType, idWord:token.idWord, type: 'add' })
-    
+    alGroup.steps.push({ textType: token.textType, idWord: token.idWord, type: 'add' })
+
     alGroup[token2.textType].push(token2.idWord)
-    alGroup.steps.push({ textType: token2.textType, idWord:token2.idWord, type: 'add' })
+    alGroup.steps.push({ textType: token2.textType, idWord: token2.idWord, type: 'add' })
 
     alGroup.firstStepToken = token
 
     expect(alGroup.firstStepNeedToBeUpdated).toBeFalsy()
     expect(alGroup.firstStepToken).toEqual(token)
-    
+
     alGroup.defineFirstStepToken()
     expect(alGroup.firstStepToken).toEqual(token)
   })
@@ -271,21 +290,23 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup[token.textType].push(token.idWord)
     alGroup.steps.push(new AlignmentStep(token, 'add'))
-    
+
     alGroup[token2.textType].push(token2.idWord)
     alGroup.steps.push(new AlignmentStep(token2, 'add'))
 
 
     expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
     expect(alGroup.firstStepToken).toBeNull()
-    
+
     alGroup.defineFirstStepToken()
     expect(alGroup.firstStepToken).toEqual(token)
   })
@@ -294,14 +315,16 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup[token.textType].push(token.idWord)
     alGroup.steps.push(new AlignmentStep(token, 'add'))
-    
+
     alGroup[token2.textType].push(token2.idWord)
     alGroup.steps.push(new AlignmentStep(token2, 'add'))
 
@@ -311,24 +334,26 @@ describe('alignment-group.test.js', () => {
     alGroup.firstStepToken = token
 
     expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
-    
+
     alGroup.defineFirstStepToken()
     expect(alGroup.firstStepToken).toEqual(token2)
   })
 
   it('18 AlignmentGroup - couldBeFinished returns true if origin and target each has one element at least and id is defined', () => {
     const alGroup = new AlignmentGroup()
-    
+
     expect(alGroup.couldBeFinished).toBeFalsy()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
     alGroup.add(token)
-    
+
     expect(alGroup.couldBeFinished).toBeFalsy()
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
     alGroup.add(token2)
 
     expect(alGroup.couldBeFinished).toBeTruthy()
@@ -338,28 +363,33 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
-    
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
+
     alGroup.add(token)
     alGroup.add(token2)
 
-    expect(alGroup.allIds).toEqual([ 'L1-10', 'L2-10' ])
+    expect(alGroup.allIds).toEqual(['L1-10', 'L2-10'])
   })
 
   it('20 AlignmentGroup - includesToken returns true only if token with the passed idWord is included', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     const token3 = new Token({
-      textType: 'target', idWord: 'L3-10', word: 'man'})
+      textType: 'target', idWord: 'L3-10', word: 'man'
+    })
     alGroup.add(token)
     alGroup.add(token2)
 
@@ -372,54 +402,63 @@ describe('alignment-group.test.js', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     const token3 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'many'})
-    
+      textType: 'target', idWord: 'L2-10', word: 'many'
+    })
+
     alGroup.add(token)
     alGroup.add(token2)
 
     expect(alGroup.isFirstToken(token)).toBeTruthy()
     expect(alGroup.isFirstToken(token2)).toBeFalsy()
     expect(alGroup.isFirstToken(token3)).toBeFalsy()
-  })  
+  })
 
   it('22 AlignmentGroup - tokenTheSameTextTypeAsStart returns true only if passed token has the same textType as the first step', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     const token3 = new Token({
-      textType: 'origin', idWord: 'L1-11', word: 'mare'})
-    
+      textType: 'origin', idWord: 'L1-11', word: 'mare'
+    })
+
     alGroup.add(token)
     alGroup.add(token2)
 
     expect(alGroup.tokenTheSameTextTypeAsStart(token)).toBeTruthy()
     expect(alGroup.tokenTheSameTextTypeAsStart(token2)).toBeFalsy()
     expect(alGroup.tokenTheSameTextTypeAsStart(token3)).toBeTruthy()
-  }) 
+  })
 
   it('23 AlignmentGroup - updateFirstStepToken updates first step with passed token only if tokens is included in the group', () => {
     const alGroup = new AlignmentGroup()
 
     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     const token3 = new Token({
-      textType: 'origin', idWord: 'L1-11', word: 'mare'})
-    
+      textType: 'origin', idWord: 'L1-11', word: 'mare'
+    })
+
     alGroup.add(token)
     alGroup.add(token2)
 
@@ -437,10 +476,12 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -448,10 +489,12 @@ describe('alignment-group.test.js', () => {
     const alGroup2 = new AlignmentGroup()
 
     const token3 = new Token({
-      textType: 'origin', idWord: 'L1-8', word: 'mare'})
+      textType: 'origin', idWord: 'L1-8', word: 'mare'
+    })
 
     const token4 = new Token({
-      textType: 'target', idWord: 'L2-8', word: 'sea'})
+      textType: 'target', idWord: 'L2-8', word: 'sea'
+    })
 
     alGroup2.add(token3)
     alGroup2.add(token4)
@@ -477,16 +520,18 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     expect(alGroup1.groupLen).toEqual(0)
 
     alGroup1.add(token1)
     expect(alGroup1.groupLen).toEqual(1)
-    
+
     alGroup1.add(token2)
     expect(alGroup1.groupLen).toEqual(2)
   })
@@ -495,10 +540,12 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -516,13 +563,16 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     const token3 = new Token({
-      textType: 'target', idWord: 'L2-11', word: 'woman'})
+      textType: 'target', idWord: 'L2-11', word: 'woman'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -553,13 +603,16 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     const token3 = new Token({
-      textType: 'target', idWord: 'L2-11', word: 'woman'})
+      textType: 'target', idWord: 'L2-11', word: 'woman'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -595,10 +648,12 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -606,15 +661,22 @@ describe('alignment-group.test.js', () => {
     const alGroup2 = new AlignmentGroup()
 
     const token3 = new Token({
-      textType: 'origin', idWord: 'L1-8', word: 'mare'})
+      textType: 'origin', idWord: 'L1-8', word: 'mare'
+    })
 
     const token4 = new Token({
-      textType: 'target', idWord: 'L2-8', word: 'sea'})
+      textType: 'target', idWord: 'L2-8', word: 'sea'
+    })
 
     alGroup2.add(token3)
     alGroup2.add(token4)
 
     alGroup1.merge(alGroup2, 1)
+
+    expect(alGroup1.includesToken(token1)).toBeTruthy()
+    expect(alGroup1.includesToken(token2)).toBeTruthy()
+    expect(alGroup1.includesToken(token3)).toBeTruthy()
+    expect(alGroup1.includesToken(token4)).toBeTruthy()
 
     const result = alGroup1.unmerge(alGroup1.steps[alGroup1.steps.length - 1])
 
@@ -631,10 +693,12 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -648,14 +712,16 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
-    
+
     expect(alGroup1.currentStepIndex).toEqual(1)
     alGroup1.undo()
 
@@ -673,14 +739,16 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
-    
+
     expect(alGroup1.currentStepIndex).toEqual(1)
     alGroup1.undo()
 
@@ -692,7 +760,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.currentStepIndex).toEqual(0)
     expect(alGroup1.includesToken(token1)).toBeTruthy()
     expect(alGroup1.includesToken(token2)).toBeFalsy()
-    
+
     expect(console.error).toHaveBeenCalled()
   })
 
@@ -700,14 +768,16 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
-    
+
     expect(alGroup1.currentStepIndex).toEqual(1)
     alGroup1.undo()
 
@@ -731,10 +801,12 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)
@@ -763,10 +835,12 @@ describe('alignment-group.test.js', () => {
     const alGroup2 = new AlignmentGroup()
 
     const token3 = new Token({
-      textType: 'origin', idWord: 'L1-8', word: 'mare'})
+      textType: 'origin', idWord: 'L1-8', word: 'mare'
+    })
 
     const token4 = new Token({
-      textType: 'target', idWord: 'L2-8', word: 'sea'})
+      textType: 'target', idWord: 'L2-8', word: 'sea'
+    })
 
     alGroup2.add(token3)
     alGroup2.add(token4)
@@ -774,10 +848,12 @@ describe('alignment-group.test.js', () => {
     const alGroup1 = new AlignmentGroup()
 
     const token1 = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
+      textType: 'origin', idWord: 'L1-10', word: 'male'
+    })
 
     const token2 = new Token({
-      textType: 'target', idWord: 'L2-10', word: 'man'})
+      textType: 'target', idWord: 'L2-10', word: 'man'
+    })
 
     alGroup1.add(token1)
     alGroup1.add(token2)

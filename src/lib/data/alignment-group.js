@@ -180,6 +180,7 @@ export default class AlignmentGroup {
   /**
    * Merges current group with passed alignment group
    * @param { AlignmentGroup } tokensGroup
+   * @param { Number } indexDeleted - the place in group's list where there was the merged group
    */
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
