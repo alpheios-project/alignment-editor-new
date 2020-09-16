@@ -46,6 +46,10 @@ export default {
     hideEditor: {
       type: Number,
       required: false
+    },
+    cssUpdate: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -124,6 +128,7 @@ export default {
      */
     updateOriginText (textData) {
       this.$textC.updateOriginDocSource(textData)
+      this.$emit('css-update-menu')
     },
     /**
      * Updates target doc source via texts controller
@@ -134,6 +139,7 @@ export default {
      */
     updateTargetText (textData) {
       this.$textC.updateTargetDocSource(textData)
+      this.$emit('css-update-menu')
     }
   }
 }

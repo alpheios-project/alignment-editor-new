@@ -13904,6 +13904,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class HistoryController {
   /**
+   * Checks if we have steps to be undone
+   * @returns {Boolean} true - undo could be done, false - not
+   */
+  get undoAvailable () {
+    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+  }
+
+  /**
+   * Checks if we have steps to be redone
+   * @returns {Boolean} true - redo could be done, false - not
+   */
+  get redoAvailable () {
+    return Boolean(this.alignment) && ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) || (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+  }
+
+  /**
    * Starts saving history for the alignment
    * @param {Alignment} alignment
    */
@@ -13985,6 +14001,13 @@ class TextsController {
    */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource)
+  }
+
+  /**
+   * @returns {Boolean} - true - could start align workflow, false - not
+   */
+  get couldStartAlign () {
+    return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
   /**
@@ -14458,6 +14481,7 @@ class AlignmentGroup {
   /**
    * Merges current group with passed alignment group
    * @param { AlignmentGroup } tokensGroup
+   * @param { Number } indexDeleted - the place in group's list where there was the merged group
    */
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
@@ -16348,6 +16372,7 @@ __webpack_require__.r(__webpack_exports__);
     clickToken (token) {
       this.$alignedC.clickToken(token)
       this.updateTokenClasses()
+      this.$emit('css-update-menu')
     },
     /**
      * Starts showing an alignment group workflow
@@ -16496,6 +16521,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -16571,6 +16599,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.uploadDocSourceFromFile(fileData)
       this.updateOriginTextEditor()
       this.updateTargetTextEditor()
+      this.cssUpdateM()
     },
     /**
      * Starts redo action
@@ -16631,11 +16660,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
+  props: {
+    cssUpdate: {
+      type: Number,
+      required: false,
+      default: 1
+    }
+  },
   data () {
     return {
       showUploadBlock: false
@@ -16644,6 +16691,16 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    alignAvailable () {
+      console.info('alignAvailable - ', this.cssUpdate, this.$alignedC)
+      return Boolean(this.cssUpdate) && this.$textC.couldStartAlign
+    },
+    undoAvailable () {
+      return Boolean(this.cssUpdate) && this.$historyC.undoAvailable
+    },
+    redoAvailable () {
+      return Boolean(this.cssUpdate) && this.$historyC.redoAvailable
     }
   },
   methods: {
@@ -16914,6 +16971,10 @@ __webpack_require__.r(__webpack_exports__);
     hideEditor: {
       type: Number,
       required: false
+    },
+    cssUpdate: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -16992,6 +17053,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateOriginText (textData) {
       this.$textC.updateOriginDocSource(textData)
+      this.$emit('css-update-menu')
     },
     /**
      * Updates target doc source via texts controller
@@ -17002,6 +17064,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateTargetText (textData) {
       this.$textC.updateTargetDocSource(textData)
+      this.$emit('css-update-menu')
     }
   }
 });
@@ -18037,6 +18100,7 @@ var render = function() {
     },
     [
       _c("main-menu", {
+        attrs: { "css-update": _vm.cssUpdate },
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
@@ -18051,14 +18115,16 @@ var render = function() {
           "origin-updated": _vm.originTextUpdated,
           "target-updated": _vm.targetTextUpdated,
           "hide-editor": _vm.hideTextEditor
-        }
+        },
+        on: { "css-update-menu": _vm.cssUpdateM }
       }),
       _vm._v(" "),
       _c("align-editor", {
         attrs: {
           "show-editor": _vm.showAlignEditor,
           "css-update": _vm.cssUpdate
-        }
+        },
+        on: { "css-update-menu": _vm.cssUpdateM }
       })
     ],
     1
@@ -18128,42 +18194,69 @@ var render = function() {
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-align" },
+            attrs: {
+              id: "alpheios-main-menu-align",
+              disabled: !_vm.alignAvailable
+            },
             on: {
               click: function($event) {
                 return _vm.$emit("align-texts")
               }
             }
           },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")))]
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-redo" },
-            on: {
-              click: function($event) {
-                return _vm.$emit("redo-action")
-              }
-            }
-          },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_REDO_TITLE")))]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-undo" },
+            attrs: {
+              id: "alpheios-main-menu-undo",
+              disabled: !_vm.undoAvailable
+            },
             on: {
               click: function($event) {
                 return _vm.$emit("undo-action")
               }
             }
           },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_UNDO_TITLE")))]
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UNDO_TITLE")) +
+                "\n      "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: {
+              id: "alpheios-main-menu-redo",
+              disabled: !_vm.redoAvailable
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("redo-action")
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_REDO_TITLE")) +
+                "\n      "
+            )
+          ]
         )
       ]),
       _vm._v(" "),

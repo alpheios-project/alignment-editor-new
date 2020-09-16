@@ -125,6 +125,7 @@ export default {
     clickToken (token) {
       this.$alignedC.clickToken(token)
       this.updateTokenClasses()
+      this.$emit('css-update-menu')
     },
     /**
      * Starts showing an alignment group workflow

@@ -16,6 +16,13 @@ export default class TextsController {
   }
 
   /**
+   * @returns {Boolean} - true - could start align workflow, false - not
+   */
+  get couldStartAlign () {
+    return Boolean(this.alignment) && this.alignment.readyForTokenize
+  }
+
+  /**
    * Uploads origin source document to the alignment object.
    * If an alignment is not created yet, it would be created.
    * @param {Object} originDocSource

@@ -1,5 +1,21 @@
 export default class HistoryController {
   /**
+   * Checks if we have steps to be undone
+   * @returns {Boolean} true - undo could be done, false - not
+   */
+  get undoAvailable () {
+    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+  }
+
+  /**
+   * Checks if we have steps to be redone
+   * @returns {Boolean} true - redo could be done, false - not
+   */
+  get redoAvailable () {
+    return Boolean(this.alignment) && ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) || (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+  }
+
+  /**
    * Starts saving history for the alignment
    * @param {Alignment} alignment
    */

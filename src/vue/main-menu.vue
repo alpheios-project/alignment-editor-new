@@ -3,9 +3,20 @@
       <div class="alpheios-alignment-app-menu__buttons">
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-download" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-upload" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-align" @click="$emit('align-texts')" >{{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-redo" @click="$emit('redo-action')" >{{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-undo" @click="$emit('undo-action')" >{{ l10n.getMsgS('MAIN_MENU_UNDO_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-align" 
+                @click="$emit('align-texts')" :disabled="!alignAvailable">
+                {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
+        </button>
+        
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-undo" 
+                @click="$emit('undo-action')" :disabled="!undoAvailable">
+                {{ l10n.getMsgS('MAIN_MENU_UNDO_TITLE') }}
+        </button>
+
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-redo" 
+                @click="$emit('redo-action')" :disabled="!redoAvailable">
+                {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
+        </button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock">
         <input type="file" @change="loadTextFromFile">
@@ -17,6 +28,13 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'MainMenu',
+  props: {
+    cssUpdate: {
+      type: Number,
+      required: false,
+      default: 1
+    }
+  },
   data () {
     return {
       showUploadBlock: false
@@ -25,6 +43,16 @@ export default {
   computed: {
     l10n () {
       return L10nSingleton
+    },
+    alignAvailable () {
+      console.info('alignAvailable - ', this.cssUpdate, this.$alignedC)
+      return Boolean(this.cssUpdate) && this.$textC.couldStartAlign
+    },
+    undoAvailable () {
+      return Boolean(this.cssUpdate) && this.$historyC.undoAvailable
+    },
+    redoAvailable () {
+      return Boolean(this.cssUpdate) && this.$historyC.redoAvailable
     }
   },
   methods: {

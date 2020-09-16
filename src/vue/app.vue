@@ -6,15 +6,18 @@
         @align-texts = "alignTexts"
         @redo-action = "redoAction"
         @undo-action = "undoAction"
+        :css-update = "cssUpdate"
       />
       <text-editor 
         :origin-updated = "originTextUpdated"
         :target-updated = "targetTextUpdated"
         :hide-editor = "hideTextEditor"
+        @css-update-menu = "cssUpdateM"
       />
       <align-editor 
         :show-editor = "showAlignEditor"
         :css-update = "cssUpdate"
+        @css-update-menu = "cssUpdateM"
       />
   </div>
 </template>
@@ -93,6 +96,7 @@ export default {
       this.$textC.uploadDocSourceFromFile(fileData)
       this.updateOriginTextEditor()
       this.updateTargetTextEditor()
+      this.cssUpdateM()
     },
     /**
      * Starts redo action

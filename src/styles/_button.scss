@@ -42,8 +42,7 @@
   background-color: #C64906;
   border-color: #F27431;
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: #FFF;
     background-color: #F27431;
     border-color: #F27431;
@@ -56,6 +55,13 @@
     border-color: #F27431;
     box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
   }
+
+  &:disabled {
+    color: #fff;
+    background: #f8b998;
+    border-color: #f8b998;
+    box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+  }
 }
 
 .alpheios-button-tertiary, button.alpheios-button-tertiary {
@@ -64,8 +70,7 @@
   background: #fff;
   border-color: #185F6D;
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: #fff;
     background: #185F6D;
     border-color: #185F6D;
@@ -76,6 +81,13 @@
     color: #fff;
     background: #185F6D;
     border-color: #185F6D;
+    box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    color: #fff;
+    background: #8bafb6;
+    border-color:#8bafb6;
     box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
   }
 }
