@@ -10,6 +10,7 @@ import AlignEditor from '@/vue/align-editor/align-editor.vue'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AppController from '@/lib/controllers/app-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
+import HistoryController from '@/lib/controllers/history-controller.js'
 
 describe('app.test.js', () => {
   console.error = function () {}
@@ -24,6 +25,7 @@ describe('app.test.js', () => {
     appC.defineL10Support()
     appC.defineTextController()
     appC.defineAlignedController()
+    appC.defineHistoryController()
   })
 
   beforeEach(() => {
@@ -110,9 +112,8 @@ describe('app.test.js', () => {
     expect(cmp.vm.hideTextEditorM).toHaveBeenCalled()
     expect(cmp.vm.showAlignEditorM).toHaveBeenCalled()
   })
-})
 
-it('10 App - alignTexts - executes $alignedC.createAlignedTexts, and if failed - no other methods', () => {
+  it('10 App - alignTexts - executes $alignedC.createAlignedTexts, and if failed - no other methods', () => {
     let cmp = shallowMount(App)
     expect(cmp.vm.$alignedC).toEqual(expect.any(AlignedController))
 
@@ -126,4 +127,26 @@ it('10 App - alignTexts - executes $alignedC.createAlignedTexts, and if failed -
     expect(cmp.vm.hideTextEditorM).not.toHaveBeenCalled()
     expect(cmp.vm.showAlignEditorM).not.toHaveBeenCalled()
   })
+
+  it('11 App - undoAction - executes $historyC.undo', () => {
+    let cmp = shallowMount(App)
+
+    expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
+    cmp.vm.$historyC.undo = jest.fn()
+    
+    cmp.vm.undoAction()
+    expect(cmp.vm.$historyC.undo).toHaveBeenCalled()
+  })
+
+  it('11 App - redoAction - executes $historyC.redo', () => {
+    let cmp = shallowMount(App)
+
+    expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
+    cmp.vm.$historyC.redo = jest.fn()
+    
+    cmp.vm.redoAction()
+    expect(cmp.vm.$historyC.redo).toHaveBeenCalled()
+  })
+})
+
 

@@ -5,6 +5,7 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
+import HistoryController from '@/lib/controllers/history-controller.js'
 import Vue from '@vue-runtime'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
@@ -28,6 +29,7 @@ describe('app-controller.test.js', () => {
 
     Vue.prototype.$textC = undefined
     Vue.prototype.$alignedC = undefined
+    Vue.prototype.$historyC = undefined
   })
 
   function timeout (ms) {
@@ -66,7 +68,7 @@ describe('app-controller.test.js', () => {
     expect(appC_incorrect.attachVueComponents).not.toHaveBeenCalled()
   })
 
-  it('4 AppController - attachVueComponents executes defineL10Support, defineTextController, defineAlignedController and attaches App Vue component ', async () => {
+  it('4 AppController - attachVueComponents executes defineL10Support, defineTextController, defineAlignedController, defineHistoryController and attaches App Vue component ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
@@ -74,12 +76,14 @@ describe('app-controller.test.js', () => {
     jest.spyOn(appC, 'defineL10Support')
     jest.spyOn(appC, 'defineTextController')
     jest.spyOn(appC, 'defineAlignedController')
+    jest.spyOn(appC, 'defineHistoryController')
 
     appC.init()
 
     expect(appC.defineL10Support).toHaveBeenCalled()
     expect(appC.defineTextController).toHaveBeenCalled()
     expect(appC.defineAlignedController).toHaveBeenCalled()
+    expect(appC.defineHistoryController).toHaveBeenCalled()
 
     const divAppVue = document.getElementById('alpheios-alignment-app-container')   
     expect(divAppVue).toBeDefined()
@@ -129,5 +133,22 @@ describe('app-controller.test.js', () => {
     const result = appC.defineL10Support()
 
     expect(result).toBeInstanceOf(L10nSingleton)
+  })
+
+  it('8 AppController - defineHistoryController creates HistoryController and attaches it to Vue component ', async () => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+
+    appC.attachVueComponents = jest.fn()
+    appC.init()
+
+    expect(appC.historyC).not.toBeDefined()
+    expect(Vue.prototype.$historyC).not.toBeDefined()
+
+    appC.defineHistoryController()
+
+    expect(appC.historyC).toBeInstanceOf(HistoryController)
+    expect(Vue.prototype.$historyC).toBeInstanceOf(HistoryController)
   })
 })

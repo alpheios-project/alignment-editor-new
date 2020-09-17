@@ -12,6 +12,10 @@ export default class TokenizeController {
     }
   }
 
+  /**
+   * Selects correct tokenizer method by its name
+   * @param {String} tokenizer - workflow's name
+   */
   static getTokenizer (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer]

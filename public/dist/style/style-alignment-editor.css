@@ -190,7 +190,7 @@ input.alpheios-input::-ms-input-placeholder {
   background-color: #C64906;
   border-color: #F27431;
 }
-.alpheios-button-primary:hover, .alpheios-button-primary:focus {
+.alpheios-button-primary:hover {
   color: #FFF;
   background-color: #F27431;
   border-color: #F27431;
@@ -202,13 +202,19 @@ input.alpheios-input::-ms-input-placeholder {
   border-color: #F27431;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
+.alpheios-button-primary:disabled {
+  color: #fff;
+  background: #f8b998;
+  border-color: #f8b998;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
 
 .alpheios-button-tertiary, button.alpheios-button-tertiary {
   color: #185F6D;
   background: #fff;
   border-color: #185F6D;
 }
-.alpheios-button-tertiary:hover, .alpheios-button-tertiary:focus, button.alpheios-button-tertiary:hover, button.alpheios-button-tertiary:focus {
+.alpheios-button-tertiary:hover, button.alpheios-button-tertiary:hover {
   color: #fff;
   background: #185F6D;
   border-color: #185F6D;
@@ -218,6 +224,12 @@ input.alpheios-input::-ms-input-placeholder {
   color: #fff;
   background: #185F6D;
   border-color: #185F6D;
+  box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
+}
+.alpheios-button-tertiary:disabled, button.alpheios-button-tertiary:disabled {
+  color: #fff;
+  background: #8bafb6;
+  border-color: #8bafb6;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
 

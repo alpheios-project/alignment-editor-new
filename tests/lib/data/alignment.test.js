@@ -33,7 +33,8 @@ describe('alignment.test.js', () => {
     expect(alignment.target).toEqual({})
     expect(alignment.alignmentGroups.length).toEqual(0)
     expect(alignment.alignmentGroupsIds.length).toEqual(0)
-    expect(alignment.activeAlignmentGroup).toBeNull()
+    expect(alignment.undoneGroups.length).toEqual(0)
+    expect(alignment.activeAlignmentGroup).toBeNull()   
   })
 
   it('2 Alignment - constructor origin.docSource and target.docSource if they are pased', () => {
@@ -591,9 +592,197 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup.steps.length).toEqual(1) // no tokens were merged
 
     expect(alignment.mergeActiveGroupWithAnotherByToken(alignment.target.alignedText.tokens[1])).toBeTruthy() // this token is not grouped yet
-    expect(alignment.activeAlignmentGroup.steps.length).toEqual(4) // 3 tokens were merged to the group
+    expect(alignment.activeAlignmentGroup.steps.length).toEqual(2) // 3 tokens were merged to the group
     expect(alignment.activeAlignmentGroup.origin.length).toEqual(2) 
     expect(alignment.activeAlignmentGroup.target.length).toEqual(2) 
   })
 
+  it('26 Alignment - undoInActiveGroup executes undo for the active alignment group and executes insertUnmergedGroup if it was a merge step', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+    
+    const alGroup = alignment.activeAlignmentGroup
+    alignment.finishActiveAlignmentGroup() // created saved group to be merged later
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[1]) // starts new alignment group
+    alignment.mergeActiveGroupWithAnotherByToken(alignment.target.alignedText.tokens[1])
+
+    jest.spyOn(alignment.activeAlignmentGroup, 'undo')
+    jest.spyOn(alignment, 'insertUnmergedGroup')
+
+    alignment.undoInActiveGroup()
+
+    expect(alignment.activeAlignmentGroup.undo).toHaveBeenCalled()
+    expect(alignment.insertUnmergedGroup).toHaveBeenCalledWith({
+      tokensGroup: alGroup,
+      indexDeleted: 0
+    })
+
+  })
+
+  it('27 Alignment - currentStepOnLastInActiveGroup returns true - if it is the last step, false - is not the last inside an active alignment group', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+
+    expect(alignment.currentStepOnLastInActiveGroup).toBeTruthy()
+    alignment.undoInActiveGroup()
+    expect(alignment.currentStepOnLastInActiveGroup).toBeFalsy()
+  })
+
+  it('28 Alignment - removeGroupFromAlignmentGroups returns index - if a given group was deleted, otherwise returns null', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+    const alGroup = alignment.activeAlignmentGroup
+    alignment.finishActiveAlignmentGroup()
+
+    expect(alignment.removeGroupFromAlignmentGroups(alGroup)).toEqual(0)
+    expect(alignment.removeGroupFromAlignmentGroups(alGroup)).toBeNull() // already deleted
+
+    expect(alignment.alignmentGroups).toEqual([])
+    
+  })
+
+  it('29 Alignment - activateGroupByGroupIndex finds a group and executes activateGroup', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+    const alGroup = alignment.activeAlignmentGroup
+    alignment.finishActiveAlignmentGroup()
+
+    jest.spyOn(alignment, 'activateGroup')
+    alignment.activateGroupByGroupIndex(0)
+
+    expect(alignment.activateGroup).toHaveBeenCalledWith(alGroup)
+    
+  })
+
+  it('29 Alignment - activateGroup move the group from saved lists to active', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+    const alGroup = alignment.activeAlignmentGroup
+    alignment.finishActiveAlignmentGroup()
+
+    alignment.activateGroup(alGroup, alGroup.steps[2].token)
+
+    expect(alignment.alignmentGroups.length).toEqual(0)
+    expect(alignment.alignmentGroupsIds.length).toEqual(0)
+    expect(alignment.activeAlignmentGroup).toEqual(alGroup)
+    expect(alignment.activeAlignmentGroup.firstStepToken).toEqual(alGroup.steps[2].token)
+  })
+
+  it('30 Alignment - redoInActiveGroup executes redo inside active alignment group', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+    alignment.undoInActiveGroup()
+
+    jest.spyOn(alignment.activeAlignmentGroup, 'redo')
+    
+    alignment.redoInActiveGroup()
+    expect(alignment.activeAlignmentGroup.redo).toHaveBeenCalled()
+  })
+
+  it('31 Alignment - undoActiveGroup save active alignment group to undoneGroups, redoActiveGroup - extracts from there', () => {
+    const sourceTextOrigin = {
+      text: 'origin some text', direction: 'ltr', lang: 'lat'
+    }
+
+    const sourceTextTarget = {
+      text: 'target some text', direction: 'ltr', lang: 'lat'
+    }
+
+    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    alignment.createAlignedTexts('simpleWordTokenization')
+
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[2])
+    const alGroup = alignment.activeAlignmentGroup
+
+    alGroup.undo()
+    alGroup.undo()
+
+    alignment.undoActiveGroup()
+
+    expect(alignment.undoneGroups.length).toEqual(1)
+    expect(alignment.undoneGroups[0]).toEqual(alGroup)
+    expect(alignment.activeAlignmentGroup).toBeNull()
+
+    alignment.redoActiveGroup()
+
+    expect(alignment.undoneGroups.length).toEqual(0)
+    expect(alignment.activeAlignmentGroup).toEqual(alGroup)
+  })
+
 })
+

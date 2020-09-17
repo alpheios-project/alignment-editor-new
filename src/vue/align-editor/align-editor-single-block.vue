@@ -7,9 +7,9 @@
         <token
           v-if ="token.word"
           :text-type = "textType" :text-word = "token" :key = "token.idWord"
-          @clickWord = "clickWord"
-          @addHoverWord = "addHoverWord"
-          @removeHoverWord = "removeHoverWord"
+          @click-token = "clickToken"
+          @add-hover-token = "addHoverToken"
+          @remove-hover-token = "removeHoverToken"
           :selected = "updated && selectedToken(token)"
           :grouped = "updated && groupedToken(token)"
           :inActiveGroup = "updated && inActiveGroup(token)"

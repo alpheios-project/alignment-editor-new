@@ -33,6 +33,10 @@ export default {
     showEditor: {
       type: Number,
       required: false
+    },
+    cssUpdate: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -52,6 +56,12 @@ export default {
       this.showAlignBlocks = true
       this.updateOriginEditor()
       this.updateTargetEditor()
+    },
+    /**
+     * Controlls if showEditor changes, then showAlignBlocs would be set to truth
+     */
+    cssUpdate () {
+      this.updateTokenClasses()
     }
   },
   computed: {
@@ -115,6 +125,7 @@ export default {
     clickToken (token) {
       this.$alignedC.clickToken(token)
       this.updateTokenClasses()
+      this.$emit('css-update-menu')
     },
     /**
      * Starts showing an alignment group workflow
