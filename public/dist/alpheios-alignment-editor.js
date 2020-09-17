@@ -14604,7 +14604,7 @@ class AlignmentGroup {
       this[step.token.textType].push(step.token.idWord)
     }
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE] = (step) => {
-      this.unmerge(step)
+      return this.unmerge(step)
     }
 
     return actions[step.type](step)
@@ -15128,6 +15128,7 @@ class Alignment {
     }
 
     const results = this.activeAlignmentGroup.undo()
+    console.info('undoInActiveGroup - ', results)
     if (results && results.length > 0) {
       for (let i = 0; i < results.length; i++) {
         this.insertUnmergedGroup(results[i])
