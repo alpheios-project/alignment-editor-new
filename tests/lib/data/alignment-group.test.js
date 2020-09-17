@@ -833,7 +833,7 @@ describe('alignment-group.test.js', () => {
     expect(alGroup1.includesToken(token2)).toBeTruthy()
   })
 
-  it('30 AlignmentGroup - removeStepAction - removes action by stepIndex, applyStepAction - applies action by stepIndex', () => {
+  it('30 AlignmentGroup - doStepAction (remove) - removes action by stepIndex, doStepAction (apply) - applies action by stepIndex', () => {
     const alGroup2 = new AlignmentGroup()
 
     const token3 = new Token({
@@ -862,42 +862,42 @@ describe('alignment-group.test.js', () => {
     alGroup1.remove(token1)
     alGroup1.merge(alGroup2, 0)
 
-    alGroup1.removeStepAction(3)
+    alGroup1.doStepAction(3, 'remove')
 
     expect(alGroup1.includesToken(token1)).toBeFalsy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()
     expect(alGroup1.includesToken(token3)).toBeFalsy()
     expect(alGroup1.includesToken(token4)).toBeFalsy()
 
-    alGroup1.removeStepAction(2)
+    alGroup1.doStepAction(2, 'remove')
 
     expect(alGroup1.includesToken(token1)).toBeTruthy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()
     expect(alGroup1.includesToken(token3)).toBeFalsy()
     expect(alGroup1.includesToken(token4)).toBeFalsy()
 
-    alGroup1.removeStepAction(1)
+    alGroup1.doStepAction(1, 'remove')
 
     expect(alGroup1.includesToken(token1)).toBeTruthy()
     expect(alGroup1.includesToken(token2)).toBeFalsy()
     expect(alGroup1.includesToken(token3)).toBeFalsy()
     expect(alGroup1.includesToken(token4)).toBeFalsy()
 
-    alGroup1.applyStepAction(1)
+    alGroup1.doStepAction(1, 'apply')
 
     expect(alGroup1.includesToken(token1)).toBeTruthy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()
     expect(alGroup1.includesToken(token3)).toBeFalsy()
     expect(alGroup1.includesToken(token4)).toBeFalsy()
 
-    alGroup1.applyStepAction(2)
+    alGroup1.doStepAction(2, 'apply')
 
     expect(alGroup1.includesToken(token1)).toBeFalsy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()
     expect(alGroup1.includesToken(token3)).toBeFalsy()
     expect(alGroup1.includesToken(token4)).toBeFalsy()
 
-    alGroup1.applyStepAction(3)
+    alGroup1.doStepAction(3, 'apply')
 
     expect(alGroup1.includesToken(token1)).toBeFalsy()
     expect(alGroup1.includesToken(token2)).toBeTruthy()

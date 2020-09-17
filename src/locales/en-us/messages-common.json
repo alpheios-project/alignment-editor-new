@@ -73,15 +73,9 @@
       "description": "An error message for redo workflow",
       "component": "AlignmentGroup"
     },
-    "ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR": {
-      "message": "Undo for the type {type} is not defined yet.",
-      "description": "An error message for remove step process",
-      "component": "AlignmentGroup",
-      "params": ["type"]
-    },
-    "ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR": {
-      "message": "Redo for the type {type} is not defined yet.",
-      "description": "An error message for apply step process",
+    "ALIGNMENT_GROUP_STEP_ERROR": {
+      "message": "This type of steps {type} is not defined for undo/redo workflow",
+      "description": "An error message for remove/apply step process",
       "component": "AlignmentGroup",
       "params": ["type"]
     },

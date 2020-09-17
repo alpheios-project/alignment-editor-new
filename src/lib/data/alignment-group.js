@@ -265,25 +265,109 @@ export default class AlignmentGroup {
    * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
    */
   alignToStep (stepIndex) {
+    if (this.currentStepIndex === stepIndex) {
+      return
+    }
+
     let data = [] // eslint-disable-line prefer-const
     let result = true
+
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const dataResult = this.removeStepAction(i)
+        const dataResult = this.doStepAction(i, 'remove')
         result = result && dataResult.result
         if (dataResult.data) { data.push(dataResult.data) }
       }
     } else if (this.currentStepIndex < stepIndex) {
       for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const dataResult = this.applyStepAction(i)
+        const dataResult = this.doStepAction(i, 'apply')
         result = result && dataResult.result
         if (dataResult.data) { data.push(dataResult.data) }
       }
     }
+
     this.currentStepIndex = stepIndex
     return {
       result, data
     }
+  }
+
+  /**
+   * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
+   * used in doStepAction
+   */
+  get allStepActions () {
+    const actions = { remove: {}, apply: {} }
+    actions.remove[AlignmentStep.types.ADD] = (step) => {
+      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
+      this[step.token.textType].splice(tokenIndex, 1)
+      return {
+        result: true
+      }
+    }
+    actions.remove[AlignmentStep.types.REMOVE] = (step) => {
+      this[step.token.textType].push(step.token.idWord)
+      return {
+        result: true
+      }
+    }
+    actions.remove[AlignmentStep.types.MERGE] = (step) => {
+      const data = this.unmerge(step)
+      return {
+        result: true,
+        data
+      }
+    }
+
+    actions.apply[AlignmentStep.types.ADD] = (step) => {
+      this[step.token.textType].push(step.token.idWord)
+      return {
+        result: true
+      }
+    }
+    actions.apply[AlignmentStep.types.REMOVE] = (step) => {
+      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
+      this[step.token.textType].splice(tokenIndex, 1)
+      return {
+        result: true
+      }
+    }
+    actions.apply[AlignmentStep.types.MERGE] = (step) => {
+      this.origin.push(...step.token.origin)
+      this.target.push(...step.token.target)
+      return {
+        result: true
+      }
+    }
+
+    return actions
+  }
+
+  /**
+   * Remove/apply step action according to typeAction
+   * the following actions are defined - add, remove, merge
+   * @param {Number} stepIndex
+   * @param {String} typeAction - remove/apply
+   */
+  doStepAction (stepIndex, typeAction) {
+    const step = this.steps[stepIndex]
+    if (!step.hasValidType) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
+      return
+    }
+
+    const actions = this.allStepActions
+    let finalResult
+    try {
+      finalResult = actions[typeAction][step.type](step)
+    } catch (e) {
+      console.error(e)
+      finalResult = {
+        result: false
+      }
+    }
+
+    return finalResult
   }
 
   /**
@@ -292,6 +376,7 @@ export default class AlignmentGroup {
    * @param {Number} stepIndex
    * @retuns {Object} - results of undone steps, for now it could return only the result of unmerge action
    */
+  /*
   removeStepAction (stepIndex) {
     const step = this.steps[stepIndex]
 
@@ -322,13 +407,26 @@ export default class AlignmentGroup {
       }
     }
 
-    return actions[step.type](step)
-  }
+    let finalResult
+    try {
+      finalResult = actions[step.type](step)
+    } catch (e) {
+      console.error(e)
+      finalResult = {
+        result: false
+      }
+    }
 
+    return finalResult
+  }
+*/
   /**
    * Applies the step action (used within redo action)
    * @param {Number} stepIndex - index in steps array
+   * @returns {Object}
+   *          {Boolean} result - true - if action was done, false - otherwise
    */
+  /*
   applyStepAction (stepIndex) {
     const step = this.steps[stepIndex]
 
@@ -359,6 +457,17 @@ export default class AlignmentGroup {
       }
     }
 
-    return actions[step.type](step)
+    let finalResult
+    try {
+      finalResult = actions[step.type](step)
+    } catch (e) {
+      console.error(e)
+      finalResult = {
+        result: false
+      }
+    }
+
+    return finalResult
   }
+  */
 }
