@@ -396,10 +396,11 @@ export default class Alignment {
       return
     }
 
-    const results = this.activeAlignmentGroup.undo()
-    if (results && results.length > 0) {
-      for (let i = 0; i < results.length; i++) {
-        this.insertUnmergedGroup(results[i])
+    const dataResult = this.activeAlignmentGroup.undo()
+
+    if (dataResult.result && dataResult.data.length > 0) {
+      for (let i = 0; i < dataResult.data.length; i++) {
+        this.insertUnmergedGroup(dataResult.data[i])
       }
     }
   }

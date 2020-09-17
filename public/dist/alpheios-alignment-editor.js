@@ -13907,16 +13907,21 @@ class HistoryController {
    * Checks if we have steps to be undone
    * @returns {Boolean} true - undo could be done, false - not
    */
-  get undoAvailable () {
-    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+  get redoAvailable () {
+    return Boolean(this.alignment) &&
+           ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) ||
+           (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
   }
 
   /**
    * Checks if we have steps to be redone
    * @returns {Boolean} true - redo could be done, false - not
    */
-  get redoAvailable () {
-    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+  get undoAvailable () {
+    return Boolean(this.alignment) &&
+           ((this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
+           (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
   }
 
   /**
@@ -13955,7 +13960,7 @@ class HistoryController {
     if (this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) {
       return this.alignment.redoInActiveGroup()
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup) {
+    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
       return this.alignment.returnActiveGroupToList()
     }
     if (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0) {
@@ -14537,12 +14542,13 @@ class AlignmentGroup {
 
   /**
    * Step back
-   * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
+   * @retuns { Object }
+   *         { Boolean } result - true - action was successful, false - was not
+   *         { Array } data - additional data, for merge { tokensGroup, indexDeleted }
    */
   undo () {
     if (this.steps.length > 1 && this.currentStepIndex > 0) {
-      const results = this.alignToStep(this.currentStepIndex - 1)
-      return results
+      return this.alignToStep(this.currentStepIndex - 1)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'))
     }
@@ -14553,7 +14559,7 @@ class AlignmentGroup {
    */
   redo () {
     if (this.currentStepIndex < (this.steps.length - 1)) {
-      this.alignToStep(this.currentStepIndex + 1)
+      return this.alignToStep(this.currentStepIndex + 1)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'))
     }
@@ -14565,20 +14571,25 @@ class AlignmentGroup {
    * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
    */
   alignToStep (stepIndex) {
-    let results = [] // eslint-disable-line prefer-const
+    let data = [] // eslint-disable-line prefer-const
+    let result = true
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const result = this.removeStepAction(i)
-        if (result && result.tokensGroup) { results.push(result) }
+        const dataResult = this.removeStepAction(i)
+        result = result && dataResult.result
+        if (dataResult.data) { data.push(dataResult.data) }
       }
     } else if (this.currentStepIndex < stepIndex) {
       for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const result = this.applyStepAction(i)
-        if (result && result.indexDeleted) { results.push(result) }
+        const dataResult = this.applyStepAction(i)
+        result = result && dataResult.result
+        if (dataResult.data) { data.push(dataResult.data) }
       }
     }
     this.currentStepIndex = stepIndex
-    return results
+    return {
+      result, data
+    }
   }
 
   /**
@@ -14599,12 +14610,22 @@ class AlignmentGroup {
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD] = (step) => {
       const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
       this[step.token.textType].splice(tokenIndex, 1)
+      return {
+        result: true
+      }
     }
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE] = (step) => {
       this[step.token.textType].push(step.token.idWord)
+      return {
+        result: true
+      }
     }
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE] = (step) => {
-      return this.unmerge(step)
+      const data = this.unmerge(step)
+      return {
+        result: true,
+        data
+      }
     }
 
     return actions[step.type](step)
@@ -14625,14 +14646,23 @@ class AlignmentGroup {
     const actions = {}
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD] = (step) => {
       this[step.token.textType].push(step.token.idWord)
+      return {
+        result: true
+      }
     }
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE] = (step) => {
       const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
       this[step.token.textType].splice(tokenIndex, 1)
+      return {
+        result: true
+      }
     }
     actions[_lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE] = (step) => {
       this.origin.push(...step.token.origin)
       this.target.push(...step.token.target)
+      return {
+        result: true
+      }
     }
 
     return actions[step.type](step)
@@ -15127,11 +15157,11 @@ class Alignment {
       return
     }
 
-    const results = this.activeAlignmentGroup.undo()
-    console.info('undoInActiveGroup - ', results)
-    if (results && results.length > 0) {
-      for (let i = 0; i < results.length; i++) {
-        this.insertUnmergedGroup(results[i])
+    const dataResult = this.activeAlignmentGroup.undo()
+
+    if (dataResult.result && dataResult.data.length > 0) {
+      for (let i = 0; i < dataResult.data.length; i++) {
+        this.insertUnmergedGroup(dataResult.data[i])
       }
     }
   }

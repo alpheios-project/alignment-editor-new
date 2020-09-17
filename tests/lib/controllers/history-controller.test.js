@@ -130,7 +130,7 @@ describe('history-controller.test.js', () => {
     expect(alignment.redoInActiveGroup).toHaveBeenCalled()
   })
 
-  it('6 HistoryController - redo - if there is an active alignment group and it has no future undone steps, then it would execute alignment.returnActiveGroupToList', () => {
+  it('6 HistoryController - redo - if there is an active alignment group and it has no future undone steps, then it would not execute alignment.returnActiveGroupToList', () => {
     const historyC = new HistoryController()
 
     const sourceTextOrigin = {
@@ -151,7 +151,7 @@ describe('history-controller.test.js', () => {
     alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
 
     historyC.redo()
-    expect(alignment.returnActiveGroupToList).toHaveBeenCalled()
+    expect(alignment.returnActiveGroupToList).not.toHaveBeenCalled()
   })
 
   it('7 HistoryController - redo - if there are no active alignment group and it has future undone groups, then it would execute alignment.redoActiveGroup', () => {

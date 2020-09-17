@@ -236,12 +236,13 @@ export default class AlignmentGroup {
 
   /**
    * Step back
-   * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
+   * @retuns { Object }
+   *         { Boolean } result - true - action was successful, false - was not
+   *         { Array } data - additional data, for merge { tokensGroup, indexDeleted }
    */
   undo () {
     if (this.steps.length > 1 && this.currentStepIndex > 0) {
-      const results = this.alignToStep(this.currentStepIndex - 1)
-      return results
+      return this.alignToStep(this.currentStepIndex - 1)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'))
     }
@@ -252,7 +253,7 @@ export default class AlignmentGroup {
    */
   redo () {
     if (this.currentStepIndex < (this.steps.length - 1)) {
-      this.alignToStep(this.currentStepIndex + 1)
+      return this.alignToStep(this.currentStepIndex + 1)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'))
     }
@@ -264,20 +265,25 @@ export default class AlignmentGroup {
    * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
    */
   alignToStep (stepIndex) {
-    let results = [] // eslint-disable-line prefer-const
+    let data = [] // eslint-disable-line prefer-const
+    let result = true
     if (this.currentStepIndex > stepIndex) {
       for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const result = this.removeStepAction(i)
-        if (result && result.tokensGroup) { results.push(result) }
+        const dataResult = this.removeStepAction(i)
+        result = result && dataResult.result
+        if (dataResult.data) { data.push(dataResult.data) }
       }
     } else if (this.currentStepIndex < stepIndex) {
       for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const result = this.applyStepAction(i)
-        if (result && result.indexDeleted) { results.push(result) }
+        const dataResult = this.applyStepAction(i)
+        result = result && dataResult.result
+        if (dataResult.data) { data.push(dataResult.data) }
       }
     }
     this.currentStepIndex = stepIndex
-    return results
+    return {
+      result, data
+    }
   }
 
   /**
@@ -298,12 +304,22 @@ export default class AlignmentGroup {
     actions[AlignmentStep.types.ADD] = (step) => {
       const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
       this[step.token.textType].splice(tokenIndex, 1)
+      return {
+        result: true
+      }
     }
     actions[AlignmentStep.types.REMOVE] = (step) => {
       this[step.token.textType].push(step.token.idWord)
+      return {
+        result: true
+      }
     }
     actions[AlignmentStep.types.MERGE] = (step) => {
-      return this.unmerge(step)
+      const data = this.unmerge(step)
+      return {
+        result: true,
+        data
+      }
     }
 
     return actions[step.type](step)
@@ -324,14 +340,23 @@ export default class AlignmentGroup {
     const actions = {}
     actions[AlignmentStep.types.ADD] = (step) => {
       this[step.token.textType].push(step.token.idWord)
+      return {
+        result: true
+      }
     }
     actions[AlignmentStep.types.REMOVE] = (step) => {
       const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
       this[step.token.textType].splice(tokenIndex, 1)
+      return {
+        result: true
+      }
     }
     actions[AlignmentStep.types.MERGE] = (step) => {
       this.origin.push(...step.token.origin)
       this.target.push(...step.token.target)
+      return {
+        result: true
+      }
     }
 
     return actions[step.type](step)

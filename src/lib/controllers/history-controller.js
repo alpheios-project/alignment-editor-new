@@ -3,16 +3,21 @@ export default class HistoryController {
    * Checks if we have steps to be undone
    * @returns {Boolean} true - undo could be done, false - not
    */
-  get undoAvailable () {
-    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+  get redoAvailable () {
+    return Boolean(this.alignment) &&
+           ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) ||
+           (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
   }
 
   /**
    * Checks if we have steps to be redone
    * @returns {Boolean} true - redo could be done, false - not
    */
-  get redoAvailable () {
-    return Boolean(this.alignment) && (this.alignment.hasActiveAlignment || (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+  get undoAvailable () {
+    return Boolean(this.alignment) &&
+           ((this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
+           (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
   }
 
   /**
@@ -51,7 +56,7 @@ export default class HistoryController {
     if (this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) {
       return this.alignment.redoInActiveGroup()
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup) {
+    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
       return this.alignment.returnActiveGroupToList()
     }
     if (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0) {
