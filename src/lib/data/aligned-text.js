@@ -1,5 +1,5 @@
-import Token from '@/lib/data/token'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import Segment from '@/lib/data/segment'
 
 export default class AlignedText {
   /**
@@ -31,22 +31,9 @@ export default class AlignedText {
    */
   tokenize (docSource) {
     const tokenizeMethod = TokenizeController.getTokenizer(this.tokenizer)
-    const result = tokenizeMethod(docSource.text, this.tokenPrefix, this.textType)
-    this.segments = this.convertToTokens(result.segments)
-    console.info('tokenize - this.segments', this.segments)
-  }
-
-  /**
-   * Formats tokens from simple objects to Token class objects
-   * @param {Array[Object]} tokens
-   * @return {Array[Token]}
-   */
-  convertToTokens (segments) {
-    return segments.map(segment => {
-      return {
-        index: segment.index,
-        tokens: segment.tokens.map(token => new Token(token))
-      }
-    })
+    const result = tokenizeMethod(docSource, this.tokenPrefix, this.textType)
+    if (result && result.segments) {
+      this.segments = result.segments.map(segment => new Segment(segment))
+    }
   }
 }
