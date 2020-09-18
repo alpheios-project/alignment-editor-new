@@ -31,7 +31,7 @@ export default class SimpleLocalTokenizer {
   static defineIdentification (text, idPrefix, textType) {
     const textLines = this.simpleLineTokenization(text)
 
-    const finalText = []
+    const finalText = { segments: [] }
     textLines.forEach((textLine, index) => {
       const prefix = `L${idPrefix}:${index + 1}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, textType)
@@ -41,8 +41,13 @@ export default class SimpleLocalTokenizer {
 
         lastWord.hasLineBreak = true
       }
-      finalText.push(...finalTextLine)
+      if (finalTextLine.length > 0) {
+        finalText.segments.push({
+          index, tokens: finalTextLine
+        })
+      }
     })
+
     return finalText
   }
 

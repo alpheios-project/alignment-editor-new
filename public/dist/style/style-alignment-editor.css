@@ -333,6 +333,13 @@ input.alpheios-input::-ms-input-placeholder {
 .alpheios-alignment-editor-align__target {
   padding-left: 20px;
 }
+.alpheios-alignment-editor-align-text-segment {
+  margin-bottom: 10px;
+}
+.alpheios-align-text-segment-origin-even,
+.alpheios-align-text-segment-target-even {
+  background: #dadada;
+}
 .alpheios-alignment-editor-align-define-container {
   margin-top: 15px;
   border: 1px solid #ddd;

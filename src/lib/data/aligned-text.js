@@ -31,8 +31,9 @@ export default class AlignedText {
    */
   tokenize (docSource) {
     const tokenizeMethod = TokenizeController.getTokenizer(this.tokenizer)
-    const tokens = tokenizeMethod(docSource.text, this.tokenPrefix, this.textType)
-    this.tokens = this.convertToTokens(tokens)
+    const result = tokenizeMethod(docSource.text, this.tokenPrefix, this.textType)
+    this.segments = this.convertToTokens(result.segments)
+    console.info('tokenize - this.segments', this.segments)
   }
 
   /**
@@ -40,13 +41,12 @@ export default class AlignedText {
    * @param {Array[Object]} tokens
    * @return {Array[Token]}
    */
-  convertToTokens (tokens) {
-    const tokensFormatted = []
-
-    tokens.forEach(token => {
-      const tokenFormat = new Token(token)
-      tokensFormatted.push(tokenFormat)
+  convertToTokens (segments) {
+    return segments.map(segment => {
+      return {
+        index: segment.index,
+        tokens: segment.tokens.map(token => new Token(token))
+      }
     })
-    return tokensFormatted
   }
 }

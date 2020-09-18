@@ -14262,8 +14262,9 @@ class AlignedText {
    */
   tokenize (docSource) {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getTokenizer(this.tokenizer)
-    const tokens = tokenizeMethod(docSource.text, this.tokenPrefix, this.textType)
-    this.tokens = this.convertToTokens(tokens)
+    const result = tokenizeMethod(docSource.text, this.tokenPrefix, this.textType)
+    this.segments = this.convertToTokens(result.segments)
+    console.info('tokenize - this.segments', this.segments)
   }
 
   /**
@@ -14271,14 +14272,13 @@ class AlignedText {
    * @param {Array[Object]} tokens
    * @return {Array[Token]}
    */
-  convertToTokens (tokens) {
-    const tokensFormatted = []
-
-    tokens.forEach(token => {
-      const tokenFormat = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token)
-      tokensFormatted.push(tokenFormat)
+  convertToTokens (segments) {
+    return segments.map(segment => {
+      return {
+        index: segment.index,
+        tokens: segment.tokens.map(token => new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token))
+      }
     })
-    return tokensFormatted
   }
 }
 
@@ -16041,7 +16041,7 @@ class SimpleLocalTokenizer {
   static defineIdentification (text, idPrefix, textType) {
     const textLines = this.simpleLineTokenization(text)
 
-    const finalText = []
+    const finalText = { segments: [] }
     textLines.forEach((textLine, index) => {
       const prefix = `L${idPrefix}:${index + 1}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, textType)
@@ -16051,8 +16051,13 @@ class SimpleLocalTokenizer {
 
         lastWord.hasLineBreak = true
       }
-      finalText.push(...finalTextLine)
+      if (finalTextLine.length > 0) {
+        finalText.segments.push({
+          index, tokens: finalTextLine
+        })
+      }
     })
+
     return finalText
   }
 
@@ -16279,6 +16284,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16338,6 +16349,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    segmentId (index) {
+      return `alpheios-align-text-segment-${this.textType}-${index}`
+    },
+    segmentClass (index) {
+      const segmentOrder = (index % 2) === 0 ? 'even' : 'odd'
+      return `alpheios-align-text-segment-${this.textType}-${segmentOrder}`
+    },
     clickToken (token) {
       this.$emit('click-token', token)
     },
@@ -16471,7 +16489,7 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.tokens) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.tokens)
+      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.segments)
     },
     /**
      * Returns originAlignedText from AlignedController
@@ -18025,34 +18043,46 @@ var render = function() {
       class: _vm.alignTextClass,
       attrs: { dir: _vm.direction, lang: _vm.lang }
     },
-    [
-      _vm._l(_vm.alignTextData.tokens, function(token) {
-        return [
-          token.word
-            ? _c("token", {
-                key: token.idWord,
-                attrs: {
-                  "text-type": _vm.textType,
-                  "text-word": token,
-                  selected: _vm.updated && _vm.selectedToken(token),
-                  grouped: _vm.updated && _vm.groupedToken(token),
-                  inActiveGroup: _vm.updated && _vm.inActiveGroup(token),
-                  firstInActiveGroup:
-                    _vm.updated && _vm.isFirstInActiveGroup(token)
-                },
-                on: {
-                  "click-token": _vm.clickToken,
-                  "add-hover-token": _vm.addHoverToken,
-                  "remove-hover-token": _vm.removeHoverToken
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          token.hasLineBreak ? _c("br") : _vm._e()
-        ]
-      })
-    ],
-    2
+    _vm._l(_vm.alignTextData.segments, function(segment, segmentI) {
+      return _c(
+        "div",
+        {
+          key: segment.index,
+          staticClass: "alpheios-alignment-editor-align-text-segment",
+          class: _vm.segmentClass(segmentI),
+          attrs: { id: _vm.segmentId(segment.index) }
+        },
+        [
+          _vm._l(segment.tokens, function(token) {
+            return [
+              token.word
+                ? _c("token", {
+                    key: token.idWord,
+                    attrs: {
+                      "text-type": _vm.textType,
+                      "text-word": token,
+                      selected: _vm.updated && _vm.selectedToken(token),
+                      grouped: _vm.updated && _vm.groupedToken(token),
+                      inActiveGroup: _vm.updated && _vm.inActiveGroup(token),
+                      firstInActiveGroup:
+                        _vm.updated && _vm.isFirstInActiveGroup(token)
+                    },
+                    on: {
+                      "click-token": _vm.clickToken,
+                      "add-hover-token": _vm.addHoverToken,
+                      "remove-hover-token": _vm.removeHoverToken
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              token.hasLineBreak ? _c("br") : _vm._e()
+            ]
+          })
+        ],
+        2
+      )
+    }),
+    0
   )
 }
 var staticRenderFns = []

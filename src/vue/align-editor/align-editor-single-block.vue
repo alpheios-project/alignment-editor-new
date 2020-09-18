@@ -3,20 +3,26 @@
          :class = "alignTextClass" 
          :dir = "direction" :lang = "lang" 
     >
-      <template v-for = "token in alignTextData.tokens">
-        <token
-          v-if ="token.word"
-          :text-type = "textType" :text-word = "token" :key = "token.idWord"
-          @click-token = "clickToken"
-          @add-hover-token = "addHoverToken"
-          @remove-hover-token = "removeHoverToken"
-          :selected = "updated && selectedToken(token)"
-          :grouped = "updated && groupedToken(token)"
-          :inActiveGroup = "updated && inActiveGroup(token)"
-          :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
-        />
-        <br v-if="token.hasLineBreak" />
-      </template>
+      <div class="alpheios-alignment-editor-align-text-segment" 
+          :class="segmentClass(segmentI)"
+          v-for="(segment, segmentI) in alignTextData.segments" :key="segment.index"
+          :id="segmentId(segment.index)"
+          >
+        <template v-for = "token in segment.tokens">
+          <token
+            v-if ="token.word"
+            :text-type = "textType" :text-word = "token" :key = "token.idWord"
+            @click-token = "clickToken"
+            @add-hover-token = "addHoverToken"
+            @remove-hover-token = "removeHoverToken"
+            :selected = "updated && selectedToken(token)"
+            :grouped = "updated && groupedToken(token)"
+            :inActiveGroup = "updated && inActiveGroup(token)"
+            :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
+          />
+          <br v-if="token.hasLineBreak" />
+        </template>
+      </div><!-- alpheios-alignment-editor-align-text-segment -->
     </div>
 </template>
 <script>
@@ -78,6 +84,13 @@ export default {
     }
   },
   methods: {
+    segmentId (index) {
+      return `alpheios-align-text-segment-${this.textType}-${index}`
+    },
+    segmentClass (index) {
+      const segmentOrder = (index % 2) === 0 ? 'even' : 'odd'
+      return `alpheios-align-text-segment-${this.textType}-${segmentOrder}`
+    },
     clickToken (token) {
       this.$emit('click-token', token)
     },
@@ -129,4 +142,12 @@ export default {
         padding-left: 20px;
     }
 
+    .alpheios-alignment-editor-align-text-segment {
+      margin-bottom: 10px;
+    }
+
+    .alpheios-align-text-segment-origin-even,
+    .alpheios-align-text-segment-target-even {
+      background: #dadada;
+    }
 </style>

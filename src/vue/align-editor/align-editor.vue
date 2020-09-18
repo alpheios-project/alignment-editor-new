@@ -75,7 +75,7 @@ export default {
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.tokens) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.tokens)
+      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.segments)
     },
     /**
      * Returns originAlignedText from AlignedController
