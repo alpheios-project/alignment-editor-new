@@ -4,7 +4,7 @@
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
       </h2>
 
-      <div class ="alpheios-alignment-editor-align-define-container">
+      <div class ="alpheios-alignment-editor-align-define-container"  v-if="showAlignEditor" v-show="showAlignBlocks">
         <segment-block v-for="(segment, index) in originAlignedText.segments" :key="getIndex('origin', segment.index)"
               :segment = "segment" :show-alignment="showAlignment"
               :alignment-updated = "alignmentUpdated" :isLast = "index === originAlignedText.segments.length-1"

@@ -18058,46 +18058,58 @@ var render = function() {
         _vm._v(")\n    ")
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "alpheios-alignment-editor-align-define-container" },
-        [
-          _vm._l(_vm.originAlignedText.segments, function(segment, index) {
-            return _c("segment-block", {
-              key: _vm.getIndex("origin", segment.index),
-              attrs: {
-                segment: segment,
-                "show-alignment": _vm.showAlignment,
-                "alignment-updated": _vm.alignmentUpdated,
-                isLast: index === _vm.originAlignedText.segments.length - 1
-              },
-              on: {
-                "click-token": _vm.clickToken,
-                "add-hover-token": _vm.addHoverToken,
-                "remove-hover-token": _vm.removeHoverToken
-              }
-            })
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.targetAlignedText.segments, function(segment, index) {
-            return _c("segment-block", {
-              key: _vm.getIndex("target", segment.index),
-              attrs: {
-                segment: segment,
-                "show-alignment": _vm.showAlignment,
-                "alignment-updated": _vm.alignmentUpdated,
-                isLast: index === _vm.targetAlignedText.segments.length - 1
-              },
-              on: {
-                "click-token": _vm.clickToken,
-                "add-hover-token": _vm.addHoverToken,
-                "remove-hover-token": _vm.removeHoverToken
-              }
-            })
-          })
-        ],
-        2
-      )
+      _vm.showAlignEditor
+        ? _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showAlignBlocks,
+                  expression: "showAlignBlocks"
+                }
+              ],
+              staticClass: "alpheios-alignment-editor-align-define-container"
+            },
+            [
+              _vm._l(_vm.originAlignedText.segments, function(segment, index) {
+                return _c("segment-block", {
+                  key: _vm.getIndex("origin", segment.index),
+                  attrs: {
+                    segment: segment,
+                    "show-alignment": _vm.showAlignment,
+                    "alignment-updated": _vm.alignmentUpdated,
+                    isLast: index === _vm.originAlignedText.segments.length - 1
+                  },
+                  on: {
+                    "click-token": _vm.clickToken,
+                    "add-hover-token": _vm.addHoverToken,
+                    "remove-hover-token": _vm.removeHoverToken
+                  }
+                })
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.targetAlignedText.segments, function(segment, index) {
+                return _c("segment-block", {
+                  key: _vm.getIndex("target", segment.index),
+                  attrs: {
+                    segment: segment,
+                    "show-alignment": _vm.showAlignment,
+                    "alignment-updated": _vm.alignmentUpdated,
+                    isLast: index === _vm.targetAlignedText.segments.length - 1
+                  },
+                  on: {
+                    "click-token": _vm.clickToken,
+                    "add-hover-token": _vm.addHoverToken,
+                    "remove-hover-token": _vm.removeHoverToken
+                  }
+                })
+              })
+            ],
+            2
+          )
+        : _vm._e()
     ]
   )
 }

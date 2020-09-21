@@ -41,7 +41,8 @@ describe('aligned-text.test.js', () => {
     expect(alignedText).toHaveProperty('direction', 'ltr')
     expect(alignedText).toHaveProperty('lang', 'eng')
 
-    expect(alignedText.tokens.length).toEqual(2)
+    expect(alignedText.segments.length).toEqual(1)
+    expect(alignedText.segments[0].tokens.length).toEqual(2)
   })
 
   it('2 AlignedText - tokenPrefix gives 1 for origin, 2 for target', () => {
@@ -79,36 +80,13 @@ describe('aligned-text.test.js', () => {
     })
 
     jest.spyOn(TokenizeController, 'getTokenizer')
-    jest.spyOn(alignedText, 'convertToTokens')
 
     alignedText.tokenize(sourceText)
 
     expect(TokenizeController.getTokenizer).toHaveBeenCalledWith('simpleWordTokenization')
-    expect(alignedText.convertToTokens).toHaveBeenCalled()
-    expect(alignedText.tokens.length).toEqual(2)
-    expect(alignedText.tokens[0]).toBeInstanceOf(Token)
-    expect(alignedText.tokens[1]).toBeInstanceOf(Token)
-  })
-
-  it('4 AlignedText - convertToTokens converts object to Token class-objects', () => {
-    const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
-    })
-
-    const alignedText = new AlignedText({
-      docSource: sourceText, 
-      tokenizer: 'simpleWordTokenization'
-    })
-
-    const tokens = [
-      { textType: 'origin', idWord: 'L:1-1', word: 'some' },
-      { textType: 'origin', idWord: 'L:1-2', word: 'text' }
-    ]
-
-    alignedText.convertToTokens(tokens)
-
-    expect(alignedText.tokens.length).toEqual(2)
-    expect(alignedText.tokens[0]).toBeInstanceOf(Token)
-    expect(alignedText.tokens[1]).toBeInstanceOf(Token)
+    expect(alignedText.segments.length).toEqual(1)
+    expect(alignedText.segments[0].tokens.length).toEqual(2)
+    expect(alignedText.segments[0].tokens[0]).toBeInstanceOf(Token)
+    expect(alignedText.segments[0].tokens[1]).toBeInstanceOf(Token)
   })
 })
