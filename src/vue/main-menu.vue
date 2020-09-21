@@ -1,6 +1,10 @@
 <template>
   <div class="alpheios-alignment-app-menu" id="alpheios-main-menu">
       <div class="alpheios-alignment-app-menu__buttons">
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-add-target" 
+                @click="$emit('add-target')" >{{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
+        </button>
+
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-download" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-upload" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-align" 

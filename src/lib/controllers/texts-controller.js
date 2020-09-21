@@ -56,12 +56,16 @@ export default class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  get allTargetTextsIds () {
+    return this.alignment ? Object.keys(this.alignment.targets) : null
+  }
+
   /**
    * Returns target document source if alignment is defined
    * @returns {SourceText} - target source text
    */
-  get targetDocSource () {
-    return this.alignment ? this.alignment.targetDocSource : null
+  targetDocSource (id) {
+    return this.alignment ? this.alignment.targetDocSource(id) : null
   }
 
   /**
@@ -79,6 +83,8 @@ export default class TextsController {
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
+
+      console.info('this.alignment', this.alignment)
     }
   }
 

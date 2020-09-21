@@ -23,5 +23,10 @@
       "message": "Undo",
       "description": "Button in main menu",
       "component": "MainMenu"
+    },
+    "MAIN_MENU_ADD_TARGET_TITLE": {
+      "message": "Add target",
+      "description": "Button in main menu",
+      "component": "MainMenu"
     }
 }

@@ -13536,8 +13536,8 @@ class AlignedController {
   /**
    * @return { {} | AlignedText } target aligned text
    */
-  get targetAlignedText () {
-    return this.alignment ? this.alignment.targetAlignedText : {}
+  targetAlignedText (id) {
+    return this.alignment ? this.alignment.targetAlignedText(id) : {}
   }
 
   /**
@@ -14037,12 +14037,16 @@ class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  get allTargetTextsIds () {
+    return this.alignment ? Object.keys(this.alignment.targets) : null
+  }
+
   /**
    * Returns target document source if alignment is defined
    * @returns {SourceText} - target source text
    */
-  get targetDocSource () {
-    return this.alignment ? this.alignment.targetDocSource : null
+  targetDocSource (id) {
+    return this.alignment ? this.alignment.targetDocSource(id) : null
   }
 
   /**
@@ -14060,6 +14064,8 @@ class TextsController {
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
+
+      console.info('this.alignment', this.alignment)
     }
   }
 
@@ -14859,14 +14865,10 @@ class Alignment {
   constructor (originDocSource, targetDocSource) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.origin = {}
-    this.target = {}
+    this.targets = {}
 
-    if (originDocSource) {
-      this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', originDocSource)
-    }
-    if (targetDocSource) {
-      this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', targetDocSource)
-    }
+    this.updateOriginDocSource(originDocSource)
+    this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -14892,7 +14894,7 @@ class Alignment {
    * Checks if target.docSource is defined and has all obligatory fields
    */
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource) && this.target.docSource.fullyDefined
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
   }
 
   /**
@@ -14900,6 +14902,10 @@ class Alignment {
    * @param {SourceText} docSource
    */
   updateOriginDocSource (docSource) {
+    if (!docSource) {
+      return false
+    }
+
     if (!this.origin.docSource) {
       this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
     } else {
@@ -14912,15 +14918,22 @@ class Alignment {
    * Updates/adds target docSource only if origin is defined
    * @param {SourceText} docSource
    */
-  updateTargetDocSource (docSource) {
+  updateTargetDocSource (docSource, id = null) {
+    if (!docSource) {
+      return false
+    }
     if (!this.origin.docSource) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
-    if (!this.target.docSource) {
-      this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+
+    if (!this.targets[id]) {
+      const targetId = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+      this.targets[targetId] = {
+        docSource: new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+      }
     } else {
-      this.target.docSource.update(docSource)
+      this.targets[id].docSource.update(docSource)
     }
     return true
   }
@@ -14935,8 +14948,8 @@ class Alignment {
   /**
    * @returns { SourceText | null } target docSource
    */
-  get targetDocSource () {
-    return this.target.docSource ? this.target.docSource : null
+  targetDocSource (id) {
+    return this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : {}
   }
 
   /**
@@ -14954,11 +14967,13 @@ class Alignment {
       tokenizer
     })
 
-    this.target.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
-      docSource: this.target.docSource,
-      tokenizer
-    })
-
+    for (let i = 0; i < Object.keys(this.targets).length; i++) {
+      const id = Object.keys(this.targets)[i]
+      this.targets[id].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
+        docSource: this.targets[id].docSource,
+        tokenizer
+      })
+    }
     return true
   }
 
@@ -14972,8 +14987,8 @@ class Alignment {
   /**
    * @returns { AlignedText | Null } - target aligned text
    */
-  get targetAlignedText () {
-    return this.target.alignedText ? this.target.alignedText : null
+  targetAlignedText (id) {
+    return this.targets[id] && this.targets[id].alignedText ? this.targets[id].alignedText : null
   }
 
   /**
@@ -16711,6 +16726,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -16810,6 +16826,12 @@ __webpack_require__.r(__webpack_exports__);
         this.hideTextEditorM()
         this.showAlignEditorM()    
       }
+    },
+    /**
+     * Add aditional block for defining another target text
+     */
+    addTarget () {
+      console.info('addTarget')
     }
   }
 });
@@ -16833,6 +16855,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
 //
 //
 //
@@ -16972,9 +16998,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditorSingleBlock',
   props: {
-    textId: {
+    textType: {
       type: String,
       required: true
+    },
+    textId: {
+      type: String,
+      required: false
     },
     externalText: {
       type: Object,
@@ -17007,7 +17037,9 @@ __webpack_require__.r(__webpack_exports__);
      *        {String} data.lang
      */
     externalText (data) {
+      console.info('externalText - ', this.textId)
       this.text = data.text
+      console.info('externalText - this.text', this.text)
       this.direction = data.direction
       this.updateLang(data.lang)
     }
@@ -17017,25 +17049,25 @@ __webpack_require__.r(__webpack_exports__);
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__${this.textId}`
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
      */
-    textIdFormatted () {
-      return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
+    textTypeFormatted () {
+      return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
     },
     /**
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
     /**
      * Defines Label for available language list
      */
     chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
     },
     /**
      * Defines final language
@@ -17052,7 +17084,7 @@ __webpack_require__.r(__webpack_exports__);
      * Defines unique id for direction input
      */
     directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
+      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}`
     },
     /**
      * If a user reselects language from select, input[text] would be cleared
@@ -17084,7 +17116,7 @@ __webpack_require__.r(__webpack_exports__);
         text: this.text,
         direction: this.direction,
         lang: this.selectedLang
-      })
+      }, this.textType)
     }
   }
 });
@@ -17109,6 +17141,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
 //
 //
 //
@@ -17189,6 +17224,9 @@ __webpack_require__.r(__webpack_exports__);
     this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
+    allTargetTextsIds () {
+      return this.targetUpdated ? this.$textC.allTargetTextsIds : [ null ]
+    },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
@@ -17202,28 +17240,21 @@ __webpack_require__.r(__webpack_exports__);
       return this.originUpdated && this.originText ?  this.originText : null
     },
     /**
-     * Catches if targetUpdated was updated and update target text from controller
-     */
-    updatedTarget () {
-      return this.targetUpdated && this.targetText ?  this.targetText : null
-    },
-    /**
      * Retrieves origin doc source from controller
      */
     originText () {
       return this.originUpdated ? this.$textC.originDocSource : {}
-    },
-    /**
-     * Retrieves target doc source from controller
-     */
-    targetText () {
-      return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     }
   },
   methods: {
+    targetText (id) {
+      const result = this.$textC.targetDocSource(id)
+      console.info('targetText - ', id, result)
+      return result
+    },
     /**
      * Toggle show/hide texts blocks
      */
@@ -17248,8 +17279,8 @@ __webpack_require__.r(__webpack_exports__);
      *        {String} textData.direction
      *        {String} textData.lang
      */
-    updateTargetText (textData) {
-      this.$textC.updateTargetDocSource(textData)
+    updateTargetText (textData, id) {
+      this.$textC.updateTargetDocSource(textData, textData.id)
       this.$emit('css-update-menu')
     }
   }
@@ -18275,7 +18306,8 @@ var render = function() {
           "upload-data": _vm.uploadData,
           "align-texts": _vm.alignTexts,
           "redo-action": _vm.redoAction,
-          "undo-action": _vm.undoAction
+          "undo-action": _vm.undoAction,
+          "add-target": _vm.addTarget
         }
       }),
       _vm._v(" "),
@@ -18335,6 +18367,25 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "alpheios-alignment-app-menu__buttons" }, [
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: { id: "alpheios-main-menu-add-target" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("add-target")
+              }
+            }
+          },
+          [
+            _vm._v(
+              _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
+                "\n      "
+            )
+          ]
+        ),
+        _vm._v(" "),
         _c(
           "button",
           {
@@ -18777,7 +18828,7 @@ var render = function() {
               [
                 _c("text-editor-single-block", {
                   attrs: {
-                    "text-id": "origin",
+                    "text-type": "origin",
                     "external-text": _vm.updatedOrigin
                   },
                   on: { "update-text": _vm.updateOriginText }
@@ -18786,24 +18837,28 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container"
-              },
-              [
-                _c("text-editor-single-block", {
-                  attrs: {
-                    "text-id": "target",
-                    "external-text": _vm.updatedTarget,
-                    disabled: _vm.disableTargetTextBlock
+            _vm.allTargetTextsIds
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container"
                   },
-                  on: { "update-text": _vm.updateTargetText }
-                })
-              ],
-              1
-            )
+                  _vm._l(_vm.allTargetTextsIds, function(targetTextId, indexT) {
+                    return _c("text-editor-single-block", {
+                      key: indexT,
+                      attrs: {
+                        "text-type": "target",
+                        "text-id": targetTextId,
+                        "external-text": _vm.targetText(targetTextId),
+                        disabled: _vm.disableTargetTextBlock
+                      },
+                      on: { "update-text": _vm.updateTargetText }
+                    })
+                  }),
+                  1
+                )
+              : _vm._e()
           ]
         )
       ]
@@ -20168,6 +20223,11 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
   !*** ./locales/en-us/messages-main-menu.json ***!
   \***********************************************/
 /*! default exports */
+/*! export MAIN_MENU_ADD_TARGET_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export MAIN_MENU_ALIGN_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -20198,7 +20258,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
 
 /***/ }),
 

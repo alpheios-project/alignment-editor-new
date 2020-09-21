@@ -13,7 +13,7 @@ describe('alignment.test.js', () => {
   
   beforeAll(() => {
     const appC = new AppController({
-      appidWord:'alpheios-alignment-editor'
+      appId:'alpheios-alignment-editor'
     })
     appC.defineL10Support()
   })
@@ -30,7 +30,7 @@ describe('alignment.test.js', () => {
 
     expect(alignment.id).toBeDefined()
     expect(alignment.origin).toEqual({})
-    expect(alignment.target).toEqual({})
+    expect(alignment.targets).toEqual({})
     expect(alignment.alignmentGroups.length).toEqual(0)
     expect(alignment.alignmentGroupsIds.length).toEqual(0)
     expect(alignment.undoneGroups.length).toEqual(0)
@@ -47,7 +47,8 @@ describe('alignment.test.js', () => {
     const alignment = new Alignment(originDocSource, targetDocSource)
 
     expect(alignment.origin).toHaveProperty('docSource', expect.any(SourceText))
-    expect(alignment.target).toHaveProperty('docSource', expect.any(SourceText))
+    
+    expect(Object.values(alignment.targets)[0]).toHaveProperty('docSource', expect.any(SourceText))
   })
 
   it('3 Alignment - readyForTokenize return true if origin docSource and target docSource are defined with all obligatory fields (text, direction, lang)', () => {
@@ -103,18 +104,30 @@ describe('alignment.test.js', () => {
       text: 'target some text2', direction: 'ltr', lang: 'lat'
     }
 
+    const sourceTextTarget3 = {
+      text: 'target some text3', direction: 'ltr', lang: 'lat'
+    }
+
     let alignment = new Alignment()
     
     alignment.updateTargetDocSource(sourceTextTarget1)
-    expect(alignment.target).toEqual({})
+    expect(alignment.targets).toEqual({})
 
     alignment.updateOriginDocSource(sourceTextOrigin)
 
+    // update without id
     alignment.updateTargetDocSource(sourceTextTarget1)
-    expect(alignment.target.docSource.text).toEqual('target some text1')
+    expect(Object.values(alignment.targets)[0].docSource.text).toEqual('target some text1')
 
-    alignment.updateTargetDocSource(sourceTextTarget2)
-    expect(alignment.target.docSource.text).toEqual('target some text2')
+    alignment.updateTargetDocSource(sourceTextTarget3)
+    expect(Object.values(alignment.targets)[1].docSource.text).toEqual('target some text3')
+
+    // update by id
+    const id1 = Object.keys(alignment.targets)[0]
+    alignment.updateTargetDocSource(sourceTextTarget2, id1)
+
+    expect(Object.values(alignment.targets)[0].docSource.text).toEqual('target some text2')
+    expect(Object.values(alignment.targets)[1].docSource.text).toEqual('target some text3')
   })
 
   it('6 Alignment - createAlignedTexts returns false and doesn\'t creates AlignedTexts if tokenizer is not defined or texts are not ready for tokenization', () => {
@@ -134,18 +147,20 @@ describe('alignment.test.js', () => {
     alignment.updateOriginDocSource(sourceTextOrigin)
     alignment.updateTargetDocSource(sourceTextTargetIncorect)
 
+
     expect(alignment.createAlignedTexts()).toBeFalsy()
     expect(alignment.origin.alignedText).not.toBeDefined()
-    expect(alignment.target.alignedText).not.toBeDefined()
+    expect(Object.values(alignment.targets)[0].alignedText).not.toBeDefined()
 
     expect(alignment.createAlignedTexts('simpleWordTokenization')).toBeFalsy()
     expect(alignment.origin.alignedText).not.toBeDefined()
-    expect(alignment.target.alignedText).not.toBeDefined()
+    expect(Object.values(alignment.targets)[0].alignedText).not.toBeDefined()
 
-    alignment.updateTargetDocSource(sourceTextTargetCorect)
+    alignment.updateTargetDocSource(sourceTextTargetCorect, Object.keys(alignment.targets)[0])
+
     expect(alignment.createAlignedTexts('simpleWordTokenization')).toBeTruthy()
     expect(alignment.origin.alignedText).toEqual(expect.any(AlignedText))
-    expect(alignment.target.alignedText).toEqual(expect.any(AlignedText))
+    expect(Object.values(alignment.targets)[0].alignedText).toEqual(expect.any(AlignedText))
   })
 
   it('7 Alignment - originDocSource, targetDocSource, originAlignedText, targetAlignedText', () => {
@@ -158,17 +173,20 @@ describe('alignment.test.js', () => {
     }
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    const targetId = Object.keys(alignment.targets)[0]
+
     alignment.createAlignedTexts('simpleWordTokenization')
 
     expect(alignment.originDocSource).toEqual(expect.any(SourceText))
     expect(alignment.originDocSource).toEqual(alignment.origin.docSource)
-    expect(alignment.targetDocSource).toEqual(expect.any(SourceText))
-    expect(alignment.targetDocSource).toEqual(alignment.target.docSource)
+
+    expect(alignment.targetDocSource(targetId)).toEqual(expect.any(SourceText))
+    expect(alignment.targetDocSource(targetId)).toEqual(alignment.targets[targetId].docSource)
 
     expect(alignment.originAlignedText).toEqual(expect.any(AlignedText))
     expect(alignment.originAlignedText).toEqual(alignment.origin.alignedText)
-    expect(alignment.targetAlignedText).toEqual(expect.any(AlignedText))
-    expect(alignment.targetAlignedText).toEqual(alignment.target.alignedText)
+    expect(alignment.targetAlignedText(targetId)).toEqual(expect.any(AlignedText))
+    expect(alignment.targetAlignedText(targetId)).toEqual(alignment.targets[targetId].alignedText)
   })
 
   it('8 Alignment - shouldStartNewAlignmentGroup returns true, if there is no active alignment group', () => {
@@ -184,7 +202,6 @@ describe('alignment.test.js', () => {
     alignment.createAlignedTexts('simpleWordTokenization')
 
     expect(alignment.shouldStartNewAlignmentGroup()).toBeTruthy()
-
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
 
@@ -287,13 +304,15 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
     
+    const targetId = Object.keys(alignment.targets)[0]
+
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
 
     expect(alignment.finishActiveAlignmentGroup()).toBeFalsy()
     expect(alignment.activeAlignmentGroup).toEqual(expect.any(AlignmentGroup))
 
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     expect(alignment.finishActiveAlignmentGroup()).toBeTruthy()
     expect(alignment.activeAlignmentGroup).toBeNull()
   })
@@ -310,6 +329,8 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
 
+    const targetId = Object.keys(alignment.targets)[0]
+
     expect(alignment.shouldFinishAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy()
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
@@ -318,7 +339,7 @@ describe('alignment.test.js', () => {
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
     expect(alignment.shouldFinishAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy()
 
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     expect(alignment.shouldFinishAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeTruthy()
   })
 
@@ -333,6 +354,7 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy()
 
@@ -342,11 +364,11 @@ describe('alignment.test.js', () => {
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
     expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy()
 
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
     expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy()
-    expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.target.alignedText.segments[0].tokens[0])).toBeFalsy()
-    expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy()
+    expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[0])).toBeFalsy()
+    expect(alignment.shouldBeRemovedFromAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy()
   })
 
   it('16 Alignment - findAlignmentGroup returns false if group was not found otherwise returns found AlingmentGroup', () => {
@@ -360,9 +382,10 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.findAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[2])).toBeFalsy()
@@ -381,9 +404,10 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.findAlignmentGroupIds(alignment.origin.alignedText.segments[0].tokens[2])).toEqual([])
@@ -402,14 +426,15 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.removeFromAlignmentIds(alignment.origin.alignedText.segments[0].tokens[2].idWord)).toBeFalsy()
-    expect(alignment.removeFromAlignmentIds(alignment.target.alignedText.segments[0].tokens[2].idWord)).toBeTruthy()
+    expect(alignment.removeFromAlignmentIds(alignment.targets[targetId].alignedText.segments[0].tokens[2].idWord)).toBeTruthy()
 
     expect(alignment.alignmentGroupsIds).toEqual(['L1:1-1', 'L2:1-2'])
     
@@ -426,10 +451,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
 
     const alGroup = alignment.activeAlignmentGroup
     alignment.finishActiveAlignmentGroup()
@@ -450,16 +476,17 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     
-    expect(alignment.tokenIsGrouped(alignment.target.alignedText.segments[0].tokens[1])).toBeFalsy() // was added but is not saved yet
+    expect(alignment.tokenIsGrouped(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeFalsy() // was added but is not saved yet
     alignment.finishActiveAlignmentGroup()
 
-    expect(alignment.tokenIsGrouped(alignment.target.alignedText.segments[0].tokens[0])).toBeFalsy() // was not added
-    expect(alignment.tokenIsGrouped(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy() // was added
+    expect(alignment.tokenIsGrouped(alignment.targets[targetId].alignedText.segments[0].tokens[0])).toBeFalsy() // was not added
+    expect(alignment.tokenIsGrouped(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // was added
   })
 
   it('21 Alignment - tokenInActiveGroup returns true if token is in the active alignment group, false - is not', () => {
@@ -473,16 +500,17 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
-    expect(alignment.tokenInActiveGroup(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy() // is added to active group
-    expect(alignment.tokenInActiveGroup(alignment.target.alignedText.segments[0].tokens[0])).toBeFalsy() // was not added to active group
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
+    expect(alignment.tokenInActiveGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // is added to active group
+    expect(alignment.tokenInActiveGroup(alignment.targets[targetId].alignedText.segments[0].tokens[0])).toBeFalsy() // was not added to active group
     alignment.finishActiveAlignmentGroup()
 
-    expect(alignment.tokenInActiveGroup(alignment.target.alignedText.segments[0].tokens[0])).toBeFalsy() // there is no active group
-    expect(alignment.tokenInActiveGroup(alignment.target.alignedText.segments[0].tokens[1])).toBeFalsy() // there is no active group
+    expect(alignment.tokenInActiveGroup(alignment.targets[targetId].alignedText.segments[0].tokens[0])).toBeFalsy() // there is no active group
+    expect(alignment.tokenInActiveGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeFalsy() // there is no active group
   })
 
   it('22 Alignment - isFirstInActiveGroup returns true if token is in the active alignment group and defined as the first, false - is not', () => {
@@ -496,19 +524,20 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     
-    expect(alignment.isFirstInActiveGroup(alignment.target.alignedText.segments[0].tokens[1])).toBeFalsy() // was not added as first
+    expect(alignment.isFirstInActiveGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeFalsy() // was not added as first
     expect(alignment.isFirstInActiveGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeTruthy() // was added as first
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.tokenInActiveGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy() // there is no active group
 
-    alignment.activateGroupByToken(alignment.target.alignedText.segments[0].tokens[1]) // reactivated by another token , it would be first now
-    expect(alignment.isFirstInActiveGroup(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy() // was activated by this token
+    alignment.activateGroupByToken(alignment.targets[targetId].alignedText.segments[0].tokens[1]) // reactivated by another token , it would be first now
+    expect(alignment.isFirstInActiveGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // was activated by this token
     expect(alignment.isFirstInActiveGroup(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy() // was not activated by this token
   })
 
@@ -523,19 +552,20 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
-
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    const targetId = Object.keys(alignment.targets)[0]
     
-    expect(alignment.tokenTheSameTextTypeAsStart(alignment.target.alignedText.segments[0].tokens[0])).toBeFalsy() // was started from origin, this is target
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
+    
+    expect(alignment.tokenTheSameTextTypeAsStart(alignment.targets[targetId].alignedText.segments[0].tokens[0])).toBeFalsy() // was started from origin, this is target
     expect(alignment.tokenTheSameTextTypeAsStart(alignment.origin.alignedText.segments[0].tokens[0])).toBeTruthy() // was started from origin, this is origin
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.tokenTheSameTextTypeAsStart(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy() // there is no active group
 
-    alignment.activateGroupByToken(alignment.target.alignedText.segments[0].tokens[1]) // reactivated by another token , it would be first now
-    expect(alignment.tokenTheSameTextTypeAsStart(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy() // was started from target, this is target
+    alignment.activateGroupByToken(alignment.targets[targetId].alignedText.segments[0].tokens[1]) // reactivated by another token , it would be first now
+    expect(alignment.tokenTheSameTextTypeAsStart(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // was started from target, this is target
     expect(alignment.tokenTheSameTextTypeAsStart(alignment.origin.alignedText.segments[0].tokens[0])).toBeFalsy() // was started from target, this is origin
   })
 
@@ -550,21 +580,22 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.hasActiveAlignment).toBeFalsy()
-    expect(alignment.activateGroupByToken(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy() // group was found and activated
+    expect(alignment.activateGroupByToken(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // group was found and activated
     expect(alignment.hasActiveAlignment).toBeTruthy()
     expect(alignment.alignmentGroupsIds.length).toEqual(0) // activated tokens are not in saved groups
     
     alignment.finishActiveAlignmentGroup()
 
     expect(alignment.hasActiveAlignment).toBeFalsy()
-    expect(alignment.activateGroupByToken(alignment.target.alignedText.segments[0].tokens[0]) ).toBeFalsy() // group was not found and nothing was activated
+    expect(alignment.activateGroupByToken(alignment.targets[targetId].alignedText.segments[0].tokens[0]) ).toBeFalsy() // group was not found and nothing was activated
     expect(alignment.hasActiveAlignment).toBeFalsy()
     expect(alignment.alignmentGroupsIds.length).toEqual(3) // as we didn't activate the group, they are still in saved groups
   })
@@ -580,18 +611,19 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     alignment.finishActiveAlignmentGroup() // created saved group to be merged later
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1]) // starts new alignment group
 
-    expect(alignment.mergeActiveGroupWithAnotherByToken(alignment.target.alignedText.segments[0].tokens[0])).toBeFalsy() // this token is not grouped yet
+    expect(alignment.mergeActiveGroupWithAnotherByToken(alignment.targets[targetId].alignedText.segments[0].tokens[0])).toBeFalsy() // this token is not grouped yet
     expect(alignment.activeAlignmentGroup.steps.length).toEqual(1) // no tokens were merged
 
-    expect(alignment.mergeActiveGroupWithAnotherByToken(alignment.target.alignedText.segments[0].tokens[1])).toBeTruthy() // this token is not grouped yet
+    expect(alignment.mergeActiveGroupWithAnotherByToken(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // this token is not grouped yet
     expect(alignment.activeAlignmentGroup.steps.length).toEqual(2) // 3 tokens were merged to the group
     expect(alignment.activeAlignmentGroup.origin.length).toEqual(2) 
     expect(alignment.activeAlignmentGroup.target.length).toEqual(2) 
@@ -608,16 +640,17 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     
     const alGroup = alignment.activeAlignmentGroup
     alignment.finishActiveAlignmentGroup() // created saved group to be merged later
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1]) // starts new alignment group
-    alignment.mergeActiveGroupWithAnotherByToken(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.mergeActiveGroupWithAnotherByToken(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
     jest.spyOn(alignment.activeAlignmentGroup, 'undo')
     jest.spyOn(alignment, 'insertUnmergedGroup')
@@ -643,10 +676,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
 
     expect(alignment.currentStepOnLastInActiveGroup).toBeTruthy()
     alignment.undoInActiveGroup()
@@ -664,10 +698,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     const alGroup = alignment.activeAlignmentGroup
     alignment.finishActiveAlignmentGroup()
 
@@ -689,10 +724,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     const alGroup = alignment.activeAlignmentGroup
     alignment.finishActiveAlignmentGroup()
 
@@ -714,10 +750,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     const alGroup = alignment.activeAlignmentGroup
     alignment.finishActiveAlignmentGroup()
 
@@ -740,10 +777,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
+    const targetId = Object.keys(alignment.targets)[0]
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     alignment.undoInActiveGroup()
 
     jest.spyOn(alignment.activeAlignmentGroup, 'redo')
@@ -763,10 +801,11 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
     alignment.createAlignedTexts('simpleWordTokenization')
-
+    const targetId = Object.keys(alignment.targets)[0]
+    
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[2])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     const alGroup = alignment.activeAlignmentGroup
 
     alGroup.undo()

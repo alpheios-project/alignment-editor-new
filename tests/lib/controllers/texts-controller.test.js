@@ -94,11 +94,13 @@ describe('texts-controller.test.js', () => {
     const docSourceOrigin = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
     textsC.updateOriginDocSource(docSourceOrigin)
 
-    expect(textsC.targetDocSource).toBeNull()
+    expect(textsC.targetDocSource()).toBeNull()
 
     const docSourceTarget = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
     textsC.updateTargetDocSource(docSourceTarget)
-    expect(textsC.targetDocSource).toBeInstanceOf(SourceText)
+    const targetId = Object.keys(textsC.alignment.targets)[0]
+
+    expect(textsC.targetDocSource(targetId)).toBeInstanceOf(SourceText)
   })
 
   it('8 TextsController - uploadDocSourceFromFile prints error if fileData is empty', () => {

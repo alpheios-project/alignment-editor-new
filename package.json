@@ -9,7 +9,7 @@
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
-    "test-a": "jest tests/lib/controllers/history-controller.test.js --coverage",
+    "test-a": "jest tests/lib/controllers/aligned-controller.test.js --coverage",
     "test-b": "jest tests/vue/align-editor/segment-block.test.js --coverage",
     "test-c": "jest tests/lib/data/alignment.test.js --coverage"
   },

@@ -36,9 +36,13 @@ import Langs from '@/lib/data/langs/langs.js'
 export default {
   name: 'TextEditorSingleBlock',
   props: {
-    textId: {
+    textType: {
       type: String,
       required: true
+    },
+    textId: {
+      type: String,
+      required: false
     },
     externalText: {
       type: Object,
@@ -71,7 +75,9 @@ export default {
      *        {String} data.lang
      */
     externalText (data) {
+      console.info('externalText - ', this.textId)
       this.text = data.text
+      console.info('externalText - this.text', this.text)
       this.direction = data.direction
       this.updateLang(data.lang)
     }
@@ -81,25 +87,25 @@ export default {
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__${this.textId}`
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
      */
-    textIdFormatted () {
-      return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
+    textTypeFormatted () {
+      return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
     },
     /**
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
     /**
      * Defines Label for available language list
      */
     chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
     },
     /**
      * Defines final language
@@ -116,7 +122,7 @@ export default {
      * Defines unique id for direction input
      */
     directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
+      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}`
     },
     /**
      * If a user reselects language from select, input[text] would be cleared
@@ -148,7 +154,7 @@ export default {
         text: this.text,
         direction: this.direction,
         lang: this.selectedLang
-      })
+      }, this.textType)
     }
   }
 }

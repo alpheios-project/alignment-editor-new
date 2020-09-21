@@ -14,14 +14,10 @@ export default class Alignment {
   constructor (originDocSource, targetDocSource) {
     this.id = uuidv4()
     this.origin = {}
-    this.target = {}
+    this.targets = {}
 
-    if (originDocSource) {
-      this.origin.docSource = new SourceText('origin', originDocSource)
-    }
-    if (targetDocSource) {
-      this.target.docSource = new SourceText('target', targetDocSource)
-    }
+    this.updateOriginDocSource(originDocSource)
+    this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
     this.alignmentGroupsIds = []
@@ -47,7 +43,7 @@ export default class Alignment {
    * Checks if target.docSource is defined and has all obligatory fields
    */
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource) && this.target.docSource.fullyDefined
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
   }
 
   /**
@@ -55,6 +51,10 @@ export default class Alignment {
    * @param {SourceText} docSource
    */
   updateOriginDocSource (docSource) {
+    if (!docSource) {
+      return false
+    }
+
     if (!this.origin.docSource) {
       this.origin.docSource = new SourceText('origin', docSource)
     } else {
@@ -67,15 +67,22 @@ export default class Alignment {
    * Updates/adds target docSource only if origin is defined
    * @param {SourceText} docSource
    */
-  updateTargetDocSource (docSource) {
+  updateTargetDocSource (docSource, id = null) {
+    if (!docSource) {
+      return false
+    }
     if (!this.origin.docSource) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
       return false
     }
-    if (!this.target.docSource) {
-      this.target.docSource = new SourceText('target', docSource)
+
+    if (!this.targets[id]) {
+      const targetId = id || uuidv4()
+      this.targets[targetId] = {
+        docSource: new SourceText('target', docSource)
+      }
     } else {
-      this.target.docSource.update(docSource)
+      this.targets[id].docSource.update(docSource)
     }
     return true
   }
@@ -90,8 +97,8 @@ export default class Alignment {
   /**
    * @returns { SourceText | null } target docSource
    */
-  get targetDocSource () {
-    return this.target.docSource ? this.target.docSource : null
+  targetDocSource (id) {
+    return this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : {}
   }
 
   /**
@@ -109,11 +116,13 @@ export default class Alignment {
       tokenizer
     })
 
-    this.target.alignedText = new AlignedText({
-      docSource: this.target.docSource,
-      tokenizer
-    })
-
+    for (let i = 0; i < Object.keys(this.targets).length; i++) {
+      const id = Object.keys(this.targets)[i]
+      this.targets[id].alignedText = new AlignedText({
+        docSource: this.targets[id].docSource,
+        tokenizer
+      })
+    }
     return true
   }
 
@@ -127,8 +136,8 @@ export default class Alignment {
   /**
    * @returns { AlignedText | Null } - target aligned text
    */
-  get targetAlignedText () {
-    return this.target.alignedText ? this.target.alignedText : null
+  targetAlignedText (id) {
+    return this.targets[id] && this.targets[id].alignedText ? this.targets[id].alignedText : null
   }
 
   /**

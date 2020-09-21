@@ -85,10 +85,9 @@ describe('texts-controller.test.js', () => {
   it('6 AlignedController - targetAlignedText returns empty object if alignment is not defined', () => {
     const alignedC = new AlignedController()
     
-    const result = alignedC.targetAlignedText
+    const result = alignedC.targetAlignedText()
     expect(result).toEqual({})
   })
-
 
   it('7 AlignedController - targetAlignedText returns targetAlignedText from the defined alignment', () => {
     const alignedC = new AlignedController()
@@ -96,7 +95,10 @@ describe('texts-controller.test.js', () => {
     const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
-    const result = alignedC.targetAlignedText
+    const targetId = Object.keys(alignment.targets)[0]
+
+    const result = alignedC.targetAlignedText(targetId)
+
     expect(result).toHaveProperty('textType', 'target')
     expect(result).toHaveProperty('direction', 'ltr')
     expect(result).toHaveProperty('lang', 'eng')

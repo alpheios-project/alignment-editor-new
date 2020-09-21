@@ -26,8 +26,8 @@ export default class AlignedController {
   /**
    * @return { {} | AlignedText } target aligned text
    */
-  get targetAlignedText () {
-    return this.alignment ? this.alignment.targetAlignedText : {}
+  targetAlignedText (id) {
+    return this.alignment ? this.alignment.targetAlignedText(id) : {}
   }
 
   /**

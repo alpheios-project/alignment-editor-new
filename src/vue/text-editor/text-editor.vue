@@ -7,18 +7,21 @@
         <div class="alpheios-alignment-editor-text-define-container-inner">
           <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
             <text-editor-single-block 
-                text-id="origin" 
+                text-type="origin" 
                 @update-text = "updateOriginText" 
                 :external-text = "updatedOrigin"
             />
           </div>
 
-          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container">
+          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container" v-if="allTargetTextsIds">
             <text-editor-single-block 
-                text-id="target" 
+                v-for="(targetTextId, indexT) in allTargetTextsIds" :key="indexT"
+                text-type = "target" 
+                :text-id = "targetTextId"
+                :external-text = "targetText(targetTextId)"
+                :disabled = "disableTargetTextBlock"
                 @update-text = "updateTargetText" 
-                :external-text = "updatedTarget" 
-                :disabled = "disableTargetTextBlock"   
+                   
             />
           </div>
         </div>
@@ -78,6 +81,9 @@ export default {
     this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
+    allTargetTextsIds () {
+      return this.targetUpdated ? this.$textC.allTargetTextsIds : [ null ]
+    },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
@@ -91,28 +97,21 @@ export default {
       return this.originUpdated && this.originText ?  this.originText : null
     },
     /**
-     * Catches if targetUpdated was updated and update target text from controller
-     */
-    updatedTarget () {
-      return this.targetUpdated && this.targetText ?  this.targetText : null
-    },
-    /**
      * Retrieves origin doc source from controller
      */
     originText () {
       return this.originUpdated ? this.$textC.originDocSource : {}
-    },
-    /**
-     * Retrieves target doc source from controller
-     */
-    targetText () {
-      return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
     l10n () {
       return L10nSingleton
     }
   },
   methods: {
+    targetText (id) {
+      const result = this.$textC.targetDocSource(id)
+      console.info('targetText - ', id, result)
+      return result
+    },
     /**
      * Toggle show/hide texts blocks
      */
@@ -137,8 +136,8 @@ export default {
      *        {String} textData.direction
      *        {String} textData.lang
      */
-    updateTargetText (textData) {
-      this.$textC.updateTargetDocSource(textData)
+    updateTargetText (textData, id) {
+      this.$textC.updateTargetDocSource(textData, textData.id)
       this.$emit('css-update-menu')
     }
   }

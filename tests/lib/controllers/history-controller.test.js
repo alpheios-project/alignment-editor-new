@@ -92,13 +92,15 @@ describe('history-controller.test.js', () => {
     }
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    const targetId = Object.keys(alignment.targets)[0]
+
     alignment.activateGroupByGroupIndex = jest.fn()
     
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
     historyC.undo()
@@ -117,13 +119,14 @@ describe('history-controller.test.js', () => {
     }
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    const targetId = Object.keys(alignment.targets)[0]
     alignment.redoInActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
     historyC.undo()
     historyC.redo()
@@ -140,15 +143,16 @@ describe('history-controller.test.js', () => {
     const sourceTextTarget = {
       text: 'target some text', direction: 'ltr', lang: 'lat'
     }
-
+    
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    const targetId = Object.keys(alignment.targets)[0]
     alignment.returnActiveGroupToList = jest.fn()
 
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
     historyC.redo()
     expect(alignment.returnActiveGroupToList).not.toHaveBeenCalled()
@@ -166,6 +170,7 @@ describe('history-controller.test.js', () => {
     }
 
     let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    const targetId = Object.keys(alignment.targets)[0]
     alignment.redoActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
@@ -173,11 +178,11 @@ describe('history-controller.test.js', () => {
     alignment.createAlignedTexts('simpleWordTokenization')
     
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[0])
     alignment.finishActiveAlignmentGroup()
 
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
     historyC.undo()

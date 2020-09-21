@@ -6,6 +6,7 @@
         @align-texts = "alignTexts"
         @redo-action = "redoAction"
         @undo-action = "undoAction"
+        @add-target = "addTarget"
         :css-update = "cssUpdate"
       />
       <text-editor 
@@ -120,6 +121,12 @@ export default {
         this.hideTextEditorM()
         this.showAlignEditorM()    
       }
+    },
+    /**
+     * Add aditional block for defining another target text
+     */
+    addTarget () {
+      console.info('addTarget')
     }
   }
 }
