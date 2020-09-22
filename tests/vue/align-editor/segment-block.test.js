@@ -3,7 +3,7 @@
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
-import AlignEditorSingleBlock from '@/vue/align-editor/align-editor-single-block.vue'
+import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 import Token from '@/lib/data/token'
 import Vue from '@vue-runtime'
@@ -12,63 +12,63 @@ describe('align-editor-single-block.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-  
-  let originAlignedText
+
+  let originAlignedTextSegment
   beforeAll(() => {
     const appC = new AppController({
       appidWord:'alpheios-alignment-editor'
     })
-          
+        
     appC.defineL10Support()
     appC.defineTextController()
     appC.defineAlignedController()
     appC.defineHistoryController()
-  
+
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
     }
     const sourceTextTargetCorect = {
       text: 'target some text', direction: 'ltr', lang: 'lat'
     }
-      
+    
     appC.textC.createAlignment()
     appC.textC.updateOriginDocSource(sourceTextOrigin)
     appC.textC.updateTargetDocSource(sourceTextTargetCorect)
     
     appC.alignedC.createAlignedTexts(appC.textC.alignment)
 
-    originAlignedText = appC.alignedC.originAlignedText
+    originAlignedTextSegment = appC.alignedC.originAlignedText.segments[0]
   })
-     
+    
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
 
-  it('1 AlignEditorSingleBlock - renders a vue instance (min requirements)', () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
-      propsData: {
-        alignTextData: originAlignedText
-      }
+  it('1 SegmentBlock - renders a vue instance (min requirements)', () => {
+    let cmp = shallowMount(SegmentBlock, {
+    propsData: {
+      segment: originAlignedTextSegment
+    }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 AlignEditor - should contain Tokens components for each token in alignTextData', () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('2 SegmentBlock - should contain Tokens components for each token in alignTextData', () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
-    expect(cmp.findAllComponents(TokenBlock)).toHaveLength(originAlignedText.tokens.length)
+    expect(cmp.findAllComponents(TokenBlock)).toHaveLength(originAlignedTextSegment.tokens.length)
   })
 
-  it('3 AlignEditor - catches alignmentUpdated and increments updated flag', async () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('3 SegmentBlock - catches alignmentUpdated and increments updated flag', async () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText,
+        segment: originAlignedTextSegment,
         alignmentUpdated: 1
       }
     })
@@ -81,32 +81,52 @@ describe('align-editor-single-block.test.js', () => {
     expect(cmp.vm.updated).toEqual(2)
   })
 
-  it('4 AlignEditor - textType, direction, lang - retrieves from originAlignedText', async () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('4 SegmentBlock - textType, direction, lang - retrieves from segment', async () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
-    expect(cmp.vm.textType).toEqual(originAlignedText.textType)
-    expect(cmp.vm.direction).toEqual(originAlignedText.direction)
-    expect(cmp.vm.lang).toEqual(originAlignedText.lang)
+    expect(cmp.vm.textType).toEqual(originAlignedTextSegment.textType)
+    expect(cmp.vm.direction).toEqual(originAlignedTextSegment.direction)
+    expect(cmp.vm.lang).toEqual(originAlignedTextSegment.lang)
   })
 
-  it('5 AlignEditor - alignTextClass - contains textType', async () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('5 SegmentBlock - alignTextClass - contains textType and segment index, orderStyle - contains index', async () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
-    expect(cmp.vm.alignTextClass).toEqual(expect.stringContaining(originAlignedText.textType))
+    expect(cmp.vm.cssId).toEqual(expect.stringContaining(originAlignedTextSegment.textType))
+    expect(cmp.vm.cssId).toEqual(expect.stringContaining(originAlignedTextSegment.index.toString()))
+
+    expect(cmp.vm.orderStyle).toEqual(expect.stringContaining(originAlignedTextSegment.index.toString()))
   })
 
-  it('6 AlignEditor - clickToken - emmits click-word event', async () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('6 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment,
+        isLast: false
+      }
+    })
+
+    expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin', true)
+    expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin-last', false)
+
+    cmp.setProps({
+      isLast: true
+    })
+    expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin-last', true)
+  })    
+
+  it('7 SegmentBlock - clickToken - emmits click-word event', async () => {
+    let cmp = shallowMount(SegmentBlock, {
+      propsData: {
+        segment: originAlignedTextSegment
       }
     })
 
@@ -118,10 +138,10 @@ describe('align-editor-single-block.test.js', () => {
     expect(cmp.emitted()['click-token'][0]).toEqual([token])
   })
 
-  it('7 AlignEditor - addHoverToken - emmits add-hover-token event', async () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('8 SegmentBlock - addHoverToken - emmits add-hover-token event', async () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
@@ -133,10 +153,10 @@ describe('align-editor-single-block.test.js', () => {
     expect(cmp.emitted()['add-hover-token'][0]).toEqual([token])
   })
 
-  it('8 AlignEditor - removeHoverToken - emmits remove-hover-token event', async () => {
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+  it('9 SegmentBlock - removeHoverToken - emmits remove-hover-token event', async () => {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
@@ -148,12 +168,12 @@ describe('align-editor-single-block.test.js', () => {
     expect(cmp.emitted()['remove-hover-token'][0]).toEqual([])
   })
 
-  it('9 AlignEditor - selectedToken - checks if a token inside hovered and saved alignmentGroup', async () => {
+  it('10 SegmentBlock - selectedToken - checks if a token inside hovered and saved alignmentGroup', async () => {
     let showAlignment, result
 
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
@@ -183,12 +203,12 @@ describe('align-editor-single-block.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('10 AlignEditor - groupedToken - checks if a token inside any saved alignmentGroup (created in previous test.9)', async () => {
+  it('11 SegmentBlock - groupedToken - checks if a token inside any saved alignmentGroup (created in previous test.9)', async () => {
     let result
 
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
@@ -208,12 +228,12 @@ describe('align-editor-single-block.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('11 AlignEditor - inActiveGroup - checks if a token inside the currently active alignment group (created in previous test.9)', async () => {
+  it('12 SegmentBlock - inActiveGroup - checks if a token inside the currently active alignment group (created in previous test.9)', async () => {
     let result
 
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 
@@ -234,12 +254,12 @@ describe('align-editor-single-block.test.js', () => {
     cmp.vm.$alignedC.clickToken(token1) // deactivate group
   })
 
-  it('12 AlignEditor - isFirstInActiveGroup - checks if a token inside the currently active alignment group and it is the first (created in previous test.9)', async () => {
+  it('13 SegmentBlock - isFirstInActiveGroup - checks if a token inside the currently active alignment group and it is the first (created in previous test.9)', async () => {
     let result
 
-    let cmp = shallowMount(AlignEditorSingleBlock, {
+    let cmp = shallowMount(SegmentBlock, {
       propsData: {
-        alignTextData: originAlignedText
+        segment: originAlignedTextSegment
       }
     })
 

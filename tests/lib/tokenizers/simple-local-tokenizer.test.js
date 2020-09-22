@@ -22,7 +22,7 @@ describe('simple-local-tokenizer.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-  
+
   it('1 SimpleLocalTokenizer - simpleLineTokenization divides text to lines by line breaks', () => {
     const text1 = 'some text for test'
     const linesText1 = SimpleLocalTokenizer.simpleLineTokenization(text1)
@@ -110,24 +110,31 @@ describe('simple-local-tokenizer.test.js', () => {
   })
 
   it('3 SimpleLocalTokenizer - tokenize executes simpleLineTokenization then simpleWordTokenization for each line', () => {
-    const text = 'some (good-text) for\u000atest'
     const idPrefix = '1'
-    const textType = 'origin'
+    const docSource = {
+      textType: 'origin',
+      text: 'some (good-text) for\u000atest',
+      direction: 'ltr',
+      lang: 'eng'
+    }
 
     jest.spyOn(SimpleLocalTokenizer, 'simpleLineTokenization')
     jest.spyOn(SimpleLocalTokenizer, 'simpleWordTokenization')
 
-    const result = SimpleLocalTokenizer.tokenize(text, idPrefix, textType)
+    const result = SimpleLocalTokenizer.tokenize(docSource, idPrefix)
 
     // console.info(result)
     expect(SimpleLocalTokenizer.simpleLineTokenization).toHaveBeenCalledTimes(1)
     expect(SimpleLocalTokenizer.simpleWordTokenization).toHaveBeenCalledTimes(2)
 
-    expect(result.length).toEqual(4)
-    expect(result[0]).toEqual({ textType: 'origin', idWord: 'L1:1-1', word: 'some' })
-    expect(result[1]).toEqual({ textType: 'origin', idWord: 'L1:1-2', word: 'good-text', beforeWord: '(', afterWord: ')' })
-    expect(result[2]).toEqual({ textType: 'origin', idWord: 'L1:1-3', word: 'for', hasLineBreak: true })
-    expect(result[3]).toEqual({ textType: 'origin', idWord: 'L1:2-1', word: 'test', hasLineBreak: true })
+    expect(result.segments.length).toEqual(2)
+    expect(result.segments[0].tokens.length).toEqual(3)
+    expect(result.segments[1].tokens.length).toEqual(1)
+
+    expect(result.segments[0].tokens[0]).toEqual({ textType: 'origin', idWord: 'L1:1-1', word: 'some' })
+    expect(result.segments[0].tokens[1]).toEqual({ textType: 'origin', idWord: 'L1:1-2', word: 'good-text', beforeWord: '(', afterWord: ')' })
+    expect(result.segments[0].tokens[2]).toEqual({ textType: 'origin', idWord: 'L1:1-3', word: 'for', hasLineBreak: true })
+    expect(result.segments[1].tokens[0]).toEqual({ textType: 'origin', idWord: 'L1:2-1', word: 'test', hasLineBreak: true })
   })
 })
 

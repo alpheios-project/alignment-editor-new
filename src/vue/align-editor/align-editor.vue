@@ -3,31 +3,31 @@
       <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
       </h2>
-      <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor" v-show="showAlignBlocks">
-          <align-editor-single-block
-            :align-text-data="originAlignedText" 
-            :show-alignment="showAlignment"
-            :alignment-updated = "alignmentUpdated"
-            @click-token="clickToken" @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
-          />
-          <align-editor-single-block 
-            :align-text-data="targetAlignedText"
-            :show-alignment="showAlignment"
-            :alignment-updated = "alignmentUpdated"
-            @click-token="clickToken" @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
-          />
+
+      <div class ="alpheios-alignment-editor-align-define-container"  v-if="showAlignEditor" v-show="showAlignBlocks">
+        <segment-block v-for="(segment, index) in originAlignedText.segments" :key="getIndex('origin', segment.index)"
+              :segment = "segment" :show-alignment="showAlignment"
+              :alignment-updated = "alignmentUpdated" :isLast = "index === originAlignedText.segments.length-1"
+              @click-token="clickToken" @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
+        />
+
+        <segment-block v-for="(segment, index) in targetAlignedText.segments" :key="getIndex('target', segment.index)"
+              :segment = "segment" :show-alignment="showAlignment"
+              :alignment-updated = "alignmentUpdated" :isLast = "index === targetAlignedText.segments.length-1"
+              @click-token="clickToken" @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
+        />
       </div>
   </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
-import AlignEditorSingleBlock from '@/vue/align-editor/align-editor-single-block.vue'
+import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'AlignEditor',
   components: {
-    alignEditorSingleBlock: AlignEditorSingleBlock
+    segmentBlock: SegmentBlock
   },
   props: {
     showEditor: {
@@ -75,7 +75,7 @@ export default {
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.tokens) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.tokens)
+      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.segments)
     },
     /**
      * Returns originAlignedText from AlignedController
@@ -94,6 +94,9 @@ export default {
     }
   },
   methods: {
+    getIndex (textType, index) {
+      return `${textType}-${index}`
+    },
     /**
      * Updates alignmentUpdated to recalculate css styles for tokens for both origin and target
      */
@@ -145,18 +148,30 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-align-define-container {
-        margin-top: 15px;
-        border: 1px solid #ddd;
-        background: #f3f3f3;
+  .alpheios-alignment-editor-align-define-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    background: #f3f3f3;
+    padding: 10px;
+    
 
-        padding: 20px;
-
-        &:before,
-        &:after {
-            clear: both;
-            display: table;
-            content: '';
-        }
+    .alpheios-alignment-editor-align-text-segment {
+      flex-grow: 1;
+      width: 50%;
+      padding: 10px;
+      border: 2px solid transparent;
+      border-bottom: 2px solid  #ddd;
     }
+
+    .alpheios-align-text-segment-origin {
+      border-right: 2px solid  #ddd;
+    }
+
+    .alpheios-align-text-segment-origin-last,
+    .alpheios-align-text-segment-target-last {
+      border-bottom: 2px solid  transparent;
+    }
+  }
 </style>

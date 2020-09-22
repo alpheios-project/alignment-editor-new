@@ -50,8 +50,8 @@ describe('history-controller.test.js', () => {
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
-    alignment.addToAlignmentGroup(alignment.origin.alignedText.tokens[1])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
 
     historyC.undo()
     expect(alignment.undoInActiveGroup).toHaveBeenCalled()
@@ -74,7 +74,7 @@ describe('history-controller.test.js', () => {
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
 
     historyC.undo()
     expect(alignment.undoActiveGroup).toHaveBeenCalled()
@@ -97,8 +97,8 @@ describe('history-controller.test.js', () => {
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
     historyC.undo()
@@ -122,8 +122,8 @@ describe('history-controller.test.js', () => {
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
 
     historyC.undo()
     historyC.redo()
@@ -147,8 +147,8 @@ describe('history-controller.test.js', () => {
     historyC.startTracking(alignment)
 
     alignment.createAlignedTexts('simpleWordTokenization')
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
 
     historyC.redo()
     expect(alignment.returnActiveGroupToList).not.toHaveBeenCalled()
@@ -172,12 +172,12 @@ describe('history-controller.test.js', () => {
 
     alignment.createAlignedTexts('simpleWordTokenization')
     
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[0])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[0])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[0])
     alignment.finishActiveAlignmentGroup()
 
-    alignment.startNewAlignmentGroup(alignment.origin.alignedText.tokens[1])
-    alignment.addToAlignmentGroup(alignment.target.alignedText.tokens[1])
+    alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
+    alignment.addToAlignmentGroup(alignment.target.alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
 
     historyC.undo()
@@ -187,4 +187,5 @@ describe('history-controller.test.js', () => {
     historyC.redo()
     expect(alignment.redoActiveGroup).toHaveBeenCalled()
   })
+
 })

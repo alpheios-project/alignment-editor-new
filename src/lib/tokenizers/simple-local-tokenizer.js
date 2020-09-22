@@ -1,13 +1,12 @@
 export default class SimpleLocalTokenizer {
   /**
    * Starting point for tokenize workflow
-   * @param {String} text - text for tokenize
+   * @param {SourceText} docSource - docSource for tokenize
    * @param {String} idPrefix - prefix for creating tokens idWord
-   * @param {String} textType - origin or target
    * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
    */
-  static tokenize (text, idPrefix, textType) {
-    return this.defineIdentification(text, idPrefix, textType)
+  static tokenize (docSource, idPrefix) {
+    return this.defineIdentification(docSource, idPrefix)
   }
 
   /**
@@ -23,26 +22,36 @@ export default class SimpleLocalTokenizer {
    *   - divide each line to tokens
    *   - add to the each last token lineBreak flag
    *
-   * @param {String} text - text for tokenize
+   * @param {SourceText} docSource - docSource for tokenize
    * @param {String} idPrefix - prefix for creating tokens idWord
-   * @param {String} textType - origin or target
    * @returns {[Objects]} - array of token-like objects for all text, would be converted to Tokens outside
    */
-  static defineIdentification (text, idPrefix, textType) {
-    const textLines = this.simpleLineTokenization(text)
+  static defineIdentification (docSource, idPrefix) {
+    const textLines = this.simpleLineTokenization(docSource.text)
 
-    const finalText = []
+    const finalText = { segments: [] }
+    let mainIndex = 0
     textLines.forEach((textLine, index) => {
       const prefix = `L${idPrefix}:${index + 1}`
-      const finalTextLine = this.simpleWordTokenization(textLine, prefix, textType)
+      const finalTextLine = this.simpleWordTokenization(textLine, prefix, docSource.textType)
 
       if (finalTextLine.length > 0) {
         const lastWord = finalTextLine[finalTextLine.length - 1]
 
         lastWord.hasLineBreak = true
       }
-      finalText.push(...finalTextLine)
+      if (finalTextLine.length > 0) {
+        mainIndex = mainIndex + 1
+        finalText.segments.push({
+          index: mainIndex,
+          textType: docSource.textType,
+          lang: docSource.lang,
+          direction: docSource.direction,
+          tokens: finalTextLine
+        })
+      }
     })
+
     return finalText
   }
 

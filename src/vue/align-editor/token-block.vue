@@ -70,7 +70,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-align-text {
+    .alpheios-alignment-editor-align-text-segment {
         span {
             cursor: pointer;
             padding: 4px;

@@ -1,27 +1,25 @@
 <template>
-    <div class  ="alpheios-alignment-editor-align-text"
-         :class = "alignTextClass" 
-         :dir = "direction" :lang = "lang" 
-    >
-      <template v-for = "token in alignTextData.tokens">
-        <token
-          v-if ="token.word"
-          :text-type = "textType" :text-word = "token" :key = "token.idWord"
-          @click-token = "clickToken"
-          @add-hover-token = "addHoverToken"
-          @remove-hover-token = "removeHoverToken"
-          :selected = "updated && selectedToken(token)"
-          :grouped = "updated && groupedToken(token)"
-          :inActiveGroup = "updated && inActiveGroup(token)"
-          :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
-        />
-        <br v-if="token.hasLineBreak" />
-      </template>
+    <div class="alpheios-alignment-editor-align-text-segment" 
+         :id = "cssId" :style="orderStyle"
+         :class = "cssClass" :dir = "direction" :lang = "lang" 
+          >
+        <template v-for = "token in segment.tokens">
+          <token
+            v-if ="token.word"
+            :text-type = "textType" :text-word = "token" :key = "token.idWord"
+            @click-token = "clickToken"
+            @add-hover-token = "addHoverToken"
+            @remove-hover-token = "removeHoverToken"
+            :selected = "updated && selectedToken(token)"
+            :grouped = "updated && groupedToken(token)"
+            :inActiveGroup = "updated && inActiveGroup(token)"
+            :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
+          />
+          <br v-if="token.hasLineBreak" />
+        </template>
     </div>
 </template>
 <script>
-import Vue from '@vue-runtime'
-
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 
 export default {
@@ -30,7 +28,7 @@ export default {
     token: TokenBlock
   },
   props: {
-    alignTextData: {
+    segment: {
       type: Object,
       required: true
     },
@@ -45,6 +43,12 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+
+    isLast : {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -62,19 +66,25 @@ export default {
   },
   computed: {
     textType () {
-      return this.alignTextData.textType
+      return this.segment.textType
     },
     direction () {
-      return this.alignTextData.direction
+      return this.segment.direction
     },
     lang () {
-      return this.alignTextData.lang
+      return this.segment.lang
     },
-    /**
-     * Defines the main class for the block depending on textType (origin/target)
-     */
-    alignTextClass () {
-      return `alpheios-alignment-editor-align__${this.textType}`
+    cssId () {
+      return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+    },
+    orderStyle () {
+      return `order: ${this.segment.index};`
+    },
+    cssClass () {
+      let classes = {}
+      classes[`alpheios-align-text-segment-${this.textType}`] = true
+      classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
+      return classes
     }
   },
   methods: {
@@ -112,21 +122,8 @@ export default {
       return this.$alignedC.isFirstInActiveGroup(token)
     }
   }
+
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-align-text {
-        float: left;
-        width: 50%;
-    }
-
-    .alpheios-alignment-editor-align__origin {
-        border-right: 2px solid #ddd;
-        padding-right: 20px;
-    }
-
-    .alpheios-alignment-editor-align__target {
-        padding-left: 20px;
-    }
-
 </style>

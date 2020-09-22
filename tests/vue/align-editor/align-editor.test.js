@@ -5,7 +5,7 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
-import AlignEditorSingleBlock from '@/vue/align-editor/align-editor-single-block.vue'
+import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import Token from '@/lib/data/token'
 
 describe('align-editor.test.js', () => {
@@ -51,7 +51,7 @@ describe('align-editor.test.js', () => {
   it('2 AlignEditor - should contain two AlignEditorSingleBlock', () => {
     let cmp = shallowMount(AlignEditor)
 
-    expect(cmp.findAllComponents(AlignEditorSingleBlock)).toHaveLength(2)
+    expect(cmp.findAllComponents(SegmentBlock)).toHaveLength(2)
   })
 
   it('3 AlignEditor - if showEditor would change, then showAlignBlocks would be set to true', async () => {
@@ -90,7 +90,7 @@ describe('align-editor.test.js', () => {
     })
 
     expect(cmp.vm.showAlignEditor).toBeTruthy()
-    expect(cmp.findAllComponents(AlignEditorSingleBlock)).toHaveLength(2)
+    expect(cmp.findAllComponents(SegmentBlock)).toHaveLength(2)
 
     const buffer = cmp.vm.$alignedC.alignment.origin.alignedText
     cmp.vm.$alignedC.alignment.origin.alignedText = {}
@@ -100,7 +100,7 @@ describe('align-editor.test.js', () => {
     })
     await Vue.nextTick()
     expect(cmp.vm.showAlignEditor).toBeFalsy()
-    expect(cmp.findAllComponents(AlignEditorSingleBlock)).toHaveLength(0)
+    expect(cmp.findAllComponents(SegmentBlock)).toHaveLength(0)
 
     cmp.vm.$alignedC.alignment.origin.alignedText = buffer
   })
