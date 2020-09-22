@@ -13540,6 +13540,14 @@ class AlignedController {
     return this.alignment ? this.alignment.targetAlignedText(id) : {}
   }
 
+  get allTargetTextsIds () {
+    return this.alignment ? this.alignment.allTargetTextsIds : null
+  }
+
+  get allTargetTextsSegments () {
+    return this.alignment ? this.alignment.allTargetTextsSegments : null
+  }
+
   /**
    * This method realizes the main workflow - creating/updating aligned groups:
    * If there is no active alignment and token is already grouped - activateGroupByToken
@@ -13994,6 +14002,7 @@ class TextsController {
    */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource)
+    return this.alignment
   }
 
   /**
@@ -14038,7 +14047,15 @@ class TextsController {
   }
 
   get allTargetTextsIds () {
-    return this.alignment ? Object.keys(this.alignment.targets) : null
+    return this.alignment ? this.alignment.allTargetTextsIds : null
+  }
+
+  getDocSource (textType, textId) {
+    if (this.textType === 'origin') {
+      return this.originDocSource
+    } else if (this.TextsController === 'target') {
+      return this.targetDocSource(textId)
+    }
   }
 
   /**
@@ -14064,8 +14081,6 @@ class TextsController {
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
-
-      console.info('this.alignment', this.alignment)
     }
   }
 
@@ -14991,6 +15006,22 @@ class Alignment {
     return this.targets[id] && this.targets[id].alignedText ? this.targets[id].alignedText : null
   }
 
+  get allTargetTextsIds () {
+    return Object.keys(this.targets)
+  }
+
+  get allTargetTextsSegments () {
+    const targetSegments = []
+    this.allTargetTextsIds.forEach(targetId => {
+      targetSegments.push(...this.targets[targetId].alignedText.segments.map(segment => {
+        return {
+          targetId, segment
+        }
+      }))
+    })
+    return targetSegments
+  }
+
   /**
    * Defines if the given token should finish the active alignment group - token is already in the group and
    * its textType is the same as token that created/activated the group
@@ -15462,9 +15493,9 @@ class SourceText {
       return false
     }
 
-    const text = jsonData.text.replace(/\t/g, '\u000D')
-    const direction = jsonData.direction
-    const lang = jsonData.lang
+    const text = jsonData.text.replace(/\t/g, '\u000D').trim()
+    const direction = jsonData.direction.trim()
+    const lang = jsonData.lang.trim()
 
     return new SourceText(textType, { text, direction, lang })
   }
@@ -16375,7 +16406,7 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.segments)
+      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && (this.allTargetSegments.length > 0)
     },
     /**
      * Returns originAlignedText from AlignedController
@@ -16383,19 +16414,16 @@ __webpack_require__.r(__webpack_exports__);
     originAlignedText () {
       return this.originUpdated ? this.$alignedC.originAlignedText : {}
     },
-    /**
-     * Returns targetAlignedText from AlignedController
-     */
-    targetAlignedText () {
-      return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
-    },
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    allTargetSegments () {
+      return this.targetUpdated ? this.$alignedC.allTargetTextsSegments : []
     }
   },
   methods: {
-    getIndex (textType, index) {
-      return `${textType}-${index}`
+    getIndex (textType, index, additionalIndex = 0) {
+      return `${textType}-${index}-${additionalIndex}`
     },
     /**
      * Updates alignmentUpdated to recalculate css styles for tokens for both origin and target
@@ -16727,6 +16755,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -16765,6 +16795,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateTargetTextEditor () {
       this.targetTextUpdated = this.targetTextUpdated + 1
+      console.info('updateTargetTextEditor - this.targetTextUpdated', this.targetTextUpdated)
     },
 
     /**
@@ -17006,9 +17037,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: false
     },
-    externalText: {
-      type: Object,
-      required: false
+    updatedExternaly: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   components: {},
@@ -17036,12 +17068,15 @@ __webpack_require__.r(__webpack_exports__);
      *        {String} data.direction
      *        {String} data.lang
      */
-    externalText (data) {
-      console.info('externalText - ', this.textId)
-      this.text = data.text
-      console.info('externalText - this.text', this.text)
-      this.direction = data.direction
-      this.updateLang(data.lang)
+    updatedExternaly () {
+      const data = this.$textC.getDocSource(this.textType, this.textId)
+      console.info('updatedExternaly - ', this.textType, this.textId, data)
+
+      if (data) {
+        this.text = data.text
+        this.direction = data.direction
+        this.updateLang(data.lang)
+      }
     }
   },
   computed: {
@@ -17084,7 +17119,7 @@ __webpack_require__.r(__webpack_exports__);
      * Defines unique id for direction input
      */
     directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}`
+      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}_${this.textId}`
     },
     /**
      * If a user reselects language from select, input[text] would be cleared
@@ -17201,8 +17236,8 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       showTextsBlocks: true,
-      updatedOriginText: null,
-      updatedTargetText: null,
+      updatedOriginText: 1,
+      updatedTargetText: 1,
       disableTargetTextBlock: true
     }
   },
@@ -17250,11 +17285,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    targetText (id) {
-      const result = this.$textC.targetDocSource(id)
-      console.info('targetText - ', id, result)
-      return result
-    },
     /**
      * Toggle show/hide texts blocks
      */
@@ -17270,6 +17300,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateOriginText (textData) {
       this.$textC.updateOriginDocSource(textData)
+      this.updatedOriginText = this.updatedOriginText + 1
       this.$emit('css-update-menu')
     },
     /**
@@ -17281,6 +17312,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateTargetText (textData, id) {
       this.$textC.updateTargetDocSource(textData, textData.id)
+      this.updatedTargetText = this.updatedTargetText + 1
       this.$emit('css-update-menu')
     }
   }
@@ -18121,14 +18153,14 @@ var render = function() {
                 })
               }),
               _vm._v(" "),
-              _vm._l(_vm.targetAlignedText.segments, function(segment, index) {
+              _vm._l(_vm.allTargetSegments, function(data, index) {
                 return _c("segment-block", {
-                  key: _vm.getIndex("target", segment.index),
+                  key: _vm.getIndex("target", data.segment.index, data.index),
                   attrs: {
-                    segment: segment,
+                    segment: data.segment,
                     "show-alignment": _vm.showAlignment,
                     "alignment-updated": _vm.alignmentUpdated,
-                    isLast: index === _vm.targetAlignedText.segments.length - 1
+                    isLast: index === _vm.allTargetSegments.length - 1
                   },
                   on: {
                     "click-token": _vm.clickToken,
@@ -18316,14 +18348,6 @@ var render = function() {
           "origin-updated": _vm.originTextUpdated,
           "target-updated": _vm.targetTextUpdated,
           "hide-editor": _vm.hideTextEditor
-        },
-        on: { "css-update-menu": _vm.cssUpdateM }
-      }),
-      _vm._v(" "),
-      _c("align-editor", {
-        attrs: {
-          "show-editor": _vm.showAlignEditor,
-          "css-update": _vm.cssUpdate
         },
         on: { "css-update-menu": _vm.cssUpdateM }
       })
@@ -18829,7 +18853,7 @@ var render = function() {
                 _c("text-editor-single-block", {
                   attrs: {
                     "text-type": "origin",
-                    "external-text": _vm.updatedOrigin
+                    "updated-externaly": _vm.originUpdated
                   },
                   on: { "update-text": _vm.updateOriginText }
                 })
@@ -18850,7 +18874,8 @@ var render = function() {
                       attrs: {
                         "text-type": "target",
                         "text-id": targetTextId,
-                        "external-text": _vm.targetText(targetTextId),
+                        "updated-externaly":
+                          _vm.targetUpdated + _vm.updatedTargetText,
                         disabled: _vm.disableTargetTextBlock
                       },
                       on: { "update-text": _vm.updateTargetText }

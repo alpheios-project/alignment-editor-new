@@ -51,9 +51,9 @@ export default class SourceText {
       return false
     }
 
-    const text = jsonData.text.replace(/\t/g, '\u000D')
-    const direction = jsonData.direction
-    const lang = jsonData.lang
+    const text = jsonData.text.replace(/\t/g, '\u000D').trim()
+    const direction = jsonData.direction.trim()
+    const lang = jsonData.lang.trim()
 
     return new SourceText(textType, { text, direction, lang })
   }

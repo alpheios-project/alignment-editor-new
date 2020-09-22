@@ -11,9 +11,9 @@
               @click-token="clickToken" @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
         />
 
-        <segment-block v-for="(segment, index) in targetAlignedText.segments" :key="getIndex('target', segment.index)"
-              :segment = "segment" :show-alignment="showAlignment"
-              :alignment-updated = "alignmentUpdated" :isLast = "index === targetAlignedText.segments.length-1"
+        <segment-block v-for="(data, index) in allTargetSegments" :key="getIndex('target', data.segment.index, data.index)"
+              :segment = "data.segment" :show-alignment="showAlignment"
+              :alignment-updated = "alignmentUpdated" :isLast = "index === allTargetSegments.length-1"
               @click-token="clickToken" @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
         />
       </div>
@@ -75,7 +75,7 @@ export default {
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.segments)
+      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && (this.allTargetSegments.length > 0)
     },
     /**
      * Returns originAlignedText from AlignedController
@@ -83,19 +83,16 @@ export default {
     originAlignedText () {
       return this.originUpdated ? this.$alignedC.originAlignedText : {}
     },
-    /**
-     * Returns targetAlignedText from AlignedController
-     */
-    targetAlignedText () {
-      return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
-    },
     l10n () {
       return L10nSingleton
+    },
+    allTargetSegments () {
+      return this.targetUpdated ? this.$alignedC.allTargetTextsSegments : []
     }
   },
   methods: {
-    getIndex (textType, index) {
-      return `${textType}-${index}`
+    getIndex (textType, index, additionalIndex = 0) {
+      return `${textType}-${index}-${additionalIndex}`
     },
     /**
      * Updates alignmentUpdated to recalculate css styles for tokens for both origin and target

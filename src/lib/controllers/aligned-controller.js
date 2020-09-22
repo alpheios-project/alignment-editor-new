@@ -30,6 +30,14 @@ export default class AlignedController {
     return this.alignment ? this.alignment.targetAlignedText(id) : {}
   }
 
+  get allTargetTextsIds () {
+    return this.alignment ? this.alignment.allTargetTextsIds : null
+  }
+
+  get allTargetTextsSegments () {
+    return this.alignment ? this.alignment.allTargetTextsSegments : null
+  }
+
   /**
    * This method realizes the main workflow - creating/updating aligned groups:
    * If there is no active alignment and token is already grouped - activateGroupByToken

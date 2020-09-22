@@ -13,6 +13,7 @@ export default class TextsController {
    */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new Alignment(originDocSource, targetDocSource)
+    return this.alignment
   }
 
   /**
@@ -57,7 +58,15 @@ export default class TextsController {
   }
 
   get allTargetTextsIds () {
-    return this.alignment ? Object.keys(this.alignment.targets) : null
+    return this.alignment ? this.alignment.allTargetTextsIds : null
+  }
+
+  getDocSource (textType, textId) {
+    if (this.textType === 'origin') {
+      return this.originDocSource
+    } else if (this.TextsController === 'target') {
+      return this.targetDocSource(textId)
+    }
   }
 
   /**
@@ -83,8 +92,6 @@ export default class TextsController {
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       this.updateTargetDocSource(result.targetDocSource)
-
-      console.info('this.alignment', this.alignment)
     }
   }
 

@@ -44,9 +44,10 @@ export default {
       type: String,
       required: false
     },
-    externalText: {
-      type: Object,
-      required: false
+    updatedExternaly: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   components: {},
@@ -74,12 +75,15 @@ export default {
      *        {String} data.direction
      *        {String} data.lang
      */
-    externalText (data) {
-      console.info('externalText - ', this.textId)
-      this.text = data.text
-      console.info('externalText - this.text', this.text)
-      this.direction = data.direction
-      this.updateLang(data.lang)
+    updatedExternaly () {
+      const data = this.$textC.getDocSource(this.textType, this.textId)
+      console.info('updatedExternaly - ', this.textType, this.textId, data)
+
+      if (data) {
+        this.text = data.text
+        this.direction = data.direction
+        this.updateLang(data.lang)
+      }
     }
   },
   computed: {
@@ -122,7 +126,7 @@ export default {
      * Defines unique id for direction input
      */
     directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}`
+      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}_${this.textId}`
     },
     /**
      * If a user reselects language from select, input[text] would be cleared

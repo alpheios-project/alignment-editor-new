@@ -140,6 +140,22 @@ export default class Alignment {
     return this.targets[id] && this.targets[id].alignedText ? this.targets[id].alignedText : null
   }
 
+  get allTargetTextsIds () {
+    return Object.keys(this.targets)
+  }
+
+  get allTargetTextsSegments () {
+    const targetSegments = []
+    this.allTargetTextsIds.forEach(targetId => {
+      targetSegments.push(...this.targets[targetId].alignedText.segments.map(segment => {
+        return {
+          targetId, segment
+        }
+      }))
+    })
+    return targetSegments
+  }
+
   /**
    * Defines if the given token should finish the active alignment group - token is already in the group and
    * its textType is the same as token that created/activated the group

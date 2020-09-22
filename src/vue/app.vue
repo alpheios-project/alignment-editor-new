@@ -15,11 +15,13 @@
         :hide-editor = "hideTextEditor"
         @css-update-menu = "cssUpdateM"
       />
+      <!--
       <align-editor 
         :show-editor = "showAlignEditor"
         :css-update = "cssUpdate"
         @css-update-menu = "cssUpdateM"
       />
+      -->
   </div>
 </template>
 <script>
@@ -60,6 +62,7 @@ export default {
      */
     updateTargetTextEditor () {
       this.targetTextUpdated = this.targetTextUpdated + 1
+      console.info('updateTargetTextEditor - this.targetTextUpdated', this.targetTextUpdated)
     },
 
     /**
