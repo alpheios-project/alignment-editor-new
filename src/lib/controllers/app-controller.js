@@ -1,5 +1,6 @@
 import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
+import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
@@ -40,12 +41,14 @@ export default class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
+    this.defineStore()
+
     this.defineL10Support()
     this.defineTextController()
     this.defineAlignedController()
     this.defineHistoryController()
 
-    const rootVi = new Vue()
+    const rootVi = new Vue({ store: this.store })
     const mountEl = document.getElementById(this.appId)
     const appContainer = document.createElement('div')
 
@@ -59,11 +62,41 @@ export default class AppController {
     this._viAppComp.$mount(appContainerEl)
   }
 
+  defineStore () {
+    Vue.use(Vuex)
+    this.store = new Vuex.Store({
+      state: {
+        originDocSourceUpdated: 1,
+        targetDocSourceUpdated: 1,
+        originAlignedUpdated: 1,
+        targetAlignedUpdated: 1,
+        alignmentUpdated: 1
+      },
+      mutations: {
+        incrementAlignmentUpdated (state) {
+          state.alignmentUpdated++
+        },
+        incrementOriginDocSourceUpdated (state) {
+          state.originDocSourceUpdated++
+        },
+        incrementTargetDocSourceUpdated (state) {
+          state.targetDocSourceUpdated++
+        },
+        incrementOriginAlignedUpdated (state) {
+          state.originAlignedUpdated++
+        },
+        incrementTargetAlignedUpdated (state) {
+          state.targetAlignedUpdated++
+        }
+      }
+    })
+  }
+
   /**
    * Creates TextController and attaches to Vue components
    */
   defineTextController () {
-    this.textC = new TextsController()
+    this.textC = new TextsController(this.store)
     Vue.prototype.$textC = this.textC
   }
 
@@ -71,7 +104,7 @@ export default class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new AlignedController()
+    this.alignedC = new AlignedController(this.store)
     Vue.prototype.$alignedC = this.alignedC
   }
 
@@ -79,7 +112,7 @@ export default class AppController {
    * Creates HistoryController and attaches to Vue components
    */
   defineHistoryController () {
-    this.historyC = new HistoryController()
+    this.historyC = new HistoryController(this.store)
     Vue.prototype.$historyC = this.historyC
   }
 

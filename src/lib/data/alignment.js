@@ -118,6 +118,7 @@ export default class Alignment {
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
+
       this.targets[id].alignedText = new AlignedText({
         docSource: this.targets[id].docSource,
         tokenizer
@@ -154,6 +155,14 @@ export default class Alignment {
       }))
     })
     return targetSegments
+  }
+
+  filteredTargetTextsSegments (targetId) {
+    return this.targets[targetId].alignedText.segments.map(segment => {
+      return {
+        targetId, segment
+      }
+    })
   }
 
   /**

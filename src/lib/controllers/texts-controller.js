@@ -6,6 +6,10 @@ import UploadController from '@/lib/controllers/upload-controller.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class TextsController {
+  constructor (store) {
+    this.store = store
+  }
+
   /**
    * Creates an Alignment and uploads source documents, if they are defined
    * @param {String} originDocSource
@@ -34,6 +38,7 @@ export default class TextsController {
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
@@ -41,11 +46,12 @@ export default class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource) {
+  updateTargetDocSource (targetDocSource, id) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource)
+      this.alignment.updateTargetDocSource(targetDocSource, id)
+      this.store.commit('incrementAlignmentUpdated')
     }
   }
 
@@ -62,9 +68,9 @@ export default class TextsController {
   }
 
   getDocSource (textType, textId) {
-    if (this.textType === 'origin') {
+    if (textType === 'origin') {
       return this.originDocSource
-    } else if (this.TextsController === 'target') {
+    } else if (textType === 'target') {
       return this.targetDocSource(textId)
     }
   }

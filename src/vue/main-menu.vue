@@ -33,15 +33,10 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 export default {
   name: 'MainMenu',
   props: {
-    cssUpdate: {
-      type: Number,
-      required: false,
-      default: 1
-    }
   },
   data () {
     return {
-      showUploadBlock: false
+      showUploadBlock: false,
     }
   },
   computed: {
@@ -49,13 +44,13 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      return Boolean(this.cssUpdate) && this.$textC.couldStartAlign
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
     },
     undoAvailable () {
-      return Boolean(this.cssUpdate) && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.cssUpdate) && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.redoAvailable
     }
   },
   methods: {

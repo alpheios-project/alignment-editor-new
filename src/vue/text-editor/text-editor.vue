@@ -8,8 +8,6 @@
           <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
             <text-editor-single-block 
                 text-type="origin" 
-                @update-text = "updateOriginText" 
-                :updated-externaly = "originUpdated"
             />
           </div>
 
@@ -18,10 +16,6 @@
                 v-for="(targetTextId, indexT) in allTargetTextsIds" :key="indexT"
                 text-type = "target" 
                 :text-id = "targetTextId"
-                :updated-externaly = "targetUpdated + updatedTargetText"
-                :disabled = "disableTargetTextBlock"
-                @update-text = "updateTargetText" 
-                   
             />
           </div>
         </div>
@@ -38,19 +32,7 @@ export default {
     textEditorSingleBlock: TextEditorSingleBlock
   },
   props: {  
-    originUpdated: {
-      type: Number,
-      required: true
-    },
-    targetUpdated: {
-      type: Number,
-      required: true
-    },
     hideEditor: {
-      type: Number,
-      required: false
-    },
-    cssUpdate: {
       type: Number,
       required: false
     }
@@ -58,8 +40,6 @@ export default {
   data () {
     return {
       showTextsBlocks: true,
-      updatedOriginText: 1,
-      updatedTargetText: 1,
       disableTargetTextBlock: true
     }
   },
@@ -82,25 +62,13 @@ export default {
   },
   computed: {
     allTargetTextsIds () {
-      return this.targetUpdated ? this.$textC.allTargetTextsIds : [ null ]
+      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
     showTextsBlocksLabel () {
       return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
-    },
-    /**
-     * Catches if originUpdated was updated and update origin text from controller
-     */
-    updatedOrigin () {
-      return this.originUpdated && this.originText ?  this.originText : null
-    },
-    /**
-     * Retrieves origin doc source from controller
-     */
-    originText () {
-      return this.originUpdated ? this.$textC.originDocSource : {}
     },
     l10n () {
       return L10nSingleton
@@ -112,30 +80,6 @@ export default {
      */
     toggleShowTextsBlocks () {
       this.showTextsBlocks = !this.showTextsBlocks
-    },
-    /**
-     * Updates origin doc source via texts controller
-     * @param {Object} textData
-     *        {String} textData.text
-     *        {String} textData.direction
-     *        {String} textData.lang
-     */
-    updateOriginText (textData) {
-      this.$textC.updateOriginDocSource(textData)
-      this.updatedOriginText = this.updatedOriginText + 1
-      this.$emit('css-update-menu')
-    },
-    /**
-     * Updates target doc source via texts controller
-     * @param {Object} textData
-     *        {String} textData.text
-     *        {String} textData.direction
-     *        {String} textData.lang
-     */
-    updateTargetText (textData, id) {
-      this.$textC.updateTargetDocSource(textData, textData.id)
-      this.updatedTargetText = this.updatedTargetText + 1
-      this.$emit('css-update-menu')
     }
   }
 }

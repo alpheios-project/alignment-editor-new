@@ -10,10 +10,10 @@
             @click-token = "clickToken"
             @add-hover-token = "addHoverToken"
             @remove-hover-token = "removeHoverToken"
-            :selected = "updated && selectedToken(token)"
-            :grouped = "updated && groupedToken(token)"
-            :inActiveGroup = "updated && inActiveGroup(token)"
-            :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
+            :selected = "$store.state.alignmentUpdated && selectedToken(token)"
+            :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
+            :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
+            :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
           />
           <br v-if="token.hasLineBreak" />
         </template>
@@ -23,7 +23,7 @@
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 
 export default {
-  name: 'AlignEditorSingleBlock',
+  name: 'SegmentBlock',
   components: {
     token: TokenBlock
   },
@@ -39,16 +39,16 @@ export default {
       default: []
     },
 
-    alignmentUpdated : {
-      type: Number,
-      required: false,
-      default: 0
-    },
-
     isLast : {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    targetId : {
+      type: String,
+      required: false,
+      default: 'none'
     }
   },
   data () {
@@ -57,12 +57,6 @@ export default {
     }
   },
   watch: {
-    /**
-     * Catches alignmentUpdated and increments updated flag to redraw css styles
-     */
-    alignmentUpdated () {
-      this.updated = this.updated + 1
-    }
   },
   computed: {
     textType () {
@@ -75,7 +69,7 @@ export default {
       return this.segment.lang
     },
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
     },
     orderStyle () {
       return `order: ${this.segment.index};`
@@ -89,7 +83,7 @@ export default {
   },
   methods: {
     clickToken (token) {
-      this.$emit('click-token', token)
+      this.$alignedC.clickToken(token)
     },
     addHoverToken (token) {
       this.$emit('add-hover-token', token)

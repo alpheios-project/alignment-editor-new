@@ -14,10 +14,11 @@ describe('aligned-text.test.js', () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
-    appC.defineTextController()
-    appC.defineAlignedController()
-    appC.defineHistoryController()
+    appC.defineTextController(appC.store)
+    appC.defineAlignedController(appC.store)
+    appC.defineHistoryController(appC.store)
   })
   
   beforeEach(() => {
@@ -53,7 +54,7 @@ describe('aligned-text.test.js', () => {
     console.info(cmp.vm.$alignedC.allTargetTextsSegments)
   })
 
-  it('2 Workflow', () => {
+  it.skip('2 Workflow', () => {
     // create alignment
     let cmp = shallowMount(App)
 
@@ -88,5 +89,33 @@ describe('aligned-text.test.js', () => {
     
     // this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : {}
     console.info(targetId1, alignment.targets)
+  })
+
+  it('3 Workflow', () => {
+    // create alignment
+    let cmp = shallowMount(App)
+
+    const alignment = cmp.vm.$textC.createAlignment()
+    cmp.vm.$historyC.startTracking(alignment)
+
+    // update origin text
+    cmp.vm.$textC.updateOriginDocSource({
+      text: 'origin some text', direction: 'ltr', lang: 'eng'
+    })
+
+    cmp.vm.$textC.updateTargetDocSource({
+      text: 'target some text', direction: 'ltr', lang: 'eng'
+    })
+
+    const fileData = `Capuam colonis deductis occupabunt, Atellam praesidio communient, Nuceriam, Cumas multitudine suorum obtinebunt, cetera oppida praesidiis devincient.
+    ltr
+    lat
+    To a certain extent jointly launching occupabunt, Atellam protection communient, Nuceriam, uses personification the great number of their obtinebunt, the rest of the towns guards devincient.
+    ltr
+    eng`
+    cmp.vm.$textC.uploadDocSourceFromFile(fileData)
+
+    cmp.vm.$alignedC.createAlignedTexts(alignment)
+    console.info(alignment.targets)
   })
 })

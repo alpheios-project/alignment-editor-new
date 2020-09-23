@@ -1,4 +1,8 @@
 export default class HistoryController {
+  constructor (store) {
+    this.store = store
+  }
+
   /**
    * Checks if we have steps to be undone
    * @returns {Boolean} true - undo could be done, false - not
@@ -35,15 +39,16 @@ export default class HistoryController {
    *   if there is no active alignment group but there exists saved alignment groups, then we would activate previous group
    */
   undo () {
+    let result
     if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen > 1) {
-      return this.alignment.undoInActiveGroup()
+      result = this.alignment.undoInActiveGroup()
+    } else if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen === 1) {
+      result = this.alignment.undoActiveGroup()
+    } else if (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0) {
+      result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen === 1) {
-      return this.alignment.undoActiveGroup()
-    }
-    if (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0) {
-      return this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
-    }
+    this.store.commit('incrementAlignmentUpdated')
+    return result
   }
 
   /**
@@ -53,14 +58,17 @@ export default class HistoryController {
    *   if there is no active alignment group and there are some saved undone groups, then we would reactivate next group from the list
    */
   redo () {
+    let result
     if (this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) {
-      return this.alignment.redoInActiveGroup()
+      result = this.alignment.redoInActiveGroup()
     }
     if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
-      return this.alignment.returnActiveGroupToList()
+      result = this.alignment.returnActiveGroupToList()
     }
     if (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0) {
-      return this.alignment.redoActiveGroup()
+      result = this.alignment.redoActiveGroup()
     }
+    this.store.commit('incrementAlignmentUpdated')
+    return result
   }
 }

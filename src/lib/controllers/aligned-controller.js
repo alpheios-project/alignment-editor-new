@@ -1,6 +1,10 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class AlignedController {
+  constructor (store) {
+    this.store = store
+  }
+
   /**
    * Checks the ability to align and creats sets of tokens for each text - origin, target and saves it to the alignment
    * @param {Alignment} alignment
@@ -13,14 +17,21 @@ export default class AlignedController {
     }
     this.alignment = alignment
     const tokenizer = 'simpleWordTokenization'
-    return this.alignment.createAlignedTexts(tokenizer)
+    const result = this.alignment.createAlignedTexts(tokenizer)
+
+    this.store.commit('incrementAlignmentUpdated')
+    return result
+  }
+
+  get alignedGroupsWorkflowStarted () {
+    return Boolean(this.originAlignedText) && Boolean(this.allTargetTextsSegments) && (this.allTargetTextsSegments.length > 0)
   }
 
   /**
    * @return { {} | AlignedText } origin aligned text
    */
   get originAlignedText () {
-    return this.alignment ? this.alignment.originAlignedText : {}
+    return this.alignment ? this.alignment.originAlignedText : null
   }
 
   /**
@@ -31,11 +42,15 @@ export default class AlignedController {
   }
 
   get allTargetTextsIds () {
-    return this.alignment ? this.alignment.allTargetTextsIds : null
+    return this.alignment ? this.alignment.allTargetTextsIds : []
   }
 
   get allTargetTextsSegments () {
-    return this.alignment ? this.alignment.allTargetTextsSegments : null
+    return this.alignment ? this.alignment.allTargetTextsSegments : [null]
+  }
+
+  filteredTargetTextsSegments (targetId) {
+    return this.alignment ? this.alignment.filteredTargetTextsSegments(targetId) : [null]
   }
 
   /**
@@ -66,6 +81,7 @@ export default class AlignedController {
         this.addToAlignmentGroup(token)
       }
     }
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
@@ -159,6 +175,7 @@ export default class AlignedController {
    * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
   activateGroupByToken (token) {
+    this.store.commit('incrementAlignmentUpdated')
     return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
   }
 }

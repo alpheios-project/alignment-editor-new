@@ -7,21 +7,13 @@
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
-        :css-update = "cssUpdate"
       />
       <text-editor 
-        :origin-updated = "originTextUpdated"
-        :target-updated = "targetTextUpdated"
         :hide-editor = "hideTextEditor"
-        @css-update-menu = "cssUpdateM"
       />
-      <!--
       <align-editor 
         :show-editor = "showAlignEditor"
-        :css-update = "cssUpdate"
-        @css-update-menu = "cssUpdateM"
       />
-      -->
   </div>
 </template>
 <script>
@@ -38,54 +30,16 @@ export default {
   },
   data () {
     return {
-      originTextUpdated: 0,
-      targetTextUpdated: 0,
-      originAlignedUpdated: 0,
-      targetAlignedUpdated: 0,
       hideTextEditor: 0,
-      showAlignEditor: 0,
-      cssUpdate: 1
+      showAlignEditor: 1
     }
   },
   computed: {
+    alignEditorAvailable () {
+      return this.$store.state.alignmentUpdated && this.$alignedC.alignedGroupsWorkflowStarted
+    }
   },
   methods: {
-    /**
-     * Updates property to reupload origin text in textEditor component
-     */
-    updateOriginTextEditor () {
-      this.originTextUpdated = this.originTextUpdated + 1
-    },
-
-    /**
-     * Updates property to reupload target text in textEditor component
-     */
-    updateTargetTextEditor () {
-      this.targetTextUpdated = this.targetTextUpdated + 1
-      console.info('updateTargetTextEditor - this.targetTextUpdated', this.targetTextUpdated)
-    },
-
-    /**
-     *  Updates property to hide TextEditor
-     */
-    hideTextEditorM () {
-      this.hideTextEditor = this.hideTextEditor + 1
-    },
-
-    /**
-     *  Updates property to show AlignEditor
-     */
-    showAlignEditorM () {
-      this.showAlignEditor = this.showAlignEditor + 1
-    },
-
-    /**
-     *  Updates property to show AlignEditor
-     */
-    cssUpdateM () {
-      this.cssUpdate = this.cssUpdate + 1
-    },
-
     /**
      * Starts download workflow
      */
@@ -98,31 +52,26 @@ export default {
     */
     uploadData (fileData) {
       this.$textC.uploadDocSourceFromFile(fileData)
-      this.updateOriginTextEditor()
-      this.updateTargetTextEditor()
-      this.cssUpdateM()
     },
     /**
      * Starts redo action
      */
     redoAction () {
       this.$historyC.redo()
-      this.cssUpdateM()
     },
     /**
      * Starts undo action
      */
     undoAction () {
       this.$historyC.undo()
-      this.cssUpdateM()
     },
     /**
      * Starts align workflow
      */
     alignTexts () {
       if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
-        this.hideTextEditorM()
-        this.showAlignEditorM()    
+        this.hideTextEditor = this.hideTextEditor + 1
+        this.showAlignEditor = this.showAlignEditor + 1  
       }
     },
     /**

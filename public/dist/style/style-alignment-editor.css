@@ -322,7 +322,7 @@ input.alpheios-input::-ms-input-placeholder {
   background: #f06d26;
   color: #fff;
 }
-.alpheios-alignment-editor-align-define-container {
+.alpheios-alignment-editor-align-define-container-edit-mode {
   display: flex;
   flex-wrap: wrap;
   margin-top: 15px;
@@ -330,19 +330,49 @@ input.alpheios-input::-ms-input-placeholder {
   background: #f3f3f3;
   padding: 10px;
 }
-.alpheios-alignment-editor-align-define-container .alpheios-alignment-editor-align-text-segment {
+.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-alignment-editor-align-text-segment {
   flex-grow: 1;
   width: 50%;
   padding: 10px;
   border: 2px solid transparent;
   border-bottom: 2px solid #ddd;
 }
-.alpheios-alignment-editor-align-define-container .alpheios-align-text-segment-origin {
+.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-align-text-segment-origin {
   border-right: 2px solid #ddd;
 }
-.alpheios-alignment-editor-align-define-container .alpheios-align-text-segment-origin-last,
-.alpheios-alignment-editor-align-define-container .alpheios-align-text-segment-target-last {
+.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-align-text-segment-origin-last,
+.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-align-text-segment-target-last {
   border-bottom: 2px solid transparent;
+}
+.alpheios-alignment-editor-align-target-tab-item {
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 10px 0 0;
+  background: #3abed8;
+  color: #fff;
+}
+.alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active, .alpheios-alignment-editor-align-target-tab-item:hover {
+  background: #185F6D;
+}
+.alpheios-alignment-editor__link-label {
+  cursor: pointer;
+  font-size: 90%;
+  color: #467e8a;
+  display: inline-block;
+  padding: 0 3px;
+}
+.alpheios-alignment-editor__link-label:hover {
+  text-decoration: underline;
+  color: #185F6D;
+}
+.alpheios-alignment-editor__link-label.alpheios-alignment-editor__link-label-active {
+  text-decoration: underline;
+  color: #185F6D;
 }
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;

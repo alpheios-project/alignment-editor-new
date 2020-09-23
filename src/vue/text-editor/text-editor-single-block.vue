@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-editor-text-block">
+  <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated">
       <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
@@ -43,11 +43,6 @@ export default {
     textId: {
       type: String,
       required: false
-    },
-    updatedExternaly: {
-      type: Number,
-      required: false,
-      default: 1
     }
   },
   components: {},
@@ -63,30 +58,15 @@ export default {
   /**
    * Uploads lang list from Json and defines default lang
    */
-  mounted () {
+  created () {
     this.langsList = Langs.all
     this.selectedAvaLang = this.langsList[0].value
   },
-  watch: {
-    /**
-     * Checks if data was uploaded from external source - upload
-     * @param {Object} data
-     *        {String} data.text
-     *        {String} data.direction
-     *        {String} data.lang
-     */
-    updatedExternaly () {
-      const data = this.$textC.getDocSource(this.textType, this.textId)
-      console.info('updatedExternaly - ', this.textType, this.textId, data)
-
-      if (data) {
-        this.text = data.text
-        this.direction = data.direction
-        this.updateLang(data.lang)
-      }
-    }
-  },
   computed: {
+    dataUpdated () {
+      this.updateFromExternal()
+      return this.$store.state.alignmentUpdated
+    },
     /**
      * Defines unique id for textArea for tracking changes
      */
@@ -122,6 +102,14 @@ export default {
     }
   },
   methods: {
+    updateFromExternal () {
+      const data = this.$textC.getDocSource(this.textType, this.textId)
+      if (data && data.lang) {
+        this.text = data.text
+        this.direction = data.direction
+        this.updateLang(data.lang)
+      }
+    },
     /**
      * Defines unique id for direction input
      */
@@ -154,11 +142,13 @@ export default {
      * Emits update-text event with data from properties
      */
     updateText () {
-      this.$emit('update-text', {
+      const methodName = this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+
+      this.$textC[methodName]({
         text: this.text,
         direction: this.direction,
         lang: this.selectedLang
-      }, this.textType)
+      }, this.textId)
     }
   }
 }
