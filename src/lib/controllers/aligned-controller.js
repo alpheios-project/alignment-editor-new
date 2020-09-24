@@ -34,6 +34,10 @@ export default class AlignedController {
     return this.alignment ? this.alignment.originAlignedText : null
   }
 
+  get targetAlignedTexts () {
+    return this.alignment ? this.alignment.targetAlignedTexts : null
+  }
+
   /**
    * @return { {} | AlignedText } target aligned text
    */
@@ -51,6 +55,10 @@ export default class AlignedController {
 
   filteredTargetTextsSegments (targetId) {
     return this.alignment ? this.alignment.filteredTargetTextsSegments(targetId) : [null]
+  }
+
+  get allAlignedTextsSegments () {
+    return this.alignment ? this.alignment.allAlignedTextsSegments : {}
   }
 
   /**

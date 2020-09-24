@@ -134,6 +134,15 @@ export default class Alignment {
     return this.origin.alignedText ? this.origin.alignedText : null
   }
 
+  get targetAlignedTexts () {
+    return Object.keys(this.targets).map(targetId => {
+      return {
+        targetId,
+        alignedText: this.targets[targetId].alignedText
+      }
+    })
+  }
+
   /**
    * @returns { AlignedText | Null } - target aligned text
    */
@@ -150,10 +159,14 @@ export default class Alignment {
     this.allTargetTextsIds.forEach(targetId => {
       targetSegments.push(...this.targets[targetId].alignedText.segments.map(segment => {
         return {
-          targetId, segment
+          targetId,
+          index: segment.index,
+          segment
         }
       }))
     })
+
+    targetSegments.sort((a, b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0))
     return targetSegments
   }
 
@@ -163,6 +176,26 @@ export default class Alignment {
         targetId, segment
       }
     })
+  }
+
+  get allAlignedTextsSegments () {
+    let allSegments = {} // eslint-disable-line prefer-const
+
+    this.originAlignedText.segments.forEach(segment => {
+      allSegments[segment.index] = {
+        index: segment.index,
+        origin: segment,
+        targets: {}
+      }
+    })
+
+    Object.keys(this.targets).forEach(targetId => {
+      this.targets[targetId].alignedText.segments.forEach(segment => {
+        allSegments[segment.index].targets[targetId] = segment
+      })
+    })
+
+    return allSegments
   }
 
   /**

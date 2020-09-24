@@ -12,19 +12,22 @@
         )
       </h2>
     </div>
-    <align-editor-edit-mode v-show="showAlignBlocks"/>
+    
+    <align-editor-view-mode v-show="showAlignBlocks && currentMode === 0"/>
+    <align-editor-edit-mode v-show="showAlignBlocks && currentMode === 1"/>
   </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import AlignEditorEditMode from '@/vue/align-editor/align-editor-edit-mode.vue'
+import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'AlignEditor',
   components: {
-    // segmentBlock: SegmentBlock,
+    alignEditorViewMode: AlignEditorViewMode,
     alignEditorEditMode: AlignEditorEditMode
   },
   props: {

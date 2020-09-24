@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-editor-align-define-container">
+  <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor">
     <div class="alpheios-alignment-editor-align-target-tabs" v-if="allTargetSegmentsId.length > 1">
       <span class="alpheios-alignment-editor-align-target-tab-item"
             :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': activeTargetTab === targetId }"
@@ -8,9 +8,7 @@
         {{ index + 1 }}
       </span>
     </div>
-    <div class ="alpheios-alignment-editor-align-define-container-edit-mode"
-         v-if="showAlignEditor"
-    >
+    <div class ="alpheios-alignment-editor-align-define-container-edit-mode">
         <segment-block v-for="(segment, index) in originAlignedText.segments" :key="getIndex('origin', segment.index)"
                 :segment = "segment" :show-alignment="showAlignment"
                 :isLast = "index === originAlignedText.segments.length-1"
