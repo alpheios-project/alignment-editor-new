@@ -113,4 +113,8 @@ export default class TextsController {
     }
     return DownloadController.download(downloadType, data)
   }
+
+  addTargetText (data = {}) {
+    this.updateTargetDocSource(data)
+  }
 }

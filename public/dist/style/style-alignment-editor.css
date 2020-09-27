@@ -359,7 +359,7 @@ input.alpheios-input::-ms-input-placeholder {
   background: #bebebe;
   color: #fff;
 }
-.alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active, .alpheios-alignment-editor-align-target-tab-item:hover {
+.alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
   background: #185F6D;
 }
 .alpheios-alignment-editor-align-define-container-view-mode {
@@ -389,24 +389,6 @@ input.alpheios-input::-ms-input-placeholder {
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
-}
-.alpheios-alignment-editor-align-target-tabs {
-  padding-left: 51%;
-}
-.alpheios-alignment-editor-align-target-tab-item {
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 30px;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  margin: 0 10px 0 0;
-  background: #bebebe;
-  color: #fff;
-}
-.alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active, .alpheios-alignment-editor-align-target-tab-item:hover {
-  background: #185F6D;
 }
 .alpheios-alignment-editor__link-label {
   cursor: pointer;

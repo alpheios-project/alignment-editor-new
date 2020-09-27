@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated">
-      <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
+      <p class="alpheios-alignment-editor-text-block__title">{{ indexData }}{{ textBlockTitle }}</p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
           <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
@@ -43,6 +43,11 @@ export default {
     textId: {
       type: String,
       required: false
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   components: {},
@@ -99,6 +104,13 @@ export default {
     },
     l10n () {
       return L10nSingleton
+    },
+    needToShowIndex () {
+      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1
+    },
+    
+    indexData () {
+      return this.needToShowIndex ? `${this.index + 1}. ` : ''
     }
   },
   methods: {

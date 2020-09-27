@@ -3,18 +3,11 @@
     <div class="alpheios-alignment-editor-header">
       <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }} 
         (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
-        (
-          <span v-for="(mode, index) in modes" :key="index"
-                class="alpheios-alignment-editor__link-label"
-                :class="{'alpheios-alignment-editor__link-label-active': currentMode === index}"
-                @click="activateMode(index)"
-          >{{ modes[index] }}</span>
-        )
       </h2>
     </div>
     
-    <align-editor-view-mode v-show="showAlignBlocks && currentMode === 0"/>
-    <align-editor-edit-mode v-show="showAlignBlocks && currentMode === 1"/>
+    <align-editor-view-mode v-show="showAlignBlocks"/>
+    
   </div>
 </template>
 <script>
@@ -27,8 +20,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 export default {
   name: 'AlignEditor',
   components: {
-    alignEditorViewMode: AlignEditorViewMode,
-    alignEditorEditMode: AlignEditorEditMode
+    alignEditorViewMode: AlignEditorViewMode
   },
   props: {
     showEditor: {
@@ -38,9 +30,7 @@ export default {
   },
   data () {
     return {
-      showAlignBlocks: false,
-      modes: ['view', 'edit'],
-      currentMode: 1
+      showAlignBlocks: false
     }
   },
   watch: {
@@ -74,9 +64,6 @@ export default {
      */
     toggleShowAlignBlocks () {
       this.showAlignBlocks = !this.showAlignBlocks
-    },
-    activateMode (index) {
-      this.currentMode = index
     }
   }
 }

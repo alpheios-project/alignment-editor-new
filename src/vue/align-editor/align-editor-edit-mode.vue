@@ -111,27 +111,4 @@ export default {
     }
   }
 
-  .alpheios-alignment-editor-align-target-tabs {
-    padding-left: 51%;
-  }
-  .alpheios-alignment-editor-align-target-tab-item {
-    cursor: pointer;
-    display: inline-block;
-
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-
-    margin: 0 10px 0 0;
-
-    background: #bebebe;
-    color: #fff;
-
-    &.alpheios-alignment-editor-align-target-tab-item-active,
-    &:hover {
-      background: #185F6D;
-    }
-  }
 </style>

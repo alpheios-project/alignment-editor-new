@@ -16,6 +16,7 @@
                 v-for="(targetTextId, indexT) in allTargetTextsIds" :key="indexT"
                 text-type = "target" 
                 :text-id = "targetTextId"
+                :index = "indexT"
             />
           </div>
         </div>

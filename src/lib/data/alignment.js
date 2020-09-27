@@ -519,4 +519,10 @@ export default class Alignment {
       this.finishActiveAlignmentGroup()
     }
   }
+
+  addTargetText ({ text, direction, lang } = {}) {
+    this.updateTargetDocSource({
+      text, direction, lang
+    })
+  }
 }

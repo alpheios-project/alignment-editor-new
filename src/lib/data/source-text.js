@@ -12,8 +12,16 @@ export default class SourceText {
   constructor (textType, docSource) {
     this.textType = textType
     this.text = docSource ? docSource.text : ''
-    this.direction = docSource ? docSource.direction : ''
-    this.lang = docSource ? docSource.lang : ''
+    this.direction = docSource ? docSource.direction : this.defaultDirection
+    this.lang = docSource ? docSource.lang : this.defaultLang
+  }
+
+  get defaultDirection () {
+    return 'ltr'
+  }
+
+  get defaultLang () {
+    return 'eng'
   }
 
   /**

@@ -78,7 +78,7 @@ export default {
      * Add aditional block for defining another target text
      */
     addTarget () {
-      console.info('addTarget')
+      this.$textC.addTargetText()
     }
   }
 }

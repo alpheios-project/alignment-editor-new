@@ -1,13 +1,10 @@
 <template>
   <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor">
-    <div class="alpheios-alignment-editor-align-target-tabs" v-if="allTargetSegmentsId.length > 1">
-      <span class="alpheios-alignment-editor-align-target-tab-item"
-            :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': shownTabs.includes(targetId) }"
-            v-for="(targetId, index) in allTargetSegmentsId" :key="index" 
-            @click="selectTab(targetId)">
-        {{ index + 1 }}
-      </span>
-    </div>
+    <align-editor-tabs 
+      v-if="allTargetSegmentsId.length > 1"
+      :tabs = "allTargetSegmentsId" @selectTab = "selectTab"
+    />
+    
     <div class ="alpheios-alignment-editor-align-define-container-view-mode">
       <div class="alpheios-alignment-editor-align-segment-data"
            v-for="(segmentData, segmentIndex) in allAlignedTextsSegments" :key="getIndex('origin', segmentIndex)"
@@ -22,8 +19,8 @@
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentIndex, targetId)"
                   :segment = "segmentTarget" :show-alignment="showAlignment" :targetId="targetId"
-                  :isLast = "targetId === lastTargetId"
-                  v-show="shownTabs.includes(targetId)"
+                  :isLast = "lastTargetId && (targetId === lastTargetId)"
+                  v-show="showTab(targetId)"
                   @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken"
           />
         </div>
@@ -35,11 +32,13 @@
 <script>
 import Vue from '@vue-runtime'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
+import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
 
 export default {
   name: 'AlignEditorEditMode',
   components: {
-    segmentBlock: SegmentBlock
+    segmentBlock: SegmentBlock,
+    alignEditorTabs: AlignEditorTabs
   },
   props: {
   },
@@ -47,22 +46,25 @@ export default {
     return {
       showAlignment: [],
       activeTargetTab: null,
-      shownTabs: []
+      shownTabs: [],
+      lastTargetId: null,
+      shownTabsInited: false
     }
   },
   computed: {
     allTargetSegmentsId () {
-      this.shownTabs = this.$alignedC.allTargetTextsIds.map(id => id)
+      if (!this.shownTabsInited) {
+        this.shownTabs = this.$alignedC.allTargetTextsIds.slice(0, 1)
+        this.shownTabsInited = true
+        this.lastTargetId = this.shownTabs[0]
+      }
       return this.$store.state.alignmentUpdated ? this.$alignedC.allTargetTextsIds : []
-    },
-
-    lastTargetId () {
-      return this.$store.state.alignmentUpdated ? this.$alignedC.allTargetTextsIds[this.$alignedC.allTargetTextsIds.length - 1] : null
     },
 
     allAlignedTextsSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : {}
     },
+
     /**
      * Checks if there are enough data for rendering editors
      */
@@ -71,6 +73,9 @@ export default {
     }
   },
   methods: {
+    showTab (targetId) {
+      return this.shownTabs.includes(targetId)
+    },
     getIndex (textType, index, additionalIndex = 0) {
       return `${textType}-${index}-${additionalIndex}`
     },
@@ -87,11 +92,25 @@ export default {
       this.showAlignment = []
     },
     selectTab (targetId) {
-      if (this.shownTabs.includes(targetId)) {
+      console.info('selectTab - ', this.shownTabs.includes(targetId), this.shownTabs)
+      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
         this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
-      } else {
+        console.info('selectTab - 1')
+      } else if (!this.shownTabs.includes(targetId)) {
         this.shownTabs.push(targetId)
+        console.info('selectTab - 2')
+      } else {
+        console.info('selectTab - 3')
+        return
       }
+
+      if (this.shownTabs.length > 1) {
+        const orderedTargetsId = Object.keys(Object.values(this.allAlignedTextsSegments)[0].targets).filter(targetId => this.shownTabs.includes(targetId))
+        this.lastTargetId = orderedTargetsId[orderedTargetsId.length - 1]
+      } else {
+        this.lastTargetId = this.shownTabs[0]
+      }
+      
     }
   } 
 }
@@ -135,27 +154,4 @@ export default {
     }
   }
 
-  .alpheios-alignment-editor-align-target-tabs {
-    padding-left: 51%;
-  }
-  .alpheios-alignment-editor-align-target-tab-item {
-    cursor: pointer;
-    display: inline-block;
-
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-
-    margin: 0 10px 0 0;
-
-    background: #bebebe;
-    color: #fff;
-
-    &.alpheios-alignment-editor-align-target-tab-item-active,
-    &:hover {
-      background: #185F6D;
-    }
-  }
 </style>
