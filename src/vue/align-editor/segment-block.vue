@@ -1,6 +1,6 @@
 <template>
     <div class="alpheios-alignment-editor-align-text-segment" 
-         :id = "cssId" :style="orderStyle"
+         :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
         <template v-for = "token in segment.tokens">
@@ -49,11 +49,18 @@ export default {
       type: String,
       required: false,
       default: 'none'
+    },
+
+    index: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data () {
     return {
-      updated: 1
+      updated: 1,
+      colors: ['e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff']
     }
   },
   watch: {
@@ -71,8 +78,8 @@ export default {
     cssId () {
       return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
     },
-    orderStyle () {
-      return `order: ${this.segment.index};`
+    cssStyle () {
+      return `order: ${this.segment.index}; background: ${this.colors[this.index]};`
     },
     cssClass () {
       let classes = {}
@@ -83,7 +90,7 @@ export default {
   },
   methods: {
     clickToken (token) {
-      this.$alignedC.clickToken(token)
+      this.$emit('click-token', token)
     },
     addHoverToken (token) {
       this.$emit('add-hover-token', token)

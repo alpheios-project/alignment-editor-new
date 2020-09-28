@@ -322,28 +322,6 @@ input.alpheios-input::-ms-input-placeholder {
   background: #f06d26;
   color: #fff;
 }
-.alpheios-alignment-editor-align-define-container-edit-mode {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 15px;
-  border: 1px solid #ddd;
-  background: #f3f3f3;
-  padding: 10px;
-}
-.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-alignment-editor-align-text-segment {
-  flex-grow: 1;
-  width: 50%;
-  padding: 10px;
-  border: 2px solid transparent;
-  border-bottom: 2px solid #ddd;
-}
-.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-align-text-segment-origin {
-  border-right: 2px solid #ddd;
-}
-.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-align-text-segment-origin-last,
-.alpheios-alignment-editor-align-define-container-edit-mode .alpheios-align-text-segment-target-last {
-  border-bottom: 2px solid transparent;
-}
 .alpheios-alignment-editor-align-target-tabs {
   padding-left: 51%;
 }
@@ -365,8 +343,8 @@ input.alpheios-input::-ms-input-placeholder {
 .alpheios-alignment-editor-align-define-container-view-mode {
   margin-top: 15px;
   border: 1px solid #ddd;
+  border-bottom-color: transparent;
   background: #f3f3f3;
-  padding: 10px;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
   border-bottom: 2px solid #ddd;
@@ -378,6 +356,7 @@ input.alpheios-input::-ms-input-placeholder {
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment {
   border-bottom: 2px solid #e3e3e3;
+  padding: 10px;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment.alpheios-align-text-segment-origin, .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment.alpheios-align-text-segment-target-last {
   border-bottom: 2px solid transparent;
@@ -385,7 +364,6 @@ input.alpheios-input::-ms-input-placeholder {
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item {
   width: 50%;
   float: left;
-  padding: 10px;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;

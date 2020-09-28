@@ -13,7 +13,6 @@
 <script>
 import Vue from '@vue-runtime'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
-import AlignEditorEditMode from '@/vue/align-editor/align-editor-edit-mode.vue'
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
