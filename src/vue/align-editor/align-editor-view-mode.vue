@@ -18,7 +18,7 @@
 
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentIndex, targetId)"
-                  :segment = "segmentTarget" :show-alignment="showAlignment" :targetId="targetId" :index = "allTargetSegmentsId.indexOf(targetId)"
+                  :segment = "segmentTarget" :show-alignment="showAlignment" :targetId="targetId" :targetIdIndex = "allTargetSegmentsId.indexOf(targetId)"
                   :isLast = "lastTargetId && (targetId === lastTargetId)"
                   v-show="showTab(targetId)"
                   @add-hover-token="addHoverToken" @remove-hover-token="removeHoverToken" @click-token="clickToken"
@@ -44,7 +44,7 @@ export default {
   },
   data () {
     return {
-      showAlignment: [],
+      showAlignment: {},
       shownTabs: [],
       shownTabsInited: false
     }
@@ -103,12 +103,12 @@ export default {
      * Stops showing an alignment group workflow
      */
     removeHoverToken () {
-      this.showAlignment = []
+      this.showAlignment = {}
     },
 
-    clickToken (token) {
+    clickToken (token, segment) {
       if (this.currentMode === 'edit') {
-       this.$alignedC.clickToken(token)
+       this.$alignedC.clickToken(token, segment, this.shownTabs[0])
       }
     },
     selectTab (targetId) {

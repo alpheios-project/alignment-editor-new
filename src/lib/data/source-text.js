@@ -1,4 +1,5 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import { v4 as uuidv4 } from 'uuid'
 
 export default class SourceText {
   /**
@@ -10,6 +11,7 @@ export default class SourceText {
    * @param {String} docSource.lang
    */
   constructor (textType, docSource) {
+    this.id = uuidv4()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
     this.direction = docSource ? docSource.direction : this.defaultDirection

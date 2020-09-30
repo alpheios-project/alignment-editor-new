@@ -14879,15 +14879,21 @@ class AlignedController {
    * If there is an active alignment and token is not grouped - addToAlignmentGroup
    * @param {Token} token
    */
-  clickToken (token) {
+  clickToken (token, segment, outerTargetId) {
     if (!this.hasActiveAlignment) {
-      if (this.tokenIsGrouped(token)) {
-        this.activateGroupByToken(token)
+      if (token.idWord === 'L1:1-1') {
+        console.info('clickToken - ', token.idWord, outerTargetId, this.tokenIsGrouped(token, outerTargetId))
+      }
+      if (this.tokenIsGrouped(token, outerTargetId)) {
+        console.info('activateGroupByToken started')
+        this.activateGroupByToken(token, outerTargetId)
       } else {
         this.startNewAlignmentGroup(token)
       }
-    } else {
+    } else if (this.alignment.theSameSegmentAsActiveGroup(segment)) {
+      // console.info('theSameSegmentAsActiveGroup - started')
       if (this.alignment.shouldFinishAlignmentGroup(token)) {
+        // console.info('finishActiveAlignmentGroup - started')
         this.finishActiveAlignmentGroup()
       } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
         this.alignment.removeFromAlignmentGroup(token)
@@ -14897,6 +14903,7 @@ class AlignedController {
         this.addToAlignmentGroup(token)
       }
     }
+    // console.info('final - ', this.alignment.activeAlignmentGroup)
     this.store.commit('incrementAlignmentUpdated')
   }
 
@@ -14947,7 +14954,7 @@ class AlignedController {
    * @return {Array } Array
    */
   findAlignmentGroupIds (token) {
-    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []
+    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : {}
   }
 
   /**
@@ -14955,8 +14962,8 @@ class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
-  tokenIsGrouped (token) {
-    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
+  tokenIsGrouped (token, outerTargetId) {
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token, outerTargetId)
   }
 
   /**
@@ -14990,9 +14997,9 @@ class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
-  activateGroupByToken (token) {
+  activateGroupByToken (token, outerTargetId) {
     this.store.commit('incrementAlignmentUpdated')
-    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token, outerTargetId)
   }
 }
 
@@ -15400,11 +15407,11 @@ class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource, id) {
+  updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource, id)
+      this.alignment.updateTargetDocSource(targetDocSource)
       this.store.commit('incrementAlignmentUpdated')
     }
   }
@@ -15624,6 +15631,7 @@ class AlignedText {
    * @param {String} tokenizer - the name of tokenizer approach
    */
   constructor ({ docSource, tokenizer } = {}) {
+    this.id = docSource.id
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction
@@ -15648,7 +15656,14 @@ class AlignedText {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getTokenizer(this.tokenizer)
     const result = tokenizeMethod(docSource, this.tokenPrefix, this.textType)
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default(segment))
+      this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
+        index: segment.index,
+        tokens: segment.tokens,
+        textType: docSource.textType,
+        lang: docSource.lang,
+        direction: docSource.direction,
+        docSourceId: docSource.id
+      }))
     }
   }
 }
@@ -15719,6 +15734,13 @@ class AlignmentGroup {
     }
   }
 
+  theSameSegment (segmentIndex, targetId) {
+    // console.info('theSameSegment - 1', segmentIndex, targetId)
+    // console.info('theSameSegment - 2', (this.segmentIndex === segmentIndex))
+    // console.info('theSameSegment - 3', (!targetId || !this.targetId || (this.targetId === targetId)))
+    return (this.segmentIndex === segmentIndex) && (!targetId || !this.targetId || (this.targetId === targetId))
+  }
+
   /**
    * Adds the token to group, adds to step and checks firstStep
    * @param {Token} token
@@ -15727,6 +15749,12 @@ class AlignmentGroup {
   add (token) {
     if (!token || !token.isAlignable) {
       return false
+    }
+    if (this.groupLen === 0) {
+      this.segmentIndex = token.segmentIndex
+    }
+    if (!this.targetId && (token.textType === 'target')) {
+      this.targetId = token.docSourceId
     }
 
     this.truncateSteps()
@@ -15812,7 +15840,11 @@ class AlignmentGroup {
     const ids = []
     ids.push(...this.origin)
     ids.push(...this.target)
-    return ids
+    return {
+      ids,
+      segmentIndex: this.segmentIndex,
+      targetId: this.targetId
+    }
   }
 
   /**
@@ -15820,8 +15852,37 @@ class AlignmentGroup {
    * @param {String} Token.idWord
    * @returns {Boolean} true - if is in group, false - not
    */
-  includesToken (token) {
-    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  includesToken (token, outerTargetId) {
+    /*
+    if (token.idWord === 'L1:1-1') {
+      console.info('****************************')
+      console.info('includesToken ', outerTargetId)
+      console.info('includesToken 1', (this.segmentIndex === token.segmentIndex), this.segmentIndex, token.segmentIndex)
+      console.info('includesToken 2', this.hasTheSameTargetId(token, outerTargetId))
+      console.info('includesToken 3', (this.origin.includes(token.idWord) || this.target.includes(token.idWord)))
+    }
+    */
+    return Boolean(token) &&
+           (this.segmentIndex === token.segmentIndex) &&
+           this.hasTheSameTargetId(token, outerTargetId) &&
+           (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  }
+
+  hasTheSameTargetId (token, outerTargetId) {
+    // console.info('*****************hasTheSameTargetId', token.idWord, outerTargetId)
+    if (!this.targetId && !outerTargetId) {
+      return true // we have nothing to compare
+    }
+    if (token.textType === 'target') {
+      if (this.targetId) {
+        return outerTargetId ? ((this.targetId === outerTargetId) && (token.docSourceId === outerTargetId)) : (token.docSourceId === this.targetId) // define additional equality
+      } else {
+        return outerTargetId ? (token.docSourceId === outerTargetId) : true // define priority
+      }
+    }
+    if (token.textType === 'origin') {
+      return outerTargetId ? this.targetId && (this.targetId === outerTargetId) : true // we could check only targetId of the group
+    }
   }
 
   /**
@@ -15830,7 +15891,7 @@ class AlignmentGroup {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token) {
-    return this.firstStepToken.idWord === token.idWord
+    return this.includesToken(token) && this.firstStepToken.idWord === token.idWord
   }
 
   /**
@@ -15839,7 +15900,7 @@ class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.includesToken(token) && this.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   /**
@@ -16046,107 +16107,6 @@ class AlignmentGroup {
 
     return finalResult
   }
-
-  /**
-   * Removes the step action,
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @retuns {Object} - results of undone steps, for now it could return only the result of unmerge action
-   */
-  /*
-  removeStepAction (stepIndex) {
-    const step = this.steps[stepIndex]
-
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
-      return
-    }
-
-    const actions = {}
-    actions[AlignmentStep.types.ADD] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.REMOVE] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.MERGE] = (step) => {
-      const data = this.unmerge(step)
-      return {
-        result: true,
-        data
-      }
-    }
-
-    let finalResult
-    try {
-      finalResult = actions[step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
-  }
-*/
-  /**
-   * Applies the step action (used within redo action)
-   * @param {Number} stepIndex - index in steps array
-   * @returns {Object}
-   *          {Boolean} result - true - if action was done, false - otherwise
-   */
-  /*
-  applyStepAction (stepIndex) {
-    const step = this.steps[stepIndex]
-
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
-      return
-    }
-
-    const actions = {}
-    actions[AlignmentStep.types.ADD] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.REMOVE] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.MERGE] = (step) => {
-      this.origin.push(...step.token.origin)
-      this.target.push(...step.token.target)
-      return {
-        result: true
-      }
-    }
-
-    let finalResult
-    try {
-      finalResult = actions[step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
-  }
-  */
 }
 
 
@@ -16261,7 +16221,7 @@ class Alignment {
     this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
-    this.alignmentGroupsIds = []
+    // this.alignmentGroupsIds = []
     this.activeAlignmentGroup = null
     this.undoneGroups = []
   }
@@ -16308,7 +16268,7 @@ class Alignment {
    * Updates/adds target docSource only if origin is defined
    * @param {SourceText} docSource
    */
-  updateTargetDocSource (docSource, id = null) {
+  updateTargetDocSource (docSource) {
     if (!docSource) {
       return false
     }
@@ -16317,13 +16277,13 @@ class Alignment {
       return false
     }
 
-    if (!this.targets[id]) {
-      const targetId = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-      this.targets[targetId] = {
-        docSource: new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+    if (!docSource.id || !this.targets[docSource.id]) {
+      const sourceText = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+      this.targets[sourceText.id] = {
+        docSource: sourceText
       }
     } else {
-      this.targets[id].docSource.update(docSource)
+      this.targets[docSource.id].docSource.update(docSource)
     }
     return true
   }
@@ -16366,6 +16326,10 @@ class Alignment {
       })
     }
     return true
+  }
+
+  theSameSegmentAsActiveGroup (segment) {
+    return this.hasActiveAlignment && this.activeAlignmentGroup.theSameSegment(segment.index, segment.textType === 'target' ? segment.docSourceId : null)
   }
 
   /**
@@ -16446,6 +16410,9 @@ class Alignment {
    * @returns {Boolean}
    */
   shouldFinishAlignmentGroup (token) {
+    // console.info('shouldFinishAlignmentGroup 1', this.tokenInActiveGroup(token))
+    // console.info('shouldFinishAlignmentGroup 2', this.tokenTheSameTextTypeAsStart(token))
+    // console.info('shouldFinishAlignmentGroup 3', this.activeAlignmentGroup.couldBeFinished)
     return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
   }
 
@@ -16512,7 +16479,7 @@ class Alignment {
   removeFromAlignmentGroup (token) {
     if (this.hasActiveAlignment && this.tokenInActiveGroup(token)) {
       this.activeAlignmentGroup.remove(token)
-      this.removeFromAlignmentIds(token.idWord)
+      // this.removeFromAlignmentIds(token.idWord)
       return true
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -16526,7 +16493,7 @@ class Alignment {
   finishActiveAlignmentGroup () {
     if (this.hasActiveAlignment && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
-      this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
+      // this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
       this.activeAlignmentGroup = null
       return true
     }
@@ -16538,9 +16505,9 @@ class Alignment {
    * @param {Token} token
    * @returns {AlignmentGroup | Null}
    */
-  findAlignmentGroup (token) {
-    if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token)) : null
+  findAlignmentGroup (token, outerTargetId) {
+    if (this.tokenIsGrouped(token, outerTargetId)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token, outerTargetId)) : null
     }
     return null
   }
@@ -16550,14 +16517,9 @@ class Alignment {
    * @param {Token} token
    * @returns { Array[Stringt] }
    */
-  findAlignmentGroupIds (token) {
-    const alignedGroup = this.findAlignmentGroup(token)
-    if (alignedGroup) {
-      const alignedGroupIds = []
-      alignedGroupIds.push(...alignedGroup.allIds)
-      return alignedGroupIds
-    }
-    return []
+  findAlignmentGroupIds (token, outerTargetId) {
+    const alignedGroup = this.findAlignmentGroup(token, outerTargetId)
+    return alignedGroup ? alignedGroup.allIds : {}
   }
 
   /**
@@ -16565,6 +16527,7 @@ class Alignment {
    * @param {String} idWord
    * @returns {Boolean} true - was removed from alignmentGroupsIds, false - was not removed
    */
+  /*
   removeFromAlignmentIds (idWord) {
     const tokenIndex = this.alignmentGroupsIds.findIndex(tokenId => tokenId === idWord)
     if (tokenIndex >= 0) {
@@ -16573,7 +16536,7 @@ class Alignment {
     }
     return false
   }
-
+*/
   /**
    * Removes a group from alignmentGroups list
    * @param {AlignmentGroup} tokensGroup
@@ -16592,19 +16555,21 @@ class Alignment {
    * @param {String} idWord
    */
 
+  /*
   removeGroupFromAlignmentIds (alignedGroup) {
     alignedGroup.allIds.forEach(idWord => {
       this.removeFromAlignmentIds(idWord)
     })
   }
-
+  */
   /**
    *
    * @param {Token} token
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
-  tokenIsGrouped (token) {
-    return this.alignmentGroupsIds.includes(token.idWord)
+  tokenIsGrouped (token, outerTargetId) {
+    return this.alignmentGroups.some(alGroup => alGroup.includesToken(token, outerTargetId))
+    // return this.alignmentGroupsIds.includes(token.idWord)
   }
 
   /**
@@ -16640,8 +16605,8 @@ class Alignment {
    * @param {Token} token
    * @returns { Boolean } true - if group was found and activated, false - no group was activated
    */
-  activateGroupByToken (token) {
-    const tokensGroup = this.findAlignmentGroup(token)
+  activateGroupByToken (token, outerTargetId) {
+    const tokensGroup = this.findAlignmentGroup(token, outerTargetId)
     return this.activateGroup(tokensGroup, token)
   }
 
@@ -16669,7 +16634,7 @@ class Alignment {
     if (tokensGroup) {
       this.activeAlignmentGroup = tokensGroup
       this.removeGroupFromAlignmentGroups(tokensGroup)
-      this.removeGroupFromAlignmentIds(tokensGroup)
+      // this.removeGroupFromAlignmentIds(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       return true
     }
@@ -16687,7 +16652,7 @@ class Alignment {
       const tokensGroup = this.findAlignmentGroup(token)
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
-      this.removeGroupFromAlignmentIds(tokensGroup)
+      // this.removeGroupFromAlignmentIds(tokensGroup)
 
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
       return true
@@ -16826,12 +16791,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens }) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
     this.direction = direction
-
+    this.docSourceId = docSourceId
     this.checkAndUpdateTokens(tokens)
   }
 
@@ -16840,7 +16805,7 @@ class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token))
+    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
   }
 }
 
@@ -16854,7 +16819,7 @@ class Segment {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16863,6 +16828,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ SourceText
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 class SourceText {
@@ -16875,6 +16843,7 @@ class SourceText {
    * @param {String} docSource.lang
    */
   constructor (textType, docSource) {
+    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_1__.v4)()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
     this.direction = docSource ? docSource.direction : this.defaultDirection
@@ -16951,13 +16920,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ Token
 /* harmony export */ });
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak }) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
     this.beforeWord = beforeWord
     this.afterWord = afterWord
     this.hasLineBreak = hasLineBreak
+    this.segmentIndex = segmentIndex
+    this.docSourceId = docSourceId
   }
 
   get isAlignable () {
@@ -17546,9 +17517,6 @@ class SimpleLocalTokenizer {
         mainIndex = mainIndex + 1
         finalText.segments.push({
           index: mainIndex,
-          textType: docSource.textType,
-          lang: docSource.lang,
-          direction: docSource.direction,
           tokens: finalTextLine
         })
       }
@@ -17868,7 +17836,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showAlignment: [],
+      showAlignment: {},
       shownTabs: [],
       shownTabsInited: false
     }
@@ -17927,12 +17895,12 @@ __webpack_require__.r(__webpack_exports__);
      * Stops showing an alignment group workflow
      */
     removeHoverToken () {
-      this.showAlignment = []
+      this.showAlignment = {}
     },
 
-    clickToken (token) {
+    clickToken (token, segment) {
       if (this.currentMode === 'edit') {
-       this.$alignedC.clickToken(token)
+       this.$alignedC.clickToken(token, segment, this.shownTabs[0])
       }
     },
     selectTab (targetId) {
@@ -18093,9 +18061,9 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     showAlignment: {
-      type: Array,
+      type: Object,
       required: false,
-      default: []
+      default: {}
     },
 
     isLast : {
@@ -18107,10 +18075,10 @@ __webpack_require__.r(__webpack_exports__);
     targetId : {
       type: String,
       required: false,
-      default: 'none'
+      default: ''
     },
 
-    index: {
+    targetIdIndex: {
       type: Number,
       required: false,
       default: 0
@@ -18135,10 +18103,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.segment.lang
     },
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      return `alpheios-align-text-segment-${this.textType}-${this.targetId ? this.targetId : 'none' }-${this.segment.index}`
     },
     cssStyle () {
-      return `order: ${this.segment.index}; background: ${this.colors[this.index]};`
+      return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
     },
     cssClass () {
       let classes = {}
@@ -18149,7 +18117,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     clickToken (token) {
-      this.$emit('click-token', token)
+      this.$emit('click-token', token, this.segment)
     },
     addHoverToken (token) {
       this.$emit('add-hover-token', token)
@@ -18161,7 +18129,9 @@ __webpack_require__.r(__webpack_exports__);
      * Used for defining that token is in hovered saved alignmentGroup
      */
     selectedToken (token) {
-      return this.showAlignment.includes(token.idWord)
+      return (this.showAlignment.segmentIndex === this.segment.index) && 
+             (!this.targetId || this.showAlignment.targetId === this.targetId) && 
+              this.showAlignment.ids.includes(token.idWord)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
@@ -18660,8 +18630,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC[methodName]({
         text: this.text,
         direction: this.direction,
-        lang: this.selectedLang
-      }, this.textId)
+        lang: this.selectedLang,
+        id: this.textId
+      })
     }
   }
 });
@@ -19900,7 +19871,9 @@ var render = function() {
                           segment: segmentTarget,
                           "show-alignment": _vm.showAlignment,
                           targetId: targetId,
-                          index: _vm.allTargetSegmentsId.indexOf(targetId),
+                          targetIdIndex: _vm.allTargetSegmentsId.indexOf(
+                            targetId
+                          ),
                           isLast:
                             _vm.lastTargetId && targetId === _vm.lastTargetId
                         },

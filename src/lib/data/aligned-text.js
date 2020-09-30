@@ -9,6 +9,7 @@ export default class AlignedText {
    * @param {String} tokenizer - the name of tokenizer approach
    */
   constructor ({ docSource, tokenizer } = {}) {
+    this.id = docSource.id
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction
@@ -33,7 +34,14 @@ export default class AlignedText {
     const tokenizeMethod = TokenizeController.getTokenizer(this.tokenizer)
     const result = tokenizeMethod(docSource, this.tokenPrefix, this.textType)
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new Segment(segment))
+      this.segments = result.segments.map(segment => new Segment({
+        index: segment.index,
+        tokens: segment.tokens,
+        textType: docSource.textType,
+        lang: docSource.lang,
+        direction: docSource.direction,
+        docSourceId: docSource.id
+      }))
     }
   }
 }

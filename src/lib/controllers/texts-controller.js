@@ -46,11 +46,11 @@ export default class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource, id) {
+  updateTargetDocSource (targetDocSource) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource, id)
+      this.alignment.updateTargetDocSource(targetDocSource)
       this.store.commit('incrementAlignmentUpdated')
     }
   }

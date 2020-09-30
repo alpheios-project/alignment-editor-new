@@ -159,8 +159,9 @@ export default {
       this.$textC[methodName]({
         text: this.text,
         direction: this.direction,
-        lang: this.selectedLang
-      }, this.textId)
+        lang: this.selectedLang,
+        id: this.textId
+      })
     }
   }
 }

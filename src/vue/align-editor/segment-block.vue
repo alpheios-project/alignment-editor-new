@@ -34,9 +34,9 @@ export default {
     },
 
     showAlignment: {
-      type: Array,
+      type: Object,
       required: false,
-      default: []
+      default: {}
     },
 
     isLast : {
@@ -48,10 +48,10 @@ export default {
     targetId : {
       type: String,
       required: false,
-      default: 'none'
+      default: ''
     },
 
-    index: {
+    targetIdIndex: {
       type: Number,
       required: false,
       default: 0
@@ -76,10 +76,10 @@ export default {
       return this.segment.lang
     },
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      return `alpheios-align-text-segment-${this.textType}-${this.targetId ? this.targetId : 'none' }-${this.segment.index}`
     },
     cssStyle () {
-      return `order: ${this.segment.index}; background: ${this.colors[this.index]};`
+      return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
     },
     cssClass () {
       let classes = {}
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     clickToken (token) {
-      this.$emit('click-token', token)
+      this.$emit('click-token', token, this.segment)
     },
     addHoverToken (token) {
       this.$emit('add-hover-token', token)
@@ -102,7 +102,9 @@ export default {
      * Used for defining that token is in hovered saved alignmentGroup
      */
     selectedToken (token) {
-      return this.showAlignment.includes(token.idWord)
+      return (this.showAlignment.segmentIndex === this.segment.index) && 
+             (!this.targetId || this.showAlignment.targetId === this.targetId) && 
+              this.showAlignment.ids.includes(token.idWord)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup

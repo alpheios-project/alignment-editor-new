@@ -71,15 +71,21 @@ export default class AlignedController {
    * If there is an active alignment and token is not grouped - addToAlignmentGroup
    * @param {Token} token
    */
-  clickToken (token) {
+  clickToken (token, segment, outerTargetId) {
     if (!this.hasActiveAlignment) {
-      if (this.tokenIsGrouped(token)) {
-        this.activateGroupByToken(token)
+      if (token.idWord === 'L1:1-1') {
+        console.info('clickToken - ', token.idWord, outerTargetId, this.tokenIsGrouped(token, outerTargetId))
+      }
+      if (this.tokenIsGrouped(token, outerTargetId)) {
+        console.info('activateGroupByToken started')
+        this.activateGroupByToken(token, outerTargetId)
       } else {
         this.startNewAlignmentGroup(token)
       }
-    } else {
+    } else if (this.alignment.theSameSegmentAsActiveGroup(segment)) {
+      // console.info('theSameSegmentAsActiveGroup - started')
       if (this.alignment.shouldFinishAlignmentGroup(token)) {
+        // console.info('finishActiveAlignmentGroup - started')
         this.finishActiveAlignmentGroup()
       } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
         this.alignment.removeFromAlignmentGroup(token)
@@ -89,6 +95,7 @@ export default class AlignedController {
         this.addToAlignmentGroup(token)
       }
     }
+    // console.info('final - ', this.alignment.activeAlignmentGroup)
     this.store.commit('incrementAlignmentUpdated')
   }
 
@@ -139,7 +146,7 @@ export default class AlignedController {
    * @return {Array } Array
    */
   findAlignmentGroupIds (token) {
-    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []
+    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : {}
   }
 
   /**
@@ -147,8 +154,8 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
-  tokenIsGrouped (token) {
-    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
+  tokenIsGrouped (token, outerTargetId) {
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token, outerTargetId)
   }
 
   /**
@@ -182,8 +189,8 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
-  activateGroupByToken (token) {
+  activateGroupByToken (token, outerTargetId) {
     this.store.commit('incrementAlignmentUpdated')
-    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token, outerTargetId)
   }
 }
