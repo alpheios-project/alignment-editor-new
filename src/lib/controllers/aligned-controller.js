@@ -73,29 +73,22 @@ export default class AlignedController {
    */
   clickToken (token, segment, outerTargetId) {
     if (!this.hasActiveAlignment) {
-      if (token.idWord === 'L1:1-1') {
-        console.info('clickToken - ', token.idWord, outerTargetId, this.tokenIsGrouped(token, outerTargetId))
-      }
       if (this.tokenIsGrouped(token, outerTargetId)) {
-        console.info('activateGroupByToken started')
         this.activateGroupByToken(token, outerTargetId)
       } else {
         this.startNewAlignmentGroup(token)
       }
     } else if (this.alignment.theSameSegmentAsActiveGroup(segment)) {
-      // console.info('theSameSegmentAsActiveGroup - started')
       if (this.alignment.shouldFinishAlignmentGroup(token)) {
-        // console.info('finishActiveAlignmentGroup - started')
         this.finishActiveAlignmentGroup()
       } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
         this.alignment.removeFromAlignmentGroup(token)
-      } else if (this.tokenIsGrouped(token)) {
+      } else if (this.tokenIsGrouped(token, outerTargetId)) {
         this.mergeActiveGroupWithAnotherByToken(token)
       } else {
         this.addToAlignmentGroup(token)
       }
     }
-    // console.info('final - ', this.alignment.activeAlignmentGroup)
     this.store.commit('incrementAlignmentUpdated')
   }
 
@@ -146,7 +139,7 @@ export default class AlignedController {
    * @return {Array } Array
    */
   findAlignmentGroupIds (token) {
-    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : {}
+    return this.alignment ? this.alignment.findAllAlignmentGroupIds(token) : []
   }
 
   /**

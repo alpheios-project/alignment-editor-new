@@ -34,9 +34,9 @@ export default {
     },
 
     showAlignment: {
-      type: Object,
+      type: Array,
       required: false,
-      default: {}
+      default: []
     },
 
     isLast : {
@@ -102,9 +102,11 @@ export default {
      * Used for defining that token is in hovered saved alignmentGroup
      */
     selectedToken (token) {
-      return (this.showAlignment.segmentIndex === this.segment.index) && 
-             (!this.targetId || this.showAlignment.targetId === this.targetId) && 
-              this.showAlignment.ids.includes(token.idWord)
+      return this.showAlignment.some(alGroupData => {
+        return (alGroupData.segmentIndex === this.segment.index) &&
+                (token.textType === 'origin' || !this.targetId || alGroupData.targetId === this.targetId) &&  
+                alGroupData.ids.includes(token.idWord)
+      })
     },
     /**
      * Used for defining that token is in some saved alignmentGroup

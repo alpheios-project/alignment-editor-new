@@ -148,11 +148,7 @@ export default class AlignmentGroup {
     const ids = []
     ids.push(...this.origin)
     ids.push(...this.target)
-    return {
-      ids,
-      segmentIndex: this.segmentIndex,
-      targetId: this.targetId
-    }
+    return ids
   }
 
   /**

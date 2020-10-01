@@ -316,9 +316,32 @@ export default class Alignment {
    * @param {Token} token
    * @returns { Array[Stringt] }
    */
-  findAlignmentGroupIds (token, outerTargetId) {
-    const alignedGroup = this.findAlignmentGroup(token, outerTargetId)
-    return alignedGroup ? alignedGroup.allIds : {}
+  findAlignmentGroupIds (token) {
+    const alignedGroup = this.findAlignmentGroup(token)
+    return alignedGroup ? alignedGroup.allIds : []
+  }
+
+  findAllAlignmentGroups (token) {
+    if (this.tokenIsGrouped(token)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(al => al.includesToken(token)) : null
+    }
+    return null
+  }
+
+  findAllAlignmentGroupIds (token) {
+    const alignedGroups = this.findAllAlignmentGroups(token)
+
+    if (!alignedGroups) {
+      return []
+    }
+
+    return alignedGroups.map(alGroup => {
+      return {
+        segmentIndex: alGroup.segmentIndex,
+        targetId: alGroup.targetId,
+        ids: alGroup.allIds
+      }
+    })
   }
 
   /**

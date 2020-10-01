@@ -14881,29 +14881,22 @@ class AlignedController {
    */
   clickToken (token, segment, outerTargetId) {
     if (!this.hasActiveAlignment) {
-      if (token.idWord === 'L1:1-1') {
-        console.info('clickToken - ', token.idWord, outerTargetId, this.tokenIsGrouped(token, outerTargetId))
-      }
       if (this.tokenIsGrouped(token, outerTargetId)) {
-        console.info('activateGroupByToken started')
         this.activateGroupByToken(token, outerTargetId)
       } else {
         this.startNewAlignmentGroup(token)
       }
     } else if (this.alignment.theSameSegmentAsActiveGroup(segment)) {
-      // console.info('theSameSegmentAsActiveGroup - started')
       if (this.alignment.shouldFinishAlignmentGroup(token)) {
-        // console.info('finishActiveAlignmentGroup - started')
         this.finishActiveAlignmentGroup()
       } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
         this.alignment.removeFromAlignmentGroup(token)
-      } else if (this.tokenIsGrouped(token)) {
+      } else if (this.tokenIsGrouped(token, outerTargetId)) {
         this.mergeActiveGroupWithAnotherByToken(token)
       } else {
         this.addToAlignmentGroup(token)
       }
     }
-    // console.info('final - ', this.alignment.activeAlignmentGroup)
     this.store.commit('incrementAlignmentUpdated')
   }
 
@@ -14954,7 +14947,7 @@ class AlignedController {
    * @return {Array } Array
    */
   findAlignmentGroupIds (token) {
-    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : {}
+    return this.alignment ? this.alignment.findAllAlignmentGroupIds(token) : []
   }
 
   /**
@@ -15840,11 +15833,7 @@ class AlignmentGroup {
     const ids = []
     ids.push(...this.origin)
     ids.push(...this.target)
-    return {
-      ids,
-      segmentIndex: this.segmentIndex,
-      targetId: this.targetId
-    }
+    return ids
   }
 
   /**
@@ -15853,15 +15842,6 @@ class AlignmentGroup {
    * @returns {Boolean} true - if is in group, false - not
    */
   includesToken (token, outerTargetId) {
-    /*
-    if (token.idWord === 'L1:1-1') {
-      console.info('****************************')
-      console.info('includesToken ', outerTargetId)
-      console.info('includesToken 1', (this.segmentIndex === token.segmentIndex), this.segmentIndex, token.segmentIndex)
-      console.info('includesToken 2', this.hasTheSameTargetId(token, outerTargetId))
-      console.info('includesToken 3', (this.origin.includes(token.idWord) || this.target.includes(token.idWord)))
-    }
-    */
     return Boolean(token) &&
            (this.segmentIndex === token.segmentIndex) &&
            this.hasTheSameTargetId(token, outerTargetId) &&
@@ -15869,7 +15849,6 @@ class AlignmentGroup {
   }
 
   hasTheSameTargetId (token, outerTargetId) {
-    // console.info('*****************hasTheSameTargetId', token.idWord, outerTargetId)
     if (!this.targetId && !outerTargetId) {
       return true // we have nothing to compare
     }
@@ -16517,9 +16496,32 @@ class Alignment {
    * @param {Token} token
    * @returns { Array[Stringt] }
    */
-  findAlignmentGroupIds (token, outerTargetId) {
-    const alignedGroup = this.findAlignmentGroup(token, outerTargetId)
-    return alignedGroup ? alignedGroup.allIds : {}
+  findAlignmentGroupIds (token) {
+    const alignedGroup = this.findAlignmentGroup(token)
+    return alignedGroup ? alignedGroup.allIds : []
+  }
+
+  findAllAlignmentGroups (token) {
+    if (this.tokenIsGrouped(token)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(al => al.includesToken(token)) : null
+    }
+    return null
+  }
+
+  findAllAlignmentGroupIds (token) {
+    const alignedGroups = this.findAllAlignmentGroups(token)
+
+    if (!alignedGroups) {
+      return []
+    }
+
+    return alignedGroups.map(alGroup => {
+      return {
+        segmentIndex: alGroup.segmentIndex,
+        targetId: alGroup.targetId,
+        ids: alGroup.allIds
+      }
+    })
   }
 
   /**
@@ -17836,7 +17838,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showAlignment: {},
+      showAlignment: [],
       shownTabs: [],
       shownTabsInited: false
     }
@@ -17895,7 +17897,7 @@ __webpack_require__.r(__webpack_exports__);
      * Stops showing an alignment group workflow
      */
     removeHoverToken () {
-      this.showAlignment = {}
+      this.showAlignment = []
     },
 
     clickToken (token, segment) {
@@ -18061,9 +18063,9 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     showAlignment: {
-      type: Object,
+      type: Array,
       required: false,
-      default: {}
+      default: []
     },
 
     isLast : {
@@ -18129,9 +18131,11 @@ __webpack_require__.r(__webpack_exports__);
      * Used for defining that token is in hovered saved alignmentGroup
      */
     selectedToken (token) {
-      return (this.showAlignment.segmentIndex === this.segment.index) && 
-             (!this.targetId || this.showAlignment.targetId === this.targetId) && 
-              this.showAlignment.ids.includes(token.idWord)
+      return this.showAlignment.some(alGroupData => {
+        return (alGroupData.segmentIndex === this.segment.index) &&
+                (token.textType === 'origin' || !this.targetId || alGroupData.targetId === this.targetId) &&  
+                alGroupData.ids.includes(token.idWord)
+      })
     },
     /**
      * Used for defining that token is in some saved alignmentGroup

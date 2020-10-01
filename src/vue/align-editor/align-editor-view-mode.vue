@@ -44,7 +44,7 @@ export default {
   },
   data () {
     return {
-      showAlignment: {},
+      showAlignment: [],
       shownTabs: [],
       shownTabsInited: false
     }
@@ -103,7 +103,7 @@ export default {
      * Stops showing an alignment group workflow
      */
     removeHoverToken () {
-      this.showAlignment = {}
+      this.showAlignment = []
     },
 
     clickToken (token, segment) {
