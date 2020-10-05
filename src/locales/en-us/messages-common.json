@@ -25,6 +25,11 @@
       "description": "An error message creating alignment.",
       "component": "AlignedController"
     },
+    "ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS": {
+      "message": "Document source texts would be divided to different amount of segments.",
+      "description": "An error message creating alignment.",
+      "component": "AlignedController"
+    },
     "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {
       "message": "Tokenization was cancelled.",
       "description": "An error message for tokenization workflow",

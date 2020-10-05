@@ -1,6 +1,10 @@
 <template>
   <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated">
-      <p class="alpheios-alignment-editor-text-block__title">{{ indexData }}{{ textBlockTitle }}</p>
+      <p class="alpheios-alignment-editor-text-block__title">{{ indexData }}{{ textBlockTitle }}
+        <span :id="removeId" class="alpheios-alignment-editor-text-block__remove" v-show="showDeleteIcon" @click="deleteText">
+          <delete-icon />
+        </span>
+      </p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
           <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
@@ -33,6 +37,8 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Langs from '@/lib/data/langs/langs.js'
 
+import DeleteIcon from '@/inline-icons/delete.svg'
+
 export default {
   name: 'TextEditorSingleBlock',
   props: {
@@ -50,7 +56,9 @@ export default {
       default: 0
     }
   },
-  components: {},
+  components: {
+    deleteIcon: DeleteIcon
+  },
   data () {
     return {
       text: null,
@@ -77,6 +85,9 @@ export default {
      */
     textareaId () {
       return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+    },
+    removeId () {
+      return `alpheios-alignment-editor-remove-block__${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
@@ -106,11 +117,15 @@ export default {
       return L10nSingleton
     },
     needToShowIndex () {
-      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1
+      return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
     },
     
     indexData () {
       return this.needToShowIndex ? `${this.index + 1}. ` : ''
+    },
+
+    showDeleteIcon () {
+      return this.needToShowIndex
     }
   },
   methods: {
@@ -162,6 +177,10 @@ export default {
         lang: this.selectedLang,
         id: this.textId
       })
+    },
+
+    deleteText () {
+      this.$textC.deleteText(this.textType, this.textId)
     }
   }
 }
@@ -197,6 +216,27 @@ export default {
           font-size: 90%;
           color: #888;
         }
+    }
+
+    .alpheios-alignment-editor-text-block__title {
+      position: relative;
+    }
+    .alpheios-alignment-editor-text-block__remove {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      right: 0;
+      top: 50%;
+      top: 0;
+
+      position: absolute;
+
+      cursor: pointer;
+      svg {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
     }
 
 </style>

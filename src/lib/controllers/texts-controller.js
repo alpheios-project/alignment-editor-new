@@ -56,6 +56,20 @@ export default class TextsController {
   }
 
   /**
+   * Delete target SourceText
+   * @param {String} textType - target or origin
+   * @param {String} id  - unique id created inside SourceText constructor
+   */
+  deleteText (textType, id) {
+    if (!this.alignment) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+    } else {
+      this.alignment.deleteText(textType, id)
+      this.store.commit('incrementAlignmentUpdated')
+    }
+  }
+
+  /**
    * Returns origin document source if alignment is defined
    * @returns {SourceText} - origin source text
    */
@@ -63,16 +77,11 @@ export default class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  /**
+   * @returns {Array[String]} - all ids from target source texts
+   */
   get allTargetTextsIds () {
     return this.alignment ? this.alignment.allTargetTextsIds : null
-  }
-
-  getDocSource (textType, textId) {
-    if (textType === 'origin') {
-      return this.originDocSource
-    } else if (textType === 'target') {
-      return this.targetDocSource(textId)
-    }
   }
 
   /**
@@ -81,6 +90,19 @@ export default class TextsController {
    */
   targetDocSource (id) {
     return this.alignment ? this.alignment.targetDocSource(id) : null
+  }
+
+  /**
+   * 
+   * @param {String} textType - origin or target
+   * @param {String} textId - id for the SourceText
+   */
+  getDocSource (textType, textId) {
+    if (textType === 'origin') {
+      return this.originDocSource
+    } else if (textType === 'target') {
+      return this.targetDocSource(textId)
+    }
   }
 
   /**
@@ -114,7 +136,4 @@ export default class TextsController {
     return DownloadController.download(downloadType, data)
   }
 
-  addTargetText (data = {}) {
-    this.updateTargetDocSource(data)
-  }
 }

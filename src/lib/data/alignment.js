@@ -20,8 +20,9 @@ export default class Alignment {
     this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
-    // this.alignmentGroupsIds = []
     this.activeAlignmentGroup = null
+
+    this.hoveredGroups = []
     this.undoneGroups = []
   }
 
@@ -30,6 +31,11 @@ export default class Alignment {
    */
   get readyForTokenize () {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
+  }
+
+  get equalSegmentsAmount () {
+    const originSegmentsAmount = this.origin.alignedText.segmentsAmount
+    return Object.values(this.targets).every(target => target.alignedText.segmentsAmount === originSegmentsAmount)
   }
 
   /**
@@ -87,6 +93,12 @@ export default class Alignment {
     return true
   }
 
+  deleteText (textType, id) {
+    if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
+      delete this.targets[id]
+    }
+  }
+
   /**
    * @returns { SourceText | null } origin docSource
    */
@@ -98,7 +110,7 @@ export default class Alignment {
    * @returns { SourceText | null } target docSource
    */
   targetDocSource (id) {
-    return this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : {}
+    return this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : null
   }
 
   /**
@@ -113,7 +125,8 @@ export default class Alignment {
 
     this.origin.alignedText = new AlignedText({
       docSource: this.origin.docSource,
-      tokenizer
+      tokenizer,
+      tokenPrefix: '1'
     })
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
@@ -121,85 +134,72 @@ export default class Alignment {
 
       this.targets[id].alignedText = new AlignedText({
         docSource: this.targets[id].docSource,
-        tokenizer
+        tokenizer,
+        tokenPrefix: (i + 2)
       })
     }
     return true
   }
 
-  theSameSegmentAsActiveGroup (segment) {
-    return this.hasActiveAlignment && this.activeAlignmentGroup.theSameSegment(segment.index, segment.textType === 'target' ? segment.docSourceId : null)
+  clearAlignedTexts () {
+    this.origin.alignedText = undefined
+    Object.values(this.targets).forEach(target => { target.alignedText = undefined })
   }
 
   /**
-   * @returns { AlignedText | Null } - origin aligned text
-   */
-  get originAlignedText () {
-    return this.origin.alignedText ? this.origin.alignedText : null
-  }
-
-  get targetAlignedTexts () {
-    return Object.keys(this.targets).map(targetId => {
-      return {
-        targetId,
-        alignedText: this.targets[targetId].alignedText
-      }
-    })
+   * Check that origin text is already tokenized
+   * @returns {Boolean}
+  */
+  get hasOriginAlignedTexts () {
+    return Boolean(this.origin.alignedText)
   }
 
   /**
-   * @returns { AlignedText | Null } - target aligned text
+   * Check that all target texts are already tokenized
+   * @returns {Boolean}
    */
-  targetAlignedText (id) {
-    return this.targets[id] && this.targets[id].alignedText ? this.targets[id].alignedText : null
+  get hasTargetAlignedTexts () {
+    return Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
   }
 
+  /**
+   * An array with unique docSourceIds for target doc source
+   * @returns {Array}
+   */
   get allTargetTextsIds () {
     return Object.keys(this.targets)
   }
 
-  get allTargetTextsSegments () {
-    const targetSegments = []
-    this.allTargetTextsIds.forEach(targetId => {
-      targetSegments.push(...this.targets[targetId].alignedText.segments.map(segment => {
-        return {
-          targetId,
-          index: segment.index,
-          segment
-        }
-      }))
-    })
-
-    targetSegments.sort((a, b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0))
-    return targetSegments
-  }
-
-  filteredTargetTextsSegments (targetId) {
-    return this.targets[targetId].alignedText.segments.map(segment => {
-      return {
-        targetId, segment
-      }
-    })
-  }
-
+  /**
+   * All segments from aligned origin and target texts
+   * @returns {Array[Object]}
+   *          {Number}  index - segment order index
+   *          {Segment} origin - segment from origin text for the index
+   *          {Object}  targets - all targets segments with targetIds as keys
+   *          {Segment} targets[targetId] - segment from the targetText with docSourceId = targetId and with the index order
+   */
   get allAlignedTextsSegments () {
-    let allSegments = {} // eslint-disable-line prefer-const
+    let allSegments = [] // eslint-disable-line prefer-const
 
-    this.originAlignedText.segments.forEach(segment => {
-      allSegments[segment.index] = {
+    this.origin.alignedText.segments.forEach(segment => {
+      allSegments.push({
         index: segment.index,
         origin: segment,
         targets: {}
-      }
+      })
     })
 
     Object.keys(this.targets).forEach(targetId => {
-      this.targets[targetId].alignedText.segments.forEach(segment => {
-        allSegments[segment.index].targets[targetId] = segment
+      this.targets[targetId].alignedText.segments.forEach((segment, orderIndex) => {
+        allSegments[orderIndex].targets[targetId] = segment
       })
     })
 
     return allSegments
+  }
+
+  hasTheSameSegmentTargetIdActiveGroup (segmentIndex, limitByTargetId) {
+    return this.hasActiveAlignmentGroup && this.activeAlignmentGroup.hasTheSameSegmentTargetId(segmentIndex, limitByTargetId)
   }
 
   /**
@@ -208,11 +208,8 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean}
    */
-  shouldFinishAlignmentGroup (token) {
-    // console.info('shouldFinishAlignmentGroup 1', this.tokenInActiveGroup(token))
-    // console.info('shouldFinishAlignmentGroup 2', this.tokenTheSameTextTypeAsStart(token))
-    // console.info('shouldFinishAlignmentGroup 3', this.activeAlignmentGroup.couldBeFinished)
-    return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
+  shouldFinishAlignmentGroup (token, limitByTargetId) {
+    return this.tokenInActiveGroup(token, limitByTargetId) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
   }
 
   /**
@@ -221,8 +218,8 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean}
    */
-  shouldBeRemovedFromAlignmentGroup (token) {
-    return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
+  shouldBeRemovedFromAlignmentGroup (token, limitByTargetId) {
+    return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
   /**
@@ -230,14 +227,14 @@ export default class Alignment {
    * @returns {Boolean}
    */
   shouldStartNewAlignmentGroup () {
-    return !this.hasActiveAlignment
+    return !this.hasActiveAlignmentGroup
   }
 
   /**
    * Defines if there is an active alignment group
    * @returns {Boolean}
    */
-  get hasActiveAlignment () {
+  get hasActiveAlignmentGroup () {
     return Boolean(this.activeAlignmentGroup)
   }
 
@@ -250,8 +247,10 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean} - true - if group would be created
    */
-  startNewAlignmentGroup (token) {
-    this.activeAlignmentGroup = new AlignmentGroup(token)
+  startNewAlignmentGroup (token, limitByTargetId) {
+    if (!token.isTheSameTargetId(limitByTargetId)) { return false }
+
+    this.activeAlignmentGroup = new AlignmentGroup(token, limitByTargetId)
     this.undoneGroups = []
     return Boolean(this.activeAlignmentGroup)
   }
@@ -261,8 +260,8 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean} true - if token was added, false - not
    */
-  addToAlignmentGroup (token) {
-    if (this.hasActiveAlignment && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
+  addToAlignmentGroup (token, limitByTargetId) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -275,10 +274,9 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean} true - if token was removed, false - not
    */
-  removeFromAlignmentGroup (token) {
-    if (this.hasActiveAlignment && this.tokenInActiveGroup(token)) {
+  removeFromAlignmentGroup (token, limitByTargetId) {
+    if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
       this.activeAlignmentGroup.remove(token)
-      // this.removeFromAlignmentIds(token.idWord)
       return true
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -290,9 +288,8 @@ export default class Alignment {
    * @returns {Boolean} true - if active alignment group was saved and closed, false - not
    */
   finishActiveAlignmentGroup () {
-    if (this.hasActiveAlignment && this.activeAlignmentGroup.couldBeFinished) {
+    if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
-      // this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
       this.activeAlignmentGroup = null
       return true
     }
@@ -304,61 +301,13 @@ export default class Alignment {
    * @param {Token} token
    * @returns {AlignmentGroup | Null}
    */
-  findAlignmentGroup (token, outerTargetId) {
-    if (this.tokenIsGrouped(token, outerTargetId)) {
-      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token, outerTargetId)) : null
+  findAlignmentGroup (token, limitByTargetId) {
+    if (this.tokenIsGrouped(token, limitByTargetId)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token)) : null
     }
     return null
   }
 
-  /**
-   * Finds Alignment Group by token, if token is grouped in some alignment group, and returns all idWords from it
-   * @param {Token} token
-   * @returns { Array[Stringt] }
-   */
-  findAlignmentGroupIds (token) {
-    const alignedGroup = this.findAlignmentGroup(token)
-    return alignedGroup ? alignedGroup.allIds : []
-  }
-
-  findAllAlignmentGroups (token) {
-    if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(al => al.includesToken(token)) : null
-    }
-    return null
-  }
-
-  findAllAlignmentGroupIds (token) {
-    const alignedGroups = this.findAllAlignmentGroups(token)
-
-    if (!alignedGroups) {
-      return []
-    }
-
-    return alignedGroups.map(alGroup => {
-      return {
-        segmentIndex: alGroup.segmentIndex,
-        targetId: alGroup.targetId,
-        ids: alGroup.allIds
-      }
-    })
-  }
-
-  /**
-   * Removes idWord from alignmentGroupsIds if it was fount in the list
-   * @param {String} idWord
-   * @returns {Boolean} true - was removed from alignmentGroupsIds, false - was not removed
-   */
-  /*
-  removeFromAlignmentIds (idWord) {
-    const tokenIndex = this.alignmentGroupsIds.findIndex(tokenId => tokenId === idWord)
-    if (tokenIndex >= 0) {
-      this.alignmentGroupsIds.splice(tokenIndex, 1)
-      return true
-    }
-    return false
-  }
-*/
   /**
    * Removes a group from alignmentGroups list
    * @param {AlignmentGroup} tokensGroup
@@ -373,25 +322,12 @@ export default class Alignment {
   }
 
   /**
-   * Removes all idWords from alignmentGroupsIds
-   * @param {String} idWord
-   */
-
-  /*
-  removeGroupFromAlignmentIds (alignedGroup) {
-    alignedGroup.allIds.forEach(idWord => {
-      this.removeFromAlignmentIds(idWord)
-    })
-  }
-  */
-  /**
    *
    * @param {Token} token
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
-  tokenIsGrouped (token, outerTargetId) {
-    return this.alignmentGroups.some(alGroup => alGroup.includesToken(token, outerTargetId))
-    // return this.alignmentGroupsIds.includes(token.idWord)
+  tokenIsGrouped (token, limitByTargetId) {
+    return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
   }
 
   /**
@@ -399,8 +335,10 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean} yes - if token is in the active alignment group, false - is not
    */
-  tokenInActiveGroup (token) {
-    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
+  tokenInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) &&
+           this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId) &&
+           this.activeAlignmentGroup.includesToken(token)
   }
 
   /**
@@ -408,8 +346,8 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean} yes - if token is defines as first step in the active group, false - is not
    */
-  isFirstInActiveGroup (token) {
-    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
+  isFirstInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token, limitByTargetId)
   }
 
   /**
@@ -427,8 +365,8 @@ export default class Alignment {
    * @param {Token} token
    * @returns { Boolean } true - if group was found and activated, false - no group was activated
    */
-  activateGroupByToken (token, outerTargetId) {
-    const tokensGroup = this.findAlignmentGroup(token, outerTargetId)
+  activateGroupByToken (token, limitByTargetId) {
+    const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
     return this.activateGroup(tokensGroup, token)
   }
 
@@ -469,13 +407,11 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean} true - groups were merged, false - was not
    */
-  mergeActiveGroupWithAnotherByToken (token) {
-    if (this.hasActiveAlignment && this.tokenIsGrouped(token)) {
-      const tokensGroup = this.findAlignmentGroup(token)
+  mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
+    if (this.hasActiveAlignmentGroup && this.tokenIsGrouped(token, limitByTargetId)) {
+      const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
-      // this.removeGroupFromAlignmentIds(tokensGroup)
-
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
       return true
     }
@@ -487,7 +423,7 @@ export default class Alignment {
    * If we step back merge step, then we would insert unmerged group back to the list
    */
   undoInActiveGroup () {
-    if (!this.hasActiveAlignment) {
+    if (!this.hasActiveAlignmentGroup) {
       return
     }
 
@@ -515,7 +451,7 @@ export default class Alignment {
    * Step forward inside active group
    */
   redoInActiveGroup () {
-    if (this.hasActiveAlignment) {
+    if (this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup.redo()
     }
   }
@@ -524,7 +460,7 @@ export default class Alignment {
    * Saves active alignment group the list with saved undone groups
    */
   undoActiveGroup () {
-    if (this.hasActiveAlignment) {
+    if (this.hasActiveAlignmentGroup) {
       this.undoneGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
     }
@@ -534,7 +470,7 @@ export default class Alignment {
    * Extracts alignment group from the list and saves it to active
    */
   redoActiveGroup () {
-    if (!this.hasActiveAlignment) {
+    if (!this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup = this.undoneGroups.pop()
     }
   }
@@ -543,14 +479,25 @@ export default class Alignment {
    * Finishes active alignment group
    */
   returnActiveGroupToList () {
-    if (this.hasActiveAlignment && this.activeAlignmentGroup.currentStepOnLast) {
+    if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.currentStepOnLast) {
       this.finishActiveAlignmentGroup()
     }
   }
 
-  addTargetText ({ text, direction, lang } = {}) {
-    this.updateTargetDocSource({
-      text, direction, lang
-    })
+  activateHoverOnAlignmentGroups (token, limitByTargetId) {
+    this.hoveredGroups = this.alignmentGroups.filter(alGroup => alGroup.includesToken(token))
+    if (limitByTargetId) {
+      this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
+    }
+    return this.hoveredGroups
+  }
+
+  clearHoverOnAlignmentGroups () {
+    this.hoveredGroups = []
+    return true
+  }
+
+  selectedToken (token) {
+    return this.hoveredGroups.some(alGroup => alGroup.includesToken(token))
   }
 }

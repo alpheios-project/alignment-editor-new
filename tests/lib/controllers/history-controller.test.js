@@ -10,10 +10,12 @@ describe('history-controller.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
+  let appC
   beforeAll(() => {
-    const appC = new AppController({
+    appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
   })
 
@@ -26,7 +28,7 @@ describe('history-controller.test.js', () => {
 
   it('1 HistoryController - startTracking saves aligment to controller ', () => {
     const alignment = new Alignment()
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     historyC.startTracking(alignment)
 
@@ -34,7 +36,7 @@ describe('history-controller.test.js', () => {
   })
 
   it('2 HistoryController - undo - if there is an active alignment group and it has more than 1 token, then it would execute alignment.undoInActiveGroup', () => {
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
@@ -58,7 +60,7 @@ describe('history-controller.test.js', () => {
   })
 
   it('3 HistoryController - undo - if there is an active alignment group and it has only 1 token, then it would execute alignment.undoActiveGroup', () => {
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
@@ -81,7 +83,7 @@ describe('history-controller.test.js', () => {
   })
 
   it('4 HistoryController - undo - if there are no active alignment group and it has saved groups - then it would execute alignment.activateGroupByGroupIndex', () => {
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
@@ -108,7 +110,7 @@ describe('history-controller.test.js', () => {
   })
 
   it('5 HistoryController - redo - if there is an active alignment group and it has future undone steps, then it would execute alignment.redoInActiveGroup', () => {
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
@@ -134,7 +136,7 @@ describe('history-controller.test.js', () => {
   })
 
   it('6 HistoryController - redo - if there is an active alignment group and it has no future undone steps, then it would not execute alignment.returnActiveGroupToList', () => {
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
@@ -159,7 +161,7 @@ describe('history-controller.test.js', () => {
   })
 
   it('7 HistoryController - redo - if there are no active alignment group and it has future undone groups, then it would execute alignment.redoActiveGroup', () => {
-    const historyC = new HistoryController()
+    const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
       text: 'origin some text', direction: 'ltr', lang: 'lat'

@@ -19,46 +19,48 @@ export default class AlignedController {
     const tokenizer = 'simpleWordTokenization'
     const result = this.alignment.createAlignedTexts(tokenizer)
 
+    const res2 = this.alignment.equalSegmentsAmount
+
+    if (!res2) {
+      console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
+      this.alignment.clearAlignedTexts()
+      return false
+    }
     this.store.commit('incrementAlignmentUpdated')
     return result
   }
 
-  get alignedGroupsWorkflowStarted () {
-    return Boolean(this.originAlignedText) && Boolean(this.allTargetTextsSegments) && (this.allTargetTextsSegments.length > 0)
+  /**
+   * This check shows if we could start to create alignment groups - for now we should have already tokenized texts
+   */
+  get alignmentGroupsWorkflowStarted () {
+    return this.hasOriginAlignedText && this.hasTargetAlignedTexts
   }
 
   /**
-   * @return { {} | AlignedText } origin aligned text
+   * Check that origin text is already tokenized
    */
-  get originAlignedText () {
-    return this.alignment ? this.alignment.originAlignedText : null
-  }
-
-  get targetAlignedTexts () {
-    return this.alignment ? this.alignment.targetAlignedTexts : null
+  get hasOriginAlignedText () {
+    return this.alignment ? this.alignment.hasOriginAlignedTexts : null
   }
 
   /**
-   * @return { {} | AlignedText } target aligned text
+   * Check that all target texts are already tokenized
    */
-  targetAlignedText (id) {
-    return this.alignment ? this.alignment.targetAlignedText(id) : {}
+  get hasTargetAlignedTexts () {
+    return this.alignment ? this.alignment.hasTargetAlignedTexts : null
   }
 
-  get allTargetTextsIds () {
-    return this.alignment ? this.alignment.allTargetTextsIds : []
-  }
-
-  get allTargetTextsSegments () {
-    return this.alignment ? this.alignment.allTargetTextsSegments : [null]
-  }
-
-  filteredTargetTextsSegments (targetId) {
-    return this.alignment ? this.alignment.filteredTargetTextsSegments(targetId) : [null]
-  }
-
+  /**
+   * All segments from aligned origin and target texts
+   * @returns {Array[Object]}
+   *          {Number}  index - segment order index
+   *          {Segment} origin - segment from origin text for the index
+   *          {Object}  targets - all targets segments with targetIds as keys
+   *          {Segment} targets[targetId] - segment from the targetText with docSourceId = targetId and with the index order
+   */
   get allAlignedTextsSegments () {
-    return this.alignment ? this.alignment.allAlignedTextsSegments : {}
+    return this.alignment ? this.alignment.allAlignedTextsSegments : []
   }
 
   /**
@@ -71,22 +73,22 @@ export default class AlignedController {
    * If there is an active alignment and token is not grouped - addToAlignmentGroup
    * @param {Token} token
    */
-  clickToken (token, segment, outerTargetId) {
-    if (!this.hasActiveAlignment) {
-      if (this.tokenIsGrouped(token, outerTargetId)) {
-        this.activateGroupByToken(token, outerTargetId)
+  clickToken (token, limitByTargetId) {
+    if (!this.hasActiveAlignmentGroup) {
+      if (this.tokenIsGrouped(token, limitByTargetId)) {
+        this.activateGroupByToken(token, limitByTargetId)
       } else {
-        this.startNewAlignmentGroup(token)
+        this.startNewAlignmentGroup(token, limitByTargetId)
       }
-    } else if (this.alignment.theSameSegmentAsActiveGroup(segment)) {
-      if (this.alignment.shouldFinishAlignmentGroup(token)) {
+    } else {
+      if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
-      } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
-        this.alignment.removeFromAlignmentGroup(token)
-      } else if (this.tokenIsGrouped(token, outerTargetId)) {
-        this.mergeActiveGroupWithAnotherByToken(token)
+      } else if (this.shouldBeRemovedFromAlignmentGroup(token, limitByTargetId)) {
+        this.removeFromAlignmentGroup(token, limitByTargetId)
+      } else if (this.tokenIsGrouped(token, limitByTargetId)) {
+        this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
       } else {
-        this.addToAlignmentGroup(token)
+        this.addToAlignmentGroup(token, limitByTargetId)
       }
     }
     this.store.commit('incrementAlignmentUpdated')
@@ -97,8 +99,8 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if a new active alignment group is defined, false - not
    */
-  startNewAlignmentGroup (token) {
-    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token)
+  startNewAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token, limitByTargetId)
   }
 
   /**
@@ -106,8 +108,12 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if the token was added, false - not
    */
-  addToAlignmentGroup (token) {
-    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token)
+  addToAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token, limitByTargetId)
+  }
+
+  removeFromAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.removeFromAlignmentGroup(token, limitByTargetId)
   }
 
   /**
@@ -122,24 +128,16 @@ export default class AlignedController {
    * Finds an alignment group by token, removes from the groups list and merge with active alignment group
    * @return {Boolean} true - if groups were merged, false - not
    */
-  mergeActiveGroupWithAnotherByToken (token) {
-    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token)
+  mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
   }
 
   /**
    * Finds an alignment group by token in the list
    * @return {AlignmentGroup | Null} AlignmentGroup - if a group was found, null - not
    */
-  findAlignmentGroup (token) {
-    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
-  }
-
-  /**
-   * Finds an alignment group by token and returns all ids from it
-   * @return {Array } Array
-   */
-  findAlignmentGroupIds (token) {
-    return this.alignment ? this.alignment.findAllAlignmentGroupIds(token) : []
+  findAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token, limitByTargetId)
   }
 
   /**
@@ -147,8 +145,8 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
-  tokenIsGrouped (token, outerTargetId) {
-    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token, outerTargetId)
+  tokenIsGrouped (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token, limitByTargetId)
   }
 
   /**
@@ -156,8 +154,8 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
-  tokenInActiveGroup (token) {
-    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
+  tokenInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token, limitByTargetId)
   }
 
   /**
@@ -165,16 +163,34 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
-  isFirstInActiveGroup (token) {
-    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
+  isFirstInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if there is an active alignment group
    * @return {Boolean} true - if there is an active alignment group, false - not
    */
-  get hasActiveAlignment () {
-    return Boolean(this.alignment) && this.alignment.hasActiveAlignment
+  get hasActiveAlignmentGroup () {
+    return Boolean(this.alignment) && this.alignment.hasActiveAlignmentGroup
+  }
+
+  /**
+   * Checks if after click on this token we should finish an alignment group
+   * @param {Token} token - clicked token
+   * @param {String|Undefined} limitByTargetId - docSource of the current target document
+   */
+  shouldFinishAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.shouldFinishAlignmentGroup(token, limitByTargetId)
+  }
+
+  /**
+   * Checks if after click on this token we should remove this token from an alignment group
+   * @param {Token} token - clicked token
+   * @param {String|Undefined} limitByTargetId - docSource of the current target document
+   */
+  shouldBeRemovedFromAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.shouldBeRemovedFromAlignmentGroup(token, limitByTargetId)
   }
 
   /**
@@ -182,8 +198,37 @@ export default class AlignedController {
    * @param {Token} token
    * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
-  activateGroupByToken (token, outerTargetId) {
+  activateGroupByToken (token, limitByTargetId) {
     this.store.commit('incrementAlignmentUpdated')
-    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token, outerTargetId)
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token, limitByTargetId)
+  }
+
+  /**
+   * Defines hovered alignment groups - all groups that contain hovered token
+   * @param {Token} token - hovered token
+   * @param {String|Undefined} limitByTargetId - docSource of the current target document
+   * @returns {Array[AlignmentGroup]}
+   */
+  activateHoverOnAlignmentGroups (token, limitByTargetId) {
+    this.store.commit('incrementAlignmentUpdated')
+    return this.alignment ? this.alignment.activateHoverOnAlignmentGroups(token, limitByTargetId) : []
+  }
+
+  /**
+   * Clears hovered alignment groups
+   * @returns {Boolean}
+   */
+  clearHoverOnAlignmentGroups () {
+    this.store.commit('incrementAlignmentUpdated')
+    return this.alignment && this.alignment.clearHoverOnAlignmentGroups()
+  }
+
+  /**
+   * Defines if a passed token is inside hoveredGroups
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  selectedToken (token) {
+    return Boolean(this.alignment) && this.alignment.selectedToken(token)
   }
 }

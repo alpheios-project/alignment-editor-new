@@ -28,33 +28,20 @@ export default {
     token: TokenBlock
   },
   props: {
+    currentTargetId: {
+      type: String,
+      required: false
+    },
+
     segment: {
       type: Object,
       required: true
-    },
-
-    showAlignment: {
-      type: Array,
-      required: false,
-      default: []
     },
 
     isLast : {
       type: Boolean,
       required: false,
       default: false
-    },
-
-    targetId : {
-      type: String,
-      required: false,
-      default: ''
-    },
-
-    targetIdIndex: {
-      type: Number,
-      required: false,
-      default: 0
     }
   },
   data () {
@@ -86,45 +73,52 @@ export default {
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
       return classes
+    },
+    targetId () {
+      return (this.segment.textType === 'target') ? this.segment.docSourceId : ''
+    },
+    allTargetTextsIds () {
+      return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
+    },
+    targetIdIndex () {
+      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
     }
   },
   methods: {
     clickToken (token) {
-      this.$emit('click-token', token, this.segment)
+      if (this.currentTargetId) {
+        this.$alignedC.clickToken(token, this.currentTargetId)
+      }
     },
     addHoverToken (token) {
-      this.$emit('add-hover-token', token)
+      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token')
+      this.$alignedC.clearHoverOnAlignmentGroups()
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
      */
     selectedToken (token) {
-      return this.showAlignment.some(alGroupData => {
-        return (alGroupData.segmentIndex === this.segment.index) &&
-                (token.textType === 'origin' || !this.targetId || alGroupData.targetId === this.targetId) &&  
-                alGroupData.ids.includes(token.idWord)
-      })
+      return this.$alignedC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
      */
     groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token)
+      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      */
     inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token)
+      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      */
     isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token)
+      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
     }
   }
 

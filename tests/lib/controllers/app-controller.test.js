@@ -73,6 +73,7 @@ describe('app-controller.test.js', () => {
       appId: 'alpheios-alignment-editor'
     })
 
+    jest.spyOn(appC, 'defineStore')
     jest.spyOn(appC, 'defineL10Support')
     jest.spyOn(appC, 'defineTextController')
     jest.spyOn(appC, 'defineAlignedController')

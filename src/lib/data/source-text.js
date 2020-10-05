@@ -14,8 +14,8 @@ export default class SourceText {
     this.id = uuidv4()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
-    this.direction = docSource ? docSource.direction : this.defaultDirection
-    this.lang = docSource ? docSource.lang : this.defaultLang
+    this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
+    this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
   }
 
   get defaultDirection () {

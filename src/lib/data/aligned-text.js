@@ -8,12 +8,14 @@ export default class AlignedText {
    * @param {SourceText} docSource
    * @param {String} tokenizer - the name of tokenizer approach
    */
-  constructor ({ docSource, tokenizer } = {}) {
+  constructor ({ docSource, tokenizer, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction
     this.lang = docSource.lang
+
+    this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
 
     this.tokenize(docSource)
   }
@@ -22,8 +24,12 @@ export default class AlignedText {
    * Defines prefix for token creations
    * @return {String}
    */
-  get tokenPrefix () {
+  get defaultTokenPrefix () {
     return this.textType === 'origin' ? '1' : '2'
+  }
+
+  get segmentsAmount () {
+    return this.segments.length
   }
 
   /**

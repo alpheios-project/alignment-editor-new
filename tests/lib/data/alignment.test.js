@@ -587,16 +587,16 @@ describe('alignment.test.js', () => {
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[2])
     alignment.finishActiveAlignmentGroup()
 
-    expect(alignment.hasActiveAlignment).toBeFalsy()
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
     expect(alignment.activateGroupByToken(alignment.targets[targetId].alignedText.segments[0].tokens[1])).toBeTruthy() // group was found and activated
-    expect(alignment.hasActiveAlignment).toBeTruthy()
+    expect(alignment.hasActiveAlignmentGroup).toBeTruthy()
     expect(alignment.alignmentGroupsIds.length).toEqual(0) // activated tokens are not in saved groups
     
     alignment.finishActiveAlignmentGroup()
 
-    expect(alignment.hasActiveAlignment).toBeFalsy()
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
     expect(alignment.activateGroupByToken(alignment.targets[targetId].alignedText.segments[0].tokens[0]) ).toBeFalsy() // group was not found and nothing was activated
-    expect(alignment.hasActiveAlignment).toBeFalsy()
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
     expect(alignment.alignmentGroupsIds.length).toEqual(3) // as we didn't activate the group, they are still in saved groups
   })
 

@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignedGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -78,7 +78,7 @@ export default {
      * Add aditional block for defining another target text
      */
     addTarget () {
-      this.$textC.addTargetText()
+      this.$textC.updateTargetDocSource()
     }
   }
 }

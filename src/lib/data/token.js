@@ -13,4 +13,8 @@ export default class Token {
   get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
   }
+
+  isTheSameTargetId (limitByTargetId) {
+    return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
+  }
 }

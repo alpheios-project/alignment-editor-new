@@ -53,7 +53,7 @@ export default {
     }
   },
   /**
-   * I placed empty alignment here for now, because it is the first point where it should be existed.
+   * I placed an empty alignment here for now, because it is the first point where it should be existed.
    * Later when we define workflow for creation alignment depending on user authentication,
    * it could be moved out here
    */

@@ -9,9 +9,9 @@ export default class HistoryController {
    */
   get redoAvailable () {
     return Boolean(this.alignment) &&
-           ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
-           (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+           ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
+           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
   }
 
   /**
@@ -20,8 +20,8 @@ export default class HistoryController {
    */
   get undoAvailable () {
     return Boolean(this.alignment) &&
-           ((this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
-           (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+           ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
+           (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0))
   }
 
   /**
@@ -40,11 +40,11 @@ export default class HistoryController {
    */
   undo () {
     let result
-    if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen > 1) {
+    if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen > 1) {
       result = this.alignment.undoInActiveGroup()
-    } else if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen === 1) {
+    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen === 1) {
       result = this.alignment.undoActiveGroup()
-    } else if (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0) {
+    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0) {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
     this.store.commit('incrementAlignmentUpdated')
@@ -59,13 +59,13 @@ export default class HistoryController {
    */
   redo () {
     let result
-    if (this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) {
+    if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
       result = this.alignment.redoInActiveGroup()
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
+    if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
       result = this.alignment.returnActiveGroupToList()
     }
-    if (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0) {
+    if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
       result = this.alignment.redoActiveGroup()
     }
     this.store.commit('incrementAlignmentUpdated')

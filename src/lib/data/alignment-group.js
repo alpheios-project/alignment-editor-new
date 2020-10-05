@@ -8,7 +8,7 @@ export default class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token) {
+  constructor (token, targetId) {
     this.id = uuidv4()
     this.origin = []
     this.target = []
@@ -16,6 +16,8 @@ export default class AlignmentGroup {
     this.firstStepToken = null
     this.currentStepIndex = null
     this.unmergedGroupData = null
+
+    this.targetId = targetId
     if (token) { this.add(token) }
   }
 
@@ -42,11 +44,16 @@ export default class AlignmentGroup {
     }
   }
 
-  theSameSegment (segmentIndex, targetId) {
-    // console.info('theSameSegment - 1', segmentIndex, targetId)
-    // console.info('theSameSegment - 2', (this.segmentIndex === segmentIndex))
-    // console.info('theSameSegment - 3', (!targetId || !this.targetId || (this.targetId === targetId)))
-    return (this.segmentIndex === segmentIndex) && (!targetId || !this.targetId || (this.targetId === targetId))
+  theSameSegment (segmentIndex) {
+    return (this.segmentIndex === segmentIndex)
+  }
+
+  hasTheSameTargetId (targetId) {
+    return !targetId || !this.targetId || (this.targetId === targetId)
+  }
+
+  hasTheSameSegmentTargetId (segmentIndex, targetId) {
+    return this.theSameSegment(segmentIndex) && this.hasTheSameTargetId(targetId)
   }
 
   /**
@@ -151,32 +158,14 @@ export default class AlignmentGroup {
     return ids
   }
 
-  /**
-   * Checks if token.idWord is included in the group regardless of the textType
-   * @param {String} Token.idWord
-   * @returns {Boolean} true - if is in group, false - not
-   */
-  includesToken (token, outerTargetId) {
-    return Boolean(token) &&
-           (this.segmentIndex === token.segmentIndex) &&
-           this.hasTheSameTargetId(token, outerTargetId) &&
-           (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  includesToken (token) {
+    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
   }
 
-  hasTheSameTargetId (token, outerTargetId) {
-    if (!this.targetId && !outerTargetId) {
-      return true // we have nothing to compare
-    }
-    if (token.textType === 'target') {
-      if (this.targetId) {
-        return outerTargetId ? ((this.targetId === outerTargetId) && (token.docSourceId === outerTargetId)) : (token.docSourceId === this.targetId) // define additional equality
-      } else {
-        return outerTargetId ? (token.docSourceId === outerTargetId) : true // define priority
-      }
-    }
-    if (token.textType === 'origin') {
-      return outerTargetId ? this.targetId && (this.targetId === outerTargetId) : true // we could check only targetId of the group
-    }
+  couldBeIncluded (token) {
+    return !this.includesToken(token) &&
+           (this.segmentIndex === token.segmentIndex) &&
+           (!this.targetId || ((token.textType === 'target') && (this.targetId === token.docSourceId)))
   }
 
   /**
@@ -184,8 +173,8 @@ export default class AlignmentGroup {
    * @param {Token} token
    * @returns {Boolean} true - if this is the first step, false - not
    */
-  isFirstToken (token) {
-    return this.includesToken(token) && this.firstStepToken.idWord === token.idWord
+  isFirstToken (token, targetId) {
+    return this.includesToken(token) && this.hasTheSameTargetId(targetId) && (this.firstStepToken.idWord === token.idWord)
   }
 
   /**
