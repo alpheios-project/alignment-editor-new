@@ -83,7 +83,7 @@ export default class AlignedController {
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
-      } else if (this.shouldBeRemovedFromAlignmentGroup(token, limitByTargetId)) {
+      } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
         this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
@@ -189,8 +189,8 @@ export default class AlignedController {
    * @param {Token} token - clicked token
    * @param {String|Undefined} limitByTargetId - docSource of the current target document
    */
-  shouldBeRemovedFromAlignmentGroup (token, limitByTargetId) {
-    return Boolean(this.alignment) && this.alignment.shouldBeRemovedFromAlignmentGroup(token, limitByTargetId)
+  shouldRemoveFromAlignmentGroup (token, limitByTargetId) {
+    return Boolean(this.alignment) && this.alignment.shouldRemoveFromAlignmentGroup(token, limitByTargetId)
   }
 
   /**

@@ -34,9 +34,9 @@ export default class SourceText {
    * @param {String} docSource.lang
    */
   update (docSource) {
-    this.text = docSource.text
-    this.direction = docSource.direction
-    this.lang = docSource.lang
+    this.text = docSource.text ? docSource.text : this.text
+    this.direction = docSource.direction ? docSource.direction : this.direction
+    this.lang = docSource.lang ? docSource.lang : this.lang
   }
 
   /**

@@ -63,7 +63,7 @@ export default class HistoryController {
       result = this.alignment.redoInActiveGroup()
     }
     if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
-      result = this.alignment.returnActiveGroupToList()
+      result = this.alignment.finishActiveAlignmentGroup()
     }
     if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
       result = this.alignment.redoActiveGroup()

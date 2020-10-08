@@ -546,7 +546,7 @@ describe('texts-controller.test.js', () => {
     expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
   })
 
-  it('21 AlignedController - shouldBeRemovedFromAlignmentGroup returns true if we should remove the token from an active group after clicking on the token', () => {
+  it('21 AlignedController - shouldRemoveFromAlignmentGroup returns true if we should remove the token from an active group after clicking on the token', () => {
     const alignedC = new AlignedController(appC.store)
     const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
@@ -560,19 +560,19 @@ describe('texts-controller.test.js', () => {
     const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[2]
     const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
 
-    expect(alignedC.shouldBeRemovedFromAlignmentGroup(tokenOrigin1, targetIds[0])).toBeFalsy() // there is no active alignment group
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenOrigin1, targetIds[0])).toBeFalsy() // there is no active alignment group
     alignedC.clickToken(tokenOrigin1, targetIds[0])
 
-    expect(alignedC.shouldBeRemovedFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeFalsy() // this token is not inside the alignment group
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeFalsy() // this token is not inside the alignment group
     alignedC.clickToken(tokenTarget2, targetIds[0])
 
-    expect(alignedC.shouldBeRemovedFromAlignmentGroup(tokenOrigin2, targetIds[0])).toBeFalsy() // it is the same as start - if click- it would finish the group
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenOrigin2, targetIds[0])).toBeFalsy() // it is the same as start - if click- it would finish the group
 
-    expect(alignedC.shouldBeRemovedFromAlignmentGroup(tokenTarget1, targetIds[0])).toBeFalsy() // it is not the same textType but it is not in the group yet
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget1, targetIds[0])).toBeFalsy() // it is not the same textType but it is not in the group yet
     alignedC.clickToken(tokenOrigin2, targetIds[0])
 
-    expect(alignedC.shouldBeRemovedFromAlignmentGroup(tokenTarget2, targetIds[1])).toBeFalsy() // this is not the same targetId
-    expect(alignedC.shouldBeRemovedFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeTruthy() // this token would finish the group
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[1])).toBeFalsy() // this is not the same targetId
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeTruthy() // this token would finish the group
 
     expect(alignment.activeAlignmentGroup.groupLen).toEqual(3)
     alignedC.clickToken(tokenTarget2, targetIds[0])

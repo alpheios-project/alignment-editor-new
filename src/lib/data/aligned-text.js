@@ -28,6 +28,9 @@ export default class AlignedText {
     return this.textType === 'origin' ? '1' : '2'
   }
 
+  /**
+   * @returns {Number} - amount of segments
+   */
   get segmentsAmount () {
     return this.segments.length
   }

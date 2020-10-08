@@ -28,11 +28,16 @@ export default class Alignment {
 
   /**
    * Checks if both target and origin are defined with all obligatory fields
+   * @returns {Boolean}
    */
   get readyForTokenize () {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
   }
 
+  /**
+   * Checks if all alligned texts (origin and targets) have the same amount of segments
+   * @returns {Boolean}
+   */
   get equalSegmentsAmount () {
     const originSegmentsAmount = this.origin.alignedText.segmentsAmount
     return Object.values(this.targets).every(target => target.alignedText.segmentsAmount === originSegmentsAmount)
@@ -40,6 +45,7 @@ export default class Alignment {
 
   /**
    * Checks if origin.docSource is defined and has all obligatory fields
+   * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
     return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
@@ -47,6 +53,7 @@ export default class Alignment {
 
   /**
    * Checks if target.docSource is defined and has all obligatory fields
+   * @returns {Boolean}
    */
   get targetDocSourceFullyDefined () {
     return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
@@ -54,7 +61,8 @@ export default class Alignment {
 
   /**
    * Updates/adds origin docSource
-   * @param {SourceText} docSource
+   * @param {SourceText | Object} docSource
+   * @returns {Boolean}
    */
   updateOriginDocSource (docSource) {
     if (!docSource) {
@@ -62,7 +70,7 @@ export default class Alignment {
     }
 
     if (!this.origin.docSource) {
-      this.origin.docSource = new SourceText('origin', docSource)
+      this.origin.docSource = docSource instanceof SourceText ? docSource : new SourceText('origin', docSource)
     } else {
       this.origin.docSource.update(docSource)
     }
@@ -71,7 +79,8 @@ export default class Alignment {
 
   /**
    * Updates/adds target docSource only if origin is defined
-   * @param {SourceText} docSource
+   * @param {SourceText | Object} docSource
+   * @returns {Boolean}
    */
   updateTargetDocSource (docSource) {
     if (!docSource) {
@@ -83,9 +92,11 @@ export default class Alignment {
     }
 
     if (!docSource.id || !this.targets[docSource.id]) {
-      const sourceText = new SourceText('target', docSource)
-      this.targets[sourceText.id] = {
-        docSource: sourceText
+      if (!(docSource instanceof SourceText)) {
+        docSource = new SourceText('target', docSource)
+      }
+      this.targets[docSource.id] = {
+        docSource
       }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
@@ -93,6 +104,11 @@ export default class Alignment {
     return true
   }
 
+  /**
+   * Removes target text by id if it is not the last target text
+   * @param {String} textType - origin or target
+   * @param {String} id - docSourceId
+   */
   deleteText (textType, id) {
     if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
       delete this.targets[id]
@@ -116,6 +132,7 @@ export default class Alignment {
   /**
    * Checks if tokenizer is defined, and creates AlignedText for origin and target
    * @param {String} tokenizer - method's name
+   * @returns {Boolean}
    */
   createAlignedTexts (tokenizer) {
     if (!tokenizer || !this.readyForTokenize) {
@@ -141,6 +158,9 @@ export default class Alignment {
     return true
   }
 
+  /**
+   * Removes all aligned texts (for example after defining that some of them has the other amount of segments)
+   */
   clearAlignedTexts () {
     this.origin.alignedText = undefined
     Object.values(this.targets).forEach(target => { target.alignedText = undefined })
@@ -198,6 +218,11 @@ export default class Alignment {
     return allSegments
   }
 
+  /**
+   * Checks if an active alignment group has the same segment index and target id
+   * @param {Number} segmentIndex
+   * @param {String} limitByTargetId
+   */
   hasTheSameSegmentTargetIdActiveGroup (segmentIndex, limitByTargetId) {
     return this.hasActiveAlignmentGroup && this.activeAlignmentGroup.hasTheSameSegmentTargetId(segmentIndex, limitByTargetId)
   }
@@ -218,16 +243,8 @@ export default class Alignment {
    * @param {Token} token
    * @returns {Boolean}
    */
-  shouldBeRemovedFromAlignmentGroup (token, limitByTargetId) {
+  shouldRemoveFromAlignmentGroup (token, limitByTargetId) {
     return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
-  }
-
-  /**
-   * Defines if a new alignment group should be created
-   * @returns {Boolean}
-   */
-  shouldStartNewAlignmentGroup () {
-    return !this.hasActiveAlignmentGroup
   }
 
   /**
@@ -238,6 +255,9 @@ export default class Alignment {
     return Boolean(this.activeAlignmentGroup)
   }
 
+  /**
+   * Checks if there is no undone steps in the group
+   */
   get currentStepOnLastInActiveGroup () {
     return this.activeAlignmentGroup.currentStepOnLast
   }
@@ -377,7 +397,7 @@ export default class Alignment {
    */
   activateGroupByGroupIndex (tokensGroupIndex) {
     if (tokensGroupIndex >= this.alignmentGroups.length) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX'), { tokensGroupIndex })
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
       return
     }
     const tokensGroup = this.alignmentGroups[tokensGroupIndex]
@@ -394,7 +414,6 @@ export default class Alignment {
     if (tokensGroup) {
       this.activeAlignmentGroup = tokensGroup
       this.removeGroupFromAlignmentGroups(tokensGroup)
-      // this.removeGroupFromAlignmentIds(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       return true
     }
@@ -408,7 +427,7 @@ export default class Alignment {
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
-    if (this.hasActiveAlignmentGroup && this.tokenIsGrouped(token, limitByTargetId)) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.tokenIsGrouped(token, limitByTargetId)) {
       const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
@@ -444,7 +463,6 @@ export default class Alignment {
    */
   insertUnmergedGroup (data) {
     this.alignmentGroups.splice(data.indexDeleted, 0, data.tokensGroup)
-    this.alignmentGroupsIds.push(...data.tokensGroup.allIds)
   }
 
   /**
@@ -476,14 +494,10 @@ export default class Alignment {
   }
 
   /**
-   * Finishes active alignment group
+   * This method finds all saved groups that includes the token and filtered by passed targetId
+   * @param {Token} token
+   * @param {String} limitByTargetId
    */
-  returnActiveGroupToList () {
-    if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.currentStepOnLast) {
-      this.finishActiveAlignmentGroup()
-    }
-  }
-
   activateHoverOnAlignmentGroups (token, limitByTargetId) {
     this.hoveredGroups = this.alignmentGroups.filter(alGroup => alGroup.includesToken(token))
     if (limitByTargetId) {

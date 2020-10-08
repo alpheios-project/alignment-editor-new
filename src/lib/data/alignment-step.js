@@ -29,6 +29,9 @@ export default class AlignmentStep {
     return this.token instanceof Token ? this.token.idWord : null
   }
 
+  /**
+   * @returns {Boolean} - true - step type is correctly defined, false - if not
+   */
   get hasValidType () {
     return Object.values(AlignmentStep.types).includes(this.type)
   }

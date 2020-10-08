@@ -18,6 +18,7 @@ export default class AlignmentGroup {
     this.unmergedGroupData = null
 
     this.targetId = targetId
+
     if (token) { this.add(token) }
   }
 
@@ -44,14 +45,30 @@ export default class AlignmentGroup {
     }
   }
 
+  /**
+   * Checks if the alignment group has the same segment
+   * @param {Number} segmentIndex
+   * @returns {Boolean}
+   */
   theSameSegment (segmentIndex) {
     return (this.segmentIndex === segmentIndex)
   }
 
+  /**
+   * Checks if the alignment group has the same target docSourceId
+   * @param {String} targetId
+   * @returns {Boolean}
+   */
   hasTheSameTargetId (targetId) {
     return !targetId || !this.targetId || (this.targetId === targetId)
   }
 
+  /**
+   * Checks if the alignment group has the same segment index and target docSourceId
+   * @param {Number} segmentIndex
+   * @param {String} targetId
+   * @returns {Boolean}
+   */
   hasTheSameSegmentTargetId (segmentIndex, targetId) {
     return this.theSameSegment(segmentIndex) && this.hasTheSameTargetId(targetId)
   }
@@ -62,7 +79,7 @@ export default class AlignmentGroup {
    * @returns { Boolean } true - token was added, false - not
    */
   add (token) {
-    if (!token || !token.isAlignable) {
+    if (!token || !token.isAlignable || !this.couldBeIncluded(token)) {
       return false
     }
     if (this.groupLen === 0) {
@@ -158,14 +175,27 @@ export default class AlignmentGroup {
     return ids
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Boolean} - true - if the token is inside the group, false - if not
+   */
   includesToken (token) {
     return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
   }
 
+  /**
+   * Checks if the token meets all requirements for including to the group:
+   *  - token should not be in the group
+   *  - segmentIndex should be the same
+   *  - targetId should be the same
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   couldBeIncluded (token) {
     return !this.includesToken(token) &&
-           (this.segmentIndex === token.segmentIndex) &&
-           (!this.targetId || ((token.textType === 'target') && (this.targetId === token.docSourceId)))
+           (!this.segmentIndex || (this.segmentIndex === token.segmentIndex)) &&
+           (!this.targetId || (token.textType === 'origin') || ((this.targetId === token.docSourceId)))
   }
 
   /**
@@ -174,7 +204,7 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token, targetId) {
-    return this.includesToken(token) && this.hasTheSameTargetId(targetId) && (this.firstStepToken.idWord === token.idWord)
+    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   /**
@@ -183,7 +213,7 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.includesToken(token) && this.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   /**

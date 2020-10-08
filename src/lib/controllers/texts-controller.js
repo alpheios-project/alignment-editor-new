@@ -93,7 +93,7 @@ export default class TextsController {
   }
 
   /**
-   * 
+   *
    * @param {String} textType - origin or target
    * @param {String} textId - id for the SourceText
    */
@@ -135,5 +135,4 @@ export default class TextsController {
     }
     return DownloadController.download(downloadType, data)
   }
-
 }
