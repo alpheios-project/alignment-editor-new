@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-editor-align-define-container" v-if="showAlignEditor">
+  <div class="alpheios-alignment-editor-align-define-container">
     <align-editor-tabs 
       v-if="allTargetTextsIds.length > 1"
       :tabs = "allTargetTextsIds" @selectTab = "selectTab"
@@ -19,7 +19,7 @@
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
                   :segment = "segmentTarget" 
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
-                  v-show="showTab(targetId)"
+                  v-show="isShownTab(targetId)"
           />
         </div>
 
@@ -47,6 +47,12 @@ export default {
     }
   },
   computed: {
+    /**
+     * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
+     * for now we don't have a case when we need to re-define tabs, 
+     * but if we would need it - we would update shownTabsInited with false
+     * @returns {Array[String]}
+     */
     allTargetTextsIds () {
       const allTargetTextsIds = this.$textC.allTargetTextsIds
       if (!this.shownTabsInited) {
@@ -56,38 +62,56 @@ export default {
       return this.$store.state.alignmentUpdated ? allTargetTextsIds : []
     },
 
+    /**
+     * @returns {Array[Object]}
+     *          {Number} index - segment's order index
+     *          {Segment} origin - origin segment by index
+     *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
+     */
     allAlignedTextsSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : []
     },
 
     /**
-     * Checks if there are enough data for rendering editors
+     * @returns {String} - targetId of the target segment, that is rendered the last to control css borders
      */
-    showAlignEditor () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
-    },
     lastTargetId () {
-      if (this.shownTabs.length > 1) {
-        return this.orderedTargetsId[this.orderedTargetsId.length - 1]
-      } else {
-        return this.shownTabs[0]
-      }
+      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
     },
+
+    /**
+     * @returns {Array[String]} - shown targetIds based on shownTabs with saved order
+     */
     orderedTargetsId () {
       return Object.keys(this.allAlignedTextsSegments[0].targets).filter(targetId => this.shownTabs.includes(targetId))
     },
+
+    /**
+     * @returns {String|Null} - targetId if it only one tab is active and we could work with groups
+     */
     currentTargetId () {
       return this.shownTabs.length === 1 ? this.shownTabs[0] : null
     }
 
   },
   methods: {
-    showTab (targetId) {
+    /**
+     * @returns {Boolean} - true - targetId is visible, false - not
+     */
+    isShownTab (targetId) {
       return this.shownTabs.includes(targetId)
     },
+
+    /**
+     * @returns {String} - unique index for the segment
+     */
     getIndex (textType, index, additionalIndex = 0) {
-      return `${textType}-${index}-${additionalIndex}`
+      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
+
+    /**
+     * Changes active tabs by click
+     */
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
         this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)

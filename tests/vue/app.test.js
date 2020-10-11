@@ -12,26 +12,35 @@ import AppController from '@/lib/controllers/app-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 
+import Alignment from '@/lib/data/alignment'
+import SourceText from '@/lib/data/source-text'
+
+import Vuex from "vuex"
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+let appC
+
 describe('app.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
 
-  beforeAll(() => {
-    const appC = new AppController({
-      appidWord:'alpheios-alignment-editor'
-    })
-    
-    appC.defineL10Support()
-    appC.defineTextController()
-    appC.defineAlignedController()
-    appC.defineHistoryController()
-  })
-
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
+
+    appC = new AppController({
+      appId:'alpheios-alignment-editor'
+    })
+    
+    appC.defineStore()
+    appC.defineL10Support()
+    appC.defineTextController(appC.store)
+    appC.defineAlignedController(appC.store)
+    appC.defineHistoryController(appC.store)
   })
 
   it('1 App - renders a vue instance (min requirements)', () => {
@@ -46,35 +55,7 @@ describe('app.test.js', () => {
     expect(cmp.findComponent(AlignEditor)).toBeTruthy()
   })
 
-  it('3 App - updateOriginTextEditor - updates originTextUpdated to +1', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm.originTextUpdated).toEqual(0)
-    cmp.vm.updateOriginTextEditor()
-    expect(cmp.vm.originTextUpdated).toEqual(1)
-  })
-
-  it('4 App - updateOriginTextEditor - updates targetTextUpdated to +1', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm.targetTextUpdated).toEqual(0)
-    cmp.vm.updateTargetTextEditor()
-    expect(cmp.vm.targetTextUpdated).toEqual(1)
-  })
-
-  it('5 App - hideTextEditorM - updates hideTextEditor to +1', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm.hideTextEditor).toEqual(0)
-    cmp.vm.hideTextEditorM()
-    expect(cmp.vm.hideTextEditor).toEqual(1)
-  })
-
-  it('6 App - showAlignEditorM - updates showAlignEditor to +1', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm.showAlignEditor).toEqual(0)
-    cmp.vm.showAlignEditorM()
-    expect(cmp.vm.showAlignEditor).toEqual(1)
-  })
-
-  it('7 App - downloadData - executes textC.downloadData', () => {
+  it('3 App - downloadData - executes textC.downloadData', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
@@ -84,51 +65,47 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.downloadData).toHaveBeenCalled()
   })
 
-
-  it('8 App - uploadData - executes textC.uploadDocSourceFromFile, updateOriginTextEditor, updateTargetTextEditor', () => {
+  it('4 App - uploadData - executes textC.uploadDocSourceFromFile, updateOriginTextEditor, updateTargetTextEditor', () => {
     let cmp = shallowMount(App)
 
     jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFile')
-    jest.spyOn(cmp.vm, 'updateOriginTextEditor')
-    jest.spyOn(cmp.vm, 'updateTargetTextEditor')
     
     cmp.vm.uploadData('test data')
     expect(cmp.vm.$textC.uploadDocSourceFromFile).toHaveBeenCalledWith('test data')
-    expect(cmp.vm.updateOriginTextEditor).toHaveBeenCalled()
-    expect(cmp.vm.updateTargetTextEditor).toHaveBeenCalled()
   })
 
-  it('9 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', () => {
+  it('5 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', () => {
     let cmp = shallowMount(App)
     expect(cmp.vm.$alignedC).toEqual(expect.any(AlignedController))
 
     cmp.vm.$alignedC.createAlignedTexts = jest.fn(() => true)
-    jest.spyOn(cmp.vm, 'hideTextEditorM')
-    jest.spyOn(cmp.vm, 'showAlignEditorM')
+    
+    expect(cmp.vm.hideTextEditor).toEqual(1)
+    expect(cmp.vm.showAlignEditor).toEqual(1)
 
     cmp.vm.alignTexts()
-
     expect(cmp.vm.$alignedC.createAlignedTexts).toHaveBeenCalled()
-    expect(cmp.vm.hideTextEditorM).toHaveBeenCalled()
-    expect(cmp.vm.showAlignEditorM).toHaveBeenCalled()
+    expect(cmp.vm.hideTextEditor).toEqual(2)
+    expect(cmp.vm.showAlignEditor).toEqual(2)
   })
 
-  it('10 App - alignTexts - executes $alignedC.createAlignedTexts, and if failed - no other methods', () => {
+  it('6 App - alignTexts - alignTexts - executes $alignedC.createAlignedTexts, and if failed - no other methods', () => {
     let cmp = shallowMount(App)
     expect(cmp.vm.$alignedC).toEqual(expect.any(AlignedController))
 
     cmp.vm.$alignedC.createAlignedTexts = jest.fn(() => false)
-    jest.spyOn(cmp.vm, 'hideTextEditorM')
-    jest.spyOn(cmp.vm, 'showAlignEditorM')
+    
+    expect(cmp.vm.hideTextEditor).toEqual(1)
+    expect(cmp.vm.showAlignEditor).toEqual(1)
 
     cmp.vm.alignTexts()
-
     expect(cmp.vm.$alignedC.createAlignedTexts).toHaveBeenCalled()
-    expect(cmp.vm.hideTextEditorM).not.toHaveBeenCalled()
-    expect(cmp.vm.showAlignEditorM).not.toHaveBeenCalled()
+    expect(cmp.vm.hideTextEditor).toEqual(1)
+    expect(cmp.vm.showAlignEditor).toEqual(1)
   })
 
-  it('11 App - undoAction - executes $historyC.undo', () => {
+
+  it('7 App - undoAction - executes $historyC.undo', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
@@ -138,7 +115,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.$historyC.undo).toHaveBeenCalled()
   })
 
-  it('11 App - redoAction - executes $historyC.redo', () => {
+  it('8 App - redoAction - executes $historyC.redo', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
@@ -146,6 +123,48 @@ describe('app.test.js', () => {
     
     cmp.vm.redoAction()
     expect(cmp.vm.$historyC.redo).toHaveBeenCalled()
+  })
+
+  it('9 App - addTarget - executes $textC.updateTargetDocSource', () => {
+    let cmp = shallowMount(App)
+
+    expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
+    cmp.vm.$textC.updateTargetDocSource = jest.fn()
+    
+    cmp.vm.addTarget()
+    expect(cmp.vm.$textC.updateTargetDocSource).toHaveBeenCalled()
+  })
+
+  it('10 App - alignEditorAvailable - updates visibility status for text and align editors', () => {
+    let cmp = shallowMount(App, { 
+      store: appC.store,
+      localVue 
+    })
+    
+    expect(cmp.vm.$store.state.alignmentUpdated).toEqual(1)
+    expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeFalsy()
+    expect(cmp.vm.alignEditorAvailable).toBeFalsy() // alignment workflow didn't start
+
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat'
+    })
+
+    const targetDocSource2 = new SourceText('target', {
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat'
+    })
+
+    let alignment = new Alignment(originDocSource, targetDocSource1)
+    alignment.updateTargetDocSource(targetDocSource2)
+    cmp.vm.$alignedC.createAlignedTexts(alignment)
+    
+    expect(cmp.vm.$store.state.alignmentUpdated).toEqual(2)
+    expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()
+    expect(cmp.vm.alignEditorAvailable).toBeTruthy() // alignment workflow started
+    
   })
 })
 

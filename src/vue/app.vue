@@ -30,7 +30,7 @@ export default {
   },
   data () {
     return {
-      hideTextEditor: 0,
+      hideTextEditor: 1,
       showAlignEditor: 1
     }
   },

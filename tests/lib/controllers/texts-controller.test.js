@@ -88,7 +88,7 @@ describe('texts-controller.test.js', () => {
     textsC.updateTargetDocSource(docSource)
 
     expect(textsC.createAlignment).not.toHaveBeenCalled()
-    expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith(docSource)
+    expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith(docSource, undefined)
   })
 
   it('6 TextsController - deleteText removes target source text', () => {
@@ -97,7 +97,8 @@ describe('texts-controller.test.js', () => {
     textsC.createAlignment({ text: 'originDocSource', direction: 'ltr', lang: 'lat' }, null)
 
     const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSource)
+
+    textsC.updateTargetDocSource(docSource, textsC.allTargetTextsIds[0])
 
     const docSource2 = { text: 'targetDocSource2', direction: 'ltr', lang: 'lat' }
     textsC.updateTargetDocSource(docSource2)
@@ -112,10 +113,11 @@ describe('texts-controller.test.js', () => {
 
     textsC.deleteText('target', textsC.allTargetTextsIds[0]) // won't delete because we couldn't delete the last target text
     expect(textsC.allTargetTextsIds.length).toEqual(1)
+
   })
 
 
-  it('6 TextsController - originDocSource returns origin document source if alignment is defined otherwise it returns null ', () => {
+  it('7 TextsController - originDocSource returns origin document source if alignment is defined otherwise it returns null ', () => {
     const textsC = new TextsController(appC.store)
 
     expect(textsC.originDocSource).toBeNull()
@@ -125,20 +127,20 @@ describe('texts-controller.test.js', () => {
     expect(textsC.originDocSource).toBeInstanceOf(SourceText)
   })
 
-  it('7 TextsController - allTargetTextsIds returns an array with all targetIds', () => {
+  it('8 TextsController - allTargetTextsIds returns an array with all targetIds', () => {
     const textsC = new TextsController(appC.store)
 
     const docSourceOrigin = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
     textsC.updateOriginDocSource(docSourceOrigin)
 
-    expect(textsC.allTargetTextsIds.length).toEqual(0)
+    expect(textsC.allTargetTextsIds.length).toEqual(1)
 
     const docSourceTarget = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSourceTarget)
+    textsC.updateTargetDocSource(docSourceTarget, textsC.allTargetTextsIds[0])
     expect(textsC.allTargetTextsIds.length).toEqual(1)
   })
 
-  it('8 TextsController - targetDocSource returns target document source by id if alignment is defined otherwise it returns null ', () => {
+  it('9 TextsController - targetDocSource returns target document source by id if alignment is defined otherwise it returns null ', () => {
     const textsC = new TextsController(appC.store)
 
     expect(textsC.originDocSource).toBeNull()

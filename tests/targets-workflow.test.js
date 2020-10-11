@@ -58,7 +58,8 @@ describe('aligned-text.test.js', () => {
     if (textType === 'origin') {
       testToken = alignment.origin.alignedText.segments[segmentIndex].tokens[tokenIndex]
     } else {
-      const allTargetsId = cmp.vm.$alignedC.allTargetTextsIds
+      const allTargetsId = cmp.vm.$textC.allTargetTextsIds
+
       testToken = alignment.targets[allTargetsId[targetId]].alignedText.segments[segmentIndex].tokens[tokenIndex]
     }
 
@@ -71,7 +72,7 @@ describe('aligned-text.test.js', () => {
     const alignment = cmp.vm.$textC.createAlignment()
 
     defineAlinmentWithSource(cmp, alignment)
-    const allTargetsId = cmp.vm.$alignedC.allTargetTextsIds
+    const allTargetsId = cmp.vm.$textC.allTargetTextsIds
 
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0)
     expect(alignment.activeAlignmentGroup.origin).toEqual([testOriginToken1.idWord])
@@ -155,7 +156,7 @@ describe('aligned-text.test.js', () => {
     const alignment = cmp.vm.$textC.createAlignment()
 
     defineAlinmentWithSource(cmp, alignment)
-    const allTargetsId = cmp.vm.$alignedC.allTargetTextsIds
+    const allTargetsId = cmp.vm.$textC.allTargetTextsIds
     
     // created the first group
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0, 0)
@@ -287,7 +288,7 @@ describe('aligned-text.test.js', () => {
     const alignment = cmp.vm.$textC.createAlignment()
 
     defineAlinmentWithSource(cmp, alignment)
-    const allTargetsId = cmp.vm.$alignedC.allTargetTextsIds
+    const allTargetsId = cmp.vm.$textC.allTargetTextsIds
     
     // created the first group
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0)
@@ -373,7 +374,7 @@ describe('aligned-text.test.js', () => {
     const alignment = cmp.vm.$textC.createAlignment()
 
     defineAlinmentWithSource(cmp, alignment)
-    const allTargetsId = cmp.vm.$alignedC.allTargetTextsIds
+    const allTargetsId = cmp.vm.$textC.allTargetTextsIds
     
     // created the first group
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0)

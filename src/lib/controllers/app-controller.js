@@ -66,27 +66,11 @@ export default class AppController {
     Vue.use(Vuex)
     this.store = new Vuex.Store({
       state: {
-        originDocSourceUpdated: 1,
-        targetDocSourceUpdated: 1,
-        originAlignedUpdated: 1,
-        targetAlignedUpdated: 1,
         alignmentUpdated: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
           state.alignmentUpdated++
-        },
-        incrementOriginDocSourceUpdated (state) {
-          state.originDocSourceUpdated++
-        },
-        incrementTargetDocSourceUpdated (state) {
-          state.targetDocSourceUpdated++
-        },
-        incrementOriginAlignedUpdated (state) {
-          state.originAlignedUpdated++
-        },
-        incrementTargetAlignedUpdated (state) {
-          state.targetAlignedUpdated++
         }
       }
     })

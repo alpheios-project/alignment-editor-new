@@ -87,7 +87,7 @@
 }
 .alpheios-select:disabled {
   background-color: #fff;
-  color: #E6E6E6;
+  color: #909090;
 }
 .alpheios-select:not([multiple]):not([size]) {
   -webkit-appearance: none;
@@ -144,8 +144,8 @@ input.alpheios-input:focus, input.alpheios-input[type]:focus {
   border-radius: 10px;
 }
 input.alpheios-input:disabled {
-  background-color: #757575;
-  color: #fff;
+  background-color: #e3e3e3;
+  color: #909090;
   border: 1px solid #757575;
   border-radius: 10px;
 }

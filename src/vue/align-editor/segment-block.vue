@@ -47,52 +47,99 @@ export default {
   data () {
     return {
       updated: 1,
-      colors: ['e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff']
+      colors: ['#f3f3f3', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      originColor: '#f3f3f3'
     }
   },
   watch: {
   },
   computed: {
+    /**
+     * @returns {String} - origin/target
+     */
     textType () {
       return this.segment.textType
     },
+    /**
+     * @returns {String} - ltr/rtl
+     */
     direction () {
       return this.segment.direction
     },
+    /**
+     * @returns {String} - lang code
+     */
     lang () {
       return this.segment.lang
     },
+    /**
+     * @returns {String} css id for html layout
+     */
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.targetId ? this.targetId : 'none' }-${this.segment.index}`
+      if (this.textType === 'target') {
+        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      } else {
+        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      }
     },
+    /**
+     * Styles for creating a html table layout with different background-colors for different targetIds
+     * @returns {String}
+     */
     cssStyle () {
-      return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      if (this.textType === 'target') {
+        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `order: ${this.segment.index}; background: ${this.originColor};`
+      }
     },
+    /**
+     * Defines classes by textType and isLast flag
+     * @returns {Object}
+     */
     cssClass () {
       let classes = {}
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
       return classes
     },
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : ''
-    },
+    /**
+     * @returns {Array[String]} - array of all targetIds
+     */
     allTargetTextsIds () {
       return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
     },
+    /**
+     * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
+     */
     targetIdIndex () {
       return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    }
+    },
+    /**
+     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
+     */
+    targetId () {
+      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+    },
   },
   methods: {
+    /**
+     * Starts click token workflow
+     */
     clickToken (token) {
       if (this.currentTargetId) {
         this.$alignedC.clickToken(token, this.currentTargetId)
       }
     },
+    /**
+     * Starts hover token workflow
+     */
     addHoverToken (token) {
       this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
+    /**
+     * Ends hover token workflow
+     */
     removeHoverToken () {
       this.$alignedC.clearHoverOnAlignmentGroups()
     },

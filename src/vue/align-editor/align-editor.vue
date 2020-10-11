@@ -6,7 +6,7 @@
       </h2>
     </div>
     
-    <align-editor-view-mode v-show="showAlignBlocks"/>
+    <align-editor-view-mode v-show="showAlignBlocks" v-if="showAlignEditor"/>
     
   </div>
 </template>

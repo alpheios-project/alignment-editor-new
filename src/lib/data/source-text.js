@@ -10,8 +10,8 @@ export default class SourceText {
    * @param {String} docSource.direction
    * @param {String} docSource.lang
    */
-  constructor (textType, docSource) {
-    this.id = uuidv4()
+  constructor (textType, docSource, targetId) {
+    this.id = targetId || uuidv4()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection

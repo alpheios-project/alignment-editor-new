@@ -2,11 +2,20 @@
   <div class="alpheios-alignment-app-menu" id="alpheios-main-menu">
       <div class="alpheios-alignment-app-menu__buttons">
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-add-target" 
-                @click="$emit('add-target')" >{{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
+                @click="$emit('add-target')" :disabled="!docSourceEditAvailable" >
+                {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
         </button>
 
-        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-download" @click="$emit('download-data')" >{{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}</button>
-        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-upload" @click="uploadTexts" >{{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}</button>
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-download" 
+                @click="$emit('download-data')"  :disabled="!docSourceEditAvailable" >
+                {{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}
+        </button>
+
+        <button class="alpheios-button-tertiary" id ="alpheios-main-menu-upload" 
+                @click="uploadTexts"  :disabled="!docSourceEditAvailable" >
+                {{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}
+        </button>
+
         <button class="alpheios-button-tertiary" id ="alpheios-main-menu-align" 
                 @click="$emit('align-texts')" :disabled="!alignAvailable">
                 {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
@@ -22,7 +31,7 @@
                 {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
         </button>
       </div>
-      <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock">
+      <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
         <input type="file" @change="loadTextFromFile">
       </div>
   </div>
@@ -44,13 +53,16 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.undoAvailable
     },
     redoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.redoAvailable
+    },
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {

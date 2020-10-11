@@ -15,6 +15,7 @@ export default class AlignedController {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       return false
     }
+
     this.alignment = alignment
     const tokenizer = 'simpleWordTokenization'
     const result = this.alignment.createAlignedTexts(tokenizer)
@@ -24,6 +25,7 @@ export default class AlignedController {
     if (!res2) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
       this.alignment.clearAlignedTexts()
+      this.store.commit('incrementAlignmentUpdated')
       return false
     }
     this.store.commit('incrementAlignmentUpdated')

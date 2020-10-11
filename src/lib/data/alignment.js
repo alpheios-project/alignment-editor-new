@@ -82,18 +82,17 @@ export default class Alignment {
    * @param {SourceText | Object} docSource
    * @returns {Boolean}
    */
-  updateTargetDocSource (docSource) {
-    if (!docSource) {
-      return false
-    }
+  updateTargetDocSource (docSource, targetId) {
     if (!this.origin.docSource) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      if (docSource) {
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      }
       return false
     }
 
-    if (!docSource.id || !this.targets[docSource.id]) {
+    if (!docSource || !docSource.id || !this.targets[docSource.id]) {
       if (!(docSource instanceof SourceText)) {
-        docSource = new SourceText('target', docSource)
+        docSource = new SourceText('target', docSource, targetId)
       }
       this.targets[docSource.id] = {
         docSource
@@ -110,6 +109,7 @@ export default class Alignment {
    * @param {String} id - docSourceId
    */
   deleteText (textType, id) {
+    console.info('deleteText started', this.allTargetTextsIds)
     if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
       delete this.targets[id]
     }

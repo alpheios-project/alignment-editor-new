@@ -7,15 +7,17 @@
       </p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
-          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
+          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
           <label :for="directionRadioId('ltr')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
-          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText">
+          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
           <label :for="directionRadioId('rtl')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
       </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
+                 :disabled="!docSourceEditAvailable" >
+      ></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang">
+          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
             <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
           </select>
       </p>
@@ -23,7 +25,7 @@
         <div class="alpheios-alignment-editor-text-block__other-lang">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
           <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText">
+            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText" :disabled="!docSourceEditAvailable" >
             <p class="alpheios-alignment-editor-text-block__other-lang__description">
               {{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
             </p>
@@ -113,19 +115,36 @@ export default {
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
+
     l10n () {
       return L10nSingleton
     },
-    needToShowIndex () {
+
+    /**
+     * Defines if we have multiple targets then we need to show index of target text
+     */
+    showIndex () {
       return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
     },
     
+    /**
+     * Defines formatted order index for multiple target texts
+     */
     indexData () {
-      return this.needToShowIndex ? `${this.index + 1}. ` : ''
+      return this.showIndex ? `${this.index + 1}. ` : ''
     },
 
+    /**
+     * Defines if we have multiple target texts then show delete index
+     */
     showDeleteIcon () {
-      return this.needToShowIndex
+      return this.showIndex
+    },
+    /**
+     * Blocks changes if aligned version is already created and aligned groups are started
+     */
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {

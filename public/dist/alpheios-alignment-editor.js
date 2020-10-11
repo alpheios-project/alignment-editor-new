@@ -14823,6 +14823,7 @@ class AlignedController {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       return false
     }
+
     this.alignment = alignment
     const tokenizer = 'simpleWordTokenization'
     const result = this.alignment.createAlignedTexts(tokenizer)
@@ -14832,6 +14833,7 @@ class AlignedController {
     if (!res2) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
       this.alignment.clearAlignedTexts()
+      this.store.commit('incrementAlignmentUpdated')
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
@@ -15141,27 +15143,11 @@ class AppController {
     _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.use(vuex__WEBPACK_IMPORTED_MODULE_13__.default)
     this.store = new vuex__WEBPACK_IMPORTED_MODULE_13__.default.Store({
       state: {
-        originDocSourceUpdated: 1,
-        targetDocSourceUpdated: 1,
-        originAlignedUpdated: 1,
-        targetAlignedUpdated: 1,
         alignmentUpdated: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
           state.alignmentUpdated++
-        },
-        incrementOriginDocSourceUpdated (state) {
-          state.originDocSourceUpdated++
-        },
-        incrementTargetDocSourceUpdated (state) {
-          state.targetDocSourceUpdated++
-        },
-        incrementOriginAlignedUpdated (state) {
-          state.originAlignedUpdated++
-        },
-        incrementTargetAlignedUpdated (state) {
-          state.targetAlignedUpdated++
         }
       }
     })
@@ -15445,11 +15431,11 @@ class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource) {
+  updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource)
+      this.alignment.updateTargetDocSource(targetDocSource, targetId)
       this.store.commit('incrementAlignmentUpdated')
     }
   }
@@ -15480,7 +15466,7 @@ class TextsController {
    * @returns {Array[String]} - all ids from target source texts
    */
   get allTargetTextsIds () {
-    return this.alignment ? this.alignment.allTargetTextsIds : null
+    return this.alignment ? this.alignment.allTargetTextsIds : []
   }
 
   /**
@@ -16356,18 +16342,17 @@ class Alignment {
    * @param {SourceText | Object} docSource
    * @returns {Boolean}
    */
-  updateTargetDocSource (docSource) {
-    if (!docSource) {
-      return false
-    }
+  updateTargetDocSource (docSource, targetId) {
     if (!this.origin.docSource) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      if (docSource) {
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      }
       return false
     }
 
-    if (!docSource.id || !this.targets[docSource.id]) {
+    if (!docSource || !docSource.id || !this.targets[docSource.id]) {
       if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
-        docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+        docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
       }
       this.targets[docSource.id] = {
         docSource
@@ -16384,6 +16369,7 @@ class Alignment {
    * @param {String} id - docSourceId
    */
   deleteText (textType, id) {
+    console.info('deleteText started', this.allTargetTextsIds)
     if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
       delete this.targets[id]
     }
@@ -16899,8 +16885,8 @@ class SourceText {
    * @param {String} docSource.direction
    * @param {String} docSource.lang
    */
-  constructor (textType, docSource) {
-    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_1__.v4)()
+  constructor (textType, docSource, targetId) {
+    this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_1__.v4)()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
@@ -17900,6 +17886,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    /**
+     * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
+     * for now we don't have a case when we need to re-define tabs, 
+     * but if we would need it - we would update shownTabsInited with false
+     * @returns {Array[String]}
+     */
     allTargetTextsIds () {
       const allTargetTextsIds = this.$textC.allTargetTextsIds
       if (!this.shownTabsInited) {
@@ -17909,38 +17901,56 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated ? allTargetTextsIds : []
     },
 
+    /**
+     * @returns {Array[Object]}
+     *          {Number} index - segment's order index
+     *          {Segment} origin - origin segment by index
+     *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
+     */
     allAlignedTextsSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : []
     },
 
     /**
-     * Checks if there are enough data for rendering editors
+     * @returns {String} - targetId of the target segment, that is rendered the last to control css borders
      */
-    showAlignEditor () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
-    },
     lastTargetId () {
-      if (this.shownTabs.length > 1) {
-        return this.orderedTargetsId[this.orderedTargetsId.length - 1]
-      } else {
-        return this.shownTabs[0]
-      }
+      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
     },
+
+    /**
+     * @returns {Array[String]} - shown targetIds based on shownTabs with saved order
+     */
     orderedTargetsId () {
       return Object.keys(this.allAlignedTextsSegments[0].targets).filter(targetId => this.shownTabs.includes(targetId))
     },
+
+    /**
+     * @returns {String|Null} - targetId if it only one tab is active and we could work with groups
+     */
     currentTargetId () {
       return this.shownTabs.length === 1 ? this.shownTabs[0] : null
     }
 
   },
   methods: {
-    showTab (targetId) {
+    /**
+     * @returns {Boolean} - true - targetId is visible, false - not
+     */
+    isShownTab (targetId) {
       return this.shownTabs.includes(targetId)
     },
+
+    /**
+     * @returns {String} - unique index for the segment
+     */
     getIndex (textType, index, additionalIndex = 0) {
-      return `${textType}-${index}-${additionalIndex}`
+      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
+
+    /**
+     * Changes active tabs by click
+     */
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
         this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
@@ -18112,52 +18122,99 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       updated: 1,
-      colors: ['e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff']
+      colors: ['#f3f3f3', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      originColor: '#f3f3f3'
     }
   },
   watch: {
   },
   computed: {
+    /**
+     * @returns {String} - origin/target
+     */
     textType () {
       return this.segment.textType
     },
+    /**
+     * @returns {String} - ltr/rtl
+     */
     direction () {
       return this.segment.direction
     },
+    /**
+     * @returns {String} - lang code
+     */
     lang () {
       return this.segment.lang
     },
+    /**
+     * @returns {String} css id for html layout
+     */
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.targetId ? this.targetId : 'none' }-${this.segment.index}`
+      if (this.textType === 'target') {
+        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      } else {
+        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      }
     },
+    /**
+     * Styles for creating a html table layout with different background-colors for different targetIds
+     * @returns {String}
+     */
     cssStyle () {
-      return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      if (this.textType === 'target') {
+        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `order: ${this.segment.index}; background: ${this.originColor};`
+      }
     },
+    /**
+     * Defines classes by textType and isLast flag
+     * @returns {Object}
+     */
     cssClass () {
       let classes = {}
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
       return classes
     },
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : ''
-    },
+    /**
+     * @returns {Array[String]} - array of all targetIds
+     */
     allTargetTextsIds () {
       return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
     },
+    /**
+     * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
+     */
     targetIdIndex () {
       return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    }
+    },
+    /**
+     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
+     */
+    targetId () {
+      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+    },
   },
   methods: {
+    /**
+     * Starts click token workflow
+     */
     clickToken (token) {
       if (this.currentTargetId) {
         this.$alignedC.clickToken(token, this.currentTargetId)
       }
     },
+    /**
+     * Starts hover token workflow
+     */
     addHoverToken (token) {
       this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
+    /**
+     * Ends hover token workflow
+     */
     removeHoverToken () {
       this.$alignedC.clearHoverOnAlignmentGroups()
     },
@@ -18331,7 +18388,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      hideTextEditor: 0,
+      hideTextEditor: 1,
       showAlignEditor: 1
     }
   },
@@ -18432,6 +18489,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -18449,13 +18515,16 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.undoAvailable
     },
     redoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.redoAvailable
+    },
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -18505,6 +18574,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__);
+//
+//
 //
 //
 //
@@ -18620,19 +18691,36 @@ __webpack_require__.r(__webpack_exports__);
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
+
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
-    needToShowIndex () {
+
+    /**
+     * Defines if we have multiple targets then we need to show index of target text
+     */
+    showIndex () {
       return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
     },
     
+    /**
+     * Defines formatted order index for multiple target texts
+     */
     indexData () {
-      return this.needToShowIndex ? `${this.index + 1}. ` : ''
+      return this.showIndex ? `${this.index + 1}. ` : ''
     },
 
+    /**
+     * Defines if we have multiple target texts then show delete index
+     */
     showDeleteIcon () {
-      return this.needToShowIndex
+      return this.showIndex
+    },
+    /**
+     * Blocks changes if aligned version is already created and aligned groups are started
+     */
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -19851,92 +19939,82 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.showAlignEditor
-    ? _c(
+  return _c(
+    "div",
+    { staticClass: "alpheios-alignment-editor-align-define-container" },
+    [
+      _vm.allTargetTextsIds.length > 1
+        ? _c("align-editor-tabs", {
+            attrs: { tabs: _vm.allTargetTextsIds },
+            on: { selectTab: _vm.selectTab }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
         "div",
-        { staticClass: "alpheios-alignment-editor-align-define-container" },
-        [
-          _vm.allTargetTextsIds.length > 1
-            ? _c("align-editor-tabs", {
-                attrs: { tabs: _vm.allTargetTextsIds },
-                on: { selectTab: _vm.selectTab }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
+        {
+          staticClass:
+            "alpheios-alignment-editor-align-define-container-view-mode"
+        },
+        _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
+          return _c(
             "div",
             {
-              staticClass:
-                "alpheios-alignment-editor-align-define-container-view-mode"
+              key: _vm.getIndex("origin", segmentData.index),
+              staticClass: "alpheios-alignment-editor-align-segment-data"
             },
-            _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
-              return _c(
+            [
+              _c(
                 "div",
                 {
-                  key: _vm.getIndex("origin", segmentData.index),
-                  staticClass: "alpheios-alignment-editor-align-segment-data"
+                  staticClass:
+                    "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin"
                 },
                 [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin"
-                    },
-                    [
-                      _c("segment-block", {
-                        attrs: {
-                          segment: segmentData.origin,
-                          currentTargetId: _vm.currentTargetId
-                        }
-                      })
+                  _c("segment-block", {
+                    attrs: {
+                      segment: segmentData.origin,
+                      currentTargetId: _vm.currentTargetId
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
+                },
+                _vm._l(segmentData.targets, function(segmentTarget, targetId) {
+                  return _c("segment-block", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isShownTab(targetId),
+                        expression: "isShownTab(targetId)"
+                      }
                     ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
-                    },
-                    _vm._l(segmentData.targets, function(
-                      segmentTarget,
-                      targetId
-                    ) {
-                      return _c("segment-block", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showTab(targetId),
-                            expression: "showTab(targetId)"
-                          }
-                        ],
-                        key: _vm.getIndex(
-                          "target",
-                          segmentData.index,
-                          targetId
-                        ),
-                        attrs: {
-                          segment: segmentTarget,
-                          isLast:
-                            _vm.lastTargetId && targetId === _vm.lastTargetId,
-                          currentTargetId: _vm.currentTargetId
-                        }
-                      })
-                    }),
-                    1
-                  )
-                ]
+                    key: _vm.getIndex("target", segmentData.index, targetId),
+                    attrs: {
+                      segment: segmentTarget,
+                      isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
+                      currentTargetId: _vm.currentTargetId
+                    }
+                  })
+                }),
+                1
               )
-            }),
-            0
+            ]
           )
-        ],
-        1
+        }),
+        0
       )
-    : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -19998,16 +20076,18 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("align-editor-view-mode", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showAlignBlocks,
-            expression: "showAlignBlocks"
-          }
-        ]
-      })
+      _vm.showAlignEditor
+        ? _c("align-editor-view-mode", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showAlignBlocks,
+                expression: "showAlignBlocks"
+              }
+            ]
+          })
+        : _vm._e()
     ],
     1
   )
@@ -20232,7 +20312,10 @@ var render = function() {
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-add-target" },
+            attrs: {
+              id: "alpheios-main-menu-add-target",
+              disabled: !_vm.docSourceEditAvailable
+            },
             on: {
               click: function($event) {
                 return _vm.$emit("add-target")
@@ -20241,7 +20324,8 @@ var render = function() {
           },
           [
             _vm._v(
-              _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
                 "\n      "
             )
           ]
@@ -20251,24 +20335,42 @@ var render = function() {
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-download" },
+            attrs: {
+              id: "alpheios-main-menu-download",
+              disabled: !_vm.docSourceEditAvailable
+            },
             on: {
               click: function($event) {
                 return _vm.$emit("download-data")
               }
             }
           },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")))]
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")) +
+                "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-upload" },
+            attrs: {
+              id: "alpheios-main-menu-upload",
+              disabled: !_vm.docSourceEditAvailable
+            },
             on: { click: _vm.uploadTexts }
           },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")))]
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")) +
+                "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -20348,8 +20450,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showUploadBlock,
-              expression: "showUploadBlock"
+              value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
+              expression: "showUploadBlock &&  docSourceEditAvailable"
             }
           ],
           staticClass: "alpheios-alignment-app-menu__upload-block",
@@ -20452,7 +20554,8 @@ var render = function() {
               type: "radio",
               id: _vm.directionRadioId("ltr"),
               value: "ltr",
-              tabindex: "1"
+              tabindex: "1",
+              disabled: !_vm.docSourceEditAvailable
             },
             domProps: { checked: _vm._q(_vm.direction, "ltr") },
             on: {
@@ -20484,7 +20587,8 @@ var render = function() {
               type: "radio",
               id: _vm.directionRadioId("rtl"),
               value: "rtl",
-              tabindex: "1"
+              tabindex: "1",
+              disabled: !_vm.docSourceEditAvailable
             },
             domProps: { checked: _vm._q(_vm.direction, "rtl") },
             on: {
@@ -20505,32 +20609,37 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.text,
-            expression: "text"
-          }
-        ],
-        attrs: {
-          id: _vm.textareaId,
-          dir: _vm.direction,
-          tabindex: "2",
-          lang: _vm.selectedLang
-        },
-        domProps: { value: _vm.text },
-        on: {
-          blur: _vm.updateText,
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c(
+        "textarea",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.text,
+              expression: "text"
             }
-            _vm.text = $event.target.value
+          ],
+          attrs: {
+            id: _vm.textareaId,
+            dir: _vm.direction,
+            tabindex: "2",
+            lang: _vm.selectedLang,
+            disabled: !_vm.docSourceEditAvailable
+          },
+          domProps: { value: _vm.text },
+          on: {
+            blur: _vm.updateText,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.text = $event.target.value
+            }
           }
-        }
-      }),
+        },
+        [_vm._v("    >")]
+      ),
       _vm._v(" "),
       _c(
         "p",
@@ -20551,6 +20660,7 @@ var render = function() {
               ],
               staticClass:
                 "alpheios-alignment-editor-text-block__ava-lang__select alpheios-select",
+              attrs: { disabled: !_vm.docSourceEditAvailable },
               on: {
                 change: [
                   function($event) {
@@ -20616,7 +20726,10 @@ var render = function() {
                     ],
                     staticClass:
                       "alpheios-alignment-editor-text-block__other-lang__input alpheios-input",
-                    attrs: { type: "text" },
+                    attrs: {
+                      type: "text",
+                      disabled: !_vm.docSourceEditAvailable
+                    },
                     domProps: { value: _vm.selectedOtherLang },
                     on: {
                       change: _vm.updateText,
