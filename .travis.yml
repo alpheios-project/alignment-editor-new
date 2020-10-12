@@ -1,0 +1,7 @@
+#travis config
+language: node_js
+node_js:
+  - 14.1
+cache: npm
+script:
+  - npm run test
