@@ -7,5 +7,4 @@ script:
   - npm run test
 jobs:
   include:
-    - script: npm run test-lib
-    - script: npm run test-vue
+    - script: npm run test
