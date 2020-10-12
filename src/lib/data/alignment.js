@@ -109,7 +109,6 @@ export default class Alignment {
    * @param {String} id - docSourceId
    */
   deleteText (textType, id) {
-    console.info('deleteText started', this.allTargetTextsIds)
     if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
       delete this.targets[id]
     }
