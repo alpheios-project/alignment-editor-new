@@ -146,8 +146,7 @@ describe('aligned-text.test.js', () => {
     cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[1]) // we see the other tab, where we didn't start to create a group 
     expect(alignment.hoveredGroups.length).toEqual(0)
     expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    // expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
 
     // console.info('hoveredGroups - ', alignment.hoveredGroups)
   })
