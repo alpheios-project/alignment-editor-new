@@ -6,7 +6,7 @@
         <template v-for = "token in segment.tokens">
           <token
             v-if ="token.word"
-            :text-type = "textType" :text-word = "token" :key = "token.idWord"
+            :token = "token" :key = "token.idWord"
             @click-token = "clickToken"
             @add-hover-token = "addHoverToken"
             @remove-hover-token = "removeHoverToken"
@@ -125,6 +125,7 @@ export default {
   methods: {
     /**
      * Starts click token workflow
+     * @param {Token}
      */
     clickToken (token) {
       if (this.currentTargetId) {
@@ -133,6 +134,7 @@ export default {
     },
     /**
      * Starts hover token workflow
+     * @param {Token}
      */
     addHoverToken (token) {
       this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
@@ -145,24 +147,28 @@ export default {
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
+     * @param {Token}
      */
     selectedToken (token) {
       return this.$alignedC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
+     * @param {Token}
      */
     groupedToken (token) {
       return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     inActiveGroup (token) {
       return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     isFirstInActiveGroup (token) {
       return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)

@@ -96,6 +96,7 @@ export default {
   },
   methods: {
     /**
+     * @param {String}
      * @returns {Boolean} - true - targetId is visible, false - not
      */
     isShownTab (targetId) {
@@ -103,6 +104,9 @@ export default {
     },
 
     /**
+     * @param {String} - origin/target
+     * @param {Number} - segment order index
+     * @param {String} - targetId for target segment
      * @returns {String} - unique index for the segment
      */
     getIndex (textType, index, additionalIndex = 0) {
@@ -111,6 +115,7 @@ export default {
 
     /**
      * Changes active tabs by click
+     * @param {String}
      */
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {

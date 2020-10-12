@@ -17785,7 +17785,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignEditorEditMode',
+  name: 'AlignEditorTabs',
   props: {
     tabs: {
       type: Array,
@@ -17797,12 +17797,29 @@ __webpack_require__.r(__webpack_exports__);
       tabsStates: []
     }
   },
+  /**
+   * Sets default states for tabs - the first tab is default
+   */
   mounted () {
     this.tabsStates = this.tabs.map((tab, index) => { 
       return { active: index === 0 }
     })
   },
   methods: {
+    /**
+     * It checks if the tab could be selected (for now we couldn't have no selected tabs)
+     * @param {Number} - index order of targetId
+     */
+    couldBeSelected (index) {
+      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
+    },
+
+    /**
+     * First it checks if the tab could be selected (for example we couldn't have no selected tabs)
+     * Then it changes selected tab state to oposite and emits event
+     * @param {String} - targetId
+     * @param {Number} - index order of targetId
+     */
     selectTab (tabData, index) {
       if (!this.couldBeSelected(index)) {
         return
@@ -17810,9 +17827,6 @@ __webpack_require__.r(__webpack_exports__);
       
       this.tabsStates[index].active = !this.tabsStates[index].active
       this.$emit('selectTab', tabData)
-    },
-    couldBeSelected (index) {
-      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
     }
   }
 });
@@ -17935,6 +17949,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     /**
+     * @param {String}
      * @returns {Boolean} - true - targetId is visible, false - not
      */
     isShownTab (targetId) {
@@ -17942,6 +17957,9 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
+     * @param {String} - origin/target
+     * @param {Number} - segment order index
+     * @param {String} - targetId for target segment
      * @returns {String} - unique index for the segment
      */
     getIndex (textType, index, additionalIndex = 0) {
@@ -17950,6 +17968,7 @@ __webpack_require__.r(__webpack_exports__);
 
     /**
      * Changes active tabs by click
+     * @param {String}
      */
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
@@ -18200,6 +18219,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     /**
      * Starts click token workflow
+     * @param {Token}
      */
     clickToken (token) {
       if (this.currentTargetId) {
@@ -18208,6 +18228,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     /**
      * Starts hover token workflow
+     * @param {Token}
      */
     addHoverToken (token) {
       this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
@@ -18220,24 +18241,28 @@ __webpack_require__.r(__webpack_exports__);
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
+     * @param {Token}
      */
     selectedToken (token) {
       return this.$alignedC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
+     * @param {Token}
      */
     groupedToken (token) {
       return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     inActiveGroup (token) {
       return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     isFirstInActiveGroup (token) {
       return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
@@ -18277,13 +18302,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Token',
+  name: 'TokenBlock',
   props: {
-    textType: {
-      type: String,
-      required: true
-    },
-    textWord: {
+    token: {
       type: Object,
       required: true
     },
@@ -18324,13 +18345,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     clickToken () {
-      this.$emit('click-token', this.textWord)
+      this.$emit('click-token', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.textWord)
+      this.$emit('add-hover-token', this.token)
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.textWord)
+      this.$emit('remove-hover-token', this.token)
     }
   }
 });
@@ -20135,8 +20156,7 @@ var render = function() {
             ? _c("token", {
                 key: token.idWord,
                 attrs: {
-                  "text-type": _vm.textType,
-                  "text-word": token,
+                  token: token,
                   selected:
                     _vm.$store.state.alignmentUpdated &&
                     _vm.selectedToken(token),
@@ -20198,7 +20218,7 @@ var render = function() {
     {
       staticClass: "alpheios-token",
       class: _vm.tokenClasses,
-      attrs: { "data-type": _vm.textType, id: _vm.textWord.idWord },
+      attrs: { "data-type": _vm.token.textType, id: _vm.token.idWord },
       on: {
         click: function($event) {
           $event.stopPropagation()
@@ -20211,9 +20231,9 @@ var render = function() {
     [
       _vm._v(
         "\n    " +
-          _vm._s(_vm.textWord.beforeWord) +
-          _vm._s(_vm.textWord.word) +
-          _vm._s(_vm.textWord.afterWord) +
+          _vm._s(_vm.token.beforeWord) +
+          _vm._s(_vm.token.word) +
+          _vm._s(_vm.token.afterWord) +
           "\n"
       )
     ]

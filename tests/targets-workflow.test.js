@@ -67,7 +67,7 @@ describe('aligned-text.test.js', () => {
     return testToken
   }
   
-  it.skip('1 Multiple targets - add several targets and create aligned texts, create one simple alignmentGroup and check status - selected, grouped, in active', () => {
+  it('1 Multiple targets - add several targets and create aligned texts, create one simple alignmentGroup and check status - selected, grouped, in active', () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 
@@ -151,7 +151,7 @@ describe('aligned-text.test.js', () => {
     // console.info('hoveredGroups - ', alignment.hoveredGroups)
   })
 
-  it.skip('2 Multiple targets - create two aligned groups in different target texts', () => {
+  it('2 Multiple targets - create two aligned groups in different target texts', () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 
@@ -283,7 +283,7 @@ describe('aligned-text.test.js', () => {
     expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
   })
 
-  it.skip('3 Multiple targets - create two aligned groups in different target texts with the same origin word', () => {
+  it('3 Multiple targets - create two aligned groups in different target texts with the same origin word', () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 

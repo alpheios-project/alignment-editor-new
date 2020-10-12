@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: 'AlignEditorEditMode',
+  name: 'AlignEditorTabs',
   props: {
     tabs: {
       type: Array,
@@ -22,12 +22,29 @@ export default {
       tabsStates: []
     }
   },
+  /**
+   * Sets default states for tabs - the first tab is default
+   */
   mounted () {
     this.tabsStates = this.tabs.map((tab, index) => { 
       return { active: index === 0 }
     })
   },
   methods: {
+    /**
+     * It checks if the tab could be selected (for now we couldn't have no selected tabs)
+     * @param {Number} - index order of targetId
+     */
+    couldBeSelected (index) {
+      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
+    },
+
+    /**
+     * First it checks if the tab could be selected (for example we couldn't have no selected tabs)
+     * Then it changes selected tab state to oposite and emits event
+     * @param {String} - targetId
+     * @param {Number} - index order of targetId
+     */
     selectTab (tabData, index) {
       if (!this.couldBeSelected(index)) {
         return
@@ -35,9 +52,6 @@ export default {
       
       this.tabsStates[index].active = !this.tabsStates[index].active
       this.$emit('selectTab', tabData)
-    },
-    couldBeSelected (index) {
-      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
     }
   }
 }

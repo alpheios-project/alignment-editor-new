@@ -1,23 +1,19 @@
 <template>
-    <span :data-type = "textType" :id = "textWord.idWord"
+    <span :data-type = "token.textType" :id = "token.idWord"
           @click.stop = "clickToken"
           @mouseover = "addHoverToken"
           @mouseout = "removeHoverToken"
           class = "alpheios-token"
           :class="tokenClasses"
     >
-        {{ textWord.beforeWord }}{{ textWord.word }}{{ textWord.afterWord }}
+        {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
     </span>
 </template>
 <script>
 export default {
-  name: 'Token',
+  name: 'TokenBlock',
   props: {
-    textType: {
-      type: String,
-      required: true
-    },
-    textWord: {
+    token: {
       type: Object,
       required: true
     },
@@ -58,13 +54,13 @@ export default {
   },
   methods: {
     clickToken () {
-      this.$emit('click-token', this.textWord)
+      this.$emit('click-token', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.textWord)
+      this.$emit('add-hover-token', this.token)
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.textWord)
+      this.$emit('remove-hover-token', this.token)
     }
   }
 }

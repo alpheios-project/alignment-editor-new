@@ -10,7 +10,7 @@
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/texts-controller.test.js --coverage",
-    "test-b": "jest tests/vue/align-editor/segment-block.test.js --coverage",
+    "test-b": "jest tests/vue/align-editor/token-block.test.js --coverage",
     "test-c": "jest tests/lib/data/alignment.test.js --coverage",
     "test-d": "jest tests/targets-workflow.test.js --coverage"
   },

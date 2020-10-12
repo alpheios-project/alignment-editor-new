@@ -153,52 +153,5 @@ describe('align-editor.test.js', () => {
     cmp.vm.toggleShowAlignBlocks()
     expect(cmp.vm.showAlignBlocks).toBeTruthy()
   }) 
-/*
-  it('9 AlignEditor - clickToken executes $alignedC.clickToken with the token and updates css classes', async () => {
-    let cmp = shallowMount(AlignEditor, {
-      store: appC.store,
-      localVue,
-      propsData: {
-        showEditor: 0
-      }
-    })
 
-    expect(cmp.vm.alignmentUpdated).toEqual(1)
-    jest.spyOn(cmp.vm.$alignedC, 'clickToken')
-     const token = new Token({
-      textType: 'origin', idWord: 'L1-10', word: 'male'})
-
-    cmp.vm.clickToken(token)
-
-    expect(cmp.vm.$alignedC.clickToken).toHaveBeenCalledWith(token)
-    expect(cmp.vm.alignmentUpdated).toEqual(2)
-  }) 
-
-  it('10 AlignEditor - addHoverToken/removeHoverToken updates showAlignment array', async () => {
-    let cmp = shallowMount(AlignEditor, {
-      store: appC.store,
-      localVue,
-      propsData: {
-        showEditor: 0
-      }
-    })
-
-    const token = new Token({
-        textType: 'origin', idWord: 'L1-10', word: 'male'})
-
-    const token2 = new Token({
-        textType: 'target', idWord: 'L2-10', word: 'man'})
-
-    cmp.vm.clickToken(token)
-    cmp.vm.clickToken(token2)
-    cmp.vm.clickToken(token)
-
-    expect(cmp.vm.showAlignment).toEqual([])
-
-    cmp.vm.addHoverToken(token)
-    expect(cmp.vm.showAlignment).toEqual(['L1-10', 'L2-10'])
-    cmp.vm.removeHoverToken()
-    expect(cmp.vm.showAlignment).toEqual([])
-  })
-  */
 })
