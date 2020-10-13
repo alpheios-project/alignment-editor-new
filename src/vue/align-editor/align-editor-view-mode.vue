@@ -58,6 +58,7 @@ export default {
       if (!this.shownTabsInited) {
         this.shownTabs = allTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
+        this.$historyC.updateMode(this.shownTabs) 
       }
       return this.$store.state.alignmentUpdated ? allTargetTextsIds : []
     },
@@ -122,10 +123,8 @@ export default {
         this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
       } else if (!this.shownTabs.includes(targetId)) {
         this.shownTabs.push(targetId)
-      } else {
-        return
-      }
-      
+      }  
+      this.$historyC.updateMode(this.shownTabs)    
     }
   } 
 }

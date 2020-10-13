@@ -1,6 +1,7 @@
 export default class HistoryController {
   constructor (store) {
     this.store = store
+    this.tabsViewMode = false
   }
 
   /**
@@ -8,7 +9,7 @@ export default class HistoryController {
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
-    return Boolean(this.alignment) &&
+    return Boolean(this.alignment) && !this.tabsViewMode &&
            ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
            (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
            (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
@@ -19,9 +20,18 @@ export default class HistoryController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
-    return Boolean(this.alignment) &&
+    return Boolean(this.alignment) && !this.tabsViewMode &&
            ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
            (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0))
+  }
+
+  /**
+   * Updates tabsViewMode on shownTabs change in align editor
+   * @param {Array[String]} shownTabs
+   */
+  updateMode (shownTabs) {
+    this.tabsViewMode = (shownTabs.length > 1)
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
@@ -47,8 +57,10 @@ export default class HistoryController {
     } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0) {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
-    this.store.commit('incrementAlignmentUpdated')
-    return result
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      return result
+    }
   }
 
   /**
@@ -68,7 +80,9 @@ export default class HistoryController {
     if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
       result = this.alignment.redoActiveGroup()
     }
-    this.store.commit('incrementAlignmentUpdated')
-    return result
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      return result
+    }
   }
 }

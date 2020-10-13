@@ -1,6 +1,6 @@
 {
     "ALIGN_EDITOR_HEADING": {
-      "message": "Define Origin and Target Texts",
+      "message": "Define Alignment Groups",
       "description": "A heading for align editor",
       "component": "AlignEditor"
     },

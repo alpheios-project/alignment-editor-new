@@ -82,7 +82,8 @@ export default class AlignmentGroup {
     if (!token || !token.isAlignable || !this.couldBeIncluded(token)) {
       return false
     }
-    if (this.groupLen === 0) {
+
+    if (!this.segmentIndex) {
       this.segmentIndex = token.segmentIndex
     }
     if (!this.targetId && (token.textType === 'target')) {

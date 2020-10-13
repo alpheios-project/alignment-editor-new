@@ -74,8 +74,9 @@ export default class AlignedController {
    * If there is an active alignment and token is grouped (in another aligned group) - mergeActiveGroupWithAnotherByToken
    * If there is an active alignment and token is not grouped - addToAlignmentGroup
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    */
-  clickToken (token, limitByTargetId) {
+  clickToken (token, limitByTargetId = null) {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         this.activateGroupByToken(token, limitByTargetId)
@@ -99,22 +100,30 @@ export default class AlignedController {
   /**
    * Creates a new alignment group and active alignment group is defined with it
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if a new active alignment group is defined, false - not
    */
-  startNewAlignmentGroup (token, limitByTargetId) {
+  startNewAlignmentGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Adds token to an active alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if the token was added, false - not
    */
-  addToAlignmentGroup (token, limitByTargetId) {
+  addToAlignmentGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token, limitByTargetId)
   }
 
-  removeFromAlignmentGroup (token, limitByTargetId) {
+  /**
+   * Removes token from an active alignment group
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @return {Boolean} true - if the token was removed, false - not
+   */
+  removeFromAlignmentGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.removeFromAlignmentGroup(token, limitByTargetId)
   }
 
@@ -128,44 +137,51 @@ export default class AlignedController {
 
   /**
    * Finds an alignment group by token, removes from the groups list and merge with active alignment group
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if groups were merged, false - not
    */
-  mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
+  mergeActiveGroupWithAnotherByToken (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
   }
 
   /**
    * Finds an alignment group by token in the list
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {AlignmentGroup | Null} AlignmentGroup - if a group was found, null - not
    */
-  findAlignmentGroup (token, limitByTargetId) {
+  findAlignmentGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is already saved in some alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - currently active targetId
    * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
-  tokenIsGrouped (token, limitByTargetId) {
+  tokenIsGrouped (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is already added in an active alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
-  tokenInActiveGroup (token, limitByTargetId) {
+  tokenInActiveGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is defined as first token in an active alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
-  isFirstInActiveGroup (token, limitByTargetId) {
+  isFirstInActiveGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token, limitByTargetId)
   }
 
@@ -180,27 +196,28 @@ export default class AlignedController {
   /**
    * Checks if after click on this token we should finish an alignment group
    * @param {Token} token - clicked token
-   * @param {String|Undefined} limitByTargetId - docSource of the current target document
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    */
-  shouldFinishAlignmentGroup (token, limitByTargetId) {
+  shouldFinishAlignmentGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.shouldFinishAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if after click on this token we should remove this token from an alignment group
    * @param {Token} token - clicked token
-   * @param {String|Undefined} limitByTargetId - docSource of the current target document
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    */
-  shouldRemoveFromAlignmentGroup (token, limitByTargetId) {
+  shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
     return Boolean(this.alignment) && this.alignment.shouldRemoveFromAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is saved in some alignment group and makes this alignment group active
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
-  activateGroupByToken (token, limitByTargetId) {
+  activateGroupByToken (token, limitByTargetId = null) {
     this.store.commit('incrementAlignmentUpdated')
     return Boolean(this.alignment) && this.alignment.activateGroupByToken(token, limitByTargetId)
   }
@@ -208,10 +225,10 @@ export default class AlignedController {
   /**
    * Defines hovered alignment groups - all groups that contain hovered token
    * @param {Token} token - hovered token
-   * @param {String|Undefined} limitByTargetId - docSource of the current target document
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Array[AlignmentGroup]}
    */
-  activateHoverOnAlignmentGroups (token, limitByTargetId) {
+  activateHoverOnAlignmentGroups (token, limitByTargetId = null) {
     this.store.commit('incrementAlignmentUpdated')
     return this.alignment ? this.alignment.activateHoverOnAlignmentGroups(token, limitByTargetId) : []
   }

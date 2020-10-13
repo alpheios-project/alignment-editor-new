@@ -80,9 +80,10 @@ export default class Alignment {
   /**
    * Updates/adds target docSource only if origin is defined
    * @param {SourceText | Object} docSource
+   * @param {String|Null} targetId - docSourceId to be updated, null - if it is a new targetDoc
    * @returns {Boolean}
    */
-  updateTargetDocSource (docSource, targetId) {
+  updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
         console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -220,9 +221,10 @@ export default class Alignment {
   /**
    * Checks if an active alignment group has the same segment index and target id
    * @param {Number} segmentIndex
-   * @param {String} limitByTargetId
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @returns {Boolean}
    */
-  hasTheSameSegmentTargetIdActiveGroup (segmentIndex, limitByTargetId) {
+  hasTheSameSegmentTargetIdActiveGroup (segmentIndex, limitByTargetId = null) {
     return this.hasActiveAlignmentGroup && this.activeAlignmentGroup.hasTheSameSegmentTargetId(segmentIndex, limitByTargetId)
   }
 
@@ -230,9 +232,10 @@ export default class Alignment {
    * Defines if the given token should finish the active alignment group - token is already in the group and
    * its textType is the same as token that created/activated the group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean}
    */
-  shouldFinishAlignmentGroup (token, limitByTargetId) {
+  shouldFinishAlignmentGroup (token, limitByTargetId = null) {
     return this.tokenInActiveGroup(token, limitByTargetId) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
   }
 
@@ -240,9 +243,10 @@ export default class Alignment {
    * Defines if the given token should be removed from the active alignment group - token is already in the group and
    * its textType is NOT the same as token that created/activated the group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean}
    */
-  shouldRemoveFromAlignmentGroup (token, limitByTargetId) {
+  shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
     return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
@@ -264,9 +268,10 @@ export default class Alignment {
   /**
    * Creates a new alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} - true - if group would be created
    */
-  startNewAlignmentGroup (token, limitByTargetId) {
+  startNewAlignmentGroup (token, limitByTargetId = null) {
     if (!token.isTheSameTargetId(limitByTargetId)) { return false }
 
     this.activeAlignmentGroup = new AlignmentGroup(token, limitByTargetId)
@@ -277,9 +282,10 @@ export default class Alignment {
   /**
    * Adds token to the active alignment group if it is created and token is not in group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} true - if token was added, false - not
    */
-  addToAlignmentGroup (token, limitByTargetId) {
+  addToAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       return this.activeAlignmentGroup.add(token)
     } else {
@@ -291,9 +297,10 @@ export default class Alignment {
   /**
    * Removes token from the active alignment group if the token in the group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} true - if token was removed, false - not
    */
-  removeFromAlignmentGroup (token, limitByTargetId) {
+  removeFromAlignmentGroup (token, limitByTargetId = null) {
     if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
       this.activeAlignmentGroup.remove(token)
       return true
@@ -318,9 +325,10 @@ export default class Alignment {
   /**
    * Finds Alignment Group by token, if token is grouped in some alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {AlignmentGroup | Null}
    */
-  findAlignmentGroup (token, limitByTargetId) {
+  findAlignmentGroup (token, limitByTargetId = null) {
     if (this.tokenIsGrouped(token, limitByTargetId)) {
       return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token)) : null
     }
@@ -330,6 +338,7 @@ export default class Alignment {
   /**
    * Removes a group from alignmentGroups list
    * @param {AlignmentGroup} tokensGroup
+   * @returns {Number|null} - index of removed group, if it was removed
    */
   removeGroupFromAlignmentGroups (tokensGroup) {
     const tokenIndex = this.alignmentGroups.findIndex(group => group.id === tokensGroup.id)
@@ -343,15 +352,17 @@ export default class Alignment {
   /**
    *
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
-  tokenIsGrouped (token, limitByTargetId) {
+  tokenIsGrouped (token, limitByTargetId = null) {
     return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
   }
 
   /**
    *
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} yes - if token is in the active alignment group, false - is not
    */
   tokenInActiveGroup (token, limitByTargetId) {
@@ -363,6 +374,7 @@ export default class Alignment {
   /**
    *
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} yes - if token is defines as first step in the active group, false - is not
    */
   isFirstInActiveGroup (token, limitByTargetId) {
@@ -382,6 +394,7 @@ export default class Alignment {
    * Finds the group by passed token and makes it active.
    * All its tokens are not considered grouped after that  - they are all in active alignment group.
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns { Boolean } true - if group was found and activated, false - no group was activated
    */
   activateGroupByToken (token, limitByTargetId) {
@@ -423,6 +436,7 @@ export default class Alignment {
    * Merges groups: it is available only if passed token from already saved group, then all tokens from saved groups places to the new merged.
    * Tokens from merged groups are not grouped any more - they are all in active alignment group.
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
@@ -452,6 +466,7 @@ export default class Alignment {
         this.insertUnmergedGroup(dataResult.data[i])
       }
     }
+    return true
   }
 
   /**
@@ -469,7 +484,7 @@ export default class Alignment {
    */
   redoInActiveGroup () {
     if (this.hasActiveAlignmentGroup) {
-      this.activeAlignmentGroup.redo()
+      return this.activeAlignmentGroup.redo()
     }
   }
 
@@ -480,6 +495,7 @@ export default class Alignment {
     if (this.hasActiveAlignmentGroup) {
       this.undoneGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
+      return true
     }
   }
 
@@ -489,13 +505,16 @@ export default class Alignment {
   redoActiveGroup () {
     if (!this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup = this.undoneGroups.pop()
+      return true
     }
   }
 
   /**
-   * This method finds all saved groups that includes the token and filtered by passed targetId
+   * This method finds all saved groups that includes the token and filtered by passed targetId and saves to hoveredGroups
+   * Used for hover groups workflow
    * @param {Token} token
-   * @param {String} limitByTargetId
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @returns {Array[AlignmentGroup]}
    */
   activateHoverOnAlignmentGroups (token, limitByTargetId) {
     this.hoveredGroups = this.alignmentGroups.filter(alGroup => alGroup.includesToken(token))
@@ -505,11 +524,22 @@ export default class Alignment {
     return this.hoveredGroups
   }
 
+  /**
+   * Removes all hoveredGroups
+   * Used for hover groups workflow
+   * @returns {Boolean} - always true, used for consistency
+   */
   clearHoverOnAlignmentGroups () {
     this.hoveredGroups = []
     return true
   }
 
+  /**
+   * Checks if the token is included to hoveredGroups
+   * Used for hover groups workflow
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   selectedToken (token) {
     return this.hoveredGroups.some(alGroup => alGroup.includesToken(token))
   }

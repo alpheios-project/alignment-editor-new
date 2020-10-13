@@ -10,11 +10,18 @@ export default class Token {
     this.docSourceId = docSourceId
   }
 
+  /**
+   * @returns {Boolean} - true - if the token could be used for creating alinmentGroup
+   */
   get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
   }
 
-  isTheSameTargetId (limitByTargetId) {
+  /**
+   *
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   */
+  isTheSameTargetId (limitByTargetId = null) {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 }
