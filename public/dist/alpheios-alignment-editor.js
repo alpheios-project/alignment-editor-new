@@ -15459,7 +15459,6 @@ class TextsController {
 
   /**
    * Uploads target source document to the alignment object.
-   * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
   updateTargetDocSource (targetDocSource, targetId) {
@@ -16578,7 +16577,8 @@ class Alignment {
    * @returns {Boolean} true - if token was added, false - not
    */
   addToAlignmentGroup (token, limitByTargetId = null) {
-    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
+        this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -16732,7 +16732,8 @@ class Alignment {
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
-    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.tokenIsGrouped(token, limitByTargetId)) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
+        this.tokenIsGrouped(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)

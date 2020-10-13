@@ -286,7 +286,8 @@ export default class Alignment {
    * @returns {Boolean} true - if token was added, false - not
    */
   addToAlignmentGroup (token, limitByTargetId = null) {
-    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
+        this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -440,7 +441,8 @@ export default class Alignment {
    * @returns {Boolean} true - groups were merged, false - was not
    */
   mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
-    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) && this.tokenIsGrouped(token, limitByTargetId)) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
+        this.tokenIsGrouped(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)

@@ -43,7 +43,6 @@ export default class TextsController {
 
   /**
    * Uploads target source document to the alignment object.
-   * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
   updateTargetDocSource (targetDocSource, targetId) {
