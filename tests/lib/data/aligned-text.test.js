@@ -31,18 +31,26 @@ describe('aligned-text.test.js', () => {
       text: 'some text', direction: 'ltr', lang: 'eng'
     })
 
-    const alignedText = new AlignedText({
+    const alignedText1 = new AlignedText({
       docSource: sourceText, 
-      tokenizer: 'simpleWordTokenization'
+      tokenizer: 'simpleWordTokenization', 
+      tokenPrefix: '5'
     })
   
-    expect(alignedText).toHaveProperty('textType', 'origin')
-    expect(alignedText).toHaveProperty('tokenizer', 'simpleWordTokenization')
-    expect(alignedText).toHaveProperty('direction', 'ltr')
-    expect(alignedText).toHaveProperty('lang', 'eng')
+    expect(alignedText1).toHaveProperty('textType', 'origin')
+    expect(alignedText1).toHaveProperty('tokenizer', 'simpleWordTokenization')
+    expect(alignedText1).toHaveProperty('direction', 'ltr')
+    expect(alignedText1).toHaveProperty('lang', 'eng')
+    expect(alignedText1).toHaveProperty('tokenPrefix', '5') // defined tokenPrefix
 
-    expect(alignedText.segments.length).toEqual(1)
-    expect(alignedText.segments[0].tokens.length).toEqual(2)
+    expect(alignedText1.segments.length).toEqual(1)
+    expect(alignedText1.segments[0].tokens.length).toEqual(2)
+
+    const alignedText2 = new AlignedText({
+      docSource: sourceText, 
+      tokenizer: 'simpleWordTokenization',
+    })
+    expect(alignedText2).toHaveProperty('tokenPrefix', '1') // not defined tokenPrefix - use default
   })
 
   it('2 AlignedText - tokenPrefix gives 1 for origin, 2 for target', () => {
@@ -88,5 +96,29 @@ describe('aligned-text.test.js', () => {
     expect(alignedText.segments[0].tokens.length).toEqual(2)
     expect(alignedText.segments[0].tokens[0]).toBeInstanceOf(Token)
     expect(alignedText.segments[0].tokens[1]).toBeInstanceOf(Token)
+  })
+
+  it('4 AlignedText - segmentsAmount - returns amount of segments', () => {
+    const sourceText1 = new SourceText('origin', {
+      text: 'some text', direction: 'ltr', lang: 'eng'
+    })
+
+    const alignedText1 = new AlignedText({
+      docSource: sourceText1, 
+      tokenizer: 'simpleWordTokenization'
+    })
+
+    expect(alignedText1.segmentsAmount).toEqual(1)
+
+    const sourceText2 = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng'
+    })
+
+    const alignedText2 = new AlignedText({
+      docSource: sourceText2, 
+      tokenizer: 'simpleWordTokenization'
+    })
+
+    expect(alignedText2.segmentsAmount).toEqual(2)
   })
 })

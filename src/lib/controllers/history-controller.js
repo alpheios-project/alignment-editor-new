@@ -1,13 +1,18 @@
 export default class HistoryController {
+  constructor (store) {
+    this.store = store
+    this.tabsViewMode = false
+  }
+
   /**
    * Checks if we have steps to be undone
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
-    return Boolean(this.alignment) &&
-           ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
-           (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+    return Boolean(this.alignment) && !this.tabsViewMode &&
+           ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
+           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
   }
 
   /**
@@ -15,9 +20,18 @@ export default class HistoryController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
-    return Boolean(this.alignment) &&
-           ((this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
-           (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+    return Boolean(this.alignment) && !this.tabsViewMode &&
+           ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
+           (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0))
+  }
+
+  /**
+   * Updates tabsViewMode on shownTabs change in align editor
+   * @param {Array[String]} shownTabs
+   */
+  updateMode (shownTabs) {
+    this.tabsViewMode = (shownTabs.length > 1)
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
@@ -35,14 +49,17 @@ export default class HistoryController {
    *   if there is no active alignment group but there exists saved alignment groups, then we would activate previous group
    */
   undo () {
-    if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen > 1) {
-      return this.alignment.undoInActiveGroup()
+    let result
+    if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen > 1) {
+      result = this.alignment.undoInActiveGroup()
+    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen === 1) {
+      result = this.alignment.undoActiveGroup()
+    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0) {
+      result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen === 1) {
-      return this.alignment.undoActiveGroup()
-    }
-    if (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0) {
-      return this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      return result
     }
   }
 
@@ -53,14 +70,19 @@ export default class HistoryController {
    *   if there is no active alignment group and there are some saved undone groups, then we would reactivate next group from the list
    */
   redo () {
-    if (this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) {
-      return this.alignment.redoInActiveGroup()
+    let result
+    if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
+      result = this.alignment.redoInActiveGroup()
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
-      return this.alignment.returnActiveGroupToList()
+    if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
+      result = this.alignment.finishActiveAlignmentGroup()
     }
-    if (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0) {
-      return this.alignment.redoActiveGroup()
+    if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
+      result = this.alignment.redoActiveGroup()
+    }
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      return result
     }
   }
 }

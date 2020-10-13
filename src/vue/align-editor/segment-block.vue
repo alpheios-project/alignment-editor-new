@@ -1,19 +1,19 @@
 <template>
     <div class="alpheios-alignment-editor-align-text-segment" 
-         :id = "cssId" :style="orderStyle"
+         :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
         <template v-for = "token in segment.tokens">
           <token
             v-if ="token.word"
-            :text-type = "textType" :text-word = "token" :key = "token.idWord"
+            :token = "token" :key = "token.idWord"
             @click-token = "clickToken"
             @add-hover-token = "addHoverToken"
             @remove-hover-token = "removeHoverToken"
-            :selected = "updated && selectedToken(token)"
-            :grouped = "updated && groupedToken(token)"
-            :inActiveGroup = "updated && inActiveGroup(token)"
-            :firstInActiveGroup = "updated && isFirstInActiveGroup(token)"
+            :selected = "$store.state.alignmentUpdated && selectedToken(token)"
+            :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
+            :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
+            :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
           />
           <br v-if="token.hasLineBreak" />
         </template>
@@ -23,26 +23,19 @@
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 
 export default {
-  name: 'AlignEditorSingleBlock',
+  name: 'SegmentBlock',
   components: {
     token: TokenBlock
   },
   props: {
+    currentTargetId: {
+      type: String,
+      required: false
+    },
+
     segment: {
       type: Object,
       required: true
-    },
-
-    showAlignment: {
-      type: Array,
-      required: false,
-      default: []
-    },
-
-    alignmentUpdated : {
-      type: Number,
-      required: false,
-      default: 0
     },
 
     isLast : {
@@ -53,73 +46,132 @@ export default {
   },
   data () {
     return {
-      updated: 1
+      updated: 1,
+      colors: ['#f3f3f3', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      originColor: '#f3f3f3'
     }
   },
   watch: {
-    /**
-     * Catches alignmentUpdated and increments updated flag to redraw css styles
-     */
-    alignmentUpdated () {
-      this.updated = this.updated + 1
-    }
   },
   computed: {
+    /**
+     * @returns {String} - origin/target
+     */
     textType () {
       return this.segment.textType
     },
+    /**
+     * @returns {String} - ltr/rtl
+     */
     direction () {
       return this.segment.direction
     },
+    /**
+     * @returns {String} - lang code
+     */
     lang () {
       return this.segment.lang
     },
+    /**
+     * @returns {String} css id for html layout
+     */
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      if (this.textType === 'target') {
+        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      } else {
+        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      }
     },
-    orderStyle () {
-      return `order: ${this.segment.index};`
+    /**
+     * Styles for creating a html table layout with different background-colors for different targetIds
+     * @returns {String}
+     */
+    cssStyle () {
+      if (this.textType === 'target') {
+        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `order: ${this.segment.index}; background: ${this.originColor};`
+      }
     },
+    /**
+     * Defines classes by textType and isLast flag
+     * @returns {Object}
+     */
     cssClass () {
       let classes = {}
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
       return classes
-    }
+    },
+    /**
+     * @returns {Array[String]} - array of all targetIds
+     */
+    allTargetTextsIds () {
+      return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
+    },
+    /**
+     * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
+     */
+    targetIdIndex () {
+      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
+    },
+    /**
+     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
+     */
+    targetId () {
+      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+    },
   },
   methods: {
+    /**
+     * Starts click token workflow
+     * @param {Token}
+     */
     clickToken (token) {
-      this.$emit('click-token', token)
+      if (this.currentTargetId) {
+        this.$alignedC.clickToken(token, this.currentTargetId)
+      }
     },
+    /**
+     * Starts hover token workflow
+     * @param {Token}
+     */
     addHoverToken (token) {
-      this.$emit('add-hover-token', token)
+      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
+    /**
+     * Ends hover token workflow
+     */
     removeHoverToken () {
-      this.$emit('remove-hover-token')
+      this.$alignedC.clearHoverOnAlignmentGroups()
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
+     * @param {Token}
      */
     selectedToken (token) {
-      return this.showAlignment.includes(token.idWord)
+      return this.$alignedC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
+     * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token)
+      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token)
+      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token)
+      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
     }
   }
 

@@ -44,9 +44,6 @@ export default class SimpleLocalTokenizer {
         mainIndex = mainIndex + 1
         finalText.segments.push({
           index: mainIndex,
-          textType: docSource.textType,
-          lang: docSource.lang,
-          direction: docSource.direction,
           tokens: finalTextLine
         })
       }

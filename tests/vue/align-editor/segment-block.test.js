@@ -6,110 +6,153 @@ import AppController from '@/lib/controllers/app-controller.js'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 import Token from '@/lib/data/token'
+import SourceText from '@/lib/data/source-text'
 import Vue from '@vue-runtime'
 
-describe('align-editor-single-block.test.js', () => {
+import Vuex from "vuex"
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+describe('segment-block.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
 
-  let originAlignedTextSegment
-  beforeAll(() => {
-    const appC = new AppController({
-      appidWord:'alpheios-alignment-editor'
-    })
-        
-    appC.defineL10Support()
-    appC.defineTextController()
-    appC.defineAlignedController()
-    appC.defineHistoryController()
-
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
-    const sourceTextTargetCorect = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-    
-    appC.textC.createAlignment()
-    appC.textC.updateOriginDocSource(sourceTextOrigin)
-    appC.textC.updateTargetDocSource(sourceTextTargetCorect)
-    
-    appC.alignedC.createAlignedTexts(appC.textC.alignment)
-
-    originAlignedTextSegment = appC.alignedC.originAlignedText.segments[0]
-  })
+  let appC, originSegment, allTargetTextsIds, targetSegment, targetSegment1, createAlignmentGroup
     
   beforeEach(() => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
+
+    appC = new AppController({
+      appId:'alpheios-alignment-editor'
+    })
+    
+    appC.defineStore()
+    appC.defineL10Support()
+    appC.defineTextController(appC.store)
+    appC.defineAlignedController(appC.store)
+    appC.defineHistoryController(appC.store)
+
+    appC.textC.createAlignment()
+    appC.historyC.startTracking(appC.textC.alignment)
+
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat'
+    })
+
+    const targetDocSource2 = new SourceText('target', {
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat'
+    })
+
+    appC.textC.alignment.updateOriginDocSource(originDocSource)
+    appC.textC.alignment.updateTargetDocSource(targetDocSource1)
+    appC.textC.alignment.updateTargetDocSource(targetDocSource2)
+    appC.alignedC.createAlignedTexts(appC.textC.alignment)
+
+    allTargetTextsIds = appC.textC.allTargetTextsIds
+
+    originSegment = appC.alignedC.allAlignedTextsSegments[0].origin
+    targetSegment = appC.alignedC.allAlignedTextsSegments[1].targets[allTargetTextsIds[1]]
+
+    targetSegment1 = appC.alignedC.allAlignedTextsSegments[0].targets[allTargetTextsIds[1]]
+
+    createAlignmentGroup = (finished) => {
+      appC.alignedC.clickToken(originSegment.tokens[0], allTargetTextsIds[1]) // starts a group - an origin token
+      appC.alignedC.clickToken(targetSegment1.tokens[0], allTargetTextsIds[1]) // adds a target token
+
+      const activeAlignmentGroup = appC.alignedC.alignment.activeAlignmentGroup
+
+      if (finished) {
+        appC.alignedC.clickToken(originSegment.tokens[0], allTargetTextsIds[1]) // finishes a group
+      }
+
+      return activeAlignmentGroup
+    }
   })
 
   it('1 SegmentBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(SegmentBlock, {
-    propsData: {
-      segment: originAlignedTextSegment
-    }
+      store: appC.store,
+      localVue,
+      propsData: {
+        segment: originSegment
+      }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
   it('2 SegmentBlock - should contain Tokens components for each token in alignTextData', () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment
       }
     })
 
-    expect(cmp.findAllComponents(TokenBlock)).toHaveLength(originAlignedTextSegment.tokens.length)
+    expect(cmp.findAllComponents(TokenBlock)).toHaveLength(originSegment.tokens.length)
   })
 
-  it('3 SegmentBlock - catches alignmentUpdated and increments updated flag', async () => {
-    let cmp = shallowMount(SegmentBlock, {
-      propsData: {
-        segment: originAlignedTextSegment,
-        alignmentUpdated: 1
-      }
-    })
-
-    expect(cmp.vm.updated).toEqual(1)
-
-    cmp.setProps({ alignmentUpdated: 2 })
-    await Vue.nextTick()
-
-    expect(cmp.vm.updated).toEqual(2)
-  })
 
   it('4 SegmentBlock - textType, direction, lang - retrieves from segment', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment
       }
     })
 
-    expect(cmp.vm.textType).toEqual(originAlignedTextSegment.textType)
-    expect(cmp.vm.direction).toEqual(originAlignedTextSegment.direction)
-    expect(cmp.vm.lang).toEqual(originAlignedTextSegment.lang)
+    expect(cmp.vm.textType).toEqual(originSegment.textType)
+    expect(cmp.vm.direction).toEqual(originSegment.direction)
+    expect(cmp.vm.lang).toEqual(originSegment.lang)
   })
 
-  it('5 SegmentBlock - alignTextClass - contains textType and segment index, orderStyle - contains index', async () => {
+  it('5 SegmentBlock - cssId - defines unique id for HTML layout', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment // index 1
       }
     })
 
-    expect(cmp.vm.cssId).toEqual(expect.stringContaining(originAlignedTextSegment.textType))
-    expect(cmp.vm.cssId).toEqual(expect.stringContaining(originAlignedTextSegment.index.toString()))
-
-    expect(cmp.vm.orderStyle).toEqual(expect.stringContaining(originAlignedTextSegment.index.toString()))
+    expect(cmp.vm.cssId).toEqual('alpheios-align-text-segment-origin-1')
+    cmp.setProps({
+      segment: targetSegment // index 2, targetId[1]
+    })
+    expect(cmp.vm.cssId).toEqual(`alpheios-align-text-segment-target-${allTargetTextsIds[1]}-2`)
   })
 
-  it('6 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {
+  it('6 SegmentBlock - cssStyle - defines direct css styles by properties', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment,
+        segment: originSegment // index 1
+      }
+    })
+
+    expect(cmp.vm.cssStyle).toEqual(`order: 1; background: ${cmp.vm.originColor};`) 
+    cmp.setProps({
+      segment: targetSegment // index 2, targetId[0]
+    })
+    expect(cmp.vm.cssStyle).toEqual(`order: 2; background: ${cmp.vm.colors[1]};`) // color for the second target
+  })
+
+  it('7 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {
+    let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
+      propsData: {
+        segment: originSegment,
         isLast: false
       }
     })
@@ -118,166 +161,185 @@ describe('align-editor-single-block.test.js', () => {
     expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin-last', false)
 
     cmp.setProps({
+      segment: targetSegment,
       isLast: true
     })
-    expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin-last', true)
+    expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-target-last', true)
   })    
 
-  it('7 SegmentBlock - clickToken - emmits click-word event', async () => {
+  it('8 SegmentBlock - allTargetTextsIds, targetIdIndex, targetId defines targetId data', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment
       }
     })
 
-    const token = new Token({
-      textType: 'origin', idWord: 'L1-2', word: 'some'})
-    cmp.vm.clickToken(token)
+    // we have an origin segment
+    expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
+    expect(cmp.vm.targetIdIndex).toBeNull()
+    expect(cmp.vm.targetId).toBeNull()
 
-    expect(cmp.emitted()['click-token']).toBeTruthy()
-    expect(cmp.emitted()['click-token'][0]).toEqual([token])
-  })
-
-  it('8 SegmentBlock - addHoverToken - emmits add-hover-token event', async () => {
-    let cmp = shallowMount(SegmentBlock, {
-      propsData: {
-        segment: originAlignedTextSegment
-      }
-    })
-
-    const token = new Token({
-      textType: 'origin', idWord: 'L1-2', word: 'some'})
-    cmp.vm.addHoverToken(token)
-  
-    expect(cmp.emitted()['add-hover-token']).toBeTruthy()
-    expect(cmp.emitted()['add-hover-token'][0]).toEqual([token])
-  })
-
-  it('9 SegmentBlock - removeHoverToken - emmits remove-hover-token event', async () => {
-    let cmp = shallowMount(SegmentBlock, {
-      propsData: {
-        segment: originAlignedTextSegment
-      }
-    })
-
-    const token = new Token({
-      textType: 'origin', idWord: 'L1-2', word: 'some'})
-    cmp.vm.removeHoverToken(token)
-  
-    expect(cmp.emitted()['remove-hover-token']).toBeTruthy()
-    expect(cmp.emitted()['remove-hover-token'][0]).toEqual([])
-  })
-
-  it('10 SegmentBlock - selectedToken - checks if a token inside hovered and saved alignmentGroup', async () => {
-    let showAlignment, result
-
-    let cmp = shallowMount(SegmentBlock, {
-      propsData: {
-        segment: originAlignedTextSegment
-      }
-    })
-
-    const token1 = new Token({
-      textType: 'origin', idWord: 'L1:1-2', word: 'some'})
-
-    const token2 = new Token({
-      textType: 'target', idWord: 'L2:1-2', word: 'some'})
-
-    cmp.vm.$alignedC.clickToken(token1)
-    cmp.vm.$alignedC.clickToken(token2)
-    cmp.vm.$alignedC.clickToken(token1) //alignment group was created and saved
-
-    const token3 = new Token({
-      textType: 'origin', idWord: 'L1:1-3', word: 'text'}) //another token - not in a alignment group
-
-    showAlignment = cmp.vm.$alignedC.findAlignmentGroupIds(token2)
-    
     cmp.setProps({
-      showAlignment: showAlignment
+      segment: targetSegment
     })
- 
-    result = cmp.vm.selectedToken(token2)
-    expect(result).toBeTruthy()
 
-    result = cmp.vm.selectedToken(token3)
-    expect(result).toBeFalsy()
-  })
+    // we have a target segment
+    expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
+    expect(cmp.vm.targetIdIndex).toEqual(1)
+    expect(cmp.vm.targetId).toEqual(allTargetTextsIds[1])
+  })    
 
-  it('11 SegmentBlock - groupedToken - checks if a token inside any saved alignmentGroup (created in previous test.9)', async () => {
-    let result
 
+  it('9 SegmentBlock - clickToken - starts click workflow we we have only one tab active', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment,
+        currentTargetId: allTargetTextsIds[0]
       }
     })
 
-    const token1 = new Token({
-      textType: 'some', idWord: 'L1:1-2', word: 'some'})
+    jest.spyOn(cmp.vm.$alignedC, 'clickToken')
 
-    const token2 = new Token({
-      textType: 'target', idWord: 'L2:1-2', word: 'some'})
+    const originToken = originSegment.tokens[0]
 
-    const token3 = new Token({
-      textType: 'origin', idWord: 'L1:1-3', word: 'text'}) //another token - not in a alignment group
- 
-    result = cmp.vm.groupedToken(token2)
-    expect(result).toBeTruthy()
+    // we have the first tab activated - we could create groups, click is active
+    cmp.vm.clickToken(originToken)
 
-    result = cmp.vm.groupedToken(token3)
-    expect(result).toBeFalsy()
+    expect(cmp.vm.$alignedC.clickToken).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
+
+    cmp.setProps({
+      currentTargetId: null
+    })
+
+    // we have both tabs activated - click should not be active
+    cmp.vm.clickToken(originToken)
+    expect(cmp.vm.$alignedC.clickToken).not.toHaveBeenLastCalledWith(originToken, null)
+
+    cmp.setProps({
+      segment: targetSegment,
+      currentTargetId: allTargetTextsIds[1]
+    })
+
+    // we activated the second tab and we are on a target segment
+    const targetToken = targetSegment.tokens[0]
+
+    cmp.vm.clickToken(targetToken)
+
+    expect(cmp.vm.$alignedC.clickToken).toHaveBeenLastCalledWith(targetToken, allTargetTextsIds[1])
   })
 
-  it('12 SegmentBlock - inActiveGroup - checks if a token inside the currently active alignment group (created in previous test.9)', async () => {
-    let result
 
+  it('10 SegmentBlock - addHoverToken - starts hover workflow', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment,
+        currentTargetId: allTargetTextsIds[0]
       }
     })
 
-    const token1 = new Token({
-      textType: 'origin', idWord: 'L1:1-2', word: 'some'})
+    // the firt tab activated
+    jest.spyOn(cmp.vm.$alignedC, 'activateHoverOnAlignmentGroups')
 
-    const token2 = new Token({
-      textType: 'target', idWord: 'L2:1-2', word: 'some'})
+    const originToken = originSegment.tokens[0]
+    cmp.vm.addHoverToken(originToken)
 
-    const token3 = new Token({
-      textType: 'origin', idWord: 'L1:1-3', word: 'text'}) //another token - not in a alignment group
- 
-    expect(cmp.vm.inActiveGroup(token2)).toBeFalsy() // group is not activated
+    expect(cmp.vm.$alignedC.activateHoverOnAlignmentGroups).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
 
-    cmp.vm.$alignedC.clickToken(token1) // activate group
-    expect(cmp.vm.inActiveGroup(token2)).toBeTruthy() // group is activated
+    cmp.setProps({
+      currentTargetId: null
+    })
 
-    cmp.vm.$alignedC.clickToken(token1) // deactivate group
+    // both tabs are activated
+
+    cmp.vm.addHoverToken(originToken)
+
+    expect(cmp.vm.$alignedC.activateHoverOnAlignmentGroups).toHaveBeenLastCalledWith(originToken, null)
+
   })
 
-  it('13 SegmentBlock - isFirstInActiveGroup - checks if a token inside the currently active alignment group and it is the first (created in previous test.9)', async () => {
-    let result
-
+  it('11 SegmentBlock - removeHoverToken - ends hover workflow, current targetId doesn\'t influence', async () => {
     let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
       propsData: {
-        segment: originAlignedTextSegment
+        segment: originSegment,
+        currentTargetId: allTargetTextsIds[0]
       }
     })
 
-    const token1 = new Token({
-      textType: 'origin', idWord: 'L1:1-2', word: 'some'})
+    // the firt tab activated
+    jest.spyOn(cmp.vm.$alignedC, 'clearHoverOnAlignmentGroups')
 
-    const token2 = new Token({
-      textType: 'target', idWord: 'L2:1-2', word: 'some'})
+    cmp.vm.removeHoverToken()
 
-    const token3 = new Token({
-      textType: 'origin', idWord: 'L1:1-3', word: 'text'}) //another token - not in a alignment group
- 
-    expect(cmp.vm.isFirstInActiveGroup(token2)).toBeFalsy() // group is not activated
+    expect(cmp.vm.$alignedC.clearHoverOnAlignmentGroups).toHaveBeenCalled()
+  })
 
-    cmp.vm.$alignedC.clickToken(token1) // activate group
-    expect(cmp.vm.isFirstInActiveGroup(token2)).toBeFalsy() // group is activated but it is not the first
-    expect(cmp.vm.isFirstInActiveGroup(token1)).toBeTruthy() // group is activated and it is the first
+  it('12 SegmentBlock - selectedToken - defines if token is hovered', async () => {
+    let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
+      propsData: {
+        segment: originSegment,
+        currentTargetId: allTargetTextsIds[1]
+      }
+    })
 
-    cmp.vm.$alignedC.clickToken(token1) // deactivate group
+    const alGroup = createAlignmentGroup(true)
+
+    // we didn't activate hover
+
+    expect(cmp.vm.selectedToken(alGroup.steps[0].token, allTargetTextsIds[1])).toBeFalsy() // first origin token
+    expect(cmp.vm.selectedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
+    cmp.vm.addHoverToken(alGroup.steps[0].token) // activated hovering on the group
+
+    // we activated hover
+    expect(cmp.vm.selectedToken(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.selectedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
+  })
+
+  it('13 SegmentBlock - groupedToken - defines if token is grouped', async () => {
+    let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
+      propsData: {
+        segment: originSegment,
+        currentTargetId: allTargetTextsIds[1]
+      }
+    })
+
+    const alGroup = createAlignmentGroup(true)
+
+    expect(cmp.vm.groupedToken(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.groupedToken(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
+
+    expect(cmp.vm.groupedToken(originSegment.tokens[1], allTargetTextsIds[1])).toBeFalsy() // was not added to the group
+  })
+
+  it('14 SegmentBlock - inActiveGroup, isFirstInActiveGroup - defines if token is in active group', async () => {
+    let cmp = shallowMount(SegmentBlock, {
+      store: appC.store,
+      localVue,
+      propsData: {
+        segment: originSegment,
+        currentTargetId: allTargetTextsIds[1]
+      }
+    })
+
+    const alGroup = createAlignmentGroup(false)
+
+    expect(cmp.vm.inActiveGroup(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.inActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeTruthy() // target token
+
+    expect(cmp.vm.inActiveGroup(originSegment.tokens[1], allTargetTextsIds[1])).toBeFalsy() // was not added to the group
+
+    expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
+    expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
   })
 })

@@ -7,18 +7,16 @@
         <div class="alpheios-alignment-editor-text-define-container-inner">
           <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
             <text-editor-single-block 
-                text-id="origin" 
-                @update-text = "updateOriginText" 
-                :external-text = "updatedOrigin"
+                text-type="origin" 
             />
           </div>
 
-          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container">
+          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container" v-if="allTargetTextsIds">
             <text-editor-single-block 
-                text-id="target" 
-                @update-text = "updateTargetText" 
-                :external-text = "updatedTarget" 
-                :disabled = "disableTargetTextBlock"   
+                v-for="(targetTextId, indexT) in allTargetTextsIds" :key="indexT"
+                text-type = "target" 
+                :text-id = "targetTextId"
+                :index = "indexT"
             />
           </div>
         </div>
@@ -35,19 +33,7 @@ export default {
     textEditorSingleBlock: TextEditorSingleBlock
   },
   props: {  
-    originUpdated: {
-      type: Number,
-      required: true
-    },
-    targetUpdated: {
-      type: Number,
-      required: true
-    },
     hideEditor: {
-      type: Number,
-      required: false
-    },
-    cssUpdate: {
       type: Number,
       required: false
     }
@@ -55,8 +41,6 @@ export default {
   data () {
     return {
       showTextsBlocks: true,
-      updatedOriginText: null,
-      updatedTargetText: null,
       disableTargetTextBlock: true
     }
   },
@@ -69,7 +53,7 @@ export default {
     }
   },
   /**
-   * I placed empty alignment here for now, because it is the first point where it should be existed.
+   * I placed an empty alignment here for now, because it is the first point where it should be existed.
    * Later when we define workflow for creation alignment depending on user authentication,
    * it could be moved out here
    */
@@ -78,35 +62,14 @@ export default {
     this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
+    allTargetTextsIds () {
+      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+    },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
     showTextsBlocksLabel () {
       return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
-    },
-    /**
-     * Catches if originUpdated was updated and update origin text from controller
-     */
-    updatedOrigin () {
-      return this.originUpdated && this.originText ?  this.originText : null
-    },
-    /**
-     * Catches if targetUpdated was updated and update target text from controller
-     */
-    updatedTarget () {
-      return this.targetUpdated && this.targetText ?  this.targetText : null
-    },
-    /**
-     * Retrieves origin doc source from controller
-     */
-    originText () {
-      return this.originUpdated ? this.$textC.originDocSource : {}
-    },
-    /**
-     * Retrieves target doc source from controller
-     */
-    targetText () {
-      return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
     l10n () {
       return L10nSingleton
@@ -118,28 +81,6 @@ export default {
      */
     toggleShowTextsBlocks () {
       this.showTextsBlocks = !this.showTextsBlocks
-    },
-    /**
-     * Updates origin doc source via texts controller
-     * @param {Object} textData
-     *        {String} textData.text
-     *        {String} textData.direction
-     *        {String} textData.lang
-     */
-    updateOriginText (textData) {
-      this.$textC.updateOriginDocSource(textData)
-      this.$emit('css-update-menu')
-    },
-    /**
-     * Updates target doc source via texts controller
-     * @param {Object} textData
-     *        {String} textData.text
-     *        {String} textData.direction
-     *        {String} textData.lang
-     */
-    updateTargetText (textData) {
-      this.$textC.updateTargetDocSource(textData)
-      this.$emit('css-update-menu')
     }
   }
 }

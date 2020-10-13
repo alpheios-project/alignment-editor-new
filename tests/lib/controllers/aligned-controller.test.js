@@ -4,6 +4,8 @@
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 import Alignment from '@/lib/data/alignment'
 import AlignmentGroup from '@/lib/data/alignment-group'
+import SourceText from '@/lib/data/source-text'
+import Segment from '@/lib/data/segment'
 import Token from '@/lib/data/token'
 import AppController from '@/lib/controllers/app-controller.js'
 
@@ -13,10 +15,12 @@ describe('texts-controller.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
   
+  let appC
   beforeAll(() => {
-    const appC = new AppController({
+    appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
   })
 
@@ -28,7 +32,7 @@ describe('texts-controller.test.js', () => {
   })
 
   it('1 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not defined', () => {
-    const alignedC = new AlignedController()
+    const alignedC = new AlignedController(appC.store)
 
     const result = alignedC.createAlignedTexts()
 
@@ -37,9 +41,9 @@ describe('texts-controller.test.js', () => {
   })
 
   it('2 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not ready', () => {
-    const alignedC = new AlignedController()
+    const alignedC = new AlignedController(appC.store)
     
-    const alignment = new Alignment({ text: 'origin' }, { text: 'target' })
+    const alignment = new Alignment({ text: 'origin' }, { text: '' })
     jest.spyOn(alignment, 'createAlignedTexts')
     const result = alignedC.createAlignedTexts(alignment)
 
@@ -49,7 +53,7 @@ describe('texts-controller.test.js', () => {
   })
 
   it('3 AlignedController - createAlignedTexts defines alignment and executes tokenizer', () => {
-    const alignedC = new AlignedController()
+    const alignedC = new AlignedController(appC.store)
 
     const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     jest.spyOn(alignment, 'createAlignedTexts')
@@ -60,256 +64,266 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeTruthy()
   })
 
-  it('4 AlignedController - originAlignedText returns empty object if alignment is not defined', () => {
-    const alignedC = new AlignedController()
-
-    const result = alignedC.originAlignedText
-    expect(result).toEqual({})
-  })
-
-  it('5 AlignedController - originAlignedText returns originAlignedText from the defined alignment', () => {
-    const alignedC = new AlignedController()
+  it('4 AlignedController - hasOriginAlignedText, hasTargetAlignedTexts, alignmentGroupsWorkflowStarted show that texts are already tokenized', () => {
+    const alignedC = new AlignedController(appC.store)
 
     const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+    
+    expect(alignedC.hasOriginAlignedText).toBeFalsy()
+    expect(alignedC.hasTargetAlignedTexts).toBeFalsy()
+    expect(alignedC.alignmentGroupsWorkflowStarted).toBeFalsy()
+
     alignedC.createAlignedTexts(alignment)
 
-    const result = alignedC.originAlignedText
-    expect(result).toHaveProperty('textType', 'origin')
-    expect(result).toHaveProperty('direction', 'ltr')
-    expect(result).toHaveProperty('lang', 'eng')
-
-    expect(result.segments.length).toEqual(1)
-    expect(result.segments[0].tokens.length).toEqual(1)
+    expect(alignedC.hasOriginAlignedText).toBeTruthy()
+    expect(alignedC.hasTargetAlignedTexts).toBeTruthy()
+    expect(alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()
   })
 
-  it('6 AlignedController - targetAlignedText returns empty object if alignment is not defined', () => {
-    const alignedC = new AlignedController()
-    
-    const result = alignedC.targetAlignedText
-    expect(result).toEqual({})
-  })
+  it('5 AlignedController - allAlignedTextsSegments - returns an object with all segmenets ordered by segment order', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
 
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-  it('7 AlignedController - targetAlignedText returns targetAlignedText from the defined alignment', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const result = alignedC.allAlignedTextsSegments
+    const targetIds = alignment.allTargetTextsIds
+    
+    expect(result.length).toEqual(2)
+    expect(result[0]).toEqual(expect.objectContaining({
+      index: 1,
+      origin: expect.any(Segment),
+      targets: expect.any(Object)
+    }))
 
-    const result = alignedC.targetAlignedText
-    expect(result).toHaveProperty('textType', 'target')
-    expect(result).toHaveProperty('direction', 'ltr')
-    expect(result).toHaveProperty('lang', 'eng')
+    expect(result[0].targets[targetIds[0]]).toEqual(expect.any(Segment))
+    expect(result[0].targets[targetIds[1]]).toEqual(expect.any(Segment))
 
-    expect(result.segments.length).toEqual(1)
-    expect(result.segments[0].tokens.length).toEqual(1)
+    expect(result[1]).toEqual(expect.objectContaining({
+      index: 2,
+      origin: expect.any(Segment),
+      targets: expect.any(Object)
+    }))
+
+    expect(result[1].targets[targetIds[0]]).toEqual(expect.any(Segment))
+    expect(result[1].targets[targetIds[1]]).toEqual(expect.any(Segment))
   })
 
-  it('8 AlignedController - clickToken executes activateGroupByToken if there is no active alignment and token is already grouped', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('6 AlignedController - clickToken executes activateGroupByToken if there is no active alignment and token is already grouped inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    jest.spyOn(alignedC, 'activateGroupByToken')
+    jest.spyOn(alignedC, 'startNewAlignmentGroup')
+    jest.spyOn(alignedC, 'finishActiveAlignmentGroup')
+    jest.spyOn(alignedC, 'mergeActiveGroupWithAnotherByToken')
+    jest.spyOn(alignedC, 'addToAlignmentGroup')
+    jest.spyOn(alignedC, 'removeFromAlignmentGroup')
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // now we have finished group, let's try to activate 
     
-    alignedC.activateGroupByToken = jest.fn()
-    alignedC.startNewAlignmentGroup = jest.fn()
-    alignedC.finishActiveAlignmentGroup = jest.fn()
-    alignedC.mergeActiveGroupWithAnotherByToken = jest.fn()
-    alignedC.addToAlignmentGroup = jest.fn()
-    alignment.removeFromAlignmentGroup = jest.fn()
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    jest.spyOn(alignedC, 'hasActiveAlignment', 'get').mockReturnValue(false)
-    alignedC.tokenIsGrouped = jest.fn(() => true)
-
-    alignedC.clickToken(token)
-
-    expect(alignedC.activateGroupByToken).toHaveBeenCalled()
-    
-    expect(alignedC.startNewAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignedC.finishActiveAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignedC.mergeActiveGroupWithAnotherByToken).not.toHaveBeenCalled()
-    expect(alignedC.addToAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
-  })
-
-  it('9 AlignedController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-    
-    alignedC.activateGroupByToken = jest.fn()
-    alignedC.startNewAlignmentGroup = jest.fn()
-    alignedC.finishActiveAlignmentGroup = jest.fn()
-    alignedC.mergeActiveGroupWithAnotherByToken = jest.fn()
-    alignedC.addToAlignmentGroup = jest.fn()
-    alignment.removeFromAlignmentGroup = jest.fn()
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    jest.spyOn(alignedC, 'hasActiveAlignment', 'get').mockReturnValue(false)
-    alignedC.tokenIsGrouped = jest.fn(() => false)
-
-    alignedC.clickToken(token)
+    // inside another target
+    alignedC.clickToken(tokenTarget1, targetIds[1])
 
     expect(alignedC.activateGroupByToken).not.toHaveBeenCalled()
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy() //no group was started, no group was activated
+
+    // inside the same target
+    alignedC.clickToken(tokenTarget1, targetIds[0])
     
-    expect(alignedC.startNewAlignmentGroup).toHaveBeenCalled()
-    expect(alignedC.finishActiveAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignedC.mergeActiveGroupWithAnotherByToken).not.toHaveBeenCalled()
-    expect(alignedC.addToAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
+    expect(alignedC.activateGroupByToken).toHaveBeenCalledWith(tokenTarget1, targetIds[0])
+    expect(alignment.hasActiveAlignmentGroup).toBeTruthy() // group was successfully activated
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
   })
 
-  it('10 AlignedController - clickToken executes finishActiveAlignmentGroup if there is an active alignment and token meets the conditions for finishing group', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('7 AlignedController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    jest.spyOn(alignedC, 'activateGroupByToken')
+    jest.spyOn(alignedC, 'startNewAlignmentGroup')
+    jest.spyOn(alignedC, 'finishActiveAlignmentGroup')
+    jest.spyOn(alignedC, 'mergeActiveGroupWithAnotherByToken')
+    jest.spyOn(alignedC, 'addToAlignmentGroup')
+    jest.spyOn(alignedC, 'removeFromAlignmentGroup')
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[1]].alignedText.segments[0].tokens[0]
     
-    alignedC.activateGroupByToken = jest.fn()
-    alignedC.startNewAlignmentGroup = jest.fn()
-    alignedC.finishActiveAlignmentGroup = jest.fn()
-    alignedC.mergeActiveGroupWithAnotherByToken = jest.fn()
-    alignedC.addToAlignmentGroup = jest.fn()
-    alignment.removeFromAlignmentGroup = jest.fn()
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // now we have finished group, let's try to activate 
+    
+    // inside another target
+    alignedC.clickToken(tokenTarget2, targetIds[0])
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy() //no group was started, no group was activated
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    jest.spyOn(alignedC, 'hasActiveAlignment', 'get').mockReturnValue(true)
-    alignment.shouldFinishAlignmentGroup = jest.fn(() => true)
-
-    alignedC.clickToken(token)
-
-    expect(alignedC.activateGroupByToken).not.toHaveBeenCalled()
-    expect(alignedC.startNewAlignmentGroup).not.toHaveBeenCalled()
-
-    expect(alignedC.finishActiveAlignmentGroup).toHaveBeenCalled()
-
-    expect(alignedC.mergeActiveGroupWithAnotherByToken).not.toHaveBeenCalled()
-    expect(alignedC.addToAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
+    // inside the same target
+    alignedC.clickToken(tokenTarget2, targetIds[1])
+    expect(alignedC.startNewAlignmentGroup).toHaveBeenCalledWith(tokenTarget2, targetIds[1])
+    expect(alignment.hasActiveAlignmentGroup).toBeTruthy() // group was successfully started
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(1)
   })
 
-  it('11 AlignedController - clickToken executes removeFromAlignmentGroup if there is an active alignment and token meets the conditions for removing from a group', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+
+  it('8 AlignedController - clickToken executes finishActiveAlignmentGroup if there is an active alignment and token meets the conditions for finishing group', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    jest.spyOn(alignedC, 'activateGroupByToken')
+    jest.spyOn(alignedC, 'startNewAlignmentGroup')
+    jest.spyOn(alignedC, 'finishActiveAlignmentGroup')
+    jest.spyOn(alignedC, 'mergeActiveGroupWithAnotherByToken')
+    jest.spyOn(alignedC, 'addToAlignmentGroup')
+    jest.spyOn(alignedC, 'removeFromAlignmentGroup')
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[1]].alignedText.segments[0].tokens[0]
     
-    alignedC.activateGroupByToken = jest.fn()
-    alignedC.startNewAlignmentGroup = jest.fn()
-    alignedC.finishActiveAlignmentGroup = jest.fn()
-    alignedC.mergeActiveGroupWithAnotherByToken = jest.fn()
-    alignedC.addToAlignmentGroup = jest.fn()
-    alignment.removeFromAlignmentGroup = jest.fn()
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    // inside another target
+    alignedC.clickToken(tokenOrigin1, targetIds[1])
+    expect(alignment.hasActiveAlignmentGroup).toBeTruthy() // group was not finished
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
 
-    jest.spyOn(alignedC, 'hasActiveAlignment', 'get').mockReturnValue(true)
-    alignment.shouldFinishAlignmentGroup = jest.fn(() => false)
-    alignment.shouldBeRemovedFromAlignmentGroup = jest.fn(() => true)
-
-    alignedC.clickToken(token)
-
-    expect(alignedC.activateGroupByToken).not.toHaveBeenCalled()
-    expect(alignedC.startNewAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignedC.finishActiveAlignmentGroup).not.toHaveBeenCalled()
-
-    expect(alignment.removeFromAlignmentGroup).toHaveBeenCalled()
-
-    expect(alignedC.mergeActiveGroupWithAnotherByToken).not.toHaveBeenCalled()
-    expect(alignedC.addToAlignmentGroup).not.toHaveBeenCalled()
-    
+    // inside the same target
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy() //group was finished
+    expect(alignedC.finishActiveAlignmentGroup).toHaveBeenCalledWith()
   })
 
-  it('12 AlignedController - clickToken executes mergeActiveGroupWithAnotherByToken if there is an active alignment and token is in another group', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('9 AlignedController - clickToken executes removeFromAlignmentGroup if there is an active alignment and token meets the conditions for removing from a group inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    jest.spyOn(alignedC, 'activateGroupByToken')
+    jest.spyOn(alignedC, 'startNewAlignmentGroup')
+    jest.spyOn(alignedC, 'finishActiveAlignmentGroup')
+    jest.spyOn(alignedC, 'mergeActiveGroupWithAnotherByToken')
+    jest.spyOn(alignedC, 'addToAlignmentGroup')
+    jest.spyOn(alignedC, 'removeFromAlignmentGroup')
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
     
-    alignedC.activateGroupByToken = jest.fn()
-    alignedC.startNewAlignmentGroup = jest.fn()
-    alignedC.finishActiveAlignmentGroup = jest.fn()
-    alignedC.mergeActiveGroupWithAnotherByToken = jest.fn()
-    alignedC.addToAlignmentGroup = jest.fn()
-    alignment.removeFromAlignmentGroup = jest.fn()
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenTarget2, targetIds[0])
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    // inside another tab
+    alignedC.clickToken(tokenTarget2, targetIds[1])
 
-    jest.spyOn(alignedC, 'hasActiveAlignment', 'get').mockReturnValue(true)
-    alignment.shouldFinishAlignmentGroup = jest.fn(() => false)
-    alignment.shouldBeRemovedFromAlignmentGroup = jest.fn(() => false)
-    alignedC.tokenIsGrouped = jest.fn(() => true)
+    expect(alignedC.removeFromAlignmentGroup).not.toHaveBeenCalled()
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(3) // no group members were removed
 
-    alignedC.clickToken(token)
-
-    expect(alignedC.activateGroupByToken).not.toHaveBeenCalled()
-    expect(alignedC.startNewAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignedC.finishActiveAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
-
-    expect(alignedC.mergeActiveGroupWithAnotherByToken).toHaveBeenCalled()
-
-    expect(alignedC.addToAlignmentGroup).not.toHaveBeenCalled()
-    
+    // inside the same target
+    alignedC.clickToken(tokenTarget2, targetIds[0])
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(2) // the token was removed
+    expect(alignedC.removeFromAlignmentGroup).toHaveBeenCalledWith(tokenTarget2, targetIds[0])
   })
 
-  it('13 AlignedController - clickToken executes addToAlignmentGroup if there is an active alignment and token should be added', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('10 AlignedController - clickToken executes mergeActiveGroupWithAnotherByToken if there is an active alignment and token is in another group inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    jest.spyOn(alignedC, 'activateGroupByToken')
+    jest.spyOn(alignedC, 'startNewAlignmentGroup')
+    jest.spyOn(alignedC, 'finishActiveAlignmentGroup')
+    jest.spyOn(alignedC, 'mergeActiveGroupWithAnotherByToken')
+    jest.spyOn(alignedC, 'addToAlignmentGroup')
+    jest.spyOn(alignedC, 'removeFromAlignmentGroup')
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
+
+    const tokenOrigin3 = alignment.origin.alignedText.segments[0].tokens[2]
+    const tokenTarget3 = alignment.targets[targetIds[1]].alignedText.segments[0].tokens[2]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // created the first group
+
+    alignedC.clickToken(tokenOrigin3, targetIds[1])
+    alignedC.clickToken(tokenTarget3, targetIds[1])
+    alignedC.clickToken(tokenOrigin3, targetIds[1]) // created the second group in another target text
+
+    alignedC.clickToken(tokenTarget2, targetIds[0]) // started the new group
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(1)
     
-    alignedC.activateGroupByToken = jest.fn()
-    alignedC.startNewAlignmentGroup = jest.fn()
-    alignedC.finishActiveAlignmentGroup = jest.fn()
-    alignedC.mergeActiveGroupWithAnotherByToken = jest.fn()
-    alignedC.addToAlignmentGroup = jest.fn()
-    alignment.removeFromAlignmentGroup = jest.fn()
+    // click on the token on the group from the another target
+    alignedC.clickToken(tokenOrigin3, targetIds[0]) // this token would be simply added, and the group won't be merged, because it is in another target text
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    jest.spyOn(alignedC, 'hasActiveAlignment', 'get').mockReturnValue(true)
-    alignment.shouldFinishAlignmentGroup = jest.fn(() => false)
-    alignment.shouldBeRemovedFromAlignmentGroup = jest.fn(() => false)
-    alignedC.tokenIsGrouped = jest.fn(() => false)
-
-    alignedC.clickToken(token)
-
-    expect(alignedC.activateGroupByToken).not.toHaveBeenCalled()
-    expect(alignedC.startNewAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignedC.finishActiveAlignmentGroup).not.toHaveBeenCalled()
-    expect(alignment.removeFromAlignmentGroup).not.toHaveBeenCalled()
-
-    expect(alignedC.mergeActiveGroupWithAnotherByToken).not.toHaveBeenCalled()
-
-    expect(alignedC.addToAlignmentGroup).toHaveBeenCalled()
-    
+    // click on the token on the group from the same target
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(4) // group were merged
+    expect(alignedC.mergeActiveGroupWithAnotherByToken).toHaveBeenCalledWith(tokenOrigin1, targetIds[0])
   })
 
-  it('14 AlignedController - startNewAlignmentGroup returns false if alignment is not defined', () => {
+  it('11 AlignedController - clickToken executes addToAlignmentGroup if there is an active alignment and token should be added inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
+    alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    jest.spyOn(alignedC, 'activateGroupByToken')
+    jest.spyOn(alignedC, 'startNewAlignmentGroup')
+    jest.spyOn(alignedC, 'finishActiveAlignmentGroup')
+    jest.spyOn(alignedC, 'mergeActiveGroupWithAnotherByToken')
+    jest.spyOn(alignedC, 'addToAlignmentGroup')
+    jest.spyOn(alignedC, 'removeFromAlignmentGroup')
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(1)
+
+    // click inside another target
+    alignedC.clickToken(tokenTarget1, targetIds[1])
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(1) // the token was not added
+
+    // click inside the same target
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(2) // the token was not added
+    expect(alignedC.addToAlignmentGroup).toHaveBeenCalledWith(tokenTarget1, targetIds[0])
+  })
+
+  it('12 AlignedController - startNewAlignmentGroup returns false if alignment is not defined', () => {
     const alignedC = new AlignedController()
 
     const token = new Token({ 
@@ -322,225 +336,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('15 AlignedController - startNewAlignmentGroup returns true and executes alignment.startNewAlignmentGroup if alignment is defined', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    jest.spyOn(alignment, 'startNewAlignmentGroup')
-
-    const result = alignedC.startNewAlignmentGroup(token)
-
-    expect(result).toBeTruthy()
-    expect(alignment.startNewAlignmentGroup).toHaveBeenCalledWith(token)
-  })
-
-  it('16 AlignedController - addToAlignmentGroup returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.addToAlignmentGroup(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('17 AlignedController - addToAlignmentGroup returns false, executes alignment.addToAlignmentGroup and prints error if alignment is defined and activeAlignmentGroup is not  defined', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    jest.spyOn(alignment, 'addToAlignmentGroup')
-
-    const result = alignedC.addToAlignmentGroup(token)
-    
-    expect(result).toBeFalsy()
-    expect(alignment.addToAlignmentGroup).toHaveBeenCalledWith(token)
-  })
-
-  it('18 AlignedController - addToAlignmentGroup returns true and executes alignment.addToAlignmentGroup if alignment and activeAlignmentGroup are defined', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-
-    alignedC.startNewAlignmentGroup(token)
-
-    jest.spyOn(alignment, 'addToAlignmentGroup')
-
-    const result = alignedC.addToAlignmentGroup(token2)
-    
-    expect(result).toBeTruthy()
-    expect(alignment.addToAlignmentGroup).toHaveBeenCalledWith(token2)
-  })
-
-  it('19 AlignedController - finishActiveAlignmentGroup returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.finishActiveAlignmentGroup(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('20 AlignedController - finishActiveAlignmentGroup returns false, executes alignment.finishActiveAlignmentGroup with false return if alignment is not ready to be finished', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-
-    jest.spyOn(alignment, 'finishActiveAlignmentGroup')
-
-    const result = alignedC.finishActiveAlignmentGroup()
-    
-    expect(result).toBeFalsy()
-    expect(alignment.finishActiveAlignmentGroup).toHaveBeenCalled()
-  })
-
-  it('21 AlignedController - finishActiveAlignmentGroup returns true, executes alignment.finishActiveAlignmentGroup with true return if alignment is ready to be finished', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
-
-    jest.spyOn(alignment, 'finishActiveAlignmentGroup')
-
-    const result = alignedC.finishActiveAlignmentGroup()
-    
-    expect(result).toBeTruthy()
-    expect(alignment.finishActiveAlignmentGroup).toHaveBeenCalled()
-  })
-
-  it('22 AlignedController - mergeActiveGroupWithAnotherByToken returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.mergeActiveGroupWithAnotherByToken(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('23 AlignedController - mergeActiveGroupWithAnotherByToken returns false, executes alignment.mergeActiveGroupWithAnotherByToken with false return if passed tokensGroup does not exists and activeAlignmentGroup is defined', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
-
-    const token3 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-3',
-      word: 'target'
-    })
-
-    jest.spyOn(alignment, 'mergeActiveGroupWithAnotherByToken')
-
-    const result = alignedC.mergeActiveGroupWithAnotherByToken(token3)
-    
-    expect(result).toBeFalsy()
-    expect(alignment.mergeActiveGroupWithAnotherByToken).toHaveBeenCalled()
-  })
-
-  it('24 AlignedController - mergeActiveGroupWithAnotherByToken returns true, executes alignment.mergeActiveGroupWithAnotherByToken with true, if passed tokensGroup exists and activeAlignmentGroup is defined', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
-
-    alignedC.finishActiveAlignmentGroup()
-
-    const token3 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-3',
-      word: 'target'
-    })
-    alignedC.startNewAlignmentGroup(token3)
-
-    jest.spyOn(alignment, 'mergeActiveGroupWithAnotherByToken')
-
-    const result = alignedC.mergeActiveGroupWithAnotherByToken(token)
-    
-    expect(result).toBeTruthy()
-    expect(alignment.mergeActiveGroupWithAnotherByToken).toHaveBeenCalled()
-  })
-
-  it('25 AlignedController - findAlignmentGroup returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
+  it('13 AlignedController - findAlignmentGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController(appC.store)
 
     const token = new Token({ 
       textType: 'origin',
@@ -552,8 +349,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('26 AlignedController - findAlignmentGroup returns false if token is not grouped', () => {
-    const alignedC = new AlignedController()
+  it('14 AlignedController - findAlignmentGroup returns false if token is not grouped', () => {
+    const alignedC = new AlignedController(appC.store)
     const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
 
@@ -569,370 +366,328 @@ describe('texts-controller.test.js', () => {
     expect(alignment.findAlignmentGroup).toHaveBeenCalled()
   })
 
-  it('27 AlignedController - findAlignmentGroup returns AlignmentGroup if token is grouped', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('15 AlignedController - findAlignmentGroup returns AlignmentGroup if token is grouped inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    jest.spyOn(alignment, 'findAlignmentGroup')
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
 
-    alignedC.finishActiveAlignmentGroup()
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenTarget2, targetIds[0])
 
-    const result = alignedC.findAlignmentGroup(token)
-    
-    expect(result).toBeInstanceOf(AlignmentGroup)
-    expect(alignment.findAlignmentGroup).toHaveBeenCalledWith(token)
+    expect(alignedC.findAlignmentGroup(tokenOrigin1)).toBeNull() // because it is in active (not yet saved group)
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // finish the group
+
+    expect(alignedC.findAlignmentGroup(tokenOrigin1)).not.toBeNull() // we didn't limit by targetId, sjo it would be found
+    expect(alignedC.findAlignmentGroup(tokenOrigin1, targetIds[1])).toBeNull() // it is another targetId
+    expect(alignedC.findAlignmentGroup(tokenOrigin1, targetIds[0])).not.toBeNull() // it is the same target
   })
 
-  it('28 AlignedController - findAlignmentGroupIds returns empty array if alignment is not defined', () => {
-    const alignedC = new AlignedController()
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+  it('16 AlignedController - tokenIsGrouped returns true if a token is grouped on the current targetId if it is passed', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const result = alignedC.findAlignmentGroupIds(token)
-    expect(result.length).toEqual(0)
-  })
-
-  it('29 AlignedController - findAlignmentGroupIds returns empty array if alignment is defined but there is no alignment group with this token', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
 
-    const result = alignedC.findAlignmentGroupIds(token)
-    expect(result.length).toEqual(0)
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // group is done
+
+    expect(alignedC.tokenIsGrouped(tokenOrigin1)).toBeTruthy()
+    expect(alignedC.tokenIsGrouped(tokenTarget2)).toBeFalsy()
+
+    expect(alignedC.tokenIsGrouped(tokenOrigin1, targetIds[0])).toBeTruthy()
+    expect(alignedC.tokenIsGrouped(tokenOrigin1, targetIds[1])).toBeFalsy()
   })
 
-  it('30 AlignedController - findAlignmentGroupIds returns array all ids fro alignmentGroup that contains passed token', () => {
-    const alignedC = new AlignedController()
+  it('17 AlignedController - tokenInActiveGroup returns true if a token is in an active group on the current targetId if it is passed', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
-    
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
+    const targetIds = alignment.allTargetTextsIds
 
-    alignedC.finishActiveAlignmentGroup()
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
 
-    const result = alignedC.findAlignmentGroupIds(token)
-    expect(result).toEqual([ 'L1:1-4', 'L2:1-4' ])
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // group is done
+
+    alignedC.clickToken(tokenTarget2, targetIds[0]) // active group
+
+    expect(alignedC.tokenInActiveGroup(tokenTarget2)).toBeTruthy()
+    expect(alignedC.tokenInActiveGroup(tokenTarget1)).toBeFalsy()
+
+    expect(alignedC.tokenInActiveGroup(tokenTarget2, targetIds[0])).toBeTruthy()
+    expect(alignedC.tokenInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
   })
 
-  it('31 AlignedController - tokenIsGrouped returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
+  it('18 AlignedController - isFirstInActiveGroup returns true if a token is the first in an active group on the current targetId if it is passed', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.tokenIsGrouped(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('32 AlignedController - tokenIsGrouped returns false if token is not grouped', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
 
-    const result = alignedC.tokenIsGrouped(token)
-    expect(result).toBeFalsy()
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[2]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // group is done
+
+    alignedC.clickToken(tokenTarget2, targetIds[0]) // active group
+    alignedC.clickToken(tokenOrigin2, targetIds[0])
+
+    expect(alignedC.isFirstInActiveGroup(tokenTarget2)).toBeTruthy()
+    expect(alignedC.isFirstInActiveGroup(tokenOrigin2)).toBeFalsy()
+    expect(alignedC.isFirstInActiveGroup(tokenOrigin1)).toBeFalsy()
+
+    expect(alignedC.isFirstInActiveGroup(tokenTarget2, targetIds[0])).toBeTruthy()
+    expect(alignedC.isFirstInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
   })
 
-  it('33 AlignedController - tokenIsGrouped returns true if token is grouped', () => {
-    const alignedC = new AlignedController()
+  it('19 AlignedController - hasActiveAlignmentGroup returns true if an active alignment group is started', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    expect(alignedC.hasActiveAlignmentGroup).toBeFalsy()
 
-    alignedC.finishActiveAlignmentGroup()
-
-    const result = alignedC.tokenIsGrouped(token)
-    expect(result).toBeTruthy()
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    expect(alignedC.hasActiveAlignmentGroup).toBeTruthy()
   })
 
-  it('34 AlignedController - tokenInActiveGroup returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
+  it('20 AlignedController - isFirstInActiveGroup returns true if a token is the first in an active group on the current targetId if it is passed', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.tokenInActiveGroup(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('35 AlignedController - tokenInActiveGroup returns false if token is not in active group', () => {
-    const alignedC = new AlignedController()
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
 
-    const result = alignedC.tokenInActiveGroup(token)
-    expect(result).toBeFalsy()
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[2]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // group is done
+
+    alignedC.clickToken(tokenTarget2, targetIds[0]) // active group
+    alignedC.clickToken(tokenOrigin2, targetIds[0])
+
+    expect(alignedC.isFirstInActiveGroup(tokenTarget2)).toBeTruthy()
+    expect(alignedC.isFirstInActiveGroup(tokenOrigin2)).toBeFalsy()
+    expect(alignedC.isFirstInActiveGroup(tokenOrigin1)).toBeFalsy()
+
+    expect(alignedC.isFirstInActiveGroup(tokenTarget2, targetIds[0])).toBeTruthy()
+    expect(alignedC.isFirstInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
   })
 
-  it('36 AlignedController - tokenInActiveGroup returns true if token is in active group', () => {
-    const alignedC = new AlignedController()
+  it('20 AlignedController - shouldFinishAlignmentGroup returns true if we should finish an active group after clicking on the token', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
 
-    alignedC.startNewAlignmentGroup(token)
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[2]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
 
-    const result = alignedC.tokenInActiveGroup(token)
-    expect(result).toBeTruthy()
+    expect(alignedC.shouldFinishAlignmentGroup(tokenOrigin1, targetIds[0])).toBeFalsy() // there is no active alignment group
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+
+    expect(alignedC.shouldFinishAlignmentGroup(tokenTarget2, targetIds[0])).toBeFalsy() // this token is not inside the alignment group
+    alignedC.clickToken(tokenTarget2, targetIds[0])
+
+    expect(alignedC.shouldFinishAlignmentGroup(tokenTarget2, targetIds[0])).toBeFalsy() // it is not the same as start - if click- it would remove this token
+
+    expect(alignedC.shouldFinishAlignmentGroup(tokenOrigin2, targetIds[0])).toBeFalsy() // there is the same textType but it is not in the group yet
+    alignedC.clickToken(tokenOrigin2, targetIds[0])
+
+    expect(alignedC.shouldFinishAlignmentGroup(tokenOrigin1, targetIds[1])).toBeFalsy() // this is not the same targetId
+    expect(alignedC.shouldFinishAlignmentGroup(tokenOrigin1, targetIds[0])).toBeTruthy() // this token would finish the group
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
   })
 
-  it('37 AlignedController - isFirstInActiveGroup returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
+  it('21 AlignedController - shouldRemoveFromAlignmentGroup returns true if we should remove the token from an active group after clicking on the token', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.isFirstInActiveGroup(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('38 AlignedController - isFirstInActiveGroup returns false if token is not in active group', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
 
-    const result = alignedC.isFirstInActiveGroup(token)
-    expect(result).toBeFalsy()
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[2]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
+
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenOrigin1, targetIds[0])).toBeFalsy() // there is no active alignment group
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeFalsy() // this token is not inside the alignment group
+    alignedC.clickToken(tokenTarget2, targetIds[0])
+
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenOrigin2, targetIds[0])).toBeFalsy() // it is the same as start - if click- it would finish the group
+
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget1, targetIds[0])).toBeFalsy() // it is not the same textType but it is not in the group yet
+    alignedC.clickToken(tokenOrigin2, targetIds[0])
+
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[1])).toBeFalsy() // this is not the same targetId
+    expect(alignedC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeTruthy() // this token would finish the group
+
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(3)
+    alignedC.clickToken(tokenTarget2, targetIds[0])
+
+    expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
   })
 
-  it('39 AlignedController - isFirstInActiveGroup returns false if token is in active group but it is not the first token', () => {
-    const alignedC = new AlignedController()
+  it('22 AlignedController - activateGroupByToken makes group active if it has passed token inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
 
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[2]
+    const tokenTarget2 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[1]
 
-    const result = alignedC.isFirstInActiveGroup(token2)
-    expect(result).toBeFalsy()
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // group is done
+
+    expect(alignedC.activateGroupByToken(tokenOrigin2)).toBeFalsy() // it is not a grouped token
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
+
+    expect(alignedC.activateGroupByToken(tokenOrigin1, targetIds[1])).toBeFalsy() // it is not the same targetId
+    expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
+
+    expect(alignedC.activateGroupByToken(tokenOrigin1, targetIds[0])).toBeTruthy() // it is the same targetId
+    expect(alignment.hasActiveAlignmentGroup).toBeTruthy()
   })
 
-  it('40 AlignedController - isFirstInActiveGroup returns true if token is in active group and it is the first token', () => {
-    const alignedC = new AlignedController()
+  it('22 AlignedController - activateHoverOnAlignmentGroups defines hoveredGroups inside alignment and returns them inside correct target text (limitByTargetId)', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
 
-    alignedC.startNewAlignmentGroup(token)
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
-    
-    const result = alignedC.isFirstInActiveGroup(token)
-    expect(result).toBeTruthy()
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[1]
+    const tokenTarget2 = alignment.targets[targetIds[1]].alignedText.segments[0].tokens[1]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // the first group on the first targetId
+
+    alignedC.clickToken(tokenOrigin1, targetIds[1])
+    alignedC.clickToken(tokenTarget2, targetIds[1])
+    alignedC.clickToken(tokenOrigin1, targetIds[1]) // the second group on the second targetId with the same origin
+
+    expect(alignedC.activateHoverOnAlignmentGroups(tokenOrigin2).length).toEqual(0) // no group was hovered
+
+    expect(alignedC.activateHoverOnAlignmentGroups(tokenOrigin1, targetIds[0]).length).toEqual(1) // hovered one group on the first target
+    expect(alignedC.activateHoverOnAlignmentGroups(tokenOrigin1, targetIds[1]).length).toEqual(1) // hovered one group on the second target
+    expect(alignedC.activateHoverOnAlignmentGroups(tokenOrigin1).length).toEqual(2) // hovered both groups
   })
 
-  it('41 AlignedController - hasActiveAlignment returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
+  it('23 AlignedController - clearHoverOnAlignmentGroups clears hoveredGroups', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const result = alignedC.hasActiveAlignment
-    expect(result).toBeFalsy()
-  })
-
-  it('42 AlignedController - hasActiveAlignment returns false if alignment defined but there is no activeAlignmentGroup', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const result = alignedC.hasActiveAlignment
-    expect(result).toBeFalsy()
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // the first group on the first targetId
+
+    alignedC.activateHoverOnAlignmentGroups(tokenOrigin1, targetIds[0])
+
+    expect(alignment.hoveredGroups.length).toEqual(1)
+    alignedC.clearHoverOnAlignmentGroups()
+    expect(alignment.hoveredGroups.length).toEqual(0)
   })
 
-  it('43 AlignedController - hasActiveAlignment returns false if alignment defined but there is no activeAlignmentGroup', () => {
-    const alignedC = new AlignedController()
+  it('24 AlignedController - selectedToken checks if token is hovered', () => {
+    const alignedC = new AlignedController(appC.store)
+    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
     alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
 
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[1]
 
-    alignedC.startNewAlignmentGroup(token)
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // the first group on the first targetId
 
-    const result = alignedC.hasActiveAlignment
-    expect(result).toBeTruthy()
+    alignedC.activateHoverOnAlignmentGroups(tokenOrigin1, targetIds[0])
+
+    expect(alignment.hoveredGroups.length).toEqual(1)
+    expect(alignedC.selectedToken(tokenOrigin1)).toBeTruthy()
+    expect(alignedC.selectedToken(tokenTarget1)).toBeTruthy()
+    expect(alignedC.selectedToken(tokenOrigin2)).toBeFalsy()
+
+    alignedC.clearHoverOnAlignmentGroups()
+    expect(alignedC.selectedToken(tokenOrigin1)).toBeFalsy()
+    expect(alignedC.selectedToken(tokenTarget1)).toBeFalsy()
+    expect(alignedC.selectedToken(tokenOrigin2)).toBeFalsy()
   })
-
-  it('44 AlignedController - activateGroupByToken returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController()
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.activateGroupByToken(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('45 AlignedController - activateGroupByToken returns false if alignment is defined but token is not grouped', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    const result = alignedC.activateGroupByToken(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('46 AlignedController - activateGroupByToken returns false if alignment is defined but token is in active group', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-    
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    alignedC.startNewAlignmentGroup(token)
-
-    const result = alignedC.activateGroupByToken(token)
-    expect(result).toBeFalsy()
-  })
-
-  it('47 AlignedController - activateGroupByToken returns true if alignment is defined and token is in saved group', () => {
-    const alignedC = new AlignedController()
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
-    alignedC.createAlignedTexts(alignment)
-    
-    const token = new Token({ 
-      textType: 'origin',
-      idWord: 'L1:1-4',
-      word: 'origin'
-    })
-
-    alignedC.startNewAlignmentGroup(token)
-
-    const token2 = new Token({ 
-      textType: 'target',
-      idWord: 'L2:1-4',
-      word: 'target'
-    })
-    alignedC.addToAlignmentGroup(token2)
-    alignedC.finishActiveAlignmentGroup()
-
-    const result = alignedC.activateGroupByToken(token)
-    expect(result).toBeTruthy()
-  })
-
 })
+
+
+

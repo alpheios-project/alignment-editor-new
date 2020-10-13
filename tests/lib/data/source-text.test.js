@@ -53,14 +53,16 @@ describe('source-text.test.js', () => {
     expect(sourceText.fullyDefined).toBeFalsy()
 
     sourceText.update({
-      text: 'target text'
+      text: ''
     })
     expect(sourceText.fullyDefined).toBeFalsy()
 
     sourceText.update({
-      text: 'target text', direction: 'rtl'
+      text: 'target text'
     })
-    expect(sourceText.fullyDefined).toBeFalsy()
+    expect(sourceText.fullyDefined).toBeTruthy() // direction and lang  are defined by default
+    expect(sourceText.direction).toEqual('ltr')
+    expect(sourceText.lang).toEqual('eng')
 
     sourceText.update({
       text: 'target text', direction: 'rtl', lang: 'lat'

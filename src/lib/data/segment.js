@@ -1,12 +1,12 @@
 import Token from '@/lib/data/token'
 
 export default class Segment {
-  constructor ({ index, textType, lang, direction, tokens }) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
     this.direction = direction
-
+    this.docSourceId = docSourceId
     this.checkAndUpdateTokens(tokens)
   }
 
@@ -15,6 +15,6 @@ export default class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token))
+    this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
   }
 }

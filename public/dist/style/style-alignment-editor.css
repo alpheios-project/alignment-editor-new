@@ -87,7 +87,7 @@
 }
 .alpheios-select:disabled {
   background-color: #fff;
-  color: #E6E6E6;
+  color: #909090;
 }
 .alpheios-select:not([multiple]):not([size]) {
   -webkit-appearance: none;
@@ -144,8 +144,8 @@ input.alpheios-input:focus, input.alpheios-input[type]:focus {
   border-radius: 10px;
 }
 input.alpheios-input:disabled {
-  background-color: #757575;
-  color: #fff;
+  background-color: #e3e3e3;
+  color: #909090;
   border: 1px solid #757575;
   border-radius: 10px;
 }
@@ -268,6 +268,24 @@ input.alpheios-input::-ms-input-placeholder {
   font-size: 90%;
   color: #888;
 }
+.alpheios-alignment-editor-text-block__title {
+  position: relative;
+}
+.alpheios-alignment-editor-text-block__remove {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  right: 0;
+  top: 50%;
+  top: 0;
+  position: absolute;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-text-block__remove svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 .alpheios-alignment-editor-text-define-container-inner:before, .alpheios-alignment-editor-text-define-container-inner:after {
   content: "";
   display: block;
@@ -322,27 +340,66 @@ input.alpheios-input::-ms-input-placeholder {
   background: #f06d26;
   color: #fff;
 }
-.alpheios-alignment-editor-align-define-container {
-  display: flex;
-  flex-wrap: wrap;
+.alpheios-alignment-editor-align-target-tabs {
+  padding-left: 51%;
+}
+.alpheios-alignment-editor-align-target-tab-item {
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 10px 0 0;
+  background: #bebebe;
+  color: #fff;
+}
+.alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
+  background: #185F6D;
+}
+.alpheios-alignment-editor-align-define-container-view-mode {
   margin-top: 15px;
   border: 1px solid #ddd;
+  border-bottom-color: transparent;
   background: #f3f3f3;
-  padding: 10px;
 }
-.alpheios-alignment-editor-align-define-container .alpheios-alignment-editor-align-text-segment {
-  flex-grow: 1;
-  width: 50%;
-  padding: 10px;
-  border: 2px solid transparent;
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
   border-bottom: 2px solid #ddd;
 }
-.alpheios-alignment-editor-align-define-container .alpheios-align-text-segment-origin {
-  border-right: 2px solid #ddd;
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data:before, .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data:after {
+  clear: both;
+  display: table;
+  content: "";
 }
-.alpheios-alignment-editor-align-define-container .alpheios-align-text-segment-origin-last,
-.alpheios-alignment-editor-align-define-container .alpheios-align-text-segment-target-last {
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment {
+  border-bottom: 2px solid #e3e3e3;
+  padding: 10px;
+}
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment.alpheios-align-text-segment-origin, .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment.alpheios-align-text-segment-target-last {
   border-bottom: 2px solid transparent;
+}
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item {
+  width: 50%;
+  float: left;
+}
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+  border-left: 2px solid #ddd;
+}
+.alpheios-alignment-editor__link-label {
+  cursor: pointer;
+  font-size: 90%;
+  color: #467e8a;
+  display: inline-block;
+  padding: 0 3px;
+}
+.alpheios-alignment-editor__link-label:hover {
+  text-decoration: underline;
+  color: #185F6D;
+}
+.alpheios-alignment-editor__link-label.alpheios-alignment-editor__link-label-active {
+  text-decoration: underline;
+  color: #185F6D;
 }
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;

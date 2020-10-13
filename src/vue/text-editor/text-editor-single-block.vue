@@ -1,17 +1,23 @@
 <template>
-  <div class="alpheios-alignment-editor-text-block">
-      <p class="alpheios-alignment-editor-text-block__title">{{ textBlockTitle }}</p>
+  <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated">
+      <p class="alpheios-alignment-editor-text-block__title">{{ indexData }}{{ textBlockTitle }}
+        <span :id="removeId" class="alpheios-alignment-editor-text-block__remove" v-show="showDeleteIcon" @click="deleteText">
+          <delete-icon />
+        </span>
+      </p>
       <p class="alpheios-alignment-editor-text-block__direction">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
-          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText">
+          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
           <label :for="directionRadioId('ltr')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
-          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText">
+          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
           <label :for="directionRadioId('rtl')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
       </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"></textarea>
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
+                 :disabled="!docSourceEditAvailable" >
+      ></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang">
+          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
             <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
           </select>
       </p>
@@ -19,7 +25,7 @@
         <div class="alpheios-alignment-editor-text-block__other-lang">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
           <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText">
+            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText" :disabled="!docSourceEditAvailable" >
             <p class="alpheios-alignment-editor-text-block__other-lang__description">
               {{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
             </p>
@@ -33,19 +39,28 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Langs from '@/lib/data/langs/langs.js'
 
+import DeleteIcon from '@/inline-icons/delete.svg'
+
 export default {
   name: 'TextEditorSingleBlock',
   props: {
-    textId: {
+    textType: {
       type: String,
       required: true
     },
-    externalText: {
-      type: Object,
+    textId: {
+      type: String,
       required: false
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
-  components: {},
+  components: {
+    deleteIcon: DeleteIcon
+  },
   data () {
     return {
       text: null,
@@ -58,48 +73,41 @@ export default {
   /**
    * Uploads lang list from Json and defines default lang
    */
-  mounted () {
+  created () {
     this.langsList = Langs.all
     this.selectedAvaLang = this.langsList[0].value
   },
-  watch: {
-    /**
-     * Checks if data was uploaded from external source - upload
-     * @param {Object} data
-     *        {String} data.text
-     *        {String} data.direction
-     *        {String} data.lang
-     */
-    externalText (data) {
-      this.text = data.text
-      this.direction = data.direction
-      this.updateLang(data.lang)
-    }
-  },
   computed: {
+    dataUpdated () {
+      this.updateFromExternal()
+      return this.$store.state.alignmentUpdated
+    },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__${this.textId}`
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+    },
+    removeId () {
+      return `alpheios-alignment-editor-remove-block__${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
      */
-    textIdFormatted () {
-      return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
+    textTypeFormatted () {
+      return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
     },
     /**
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
     /**
      * Defines Label for available language list
      */
     chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
     },
     /**
      * Defines final language
@@ -107,16 +115,52 @@ export default {
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
+
     l10n () {
       return L10nSingleton
+    },
+
+    /**
+     * Defines if we have multiple targets then we need to show index of target text
+     */
+    showIndex () {
+      return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
+    },
+    
+    /**
+     * Defines formatted order index for multiple target texts
+     */
+    indexData () {
+      return this.showIndex ? `${this.index + 1}. ` : ''
+    },
+
+    /**
+     * Defines if we have multiple target texts then show delete index
+     */
+    showDeleteIcon () {
+      return this.showIndex
+    },
+    /**
+     * Blocks changes if aligned version is already created and aligned groups are started
+     */
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
+    updateFromExternal () {
+      const data = this.$textC.getDocSource(this.textType, this.textId)
+      if (data && data.lang) {
+        this.text = data.text
+        this.direction = data.direction
+        this.updateLang(data.lang)
+      }
+    },
     /**
      * Defines unique id for direction input
      */
     directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
+      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}_${this.textId}`
     },
     /**
      * If a user reselects language from select, input[text] would be cleared
@@ -144,11 +188,18 @@ export default {
      * Emits update-text event with data from properties
      */
     updateText () {
-      this.$emit('update-text', {
+      const methodName = this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+
+      this.$textC[methodName]({
         text: this.text,
         direction: this.direction,
-        lang: this.selectedLang
+        lang: this.selectedLang,
+        id: this.textId
       })
+    },
+
+    deleteText () {
+      this.$textC.deleteText(this.textType, this.textId)
     }
   }
 }
@@ -184,6 +235,27 @@ export default {
           font-size: 90%;
           color: #888;
         }
+    }
+
+    .alpheios-alignment-editor-text-block__title {
+      position: relative;
+    }
+    .alpheios-alignment-editor-text-block__remove {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      right: 0;
+      top: 50%;
+      top: 0;
+
+      position: absolute;
+
+      cursor: pointer;
+      svg {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
     }
 
 </style>

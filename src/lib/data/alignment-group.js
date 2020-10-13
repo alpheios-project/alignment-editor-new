@@ -8,7 +8,7 @@ export default class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token) {
+  constructor (token, targetId) {
     this.id = uuidv4()
     this.origin = []
     this.target = []
@@ -16,6 +16,9 @@ export default class AlignmentGroup {
     this.firstStepToken = null
     this.currentStepIndex = null
     this.unmergedGroupData = null
+
+    this.targetId = targetId
+
     if (token) { this.add(token) }
   }
 
@@ -43,13 +46,48 @@ export default class AlignmentGroup {
   }
 
   /**
+   * Checks if the alignment group has the same segment
+   * @param {Number} segmentIndex
+   * @returns {Boolean}
+   */
+  theSameSegment (segmentIndex) {
+    return (this.segmentIndex === segmentIndex)
+  }
+
+  /**
+   * Checks if the alignment group has the same target docSourceId
+   * @param {String} targetId
+   * @returns {Boolean}
+   */
+  hasTheSameTargetId (targetId) {
+    return !targetId || !this.targetId || (this.targetId === targetId)
+  }
+
+  /**
+   * Checks if the alignment group has the same segment index and target docSourceId
+   * @param {Number} segmentIndex
+   * @param {String} targetId
+   * @returns {Boolean}
+   */
+  hasTheSameSegmentTargetId (segmentIndex, targetId) {
+    return this.theSameSegment(segmentIndex) && this.hasTheSameTargetId(targetId)
+  }
+
+  /**
    * Adds the token to group, adds to step and checks firstStep
    * @param {Token} token
    * @returns { Boolean } true - token was added, false - not
    */
   add (token) {
-    if (!token || !token.isAlignable) {
+    if (!token || !token.isAlignable || !this.couldBeIncluded(token)) {
       return false
+    }
+
+    if (!this.segmentIndex) {
+      this.segmentIndex = token.segmentIndex
+    }
+    if (!this.targetId && (token.textType === 'target')) {
+      this.targetId = token.docSourceId
     }
 
     this.truncateSteps()
@@ -139,12 +177,26 @@ export default class AlignmentGroup {
   }
 
   /**
-   * Checks if token.idWord is included in the group regardless of the textType
-   * @param {String} Token.idWord
-   * @returns {Boolean} true - if is in group, false - not
+   *
+   * @param {Token} token
+   * @returns {Boolean} - true - if the token is inside the group, false - if not
    */
   includesToken (token) {
     return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  }
+
+  /**
+   * Checks if the token meets all requirements for including to the group:
+   *  - token should not be in the group
+   *  - segmentIndex should be the same
+   *  - targetId should be the same
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  couldBeIncluded (token) {
+    return !this.includesToken(token) &&
+           (!this.segmentIndex || (this.segmentIndex === token.segmentIndex)) &&
+           (!this.targetId || (token.textType === 'origin') || ((this.targetId === token.docSourceId)))
   }
 
   /**
@@ -152,8 +204,8 @@ export default class AlignmentGroup {
    * @param {Token} token
    * @returns {Boolean} true - if this is the first step, false - not
    */
-  isFirstToken (token) {
-    return this.firstStepToken.idWord === token.idWord
+  isFirstToken (token, targetId) {
+    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   /**
@@ -369,105 +421,4 @@ export default class AlignmentGroup {
 
     return finalResult
   }
-
-  /**
-   * Removes the step action,
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @retuns {Object} - results of undone steps, for now it could return only the result of unmerge action
-   */
-  /*
-  removeStepAction (stepIndex) {
-    const step = this.steps[stepIndex]
-
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
-      return
-    }
-
-    const actions = {}
-    actions[AlignmentStep.types.ADD] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.REMOVE] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.MERGE] = (step) => {
-      const data = this.unmerge(step)
-      return {
-        result: true,
-        data
-      }
-    }
-
-    let finalResult
-    try {
-      finalResult = actions[step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
-  }
-*/
-  /**
-   * Applies the step action (used within redo action)
-   * @param {Number} stepIndex - index in steps array
-   * @returns {Object}
-   *          {Boolean} result - true - if action was done, false - otherwise
-   */
-  /*
-  applyStepAction (stepIndex) {
-    const step = this.steps[stepIndex]
-
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
-      return
-    }
-
-    const actions = {}
-    actions[AlignmentStep.types.ADD] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.REMOVE] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.MERGE] = (step) => {
-      this.origin.push(...step.token.origin)
-      this.target.push(...step.token.target)
-      return {
-        result: true
-      }
-    }
-
-    let finalResult
-    try {
-      finalResult = actions[step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
-  }
-  */
 }

@@ -14,6 +14,30 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements:  */
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements:  */
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
@@ -414,7 +438,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -4361,7 +4385,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -13464,6 +13488,1280 @@ if (inBrowser) {
 
 /***/ }),
 
+/***/ "../node_modules/vuex/dist/vuex.esm.js":
+/*!*********************************************!*\
+  !*** ../node_modules/vuex/dist/vuex.esm.js ***!
+  \*********************************************/
+/*! namespace exports */
+/*! export Store [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export createLogger [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export createNamespacedHelpers [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export install [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export mapActions [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export mapGetters [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export mapMutations [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export mapState [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.g, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__,
+/* harmony export */   "Store": () => /* binding */ Store,
+/* harmony export */   "createLogger": () => /* binding */ createLogger,
+/* harmony export */   "createNamespacedHelpers": () => /* binding */ createNamespacedHelpers,
+/* harmony export */   "install": () => /* binding */ install,
+/* harmony export */   "mapActions": () => /* binding */ mapActions,
+/* harmony export */   "mapGetters": () => /* binding */ mapGetters,
+/* harmony export */   "mapMutations": () => /* binding */ mapMutations,
+/* harmony export */   "mapState": () => /* binding */ mapState
+/* harmony export */ });
+/*!
+ * vuex v3.5.1
+ * (c) 2020 Evan You
+ * @license MIT
+ */
+function applyMixin (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof __webpack_require__.g !== 'undefined'
+    ? __webpack_require__.g
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  }, { prepend: true });
+
+  store.subscribeAction(function (action, state) {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache) {
+  if ( cache === void 0 ) cache = [];
+
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  var hit = find(cache, function (c) { return c.original === obj; });
+  if (hit) {
+    return hit.copy
+  }
+
+  var copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = { namespaced: { configurable: true } };
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  var child = parent.getChild(key);
+
+  if (!child) {
+    if ((true)) {
+      console.warn(
+        "[vuex] trying to unregister module '" + key + "', which is " +
+        "not registered"
+      );
+    }
+    return
+  }
+
+  if (!child.runtime) {
+    return
+  }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  return parent.hasChild(key)
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if ((true)) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = { state: { configurable: true } };
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors$1 );
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if ((true)) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger (ref) {
+  if ( ref === void 0 ) ref = {};
+  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
+  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
+  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
+  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
+  var logger = ref.logger; if ( logger === void 0 ) logger = console;
+
+  return function (store) {
+    var prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe(function (mutation, state) {
+        var nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          var formattedTime = getFormattedTime();
+          var formattedMutation = mutationTransformer(mutation);
+          var message = "mutation " + (mutation.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction(function (action, state) {
+        if (actionFilter(action, state)) {
+          var formattedTime = getFormattedTime();
+          var formattedAction = actionTransformer(action);
+          var message = "action " + (action.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  var startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  var time = new Date();
+  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
+var index = {
+  Store: Store,
+  install: install,
+  version: '3.5.1',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers,
+  createLogger: createLogger
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
+
+
+
+/***/ }),
+
 /***/ "./index.js":
 /*!******************!*\
   !*** ./index.js ***!
@@ -13511,6 +14809,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AlignedController {
+  constructor (store) {
+    this.store = store
+  }
+
   /**
    * Checks the ability to align and creats sets of tokens for each text - origin, target and saves it to the alignment
    * @param {Alignment} alignment
@@ -13521,23 +14823,54 @@ class AlignedController {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       return false
     }
+
     this.alignment = alignment
     const tokenizer = 'simpleWordTokenization'
-    return this.alignment.createAlignedTexts(tokenizer)
+    const result = this.alignment.createAlignedTexts(tokenizer)
+
+    const res2 = this.alignment.equalSegmentsAmount
+
+    if (!res2) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
+      this.alignment.clearAlignedTexts()
+      this.store.commit('incrementAlignmentUpdated')
+      return false
+    }
+    this.store.commit('incrementAlignmentUpdated')
+    return result
   }
 
   /**
-   * @return { {} | AlignedText } origin aligned text
+   * This check shows if we could start to create alignment groups - for now we should have already tokenized texts
    */
-  get originAlignedText () {
-    return this.alignment ? this.alignment.originAlignedText : {}
+  get alignmentGroupsWorkflowStarted () {
+    return this.hasOriginAlignedText && this.hasTargetAlignedTexts
   }
 
   /**
-   * @return { {} | AlignedText } target aligned text
+   * Check that origin text is already tokenized
    */
-  get targetAlignedText () {
-    return this.alignment ? this.alignment.targetAlignedText : {}
+  get hasOriginAlignedText () {
+    return this.alignment ? this.alignment.hasOriginAlignedTexts : null
+  }
+
+  /**
+   * Check that all target texts are already tokenized
+   */
+  get hasTargetAlignedTexts () {
+    return this.alignment ? this.alignment.hasTargetAlignedTexts : null
+  }
+
+  /**
+   * All segments from aligned origin and target texts
+   * @returns {Array[Object]}
+   *          {Number}  index - segment order index
+   *          {Segment} origin - segment from origin text for the index
+   *          {Object}  targets - all targets segments with targetIds as keys
+   *          {Segment} targets[targetId] - segment from the targetText with docSourceId = targetId and with the index order
+   */
+  get allAlignedTextsSegments () {
+    return this.alignment ? this.alignment.allAlignedTextsSegments : []
   }
 
   /**
@@ -13549,43 +14882,57 @@ class AlignedController {
    * If there is an active alignment and token is grouped (in another aligned group) - mergeActiveGroupWithAnotherByToken
    * If there is an active alignment and token is not grouped - addToAlignmentGroup
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    */
-  clickToken (token) {
-    if (!this.hasActiveAlignment) {
-      if (this.tokenIsGrouped(token)) {
-        this.activateGroupByToken(token)
+  clickToken (token, limitByTargetId = null) {
+    if (!this.hasActiveAlignmentGroup) {
+      if (this.tokenIsGrouped(token, limitByTargetId)) {
+        this.activateGroupByToken(token, limitByTargetId)
       } else {
-        this.startNewAlignmentGroup(token)
+        this.startNewAlignmentGroup(token, limitByTargetId)
       }
     } else {
-      if (this.alignment.shouldFinishAlignmentGroup(token)) {
+      if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
-      } else if (this.alignment.shouldBeRemovedFromAlignmentGroup(token)) {
-        this.alignment.removeFromAlignmentGroup(token)
-      } else if (this.tokenIsGrouped(token)) {
-        this.mergeActiveGroupWithAnotherByToken(token)
+      } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
+        this.removeFromAlignmentGroup(token, limitByTargetId)
+      } else if (this.tokenIsGrouped(token, limitByTargetId)) {
+        this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
       } else {
-        this.addToAlignmentGroup(token)
+        this.addToAlignmentGroup(token, limitByTargetId)
       }
     }
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
    * Creates a new alignment group and active alignment group is defined with it
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if a new active alignment group is defined, false - not
    */
-  startNewAlignmentGroup (token) {
-    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token)
+  startNewAlignmentGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.startNewAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Adds token to an active alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if the token was added, false - not
    */
-  addToAlignmentGroup (token) {
-    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token)
+  addToAlignmentGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.addToAlignmentGroup(token, limitByTargetId)
+  }
+
+  /**
+   * Removes token from an active alignment group
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @return {Boolean} true - if the token was removed, false - not
+   */
+  removeFromAlignmentGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.removeFromAlignmentGroup(token, limitByTargetId)
   }
 
   /**
@@ -13598,70 +14945,118 @@ class AlignedController {
 
   /**
    * Finds an alignment group by token, removes from the groups list and merge with active alignment group
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if groups were merged, false - not
    */
-  mergeActiveGroupWithAnotherByToken (token) {
-    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token)
+  mergeActiveGroupWithAnotherByToken (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
   }
 
   /**
    * Finds an alignment group by token in the list
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {AlignmentGroup | Null} AlignmentGroup - if a group was found, null - not
    */
-  findAlignmentGroup (token) {
-    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token)
-  }
-
-  /**
-   * Finds an alignment group by token and returns all ids from it
-   * @return {Array } Array
-   */
-  findAlignmentGroupIds (token) {
-    return this.alignment ? this.alignment.findAlignmentGroupIds(token) : []
+  findAlignmentGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.findAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is already saved in some alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - currently active targetId
    * @return {Boolean} true - if the token belongs to a saved group, false - not
    */
-  tokenIsGrouped (token) {
-    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token)
+  tokenIsGrouped (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.tokenIsGrouped(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is already added in an active alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if the token belongs to a currently active group, false - not
    */
-  tokenInActiveGroup (token) {
-    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token)
+  tokenInActiveGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.tokenInActiveGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is defined as first token in an active alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if the token is considered to be the first active token in a currently active group, false - not
    */
-  isFirstInActiveGroup (token) {
-    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token)
+  isFirstInActiveGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.isFirstInActiveGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if there is an active alignment group
    * @return {Boolean} true - if there is an active alignment group, false - not
    */
-  get hasActiveAlignment () {
-    return Boolean(this.alignment) && this.alignment.hasActiveAlignment
+  get hasActiveAlignmentGroup () {
+    return Boolean(this.alignment) && this.alignment.hasActiveAlignmentGroup
+  }
+
+  /**
+   * Checks if after click on this token we should finish an alignment group
+   * @param {Token} token - clicked token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   */
+  shouldFinishAlignmentGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.shouldFinishAlignmentGroup(token, limitByTargetId)
+  }
+
+  /**
+   * Checks if after click on this token we should remove this token from an alignment group
+   * @param {Token} token - clicked token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   */
+  shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
+    return Boolean(this.alignment) && this.alignment.shouldRemoveFromAlignmentGroup(token, limitByTargetId)
   }
 
   /**
    * Checks if the token is saved in some alignment group and makes this alignment group active
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @return {Boolean} true - if there was activated previously saved group by passed token, false - not
    */
-  activateGroupByToken (token) {
-    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token)
+  activateGroupByToken (token, limitByTargetId = null) {
+    this.store.commit('incrementAlignmentUpdated')
+    return Boolean(this.alignment) && this.alignment.activateGroupByToken(token, limitByTargetId)
+  }
+
+  /**
+   * Defines hovered alignment groups - all groups that contain hovered token
+   * @param {Token} token - hovered token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @returns {Array[AlignmentGroup]}
+   */
+  activateHoverOnAlignmentGroups (token, limitByTargetId = null) {
+    this.store.commit('incrementAlignmentUpdated')
+    return this.alignment ? this.alignment.activateHoverOnAlignmentGroups(token, limitByTargetId) : []
+  }
+
+  /**
+   * Clears hovered alignment groups
+   * @returns {Boolean}
+   */
+  clearHoverOnAlignmentGroups () {
+    this.store.commit('incrementAlignmentUpdated')
+    return this.alignment && this.alignment.clearHoverOnAlignmentGroups()
+  }
+
+  /**
+   * Defines if a passed token is inside hoveredGroups
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  selectedToken (token) {
+    return Boolean(this.alignment) && this.alignment.selectedToken(token)
   }
 }
 
@@ -13685,6 +15080,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
 /* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
 /* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
@@ -13696,6 +15092,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
 /* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+
 
 
 
@@ -13738,12 +15135,14 @@ class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
+    this.defineStore()
+
     this.defineL10Support()
     this.defineTextController()
     this.defineAlignedController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default()
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default({ store: this.store })
     const mountEl = document.getElementById(this.appId)
     const appContainer = document.createElement('div')
 
@@ -13757,11 +15156,25 @@ class AppController {
     this._viAppComp.$mount(appContainerEl)
   }
 
+  defineStore () {
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.use(vuex__WEBPACK_IMPORTED_MODULE_13__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_13__.default.Store({
+      state: {
+        alignmentUpdated: 1
+      },
+      mutations: {
+        incrementAlignmentUpdated (state) {
+          state.alignmentUpdated++
+        }
+      }
+    })
+  }
+
   /**
    * Creates TextController and attaches to Vue components
    */
   defineTextController () {
-    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default()
+    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$textC = this.textC
   }
 
@@ -13769,7 +15182,7 @@ class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default()
+    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$alignedC = this.alignedC
   }
 
@@ -13777,7 +15190,7 @@ class AppController {
    * Creates HistoryController and attaches to Vue components
    */
   defineHistoryController () {
-    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$historyC = this.historyC
   }
 
@@ -13891,15 +15304,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ HistoryController
 /* harmony export */ });
 class HistoryController {
+  constructor (store) {
+    this.store = store
+    this.tabsViewMode = false
+  }
+
   /**
    * Checks if we have steps to be undone
    * @returns {Boolean} true - undo could be done, false - not
    */
   get redoAvailable () {
-    return Boolean(this.alignment) &&
-           ((this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
-           (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0))
+    return Boolean(this.alignment) && !this.tabsViewMode &&
+           ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
+           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
   }
 
   /**
@@ -13907,9 +15325,18 @@ class HistoryController {
    * @returns {Boolean} true - redo could be done, false - not
    */
   get undoAvailable () {
-    return Boolean(this.alignment) &&
-           ((this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
-           (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0))
+    return Boolean(this.alignment) && !this.tabsViewMode &&
+           ((this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen >= 1) ||
+           (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0))
+  }
+
+  /**
+   * Updates tabsViewMode on shownTabs change in align editor
+   * @param {Array[String]} shownTabs
+   */
+  updateMode (shownTabs) {
+    this.tabsViewMode = (shownTabs.length > 1)
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
@@ -13927,14 +15354,17 @@ class HistoryController {
    *   if there is no active alignment group but there exists saved alignment groups, then we would activate previous group
    */
   undo () {
-    if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen > 1) {
-      return this.alignment.undoInActiveGroup()
+    let result
+    if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen > 1) {
+      result = this.alignment.undoInActiveGroup()
+    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.activeAlignmentGroup.groupLen === 1) {
+      result = this.alignment.undoActiveGroup()
+    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.alignmentGroups.length > 0) {
+      result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.activeAlignmentGroup.groupLen === 1) {
-      return this.alignment.undoActiveGroup()
-    }
-    if (!this.alignment.hasActiveAlignment && this.alignment.alignmentGroups.length > 0) {
-      return this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      return result
     }
   }
 
@@ -13945,14 +15375,19 @@ class HistoryController {
    *   if there is no active alignment group and there are some saved undone groups, then we would reactivate next group from the list
    */
   redo () {
-    if (this.alignment.hasActiveAlignment && !this.alignment.currentStepOnLastInActiveGroup) {
-      return this.alignment.redoInActiveGroup()
+    let result
+    if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
+      result = this.alignment.redoInActiveGroup()
     }
-    if (this.alignment.hasActiveAlignment && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
-      return this.alignment.returnActiveGroupToList()
+    if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
+      result = this.alignment.finishActiveAlignmentGroup()
     }
-    if (!this.alignment.hasActiveAlignment && this.alignment.undoneGroups.length > 0) {
-      return this.alignment.redoActiveGroup()
+    if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
+      result = this.alignment.redoActiveGroup()
+    }
+    if (result) {
+      this.store.commit('incrementAlignmentUpdated')
+      return result
     }
   }
 }
@@ -13987,6 +15422,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class TextsController {
+  constructor (store) {
+    this.store = store
+  }
+
   /**
    * Creates an Alignment and uploads source documents, if they are defined
    * @param {String} originDocSource
@@ -13994,6 +15433,7 @@ class TextsController {
    */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource)
+    return this.alignment
   }
 
   /**
@@ -14014,18 +15454,33 @@ class TextsController {
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
    * Uploads target source document to the alignment object.
-   * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource) {
+  updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource)
+      this.alignment.updateTargetDocSource(targetDocSource, targetId)
+      this.store.commit('incrementAlignmentUpdated')
+    }
+  }
+
+  /**
+   * Delete target SourceText
+   * @param {String} textType - target or origin
+   * @param {String} id  - unique id created inside SourceText constructor
+   */
+  deleteText (textType, id) {
+    if (!this.alignment) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+    } else {
+      this.alignment.deleteText(textType, id)
+      this.store.commit('incrementAlignmentUpdated')
     }
   }
 
@@ -14038,11 +15493,31 @@ class TextsController {
   }
 
   /**
+   * @returns {Array[String]} - all ids from target source texts
+   */
+  get allTargetTextsIds () {
+    return this.alignment ? this.alignment.allTargetTextsIds : []
+  }
+
+  /**
    * Returns target document source if alignment is defined
    * @returns {SourceText} - target source text
    */
-  get targetDocSource () {
-    return this.alignment ? this.alignment.targetDocSource : null
+  targetDocSource (id) {
+    return this.alignment ? this.alignment.targetDocSource(id) : null
+  }
+
+  /**
+   *
+   * @param {String} textType - origin or target
+   * @param {String} textId - id for the SourceText
+   */
+  getDocSource (textType, textId) {
+    if (textType === 'origin') {
+      return this.originDocSource
+    } else if (textType === 'target') {
+      return this.targetDocSource(textId)
+    }
   }
 
   /**
@@ -14227,11 +15702,14 @@ class AlignedText {
    * @param {SourceText} docSource
    * @param {String} tokenizer - the name of tokenizer approach
    */
-  constructor ({ docSource, tokenizer } = {}) {
+  constructor ({ docSource, tokenizer, tokenPrefix } = {}) {
+    this.id = docSource.id
     this.textType = docSource.textType
     this.tokenizer = tokenizer
     this.direction = docSource.direction
     this.lang = docSource.lang
+
+    this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
 
     this.tokenize(docSource)
   }
@@ -14240,8 +15718,15 @@ class AlignedText {
    * Defines prefix for token creations
    * @return {String}
    */
-  get tokenPrefix () {
+  get defaultTokenPrefix () {
     return this.textType === 'origin' ? '1' : '2'
+  }
+
+  /**
+   * @returns {Number} - amount of segments
+   */
+  get segmentsAmount () {
+    return this.segments.length
   }
 
   /**
@@ -14252,7 +15737,14 @@ class AlignedText {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getTokenizer(this.tokenizer)
     const result = tokenizeMethod(docSource, this.tokenPrefix, this.textType)
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default(segment))
+      this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
+        index: segment.index,
+        tokens: segment.tokens,
+        textType: docSource.textType,
+        lang: docSource.lang,
+        direction: docSource.direction,
+        docSourceId: docSource.id
+      }))
     }
   }
 }
@@ -14289,7 +15781,7 @@ class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token) {
+  constructor (token, targetId) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.origin = []
     this.target = []
@@ -14297,6 +15789,9 @@ class AlignmentGroup {
     this.firstStepToken = null
     this.currentStepIndex = null
     this.unmergedGroupData = null
+
+    this.targetId = targetId
+
     if (token) { this.add(token) }
   }
 
@@ -14324,13 +15819,48 @@ class AlignmentGroup {
   }
 
   /**
+   * Checks if the alignment group has the same segment
+   * @param {Number} segmentIndex
+   * @returns {Boolean}
+   */
+  theSameSegment (segmentIndex) {
+    return (this.segmentIndex === segmentIndex)
+  }
+
+  /**
+   * Checks if the alignment group has the same target docSourceId
+   * @param {String} targetId
+   * @returns {Boolean}
+   */
+  hasTheSameTargetId (targetId) {
+    return !targetId || !this.targetId || (this.targetId === targetId)
+  }
+
+  /**
+   * Checks if the alignment group has the same segment index and target docSourceId
+   * @param {Number} segmentIndex
+   * @param {String} targetId
+   * @returns {Boolean}
+   */
+  hasTheSameSegmentTargetId (segmentIndex, targetId) {
+    return this.theSameSegment(segmentIndex) && this.hasTheSameTargetId(targetId)
+  }
+
+  /**
    * Adds the token to group, adds to step and checks firstStep
    * @param {Token} token
    * @returns { Boolean } true - token was added, false - not
    */
   add (token) {
-    if (!token || !token.isAlignable) {
+    if (!token || !token.isAlignable || !this.couldBeIncluded(token)) {
       return false
+    }
+
+    if (!this.segmentIndex) {
+      this.segmentIndex = token.segmentIndex
+    }
+    if (!this.targetId && (token.textType === 'target')) {
+      this.targetId = token.docSourceId
     }
 
     this.truncateSteps()
@@ -14420,12 +15950,26 @@ class AlignmentGroup {
   }
 
   /**
-   * Checks if token.idWord is included in the group regardless of the textType
-   * @param {String} Token.idWord
-   * @returns {Boolean} true - if is in group, false - not
+   *
+   * @param {Token} token
+   * @returns {Boolean} - true - if the token is inside the group, false - if not
    */
   includesToken (token) {
     return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
+  }
+
+  /**
+   * Checks if the token meets all requirements for including to the group:
+   *  - token should not be in the group
+   *  - segmentIndex should be the same
+   *  - targetId should be the same
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  couldBeIncluded (token) {
+    return !this.includesToken(token) &&
+           (!this.segmentIndex || (this.segmentIndex === token.segmentIndex)) &&
+           (!this.targetId || (token.textType === 'origin') || ((this.targetId === token.docSourceId)))
   }
 
   /**
@@ -14433,8 +15977,8 @@ class AlignmentGroup {
    * @param {Token} token
    * @returns {Boolean} true - if this is the first step, false - not
    */
-  isFirstToken (token) {
-    return this.firstStepToken.idWord === token.idWord
+  isFirstToken (token, targetId) {
+    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   /**
@@ -14650,107 +16194,6 @@ class AlignmentGroup {
 
     return finalResult
   }
-
-  /**
-   * Removes the step action,
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @retuns {Object} - results of undone steps, for now it could return only the result of unmerge action
-   */
-  /*
-  removeStepAction (stepIndex) {
-    const step = this.steps[stepIndex]
-
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_REMOVE_STEP_ERROR', { type: step.type }))
-      return
-    }
-
-    const actions = {}
-    actions[AlignmentStep.types.ADD] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.REMOVE] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.MERGE] = (step) => {
-      const data = this.unmerge(step)
-      return {
-        result: true,
-        data
-      }
-    }
-
-    let finalResult
-    try {
-      finalResult = actions[step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
-  }
-*/
-  /**
-   * Applies the step action (used within redo action)
-   * @param {Number} stepIndex - index in steps array
-   * @returns {Object}
-   *          {Boolean} result - true - if action was done, false - otherwise
-   */
-  /*
-  applyStepAction (stepIndex) {
-    const step = this.steps[stepIndex]
-
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_REMOVE_STEP_ERROR', { type: step.type }))
-      return
-    }
-
-    const actions = {}
-    actions[AlignmentStep.types.ADD] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.REMOVE] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions[AlignmentStep.types.MERGE] = (step) => {
-      this.origin.push(...step.token.origin)
-      this.target.push(...step.token.target)
-      return {
-        result: true
-      }
-    }
-
-    let finalResult
-    try {
-      finalResult = actions[step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
-  }
-  */
 }
 
 
@@ -14805,6 +16248,9 @@ class AlignmentStep {
     return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.idWord : null
   }
 
+  /**
+   * @returns {Boolean} - true - step type is correctly defined, false - if not
+   */
   get hasValidType () {
     return Object.values(AlignmentStep.types).includes(this.type)
   }
@@ -14859,30 +16305,38 @@ class Alignment {
   constructor (originDocSource, targetDocSource) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.origin = {}
-    this.target = {}
+    this.targets = {}
 
-    if (originDocSource) {
-      this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', originDocSource)
-    }
-    if (targetDocSource) {
-      this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', targetDocSource)
-    }
+    this.updateOriginDocSource(originDocSource)
+    this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
-    this.alignmentGroupsIds = []
     this.activeAlignmentGroup = null
+
+    this.hoveredGroups = []
     this.undoneGroups = []
   }
 
   /**
    * Checks if both target and origin are defined with all obligatory fields
+   * @returns {Boolean}
    */
   get readyForTokenize () {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
   }
 
   /**
+   * Checks if all alligned texts (origin and targets) have the same amount of segments
+   * @returns {Boolean}
+   */
+  get equalSegmentsAmount () {
+    const originSegmentsAmount = this.origin.alignedText.segmentsAmount
+    return Object.values(this.targets).every(target => target.alignedText.segmentsAmount === originSegmentsAmount)
+  }
+
+  /**
    * Checks if origin.docSource is defined and has all obligatory fields
+   * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
     return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
@@ -14890,18 +16344,24 @@ class Alignment {
 
   /**
    * Checks if target.docSource is defined and has all obligatory fields
+   * @returns {Boolean}
    */
   get targetDocSourceFullyDefined () {
-    return Boolean(this.target.docSource) && this.target.docSource.fullyDefined
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
   }
 
   /**
    * Updates/adds origin docSource
-   * @param {SourceText} docSource
+   * @param {SourceText | Object} docSource
+   * @returns {Boolean}
    */
   updateOriginDocSource (docSource) {
+    if (!docSource) {
+      return false
+    }
+
     if (!this.origin.docSource) {
-      this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
+      this.origin.docSource = docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default ? docSource : new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
     } else {
       this.origin.docSource.update(docSource)
     }
@@ -14910,19 +16370,40 @@ class Alignment {
 
   /**
    * Updates/adds target docSource only if origin is defined
-   * @param {SourceText} docSource
+   * @param {SourceText | Object} docSource
+   * @param {String|Null} targetId - docSourceId to be updated, null - if it is a new targetDoc
+   * @returns {Boolean}
    */
-  updateTargetDocSource (docSource) {
+  updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      if (docSource) {
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      }
       return false
     }
-    if (!this.target.docSource) {
-      this.target.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource)
+
+    if (!docSource || !docSource.id || !this.targets[docSource.id]) {
+      if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
+        docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
+      }
+      this.targets[docSource.id] = {
+        docSource
+      }
     } else {
-      this.target.docSource.update(docSource)
+      this.targets[docSource.id].docSource.update(docSource)
     }
     return true
+  }
+
+  /**
+   * Removes target text by id if it is not the last target text
+   * @param {String} textType - origin or target
+   * @param {String} id - docSourceId
+   */
+  deleteText (textType, id) {
+    if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
+      delete this.targets[id]
+    }
   }
 
   /**
@@ -14935,13 +16416,14 @@ class Alignment {
   /**
    * @returns { SourceText | null } target docSource
    */
-  get targetDocSource () {
-    return this.target.docSource ? this.target.docSource : null
+  targetDocSource (id) {
+    return this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : null
   }
 
   /**
    * Checks if tokenizer is defined, and creates AlignedText for origin and target
    * @param {String} tokenizer - method's name
+   * @returns {Boolean}
    */
   createAlignedTexts (tokenizer) {
     if (!tokenizer || !this.readyForTokenize) {
@@ -14951,67 +16433,125 @@ class Alignment {
 
     this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
       docSource: this.origin.docSource,
-      tokenizer
+      tokenizer,
+      tokenPrefix: '1'
     })
 
-    this.target.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
-      docSource: this.target.docSource,
-      tokenizer
-    })
+    for (let i = 0; i < Object.keys(this.targets).length; i++) {
+      const id = Object.keys(this.targets)[i]
 
+      this.targets[id].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
+        docSource: this.targets[id].docSource,
+        tokenizer,
+        tokenPrefix: (i + 2)
+      })
+    }
     return true
   }
 
   /**
-   * @returns { AlignedText | Null } - origin aligned text
+   * Removes all aligned texts (for example after defining that some of them has the other amount of segments)
    */
-  get originAlignedText () {
-    return this.origin.alignedText ? this.origin.alignedText : null
+  clearAlignedTexts () {
+    this.origin.alignedText = undefined
+    Object.values(this.targets).forEach(target => { target.alignedText = undefined })
   }
 
   /**
-   * @returns { AlignedText | Null } - target aligned text
+   * Check that origin text is already tokenized
+   * @returns {Boolean}
+  */
+  get hasOriginAlignedTexts () {
+    return Boolean(this.origin.alignedText)
+  }
+
+  /**
+   * Check that all target texts are already tokenized
+   * @returns {Boolean}
    */
-  get targetAlignedText () {
-    return this.target.alignedText ? this.target.alignedText : null
+  get hasTargetAlignedTexts () {
+    return Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
+  }
+
+  /**
+   * An array with unique docSourceIds for target doc source
+   * @returns {Array}
+   */
+  get allTargetTextsIds () {
+    return Object.keys(this.targets)
+  }
+
+  /**
+   * All segments from aligned origin and target texts
+   * @returns {Array[Object]}
+   *          {Number}  index - segment order index
+   *          {Segment} origin - segment from origin text for the index
+   *          {Object}  targets - all targets segments with targetIds as keys
+   *          {Segment} targets[targetId] - segment from the targetText with docSourceId = targetId and with the index order
+   */
+  get allAlignedTextsSegments () {
+    let allSegments = [] // eslint-disable-line prefer-const
+
+    this.origin.alignedText.segments.forEach(segment => {
+      allSegments.push({
+        index: segment.index,
+        origin: segment,
+        targets: {}
+      })
+    })
+
+    Object.keys(this.targets).forEach(targetId => {
+      this.targets[targetId].alignedText.segments.forEach((segment, orderIndex) => {
+        allSegments[orderIndex].targets[targetId] = segment
+      })
+    })
+
+    return allSegments
+  }
+
+  /**
+   * Checks if an active alignment group has the same segment index and target id
+   * @param {Number} segmentIndex
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @returns {Boolean}
+   */
+  hasTheSameSegmentTargetIdActiveGroup (segmentIndex, limitByTargetId = null) {
+    return this.hasActiveAlignmentGroup && this.activeAlignmentGroup.hasTheSameSegmentTargetId(segmentIndex, limitByTargetId)
   }
 
   /**
    * Defines if the given token should finish the active alignment group - token is already in the group and
    * its textType is the same as token that created/activated the group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean}
    */
-  shouldFinishAlignmentGroup (token) {
-    return this.tokenInActiveGroup(token) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
+  shouldFinishAlignmentGroup (token, limitByTargetId = null) {
+    return this.tokenInActiveGroup(token, limitByTargetId) && this.tokenTheSameTextTypeAsStart(token) && this.activeAlignmentGroup.couldBeFinished
   }
 
   /**
    * Defines if the given token should be removed from the active alignment group - token is already in the group and
    * its textType is NOT the same as token that created/activated the group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean}
    */
-  shouldBeRemovedFromAlignmentGroup (token) {
-    return this.tokenInActiveGroup(token) && !this.tokenTheSameTextTypeAsStart(token)
-  }
-
-  /**
-   * Defines if a new alignment group should be created
-   * @returns {Boolean}
-   */
-  shouldStartNewAlignmentGroup () {
-    return !this.hasActiveAlignment
+  shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
+    return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
   }
 
   /**
    * Defines if there is an active alignment group
    * @returns {Boolean}
    */
-  get hasActiveAlignment () {
+  get hasActiveAlignmentGroup () {
     return Boolean(this.activeAlignmentGroup)
   }
 
+  /**
+   * Checks if there is no undone steps in the group
+   */
   get currentStepOnLastInActiveGroup () {
     return this.activeAlignmentGroup.currentStepOnLast
   }
@@ -15019,10 +16559,13 @@ class Alignment {
   /**
    * Creates a new alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} - true - if group would be created
    */
-  startNewAlignmentGroup (token) {
-    this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(token)
+  startNewAlignmentGroup (token, limitByTargetId = null) {
+    if (!token.isTheSameTargetId(limitByTargetId)) { return false }
+
+    this.activeAlignmentGroup = new _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default(token, limitByTargetId)
     this.undoneGroups = []
     return Boolean(this.activeAlignmentGroup)
   }
@@ -15030,10 +16573,12 @@ class Alignment {
   /**
    * Adds token to the active alignment group if it is created and token is not in group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} true - if token was added, false - not
    */
-  addToAlignmentGroup (token) {
-    if (this.hasActiveAlignment && this.activeAlignmentGroup[token.textType] && !this.tokenInActiveGroup(token)) {
+  addToAlignmentGroup (token, limitByTargetId = null) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
+        this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
@@ -15044,12 +16589,12 @@ class Alignment {
   /**
    * Removes token from the active alignment group if the token in the group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} true - if token was removed, false - not
    */
-  removeFromAlignmentGroup (token) {
-    if (this.hasActiveAlignment && this.tokenInActiveGroup(token)) {
+  removeFromAlignmentGroup (token, limitByTargetId = null) {
+    if (this.hasActiveAlignmentGroup && this.tokenInActiveGroup(token, limitByTargetId)) {
       this.activeAlignmentGroup.remove(token)
-      this.removeFromAlignmentIds(token.idWord)
       return true
     } else {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
@@ -15061,9 +16606,8 @@ class Alignment {
    * @returns {Boolean} true - if active alignment group was saved and closed, false - not
    */
   finishActiveAlignmentGroup () {
-    if (this.hasActiveAlignment && this.activeAlignmentGroup.couldBeFinished) {
+    if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
-      this.alignmentGroupsIds.push(...this.activeAlignmentGroup.allIds)
       this.activeAlignmentGroup = null
       return true
     }
@@ -15073,47 +16617,20 @@ class Alignment {
   /**
    * Finds Alignment Group by token, if token is grouped in some alignment group
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {AlignmentGroup | Null}
    */
-  findAlignmentGroup (token) {
-    if (this.tokenIsGrouped(token)) {
-      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(al => al.includesToken(token)) : null
+  findAlignmentGroup (token, limitByTargetId = null) {
+    if (this.tokenIsGrouped(token, limitByTargetId)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token)) : null
     }
     return null
   }
 
   /**
-   * Finds Alignment Group by token, if token is grouped in some alignment group, and returns all idWords from it
-   * @param {Token} token
-   * @returns { Array[Stringt] }
-   */
-  findAlignmentGroupIds (token) {
-    const alignedGroup = this.findAlignmentGroup(token)
-    if (alignedGroup) {
-      const alignedGroupIds = []
-      alignedGroupIds.push(...alignedGroup.allIds)
-      return alignedGroupIds
-    }
-    return []
-  }
-
-  /**
-   * Removes idWord from alignmentGroupsIds if it was fount in the list
-   * @param {String} idWord
-   * @returns {Boolean} true - was removed from alignmentGroupsIds, false - was not removed
-   */
-  removeFromAlignmentIds (idWord) {
-    const tokenIndex = this.alignmentGroupsIds.findIndex(tokenId => tokenId === idWord)
-    if (tokenIndex >= 0) {
-      this.alignmentGroupsIds.splice(tokenIndex, 1)
-      return true
-    }
-    return false
-  }
-
-  /**
    * Removes a group from alignmentGroups list
    * @param {AlignmentGroup} tokensGroup
+   * @returns {Number|null} - index of removed group, if it was removed
    */
   removeGroupFromAlignmentGroups (tokensGroup) {
     const tokenIndex = this.alignmentGroups.findIndex(group => group.id === tokensGroup.id)
@@ -15125,41 +16642,35 @@ class Alignment {
   }
 
   /**
-   * Removes all idWords from alignmentGroupsIds
-   * @param {String} idWord
-   */
-
-  removeGroupFromAlignmentIds (alignedGroup) {
-    alignedGroup.allIds.forEach(idWord => {
-      this.removeFromAlignmentIds(idWord)
-    })
-  }
-
-  /**
    *
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} yes - if token is in saved algnment groups, false - is not
    */
-  tokenIsGrouped (token) {
-    return this.alignmentGroupsIds.includes(token.idWord)
+  tokenIsGrouped (token, limitByTargetId = null) {
+    return this.alignmentGroups.some(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token))
   }
 
   /**
    *
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} yes - if token is in the active alignment group, false - is not
    */
-  tokenInActiveGroup (token) {
-    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.includesToken(token)
+  tokenInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) &&
+           this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId) &&
+           this.activeAlignmentGroup.includesToken(token)
   }
 
   /**
    *
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} yes - if token is defines as first step in the active group, false - is not
    */
-  isFirstInActiveGroup (token) {
-    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token)
+  isFirstInActiveGroup (token, limitByTargetId) {
+    return Boolean(this.activeAlignmentGroup) && this.activeAlignmentGroup.isFirstToken(token, limitByTargetId)
   }
 
   /**
@@ -15175,10 +16686,11 @@ class Alignment {
    * Finds the group by passed token and makes it active.
    * All its tokens are not considered grouped after that  - they are all in active alignment group.
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns { Boolean } true - if group was found and activated, false - no group was activated
    */
-  activateGroupByToken (token) {
-    const tokensGroup = this.findAlignmentGroup(token)
+  activateGroupByToken (token, limitByTargetId) {
+    const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
     return this.activateGroup(tokensGroup, token)
   }
 
@@ -15189,7 +16701,7 @@ class Alignment {
    */
   activateGroupByGroupIndex (tokensGroupIndex) {
     if (tokensGroupIndex >= this.alignmentGroups.length) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX'), { tokensGroupIndex })
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
       return
     }
     const tokensGroup = this.alignmentGroups[tokensGroupIndex]
@@ -15206,7 +16718,6 @@ class Alignment {
     if (tokensGroup) {
       this.activeAlignmentGroup = tokensGroup
       this.removeGroupFromAlignmentGroups(tokensGroup)
-      this.removeGroupFromAlignmentIds(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
       return true
     }
@@ -15217,15 +16728,15 @@ class Alignment {
    * Merges groups: it is available only if passed token from already saved group, then all tokens from saved groups places to the new merged.
    * Tokens from merged groups are not grouped any more - they are all in active alignment group.
    * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
    * @returns {Boolean} true - groups were merged, false - was not
    */
-  mergeActiveGroupWithAnotherByToken (token) {
-    if (this.hasActiveAlignment && this.tokenIsGrouped(token)) {
-      const tokensGroup = this.findAlignmentGroup(token)
+  mergeActiveGroupWithAnotherByToken (token, limitByTargetId) {
+    if (this.hasActiveAlignmentGroup && !this.tokenInActiveGroup(token, limitByTargetId) &&
+        this.tokenIsGrouped(token, limitByTargetId) && this.hasTheSameSegmentTargetIdActiveGroup(token.segmentIndex, limitByTargetId)) {
+      const tokensGroup = this.findAlignmentGroup(token, limitByTargetId)
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
-      this.removeGroupFromAlignmentIds(tokensGroup)
-
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
       return true
     }
@@ -15237,7 +16748,7 @@ class Alignment {
    * If we step back merge step, then we would insert unmerged group back to the list
    */
   undoInActiveGroup () {
-    if (!this.hasActiveAlignment) {
+    if (!this.hasActiveAlignmentGroup) {
       return
     }
 
@@ -15248,6 +16759,7 @@ class Alignment {
         this.insertUnmergedGroup(dataResult.data[i])
       }
     }
+    return true
   }
 
   /**
@@ -15258,15 +16770,14 @@ class Alignment {
    */
   insertUnmergedGroup (data) {
     this.alignmentGroups.splice(data.indexDeleted, 0, data.tokensGroup)
-    this.alignmentGroupsIds.push(...data.tokensGroup.allIds)
   }
 
   /**
    * Step forward inside active group
    */
   redoInActiveGroup () {
-    if (this.hasActiveAlignment) {
-      this.activeAlignmentGroup.redo()
+    if (this.hasActiveAlignmentGroup) {
+      return this.activeAlignmentGroup.redo()
     }
   }
 
@@ -15274,9 +16785,10 @@ class Alignment {
    * Saves active alignment group the list with saved undone groups
    */
   undoActiveGroup () {
-    if (this.hasActiveAlignment) {
+    if (this.hasActiveAlignmentGroup) {
       this.undoneGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
+      return true
     }
   }
 
@@ -15284,18 +16796,45 @@ class Alignment {
    * Extracts alignment group from the list and saves it to active
    */
   redoActiveGroup () {
-    if (!this.hasActiveAlignment) {
+    if (!this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup = this.undoneGroups.pop()
+      return true
     }
   }
 
   /**
-   * Finishes active alignment group
+   * This method finds all saved groups that includes the token and filtered by passed targetId and saves to hoveredGroups
+   * Used for hover groups workflow
+   * @param {Token} token
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   * @returns {Array[AlignmentGroup]}
    */
-  returnActiveGroupToList () {
-    if (this.hasActiveAlignment && this.activeAlignmentGroup.currentStepOnLast) {
-      this.finishActiveAlignmentGroup()
+  activateHoverOnAlignmentGroups (token, limitByTargetId) {
+    this.hoveredGroups = this.alignmentGroups.filter(alGroup => alGroup.includesToken(token))
+    if (limitByTargetId) {
+      this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
     }
+    return this.hoveredGroups
+  }
+
+  /**
+   * Removes all hoveredGroups
+   * Used for hover groups workflow
+   * @returns {Boolean} - always true, used for consistency
+   */
+  clearHoverOnAlignmentGroups () {
+    this.hoveredGroups = []
+    return true
+  }
+
+  /**
+   * Checks if the token is included to hoveredGroups
+   * Used for hover groups workflow
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  selectedToken (token) {
+    return this.hoveredGroups.some(alGroup => alGroup.includesToken(token))
   }
 }
 
@@ -15357,12 +16896,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens }) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
     this.direction = direction
-
+    this.docSourceId = docSourceId
     this.checkAndUpdateTokens(tokens)
   }
 
@@ -15371,7 +16910,7 @@ class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token))
+    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
   }
 }
 
@@ -15385,7 +16924,7 @@ class Segment {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15394,6 +16933,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ SourceText
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 class SourceText {
@@ -15405,11 +16947,20 @@ class SourceText {
    * @param {String} docSource.direction
    * @param {String} docSource.lang
    */
-  constructor (textType, docSource) {
+  constructor (textType, docSource, targetId) {
+    this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_1__.v4)()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
-    this.direction = docSource ? docSource.direction : ''
-    this.lang = docSource ? docSource.lang : ''
+    this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
+    this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
+  }
+
+  get defaultDirection () {
+    return 'ltr'
+  }
+
+  get defaultLang () {
+    return 'eng'
   }
 
   /**
@@ -15420,9 +16971,9 @@ class SourceText {
    * @param {String} docSource.lang
    */
   update (docSource) {
-    this.text = docSource.text
-    this.direction = docSource.direction
-    this.lang = docSource.lang
+    this.text = docSource.text ? docSource.text : this.text
+    this.direction = docSource.direction ? docSource.direction : this.direction
+    this.lang = docSource.lang ? docSource.lang : this.lang
   }
 
   /**
@@ -15447,9 +16998,9 @@ class SourceText {
       return false
     }
 
-    const text = jsonData.text.replace(/\t/g, '\u000D')
-    const direction = jsonData.direction
-    const lang = jsonData.lang
+    const text = jsonData.text.replace(/\t/g, '\u000D').trim()
+    const direction = jsonData.direction.trim()
+    const lang = jsonData.lang.trim()
 
     return new SourceText(textType, { text, direction, lang })
   }
@@ -15474,17 +17025,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ Token
 /* harmony export */ });
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak }) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
     this.beforeWord = beforeWord
     this.afterWord = afterWord
     this.hasLineBreak = hasLineBreak
+    this.segmentIndex = segmentIndex
+    this.docSourceId = docSourceId
   }
 
+  /**
+   * @returns {Boolean} - true - if the token could be used for creating alinmentGroup
+   */
   get isAlignable () {
     return Boolean(this.textType && this.idWord && this.word)
+  }
+
+  /**
+   *
+   * @param {String|Null} limitByTargetId - docSource of the current target document
+   */
+  isTheSameTargetId (limitByTargetId = null) {
+    return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 }
 
@@ -16069,9 +17633,6 @@ class SimpleLocalTokenizer {
         mainIndex = mainIndex + 1
         finalText.segments.push({
           index: mainIndex,
-          textType: docSource.textType,
-          lang: docSource.lang,
-          direction: docSource.direction,
           tokens: finalTextLine
         })
       }
@@ -16266,10 +17827,86 @@ const availableMessages = {
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignEditorTabs',
+  props: {
+    tabs: {
+      type: Array,
+      required: true
+    }
+  },
+  data () {
+    return {
+      tabsStates: []
+    }
+  },
+  /**
+   * Sets default states for tabs - the first tab is default
+   */
+  mounted () {
+    this.tabsStates = this.tabs.map((tab, index) => { 
+      return { active: index === 0 }
+    })
+  },
+  methods: {
+    /**
+     * It checks if the tab could be selected (for now we couldn't have no selected tabs)
+     * @param {Number} - index order of targetId
+     */
+    couldBeSelected (index) {
+      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
+    },
+
+    /**
+     * First it checks if the tab could be selected (for example we couldn't have no selected tabs)
+     * Then it changes selected tab state to oposite and emits event
+     * @param {String} - targetId
+     * @param {Number} - index order of targetId
+     */
+    selectTab (tabData, index) {
+      if (!this.couldBeSelected(index)) {
+        return
+      }
+      
+      this.tabsStates[index].active = !this.tabsStates[index].active
+      this.$emit('selectTab', tabData)
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -16282,7 +17919,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/segment-block.vue */ "./vue/align-editor/segment-block.vue");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_align_editor_align_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/align-editor-tabs.vue */ "./vue/align-editor/align-editor-tabs.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -16310,27 +17955,155 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignEditorEditMode',
+  components: {
+    segmentBlock: _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    alignEditorTabs: _vue_align_editor_align_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  props: {
+  },
+  data () {
+    return {
+      shownTabs: [],
+      shownTabsInited: false
+    }
+  },
+  computed: {
+    /**
+     * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
+     * for now we don't have a case when we need to re-define tabs, 
+     * but if we would need it - we would update shownTabsInited with false
+     * @returns {Array[String]}
+     */
+    allTargetTextsIds () {
+      const allTargetTextsIds = this.$textC.allTargetTextsIds
+      if (!this.shownTabsInited) {
+        this.shownTabs = allTargetTextsIds.slice(0, 1)
+        this.shownTabsInited = true
+        this.$historyC.updateMode(this.shownTabs) 
+      }
+      return this.$store.state.alignmentUpdated ? allTargetTextsIds : []
+    },
+
+    /**
+     * @returns {Array[Object]}
+     *          {Number} index - segment's order index
+     *          {Segment} origin - origin segment by index
+     *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
+     */
+    allAlignedTextsSegments () {
+      return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : []
+    },
+
+    /**
+     * @returns {String} - targetId of the target segment, that is rendered the last to control css borders
+     */
+    lastTargetId () {
+      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
+    },
+
+    /**
+     * @returns {Array[String]} - shown targetIds based on shownTabs with saved order
+     */
+    orderedTargetsId () {
+      return Object.keys(this.allAlignedTextsSegments[0].targets).filter(targetId => this.shownTabs.includes(targetId))
+    },
+
+    /**
+     * @returns {String|Null} - targetId if it only one tab is active and we could work with groups
+     */
+    currentTargetId () {
+      return this.shownTabs.length === 1 ? this.shownTabs[0] : null
+    }
+
+  },
+  methods: {
+    /**
+     * @param {String}
+     * @returns {Boolean} - true - targetId is visible, false - not
+     */
+    isShownTab (targetId) {
+      return this.shownTabs.includes(targetId)
+    },
+
+    /**
+     * @param {String} - origin/target
+     * @param {Number} - segment order index
+     * @param {String} - targetId for target segment
+     * @returns {String} - unique index for the segment
+     */
+    getIndex (textType, index, additionalIndex = 0) {
+      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+    },
+
+    /**
+     * Changes active tabs by click
+     * @param {String}
+     */
+    selectTab (targetId) {
+      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
+        this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
+      } else if (!this.shownTabs.includes(targetId)) {
+        this.shownTabs.push(targetId)
+      }  
+      this.$historyC.updateMode(this.shownTabs)    
+    }
+  } 
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/segment-block.vue */ "./vue/align-editor/segment-block.vue");
+/* harmony import */ var _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/align-editor-view-mode.vue */ "./vue/align-editor/align-editor-view-mode.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignEditor',
   components: {
-    segmentBlock: _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
     showEditor: {
       type: Number,
-      required: false
-    },
-    cssUpdate: {
-      type: Number,
-      required: false
+      required: true
     }
   },
   data () {
     return {
-      showAlignBlocks: false,
-      showAlignment: [],
-      originUpdated: 1,
-      targetUpdated: 1,
-      alignmentUpdated: 1
+      showAlignBlocks: false
     }
   },
   watch: {
@@ -16339,14 +18112,6 @@ __webpack_require__.r(__webpack_exports__);
      */
     showEditor () {
       this.showAlignBlocks = true
-      this.updateOriginEditor()
-      this.updateTargetEditor()
-    },
-    /**
-     * Controlls if showEditor changes, then showAlignBlocs would be set to truth
-     */
-    cssUpdate () {
-      this.updateTokenClasses()
     }
   },
   computed: {
@@ -16356,78 +18121,22 @@ __webpack_require__.r(__webpack_exports__);
     showAlignBlocksLabel () {
       return this.showAlignBlocks ? this.l10n.getMsgS('ALIGN_EDITOR_HIDE') : this.l10n.getMsgS('ALIGN_EDITOR_SHOW')
     },
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default
+    },
     /**
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return Boolean(this.originAlignedText) && Boolean(this.originAlignedText.segments) && Boolean(this.targetAlignedText) && Boolean(this.targetAlignedText.segments)
-    },
-    /**
-     * Returns originAlignedText from AlignedController
-     */
-    originAlignedText () {
-      return this.originUpdated ? this.$alignedC.originAlignedText : {}
-    },
-    /**
-     * Returns targetAlignedText from AlignedController
-     */
-    targetAlignedText () {
-      return this.targetUpdated ? this.$alignedC.targetAlignedText : {}
-    },
-    l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
-    getIndex (textType, index) {
-      return `${textType}-${index}`
-    },
-    /**
-     * Updates alignmentUpdated to recalculate css styles for tokens for both origin and target
-     */
-    updateTokenClasses () {
-      this.alignmentUpdated = this.alignmentUpdated + 1
-    },
-    /**
-     * Updates originUpdated flag to reupload originAlignedText from controller
-     */
-    updateOriginEditor () {
-      this.originUpdated = this.originUpdated + 1
-    },
-    /**
-     * Updates targetUpdated flag to reupload originAlignedText from controller
-     */
-    updateTargetEditor () {
-      this.targetUpdated = this.targetUpdated + 1
-    },
-
     /**
      * Toggle showAlignBlocks to change visibility for aligned blocks
      */
     toggleShowAlignBlocks () {
       this.showAlignBlocks = !this.showAlignBlocks
-    },
-    /**
-     * Starts change token state in alignment groups workflow and update css classes
-     */
-    clickToken (token) {
-      this.$alignedC.clickToken(token)
-      this.updateTokenClasses()
-      this.$emit('css-update-menu')
-    },
-    /**
-     * Starts showing an alignment group workflow
-     */
-    addHoverToken (token) {
-      this.showAlignment = this.$alignedC.findAlignmentGroupIds(token)
-      this.updateTokenClasses()
-    },
-    /**
-     * Stops showing an alignment group workflow
-     */
-    removeHoverToken () {
-      this.showAlignment = []
-      this.updateTokenClasses()
     }
   }
 });
@@ -16476,26 +18185,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignEditorSingleBlock',
+  name: 'SegmentBlock',
   components: {
     token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
+    currentTargetId: {
+      type: String,
+      required: false
+    },
+
     segment: {
       type: Object,
       required: true
-    },
-
-    showAlignment: {
-      type: Array,
-      required: false,
-      default: []
-    },
-
-    alignmentUpdated : {
-      type: Number,
-      required: false,
-      default: 0
     },
 
     isLast : {
@@ -16506,73 +18208,132 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      updated: 1
+      updated: 1,
+      colors: ['#f3f3f3', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      originColor: '#f3f3f3'
     }
   },
   watch: {
-    /**
-     * Catches alignmentUpdated and increments updated flag to redraw css styles
-     */
-    alignmentUpdated () {
-      this.updated = this.updated + 1
-    }
   },
   computed: {
+    /**
+     * @returns {String} - origin/target
+     */
     textType () {
       return this.segment.textType
     },
+    /**
+     * @returns {String} - ltr/rtl
+     */
     direction () {
       return this.segment.direction
     },
+    /**
+     * @returns {String} - lang code
+     */
     lang () {
       return this.segment.lang
     },
+    /**
+     * @returns {String} css id for html layout
+     */
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      if (this.textType === 'target') {
+        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      } else {
+        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      }
     },
-    orderStyle () {
-      return `order: ${this.segment.index};`
+    /**
+     * Styles for creating a html table layout with different background-colors for different targetIds
+     * @returns {String}
+     */
+    cssStyle () {
+      if (this.textType === 'target') {
+        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `order: ${this.segment.index}; background: ${this.originColor};`
+      }
     },
+    /**
+     * Defines classes by textType and isLast flag
+     * @returns {Object}
+     */
     cssClass () {
       let classes = {}
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
       return classes
-    }
+    },
+    /**
+     * @returns {Array[String]} - array of all targetIds
+     */
+    allTargetTextsIds () {
+      return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
+    },
+    /**
+     * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
+     */
+    targetIdIndex () {
+      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
+    },
+    /**
+     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
+     */
+    targetId () {
+      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+    },
   },
   methods: {
+    /**
+     * Starts click token workflow
+     * @param {Token}
+     */
     clickToken (token) {
-      this.$emit('click-token', token)
+      if (this.currentTargetId) {
+        this.$alignedC.clickToken(token, this.currentTargetId)
+      }
     },
+    /**
+     * Starts hover token workflow
+     * @param {Token}
+     */
     addHoverToken (token) {
-      this.$emit('add-hover-token', token)
+      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
+    /**
+     * Ends hover token workflow
+     */
     removeHoverToken () {
-      this.$emit('remove-hover-token')
+      this.$alignedC.clearHoverOnAlignmentGroups()
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
+     * @param {Token}
      */
     selectedToken (token) {
-      return this.showAlignment.includes(token.idWord)
+      return this.$alignedC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
+     * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token)
+      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token)
+      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
+     * @param {Token}
      */
     isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token)
+      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
     }
   }
 
@@ -16609,13 +18370,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Token',
+  name: 'TokenBlock',
   props: {
-    textType: {
-      type: String,
-      required: true
-    },
-    textWord: {
+    token: {
       type: Object,
       required: true
     },
@@ -16656,13 +18413,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     clickToken () {
-      this.$emit('click-token', this.textWord)
+      this.$emit('click-token', this.token)
     },
     addHoverToken () {
-      this.$emit('add-hover-token', this.textWord)
+      this.$emit('add-hover-token', this.token)
     },
     removeHoverToken () {
-      this.$emit('remove-hover-token', this.textWord)
+      this.$emit('remove-hover-token', this.token)
     }
   }
 });
@@ -16706,11 +18463,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -16725,53 +18477,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      originTextUpdated: 0,
-      targetTextUpdated: 0,
-      originAlignedUpdated: 0,
-      targetAlignedUpdated: 0,
-      hideTextEditor: 0,
-      showAlignEditor: 0,
-      cssUpdate: 1
+      hideTextEditor: 1,
+      showAlignEditor: 1
     }
   },
   computed: {
+    alignEditorAvailable () {
+      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+    }
   },
   methods: {
-    /**
-     * Updates property to reupload origin text in textEditor component
-     */
-    updateOriginTextEditor () {
-      this.originTextUpdated = this.originTextUpdated + 1
-    },
-
-    /**
-     * Updates property to reupload target text in textEditor component
-     */
-    updateTargetTextEditor () {
-      this.targetTextUpdated = this.targetTextUpdated + 1
-    },
-
-    /**
-     *  Updates property to hide TextEditor
-     */
-    hideTextEditorM () {
-      this.hideTextEditor = this.hideTextEditor + 1
-    },
-
-    /**
-     *  Updates property to show AlignEditor
-     */
-    showAlignEditorM () {
-      this.showAlignEditor = this.showAlignEditor + 1
-    },
-
-    /**
-     *  Updates property to show AlignEditor
-     */
-    cssUpdateM () {
-      this.cssUpdate = this.cssUpdate + 1
-    },
-
     /**
      * Starts download workflow
      */
@@ -16784,32 +18499,33 @@ __webpack_require__.r(__webpack_exports__);
     */
     uploadData (fileData) {
       this.$textC.uploadDocSourceFromFile(fileData)
-      this.updateOriginTextEditor()
-      this.updateTargetTextEditor()
-      this.cssUpdateM()
     },
     /**
      * Starts redo action
      */
     redoAction () {
       this.$historyC.redo()
-      this.cssUpdateM()
     },
     /**
      * Starts undo action
      */
     undoAction () {
       this.$historyC.undo()
-      this.cssUpdateM()
     },
     /**
      * Starts align workflow
      */
     alignTexts () {
       if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
-        this.hideTextEditorM()
-        this.showAlignEditorM()    
+        this.hideTextEditor = this.hideTextEditor + 1
+        this.showAlignEditor = this.showAlignEditor + 1  
       }
+    },
+    /**
+     * Add aditional block for defining another target text
+     */
+    addTarget () {
+      this.$textC.updateTargetDocSource()
     }
   }
 });
@@ -16858,21 +18574,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
   props: {
-    cssUpdate: {
-      type: Number,
-      required: false,
-      default: 1
-    }
   },
   data () {
     return {
-      showUploadBlock: false
+      showUploadBlock: false,
     }
   },
   computed: {
@@ -16880,13 +18604,16 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignAvailable () {
-      return Boolean(this.cssUpdate) && this.$textC.couldStartAlign
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
     undoAvailable () {
-      return Boolean(this.cssUpdate) && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.cssUpdate) && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.redoAvailable
+    },
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -16924,7 +18651,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16934,6 +18661,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -16965,6 +18694,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -16972,16 +18709,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditorSingleBlock',
   props: {
-    textId: {
+    textType: {
       type: String,
       required: true
     },
-    externalText: {
-      type: Object,
+    textId: {
+      type: String,
       required: false
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
-  components: {},
+  components: {
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default())
+  },
   data () {
     return {
       text: null,
@@ -16994,48 +18738,41 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Uploads lang list from Json and defines default lang
    */
-  mounted () {
+  created () {
     this.langsList = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__.default.all
     this.selectedAvaLang = this.langsList[0].value
   },
-  watch: {
-    /**
-     * Checks if data was uploaded from external source - upload
-     * @param {Object} data
-     *        {String} data.text
-     *        {String} data.direction
-     *        {String} data.lang
-     */
-    externalText (data) {
-      this.text = data.text
-      this.direction = data.direction
-      this.updateLang(data.lang)
-    }
-  },
   computed: {
+    dataUpdated () {
+      this.updateFromExternal()
+      return this.$store.state.alignmentUpdated
+    },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__${this.textId}`
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+    },
+    removeId () {
+      return `alpheios-alignment-editor-remove-block__${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
      */
-    textIdFormatted () {
-      return this.textId.charAt(0).toUpperCase() + this.textId.slice(1)
+    textTypeFormatted () {
+      return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
     },
     /**
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
     /**
      * Defines Label for available language list
      */
     chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textIdFormatted })
+      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
     },
     /**
      * Defines final language
@@ -17043,16 +18780,52 @@ __webpack_require__.r(__webpack_exports__);
     selectedLang () {
       return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
     },
+
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+
+    /**
+     * Defines if we have multiple targets then we need to show index of target text
+     */
+    showIndex () {
+      return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
+    },
+    
+    /**
+     * Defines formatted order index for multiple target texts
+     */
+    indexData () {
+      return this.showIndex ? `${this.index + 1}. ` : ''
+    },
+
+    /**
+     * Defines if we have multiple target texts then show delete index
+     */
+    showDeleteIcon () {
+      return this.showIndex
+    },
+    /**
+     * Blocks changes if aligned version is already created and aligned groups are started
+     */
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
+    updateFromExternal () {
+      const data = this.$textC.getDocSource(this.textType, this.textId)
+      if (data && data.lang) {
+        this.text = data.text
+        this.direction = data.direction
+        this.updateLang(data.lang)
+      }
+    },
     /**
      * Defines unique id for direction input
      */
     directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textId}__${dir}`
+      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}_${this.textId}`
     },
     /**
      * If a user reselects language from select, input[text] would be cleared
@@ -17080,11 +18853,18 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     updateText () {
-      this.$emit('update-text', {
+      const methodName = this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+
+      this.$textC[methodName]({
         text: this.text,
         direction: this.direction,
-        lang: this.selectedLang
+        lang: this.selectedLang,
+        id: this.textId
       })
+    },
+
+    deleteText () {
+      this.$textC.deleteText(this.textType, this.textId)
     }
   }
 });
@@ -17134,8 +18914,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -17146,19 +18924,7 @@ __webpack_require__.r(__webpack_exports__);
     textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {  
-    originUpdated: {
-      type: Number,
-      required: true
-    },
-    targetUpdated: {
-      type: Number,
-      required: true
-    },
     hideEditor: {
-      type: Number,
-      required: false
-    },
-    cssUpdate: {
       type: Number,
       required: false
     }
@@ -17166,8 +18932,6 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       showTextsBlocks: true,
-      updatedOriginText: null,
-      updatedTargetText: null,
       disableTargetTextBlock: true
     }
   },
@@ -17180,7 +18944,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   /**
-   * I placed empty alignment here for now, because it is the first point where it should be existed.
+   * I placed an empty alignment here for now, because it is the first point where it should be existed.
    * Later when we define workflow for creation alignment depending on user authentication,
    * it could be moved out here
    */
@@ -17189,35 +18953,14 @@ __webpack_require__.r(__webpack_exports__);
     this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
+    allTargetTextsIds () {
+      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+    },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
     showTextsBlocksLabel () {
       return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
-    },
-    /**
-     * Catches if originUpdated was updated and update origin text from controller
-     */
-    updatedOrigin () {
-      return this.originUpdated && this.originText ?  this.originText : null
-    },
-    /**
-     * Catches if targetUpdated was updated and update target text from controller
-     */
-    updatedTarget () {
-      return this.targetUpdated && this.targetText ?  this.targetText : null
-    },
-    /**
-     * Retrieves origin doc source from controller
-     */
-    originText () {
-      return this.originUpdated ? this.$textC.originDocSource : {}
-    },
-    /**
-     * Retrieves target doc source from controller
-     */
-    targetText () {
-      return this.targetUpdated ? this.$textC.targetDocSource : {}
     },
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
@@ -17229,32 +18972,100 @@ __webpack_require__.r(__webpack_exports__);
      */
     toggleShowTextsBlocks () {
       this.showTextsBlocks = !this.showTextsBlocks
-    },
-    /**
-     * Updates origin doc source via texts controller
-     * @param {Object} textData
-     *        {String} textData.text
-     *        {String} textData.direction
-     *        {String} textData.lang
-     */
-    updateOriginText (textData) {
-      this.$textC.updateOriginDocSource(textData)
-      this.$emit('css-update-menu')
-    },
-    /**
-     * Updates target doc source via texts controller
-     * @param {Object} textData
-     *        {String} textData.text
-     *        {String} textData.direction
-     *        {String} textData.lang
-     */
-    updateTargetText (textData) {
-      this.$textC.updateTargetDocSource(textData)
-      this.$emit('css-update-menu')
     }
   }
 });
 
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-tabs.vue":
+/*!************************************************!*\
+  !*** ./vue/align-editor/align-editor-tabs.vue ***!
+  \************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=template&id=b482181a& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&");
+/* harmony import */ var _align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&");
+/* harmony import */ var _align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.render,
+  _align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/align-editor/align-editor-tabs.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-view-mode.vue":
+/*!*****************************************************!*\
+  !*** ./vue/align-editor/align-editor-view-mode.vue ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=template&id=81e34bb4& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&");
+/* harmony import */ var _align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
+/* harmony import */ var _align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/align-editor/align-editor-view-mode.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
@@ -17571,6 +19382,54 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 
 /***/ }),
 
+/***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
+/*!***************************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
 /***/ "./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
@@ -17715,6 +19574,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-tabs.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-view-mode.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
 /*!********************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
@@ -17852,6 +19751,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
+/*!*******************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
+  \*******************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& .render */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& .staticRenderFns */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tabs.vue?vue&type=template&id=b482181a& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&");
+
+
+/***/ }),
+
+/***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&":
+/*!************************************************************************************!*\
+  !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& ***!
+  \************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& .render */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& .staticRenderFns */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-view-mode.vue?vue&type=template&id=81e34bb4& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&");
+
 
 /***/ }),
 
@@ -18009,6 +19952,166 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.tabs.length > 1
+    ? _c(
+        "div",
+        { staticClass: "alpheios-alignment-editor-align-target-tabs" },
+        _vm._l(_vm.tabs, function(tabData, index) {
+          return _c(
+            "span",
+            {
+              key: index,
+              staticClass: "alpheios-alignment-editor-align-target-tab-item",
+              class: {
+                "alpheios-alignment-editor-align-target-tab-item-active":
+                  _vm.tabsStates[index] && _vm.tabsStates[index].active
+              },
+              on: {
+                click: function($event) {
+                  return _vm.selectTab(tabData, index)
+                }
+              }
+            },
+            [_vm._v("\n    " + _vm._s(index + 1) + "\n  ")]
+          )
+        }),
+        0
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alpheios-alignment-editor-align-define-container" },
+    [
+      _vm.allTargetTextsIds.length > 1
+        ? _c("align-editor-tabs", {
+            attrs: { tabs: _vm.allTargetTextsIds },
+            on: { selectTab: _vm.selectTab }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "alpheios-alignment-editor-align-define-container-view-mode"
+        },
+        _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
+          return _c(
+            "div",
+            {
+              key: _vm.getIndex("origin", segmentData.index),
+              staticClass: "alpheios-alignment-editor-align-segment-data"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin"
+                },
+                [
+                  _c("segment-block", {
+                    attrs: {
+                      segment: segmentData.origin,
+                      currentTargetId: _vm.currentTargetId
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
+                },
+                _vm._l(segmentData.targets, function(segmentTarget, targetId) {
+                  return _c("segment-block", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isShownTab(targetId),
+                        expression: "isShownTab(targetId)"
+                      }
+                    ],
+                    key: _vm.getIndex("target", segmentData.index, targetId),
+                    attrs: {
+                      segment: segmentTarget,
+                      isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
+                      currentTargetId: _vm.currentTargetId
+                    }
+                  })
+                }),
+                1
+              )
+            ]
+          )
+        }),
+        0
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
@@ -18044,73 +20147,38 @@ var render = function() {
       staticClass: "alpheios-alignment-editor-container"
     },
     [
-      _c("h2", [
-        _vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")) + " \n      ("),
-        _c(
-          "span",
-          {
-            staticClass:
-              "alpheios-alignment-editor-text-define-container__show-label",
-            on: { click: _vm.toggleShowAlignBlocks }
-          },
-          [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
-        ),
-        _vm._v(")\n    ")
+      _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
+        _c("h2", [
+          _vm._v(
+            _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")) + " \n      ("
+          ),
+          _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-alignment-editor-text-define-container__show-label",
+              on: { click: _vm.toggleShowAlignBlocks }
+            },
+            [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
+          ),
+          _vm._v(")\n    ")
+        ])
       ]),
       _vm._v(" "),
       _vm.showAlignEditor
-        ? _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.showAlignBlocks,
-                  expression: "showAlignBlocks"
-                }
-              ],
-              staticClass: "alpheios-alignment-editor-align-define-container"
-            },
-            [
-              _vm._l(_vm.originAlignedText.segments, function(segment, index) {
-                return _c("segment-block", {
-                  key: _vm.getIndex("origin", segment.index),
-                  attrs: {
-                    segment: segment,
-                    "show-alignment": _vm.showAlignment,
-                    "alignment-updated": _vm.alignmentUpdated,
-                    isLast: index === _vm.originAlignedText.segments.length - 1
-                  },
-                  on: {
-                    "click-token": _vm.clickToken,
-                    "add-hover-token": _vm.addHoverToken,
-                    "remove-hover-token": _vm.removeHoverToken
-                  }
-                })
-              }),
-              _vm._v(" "),
-              _vm._l(_vm.targetAlignedText.segments, function(segment, index) {
-                return _c("segment-block", {
-                  key: _vm.getIndex("target", segment.index),
-                  attrs: {
-                    segment: segment,
-                    "show-alignment": _vm.showAlignment,
-                    "alignment-updated": _vm.alignmentUpdated,
-                    isLast: index === _vm.targetAlignedText.segments.length - 1
-                  },
-                  on: {
-                    "click-token": _vm.clickToken,
-                    "add-hover-token": _vm.addHoverToken,
-                    "remove-hover-token": _vm.removeHoverToken
-                  }
-                })
-              })
-            ],
-            2
-          )
+        ? _c("align-editor-view-mode", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showAlignBlocks,
+                expression: "showAlignBlocks"
+              }
+            ]
+          })
         : _vm._e()
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -18146,7 +20214,7 @@ var render = function() {
     {
       staticClass: "alpheios-alignment-editor-align-text-segment",
       class: _vm.cssClass,
-      style: _vm.orderStyle,
+      style: _vm.cssStyle,
       attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
     },
     [
@@ -18156,13 +20224,19 @@ var render = function() {
             ? _c("token", {
                 key: token.idWord,
                 attrs: {
-                  "text-type": _vm.textType,
-                  "text-word": token,
-                  selected: _vm.updated && _vm.selectedToken(token),
-                  grouped: _vm.updated && _vm.groupedToken(token),
-                  inActiveGroup: _vm.updated && _vm.inActiveGroup(token),
+                  token: token,
+                  selected:
+                    _vm.$store.state.alignmentUpdated &&
+                    _vm.selectedToken(token),
+                  grouped:
+                    _vm.$store.state.alignmentUpdated &&
+                    _vm.groupedToken(token),
+                  inActiveGroup:
+                    _vm.$store.state.alignmentUpdated &&
+                    _vm.inActiveGroup(token),
                   firstInActiveGroup:
-                    _vm.updated && _vm.isFirstInActiveGroup(token)
+                    _vm.$store.state.alignmentUpdated &&
+                    _vm.isFirstInActiveGroup(token)
                 },
                 on: {
                   "click-token": _vm.clickToken,
@@ -18212,7 +20286,7 @@ var render = function() {
     {
       staticClass: "alpheios-token",
       class: _vm.tokenClasses,
-      attrs: { "data-type": _vm.textType, id: _vm.textWord.idWord },
+      attrs: { "data-type": _vm.token.textType, id: _vm.token.idWord },
       on: {
         click: function($event) {
           $event.stopPropagation()
@@ -18225,9 +20299,9 @@ var render = function() {
     [
       _vm._v(
         "\n    " +
-          _vm._s(_vm.textWord.beforeWord) +
-          _vm._s(_vm.textWord.word) +
-          _vm._s(_vm.textWord.afterWord) +
+          _vm._s(_vm.token.beforeWord) +
+          _vm._s(_vm.token.word) +
+          _vm._s(_vm.token.afterWord) +
           "\n"
       )
     ]
@@ -18269,32 +20343,19 @@ var render = function() {
     },
     [
       _c("main-menu", {
-        attrs: { "css-update": _vm.cssUpdate },
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
           "align-texts": _vm.alignTexts,
           "redo-action": _vm.redoAction,
-          "undo-action": _vm.undoAction
+          "undo-action": _vm.undoAction,
+          "add-target": _vm.addTarget
         }
       }),
       _vm._v(" "),
-      _c("text-editor", {
-        attrs: {
-          "origin-updated": _vm.originTextUpdated,
-          "target-updated": _vm.targetTextUpdated,
-          "hide-editor": _vm.hideTextEditor
-        },
-        on: { "css-update-menu": _vm.cssUpdateM }
-      }),
+      _c("text-editor", { attrs: { "hide-editor": _vm.hideTextEditor } }),
       _vm._v(" "),
-      _c("align-editor", {
-        attrs: {
-          "show-editor": _vm.showAlignEditor,
-          "css-update": _vm.cssUpdate
-        },
-        on: { "css-update-menu": _vm.cssUpdateM }
-      })
+      _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } })
     ],
     1
   )
@@ -18339,24 +20400,65 @@ var render = function() {
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-download" },
+            attrs: {
+              id: "alpheios-main-menu-add-target",
+              disabled: !_vm.docSourceEditAvailable
+            },
             on: {
               click: function($event) {
-                return _vm.$emit("download-data")
+                return _vm.$emit("add-target")
               }
             }
           },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")))]
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
+                "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
           "button",
           {
             staticClass: "alpheios-button-tertiary",
-            attrs: { id: "alpheios-main-menu-upload" },
+            attrs: {
+              id: "alpheios-main-menu-download",
+              disabled: !_vm.docSourceEditAvailable
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("download-data")
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")) +
+                "\n      "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-button-tertiary",
+            attrs: {
+              id: "alpheios-main-menu-upload",
+              disabled: !_vm.docSourceEditAvailable
+            },
             on: { click: _vm.uploadTexts }
           },
-          [_vm._v(_vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")))]
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")) +
+                "\n      "
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -18436,8 +20538,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showUploadBlock,
-              expression: "showUploadBlock"
+              value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
+              expression: "showUploadBlock &&  docSourceEditAvailable"
             }
           ],
           staticClass: "alpheios-alignment-app-menu__upload-block",
@@ -18481,228 +20583,279 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-alignment-editor-text-block" }, [
-    _c("p", { staticClass: "alpheios-alignment-editor-text-block__title" }, [
-      _vm._v(_vm._s(_vm.textBlockTitle))
-    ]),
-    _vm._v(" "),
-    _c(
-      "p",
-      { staticClass: "alpheios-alignment-editor-text-block__direction" },
-      [
-        _c("span", [
-          _vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_DIRECTION_LABEL")) + "  ")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.direction,
-              expression: "direction"
-            }
-          ],
-          attrs: {
-            type: "radio",
-            id: _vm.directionRadioId("ltr"),
-            value: "ltr",
-            tabindex: "1"
-          },
-          domProps: { checked: _vm._q(_vm.direction, "ltr") },
-          on: {
-            change: [
-              function($event) {
-                _vm.direction = "ltr"
-              },
-              _vm.updateText
-            ]
-          }
-        }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: _vm.directionRadioId("ltr") } }, [
-          _vm._v(
-            _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT"))
-          )
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.direction,
-              expression: "direction"
-            }
-          ],
-          attrs: {
-            type: "radio",
-            id: _vm.directionRadioId("rtl"),
-            value: "rtl",
-            tabindex: "1"
-          },
-          domProps: { checked: _vm._q(_vm.direction, "rtl") },
-          on: {
-            change: [
-              function($event) {
-                _vm.direction = "rtl"
-              },
-              _vm.updateText
-            ]
-          }
-        }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: _vm.directionRadioId("rtl") } }, [
-          _vm._v(
-            _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT"))
-          )
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("textarea", {
+  return _c(
+    "div",
+    {
       directives: [
         {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.text,
-          expression: "text"
+          name: "show",
+          rawName: "v-show",
+          value: _vm.dataUpdated,
+          expression: "dataUpdated"
         }
       ],
-      attrs: {
-        id: _vm.textareaId,
-        dir: _vm.direction,
-        tabindex: "2",
-        lang: _vm.selectedLang
-      },
-      domProps: { value: _vm.text },
-      on: {
-        blur: _vm.updateText,
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.text = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("p", { staticClass: "alpheios-alignment-editor-text-block__ava-lang" }, [
-      _c("span", [_vm._v(_vm._s(_vm.chooseAvaLangLabel))]),
+      staticClass: "alpheios-alignment-editor-text-block"
+    },
+    [
+      _c("p", { staticClass: "alpheios-alignment-editor-text-block__title" }, [
+        _vm._v(_vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle) + "\n      "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showDeleteIcon,
+                expression: "showDeleteIcon"
+              }
+            ],
+            staticClass: "alpheios-alignment-editor-text-block__remove",
+            attrs: { id: _vm.removeId },
+            on: { click: _vm.deleteText }
+          },
+          [_c("delete-icon")],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c(
-        "select",
+        "p",
+        { staticClass: "alpheios-alignment-editor-text-block__direction" },
+        [
+          _c("span", [
+            _vm._v(
+              _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_DIRECTION_LABEL")) + "  "
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.direction,
+                expression: "direction"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              id: _vm.directionRadioId("ltr"),
+              value: "ltr",
+              tabindex: "1",
+              disabled: !_vm.docSourceEditAvailable
+            },
+            domProps: { checked: _vm._q(_vm.direction, "ltr") },
+            on: {
+              change: [
+                function($event) {
+                  _vm.direction = "ltr"
+                },
+                _vm.updateText
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: _vm.directionRadioId("ltr") } }, [
+            _vm._v(
+              _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT"))
+            )
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.direction,
+                expression: "direction"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              id: _vm.directionRadioId("rtl"),
+              value: "rtl",
+              tabindex: "1",
+              disabled: !_vm.docSourceEditAvailable
+            },
+            domProps: { checked: _vm._q(_vm.direction, "rtl") },
+            on: {
+              change: [
+                function($event) {
+                  _vm.direction = "rtl"
+                },
+                _vm.updateText
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: _vm.directionRadioId("rtl") } }, [
+            _vm._v(
+              _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT"))
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "textarea",
         {
           directives: [
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.selectedAvaLang,
-              expression: "selectedAvaLang"
+              value: _vm.text,
+              expression: "text"
             }
           ],
-          staticClass:
-            "alpheios-alignment-editor-text-block__ava-lang__select alpheios-select",
+          attrs: {
+            id: _vm.textareaId,
+            dir: _vm.direction,
+            tabindex: "2",
+            lang: _vm.selectedLang,
+            disabled: !_vm.docSourceEditAvailable
+          },
+          domProps: { value: _vm.text },
           on: {
-            change: [
-              function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.selectedAvaLang = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              },
-              _vm.updateAvaLang
-            ]
+            blur: _vm.updateText,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.text = $event.target.value
+            }
           }
         },
-        _vm._l(_vm.langsList, function(lang) {
-          return _c(
-            "option",
-            { key: lang.value, domProps: { value: lang.value } },
-            [_vm._v(_vm._s(lang.label))]
-          )
-        }),
-        0
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "alpheios-alignment-editor-text-block__other-lang-block" },
-      [
-        _c(
-          "div",
-          { staticClass: "alpheios-alignment-editor-text-block__other-lang" },
-          [
-            _c("span", [
-              _vm._v(
-                _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_LANGUAGE_OTHER_LABEL"))
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "alpheios-alignment-editor-text-block__other-lang-input-block"
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedOtherLang,
-                      expression: "selectedOtherLang"
-                    }
-                  ],
-                  staticClass:
-                    "alpheios-alignment-editor-text-block__other-lang__input alpheios-input",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.selectedOtherLang },
-                  on: {
-                    change: _vm.updateText,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.selectedOtherLang = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass:
-                      "alpheios-alignment-editor-text-block__other-lang__description"
+        [_vm._v("    >")]
+      ),
+      _vm._v(" "),
+      _c(
+        "p",
+        { staticClass: "alpheios-alignment-editor-text-block__ava-lang" },
+        [
+          _c("span", [_vm._v(_vm._s(_vm.chooseAvaLangLabel))]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedAvaLang,
+                  expression: "selectedAvaLang"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-editor-text-block__ava-lang__select alpheios-select",
+              attrs: { disabled: !_vm.docSourceEditAvailable },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedAvaLang = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
                   },
-                  [
-                    _vm._v(
-                      "\n            " +
-                        _vm._s(
-                          _vm.l10n.getMsgS(
-                            "TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION"
-                          )
-                        ) +
-                        "\n          "
-                    )
-                  ]
+                  _vm.updateAvaLang
+                ]
+              }
+            },
+            _vm._l(_vm.langsList, function(lang) {
+              return _c(
+                "option",
+                { key: lang.value, domProps: { value: lang.value } },
+                [_vm._v(_vm._s(lang.label))]
+              )
+            }),
+            0
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "alpheios-alignment-editor-text-block__other-lang-block"
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-editor-text-block__other-lang" },
+            [
+              _c("span", [
+                _vm._v(
+                  _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_LANGUAGE_OTHER_LABEL"))
                 )
-              ]
-            )
-          ]
-        )
-      ]
-    )
-  ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-text-block__other-lang-input-block"
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selectedOtherLang,
+                        expression: "selectedOtherLang"
+                      }
+                    ],
+                    staticClass:
+                      "alpheios-alignment-editor-text-block__other-lang__input alpheios-input",
+                    attrs: {
+                      type: "text",
+                      disabled: !_vm.docSourceEditAvailable
+                    },
+                    domProps: { value: _vm.selectedOtherLang },
+                    on: {
+                      change: _vm.updateText,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.selectedOtherLang = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-text-block__other-lang__description"
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(
+                            _vm.l10n.getMsgS(
+                              "TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION"
+                            )
+                          ) +
+                          "\n          "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -18776,34 +20929,32 @@ var render = function() {
               },
               [
                 _c("text-editor-single-block", {
-                  attrs: {
-                    "text-id": "origin",
-                    "external-text": _vm.updatedOrigin
-                  },
-                  on: { "update-text": _vm.updateOriginText }
+                  attrs: { "text-type": "origin" }
                 })
               ],
               1
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container"
-              },
-              [
-                _c("text-editor-single-block", {
-                  attrs: {
-                    "text-id": "target",
-                    "external-text": _vm.updatedTarget,
-                    disabled: _vm.disableTargetTextBlock
+            _vm.allTargetTextsIds
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container"
                   },
-                  on: { "update-text": _vm.updateTargetText }
-                })
-              ],
-              1
-            )
+                  _vm._l(_vm.allTargetTextsIds, function(targetTextId, indexT) {
+                    return _c("text-editor-single-block", {
+                      key: indexT,
+                      attrs: {
+                        "text-type": "target",
+                        "text-id": targetTextId,
+                        index: indexT
+                      }
+                    })
+                  }),
+                  1
+                )
+              : _vm._e()
           ]
         )
       ]
@@ -18814,6 +20965,46 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./inline-icons/delete.svg":
+/*!*********************************!*\
+  !*** ./inline-icons/delete.svg ***!
+  \*********************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 2:6-20 */
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 900.5 900.5"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M176.42 880.5c0 11.046 8.954 20 20 20h507.67c11.046 0 20-8.954 20-20V232.49H176.42V880.5zm386.33-537.73h75V778.8h-75V342.77zm-150 0h75V778.8h-75V342.77zm-150 0h75V778.8h-75V342.77zM618.82 91.911V20c0-11.046-8.954-20-20-20H301.67c-11.046 0-20 8.954-20 20v96.911h-139.8c-11.046 0-20 8.954-20 20v50.576c0 11.045 8.954 20 20 20h616.75c11.046 0 20-8.955 20-20v-50.576c0-11.046-8.954-20-20-20h-139.8V91.912zm-75 20.889H356.67V75.001h187.15v37.801z"}})])
+          )
+        }
+      }
+    
 
 /***/ }),
 
@@ -19391,7 +21582,7 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Origin and Target Texts\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"}}");
+module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"}}");
 
 /***/ }),
 
@@ -19400,6 +21591,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
   !*** ./locales/en-us/messages-common.json ***!
   \********************************************/
 /*! default exports */
+/*! export ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -19500,7 +21696,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ori
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"Document source texts would be divided to different amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Start alignment from origin text please!.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
 
 /***/ }),
 
@@ -20168,6 +22364,11 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
   !*** ./locales/en-us/messages-main-menu.json ***!
   \***********************************************/
 /*! default exports */
+/*! export MAIN_MENU_ADD_TARGET_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export MAIN_MENU_ALIGN_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -20198,7 +22399,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
 
 /***/ }),
 

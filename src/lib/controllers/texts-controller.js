@@ -6,6 +6,10 @@ import UploadController from '@/lib/controllers/upload-controller.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default class TextsController {
+  constructor (store) {
+    this.store = store
+  }
+
   /**
    * Creates an Alignment and uploads source documents, if they are defined
    * @param {String} originDocSource
@@ -13,6 +17,7 @@ export default class TextsController {
    */
   createAlignment (originDocSource, targetDocSource) {
     this.alignment = new Alignment(originDocSource, targetDocSource)
+    return this.alignment
   }
 
   /**
@@ -33,18 +38,33 @@ export default class TextsController {
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
    * Uploads target source document to the alignment object.
-   * If an alignment is not created yet, it would be created.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource) {
+  updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource)
+      this.alignment.updateTargetDocSource(targetDocSource, targetId)
+      this.store.commit('incrementAlignmentUpdated')
+    }
+  }
+
+  /**
+   * Delete target SourceText
+   * @param {String} textType - target or origin
+   * @param {String} id  - unique id created inside SourceText constructor
+   */
+  deleteText (textType, id) {
+    if (!this.alignment) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+    } else {
+      this.alignment.deleteText(textType, id)
+      this.store.commit('incrementAlignmentUpdated')
     }
   }
 
@@ -57,11 +77,31 @@ export default class TextsController {
   }
 
   /**
+   * @returns {Array[String]} - all ids from target source texts
+   */
+  get allTargetTextsIds () {
+    return this.alignment ? this.alignment.allTargetTextsIds : []
+  }
+
+  /**
    * Returns target document source if alignment is defined
    * @returns {SourceText} - target source text
    */
-  get targetDocSource () {
-    return this.alignment ? this.alignment.targetDocSource : null
+  targetDocSource (id) {
+    return this.alignment ? this.alignment.targetDocSource(id) : null
+  }
+
+  /**
+   *
+   * @param {String} textType - origin or target
+   * @param {String} textId - id for the SourceText
+   */
+  getDocSource (textType, textId) {
+    if (textType === 'origin') {
+      return this.originDocSource
+    } else if (textType === 'target') {
+      return this.targetDocSource(textId)
+    }
   }
 
   /**

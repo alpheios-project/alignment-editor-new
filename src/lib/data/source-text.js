@@ -1,4 +1,5 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import { v4 as uuidv4 } from 'uuid'
 
 export default class SourceText {
   /**
@@ -9,11 +10,20 @@ export default class SourceText {
    * @param {String} docSource.direction
    * @param {String} docSource.lang
    */
-  constructor (textType, docSource) {
+  constructor (textType, docSource, targetId) {
+    this.id = targetId || uuidv4()
     this.textType = textType
     this.text = docSource ? docSource.text : ''
-    this.direction = docSource ? docSource.direction : ''
-    this.lang = docSource ? docSource.lang : ''
+    this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
+    this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
+  }
+
+  get defaultDirection () {
+    return 'ltr'
+  }
+
+  get defaultLang () {
+    return 'eng'
   }
 
   /**
@@ -24,9 +34,9 @@ export default class SourceText {
    * @param {String} docSource.lang
    */
   update (docSource) {
-    this.text = docSource.text
-    this.direction = docSource.direction
-    this.lang = docSource.lang
+    this.text = docSource.text ? docSource.text : this.text
+    this.direction = docSource.direction ? docSource.direction : this.direction
+    this.lang = docSource.lang ? docSource.lang : this.lang
   }
 
   /**
@@ -51,9 +61,9 @@ export default class SourceText {
       return false
     }
 
-    const text = jsonData.text.replace(/\t/g, '\u000D')
-    const direction = jsonData.direction
-    const lang = jsonData.lang
+    const text = jsonData.text.replace(/\t/g, '\u000D').trim()
+    const direction = jsonData.direction.trim()
+    const lang = jsonData.lang.trim()
 
     return new SourceText(textType, { text, direction, lang })
   }
