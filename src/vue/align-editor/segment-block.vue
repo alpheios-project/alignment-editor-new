@@ -47,8 +47,8 @@ export default {
   data () {
     return {
       updated: 1,
-      colors: ['#f3f3f3', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#f3f3f3'
+      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      originColor: '#F8F8F8'
     }
   },
   watch: {

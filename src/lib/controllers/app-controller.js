@@ -20,21 +20,29 @@ export default class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId } = {}) {
+  constructor ({ appId, theme } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
     }
     this.appId = appId
+    this.theme = theme
   }
 
   /**
    * Executes methods for initialization and attaching components to the current HTML layout with defined properties
    */
   init () {
+    if (this.theme) {
+      this.defineColorTheme()
+    }
     if (this.appId) {
       this.attachVueComponents()
     }
+  }
+
+  defineColorTheme () {
+    document.body.classList.add(`alpheios-${this.theme}`)
   }
 
   /**

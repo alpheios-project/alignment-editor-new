@@ -1,0 +1,139 @@
+$themes: (
+  standard: (
+    // body styles
+    body-background-color: #fff,
+    body-text-color: #212529,
+
+    // header styles
+    header-background-color: #185F6D,
+    header-text-color: #fff,
+    show-header-title: inline-block,
+
+    logo-1-display: inline-block,
+    logo-2-display: none,
+
+    // main-menu buttons
+    main-menu-text-color: #185F6D,
+    main-menu-border-color: #185F6D,
+    main-menu-background-color: #fff,
+
+    main-menu-text-color-disabled: #fff,
+    main-menu-border-color-disabled: #8bafb6,
+    main-menu-background-color-disabled: #8bafb6,
+
+    main-menu-text-color-hover: #fff,
+    main-menu-border-color-hover: #185F6D,
+    main-menu-background-color-hover: #185F6D,
+
+    // Link color
+    text-link-color: #185F6D,
+    text-link-color-hover: #10424c,
+
+    // Align editor
+    align-editor-text-color: #212529,
+
+    // Not grouped token style
+    align-editor-text-color-hover: #212529,
+    align-editor-text-background-color-hover: #FFC24F,
+    align-editor-text-border-color-hover: #FFC24F,
+
+    // Grouped token style
+    align-editor-text-color-grouped: #212529,
+    align-editor-text-background-color-grouped: #BCE5F0,
+    align-editor-text-border-color-grouped: #BCE5F0,
+
+    // Grouped token style - hover
+    align-editor-text-color-grouped-hovered: #212529,
+    align-editor-text-background-color-grouped-hovered: #BCE5F0,
+    align-editor-text-border-color-grouped-hovered: #96b7c0,
+
+    // Selected token style
+    align-editor-text-color-selected: #fff,
+    align-editor-text-background-color-selected: #F27431,
+    align-editor-text-border-color-selected: #F27431,
+
+    // In active group token style
+    align-editor-text-color-active: #212529,
+    align-editor-text-background-color-active: #f59d6e,
+    align-editor-text-border-color-active: #f59d6e,
+
+    // In active group token hover style
+    align-editor-text-color-active-hover: #212529,
+    align-editor-text-background-color-active-hover: #f59d6e,
+    align-editor-text-border-color-active-hover: #f59d6e,
+
+    // First in active group token style
+    align-editor-text-color-first-active: #fff,
+    align-editor-text-background-color-first-active: #f06d26,
+    align-editor-text-border-color-first-active: #f06d26,
+  ),
+  v1: (
+    // body styles
+    body-background-color:#e0e0e0,
+    body-text-color: #000,
+
+    // header styles
+    header-background-color: #fff,
+    header-text-color: #000,
+    show-header-title: none,
+
+    logo-1-display: none,
+    logo-2-display: inline-block,
+
+    // main-menu buttons
+    main-menu-text-color: #e0e0e0,
+    main-menu-border-color: #505050,
+    main-menu-background-color:#46788d,
+
+    main-menu-text-color-disabled: #F8F8F8,
+    main-menu-border-color-disabled:  #505050,
+    main-menu-background-color-disabled:#6e6e6e,
+
+    main-menu-text-color-hover: #fff,
+    main-menu-border-color-hover: #6a9fb5,
+    main-menu-background-color-hover: #90a959,
+
+    // Link color
+    text-link-color: #46788d,
+    text-link-color-hover: #6a9fb5,
+
+    // Align editor
+    align-editor-text-color: #ae0000,
+
+    // Not grouped token style
+    align-editor-text-color-hover: #810000,
+    align-editor-text-background-color-hover: #fffee0,
+    align-editor-text-border-color-hover: gray,
+
+    // Grouped token style
+    align-editor-text-color-grouped: #282828,
+    align-editor-text-background-color-grouped: transparent,
+    align-editor-text-border-color-grouped: transparent,
+
+    // Grouped token style - hover
+    align-editor-text-color-grouped-hover: #000,
+    align-editor-text-background-color-grouped-hover: #ffd740,
+    align-editor-text-border-color-grouped-hover: gray,
+
+    // Selected token style
+    align-editor-text-color-selected: #000,
+    align-editor-text-background-color-selected: #ffd740,
+    align-editor-text-border-color-selected: transparent,
+
+    // In active group token style
+    align-editor-text-color-active: #000,
+    align-editor-text-background-color-active: #FFd740,
+    align-editor-text-border-color-active: transparent,
+
+    // In active group token hover style
+    align-editor-text-color-active-hover: #000,
+    align-editor-text-background-color-active-hover: #FFd740,
+    align-editor-text-border-color-active-hover: gray,
+
+    // First in active token style
+    align-editor-text-color-first-active: #ae0000,
+    align-editor-text-background-color-first-active: #c8ff40,
+    align-editor-text-border-color-first-active: #000,
+  )
+)
+

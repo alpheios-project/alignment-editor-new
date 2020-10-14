@@ -68,21 +68,5 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor__link-label {
-    cursor: pointer;
-    font-size: 90%;
-    color: #467e8a;
-    display: inline-block;
-    padding: 0 3px;
 
-    &:hover {
-      text-decoration: underline;
-      color: #185F6D;
-    }
-
-    &.alpheios-alignment-editor__link-label-active {
-      text-decoration: underline;
-      color: #185F6D;
-    }
-  }
 </style>

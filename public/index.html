@@ -13,14 +13,17 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(event) {
           new window.AlignmentEditor.AppController({
-            appId: 'alpheios-alignment-editor'
+            appId: 'alpheios-alignment-editor',
+            // theme: 'v1-theme' //,
+            theme: 'standard-theme'
           }).init()
         });
     </script>
     <div class="container">
-      <div class="header">
+      <div class="header alpheios-header">
         <div class="header-logo">
-          <img src="images/alpheios-logo-only.png">
+          <img src="images/alpheios-logo-only.png" class="logo-1">
+          <img src="images/alpheios-logo-black.png" class="logo-2">
         </div>
         <div class="header-title">
           <h1>Alpheios Alignment Editor</h1>

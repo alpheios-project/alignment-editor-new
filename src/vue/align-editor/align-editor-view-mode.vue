@@ -8,6 +8,7 @@
     <div class ="alpheios-alignment-editor-align-define-container-view-mode">
       <div class="alpheios-alignment-editor-align-segment-data"
            v-for="segmentData in allAlignedTextsSegments" :key="getIndex('origin', segmentData.index)"
+           :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segmentData.index === allAlignedTextsSegments.length }"
       >
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-block 
@@ -134,8 +135,8 @@ export default {
     margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
-    background: #f3f3f3;
-    // padding: 10px;
+    background: #F8F8F8;
+    color: #ae0000;
 
     .alpheios-alignment-editor-align-segment-data {
       &:before,
@@ -145,7 +146,12 @@ export default {
         content: '';
       }
 
+      background: #fff;
       border-bottom: 2px solid  #ddd;
+
+      &.alpheios-alignment-editor-align-segment-data-last {
+        border-bottom-color: transparent;
+      }
     }    
 
     .alpheios-alignment-editor-align-text-segment {
