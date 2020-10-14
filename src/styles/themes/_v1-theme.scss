@@ -1,0 +1,73 @@
+$v1-theme: (
+  // body styles
+  body-background-color:#e0e0e0,
+  body-text-color: #000,
+
+  // header styles
+  header-background-color: #fff,
+  header-text-color: #000,
+  show-header-title: none,
+
+  logo-1-display: none,
+  logo-2-display: inline-block,
+
+  // main-menu buttons
+  main-menu-text-color: #e0e0e0,
+  main-menu-border-color: #505050,
+  main-menu-background-color:#46788d,
+
+  main-menu-text-color-disabled: #F8F8F8,
+  main-menu-border-color-disabled:  #505050,
+  main-menu-background-color-disabled:#6e6e6e,
+
+  main-menu-text-color-hover: #fff,
+  main-menu-border-color-hover: #6a9fb5,
+  main-menu-background-color-hover: #90a959,
+
+  // Link color
+  text-link-color: #46788d,
+  text-link-color-hover: #6a9fb5,
+
+  // Align editor
+  align-editor-text-color: #ae0000,
+
+  align-editor-inner-border-color: #000,
+
+  // Not grouped token style
+  align-editor-text-color-hover: #810000,
+  align-editor-text-background-color-hover: #fffee0,
+  align-editor-text-border-color-hover: gray,
+
+  // Grouped token style
+  align-editor-text-color-grouped: #282828,
+  align-editor-text-background-color-grouped: transparent,
+  align-editor-text-border-color-grouped: transparent,
+
+  // Grouped token style - hover
+  align-editor-text-color-grouped-hover: #000,
+  align-editor-text-background-color-grouped-hover: #ffd740,
+  align-editor-text-border-color-grouped-hover: gray,
+
+  // Selected token style
+  align-editor-text-color-selected: #000,
+  align-editor-text-background-color-selected: #ffd740,
+  align-editor-text-border-color-selected: transparent,
+
+  // In active group token style
+  align-editor-text-color-active: #000,
+  align-editor-text-background-color-active: #FFd740,
+  align-editor-text-border-color-active: transparent,
+
+  // In active group token hover style
+  align-editor-text-color-active-hover: #000,
+  align-editor-text-background-color-active-hover: #FFd740,
+  align-editor-text-border-color-active-hover: gray,
+
+  // First in active token style
+  align-editor-text-color-first-active: #ae0000,
+  align-editor-text-background-color-first-active: #c8ff40,
+  align-editor-text-border-color-first-active: #000,
+);
+
+
+

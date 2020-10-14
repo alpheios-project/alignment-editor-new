@@ -1,6 +1,12 @@
 @use "sass:map";
 @import "basic-theme";
-@import 'themes-vars.scss';
+@import 'standard-theme.scss';
+@import 'v1-theme.scss';
+
+$themes: (
+  standard: $standard-theme,
+  v1: $v1-theme,
+);
 
 .alpheios-standard-theme {
     $theme: map.get($themes, 'standard');

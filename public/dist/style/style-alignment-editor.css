@@ -274,6 +274,12 @@ input.alpheios-input::-ms-input-placeholder {
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode {
   color: #212529;
 }
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
+  border-bottom-color: #ddd;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+  border-left-color: #ddd;
+}
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span:hover {
   color: #212529;
   border-color: #FFC24F;
@@ -345,6 +351,12 @@ input.alpheios-input::-ms-input-placeholder {
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode {
   color: #ae0000;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
+  border-bottom-color: #000;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+  border-left-color: #000;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span:hover {
   color: #810000;

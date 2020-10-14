@@ -50,6 +50,16 @@
     .alpheios-alignment-editor-align-define-container-view-mode {
         color: map.get($theme, 'align-editor-text-color');
 
+        .alpheios-alignment-editor-align-segment-data {
+            border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
+        }
+
+        .alpheios-alignment-editor-align-segment-data-item {
+            &.alpheios-alignment-editor-align-segment-data-target {
+                border-left-color: map.get($theme, 'align-editor-inner-border-color');
+            }
+        }
+
         .alpheios-alignment-editor-align-text-segment span {
             &:hover {
                 color: map.get($theme, 'align-editor-text-color-hover');
