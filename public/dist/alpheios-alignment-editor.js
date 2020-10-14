@@ -15108,7 +15108,45 @@ class AppController {
       return
     }
     this.appId = appId
-    this.theme = theme
+    this.theme = this.defineThemeFromUrl(theme)
+  }
+
+  /**
+   * Registered themes in scss
+   * @returns {Array[String]}
+   */
+  get availableThemes () {
+    return ['standard-theme', 'v1-theme']
+  }
+
+  /**
+   * @returns {String} - the name of the default theme
+   */
+  get defaultTheme () {
+    return this.availableThemes[0]
+  }
+
+  /**
+   * Defines final theme according to the following priority:
+   * 1. A theme is defined in url GET parameters - theme
+   * 2. A theme is defined in application code - theme
+   * 3. A default theme
+   * @param {String} theme - passed from the application initialization code
+   */
+  defineThemeFromUrl (theme) {
+    const params = window.location.search
+      .substring(1)
+      .split('&')
+      .map(v => v.split('='))
+      .reduce((map, [key, value]) => map.set(key, decodeURIComponent(value)), new Map())
+
+    const themeFromUrl = params.get('theme')
+    if (themeFromUrl && this.availableThemes.includes(themeFromUrl)) {
+      return themeFromUrl
+    } else if (theme && this.availableThemes.includes(theme)) {
+      return theme
+    }
+    return this.defaultTheme
   }
 
   /**
