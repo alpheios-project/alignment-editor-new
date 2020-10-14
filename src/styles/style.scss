@@ -3,9 +3,12 @@
 @import "input";
 @import "button";
 
+@import "themes/themes-styles";
+
 .alpheios-alignment-app-container {
     * {
         box-sizing: border-box;
     }
     font-family: 'Source Sans Pro', sans-serif;
+    padding-bottom: 20px;
 }

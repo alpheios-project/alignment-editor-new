@@ -1,0 +1,107 @@
+@mixin basic-theme ($theme) {
+    // Theme styles
+    background-color: map.get($theme, 'body-background-color');
+    color: map.get($theme, 'body-text-color');
+
+    .alpheios-header {
+        background-color: map.get($theme, 'header-background-color');
+        color: map.get($theme, 'header-text-color');
+
+        .header-title {
+            display: map.get($theme, 'show-header-title');
+        }
+
+        .header-logo {
+            .logo-1 {
+                display: map.get($theme, 'logo-1-display');
+            }
+            .logo-2 {
+                display: map.get($theme, 'logo-2-display');
+            }
+        }
+    }
+
+    .alpheios-menu-button {
+        color: map.get($theme, 'main-menu-text-color');
+        background: map.get($theme, 'main-menu-background-color');
+        border-color: map.get($theme, 'main-menu-border-color');
+
+        &:hover {
+            color: map.get($theme, 'main-menu-text-color-hover');
+            background: map.get($theme, 'main-menu-background-color-hover');
+            border-color: map.get($theme, 'main-menu-border-color-hover');
+        }
+
+
+        &:disabled {
+            color: map.get($theme, 'main-menu-text-color-disabled');
+            background: map.get($theme, 'main-menu-background-color-disabled');
+            border-color: map.get($theme, 'main-menu-border-color-disabled');
+        }
+    }
+
+    .alpheios-alignment-editor-text-define-container__show-label {
+        color: map.get($theme, 'text-link-color');
+        &:hover {
+            color: map.get($theme, 'text-link-color-hover');
+        }
+    }
+
+    .alpheios-alignment-editor-align-define-container-view-mode {
+        color: map.get($theme, 'align-editor-text-color');
+
+        .alpheios-alignment-editor-align-segment-data {
+            border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
+        }
+
+        .alpheios-alignment-editor-align-segment-data-item {
+            &.alpheios-alignment-editor-align-segment-data-target {
+                border-left-color: map.get($theme, 'align-editor-inner-border-color');
+            }
+        }
+
+        .alpheios-alignment-editor-align-text-segment span {
+            &:hover {
+                color: map.get($theme, 'align-editor-text-color-hover');
+                border-color: map.get($theme, 'align-editor-text-border-color-hover');
+                background: map.get($theme, 'align-editor-text-background-color-hover');
+            }
+
+            &.alpheios-token-grouped {
+                color: map.get($theme, 'align-editor-text-color-grouped');
+                border-color: map.get($theme, 'align-editor-text-border-color-grouped');
+                background: map.get($theme, 'align-editor-text-background-color-grouped');
+
+                &:hover {
+                    color: map.get($theme, 'align-editor-text-color-grouped-hover');
+                    border-color: map.get($theme, 'align-editor-text-border-color-grouped-hover');
+                    background: map.get($theme, 'align-editor-text-background-color-grouped-hover');
+                }
+            }
+
+            &.alpheios-token-selected {
+                color: map.get($theme, 'align-editor-text-color-selected');
+                border-color: map.get($theme, 'align-editor-text-border-color-selected');
+                background: map.get($theme, 'align-editor-text-background-color-selected');
+            }
+
+            &.alpheios-token-clicked {
+                color: map.get($theme, 'align-editor-text-color-active');
+                border-color: map.get($theme, 'align-editor-text-border-color-active');
+                background: map.get($theme, 'align-editor-text-background-color-active');
+
+                &:hover {
+                    color: map.get($theme, 'align-editor-text-color-active-hover');
+                    border-color: map.get($theme, 'align-editor-text-border-color-active-hover');
+                    background: map.get($theme, 'align-editor-text-background-color-active-hover');
+                }
+            }
+
+            &.alpheios-token-clicked-first {
+                color: map.get($theme, 'align-editor-text-color-first-active');
+                border-color: map.get($theme, 'align-editor-text-border-color-first-active');
+                background: map.get($theme, 'align-editor-text-background-color-first-active');
+            }
+        }
+    }
+}

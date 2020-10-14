@@ -20,21 +20,67 @@ export default class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId } = {}) {
+  constructor ({ appId, theme } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
     }
     this.appId = appId
+    this.theme = this.defineThemeFromUrl(theme)
+  }
+
+  /**
+   * Registered themes in scss
+   * @returns {Array[String]}
+   */
+  get availableThemes () {
+    return ['standard-theme', 'v1-theme']
+  }
+
+  /**
+   * @returns {String} - the name of the default theme
+   */
+  get defaultTheme () {
+    return this.availableThemes[0]
+  }
+
+  /**
+   * Defines final theme according to the following priority:
+   * 1. A theme is defined in url GET parameters - theme
+   * 2. A theme is defined in application code - theme
+   * 3. A default theme
+   * @param {String} theme - passed from the application initialization code
+   */
+  defineThemeFromUrl (theme) {
+    const params = window.location.search
+      .substring(1)
+      .split('&')
+      .map(v => v.split('='))
+      .reduce((map, [key, value]) => map.set(key, decodeURIComponent(value)), new Map())
+
+    const themeFromUrl = params.get('theme')
+    if (themeFromUrl && this.availableThemes.includes(themeFromUrl)) {
+      return themeFromUrl
+    } else if (theme && this.availableThemes.includes(theme)) {
+      return theme
+    }
+    return this.defaultTheme
   }
 
   /**
    * Executes methods for initialization and attaching components to the current HTML layout with defined properties
    */
   init () {
+    if (this.theme) {
+      this.defineColorTheme()
+    }
     if (this.appId) {
       this.attachVueComponents()
     }
+  }
+
+  defineColorTheme () {
+    document.body.classList.add(`alpheios-${this.theme}`)
   }
 
   /**

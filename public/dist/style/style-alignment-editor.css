@@ -233,8 +233,170 @@ input.alpheios-input::-ms-input-placeholder {
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
 
+.alpheios-standard-theme {
+  background-color: #fff;
+  color: #212529;
+}
+.alpheios-standard-theme .alpheios-header {
+  background-color: #185F6D;
+  color: #fff;
+}
+.alpheios-standard-theme .alpheios-header .header-title {
+  display: inline-block;
+}
+.alpheios-standard-theme .alpheios-header .header-logo .logo-1 {
+  display: inline-block;
+}
+.alpheios-standard-theme .alpheios-header .header-logo .logo-2 {
+  display: none;
+}
+.alpheios-standard-theme .alpheios-menu-button {
+  color: #185F6D;
+  background: #fff;
+  border-color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-menu-button:hover {
+  color: #fff;
+  background: #185F6D;
+  border-color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-menu-button:disabled {
+  color: #fff;
+  background: #8bafb6;
+  border-color: #8bafb6;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-text-define-container__show-label {
+  color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-text-define-container__show-label:hover {
+  color: #10424c;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode {
+  color: #212529;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
+  border-bottom-color: #ddd;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+  border-left-color: #ddd;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span:hover {
+  color: #212529;
+  border-color: #FFC24F;
+  background: #FFC24F;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-grouped {
+  color: #212529;
+  border-color: #BCE5F0;
+  background: #BCE5F0;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-selected {
+  color: #fff;
+  border-color: #F27431;
+  background: #F27431;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-clicked {
+  color: #212529;
+  border-color: #f59d6e;
+  background: #f59d6e;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-clicked:hover {
+  color: #212529;
+  border-color: #f59d6e;
+  background: #f59d6e;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-clicked-first {
+  color: #fff;
+  border-color: #f06d26;
+  background: #f06d26;
+}
+
+.alpheios-v1-theme {
+  background-color: #e0e0e0;
+  color: #000;
+}
+.alpheios-v1-theme .alpheios-header {
+  background-color: #fff;
+  color: #000;
+}
+.alpheios-v1-theme .alpheios-header .header-title {
+  display: none;
+}
+.alpheios-v1-theme .alpheios-header .header-logo .logo-1 {
+  display: none;
+}
+.alpheios-v1-theme .alpheios-header .header-logo .logo-2 {
+  display: inline-block;
+}
+.alpheios-v1-theme .alpheios-menu-button {
+  color: #e0e0e0;
+  background: #46788d;
+  border-color: #505050;
+}
+.alpheios-v1-theme .alpheios-menu-button:hover {
+  color: #fff;
+  background: #90a959;
+  border-color: #6a9fb5;
+}
+.alpheios-v1-theme .alpheios-menu-button:disabled {
+  color: #F8F8F8;
+  background: #6e6e6e;
+  border-color: #505050;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-text-define-container__show-label {
+  color: #46788d;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-text-define-container__show-label:hover {
+  color: #6a9fb5;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode {
+  color: #ae0000;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
+  border-bottom-color: #000;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+  border-left-color: #000;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span:hover {
+  color: #810000;
+  border-color: gray;
+  background: #fffee0;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-grouped {
+  color: #282828;
+  border-color: transparent;
+  background: transparent;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-grouped:hover {
+  color: #000;
+  border-color: gray;
+  background: #ffd740;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-selected {
+  color: #000;
+  border-color: transparent;
+  background: #ffd740;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-clicked {
+  color: #000;
+  border-color: transparent;
+  background: #FFd740;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-clicked:hover {
+  color: #000;
+  border-color: gray;
+  background: #FFd740;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment span.alpheios-token-clicked-first {
+  color: #ae0000;
+  border-color: #000;
+  background: #c8ff40;
+}
+
 .alpheios-alignment-app-container {
   font-family: "Source Sans Pro", sans-serif;
+  padding-bottom: 20px;
 }
 .alpheios-alignment-app-container * {
   box-sizing: border-box;
@@ -362,15 +524,20 @@ input.alpheios-input::-ms-input-placeholder {
   margin-top: 15px;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
-  background: #f3f3f3;
+  background: #F8F8F8;
+  color: #ae0000;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
+  background: #fff;
   border-bottom: 2px solid #ddd;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data:before, .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data:after {
   clear: both;
   display: table;
   content: "";
+}
+.alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data.alpheios-alignment-editor-align-segment-data-last {
+  border-bottom-color: transparent;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-text-segment {
   border-bottom: 2px solid #e3e3e3;
@@ -385,21 +552,6 @@ input.alpheios-input::-ms-input-placeholder {
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
-}
-.alpheios-alignment-editor__link-label {
-  cursor: pointer;
-  font-size: 90%;
-  color: #467e8a;
-  display: inline-block;
-  padding: 0 3px;
-}
-.alpheios-alignment-editor__link-label:hover {
-  text-decoration: underline;
-  color: #185F6D;
-}
-.alpheios-alignment-editor__link-label.alpheios-alignment-editor__link-label-active {
-  text-decoration: underline;
-  color: #185F6D;
 }
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;
