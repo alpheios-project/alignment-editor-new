@@ -20731,6 +20731,7 @@ var render = function() {
           domProps: { value: _vm.text },
           on: {
             blur: _vm.updateText,
+            keyup: _vm.updateText,
             input: function($event) {
               if ($event.target.composing) {
                 return
