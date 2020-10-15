@@ -64,6 +64,7 @@ export default {
   data () {
     return {
       text: null,
+      prevText: null,
       direction: 'ltr',
       langsList: [],
       selectedAvaLang: null,
@@ -76,6 +77,14 @@ export default {
   created () {
     this.langsList = Langs.all
     this.selectedAvaLang = this.langsList[0].value
+  },
+  watch: {
+    text (val) {
+      if ((!this.prevText && val) || (this.prevText && !val)) {
+        this.updateText()
+      }
+      this.prevText = val
+    }
   },
   computed: {
     dataUpdated () {
