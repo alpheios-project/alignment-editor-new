@@ -528,7 +528,7 @@ input.alpheios-input::-ms-input-placeholder {
   color: #ae0000;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data {
-  background: #fff;
+  background: #F8F8F8;
   border-bottom: 2px solid #ddd;
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data:before, .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data:after {

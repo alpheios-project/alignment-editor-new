@@ -80,6 +80,7 @@ export default class AppController {
   }
 
   defineColorTheme () {
+    document.documentElement.classList.add(`alpheios-${this.theme}`)
     document.body.classList.add(`alpheios-${this.theme}`)
   }
 

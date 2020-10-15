@@ -15162,6 +15162,7 @@ class AppController {
   }
 
   defineColorTheme () {
+    document.documentElement.classList.add(`alpheios-${this.theme}`)
     document.body.classList.add(`alpheios-${this.theme}`)
   }
 
@@ -15341,6 +15342,7 @@ class HistoryController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
+    this.undoneSteps = 0
   }
 
   /**
@@ -15350,7 +15352,7 @@ class HistoryController {
   get redoAvailable () {
     return Boolean(this.alignment) && !this.tabsViewMode &&
            ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) ||
            (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
   }
 
@@ -15398,6 +15400,7 @@ class HistoryController {
     }
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
+      this.undoneSteps = this.undoneSteps + 1
       return result
     }
   }
@@ -15412,15 +15415,14 @@ class HistoryController {
     let result
     if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
       result = this.alignment.redoInActiveGroup()
-    }
-    if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
+    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) {
       result = this.alignment.finishActiveAlignmentGroup()
-    }
-    if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
+    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
       result = this.alignment.redoActiveGroup()
     }
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
+      this.undoneSteps = this.undoneSteps - 1
       return result
     }
   }
@@ -18764,6 +18766,7 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       text: null,
+      prevText: null,
       direction: 'ltr',
       langsList: [],
       selectedAvaLang: null,
@@ -18776,6 +18779,14 @@ __webpack_require__.r(__webpack_exports__);
   created () {
     this.langsList = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__.default.all
     this.selectedAvaLang = this.langsList[0].value
+  },
+  watch: {
+    text (val) {
+      if ((!this.prevText && val) || (this.prevText && !val)) {
+        this.updateText()
+      }
+      this.prevText = val
+    }
   },
   computed: {
     dataUpdated () {
@@ -20731,7 +20742,6 @@ var render = function() {
           domProps: { value: _vm.text },
           on: {
             blur: _vm.updateText,
-            keyup: _vm.updateText,
             input: function($event) {
               if ($event.target.composing) {
                 return

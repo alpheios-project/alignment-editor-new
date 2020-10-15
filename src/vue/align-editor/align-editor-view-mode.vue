@@ -146,7 +146,7 @@ export default {
         content: '';
       }
 
-      background: #fff;
+      background: #F8F8F8;
       border-bottom: 2px solid  #ddd;
 
       &.alpheios-alignment-editor-align-segment-data-last {

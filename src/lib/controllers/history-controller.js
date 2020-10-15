@@ -2,6 +2,7 @@ export default class HistoryController {
   constructor (store) {
     this.store = store
     this.tabsViewMode = false
+    this.undoneSteps = 0
   }
 
   /**
@@ -11,7 +12,7 @@ export default class HistoryController {
   get redoAvailable () {
     return Boolean(this.alignment) && !this.tabsViewMode &&
            ((this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) ||
-           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) ||
+           (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) ||
            (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0))
   }
 
@@ -59,6 +60,7 @@ export default class HistoryController {
     }
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
+      this.undoneSteps = this.undoneSteps + 1
       return result
     }
   }
@@ -73,15 +75,14 @@ export default class HistoryController {
     let result
     if (this.alignment.hasActiveAlignmentGroup && !this.alignment.currentStepOnLastInActiveGroup) {
       result = this.alignment.redoInActiveGroup()
-    }
-    if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && this.alignment.undoneGroups.length > 0) {
+    } else if (this.alignment.hasActiveAlignmentGroup && this.alignment.currentStepOnLastInActiveGroup && (this.undoneSteps > 0)) {
       result = this.alignment.finishActiveAlignmentGroup()
-    }
-    if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
+    } else if (!this.alignment.hasActiveAlignmentGroup && this.alignment.undoneGroups.length > 0) {
       result = this.alignment.redoActiveGroup()
     }
     if (result) {
       this.store.commit('incrementAlignmentUpdated')
+      this.undoneSteps = this.undoneSteps - 1
       return result
     }
   }
