@@ -16,7 +16,9 @@ describe('aligned-text.test.js', () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
 
   beforeEach(() => {

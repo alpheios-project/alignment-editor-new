@@ -36,7 +36,7 @@
       "component": "Alignment"
     },
     "ALIGNMENT_ERROR_ADD_TO_ALIGNMENT": {
-      "message": "Start alignment from origin text please!.",
+      "message": "Choose another token please - from the same segment, target text.",
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },

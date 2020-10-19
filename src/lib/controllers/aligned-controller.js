@@ -1,4 +1,5 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignedController {
   constructor (store) {
@@ -13,6 +14,10 @@ export default class AlignedController {
   createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'),
+        type: NotificationSingleton.types.ERROR
+      })
       return false
     }
 
@@ -24,6 +29,10 @@ export default class AlignedController {
 
     if (!res2) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'),
+        type: NotificationSingleton.types.ERROR
+      })
       this.alignment.clearAlignedTexts()
       this.store.commit('incrementAlignmentUpdated')
       return false

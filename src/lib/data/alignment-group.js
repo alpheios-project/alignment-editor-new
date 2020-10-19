@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import AlignmentStep from '@/lib/data/alignment-step'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignmentGroup {
   /**
@@ -297,6 +298,10 @@ export default class AlignmentGroup {
       return this.alignToStep(this.currentStepIndex - 1)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'),
+        type: NotificationSingleton.types.ERROR
+      })
     }
   }
 
@@ -308,6 +313,10 @@ export default class AlignmentGroup {
       return this.alignToStep(this.currentStepIndex + 1)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'),
+        type: NotificationSingleton.types.ERROR
+      })
     }
   }
 
@@ -405,6 +414,10 @@ export default class AlignmentGroup {
     const step = this.steps[stepIndex]
     if (!step.hasValidType) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
+        type: NotificationSingleton.types.ERROR
+      })
       return
     }
 

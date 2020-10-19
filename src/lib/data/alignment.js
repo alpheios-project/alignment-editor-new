@@ -4,6 +4,7 @@ import AlignmentGroup from '@/lib/data/alignment-group'
 import AlignedText from '@/lib/data/aligned-text'
 import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class Alignment {
   /**
@@ -87,6 +88,10 @@ export default class Alignment {
     if (!this.origin.docSource) {
       if (docSource) {
         console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+          type: NotificationSingleton.types.ERROR
+        })
       }
       return false
     }
@@ -129,6 +134,10 @@ export default class Alignment {
     return this.targets[id] && this.targets[id].docSource ? this.targets[id].docSource : null
   }
 
+  get allTargetDocSources () {
+    return Object.keys(this.targets).map(targetId => this.targets[targetId].docSource)
+  }
+
   /**
    * Checks if tokenizer is defined, and creates AlignedText for origin and target
    * @param {String} tokenizer - method's name
@@ -137,6 +146,10 @@ export default class Alignment {
   createAlignedTexts (tokenizer) {
     if (!tokenizer || !this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'),
+        type: NotificationSingleton.types.ERROR
+      })
       return false
     }
 
@@ -291,6 +304,10 @@ export default class Alignment {
       return this.activeAlignmentGroup.add(token)
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+        type: NotificationSingleton.types.ERROR
+      })
       return false
     }
   }
@@ -307,6 +324,10 @@ export default class Alignment {
       return true
     } else {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT'),
+        type: NotificationSingleton.types.ERROR
+      })
     }
   }
 
@@ -411,6 +432,10 @@ export default class Alignment {
   activateGroupByGroupIndex (tokensGroupIndex) {
     if (tokensGroupIndex >= this.alignmentGroups.length) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ACTIVATE_BY_INDEX', { index: tokensGroupIndex }),
+        type: NotificationSingleton.types.ERROR
+      })
       return
     }
     const tokensGroup = this.alignmentGroups[tokensGroupIndex]

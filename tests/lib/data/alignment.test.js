@@ -16,7 +16,9 @@ describe('alignment.test.js', () => {
     const appC = new AppController({
       appId:'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
   
   beforeEach(() => {
@@ -1400,5 +1402,6 @@ describe('alignment.test.js', () => {
     alignment.activateHoverOnAlignmentGroups(originToken1, targetId2)  // filtered by targetId2
     expect(alignment.hoveredGroups.length).toEqual(1)
   })
+
 })
 

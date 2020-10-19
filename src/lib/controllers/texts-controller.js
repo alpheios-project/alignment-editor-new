@@ -5,6 +5,8 @@ import DownloadController from '@/lib/controllers/download-controller.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
 export default class TextsController {
   constructor (store) {
     this.store = store
@@ -48,6 +50,10 @@ export default class TextsController {
   updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+        type: 'error'
+      })
     } else {
       this.alignment.updateTargetDocSource(targetDocSource, targetId)
       this.store.commit('incrementAlignmentUpdated')
@@ -62,6 +68,10 @@ export default class TextsController {
   deleteText (textType, id) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+        type: NotificationSingleton.types.ERROR
+      })
     } else {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementAlignmentUpdated')
@@ -91,6 +101,14 @@ export default class TextsController {
     return this.alignment ? this.alignment.targetDocSource(id) : null
   }
 
+  get allTargetDocSources () {
+    return this.alignment ? this.alignment.allTargetDocSources : null
+  }
+
+  get targetDocSourceFullyDefined () {
+    return this.alignment ? this.alignment.targetDocSourceFullyDefined : null
+  }
+
   /**
    *
    * @param {String} textType - origin or target
@@ -111,6 +129,10 @@ export default class TextsController {
   uploadDocSourceFromFile (fileData) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
       return
     }
     const uploadType = 'plainSourceUploadFromFile'
@@ -118,7 +140,7 @@ export default class TextsController {
     const result = UploadController.upload(uploadType, fileData)
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
-      this.updateTargetDocSource(result.targetDocSource)
+      result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
     }
   }
 
@@ -129,8 +151,8 @@ export default class TextsController {
   downloadData () {
     const downloadType = 'plainSourceDownload'
     const data = {
-      originDocSource: this.originDocSource,
-      targetDocSource: this.targetDocSource
+      originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
+      targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
     return DownloadController.download(downloadType, data)
   }

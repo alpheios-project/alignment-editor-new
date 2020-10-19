@@ -22,6 +22,7 @@ describe('texts-controller.test.js', () => {
     })
     appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
 
   beforeEach(() => {
