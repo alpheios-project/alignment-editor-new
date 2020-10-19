@@ -101,12 +101,18 @@ export default class TextsController {
     return this.alignment ? this.alignment.targetDocSource(id) : null
   }
 
+  /**
+   * @returns {Array[SourceText]} an array of all source texts from targets
+   */
   get allTargetDocSources () {
     return this.alignment ? this.alignment.allTargetDocSources : null
   }
 
+  /**
+   * @returns {Boolean} - true - all target source texts are fully defined
+   */
   get targetDocSourceFullyDefined () {
-    return this.alignment ? this.alignment.targetDocSourceFullyDefined : null
+    return this.alignment ? this.alignment.targetDocSourceFullyDefined : false
   }
 
   /**

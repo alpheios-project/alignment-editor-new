@@ -15597,12 +15597,18 @@ class TextsController {
     return this.alignment ? this.alignment.targetDocSource(id) : null
   }
 
+  /**
+   * @returns {Array[SourceText]} an array of all source texts from targets
+   */
   get allTargetDocSources () {
     return this.alignment ? this.alignment.allTargetDocSources : null
   }
 
+  /**
+   * @returns {Boolean} - true - all target source texts are fully defined
+   */
   get targetDocSourceFullyDefined () {
-    return this.alignment ? this.alignment.targetDocSourceFullyDefined : null
+    return this.alignment ? this.alignment.targetDocSourceFullyDefined : false
   }
 
   /**
@@ -16781,6 +16787,10 @@ class Alignment {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.INFO
+      })
       return true
     }
     return false
@@ -17805,9 +17815,9 @@ class NotificationSingleton {
 }
 
 NotificationSingleton.types = {
-  // Step type for adding token
+  // Notification type for errors
   ERROR: 'error',
-  // Step type for removing token
+  // Notification type for info
   INFO: 'info'
 }
 
@@ -22197,6 +22207,11 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   other exports [not provided] [no usage info] */
+/*! export ALIGNMENT_GROUP_IS_COMPLETED [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export ALIGNMENT_GROUP_REDO_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -22269,7 +22284,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"Document source texts would be divided to different amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"Document source texts would be divided to different amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
 
 /***/ }),
 

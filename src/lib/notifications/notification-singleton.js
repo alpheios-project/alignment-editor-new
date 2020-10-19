@@ -33,8 +33,8 @@ export default class NotificationSingleton {
 }
 
 NotificationSingleton.types = {
-  // Step type for adding token
+  // Notification type for errors
   ERROR: 'error',
-  // Step type for removing token
+  // Notification type for info
   INFO: 'info'
 }
