@@ -6,6 +6,9 @@ import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 
+import StoreDefinition from '@/lib/store/store-definition'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
 import EnUsCommon from '@/locales/en-us/messages-common.json'
@@ -91,6 +94,7 @@ export default class AppController {
     this.defineStore()
 
     this.defineL10Support()
+    this.defineNotificationSupport()
     this.defineTextController()
     this.defineAlignedController()
     this.defineHistoryController()
@@ -111,16 +115,7 @@ export default class AppController {
 
   defineStore () {
     Vue.use(Vuex)
-    this.store = new Vuex.Store({
-      state: {
-        alignmentUpdated: 1
-      },
-      mutations: {
-        incrementAlignmentUpdated (state) {
-          state.alignmentUpdated++
-        }
-      }
-    })
+    this.store = new Vuex.Store(StoreDefinition.defaultDefinition)
   }
 
   /**
@@ -167,5 +162,13 @@ export default class AppController {
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
+  }
+
+  /**
+   * Defines NotificatinSingleton instance
+   */
+  defineNotificationSupport () {
+    const notificationSingleton = new NotificationSingleton(this.store)
+    return notificationSingleton
   }
 }

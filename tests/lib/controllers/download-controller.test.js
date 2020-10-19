@@ -15,7 +15,9 @@ describe('download-controller.test.js', () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
 
   beforeEach(() => {
@@ -134,14 +136,14 @@ describe('download-controller.test.js', () => {
 
   it('5 DownloadController - static plainSourceDownload method executes DownloadFileOneColumn.download if data is correctly defined ', () => {
     DownloadFileOneColumn.download = jest.fn()
-    
+
     const data = {
       originDocSource: new SourceText('origin', {
         text: 'originText', direction: 'ltr', lang: 'lat'
       }),
-      targetDocSource: new SourceText('target', {
+      targetDocSources: [new SourceText('target', {
         text: 'targetText', direction: 'ltr', lang: 'eng'
-      })
+      })]
     } 
     DownloadController.plainSourceDownload(data)
 

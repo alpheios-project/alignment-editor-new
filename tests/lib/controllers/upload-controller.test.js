@@ -14,7 +14,9 @@ describe('upload-controller.test.js', () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
+    appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
 
   beforeEach(() => {
@@ -80,6 +82,6 @@ describe('upload-controller.test.js', () => {
     result = UploadController.plainSourceUploadFromFile(data)
 
     expect(result).toHaveProperty('originDocSource', expect.any(SourceText))
-    expect(result).toHaveProperty('targetDocSource', expect.any(SourceText))
+    expect(result).toHaveProperty('targetDocSources', expect.any(Array))
   })
 })

@@ -8,6 +8,7 @@
         @undo-action = "undoAction"
         @add-target = "addTarget"
       />
+      <notification-bar />
       <text-editor 
         :hide-editor = "hideTextEditor"
       />
@@ -18,6 +19,7 @@
 </template>
 <script>
 import MainMenu from '@/vue/main-menu.vue'
+import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
 
@@ -26,7 +28,8 @@ export default {
   components: {
     mainMenu: MainMenu,
     textEditor: TextEditor,
-    alignEditor: AlignEditor
+    alignEditor: AlignEditor,
+    notificationBar: NotificationBar
   },
   data () {
     return {

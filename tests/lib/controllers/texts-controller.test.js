@@ -22,6 +22,7 @@ describe('texts-controller.test.js', () => {
     })
     appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
 
   beforeEach(() => {
@@ -195,7 +196,7 @@ describe('texts-controller.test.js', () => {
     UploadController.upload = jest.fn(() => {
       return {
         originDocSource: { text: 'originDocSource', direction: 'ltr', lang: 'lat' },
-        targetDocSource: { text: 'targetDocSource', direction: 'ltr', lang: 'eng' }
+        targetDocSources: [{ text: 'targetDocSource', direction: 'ltr', lang: 'eng' }]
       }
     })
 

@@ -36,7 +36,7 @@
       "component": "Alignment"
     },
     "ALIGNMENT_ERROR_ADD_TO_ALIGNMENT": {
-      "message": "Start alignment from origin text please!.",
+      "message": "Choose another token please - from the same segment, target text.",
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },
@@ -50,6 +50,11 @@
       "description": "An error message for alignment workflow",
       "component": "Alignment",
       "params": ["index"]
+    },
+    "ALIGNMENT_GROUP_IS_COMPLETED": {
+      "message": "Alignment group is finished and saved.",
+      "description": "An info message that group is completed successfully",
+      "component": "Alignment"
     },
     "TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED": {
       "message": "Tokenizer method {tokenizer} is not registered",

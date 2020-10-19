@@ -14,6 +14,7 @@ describe('simple-local-tokenizer.test.js', () => {
       appidWord:'alpheios-alignment-editor'
     })
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
   })
     
   beforeEach(() => {

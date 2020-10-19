@@ -1,4 +1,6 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
 import { v4 as uuidv4 } from 'uuid'
 
 export default class SourceText {
@@ -58,6 +60,10 @@ export default class SourceText {
   static convertFromJSON (textType, jsonData) {
     if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
       console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
+        type: NotificationSingleton.types.ERROR
+      })
       return false
     }
 

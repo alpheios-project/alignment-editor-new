@@ -77,7 +77,7 @@ export default {
      * Creates FileReader and passes data from file to App component for parsing
      */
     loadTextFromFile(ev) {
-      const file = ev.target.files[0]
+      const file = ev.target.files[0]     
       if (!file) { return }
       const reader = new FileReader()
 

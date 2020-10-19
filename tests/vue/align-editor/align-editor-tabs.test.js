@@ -33,6 +33,7 @@ describe('align-editor-tabs.test.js', () => {
     
     appC.defineStore()
     appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
     appC.defineHistoryController(appC.store)

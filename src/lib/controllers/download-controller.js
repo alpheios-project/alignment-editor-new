@@ -1,5 +1,6 @@
 import DownloadFileOneColumn from '@/lib/download/download-file-one-column.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class DownloadController {
   /**
@@ -23,6 +24,10 @@ export default class DownloadController {
       return this.downloadMethods[downloadType](data)
     }
     console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
+      type: NotificationSingleton.types.ERROR
+    })
     return false
   }
 
@@ -33,15 +38,25 @@ export default class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownload (data) {
-    if (!data.originDocSource || !data.targetDocSource || !data.originDocSource.fullyDefined || !data.targetDocSource.fullyDefined) {
+    if (!data.originDocSource || !data.targetDocSources) {
       console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: NotificationSingleton.types.ERROR
+      })
       return false
     }
-    const fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang,
-      data.targetDocSource.text, data.targetDocSource.direction, data.targetDocSource.lang
-    ]
+    let fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang] // eslint-disable-line prefer-const
 
-    const fileName = `alignment-${data.originDocSource.lang}-${data.targetDocSource.lang}`
+    let langs = [] // eslint-disable-line prefer-const
+
+    data.targetDocSources.forEach(targetText => {
+      fields.push(...[targetText.text, targetText.direction, targetText.lang])
+
+      if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
+    })
+
+    const fileName = `alignment-${data.originDocSource.lang}-${langs.join('-')}`
     return DownloadFileOneColumn.download(fields, fileName)
   }
 }
