@@ -71,8 +71,9 @@ export default {
     /**
      * Starts align workflow
      */
-    alignTexts () {
-      if (this.$alignedC.createAlignedTexts(this.$textC.alignment)) {
+    async alignTexts () {
+      const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
+      if (result) {
         this.hideTextEditor = this.hideTextEditor + 1
         this.showAlignEditor = this.showAlignEditor + 1  
       }

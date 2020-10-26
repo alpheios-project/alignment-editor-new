@@ -143,7 +143,7 @@ export default class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  createAlignedTexts (tokenizer) {
+  async createAlignedTexts (tokenizer) {
     if (!tokenizer || !this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({
@@ -159,6 +159,8 @@ export default class Alignment {
       tokenPrefix: '1'
     })
 
+    await this.origin.alignedText.tokenize(this.origin.docSource)
+
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
 
@@ -167,6 +169,8 @@ export default class Alignment {
         tokenizer,
         tokenPrefix: (i + 2)
       })
+
+      await this.targets[id].alignedText.tokenize(this.targets[id].docSource)
     }
     return true
   }

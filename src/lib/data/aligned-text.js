@@ -16,8 +16,6 @@ export default class AlignedText {
     this.lang = docSource.lang
 
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
-
-    this.tokenize(docSource)
   }
 
   /**
@@ -39,9 +37,10 @@ export default class AlignedText {
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
    */
-  tokenize (docSource) {
+  async tokenize (docSource) {
     const tokenizeMethod = TokenizeController.getTokenizer(this.tokenizer)
-    const result = tokenizeMethod(docSource, this.tokenPrefix, this.textType)
+    const result = await tokenizeMethod(docSource, this.tokenPrefix)
+
     if (result && result.segments) {
       this.segments = result.segments.map(segment => new Segment({
         index: segment.index,
@@ -50,7 +49,7 @@ export default class AlignedText {
         lang: docSource.lang,
         direction: docSource.direction,
         docSourceId: docSource.id
-      }))
+      }, result.mapFields))
     }
   }
 }

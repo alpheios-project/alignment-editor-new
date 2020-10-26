@@ -11,7 +11,7 @@ export default class AlignedController {
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
-  createAlignedTexts (alignment) {
+  async createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       NotificationSingleton.addNotification({
@@ -22,8 +22,9 @@ export default class AlignedController {
     }
 
     this.alignment = alignment
-    const tokenizer = 'simpleWordTokenization'
-    const result = this.alignment.createAlignedTexts(tokenizer)
+    // const tokenizer = 'simpleLocalTokenizer'
+    const tokenizer = 'alpheiosRemoteTokenizer'
+    const result = await this.alignment.createAlignedTexts(tokenizer)
 
     const res2 = this.alignment.equalSegmentsAmount
 
