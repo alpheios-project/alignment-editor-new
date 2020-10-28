@@ -56751,7 +56751,24 @@ __webpack_require__.r(__webpack_exports__);
 class AlignedController {
   constructor (store, tokenizeParams) {
     this.store = store
+    this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
     this.tokenizeParams = tokenizeParams
+  }
+
+  get availableTokenizers () {
+    return ['simpleLocalTokenizer', 'alpheiosRemoteTokenizer']
+  }
+
+  get defaultTokenizer () {
+    return 'alpheiosRemoteTokenizer'
+  }
+
+  tokenizerIsSupported (tokenizer) {
+    return tokenizer && this.availableTokenizers.includes(tokenizer)
+  }
+
+  defineTokenizer (tokenizer) {
+    return this.tokenizerIsSupported(tokenizer) ? tokenizer : this.defaultTokenizer
   }
 
   /**
@@ -56770,15 +56787,13 @@ class AlignedController {
     }
 
     this.alignment = alignment
-    // const tokenizer = 'simpleLocalTokenizer'
-    const tokenizer = 'alpheiosRemoteTokenizer'
 
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
       text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
       type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts(tokenizer, this.tokenizeParams)
+    const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
 
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
       text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),

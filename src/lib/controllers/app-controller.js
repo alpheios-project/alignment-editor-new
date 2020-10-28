@@ -31,8 +31,6 @@ export default class AppController {
     this.appId = appId
     this.theme = this.defineThemeFromUrl(theme)
     this.tokenizeParams = tokenizeParams
-
-    console.info('app', this)
   }
 
   /**

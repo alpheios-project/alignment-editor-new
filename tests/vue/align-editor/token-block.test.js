@@ -22,13 +22,16 @@ describe('token-block.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
 
     appC = new AppController({
-      appId:'alpheios-alignment-editor'
+      appId:'alpheios-alignment-editor',
+      tokenizeParams: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
     
     appC.defineStore()
@@ -56,7 +59,7 @@ describe('token-block.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
 
     token = appC.alignedC.allAlignedTextsSegments[0].origin.tokens[0]
   })

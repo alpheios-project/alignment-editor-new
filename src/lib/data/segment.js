@@ -16,6 +16,5 @@ export default class Segment {
    */
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
-    console.info('checkAndUpdateTokens - ', tokens)
   }
 }

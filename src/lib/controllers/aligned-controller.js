@@ -2,9 +2,47 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignedController {
-  constructor (store, tokenizeParams) {
+  /**
+   * @param {Vuex Store} store 
+   * @param {Object} tokenizeParams - params from application settings
+   *         {String} tokenizer - tokenizer name
+   *         {String} segments - parameter for remote service
+   */
+  constructor (store, tokenizeParams = {}) {
     this.store = store
+
+    this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
     this.tokenizeParams = tokenizeParams
+  }
+
+  /**
+   * @returns {Array[String]} - available tokenizer's names
+   */
+  get availableTokenizers () {
+    return ['simpleLocalTokenizer', 'alpheiosRemoteTokenizer']
+  }
+
+  /**
+   * @returns {String} - default tokenizer name
+   */
+  get defaultTokenizer () {
+    return 'alpheiosRemoteTokenizer'
+  }
+
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {Boolean} - true - tokenizer is supported
+   */
+  tokenizerIsSupported (tokenizer) {
+    return Boolean(tokenizer) && this.availableTokenizers.includes(tokenizer)
+  }
+
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {String} - final tokenizer name
+   */
+  defineTokenizer (tokenizer) {
+    return this.tokenizerIsSupported(tokenizer) ? tokenizer : this.defaultTokenizer
   }
 
   /**
@@ -23,15 +61,14 @@ export default class AlignedController {
     }
 
     this.alignment = alignment
-    // const tokenizer = 'simpleLocalTokenizer'
-    const tokenizer = 'alpheiosRemoteTokenizer'
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
       type: NotificationSingleton.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts(tokenizer, this.tokenizeParams)
+
+    const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
