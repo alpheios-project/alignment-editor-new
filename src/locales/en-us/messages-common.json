@@ -30,6 +30,16 @@
       "description": "An error message creating alignment.",
       "component": "AlignedController"
     },
+    "ALIGNED_CONTROLLER_TOKENIZATION_STARTED": {
+      "message": "Tokenization process has started.",
+      "description": "An info message that is published before tokenization started.",
+      "component": "AlignedController"
+    },
+    "ALIGNED_CONTROLLER_TOKENIZATION_FINISHED": {
+      "message": "Tokenization process has finished.",
+      "description": "An info message that is published after tokenization finished.",
+      "component": "AlignedController"
+    },
     "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {
       "message": "Tokenization was cancelled.",
       "description": "An error message for tokenization workflow",

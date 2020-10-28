@@ -23,13 +23,16 @@ export default class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId, theme } = {}) {
+  constructor ({ appId, theme, tokenizeParams } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
     }
     this.appId = appId
     this.theme = this.defineThemeFromUrl(theme)
+    this.tokenizeParams = tokenizeParams
+
+    console.info('app', this)
   }
 
   /**
@@ -130,7 +133,7 @@ export default class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new AlignedController(this.store)
+    this.alignedC = new AlignedController(this.store, this.tokenizeParams)
     Vue.prototype.$alignedC = this.alignedC
   }
 

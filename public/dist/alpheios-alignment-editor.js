@@ -56749,8 +56749,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class AlignedController {
-  constructor (store) {
+  constructor (store, tokenizeParams) {
     this.store = store
+    this.tokenizeParams = tokenizeParams
   }
 
   /**
@@ -56771,7 +56772,18 @@ class AlignedController {
     this.alignment = alignment
     // const tokenizer = 'simpleLocalTokenizer'
     const tokenizer = 'alpheiosRemoteTokenizer'
-    const result = await this.alignment.createAlignedTexts(tokenizer)
+
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
+    })
+
+    const result = await this.alignment.createAlignedTexts(tokenizer, this.tokenizeParams)
+
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
+    })
 
     const res2 = this.alignment.equalSegmentsAmount
 
@@ -57068,13 +57080,16 @@ class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId, theme } = {}) {
+  constructor ({ appId, theme, tokenizeParams } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
     }
     this.appId = appId
     this.theme = this.defineThemeFromUrl(theme)
+    this.tokenizeParams = tokenizeParams
+
+    console.info('app', this)
   }
 
   /**
@@ -57175,7 +57190,7 @@ class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
+    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store, this.tokenizeParams)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$alignedC = this.alignedC
   }
 
@@ -57816,9 +57831,9 @@ class AlignedText {
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
    */
-  async tokenize (docSource) {
+  async tokenize (docSource, tokenizeParams) {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getTokenizer(this.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix)
+    const result = await tokenizeMethod(docSource, this.tokenPrefix, tokenizeParams)
 
     if (result && result.segments) {
       this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
@@ -57828,7 +57843,7 @@ class AlignedText {
         lang: docSource.lang,
         direction: docSource.direction,
         docSourceId: docSource.id
-      }, result.mapFields))
+      }))
     }
   }
 }
@@ -58533,7 +58548,7 @@ class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts (tokenizer) {
+  async createAlignedTexts (tokenizer, tokenizeParams) {
     if (!tokenizer || !this.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
@@ -58549,7 +58564,7 @@ class Alignment {
       tokenPrefix: '1'
     })
 
-    await this.origin.alignedText.tokenize(this.origin.docSource)
+    await this.origin.alignedText.tokenize(this.origin.docSource, tokenizeParams)
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
@@ -58560,7 +58575,7 @@ class Alignment {
         tokenPrefix: (i + 2)
       })
 
-      await this.targets[id].alignedText.tokenize(this.targets[id].docSource)
+      await this.targets[id].alignedText.tokenize(this.targets[id].docSource, tokenizeParams)
     }
     return true
   }
@@ -59034,40 +59049,16 @@ class Segment {
     this.lang = lang
     this.direction = direction
     this.docSourceId = docSourceId
-    this.checkAndUpdateTokens(tokens, mapFields)
+    this.checkAndUpdateTokens(tokens)
   }
 
   /**
    * Formats tokens from simple objects to Token class objects
    * @param {Array[Object]} tokens
    */
-  checkAndUpdateTokens (tokens, mapFields) {
-    this.tokens = tokens.map((token, index) => {
-      if (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) {
-        return token
-      } else {
-        const tokenClone = Object.assign({}, token)
-        this.checkTokenFields(tokenClone, mapFields)
-
-        if (tokenClone.line_break_before && (index > 0)) {
-          this.tokens[index - 1].hasLineBreak = true
-        }
-
-        return new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(tokenClone, this.index, this.docSourceId)
-      }
-    })
-  }
-
-  checkTokenFields (token, mapFields) {
-    if (!token.textType) {
-      token.textType = this.textType
-    }
-
-    if (mapFields) {
-      Object.keys(mapFields).forEach(tokenField => {
-        token[tokenField] = token[mapFields[tokenField]]
-      })
-    }
+  checkAndUpdateTokens (tokens) {
+    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
+    console.info('checkAndUpdateTokens - ', tokens)
   }
 }
 
@@ -59879,32 +59870,19 @@ class AlpheiosRemoteTokenizer {
      * @param {String} idPrefix - prefix for creating tokens idWord
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
-  static async tokenize (docSource) {
-    const encode = (s) => {
-      const out = []
-
-      for (var i = 0; i < s.length; i++) {
-        out[i] = s.charCodeAt(i)
-      }
-
-      return new Uint8Array(out)
-    }
-
-    var textData = encode(docSource.text)
-
-    var textBlob = new Blob([textData], {
-      type: 'text/plain'
-    })
+  static async tokenize (docSource, idPrefix, tokenizeParams) {
+    var textBlob = this.convertStringToBinaryBlob(docSource.text)
+    const fetchOptions = Object.assign({
+      lang: 'lat',
+      textType: 'text',
+      segments: 'singleline'
+    }, tokenizeParams)
 
     const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {
         text: textBlob,
-        fetchOptions: {
-          lang: 'lat',
-          textType: 'text',
-          segments: 'singleline'
-        }
+        fetchOptions
       }
     })
 
@@ -59912,14 +59890,50 @@ class AlpheiosRemoteTokenizer {
       adapterTokenizerRes.errors.forEach(error => console.log(error))
     }
 
-    const mapFields = {
-      word: 'text'
+    return {
+      segments: this.formatTokens(adapterTokenizerRes.result.segments, docSource.textType, idPrefix)
+    }
+  }
+
+  /**
+   * Convert to binary to save line breaks for the remote tokenization service
+   * @param {String} text - source text to convert to binary
+   *
+   *  @returns {Blob}
+   */
+  static convertStringToBinaryBlob (text) {
+    const out = []
+
+    for (var i = 0; i < text.length; i++) {
+      out[i] = text.charCodeAt(i)
     }
 
-    return {
-      segments: adapterTokenizerRes.result.segments,
-      mapFields
+    const outBinaryArray = new Uint8Array(out)
+
+    return new Blob([outBinaryArray], {
+      type: 'text/plain'
+    })
+  }
+
+  /**
+   * Format/update fiedls of the token objects to be successfully converted to Tokens
+   * @param {Array[Objects]} segments - recieved from remote source
+   * @param {String} textType - origin/target
+   * @param {String} idPrefix - prefix for tokens idWord
+   */
+  static formatTokens (segments, textType, idPrefix) {
+    for (let iSeg = 0; iSeg < segments.length; iSeg++) {
+      let tokens = segments[iSeg].tokens // eslint-disable-line prefer-const
+
+      for (let iTok = 0; iTok < tokens.length; iTok++) {
+        let token = tokens[iTok] // eslint-disable-line prefer-const
+        token.textType = textType
+        token.word = token.text
+        token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+      }
     }
+
+    return segments
   }
 }
 
@@ -64229,6 +64243,16 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   other exports [not provided] [no usage info] */
+/*! export ALIGNED_CONTROLLER_TOKENIZATION_FINISHED [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
+/*! export ALIGNED_CONTROLLER_TOKENIZATION_STARTED [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   other exports [not provided] [no usage info] */
 /*! export ALIGNMENT_ERROR_ACTIVATE_BY_INDEX [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -64329,7 +64353,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"Document source texts would be divided to different amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"Document source texts would be divided to different amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
 
 /***/ }),
 

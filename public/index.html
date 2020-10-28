@@ -14,7 +14,10 @@
         document.addEventListener("DOMContentLoaded", function(event) {
           new window.AlignmentEditor.AppController({
             appId: 'alpheios-alignment-editor',
-            theme: 'v1-theme'
+            theme: 'v1-theme',
+            tokenizeParams: {
+              // segments: 'doubline'
+            }
           }).init()
         });
     </script>

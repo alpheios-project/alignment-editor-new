@@ -2,8 +2,9 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignedController {
-  constructor (store) {
+  constructor (store, tokenizeParams) {
     this.store = store
+    this.tokenizeParams = tokenizeParams
   }
 
   /**
@@ -24,7 +25,18 @@ export default class AlignedController {
     this.alignment = alignment
     // const tokenizer = 'simpleLocalTokenizer'
     const tokenizer = 'alpheiosRemoteTokenizer'
-    const result = await this.alignment.createAlignedTexts(tokenizer)
+
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
+      type: NotificationSingleton.types.INFO
+    })
+
+    const result = await this.alignment.createAlignedTexts(tokenizer, this.tokenizeParams)
+
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
+      type: NotificationSingleton.types.INFO
+    })
 
     const res2 = this.alignment.equalSegmentsAmount
 
