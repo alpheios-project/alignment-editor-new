@@ -159,7 +159,16 @@ export default class Alignment {
       tokenPrefix: '1'
     })
 
-    await this.origin.alignedText.tokenize(this.origin.docSource, tokenizeParams)
+    let result = await this.origin.alignedText.tokenize(this.origin.docSource, tokenizeParams)
+
+    if (!result) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
@@ -170,7 +179,16 @@ export default class Alignment {
         tokenPrefix: (i + 2)
       })
 
-      await this.targets[id].alignedText.tokenize(this.targets[id].docSource, tokenizeParams)
+      result = await this.targets[id].alignedText.tokenize(this.targets[id].docSource, tokenizeParams)
+
+      if (!result) {
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }),
+          type: NotificationSingleton.types.ERROR
+        })
+        return false
+      }
     }
     return true
   }

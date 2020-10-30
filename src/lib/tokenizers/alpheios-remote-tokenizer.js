@@ -1,4 +1,5 @@
 import { ClientAdapters } from 'alpheios-client-adapters'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlpheiosRemoteTokenizer {
   /**
@@ -9,8 +10,9 @@ export default class AlpheiosRemoteTokenizer {
      */
   static async tokenize (docSource, idPrefix, tokenizeParams) {
     var textBlob = this.convertStringToBinaryBlob(docSource.text)
+
     const fetchOptions = Object.assign({
-      lang: 'lat',
+      lang: docSource.lang,
       textType: 'text',
       segments: 'singleline'
     }, tokenizeParams)
@@ -24,11 +26,19 @@ export default class AlpheiosRemoteTokenizer {
     })
 
     if (adapterTokenizerRes.errors.length > 0) {
-      adapterTokenizerRes.errors.forEach(error => console.log(error))
+      adapterTokenizerRes.errors.forEach(error => {
+        console.log(error)
+        NotificationSingleton.addNotification({
+          text: error.message,
+          type: NotificationSingleton.types.ERROR
+        })
+      })
     }
 
-    return {
-      segments: this.formatTokens(adapterTokenizerRes.result.segments, docSource.textType, idPrefix)
+    if (adapterTokenizerRes.result && adapterTokenizerRes.result.segments) {
+      return {
+        segments: this.formatTokens(adapterTokenizerRes.result.segments, docSource.textType, idPrefix)
+      }
     }
   }
 

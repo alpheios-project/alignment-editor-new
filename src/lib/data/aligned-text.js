@@ -30,7 +30,7 @@ export default class AlignedText {
    * @returns {Number} - amount of segments
    */
   get segmentsAmount () {
-    return this.segments.length
+    return this.segments ? this.segments.length : 0
   }
 
   /**
@@ -50,6 +50,8 @@ export default class AlignedText {
         direction: docSource.direction,
         docSourceId: docSource.id
       }))
+      return true
     }
+    return false
   }
 }

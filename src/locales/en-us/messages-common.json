@@ -66,6 +66,17 @@
       "description": "An info message that group is completed successfully",
       "component": "Alignment"
     },
+    "ALIGNMENT_ORIGIN_NOT_TOKENIZED": {
+      "message": "Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "description": "A error message - create aligned texts",
+      "component": "Alignment"
+    },
+    "ALIGNMENT_TARGET_NOT_TOKENIZED": {
+      "message": "Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "description": "A error message - create aligned texts",
+      "component": "Alignment",
+      "params": ["textnum"]
+    },
     "TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED": {
       "message": "Tokenizer method {tokenizer} is not registered",
       "description": "An error message for tokenization workflow",

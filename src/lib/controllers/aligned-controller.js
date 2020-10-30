@@ -3,7 +3,7 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignedController {
   /**
-   * @param {Vuex Store} store 
+   * @param {Vuex Store} store
    * @param {Object} tokenizeParams - params from application settings
    *         {String} tokenizer - tokenizer name
    *         {String} segments - parameter for remote service
@@ -67,13 +67,18 @@ export default class AlignedController {
       type: NotificationSingleton.types.INFO
     })
 
-
     const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
       type: NotificationSingleton.types.INFO
     })
+
+    if (!result) {
+      this.alignment.clearAlignedTexts() // notification is alredy published
+      this.store.commit('incrementAlignmentUpdated')
+      return false
+    }
 
     const res2 = this.alignment.equalSegmentsAmount
 
