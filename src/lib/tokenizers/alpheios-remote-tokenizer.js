@@ -13,8 +13,7 @@ export default class AlpheiosRemoteTokenizer {
 
     const fetchOptions = Object.assign({
       lang: docSource.lang,
-      textType: 'text',
-      segments: 'singleline'
+      sourceType: docSource.sourceType
     }, tokenizeParams)
 
     const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
