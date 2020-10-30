@@ -21,13 +21,16 @@ describe('segment-block.test.js', () => {
 
   let appC, originSegment, allTargetTextsIds, targetSegment, targetSegment1, createAlignmentGroup
     
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
 
     appC = new AppController({
-      appId:'alpheios-alignment-editor'
+      appId:'alpheios-alignment-editor',
+      tokenizeParams: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
     
     appC.defineStore()
@@ -55,7 +58,7 @@ describe('segment-block.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
 
     allTargetTextsIds = appC.textC.allTargetTextsIds
 
@@ -343,4 +346,5 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
     expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
   })
+
 })

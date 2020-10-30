@@ -1,4 +1,6 @@
 import SimpleLocalTokenizer from '@/lib/tokenizers/simple-local-tokenizer.js'
+import AlpheiosRemoteTokenizer from '@/lib/tokenizers/alpheios-remote-tokenizer.js'
+
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -10,7 +12,8 @@ export default class TokenizeController {
    */
   static get tokenizeMethods () {
     return {
-      simpleWordTokenization: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer)
+      simpleLocalTokenizer: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
+      alpheiosRemoteTokenizer: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer)
     }
   }
 

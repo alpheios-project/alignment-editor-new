@@ -30,6 +30,16 @@
       "description": "An error message creating alignment.",
       "component": "AlignedController"
     },
+    "ALIGNED_CONTROLLER_TOKENIZATION_STARTED": {
+      "message": "Tokenization process has started.",
+      "description": "An info message that is published before tokenization started.",
+      "component": "AlignedController"
+    },
+    "ALIGNED_CONTROLLER_TOKENIZATION_FINISHED": {
+      "message": "Tokenization process has finished.",
+      "description": "An info message that is published after tokenization finished.",
+      "component": "AlignedController"
+    },
     "ALIGNMENT_ERROR_TOKENIZATION_CANCELLED": {
       "message": "Tokenization was cancelled.",
       "description": "An error message for tokenization workflow",
@@ -55,6 +65,17 @@
       "message": "Alignment group is finished and saved.",
       "description": "An info message that group is completed successfully",
       "component": "Alignment"
+    },
+    "ALIGNMENT_ORIGIN_NOT_TOKENIZED": {
+      "message": "Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "description": "A error message - create aligned texts",
+      "component": "Alignment"
+    },
+    "ALIGNMENT_TARGET_NOT_TOKENIZED": {
+      "message": "Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "description": "A error message - create aligned texts",
+      "component": "Alignment",
+      "params": ["textnum"]
     },
     "TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED": {
       "message": "Tokenizer method {tokenizer} is not registered",

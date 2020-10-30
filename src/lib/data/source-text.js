@@ -18,6 +18,7 @@ export default class SourceText {
     this.text = docSource ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
+    this.sourceType = 'text'
   }
 
   get defaultDirection () {

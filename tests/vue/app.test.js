@@ -33,7 +33,10 @@ describe('app.test.js', () => {
     jest.spyOn(console, 'warn')
 
     appC = new AppController({
-      appId:'alpheios-alignment-editor'
+      appId:'alpheios-alignment-editor',
+      tokenizeParams: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
     
     appC.defineStore()
@@ -75,7 +78,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.uploadDocSourceFromFile).toHaveBeenCalledWith('test data')
   })
 
-  it('5 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', () => {
+  it('5 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', async () => {
     let cmp = shallowMount(App)
     expect(cmp.vm.$alignedC).toEqual(expect.any(AlignedController))
 
@@ -84,7 +87,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.hideTextEditor).toEqual(1)
     expect(cmp.vm.showAlignEditor).toEqual(1)
 
-    cmp.vm.alignTexts()
+    await cmp.vm.alignTexts()
     expect(cmp.vm.$alignedC.createAlignedTexts).toHaveBeenCalled()
     expect(cmp.vm.hideTextEditor).toEqual(2)
     expect(cmp.vm.showAlignEditor).toEqual(2)
@@ -136,7 +139,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.updateTargetDocSource).toHaveBeenCalled()
   })
 
-  it('10 App - alignEditorAvailable - updates visibility status for text and align editors', () => {
+  it('10 App - alignEditorAvailable - updates visibility status for text and align editors', async () => {
     let cmp = shallowMount(App, { 
       store: appC.store,
       localVue 
@@ -160,7 +163,7 @@ describe('app.test.js', () => {
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
-    cmp.vm.$alignedC.createAlignedTexts(alignment)
+    await cmp.vm.$alignedC.createAlignedTexts(alignment)
     
     expect(cmp.vm.$store.state.alignmentUpdated).toEqual(2)
     expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()

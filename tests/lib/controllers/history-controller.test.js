@@ -36,7 +36,7 @@ describe('history-controller.test.js', () => {
     expect(historyC.alignment).toEqual(alignment)
   })
 
-  it('2 HistoryController - undo - if there is an active alignment group and it has more than 1 token, then it would execute alignment.undoInActiveGroup', () => {
+  it('2 HistoryController - undo - if there is an active alignment group and it has more than 1 token, then it would execute alignment.undoInActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
@@ -52,7 +52,7 @@ describe('history-controller.test.js', () => {
 
     historyC.startTracking(alignment)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
 
@@ -60,7 +60,7 @@ describe('history-controller.test.js', () => {
     expect(alignment.undoInActiveGroup).toHaveBeenCalled()
   })
 
-  it('3 HistoryController - undo - if there is an active alignment group and it has only 1 token, then it would execute alignment.undoActiveGroup', () => {
+  it('3 HistoryController - undo - if there is an active alignment group and it has only 1 token, then it would execute alignment.undoActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
@@ -76,14 +76,14 @@ describe('history-controller.test.js', () => {
     
     historyC.startTracking(alignment)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
 
     historyC.undo()
     expect(alignment.undoActiveGroup).toHaveBeenCalled()
   })
 
-  it('4 HistoryController - undo - if there are no active alignment group and it has saved groups - then it would execute alignment.activateGroupByGroupIndex', () => {
+  it('4 HistoryController - undo - if there are no active alignment group and it has saved groups - then it would execute alignment.activateGroupByGroupIndex', async () => {
     const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
@@ -101,7 +101,7 @@ describe('history-controller.test.js', () => {
     
     historyC.startTracking(alignment)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
@@ -110,7 +110,7 @@ describe('history-controller.test.js', () => {
     expect(alignment.activateGroupByGroupIndex).toHaveBeenCalledWith(0)
   })
 
-  it('5 HistoryController - redo - if there is an active alignment group and it has future undone steps, then it would execute alignment.redoInActiveGroup', () => {
+  it('5 HistoryController - redo - if there is an active alignment group and it has future undone steps, then it would execute alignment.redoInActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
@@ -127,7 +127,7 @@ describe('history-controller.test.js', () => {
 
     historyC.startTracking(alignment)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
@@ -136,7 +136,7 @@ describe('history-controller.test.js', () => {
     expect(alignment.redoInActiveGroup).toHaveBeenCalled()
   })
 
-  it('6 HistoryController - redo - if there is an active alignment group and it has no future undone steps, then it would not execute alignment.returnActiveGroupToList', () => {
+  it('6 HistoryController - redo - if there is an active alignment group and it has no future undone steps, then it would not execute alignment.returnActiveGroupToList', async () => {
     const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
@@ -153,7 +153,7 @@ describe('history-controller.test.js', () => {
 
     historyC.startTracking(alignment)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
@@ -161,7 +161,7 @@ describe('history-controller.test.js', () => {
     expect(alignment.returnActiveGroupToList).not.toHaveBeenCalled()
   })
 
-  it('7 HistoryController - redo - if there are no active alignment group and it has future undone groups, then it would execute alignment.redoActiveGroup', () => {
+  it('7 HistoryController - redo - if there are no active alignment group and it has future undone groups, then it would execute alignment.redoActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
     const sourceTextOrigin = {
@@ -178,7 +178,7 @@ describe('history-controller.test.js', () => {
 
     historyC.startTracking(alignment)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[0])

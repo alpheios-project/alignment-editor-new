@@ -2,8 +2,47 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignedController {
-  constructor (store) {
+  /**
+   * @param {Vuex Store} store
+   * @param {Object} tokenizeParams - params from application settings
+   *         {String} tokenizer - tokenizer name
+   *         {String} segments - parameter for remote service
+   */
+  constructor (store, tokenizeParams = {}) {
     this.store = store
+
+    this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
+    this.tokenizeParams = tokenizeParams
+  }
+
+  /**
+   * @returns {Array[String]} - available tokenizer's names
+   */
+  get availableTokenizers () {
+    return ['simpleLocalTokenizer', 'alpheiosRemoteTokenizer']
+  }
+
+  /**
+   * @returns {String} - default tokenizer name
+   */
+  get defaultTokenizer () {
+    return 'alpheiosRemoteTokenizer'
+  }
+
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {Boolean} - true - tokenizer is supported
+   */
+  tokenizerIsSupported (tokenizer) {
+    return Boolean(tokenizer) && this.availableTokenizers.includes(tokenizer)
+  }
+
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {String} - final tokenizer name
+   */
+  defineTokenizer (tokenizer) {
+    return this.tokenizerIsSupported(tokenizer) ? tokenizer : this.defaultTokenizer
   }
 
   /**
@@ -11,7 +50,7 @@ export default class AlignedController {
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
-  createAlignedTexts (alignment) {
+  async createAlignedTexts (alignment) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       NotificationSingleton.addNotification({
@@ -22,8 +61,24 @@ export default class AlignedController {
     }
 
     this.alignment = alignment
-    const tokenizer = 'simpleWordTokenization'
-    const result = this.alignment.createAlignedTexts(tokenizer)
+
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
+      type: NotificationSingleton.types.INFO
+    })
+
+    const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
+
+    NotificationSingleton.addNotification({
+      text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
+      type: NotificationSingleton.types.INFO
+    })
+
+    if (!result) {
+      this.alignment.clearAlignedTexts() // notification is alredy published
+      this.store.commit('incrementAlignmentUpdated')
+      return false
+    }
 
     const res2 = this.alignment.equalSegmentsAmount
 

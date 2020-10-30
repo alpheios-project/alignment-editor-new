@@ -143,7 +143,7 @@ export default class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  createAlignedTexts (tokenizer) {
+  async createAlignedTexts (tokenizer, tokenizeParams) {
     if (!tokenizer || !this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({
@@ -159,6 +159,17 @@ export default class Alignment {
       tokenPrefix: '1'
     })
 
+    let result = await this.origin.alignedText.tokenize(this.origin.docSource, tokenizeParams)
+
+    if (!result) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
+
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
 
@@ -167,6 +178,17 @@ export default class Alignment {
         tokenizer,
         tokenPrefix: (i + 2)
       })
+
+      result = await this.targets[id].alignedText.tokenize(this.targets[id].docSource, tokenizeParams)
+
+      if (!result) {
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }),
+          type: NotificationSingleton.types.ERROR
+        })
+        return false
+      }
     }
     return true
   }

@@ -12,7 +12,10 @@ describe('aligned-text.test.js', () => {
   
   beforeAll(() => {
     const appC = new AppController({
-      appId: 'alpheios-alignment-editor'
+      appId:'alpheios-alignment-editor',
+      tokenizeParams: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
     appC.defineStore()
     appC.defineL10Support()
@@ -29,7 +32,7 @@ describe('aligned-text.test.js', () => {
     jest.spyOn(console, 'warn')
   })
 
-  const defineAlinmentWithSource = (cmp, alignment) => {
+  const defineAlinmentWithSource = async (cmp, alignment) => {
     cmp.vm.$historyC.startTracking(alignment)
 
     // add origin doc source
@@ -50,7 +53,7 @@ describe('aligned-text.test.js', () => {
     })
 
     // create aligned texts
-    cmp.vm.$alignedC.createAlignedTexts(alignment)
+    await cmp.vm.$alignedC.createAlignedTexts(alignment)
 
   }
 
@@ -68,11 +71,11 @@ describe('aligned-text.test.js', () => {
     return testToken
   }
   
-  it('1 Multiple targets - add several targets and create aligned texts, create one simple alignmentGroup and check status - selected, grouped, in active', () => {
+  it('1 Multiple targets - add several targets and create aligned texts, create one simple alignmentGroup and check status - selected, grouped, in active', async () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 
-    defineAlinmentWithSource(cmp, alignment)
+    await defineAlinmentWithSource(cmp, alignment)
     const allTargetsId = cmp.vm.$textC.allTargetTextsIds
 
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0)
@@ -152,11 +155,11 @@ describe('aligned-text.test.js', () => {
     // console.info('hoveredGroups - ', alignment.hoveredGroups)
   })
 
-  it('2 Multiple targets - create two aligned groups in different target texts', () => {
+  it('2 Multiple targets - create two aligned groups in different target texts', async () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 
-    defineAlinmentWithSource(cmp, alignment)
+    await defineAlinmentWithSource(cmp, alignment)
     const allTargetsId = cmp.vm.$textC.allTargetTextsIds
     
     // created the first group
@@ -284,11 +287,11 @@ describe('aligned-text.test.js', () => {
     expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
   })
 
-  it('3 Multiple targets - create two aligned groups in different target texts with the same origin word', () => {
+  it('3 Multiple targets - create two aligned groups in different target texts with the same origin word', async () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 
-    defineAlinmentWithSource(cmp, alignment)
+    await defineAlinmentWithSource(cmp, alignment)
     const allTargetsId = cmp.vm.$textC.allTargetTextsIds
     
     // created the first group
@@ -370,11 +373,11 @@ describe('aligned-text.test.js', () => {
 
   })
 
-  it('4 Multiple targets - create three aligned groups in different target texts, merge on the same target, don\'t merge on different targets', () => {
+  it('4 Multiple targets - create three aligned groups in different target texts, merge on the same target, don\'t merge on different targets', async () => {
     let cmp = shallowMount(App)
     const alignment = cmp.vm.$textC.createAlignment()
 
-    defineAlinmentWithSource(cmp, alignment)
+    await defineAlinmentWithSource(cmp, alignment)
     const allTargetsId = cmp.vm.$textC.allTargetTextsIds
     
     // created the first group
@@ -607,4 +610,5 @@ describe('aligned-text.test.js', () => {
 
     expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy() 
   })
+
 })

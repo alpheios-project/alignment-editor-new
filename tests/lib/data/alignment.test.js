@@ -79,7 +79,7 @@ describe('alignment.test.js', () => {
     expect(alignment.readyForTokenize).toBeTruthy()
   })
 
-  it('4 Alignment - equalSegmentsAmount checks if all aligned texts have the same amount of segments', () => {
+  it('4 Alignment - equalSegmentsAmount checks if all aligned texts have the same amount of segments', async () => {
     const originDocSource1 = new SourceText('origin', {
       text: 'some text', direction: 'ltr', lang: 'eng'
     })
@@ -93,13 +93,13 @@ describe('alignment.test.js', () => {
     })
 
     const alignment = new Alignment(originDocSource1, targetDocSource1)
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     // both should have equal segments
     expect(alignment.equalSegmentsAmount).toBeTruthy()
 
     alignment.updateTargetDocSource(targetDocSource2)
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     // now we have another target with not the same amount of segments
 
     expect(alignment.equalSegmentsAmount).toBeFalsy()
@@ -195,7 +195,7 @@ describe('alignment.test.js', () => {
     expect(alignment.targets[targetDocSource3.id]).not.toBeDefined() // was successfully deleted
   })
 
-  it('8 Alignment - createAlignedTexts returns false and doesn\'t creates AlignedTexts if tokenizer is not defined or texts are not ready for tokenization', () => {
+  it('8 Alignment - createAlignedTexts returns false and doesn\'t creates AlignedTexts if tokenizer is not defined or texts are not ready for tokenization', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
     })
@@ -217,11 +217,13 @@ describe('alignment.test.js', () => {
     alignment.updateTargetDocSource(targetDocSourceIncorect)
 
 
-    expect(alignment.createAlignedTexts()).toBeFalsy() // no tokenization defined
+    let result = await alignment.createAlignedTexts()
+    expect(result).toBeFalsy() // no tokenization defined
     expect(alignment.origin.alignedText).not.toBeDefined()
     expect(Object.values(alignment.targets)[0].alignedText).not.toBeDefined()
 
-    expect(alignment.createAlignedTexts('simpleWordTokenization')).toBeFalsy() // target text is not fully defined
+    result = await alignment.createAlignedTexts('simpleLocalTokenizer')
+    expect(result).toBeFalsy() // target text is not fully defined
     expect(alignment.origin.alignedText).not.toBeDefined()
     expect(Object.values(alignment.targets)[0].alignedText).not.toBeDefined()
 
@@ -231,12 +233,13 @@ describe('alignment.test.js', () => {
 
     alignment.deleteText('target', targetDocSourceIncorect.id)
 
-    expect(alignment.createAlignedTexts('simpleWordTokenization')).toBeTruthy() // defined two correct aligned texts
+    result = await alignment.createAlignedTexts('simpleLocalTokenizer')
+    expect(result).toBeTruthy() // defined two correct aligned texts
     expect(alignment.origin.alignedText).toEqual(expect.any(AlignedText))
     expect(Object.values(alignment.targets)[0].alignedText).toEqual(expect.any(AlignedText))
   })
 
-  it('9 Alignment - originDocSource, targetDocSource', () => {
+  it('9 Alignment - originDocSource, targetDocSource', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
     })
@@ -253,7 +256,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     expect(alignment.originDocSource).toEqual(expect.any(SourceText))
     expect(alignment.originDocSource).toEqual(alignment.origin.docSource)
@@ -265,7 +268,7 @@ describe('alignment.test.js', () => {
     expect(alignment.targetDocSource(targetDocSource2.id)).toEqual(alignment.targets[targetDocSource2.id].docSource)
   })
 
-  it('10 Alignment - clearAlignedTexts, hasOriginAlignedTexts, hasTargetAlignedTexts', () => {
+  it('10 Alignment - clearAlignedTexts, hasOriginAlignedTexts, hasTargetAlignedTexts', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'origin some text', direction: 'ltr', lang: 'lat'
     })
@@ -282,7 +285,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     expect(alignment.hasOriginAlignedTexts).toBeTruthy()
     expect(alignment.hasTargetAlignedTexts).toBeTruthy()
@@ -292,7 +295,7 @@ describe('alignment.test.js', () => {
     expect(alignment.hasTargetAlignedTexts).toBeFalsy()
   })
 
-  it('11 Alignment - allTargetTextsIds returns all targets ids', () => {
+  it('11 Alignment - allTargetTextsIds returns all targets ids', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -311,13 +314,13 @@ describe('alignment.test.js', () => {
 
     alignment.updateTargetDocSource(targetDocSource2)    
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     expect(alignment.allTargetTextsIds).toEqual([ targetDocSource1.id, targetDocSource2.id ])
 
   })
 
-  it('12 Alignment - allAlignedTextsSegments returns all segments (origin, target) ordered by index', () => {
+  it('12 Alignment - allAlignedTextsSegments returns all segments (origin, target) ordered by index', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -333,7 +336,7 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const allSegments = alignment.allAlignedTextsSegments
 
@@ -358,7 +361,7 @@ describe('alignment.test.js', () => {
 
   })
 
-  it('13 Alignment - hasTheSameSegmentTargetIdActiveGroup check segment index and targetId of the active group', () => {
+  it('13 Alignment - hasTheSameSegmentTargetIdActiveGroup check segment index and targetId of the active group', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -374,7 +377,7 @@ describe('alignment.test.js', () => {
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const allSegments = alignment.allAlignedTextsSegments
 
@@ -392,7 +395,7 @@ describe('alignment.test.js', () => {
     expect(alignment.hasTheSameSegmentTargetIdActiveGroup(1, targetDocSource2.id)).toBeFalsy() // correct segment and incorrect targetId
   })
 
-  it('14 Alignment - shouldFinishAlignmentGroup returns true if the passed token is in the group and the same type as starting token (depends on passed targetId)', () => {
+  it('14 Alignment - shouldFinishAlignmentGroup returns true if the passed token is in the group and the same type as starting token (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -408,7 +411,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -436,7 +439,7 @@ describe('alignment.test.js', () => {
     expect(alignment.shouldFinishAlignmentGroup(originToken2, targetId1)).toBeTruthy() // we could finish the group with clicking on any origin
   })
 
-  it('15 Alignment - shouldRemoveFromAlignmentGroup returns true if the passed token is in the group and NOT the same type as starting token (depends on passed targetId)', () => {
+  it('15 Alignment - shouldRemoveFromAlignmentGroup returns true if the passed token is in the group and NOT the same type as starting token (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -452,7 +455,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -476,7 +479,7 @@ describe('alignment.test.js', () => {
     expect(alignment.shouldRemoveFromAlignmentGroup(targetToken2, targetId1)).toBeTruthy()
   })
 
-  it('16 Alignment - currentStepOnLastInActiveGroup returns true - if it is the last step, false - is not the last inside an active alignment group (depends on passed targetId)', () => {
+  it('16 Alignment - currentStepOnLastInActiveGroup returns true - if it is the last step, false - is not the last inside an active alignment group (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -492,7 +495,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
 
@@ -512,7 +515,7 @@ describe('alignment.test.js', () => {
     expect(alignment.currentStepOnLastInActiveGroup).toBeFalsy()
   })
 
-  it('17 Alignment - startNewAlignmentGroup defines active alignment group (depends on passed targetId)', () => {
+  it('17 Alignment - startNewAlignmentGroup defines active alignment group (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -528,7 +531,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -561,7 +564,7 @@ describe('alignment.test.js', () => {
     expect(alignment.hasActiveAlignmentGroup).toBeTruthy()
   })
 
-  it('18 Alignment - addToAlignmentGroup adds token to active alignment group if it is created (depends on passed targetId)', () => {
+  it('18 Alignment - addToAlignmentGroup adds token to active alignment group if it is created (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -577,7 +580,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -600,7 +603,7 @@ describe('alignment.test.js', () => {
   })
 
 
-  it('19 Alignment - removeFromAlignmentGroup removes token from the active alignment group if it is inside group (depends on passed targetId)', () => {
+  it('19 Alignment - removeFromAlignmentGroup removes token from the active alignment group if it is inside group (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -616,7 +619,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -647,7 +650,7 @@ describe('alignment.test.js', () => {
   })
 
 
-  it('20 Alignment - finishActiveAlignmentGroup - saves all data from active alignment group and clears it  (depends on passed targetId)', () => {
+  it('20 Alignment - finishActiveAlignmentGroup - saves all data from active alignment group and clears it  (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -663,7 +666,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -693,7 +696,7 @@ describe('alignment.test.js', () => {
     expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
   })
 
-  it('21 Alignment - findAlignmentGroup returns false if group was not found otherwise returns found AlingmentGroup (depends on passed targetId)', () => {
+  it('21 Alignment - findAlignmentGroup returns false if group was not found otherwise returns found AlingmentGroup (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -709,7 +712,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -735,7 +738,7 @@ describe('alignment.test.js', () => {
     expect(alignment.findAlignmentGroup(originToken1, targetId1)).toEqual(expect.any(AlignmentGroup)) // group is found
   })
 
-  it('22 Alignment - removeGroupFromAlignmentGroups returns index of the deleted group if it was found and deleted otherwise returns null', () => {
+  it('22 Alignment - removeGroupFromAlignmentGroups returns index of the deleted group if it was found and deleted otherwise returns null', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -751,7 +754,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -778,7 +781,7 @@ describe('alignment.test.js', () => {
     expect(alignment.alignmentGroups.length).toEqual(0) // group was successfully deleted
   })
 
-  it('23 Alignment - tokenIsGrouped returns true if token is in saved alignment groups, false - is not (depends on passed targetId)', () => {
+  it('23 Alignment - tokenIsGrouped returns true if token is in saved alignment groups, false - is not (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -794,7 +797,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -821,7 +824,7 @@ describe('alignment.test.js', () => {
     expect(alignment.tokenIsGrouped(originToken2, targetId1)).toBeFalsy() // it is not in the group
   })
 
-  it('24 Alignment - tokenInActiveGroup returns true if token is in the active alignment group, false - is not (depends on passed targetId)', () => {
+  it('24 Alignment - tokenInActiveGroup returns true if token is in the active alignment group, false - is not (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -837,7 +840,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -864,7 +867,7 @@ describe('alignment.test.js', () => {
     expect(alignment.tokenInActiveGroup(originToken1, targetId1)).toBeFalsy() // now it is in the saved group not active
   })
 
-  it('25 Alignment - isFirstInActiveGroup returns true if token is in the active alignment group and defined as the first, false - is not (depends on passed targetId)', () => {
+  it('25 Alignment - isFirstInActiveGroup returns true if token is in the active alignment group and defined as the first, false - is not (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -880,7 +883,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -907,7 +910,7 @@ describe('alignment.test.js', () => {
     expect(alignment.isFirstInActiveGroup(originToken1, targetId1)).toBeFalsy() // now it is in the saved group not active
   })
 
-  it('26 Alignment - tokenTheSameTextTypeAsStart returns true if token has the same textType as first step in the activeAlignmentGroup', () => {
+  it('26 Alignment - tokenTheSameTextTypeAsStart returns true if token has the same textType as first step in the activeAlignmentGroup', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -923,7 +926,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -950,7 +953,7 @@ describe('alignment.test.js', () => {
     expect(alignment.tokenTheSameTextTypeAsStart(originToken1)).toBeFalsy() // now it is in the saved group not active
   })
 
-  it('27 Alignment - activateGroupByToken returns true if group was activated, otherwise it returns false (depends on passed targetId)', () => {
+  it('27 Alignment - activateGroupByToken returns true if group was activated, otherwise it returns false (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -966,7 +969,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -998,7 +1001,7 @@ describe('alignment.test.js', () => {
     expect(alignment.hasActiveAlignmentGroup).toBeTruthy()
   })
 
-  it('28 Alignment - activateGroupByGroupIndex returns true if group was activated, otherwise it returns false', () => {
+  it('28 Alignment - activateGroupByGroupIndex returns true if group was activated, otherwise it returns false', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1014,7 +1017,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1048,7 +1051,7 @@ describe('alignment.test.js', () => {
     expect(alignment.isFirstInActiveGroup(originToken2, targetId2)).toBeTruthy()
   })
 
-  it('29 Alignment - activateGroup move the group from saved lists to active', () => {
+  it('29 Alignment - activateGroup move the group from saved lists to active', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1064,7 +1067,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1093,7 +1096,7 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup.firstStepToken).toEqual(targetToken1)
   })
 
-  it('30 Alignment - mergeActiveGroupWithAnotherByToken returns true if group were merged, otherwise - false (depends on passed targetId)', () => {
+  it('30 Alignment - mergeActiveGroupWithAnotherByToken returns true if group were merged, otherwise - false (depends on passed targetId)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1109,7 +1112,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1148,7 +1151,7 @@ describe('alignment.test.js', () => {
   })
 
 
-  it('31 Alignment - undoInActiveGroup executes undo for the active alignment group and executes insertUnmergedGroup if it was a merge step', () => {
+  it('31 Alignment - undoInActiveGroup executes undo for the active alignment group and executes insertUnmergedGroup if it was a merge step', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1164,7 +1167,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1203,7 +1206,7 @@ describe('alignment.test.js', () => {
     expect(alignment.alignmentGroups.length).toEqual(1) // the unmerged group was returned to the list
   })
 
-  it('32 Alignment - redoInActiveGroup executes redo inside active alignment group', () => {
+  it('32 Alignment - redoInActiveGroup executes redo inside active alignment group', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1219,7 +1222,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1243,7 +1246,7 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup.redo).toHaveBeenCalled()
   })
 
-  it('33 Alignment - undoActiveGroup save active alignment group to undoneGroups, redoActiveGroup - extracts from there', () => {
+  it('33 Alignment - undoActiveGroup save active alignment group to undoneGroups, redoActiveGroup - extracts from there', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1259,7 +1262,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1294,7 +1297,7 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup).toEqual(alGroup)
   })
 
-  it('34 Alignment - returnActiveGroupToList finishes an active alignment group if we don\'t have undone steps (specific method for history controller)', () => {
+  it('34 Alignment - returnActiveGroupToList finishes an active alignment group if we don\'t have undone steps (specific method for history controller)', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1310,7 +1313,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -1336,7 +1339,7 @@ describe('alignment.test.js', () => {
 
   })
 
-  it('35 Alignment - activateHoverOnAlignmentGroups finds all saved groups that includes the token and filtered by passed targetId, clearHoverOnAlignmentGroups, selectedToken', () => {
+  it('35 Alignment - activateHoverOnAlignmentGroups finds all saved groups that includes the token and filtered by passed targetId, clearHoverOnAlignmentGroups, selectedToken', async () => {
     const originDocSource = new SourceText('origin', {
       text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
     })
@@ -1352,7 +1355,7 @@ describe('alignment.test.js', () => {
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
-    alignment.createAlignedTexts('simpleWordTokenization')
+    await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]

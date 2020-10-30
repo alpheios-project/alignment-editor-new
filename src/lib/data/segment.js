@@ -1,7 +1,7 @@
 import Token from '@/lib/data/token'
 
 export default class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
     this.index = index
     this.textType = textType
     this.lang = lang
