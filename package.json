@@ -29,7 +29,7 @@
     "@babel/register": "^7.12.1",
     "@babel/runtime": "^7.12.1",
     "@vue/test-utils": "^1.1.0",
-    "alpheios-core": "github:alpheios-project/alpheios-core#i42-tokenization-service-fix",
+    "alpheios-core": "github:alpheios-project/alpheios-core",
     "alpheios-messaging": "github:alpheios-project/alpheios-messaging",
     "alpheios-node-build": "github:alpheios-project/node-build#v3",
     "babel-core": "^7.0.0-bridge.0",
