@@ -9,8 +9,8 @@ export default class AlpheiosRemoteTokenizer {
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
   static async tokenize (docSource, idPrefix, tokenizeParams) {
-    var textBlob = this.convertStringToBinaryBlob(docSource.text)
-
+    // const textBlob = this.convertStringToBinaryBlob(docSource.text)
+    const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
     const fetchOptions = Object.assign({
       lang: docSource.lang,
       sourceType: docSource.sourceType
@@ -19,7 +19,8 @@ export default class AlpheiosRemoteTokenizer {
     const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {
-        text: textBlob,
+        text: textFormatted,
+        // text: docSource.text,
         fetchOptions
       }
     })
@@ -54,7 +55,8 @@ export default class AlpheiosRemoteTokenizer {
       out[i] = text.charCodeAt(i)
     }
 
-    const outBinaryArray = new Uint8Array(out)
+    // const outBinaryArray = new Uint8Array(out)
+    const outBinaryArray = new Uint16Array(out)
 
     return new Blob([outBinaryArray], {
       type: 'text/plain'
