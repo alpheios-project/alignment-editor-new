@@ -1,0 +1,34 @@
+{
+    "domain": "alpheios-alignment-editor-tokenization",
+    "version": 1,
+    "items": {
+      "tokenizer": {
+        "defaultValue": "alpheiosRemoteTokenizer",
+        "labelText": "Tokenizer service",
+        "values": [
+          {
+            "value": "alpheiosRemoteTokenizer",
+            "text": "Alpheios Remote Tokenizer (https://tools.alpheios.net/tokenizer/tokenize/)"
+          },
+          {
+            "value": "simpleLocalTokenizer",
+            "text": "Offline tokenizer"
+          }
+        ]
+      },
+      "segments": {
+        "defaultValue": "singleline",
+        "labelText": "Segment indicator",
+        "values": [
+          {
+            "value": "singleline",
+            "text": "singleline"
+          },
+          {
+            "value": "doubline",
+            "text": "singleline"
+          }
+        ]
+      }
+    }
+  }

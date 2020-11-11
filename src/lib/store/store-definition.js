@@ -8,7 +8,8 @@ export default class StoreDefinition {
       state: {
         alignmentUpdated: 1,
         notificationUpdated: 1,
-        messages: []
+        messages: [],
+        settings: {}
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -23,6 +24,9 @@ export default class StoreDefinition {
         },
         removeNotificationMessage (state, message) {
           state.messages = StoreDefinition.removeFromMessages(state.messages, message)
+        },
+        setSetting (state, data) {
+          state.settings[data.name] = data.value
         }
       }
     }

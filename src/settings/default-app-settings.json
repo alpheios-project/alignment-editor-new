@@ -1,0 +1,20 @@
+{
+  "domain": "alpheios-alignment-editor-app",
+  "version": 1,
+  "items": {
+    "theme": {
+      "defaultValue": "v1-theme",
+      "labelText": "CSS Theme",
+      "values": [
+        {
+          "value": "standard-theme",
+          "text": "Standard Theme"
+        },
+        {
+          "value": "v1-theme",
+          "text": "V1 Theme"
+        }
+      ]
+    }
+  }
+}
