@@ -26,7 +26,7 @@
       "component": "AlignedController"
     },
     "ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS": {
-      "message": "Document source texts would be divided to different amount of segments.",
+      "message": "The tokenization process was cancelled because origin and target texts don't have the same amount of segments.",
       "description": "An error message creating alignment.",
       "component": "AlignedController"
     },
