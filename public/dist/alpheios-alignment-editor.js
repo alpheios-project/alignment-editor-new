@@ -64297,6 +64297,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 ;
 
@@ -66251,7 +66255,30 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "alpheios-button-tertiary alpheios-menu-button",
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
+            attrs: {
+              id: "alpheios-main-menu-options",
+              disabled: !_vm.docSourceEditAvailable
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("add-target")
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
+                "\n      "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-add-target",
               disabled: !_vm.docSourceEditAvailable
@@ -66274,7 +66301,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "alpheios-button-tertiary alpheios-menu-button",
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-download",
               disabled: !_vm.docSourceEditAvailable
@@ -66297,7 +66324,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "alpheios-button-tertiary alpheios-menu-button",
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-upload",
               disabled: !_vm.docSourceEditAvailable
@@ -66316,7 +66343,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "alpheios-button-tertiary alpheios-menu-button",
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-align",
               disabled: !_vm.alignAvailable
@@ -66339,7 +66366,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "alpheios-button-tertiary alpheios-menu-button",
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-undo",
               disabled: !_vm.undoAvailable
@@ -66362,7 +66389,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "alpheios-button-tertiary alpheios-menu-button",
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-redo",
               disabled: !_vm.redoAvailable

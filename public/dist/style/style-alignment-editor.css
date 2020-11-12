@@ -156,7 +156,7 @@ input.alpheios-input::-ms-input-placeholder {
   color: #fff !important;
 }
 
-.alpheios-button-tertiary, button.alpheios-button-tertiary, .alpheios-button-primary, .alpheios-button {
+.alpheios-editor-button-tertiary, button.alpheios-editor-button-tertiary, .alpheios-editor-button-primary, .alpheios-button {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -174,59 +174,59 @@ input.alpheios-input::-ms-input-placeholder {
   border-radius: 0.6em;
   cursor: pointer;
 }
-.alpheios-button-tertiary::-moz-focus-inner, .alpheios-button-primary::-moz-focus-inner, .alpheios-button::-moz-focus-inner {
+.alpheios-editor-button-tertiary::-moz-focus-inner, .alpheios-editor-button-primary::-moz-focus-inner, .alpheios-button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-.alpheios-button-tertiary:hover, .alpheios-button-primary:hover, .alpheios-button:hover {
+.alpheios-editor-button-tertiary:hover, .alpheios-editor-button-primary:hover, .alpheios-button:hover {
   text-decoration: none;
 }
-.alpheios-button-tertiary:focus, .alpheios-button-primary:focus, .alpheios-button:focus {
+.alpheios-editor-button-tertiary:focus, .alpheios-editor-button-primary:focus, .alpheios-button:focus {
   outline: none;
 }
 
-.alpheios-button-primary {
+.alpheios-editor-button-primary {
   color: #FFF;
   background-color: #C64906;
   border-color: #F27431;
 }
-.alpheios-button-primary:hover {
+.alpheios-editor-button-primary:hover {
   color: #FFF;
   background-color: #F27431;
   border-color: #F27431;
   box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
 }
-.alpheios-button-primary:active {
+.alpheios-editor-button-primary:active {
   color: #FFF;
   background-color: #F27431;
   border-color: #F27431;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
-.alpheios-button-primary:disabled {
+.alpheios-editor-button-primary:disabled {
   color: #fff;
   background: #f8b998;
   border-color: #f8b998;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
 
-.alpheios-button-tertiary, button.alpheios-button-tertiary {
+.alpheios-editor-button-tertiary, button.alpheios-editor-button-tertiary {
   color: #185F6D;
   background: #fff;
   border-color: #185F6D;
 }
-.alpheios-button-tertiary:hover, button.alpheios-button-tertiary:hover {
+.alpheios-editor-button-tertiary:hover, button.alpheios-editor-button-tertiary:hover {
   color: #fff;
   background: #185F6D;
   border-color: #185F6D;
   box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.25);
 }
-.alpheios-button-tertiary:active, button.alpheios-button-tertiary:active {
+.alpheios-editor-button-tertiary:active, button.alpheios-editor-button-tertiary:active {
   color: #fff;
   background: #185F6D;
   border-color: #185F6D;
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
-.alpheios-button-tertiary:disabled, button.alpheios-button-tertiary:disabled {
+.alpheios-editor-button-tertiary:disabled, button.alpheios-editor-button-tertiary:disabled {
   color: #fff;
   background: #8bafb6;
   border-color: #8bafb6;
