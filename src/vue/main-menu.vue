@@ -2,8 +2,8 @@
   <div class="alpheios-alignment-app-menu" id="alpheios-main-menu">
       <div class="alpheios-alignment-app-menu__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-options" 
-                @click="$emit('add-target')" :disabled="!docSourceEditAvailable" >
-                {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
+                @click="$emit('toggle-options')" >
+                {{ toggleOptionsTitle }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-add-target" 
                 @click="$emit('add-target')" :disabled="!docSourceEditAvailable" >
@@ -46,6 +46,10 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 export default {
   name: 'MainMenu',
   props: {
+    shownOptionsBlock: {
+      type: Boolean,
+      required: true
+    }
   },
   data () {
     return {
@@ -67,6 +71,9 @@ export default {
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+    },
+    toggleOptionsTitle () {
+      return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
     }
   },
   methods: {

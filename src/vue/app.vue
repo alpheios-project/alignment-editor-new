@@ -7,8 +7,11 @@
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
+        @toggle-options = "toggleOptions"
+        :shownOptionsBlock = "shownOptionsBlock"
       />
       <notification-bar />
+      <options-block v-show="shownOptionsBlock" />
       <text-editor 
         :hide-editor = "hideTextEditor"
       />
@@ -23,18 +26,22 @@ import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
 
+import OptionsBlock from '@/vue/options/options-block.vue'
+
 export default {
   name: 'App',
   components: {
     mainMenu: MainMenu,
     textEditor: TextEditor,
     alignEditor: AlignEditor,
-    notificationBar: NotificationBar
+    notificationBar: NotificationBar,
+    optionsBlock: OptionsBlock
   },
   data () {
     return {
       hideTextEditor: 1,
-      showAlignEditor: 1
+      showAlignEditor: 1,
+      shownOptionsBlock: false
     }
   },
   computed: {
@@ -83,6 +90,12 @@ export default {
      */
     addTarget () {
       this.$textC.updateTargetDocSource()
+    },
+    /**
+     * Show options block
+     */
+    toggleOptions () {
+      this.shownOptionsBlock = !this.shownOptionsBlock
     }
   }
 }

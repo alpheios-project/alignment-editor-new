@@ -3,6 +3,7 @@ import EnUsLanguages from '@/locales/en-us/messages-languages.json'
 import EnUsTextEditor from '@/locales/en-us/messages-text-editor.json'
 import EnUsAlignEditor from '@/locales/en-us/messages-align-editor.json'
 import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
+import EnUsOptionsBlock from '@/locales/en-us/messages-options-block.json'
 
 import EnGb from '@/locales/en-gb/messages.json'
 
@@ -11,7 +12,7 @@ import MessageBundle from '@/lib/l10n/message-bundle'
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [EnUsCommon, EnUsTextEditor, EnUsMainMenu, EnUsAlignEditor, EnUsLanguages],
+  [localeEnUs]: [EnUsCommon, EnUsTextEditor, EnUsMainMenu, EnUsAlignEditor, EnUsLanguages, EnUsOptionsBlock],
   [localeEnGb]: [EnGb]
 }
 

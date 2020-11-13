@@ -104,4 +104,12 @@
             }
         }
     }
+
+    .alpheios-alignment-options-block .alpheios-alignment-editor-container {
+        border-color: map.get($theme, 'settings-container-border-color');
+    }
+
+    .alpheios-alignment-options__group {
+        border-color: map.get($theme, 'settings-fieldset-border-color');
+    }
 }

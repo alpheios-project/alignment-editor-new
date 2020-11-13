@@ -54,7 +54,7 @@
   src: url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.eot);
   src: url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.eot?#iefix) format("embedded-opentype"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.woff2) format("woff2"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.woff) format("woff"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.ttf) format("truetype");
 }
-.alpheios-select {
+.alpheios-editor-select {
   font-family: "Source Sans Pro", sans-serif;
   box-sizing: border-box;
   margin: 0;
@@ -69,27 +69,27 @@
   color: #757575;
   -webkit-appearance: none;
 }
-.alpheios-select:not([multiple]):not([size]) {
+.alpheios-editor-select:not([multiple]):not([size]) {
   height: 42px;
   vertical-align: middle;
   display: inline-block;
 }
-.alpheios-select:not(select) {
+.alpheios-editor-select:not(select) {
   line-height: 42px;
 }
-.alpheios-select[multiple], .alpheios-select[size] {
+.alpheios-editor-select[multiple], .alpheios-editor-select[size] {
   padding-top: 4px;
   padding-bottom: 4px;
   vertical-align: top;
 }
-.alpheios-select:focus {
+.alpheios-editor-select:focus {
   outline: none;
 }
-.alpheios-select:disabled {
+.alpheios-editor-select:disabled {
   background-color: #fff;
   color: #909090;
 }
-.alpheios-select:not([multiple]):not([size]) {
+.alpheios-editor-select:not([multiple]):not([size]) {
   -webkit-appearance: none;
   -moz-appearance: none;
   padding-right: 20px;
@@ -98,17 +98,17 @@
   background-position: 100% 50%;
   background-size: 24px;
 }
-.alpheios-select:not([multiple]):not([size])::-ms-expand {
+.alpheios-editor-select:not([multiple]):not([size])::-ms-expand {
   display: none;
 }
-.alpheios-select:not([multiple]):not([size]) option {
+.alpheios-editor-select:not([multiple]):not([size]) option {
   color: #757575;
 }
-.alpheios-select:not([multiple]):not([size]):disabled {
+.alpheios-editor-select:not([multiple]):not([size]):disabled {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
 }
 
-input.alpheios-input, input.alpheios-input[type] {
+input.alpheios-editor-input, input.alpheios-editor-input[type] {
   box-sizing: border-box;
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
@@ -124,35 +124,35 @@ input.alpheios-input, input.alpheios-input[type] {
   display: inline-block;
   -webkit-appearance: none;
 }
-input.alpheios-input[type=search]::-webkit-search-cancel-button, input.alpheios-input[type=search]::-webkit-search-decoration {
+input.alpheios-editor-input[type=search]::-webkit-search-cancel-button, input.alpheios-editor-input[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-input.alpheios-input[type=number]::-webkit-inner-spin-button, input.alpheios-input[type=number]::-webkit-outer-spin-button {
+input.alpheios-editor-input[type=number]::-webkit-inner-spin-button, input.alpheios-editor-input[type=number]::-webkit-outer-spin-button {
   height: auto;
 }
-input.alpheios-input::-moz-placeholder {
+input.alpheios-editor-input::-moz-placeholder {
   opacity: 1;
 }
-input.alpheios-input:not(input) {
+input.alpheios-editor-input:not(input) {
   line-height: 40px;
 }
-input.alpheios-input:focus, input.alpheios-input[type]:focus {
+input.alpheios-editor-input:focus, input.alpheios-editor-input[type]:focus {
   outline: none;
   border: inherit;
   border: 1px solid #757575;
   border: 1px solid #757575;
   border-radius: 10px;
 }
-input.alpheios-input:disabled {
+input.alpheios-editor-input:disabled {
   background-color: #e3e3e3;
   color: #909090;
   border: 1px solid #757575;
   border-radius: 10px;
 }
-input.alpheios-input::placeholder {
+input.alpheios-editor-input::placeholder {
   color: #fff;
 }
-input.alpheios-input::-ms-input-placeholder {
+input.alpheios-editor-input::-ms-input-placeholder {
   color: #fff !important;
 }
 
@@ -310,6 +310,12 @@ input.alpheios-input::-ms-input-placeholder {
   border-color: #f06d26;
   background: #f06d26;
 }
+.alpheios-standard-theme .alpheios-alignment-options-block .alpheios-alignment-editor-container {
+  border-color: #8bafb6;
+}
+.alpheios-standard-theme .alpheios-alignment-options__group {
+  border-color: #8bafb6;
+}
 
 .alpheios-v1-theme {
   background-color: #e0e0e0;
@@ -392,6 +398,12 @@ input.alpheios-input::-ms-input-placeholder {
   color: #ae0000;
   border-color: #000;
   background: #c8ff40;
+}
+.alpheios-v1-theme .alpheios-alignment-options-block .alpheios-alignment-editor-container {
+  border-color: #f8f8f8;
+}
+.alpheios-v1-theme .alpheios-alignment-options__group {
+  border-color: #f8f8f8;
 }
 
 .alpheios-alignment-app-container {
@@ -608,6 +620,35 @@ input.alpheios-input::-ms-input-placeholder {
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
+}
+.alpheios-editor-option-item {
+  display: inline-block;
+  width: 32%;
+  min-width: 350px;
+  vertical-align: top;
+}
+.alpheios-editor-option-item label, .alpheios-editor-option-item select, .alpheios-editor-option-item input {
+  display: inline-block;
+  width: 49%;
+}
+.alpheios-alignment-options-block .alpheios-alignment-editor-container {
+  border-bottom: 5px solid #f8f8f8;
+  border-top: 5px solid #f8f8f8;
+}
+.alpheios-alignment-options__group {
+  padding: 10px;
+  border: 2px groove threedface;
+  margin-bottom: 30px;
+}
+.alpheios-alignment-options__group legend {
+  display: block;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  line-height: inherit;
+  color: inherit;
+  white-space: normal;
+  font-size: 110%;
+  font-weight: bold;
 }
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;

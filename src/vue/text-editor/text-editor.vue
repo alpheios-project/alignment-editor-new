@@ -58,7 +58,6 @@ export default {
    * it could be moved out here
    */
   created () {
-    console.info('created - ', this.$textC)
     this.$textC.createAlignment()
     this.$historyC.startTracking(this.$textC.alignment)
   },

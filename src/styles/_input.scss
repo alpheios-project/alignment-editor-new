@@ -1,5 +1,5 @@
 // We're using a double selector here to protect from styles leaked from the pages
-input.alpheios-input {
+input.alpheios-editor-input {
 
   &,
   // The second selector below is required to override aggressive styling of some pages

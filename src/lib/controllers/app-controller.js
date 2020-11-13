@@ -42,18 +42,25 @@ export default class AppController {
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {
-      this.defineColorTheme(this.settingsC.themeOptionValue)
+      this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
     }
     if (this.pageSettings.appId) {
       this.attachVueComponents()
     }
+
+    SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
   }
 
   /**
    *
    * @param {String} theme - theme name
    */
-  defineColorTheme (theme) {
+  defineColorTheme ({ theme, themesList }) {
+    themesList.forEach(themeItem => {
+      document.documentElement.classList.remove(`alpheios-${themeItem}`)
+      document.body.classList.remove(`alpheios-${themeItem}`)
+    })
+
     document.documentElement.classList.add(`alpheios-${theme}`)
     document.body.classList.add(`alpheios-${theme}`)
   }

@@ -1,0 +1,12 @@
+{
+    "OPTIONS_BLOCK_APPLICATION": {
+      "message": "Application options",
+      "description": "Fieldset inside options",
+      "component": "OptionsBlock"
+    },
+    "OPTIONS_BLOCK_TOKENIZE": {
+      "message": "Tokenize options",
+      "description": "Fieldset inside options",
+      "component": "OptionsBlock"
+    }
+}

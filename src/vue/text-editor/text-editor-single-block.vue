@@ -17,7 +17,7 @@
       ></textarea>
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
+          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
             <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
           </select>
       </p>
@@ -25,7 +25,7 @@
         <div class="alpheios-alignment-editor-text-block__other-lang">
           <span>{{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
           <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText" :disabled="!docSourceEditAvailable" >
+            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-editor-input" v-model="selectedOtherLang" @change="updateText" :disabled="!docSourceEditAvailable" >
             <p class="alpheios-alignment-editor-text-block__other-lang__description">
               {{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
             </p>
