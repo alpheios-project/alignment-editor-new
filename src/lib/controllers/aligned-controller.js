@@ -4,13 +4,18 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 export default class AlignedController {
   /**
    * @param {Vuex Store} store
+   */
+  constructor (store) {
+    this.store = store
+  }
+
+  /**
+   *
    * @param {Object} tokenizeParams - params from application settings
    *         {String} tokenizer - tokenizer name
    *         {String} segments - parameter for remote service
    */
-  constructor (store, tokenizeParams = {}) {
-    this.store = store
-
+  updateTokenizerData (tokenizeParams) {
     this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
     this.tokenizeParams = tokenizeParams
   }

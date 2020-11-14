@@ -27,23 +27,27 @@ describe('app.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
 
     appC = new AppController({
-      appId:'alpheios-alignment-editor',
-      tokenizeParams: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
+      appId:'alpheios-alignment-editor'
     })
     
     appC.defineStore()
+    await appC.defineSettingsController()
+
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
     appC.defineTextController(appC.store)
+
     appC.defineAlignedController(appC.store)
+    appC.updateTokenizerData({
+      tokenizer: 'simpleLocalTokenizer'
+    })
+
     appC.defineHistoryController(appC.store)
   })
 
@@ -166,6 +170,7 @@ describe('app.test.js', () => {
     await cmp.vm.$alignedC.createAlignedTexts(alignment)
     
     expect(cmp.vm.$store.state.alignmentUpdated).toEqual(2)
+
     expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()
     expect(cmp.vm.alignEditorAvailable).toBeTruthy() // alignment workflow started
     

@@ -59998,13 +59998,18 @@ __webpack_require__.r(__webpack_exports__);
 class AlignedController {
   /**
    * @param {Vuex Store} store
+   */
+  constructor (store) {
+    this.store = store
+  }
+
+  /**
+   *
    * @param {Object} tokenizeParams - params from application settings
    *         {String} tokenizer - tokenizer name
    *         {String} segments - parameter for remote service
    */
-  constructor (store, tokenizeParams = {}) {
-    this.store = store
-
+  updateTokenizerData (tokenizeParams) {
     this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
     this.tokenizeParams = tokenizeParams
   }
@@ -60396,6 +60401,7 @@ class AppController {
     }
 
     _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.updateTokenizerData.bind(this))
   }
 
   /**
@@ -60467,8 +60473,19 @@ class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store, this.settingsC.tokenizeOptionsValues)
+    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
+    this.updateTokenizerData(this.settingsC.tokenizeOptionsValues)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$alignedC = this.alignedC
+  }
+
+  /**
+   *
+   * @param {Object} tokenizeParams - params from application settings
+   *         {String} tokenizer - tokenizer name
+   *         {String} segments - parameter for remote service
+   */
+  updateTokenizerData (tokenizeOptionsValues) {
+    this.alignedC.updateTokenizerData(tokenizeOptionsValues)
   }
 
   /**
@@ -60779,13 +60796,15 @@ class SettingsController {
   }
 
   changeOption (optionItem) {
-    console.info('changeOption - ', optionItem)
     if (optionItem.name.match('__theme$')) {
-      console.info('changeOption - pub event', optionItem.currentItem())
-      SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
+      return SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
         theme: optionItem.currentItem().value,
         themesList: optionItem.values.map(val => val.value)
       })
+    }
+
+    if (optionItem.name.match('^alpheios-alignment-editor-tokenization__')) {
+      return SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.pub(this.tokenizeOptionsValues)
     }
   }
 }
@@ -60794,7 +60813,9 @@ class SettingsController {
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Them Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Theme Option is updated', SettingsController),
+
+  SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Tokenizer Option is updated', SettingsController)
 }
 
 
@@ -64621,6 +64642,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 ;
 
@@ -64643,6 +64670,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     appOptionItems () {
       return this.$settingsC.appOptions.items
+    },
+    tokenizeOptionItems () {
+      return this.$settingsC.tokenizeOptions.items
     }
   },
   methods: {
@@ -67102,8 +67132,17 @@ var render = function() {
           [
             _c("legend", [
               _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_TOKENIZE")))
-            ])
-          ]
+            ]),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.tokenizeOptionItems.tokenizer }
+            }),
+            _vm._v(" "),
+            _c("option-item-block", {
+              attrs: { optionItem: _vm.tokenizeOptionItems.segments }
+            })
+          ],
+          1
         )
       ])
     ]
@@ -69203,7 +69242,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-tokenization\",\"version\":1,\"items\":{\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer (https://tools.alpheios.net/tokenizer/tokenize/)\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]},\"segments\":{\"defaultValue\":\"singleline\",\"labelText\":\"Segment indicator\",\"values\":[{\"value\":\"singleline\",\"text\":\"singleline\"},{\"value\":\"doubline\",\"text\":\"singleline\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-tokenization\",\"version\":1,\"items\":{\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]},\"segments\":{\"defaultValue\":\"singleline\",\"labelText\":\"Segment indicator\",\"values\":[{\"value\":\"singleline\",\"text\":\"singleline\"},{\"value\":\"doubline\",\"text\":\"singleline\"}]}}}");
 
 /***/ })
 

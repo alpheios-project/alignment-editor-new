@@ -18,7 +18,7 @@ describe('main-menu.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
@@ -28,6 +28,8 @@ describe('main-menu.test.js', () => {
     })
     
     appC.defineStore()
+    await appC.defineSettingsController()
+
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
     appC.defineTextController(appC.store)
@@ -50,6 +52,7 @@ describe('main-menu.test.js', () => {
     })
 
     
+    expect(cmp.find('#alpheios-main-menu-options')).toBeTruthy()
     expect(cmp.find('#alpheios-main-menu-add-target')).toBeTruthy()
     expect(cmp.find('#alpheios-main-menu-download')).toBeTruthy()
     expect(cmp.find('#alpheios-main-menu-upload')).toBeTruthy()

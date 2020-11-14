@@ -42,7 +42,7 @@ describe('app-controller.test.js', () => {
       appId: 'alpheios-alignment-editor'
     })
 
-    expect(appC).toHaveProperty('appId', 'alpheios-alignment-editor')
+    expect(appC).toHaveProperty('pageSettings', { appId: 'alpheios-alignment-editor' })
   })
 
   it('2 AppController - print an error to console if appId is not passed via parameters', () => {
@@ -51,13 +51,13 @@ describe('app-controller.test.js', () => {
     expect(console.error).toHaveBeenCalled()
   })
 
-  it('3 AppController - init method executes attachVueComponents only if appId is defined', () => {
+  it('3 AppController - init method executes attachVueComponents only if appId is defined', async () => {
     const appC_correct = new AppController({
       appId: 'alpheios-alignment-editor'
     })
 
     appC_correct.attachVueComponents = jest.fn()
-    appC_correct.init()
+    await appC_correct.init()
 
     expect(appC_correct.attachVueComponents).toHaveBeenCalled()
 
@@ -79,7 +79,7 @@ describe('app-controller.test.js', () => {
     jest.spyOn(appC, 'defineAlignedController')
     jest.spyOn(appC, 'defineHistoryController')
 
-    appC.init()
+    await appC.init()
 
     expect(appC.defineL10Support).toHaveBeenCalled()
     expect(appC.defineTextController).toHaveBeenCalled()
@@ -96,7 +96,7 @@ describe('app-controller.test.js', () => {
     })
 
     appC.attachVueComponents = jest.fn()
-    appC.init()
+    await appC.init()
 
     expect(appC.textC).not.toBeDefined()
     expect(Vue.prototype.$textC).not.toBeDefined()
@@ -113,7 +113,7 @@ describe('app-controller.test.js', () => {
     })
 
     appC.attachVueComponents = jest.fn()
-    appC.init()
+    await appC.init()
 
     expect(appC.alignedC).not.toBeDefined()
     expect(Vue.prototype.$alignedC).not.toBeDefined()
@@ -142,7 +142,7 @@ describe('app-controller.test.js', () => {
     })
 
     appC.attachVueComponents = jest.fn()
-    appC.init()
+    await appC.init()
 
     expect(appC.historyC).not.toBeDefined()
     expect(Vue.prototype.$historyC).not.toBeDefined()

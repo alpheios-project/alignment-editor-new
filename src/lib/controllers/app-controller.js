@@ -49,6 +49,7 @@ export default class AppController {
     }
 
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.updateTokenizerData.bind(this))
   }
 
   /**
@@ -120,8 +121,19 @@ export default class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new AlignedController(this.store, this.settingsC.tokenizeOptionsValues)
+    this.alignedC = new AlignedController(this.store)
+    this.updateTokenizerData(this.settingsC.tokenizeOptionsValues)
     Vue.prototype.$alignedC = this.alignedC
+  }
+
+  /**
+   *
+   * @param {Object} tokenizeParams - params from application settings
+   *         {String} tokenizer - tokenizer name
+   *         {String} segments - parameter for remote service
+   */
+  updateTokenizerData (tokenizeOptionsValues) {
+    this.alignedC.updateTokenizerData(tokenizeOptionsValues)
   }
 
   /**

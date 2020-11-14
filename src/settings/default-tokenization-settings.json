@@ -8,7 +8,7 @@
         "values": [
           {
             "value": "alpheiosRemoteTokenizer",
-            "text": "Alpheios Remote Tokenizer (https://tools.alpheios.net/tokenizer/tokenize/)"
+            "text": "Alpheios Remote Tokenizer"
           },
           {
             "value": "simpleLocalTokenizer",

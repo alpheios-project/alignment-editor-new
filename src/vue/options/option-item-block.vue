@@ -74,13 +74,18 @@ export default {
 <style lang="scss">
 .alpheios-editor-option-item {
   display: inline-block;
-  width: 32%;
+  width: 49%;
   min-width: 350px;
   vertical-align: top;
+  padding-right: 20px;
 
-  label, select, input {
+  label {
+    width: 34%;
     display: inline-block;
-    width: 49%;
+  }
+  select, input {
+    display: inline-block;
+    width: 65%;
   } 
 }
 </style>

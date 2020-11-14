@@ -22,7 +22,7 @@ describe('text-editor.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
@@ -32,6 +32,8 @@ describe('text-editor.test.js', () => {
     })
     
     appC.defineStore()
+    await appC.defineSettingsController()
+
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
     appC.defineTextController(appC.store)

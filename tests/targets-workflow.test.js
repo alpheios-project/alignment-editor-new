@@ -5,23 +5,27 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import App from '@/vue/app.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 
-describe('aligned-text.test.js', () => {
+describe('target-texts.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
   
-  beforeAll(() => {
+  beforeAll(async () => {
     const appC = new AppController({
-      appId:'alpheios-alignment-editor',
-      tokenizeParams: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
+      appId:'alpheios-alignment-editor'
     })
     appC.defineStore()
+    await appC.defineSettingsController()
+
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
+
+    appC.updateTokenizerData({
+      tokenizer: 'simpleLocalTokenizer'
+    })
+
     appC.defineHistoryController(appC.store)
   })
   

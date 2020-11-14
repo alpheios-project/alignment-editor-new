@@ -623,13 +623,18 @@ input.alpheios-editor-input::-ms-input-placeholder {
 }
 .alpheios-editor-option-item {
   display: inline-block;
-  width: 32%;
+  width: 49%;
   min-width: 350px;
   vertical-align: top;
+  padding-right: 20px;
 }
-.alpheios-editor-option-item label, .alpheios-editor-option-item select, .alpheios-editor-option-item input {
+.alpheios-editor-option-item label {
+  width: 34%;
   display: inline-block;
-  width: 49%;
+}
+.alpheios-editor-option-item select, .alpheios-editor-option-item input {
+  display: inline-block;
+  width: 65%;
 }
 .alpheios-alignment-options-block .alpheios-alignment-editor-container {
   border-bottom: 5px solid #f8f8f8;

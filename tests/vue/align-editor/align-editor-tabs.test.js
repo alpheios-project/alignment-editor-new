@@ -28,17 +28,21 @@ describe('align-editor-tabs.test.js', () => {
     jest.spyOn(console, 'warn')
 
     appC = new AppController({
-      appId:'alpheios-alignment-editor',
-      tokenizeParams: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
+      appId:'alpheios-alignment-editor'
     })
     
     appC.defineStore()
+    await appC.defineSettingsController()
+
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
+
+    appC.updateTokenizerData({
+      tokenizer: 'simpleLocalTokenizer'
+    })
+    
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()

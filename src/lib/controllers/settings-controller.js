@@ -53,13 +53,15 @@ export default class SettingsController {
   }
 
   changeOption (optionItem) {
-    console.info('changeOption - ', optionItem)
     if (optionItem.name.match('__theme$')) {
-      console.info('changeOption - pub event', optionItem.currentItem())
-      SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
+      return SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
         theme: optionItem.currentItem().value,
         themesList: optionItem.values.map(val => val.value)
       })
+    }
+
+    if (optionItem.name.match('^alpheios-alignment-editor-tokenization__')) {
+      return SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.pub(this.tokenizeOptionsValues)
     }
   }
 }
@@ -68,5 +70,7 @@ export default class SettingsController {
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Them Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController),
+
+  SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED: new PsEvent('Tokenizer Option is updated', SettingsController)
 }
