@@ -1,10 +1,10 @@
 <template>
-  <div class="alpheios-editor-option-item" v-if="renderable">
+  <div class="alpheios-editor-option-item" v-if="!optionItem.hidden">
     <label class="alpheios-editor-setting__label" v-show="showLabelText" v-html="labelText"></label>
 
     <select
         class="alpheios-editor-select alpheios-editor-setting__control"
-        v-if="itemType === 'select'"
+        v-if="optionItem.select"
         v-model="selected" :id="itemId"
         @change = "changeOption"
         >
@@ -43,18 +43,8 @@ export default {
     itemId () {
       return `${this.optionItem.name}-id`
     },
-    itemType () {
-      if (this.optionItem.multiValue) { return 'multiValue' }
-      if (this.optionItem.number) { return 'number' }
-      if (this.optionItem.text) { return 'text' }
-      if (this.optionItem.boolean) { return 'boolean' }
-      return 'select'
-    },
-    renderable () {
-      return Object.keys(this.optionItem).length > 0  && !this.optionItem.hidden
-    },
     values () {
-      return this.itemType === 'select' ? this.optionItem.values : []
+      return this.optionItem.select ? this.optionItem.values : []
     },
     labelText () {
       if (this.optionItem.labelL10n) {

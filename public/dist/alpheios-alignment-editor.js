@@ -64577,18 +64577,11 @@ __webpack_require__.r(__webpack_exports__);
     itemId () {
       return `${this.optionItem.name}-id`
     },
-    itemType () {
-      if (this.optionItem.multiValue) { return 'multiValue' }
-      if (this.optionItem.number) { return 'number' }
-      if (this.optionItem.text) { return 'text' }
-      if (this.optionItem.boolean) { return 'boolean' }
-      return 'select'
-    },
     renderable () {
       return Object.keys(this.optionItem).length > 0  && !this.optionItem.hidden
     },
     values () {
-      return this.itemType === 'select' ? this.optionItem.values : []
+      return this.optionItem.select ? this.optionItem.values : []
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -67022,7 +67015,7 @@ var render = function() {
           domProps: { innerHTML: _vm._s(_vm.labelText) }
         }),
         _vm._v(" "),
-        _vm.itemType === "select"
+        _vm.optionItem.select
           ? _c(
               "select",
               {
@@ -69178,6 +69171,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /*!   export theme [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export select [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
 /*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
@@ -69196,7 +69190,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":1,\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":1,\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"select\":true,\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]}}}");
 
 /***/ }),
 
@@ -69210,6 +69204,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /*!   export segments [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export select [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
 /*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
@@ -69224,6 +69219,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /*!   export tokenizer [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export select [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
 /*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
@@ -69242,7 +69238,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-tokenization\",\"version\":1,\"items\":{\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]},\"segments\":{\"defaultValue\":\"singleline\",\"labelText\":\"Segment indicator\",\"values\":[{\"value\":\"singleline\",\"text\":\"singleline\"},{\"value\":\"doubline\",\"text\":\"singleline\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-tokenization\",\"version\":1,\"items\":{\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"select\":true,\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]},\"segments\":{\"defaultValue\":\"singleline\",\"labelText\":\"Segment indicator\",\"select\":true,\"values\":[{\"value\":\"singleline\",\"text\":\"singleline\"},{\"value\":\"doubline\",\"text\":\"singleline\"}]}}}");
 
 /***/ })
 

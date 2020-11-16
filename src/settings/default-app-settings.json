@@ -5,6 +5,7 @@
     "theme": {
       "defaultValue": "v1-theme",
       "labelText": "CSS Theme",
+      "select": true,
       "values": [
         {
           "value": "standard-theme",
