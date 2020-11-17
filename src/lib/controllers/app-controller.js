@@ -50,6 +50,7 @@ export default class AppController {
 
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
     SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.updateTokenizerData.bind(this))
+    this.settingsC.uploadTokenizeOptions()
   }
 
   /**
@@ -122,7 +123,7 @@ export default class AppController {
    */
   defineAlignedController () {
     this.alignedC = new AlignedController(this.store)
-    this.updateTokenizerData(this.settingsC.tokenizeOptionsValues)
+    this.updateTokenizerData({})
     Vue.prototype.$alignedC = this.alignedC
   }
 

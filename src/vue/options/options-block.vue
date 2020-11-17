@@ -7,15 +7,8 @@
           <option-item-block
             :optionItem = "appOptionItems.theme"
           />
-      </fieldset>
-
-      <fieldset class="alpheios-alignment-options__group alpheios-alignment-options__tokenize-group">
-        <legend>{{ l10n.getMsgS('OPTIONS_BLOCK_TOKENIZE') }}</legend>
-        <option-item-block
-            :optionItem = "tokenizeOptionItems.tokenizer"
-          />
           <option-item-block
-            :optionItem = "tokenizeOptionItems.segments"
+            :optionItem = "appOptionItems.tokenizer"
           />
       </fieldset>
     </div>
@@ -43,9 +36,6 @@ export default {
     },
     appOptionItems () {
       return this.$settingsC.appOptions.items
-    },
-    tokenizeOptionItems () {
-      return this.$settingsC.tokenizeOptions.items
     }
   },
   methods: {

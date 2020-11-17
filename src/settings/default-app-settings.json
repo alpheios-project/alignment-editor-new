@@ -16,6 +16,21 @@
           "text": "V1 Theme"
         }
       ]
+    },
+    "tokenizer": {
+      "defaultValue": "alpheiosRemoteTokenizer",
+      "labelText": "Tokenizer service",
+      "select": true,
+      "values": [
+        {
+          "value": "alpheiosRemoteTokenizer",
+          "text": "Alpheios Remote Tokenizer"
+        },
+        {
+          "value": "simpleLocalTokenizer",
+          "text": "Offline tokenizer"
+        }
+      ]
     }
   }
 }

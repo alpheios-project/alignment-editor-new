@@ -1,7 +1,8 @@
 import { Options, LocalStorageArea, PsEvent } from 'alpheios-data-models'
+import { ClientAdapters } from 'alpheios-client-adapters'
 
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DefaultAppSettings from '@/settings/default-app-settings.json'
-import DefaultTokenizationSettings from '@/settings/default-tokenization-settings.json'
 
 export default class SettingsController {
   constructor (store) {
@@ -9,8 +10,7 @@ export default class SettingsController {
     this.storageAdapter = LocalStorageArea
 
     this.defaultSettings = {
-      app: DefaultAppSettings,
-      tokenize: DefaultTokenizationSettings
+      app: DefaultAppSettings
     }
 
     this.defineSettings()
@@ -24,32 +24,41 @@ export default class SettingsController {
   }
 
   /**
-   * @returns {Object} - tokenizeOptions values
-   */
-  get tokenizeOptionsValues () {
-    if (this.tokenizeOptions) {
-      const optionsObj = {}
-      Object.keys(this.tokenizeOptions.items).forEach(optionKey => {
-        optionsObj[optionKey] = this.tokenizeOptions.items[optionKey].currentItem('value')
-      })
-      return optionsObj
-    }
-    return {}
-  }
-
-  /**
    * Creates all type of options from default data
    */
   defineSettings () {
     this.appOptions = new Options(this.defaultSettings.app, new LocalStorageArea(this.defaultSettings.app.domain))
-    this.tokenizeOptions = new Options(this.defaultSettings.tokenize, new LocalStorageArea(this.defaultSettings.tokenize.domain))
   }
 
   /**
    * Loads options from the storageAdapter
    */
   init () {
-    return [this.appOptions.load(), this.tokenizeOptions.load()]
+    return this.appOptions.load()
+  }
+
+  async uploadTokenizeOptions () {
+    const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
+      method: 'getConfig',
+      params: {
+        storage: LocalStorageArea
+      }
+    })
+
+    if (adapterTokenizerRes.errors.length > 0) {
+      adapterTokenizerRes.errors.forEach(error => {
+        console.log(error)
+        NotificationSingleton.addNotification({
+          text: error.message,
+          type: NotificationSingleton.types.ERROR
+        })
+      })
+    }
+
+    this.textTokenizeOptions = adapterTokenizerRes.result.text
+    this.teiTokenizeOptions = adapterTokenizerRes.result.tei
+
+    return [this.textTokenizeOptions.load(), this.teiTokenizeOptions.load()]
   }
 
   changeOption (optionItem) {

@@ -4,8 +4,13 @@
       "description": "Fieldset inside options",
       "component": "OptionsBlock"
     },
-    "OPTIONS_BLOCK_TOKENIZE": {
-      "message": "Tokenize options",
+    "OPTIONS_BLOCK_TOKENIZE_TEXT": {
+      "message": "Tokenize options for Alpheios Remote Servise - TEXT",
+      "description": "Fieldset inside options",
+      "component": "OptionsBlock"
+    },
+    "OPTIONS_BLOCK_TOKENIZE_TEI": {
+      "message": "Tokenize options for Alpheios Remote Servise - TEI",
       "description": "Fieldset inside options",
       "component": "OptionsBlock"
     }
