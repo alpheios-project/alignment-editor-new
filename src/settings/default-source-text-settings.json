@@ -1,0 +1,21 @@
+{
+    "domain": "alpheios-alignment-editor-source-text",
+    "version": 1,
+    "items": {
+      "sourceType": {
+        "defaultValue": "text",
+        "labelText": "Text Source Type",
+        "radio": true,
+        "values": [
+          {
+            "value": "text",
+            "text": "Text"
+          },
+          {
+            "value": "tei",
+            "text": "TEI"
+          }
+        ]
+      }
+    }
+  }

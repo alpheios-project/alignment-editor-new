@@ -37,9 +37,9 @@ export default class AlignedText {
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
    */
-  async tokenize (docSource, tokenizeParams) {
-    const tokenizeMethod = TokenizeController.getTokenizer(this.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix, tokenizeParams)
+  async tokenize (docSource) {
+    const tokenizeMethod = TokenizeController.getTokenizer(docSource.tokenization.tokenizer)
+    const result = await tokenizeMethod(docSource, this.tokenPrefix)
 
     if (result && result.segments) {
       this.segments = result.segments.map(segment => new Segment({

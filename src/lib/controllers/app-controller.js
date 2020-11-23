@@ -48,9 +48,7 @@ export default class AppController {
       this.attachVueComponents()
     }
 
-    SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.updateTokenizerData.bind(this))
-    this.settingsC.uploadTokenizeOptions()
+    this.settingsC.uploadDefaultTokenizeOptions()
   }
 
   /**
@@ -90,6 +88,18 @@ export default class AppController {
     })
 
     this._viAppComp.$mount(appContainerEl)
+
+    this.defineEvents()
+  }
+
+  defineEvents () {
+    SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    /*
+    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_UPDATED.sub(this.alignedC.updateTokenizer.bind(this.alignedC))
+
+    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_UPDATED.sub(this.textC.updateTokenizer.bind(this.textC))
+    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.textC.updateDefaultTokenizationOptions.bind(this.textC))
+    */
   }
 
   /**
@@ -115,6 +125,7 @@ export default class AppController {
    */
   defineTextController () {
     this.textC = new TextsController(this.store)
+    // this.textC.updateTokenizer(this.settingsC.tokenizerOptionValue)
     Vue.prototype.$textC = this.textC
   }
 
@@ -123,18 +134,8 @@ export default class AppController {
    */
   defineAlignedController () {
     this.alignedC = new AlignedController(this.store)
-    this.updateTokenizerData({})
+    // this.alignedC.updateTokenizer(this.settingsC.tokenizerOptionValue)
     Vue.prototype.$alignedC = this.alignedC
-  }
-
-  /**
-   *
-   * @param {Object} tokenizeParams - params from application settings
-   *         {String} tokenizer - tokenizer name
-   *         {String} segments - parameter for remote service
-   */
-  updateTokenizerData (tokenizeOptionsValues) {
-    this.alignedC.updateTokenizerData(tokenizeOptionsValues)
   }
 
   /**

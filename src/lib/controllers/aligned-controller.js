@@ -15,10 +15,11 @@ export default class AlignedController {
    *         {String} tokenizer - tokenizer name
    *         {String} segments - parameter for remote service
    */
-  updateTokenizerData (tokenizeParams) {
-    this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
-    this.tokenizeParams = tokenizeParams
+  /*
+   updateTokenizer (tokenizer) {
+    this.tokenizer = this.defineTokenizer(tokenizer)
   }
+  */
 
   /**
    * @returns {Array[String]} - available tokenizer's names

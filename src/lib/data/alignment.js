@@ -71,7 +71,11 @@ export default class Alignment {
     }
 
     if (!this.origin.docSource) {
-      this.origin.docSource = docSource instanceof SourceText ? docSource : new SourceText('origin', docSource)
+      if (docSource instanceof SourceText) {
+        this.origin.docSource = docSource
+      } else {
+        this.origin.docSource = new SourceText('origin', docSource)
+      }
     } else {
       this.origin.docSource.update(docSource)
     }
@@ -143,8 +147,9 @@ export default class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts (tokenizer, tokenizeParams) {
-    if (!tokenizer || !this.readyForTokenize) {
+  async createAlignedTexts () {
+    console.info('this.origin.docSource - ', this.origin.docSource)
+    if (!this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'),
@@ -152,14 +157,12 @@ export default class Alignment {
       })
       return false
     }
-
     this.origin.alignedText = new AlignedText({
       docSource: this.origin.docSource,
-      tokenizer,
       tokenPrefix: '1'
     })
 
-    let result = await this.origin.alignedText.tokenize(this.origin.docSource, tokenizeParams)
+    let result = await this.origin.alignedText.tokenize(this.origin.docSource)
 
     if (!result) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
@@ -175,11 +178,10 @@ export default class Alignment {
 
       this.targets[id].alignedText = new AlignedText({
         docSource: this.targets[id].docSource,
-        tokenizer,
         tokenPrefix: (i + 2)
       })
 
-      result = await this.targets[id].alignedText.tokenize(this.targets[id].docSource, tokenizeParams)
+      result = await this.targets[id].alignedText.tokenize(this.targets[id].docSource)
 
       if (!result) {
         console.error(L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }))

@@ -35,7 +35,7 @@ export default {
       return L10nSingleton
     },
     appOptionItems () {
-      return this.$settingsC.appOptions.items
+      return this.$settingsC.options.app.items
     }
   },
   methods: {

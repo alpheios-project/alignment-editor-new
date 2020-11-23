@@ -11,6 +11,8 @@ export default class SourceText {
    * @param {String} docSource.text
    * @param {String} docSource.direction
    * @param {String} docSource.lang
+   * @param {Object} docSource.tokenization
+   * @param {String} targetId
    */
   constructor (textType, docSource, targetId) {
     this.id = targetId || uuidv4()
@@ -19,6 +21,7 @@ export default class SourceText {
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = 'text'
+    this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
   }
 
   get defaultDirection () {
@@ -40,6 +43,8 @@ export default class SourceText {
     this.text = docSource.text ? docSource.text : this.text
     this.direction = docSource.direction ? docSource.direction : this.direction
     this.lang = docSource.lang ? docSource.lang : this.lang
+
+    this.tokenization = docSource.tokenization
   }
 
   /**
@@ -72,6 +77,7 @@ export default class SourceText {
     const direction = jsonData.direction.trim()
     const lang = jsonData.lang.trim()
 
-    return new SourceText(textType, { text, direction, lang })
+    const sourceText = new SourceText(textType, { text, direction, lang })
+    return sourceText
   }
 }

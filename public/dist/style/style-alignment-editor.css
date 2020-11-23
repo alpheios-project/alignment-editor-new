@@ -233,6 +233,63 @@ input.alpheios-editor-input::-ms-input-placeholder {
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
 
+div.alpheios-editor-checkbox-block {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  line-height: textsize(22px);
+  max-width: textsize(235px);
+  vertical-align: top;
+  min-height: 17px;
+}
+
+.alpheios-editor-checkbox-block input[type=checkbox] {
+  opacity: 0;
+  position: absolute;
+  left: -999px;
+}
+.alpheios-editor-checkbox-block label {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  vertical-align: top;
+  /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
+  padding-left: 22px;
+  padding-top: 2px;
+}
+.alpheios-editor-checkbox-block label::before, .alpheios-editor-checkbox-block label::after {
+  position: absolute;
+  content: "";
+  /*Needed for the line-height to take effect*/
+  display: inline-block;
+}
+.alpheios-editor-checkbox-block label::before {
+  height: 16px;
+  width: 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  left: 0;
+  /*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+   *to vertically center it.
+   */
+  top: 3px;
+}
+.alpheios-editor-checkbox-block label::after {
+  height: 5px;
+  width: 9px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg);
+  left: 3px;
+  top: 6px;
+}
+.alpheios-editor-checkbox-block input[type=checkbox] + label::after {
+  content: none;
+}
+.alpheios-editor-checkbox-block input[type=checkbox]:checked + label::after {
+  content: "";
+}
+
 .alpheios-standard-theme {
   background-color: #fff;
   color: #212529;
@@ -474,6 +531,30 @@ input.alpheios-editor-input::-ms-input-placeholder {
   fill: #1B374F;
   stroke: #1B374F;
 }
+.alpheios-alignment-radio-block-container {
+  margin-top: 0;
+}
+.alpheios-editor-option-item {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.alpheios-editor-option-item > label {
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-editor-option-item input.alpheios-editor-input, .alpheios-editor-option-item .alpheios-editor-select, .alpheios-editor-option-item .alpheios-alignment-radio-block {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+.alpheios-editor-option-item p.alpheios-alignment-radio-block {
+  margin-top: 0;
+  margin-bottom: 0;
+}
 .alpheios-alignment-editor-text-block textarea {
   width: 100%;
   min-height: 300px;
@@ -515,6 +596,20 @@ input.alpheios-editor-input::-ms-input-placeholder {
   display: inline-block;
   width: 100%;
   height: 100%;
+}
+.alpheios-alignment-text__group {
+  padding: 10px;
+  border: 2px groove #f8f8f8;
+  margin-bottom: 30px;
+}
+.alpheios-alignment-text__group legend {
+  display: block;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  line-height: inherit;
+  color: inherit;
+  white-space: normal;
+  font-size: 110%;
 }
 .alpheios-alignment-editor-text-define-container-inner:before, .alpheios-alignment-editor-text-define-container-inner:after {
   content: "";
@@ -620,21 +715,6 @@ input.alpheios-editor-input::-ms-input-placeholder {
 }
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
-}
-.alpheios-editor-option-item {
-  display: inline-block;
-  width: 49%;
-  min-width: 350px;
-  vertical-align: top;
-  padding-right: 20px;
-}
-.alpheios-editor-option-item label {
-  width: 34%;
-  display: inline-block;
-}
-.alpheios-editor-option-item select, .alpheios-editor-option-item input {
-  display: inline-block;
-  width: 65%;
 }
 .alpheios-alignment-options-block .alpheios-alignment-editor-container {
   border-bottom: 5px solid #f8f8f8;

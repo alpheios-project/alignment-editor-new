@@ -12,8 +12,14 @@ export default class TokenizeController {
    */
   static get tokenizeMethods () {
     return {
-      simpleLocalTokenizer: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
-      alpheiosRemoteTokenizer: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer)
+      simpleLocalTokenizer: {
+        method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
+        hasOptions: false
+      },
+      alpheiosRemoteTokenizer: {
+        method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
+        hasOptions: true
+      }
     }
   }
 
@@ -23,7 +29,7 @@ export default class TokenizeController {
    */
   static getTokenizer (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
-      return this.tokenizeMethods[tokenizer]
+      return this.tokenizeMethods[tokenizer].method
     }
     console.error(L10nSingleton.getMsgS('TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED', { tokenizer }))
     NotificationSingleton.addNotification({
@@ -31,5 +37,23 @@ export default class TokenizeController {
       type: NotificationSingleton.types.ERROR
     })
     return false
+  }
+
+  static defineTextTokenizationOptions (settingsC, definedLocalOptions = {}) {
+    if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
+      return
+    }
+
+    let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
+
+    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions) {
+      if (definedLocalOptions) {
+        Object.values(definedLocalOptions).forEach(options => {
+          tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(options))
+        })
+      }
+    }
+
+    return tokenizationOptions
   }
 }

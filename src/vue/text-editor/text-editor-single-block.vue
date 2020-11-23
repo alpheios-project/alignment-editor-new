@@ -5,13 +5,14 @@
           <delete-icon />
         </span>
       </p>
-      <p class="alpheios-alignment-editor-text-block__direction">
-          <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
-          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
-          <label :for="directionRadioId('ltr')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
-          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
-          <label :for="directionRadioId('rtl')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
-      </p>
+      <radio-items 
+        itemName = "direction"
+        :properties = "directionProperties"
+        :disabled="!docSourceEditAvailable"
+        :idPrefix = "idRadioPrefix"
+        @updateData = "updateDirection"
+      />
+
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
@@ -33,6 +34,10 @@
         </div>
         
       </div>
+
+      <tokenize-options-block :textType = "textType" :index = "index" 
+        @updateText = "updateText" @updateLocalTokenizeOptions = "updateLocalTokenizeOptions"
+      />
   </div>
 </template>
 <script>
@@ -40,6 +45,12 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Langs from '@/lib/data/langs/langs.js'
 
 import DeleteIcon from '@/inline-icons/delete.svg'
+
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import RadioItems from '@/vue/form-items/radio-items.vue'
+
+import OptionItemBlock from '@/vue/options/option-item-block.vue'
+import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -59,16 +70,23 @@ export default {
     }
   },
   components: {
-    deleteIcon: DeleteIcon
+    deleteIcon: DeleteIcon,
+    radioItems: RadioItems,
+    optionItemBlock: OptionItemBlock,
+    tokenizeOptionsBlock: TokenizeOptionsBlock
   },
   data () {
     return {
       text: null,
       prevText: null,
       direction: 'ltr',
+      directionProperties: ['ltr', 'rtl'],
+
       langsList: [],
       selectedAvaLang: null,
-      selectedOtherLang: null
+      selectedOtherLang: null,
+
+      localTokenizeOptions: null
     }
   },
   /**
@@ -78,6 +96,7 @@ export default {
     this.langsList = Langs.all
     this.selectedAvaLang = this.langsList[0].value
   },
+
   watch: {
     text (val) {
       if ((!this.prevText && val) || (this.prevText && !val)) {
@@ -154,6 +173,12 @@ export default {
      */
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+    },
+    idRadioPrefix () {
+      return `alpheios-alignment-editor-text-block__${this.textType}__${this.textId}`
+    },
+    updateTextMethod () {
+      return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     }
   },
   methods: {
@@ -165,12 +190,7 @@ export default {
         this.updateLang(data.lang)
       }
     },
-    /**
-     * Defines unique id for direction input
-     */
-    directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}_${this.textId}`
-    },
+
     /**
      * If a user reselects language from select, input[text] would be cleared
      */
@@ -193,20 +213,33 @@ export default {
         this.selectedAvaLang = this.langsList[0].value
       }
     },
+
+    updateDirection (dir) {
+      this.direction = dir
+      this.updateText()
+    },
+
+    updateLocalTokenizeOptions (localOptions) {
+      this.localTokenizeOptions = localOptions
+      this.updateText()
+    },
     /**
      * Emits update-text event with data from properties
      */
     updateText () {
-      const methodName = this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
-
-      this.$textC[methodName]({
+      const params = {
         text: this.text,
         direction: this.direction,
         lang: this.selectedLang,
-        id: this.textId
-      })
-    },
+        id: this.textId,
+        tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTokenizeOptions)
+      }
 
+      console.info('updateText - ', params)
+      
+      this.$textC[this.updateTextMethod](params)
+
+    },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     }
@@ -267,4 +300,19 @@ export default {
       }
     }
 
+    .alpheios-alignment-text__group {
+      padding: 10px;
+      border: 2px groove #f8f8f8;
+      margin-bottom: 30px;
+
+      legend {
+        display: block;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        line-height: inherit;
+        color: inherit;
+        white-space: normal;
+        font-size: 110%;
+      }
+    }
 </style>
