@@ -60,19 +60,17 @@ export default {
       localTokenizeOptions: { ready: false }
     }
   },
-  mounted () {
+  async mounted () {
     this.showTokenizeOptions = (this.$settingsC.tokenizerOptionValue === 'alpheiosRemoteTokenizer')
-    if (this.$settingsC.tokenizerOptionsLoaded) {
-      this.prepareDefaultTokenizeOptions()
-    }
+    await this.prepareDefaultTokenizeOptions()
   },
   watch: {
     '$store.state.tokenizerUpdated' () {
       this.showTokenizeOptions = (this.$settingsC.tokenizerOptionValue === 'alpheiosRemoteTokenizer')
       this.$emit('updateText')
     },
-    '$store.state.optionsUpdated' () {
-      this.prepareDefaultTokenizeOptions()
+    async '$store.state.optionsUpdated' () {
+      await this.prepareDefaultTokenizeOptions()
     }
   },
   computed: {
@@ -90,9 +88,9 @@ export default {
     }
   },
   methods: {
-    prepareDefaultTokenizeOptions () {
-      if (!this.localTokenizeOptions.ready) {
-        const clonedOptions = this.$settingsC.cloneSourceOptions(this.textType, this.index)
+    async prepareDefaultTokenizeOptions () {
+      if (!this.localTokenizeOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        const clonedOptions = await this.$settingsC.cloneSourceOptions(this.textType, this.index)
 
         this.localTokenizeOptions.text = clonedOptions.text
         this.localTokenizeOptions.tei = clonedOptions.tei

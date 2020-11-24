@@ -82,6 +82,7 @@ export default class SettingsController {
 
     await Promise.all([this.options.tokenize.text.load(), this.options.tokenize.tei.load()])
 
+    // console.info('this.options.tokenize.text - ', this.options.tokenize.text)
     this.store.commit('incrementOptionsUpdated')
     this.tokenizerOptionsLoaded = true
   }
@@ -103,21 +104,28 @@ export default class SettingsController {
 
   cloneOptions (options, domainPostfix) {
     const defaults = Object.assign({}, options.defaults)
-    defaults.domain = `${defaults.domain}__${domainPostfix}`
+    console.info('cloneOptions - defaults', defaults)
+    defaults.domain = `${defaults.domain}-${domainPostfix}`
 
     return new Options(defaults, new LocalStorageArea(defaults.domain))
   }
 
-  cloneSourceOptions (typeText, indexText) {
+  async cloneSourceOptions (typeText, indexText) {
     const sourceTypes = this.options.sourceText.items.sourceType.values.map(value => value.value)
-
+    const optionPromises = []
     const result = {
-      sourceText: this.cloneOptions(this.options.sourceText, `${typeText}_${indexText}`)
+      sourceText: this.cloneOptions(this.options.sourceText, `${typeText}-${indexText}`)
     }
+
+    optionPromises.push(result.sourceText.load())
+
     sourceTypes.forEach(sourceType => {
-      result[sourceType] = this.cloneOptions(this.options.tokenize[sourceType], `${typeText}_${indexText}_${sourceType}`)
+      result[sourceType] = this.cloneOptions(this.options.tokenize[sourceType], `${typeText}-${indexText}-${sourceType}`)
+      optionPromises.push(result[sourceType].load())
     })
 
+    console.info('result - ', result)
+    await Promise.all(optionPromises)
     return result
   }
 }

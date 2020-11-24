@@ -104,11 +104,11 @@ export default {
   },
   methods: {
     changeOption () {
-      console.info('changeOption - ', this.selected, this.emitUpdateData, this.optionItem)
+      // console.info('changeOption - ', this.selected, this.emitUpdateData, this.optionItem)
       this.optionItem.setValue(this.selected)
       this.$settingsC.changeOption(this.optionItem)
       if (this.emitUpdateData) {
-        console.info('changeOption - inside')
+        // console.info('changeOption - inside')
         this.$emit('updateData')
       }
     }

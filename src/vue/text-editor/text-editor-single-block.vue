@@ -235,7 +235,7 @@ export default {
         tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTokenizeOptions)
       }
 
-      console.info('updateText - ', params)
+      // console.info('updateText - ', params)
       
       this.$textC[this.updateTextMethod](params)
 

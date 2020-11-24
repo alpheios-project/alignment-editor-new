@@ -1,6 +1,6 @@
 {
     "domain": "alpheios-alignment-editor-source-text",
-    "version": 1,
+    "version": "1",
     "items": {
       "sourceType": {
         "defaultValue": "text",
