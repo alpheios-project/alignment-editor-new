@@ -47,8 +47,6 @@ export default class AppController {
     if (this.pageSettings.appId) {
       this.attachVueComponents()
     }
-
-    this.settingsC.uploadDefaultTokenizeOptions()
   }
 
   /**
@@ -116,8 +114,9 @@ export default class AppController {
   async defineSettingsController () {
     this.settingsC = new SettingsController(this.store)
     await this.settingsC.init()
-
     Vue.prototype.$settingsC = this.settingsC
+
+    this.settingsC.uploadRemoteSettings()
   }
 
   /**

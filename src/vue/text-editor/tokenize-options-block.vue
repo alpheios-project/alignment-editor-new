@@ -5,7 +5,7 @@
             <option-item-block
               :optionItem = "localTokenizeOptions.sourceText.items.sourceType"
               :emitUpdateData = "true"
-              @updateData = "updateSourceType"
+              @updateData = "updateSourceType" :disabled="!docSourceEditAvailable"
             />
         </fieldset>
 
@@ -14,7 +14,7 @@
             <option-item-block
                 v-for="textOptItem in localTokenizeOptions.text.items" :key="textOptItem.domain"
                 :optionItem = "textOptItem" :emitUpdateData = "true"
-                @updateData = "updateData"
+                @updateData = "updateData" :disabled="!docSourceEditAvailable"
             />
         </fieldset>
 
@@ -23,7 +23,7 @@
             <option-item-block
                 v-for="textOptItem in localTokenizeOptions.tei.items" :key="textOptItem.domain"
                 :optionItem = "textOptItem" :emitUpdateData = "true"
-                @updateData = "updateData"
+                @updateData = "updateData" :disabled="!docSourceEditAvailable"
 
             />
         </fieldset>
@@ -55,22 +55,22 @@ export default {
   data () {
     return {
       sourceType: null,
-
-      showTokenizeOptions: true,
       localTokenizeOptions: { ready: false }
     }
   },
   async mounted () {
-    this.showTokenizeOptions = (this.$settingsC.tokenizerOptionValue === 'alpheiosRemoteTokenizer')
-    await this.prepareDefaultTokenizeOptions()
+    if (!this.localTokenizeOptions.ready && this.showTokenizeOptions) {
+      await this.prepareDefaultTokenizeOptions()
+    }
   },
   watch: {
     '$store.state.tokenizerUpdated' () {
-      this.showTokenizeOptions = (this.$settingsC.tokenizerOptionValue === 'alpheiosRemoteTokenizer')
       this.$emit('updateText')
     },
     async '$store.state.optionsUpdated' () {
-      await this.prepareDefaultTokenizeOptions()
+      if (!this.localTokenizeOptions.ready && this.showTokenizeOptions) {
+        await this.prepareDefaultTokenizeOptions()
+      }
     }
   },
   computed: {
@@ -85,22 +85,25 @@ export default {
     },
     renderTokenizeOptions () {
       return Boolean(this.$store.state.optionsUpdated) && this.localTokenizeOptions.ready
+    },
+    showTokenizeOptions () {
+      console.info('showTokenizeOptions - ', this.$settingsC.tokenizerOptionsLoaded)
+      return Boolean(this.$store.state.tokenizerUpdated) && Boolean(this.$store.state.optionsUpdated) && this.$settingsC.tokenizerOptionsLoaded
     }
+
   },
   methods: {
     async prepareDefaultTokenizeOptions () {
-      if (!this.localTokenizeOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        const clonedOptions = await this.$settingsC.cloneSourceOptions(this.textType, this.index)
+      const clonedOptions = await this.$settingsC.cloneSourceOptions(this.textType, this.index)
 
-        this.localTokenizeOptions.text = clonedOptions.text
-        this.localTokenizeOptions.tei = clonedOptions.tei
-        this.localTokenizeOptions.sourceText = clonedOptions.sourceText
+      this.localTokenizeOptions.text = clonedOptions.text
+      this.localTokenizeOptions.tei = clonedOptions.tei
+      this.localTokenizeOptions.sourceText = clonedOptions.sourceText
 
-        this.localTokenizeOptions.ready = true
+      this.localTokenizeOptions.ready = true
 
-        this.sourceType = this.localTokenizeOptions.sourceText.items.sourceType.currentValue
-        this.updateData()
-      }
+      this.sourceType = this.localTokenizeOptions.sourceText.items.sourceType.currentValue
+      this.updateData()
     },
 
     updateSourceType () {

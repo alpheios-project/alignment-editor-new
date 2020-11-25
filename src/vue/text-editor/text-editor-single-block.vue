@@ -5,6 +5,7 @@
           <delete-icon />
         </span>
       </p>
+      <!--
       <radio-items 
         itemName = "direction"
         :properties = "directionProperties"
@@ -12,10 +13,15 @@
         :idPrefix = "idRadioPrefix"
         @updateData = "updateDirection"
       />
-
+      
+      <direction-options-block :textType = "textType" :index = "index" 
+        @updateText = "updateText" @updateLocalSourceTextOptions = "updateLocalSourceTextOptions"
+      />
+      -->
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
+
       <p class="alpheios-alignment-editor-text-block__ava-lang">
           <span>{{ chooseAvaLangLabel}}</span>
           <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
@@ -38,6 +44,7 @@
       <tokenize-options-block :textType = "textType" :index = "index" 
         @updateText = "updateText" @updateLocalTokenizeOptions = "updateLocalTokenizeOptions"
       />
+
   </div>
 </template>
 <script>
@@ -50,7 +57,9 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import RadioItems from '@/vue/form-items/radio-items.vue'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
+
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
+import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -73,7 +82,8 @@ export default {
     deleteIcon: DeleteIcon,
     radioItems: RadioItems,
     optionItemBlock: OptionItemBlock,
-    tokenizeOptionsBlock: TokenizeOptionsBlock
+    tokenizeOptionsBlock: TokenizeOptionsBlock,
+    directionOptionsBlock: DirectionOptionsBlock
   },
   data () {
     return {
@@ -86,7 +96,8 @@ export default {
       selectedAvaLang: null,
       selectedOtherLang: null,
 
-      localTokenizeOptions: null
+      localTokenizeOptions: null,
+      localSourceTextOptions: null
     }
   },
   /**
@@ -214,10 +225,11 @@ export default {
       }
     },
 
-    updateDirection (dir) {
-      this.direction = dir
+    updateLocalSourceTextOptions (localOptions) {
+      this.localSourceTextOptions = localOptions
       this.updateText()
     },
+
 
     updateLocalTokenizeOptions (localOptions) {
       this.localTokenizeOptions = localOptions
@@ -234,8 +246,6 @@ export default {
         id: this.textId,
         tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTokenizeOptions)
       }
-
-      // console.info('updateText - ', params)
       
       this.$textC[this.updateTextMethod](params)
 

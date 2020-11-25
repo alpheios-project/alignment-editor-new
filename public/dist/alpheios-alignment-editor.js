@@ -34996,24 +34996,12 @@ class Options {
   async load () {
     try {
       const values = await this.storageAdapter.get()
-      // console.info('Load values ', this.domain, values)
-
-      if (['alpheios-alignment-editor-source-text-origin-0', 'alpheios-remote-tokenization-tei-origin-0-tei'].includes(this.domain)) {
-        console.info('Load values ', this)
-        console.info('Load values ', this.domain, values)
-      }
 
       for (const key in values) {
         const parsedKey = Options.parseKey(key)
         // TODO when we do increase the version we should handle conversion
-        if (['alpheios-alignment-editor-source-text-origin-0', 'alpheios-remote-tokenization-tei-origin-0-tei'].includes(this.domain)) {
-          console.info('Load parsedKey ', parsedKey, this.version)
-        }
 
         if (this.items.hasOwnProperty(parsedKey.name) && this.version === parsedKey.version) { // eslint-disable-line no-prototype-builtins
-          if (['alpheios-alignment-editor-source-text-origin-0', 'alpheios-remote-tokenization-tei-origin-0-tei'].includes(this.domain)) {
-            console.info('Inside condition')
-          }
           if (parsedKey.group) {
             this.items[parsedKey.name].forEach((f) => {
               if (f.name === key) {
@@ -35026,9 +35014,6 @@ class Options {
             })
           } else {
             try {
-              if (['alpheios-alignment-editor-source-text-origin-0', 'alpheios-remote-tokenization-tei-origin-0-tei'].includes(this.domain)) {
-                console.info('Inside condition 2', this.items[parsedKey.name], JSON.parse(values[key]))
-              }
               this.items[parsedKey.name].currentValue = JSON.parse(values[key])
             } catch (e) {
               // invalid value
@@ -35096,16 +35081,16 @@ class Options {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_367632__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_366655__) => {
 
 "use strict";
-__nested_webpack_require_367632__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_367632__.d(__webpack_exports__, {
+__nested_webpack_require_366655__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_366655__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PersianLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_367632__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_367632__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_367632__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_366655__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_366655__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_366655__(/*! ./constants.js */ "./constants.js");
 ;
 
 
@@ -35175,11 +35160,11 @@ class PersianLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_370761__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_369784__) => {
 
 "use strict";
-__nested_webpack_require_370761__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_370761__.d(__webpack_exports__, {
+__nested_webpack_require_369784__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_369784__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEventData
 /* harmony export */ });
 /**
@@ -35230,16 +35215,16 @@ class PsEventData {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_373243__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_372266__) => {
 
 "use strict";
-__nested_webpack_require_373243__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_373243__.d(__webpack_exports__, {
+__nested_webpack_require_372266__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_372266__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEvent
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_373243__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_373243__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_373243__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_372266__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_372266__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_372266__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
 ;
 
 
@@ -35339,11 +35324,11 @@ class PsEvent {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_376935__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_375958__) => {
 
 "use strict";
-__nested_webpack_require_376935__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_376935__.d(__webpack_exports__, {
+__nested_webpack_require_375958__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_375958__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /**
@@ -35426,11 +35411,11 @@ class ResourceProvider {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_379587__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_378610__) => {
 
 "use strict";
-__nested_webpack_require_379587__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_379587__.d(__webpack_exports__, {
+__nested_webpack_require_378610__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_378610__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* eslint-disable */
@@ -35614,14 +35599,14 @@ class Sha1 {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_387173__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_386196__) => {
 
 "use strict";
-__nested_webpack_require_387173__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_387173__.d(__webpack_exports__, {
+__nested_webpack_require_386196__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_386196__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ DefaultsLoader
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_387173__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_386196__(/*! ../logging/logger.js */ "./logging/logger.js");
 ;
 
 class DefaultsLoader {
@@ -35646,14 +35631,14 @@ class DefaultsLoader {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_388420__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_387443__) => {
 
 "use strict";
-__nested_webpack_require_388420__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_388420__.d(__webpack_exports__, {
+__nested_webpack_require_387443__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_387443__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ ExtensionSyncStorage
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_388420__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_387443__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 /* global browser */
 ;
 
@@ -35705,14 +35690,14 @@ class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_391091__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_390114__) => {
 
 "use strict";
-__nested_webpack_require_391091__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_391091__.d(__webpack_exports__, {
+__nested_webpack_require_390114__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_390114__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ LocalStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_391091__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_390114__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 ;
 
 /**
@@ -35871,16 +35856,16 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_397131__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_396154__) => {
 
 "use strict";
-__nested_webpack_require_397131__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_397131__.d(__webpack_exports__, {
+__nested_webpack_require_396154__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_396154__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteAuthStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_397131__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_397131__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_397131__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_396154__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_396154__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_396154__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -35979,11 +35964,11 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_401642__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_400665__) => {
 
 "use strict";
-__nested_webpack_require_401642__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_401642__.d(__webpack_exports__, {
+__nested_webpack_require_400665__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_400665__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ StorageAdapter
 /* harmony export */ });
 /**
@@ -36061,14 +36046,14 @@ class StorageAdapter {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_405555__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_404578__) => {
 
 "use strict";
-__nested_webpack_require_405555__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_405555__.d(__webpack_exports__, {
+__nested_webpack_require_404578__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_404578__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TempStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_405555__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_404578__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 ;
 
 /**
@@ -36115,19 +36100,19 @@ class TempStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.d
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_408189__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_407212__) => {
 
 "use strict";
-__nested_webpack_require_408189__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_408189__.d(__webpack_exports__, {
+__nested_webpack_require_407212__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_407212__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ SyriacLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_408189__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_408189__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_408189__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_408189__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_408189__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
-/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_408189__(/*! ./inflection_group */ "./inflection_group.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_407212__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_407212__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_407212__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_407212__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_407212__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
+/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_407212__(/*! ./inflection_group */ "./inflection_group.js");
 ;
 
 
@@ -36367,11 +36352,11 @@ for the current node
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_420325__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_419348__) => {
 
 "use strict";
-__nested_webpack_require_420325__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_420325__.d(__webpack_exports__, {
+__nested_webpack_require_419348__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_419348__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class Author {
@@ -36446,11 +36431,11 @@ class Author {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_422903__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_421926__) => {
 
 "use strict";
-__nested_webpack_require_422903__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_422903__.d(__webpack_exports__, {
+__nested_webpack_require_421926__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_421926__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class TextWork {
@@ -36536,15 +36521,15 @@ class TextWork {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_425792__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_424815__) => {
 
 "use strict";
-__nested_webpack_require_425792__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_425792__.d(__webpack_exports__, {
+__nested_webpack_require_424815__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_424815__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordUsageExample
 /* harmony export */ });
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_425792__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_425792__(/*! ../language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_424815__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_424815__(/*! ../language_model_factory.js */ "./language_model_factory.js");
 ;
 
 
@@ -36646,14 +36631,14 @@ class WordUsageExample extends _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MOD
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_429472__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_428495__) => {
 
 "use strict";
-__nested_webpack_require_429472__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_429472__.d(__webpack_exports__, {
+__nested_webpack_require_428495__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_428495__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_429472__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_428495__(/*! ./resource_provider.js */ "./resource_provider.js");
 ;
 /**
  * stores a scope of lemma translations from python service
@@ -36729,11 +36714,11 @@ class Translation {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_432480__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_431503__) => {
 
 "use strict";
-__nested_webpack_require_432480__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_432480__.d(__webpack_exports__, {
+__nested_webpack_require_431503__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_431503__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TreebankDataItem
 /* harmony export */ });
 class TreebankDataItem {
@@ -36929,15 +36914,15 @@ class TreebankDataItem {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_441417__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_440440__) => {
 
 "use strict";
-__nested_webpack_require_441417__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_441417__.d(__webpack_exports__, {
+__nested_webpack_require_440440__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_440440__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TextQuoteSelector
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_441417__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_441417__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_440440__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_440440__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
  */
@@ -37000,15 +36985,15 @@ class TextQuoteSelector {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_444183__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_443206__) => {
 
 "use strict";
-__nested_webpack_require_444183__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_444183__.d(__webpack_exports__, {
+__nested_webpack_require_443206__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_443206__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordItem
 /* harmony export */ });
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_444183__(/*! ./homonym.js */ "./homonym.js");
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_444183__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_443206__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_443206__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
 ;
 
 
@@ -37165,14 +37150,14 @@ class WordItem {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_449033__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_448056__) => {
 
 "use strict";
-__nested_webpack_require_449033__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_449033__.d(__webpack_exports__, {
+__nested_webpack_require_448056__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_448056__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordList
 /* harmony export */ });
-/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_449033__(/*! ./word-item */ "./word-item.js");
+/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_448056__(/*! ./word-item */ "./word-item.js");
 ;
 
 class WordList {
@@ -37286,7 +37271,7 @@ class WordList {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_452288__(moduleId) {
+/******/ 	function __nested_webpack_require_451311__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -37299,7 +37284,7 @@ class WordList {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_452288__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_451311__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -37309,11 +37294,11 @@ class WordList {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_452288__.n = (module) => {
+/******/ 		__nested_webpack_require_451311__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_452288__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_451311__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -37321,9 +37306,9 @@ class WordList {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_452288__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_451311__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_452288__.o(definition, key) && !__nested_webpack_require_452288__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_451311__.o(definition, key) && !__nested_webpack_require_451311__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -37332,13 +37317,13 @@ class WordList {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_452288__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_451311__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_452288__.r = (exports) => {
+/******/ 		__nested_webpack_require_451311__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -37350,7 +37335,7 @@ class WordList {
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_452288__("./driver.js");
+/******/ 	return __nested_webpack_require_451311__("./driver.js");
 /******/ })()
 ;
 });
@@ -60511,8 +60496,6 @@ class AppController {
     if (this.pageSettings.appId) {
       this.attachVueComponents()
     }
-
-    this.settingsC.uploadDefaultTokenizeOptions()
   }
 
   /**
@@ -60580,8 +60563,9 @@ class AppController {
   async defineSettingsController () {
     this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
     await this.settingsC.init()
-
     _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$settingsC = this.settingsC
+
+    this.settingsC.uploadRemoteSettings()
   }
 
   /**
@@ -60853,13 +60837,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
-/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/settings/default-app-settings.json */ "./settings/default-app-settings.json");
-/* harmony import */ var _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/settings/default-source-text-settings.json */ "./settings/default-source-text-settings.json");
+/* harmony import */ var _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/settings/default-app-settings.json */ "./settings/default-app-settings.json");
+/* harmony import */ var _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/settings/default-source-text-settings.json */ "./settings/default-source-text-settings.json");
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 ;
 
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 
 
@@ -60871,27 +60854,30 @@ class SettingsController {
     this.storageAdapter = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea
 
     this.defaultSettings = {
-      app: _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_3__,
-      sourceText: _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_4__
+      app: _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_1__,
+      sourceText: _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_2__
     }
 
     this.options = {}
     this.defineSettings()
-    this.tokenizerOptionsLoaded = false
   }
 
   /**
    * @returns {String} - theme option value
    */
   get themeOptionValue () {
-    return this.options.app && this.options.app.items.theme ? this.options.app.items.theme.currentItem('value') : ''
+    return this.options.app && this.options.app.items.theme ? this.options.app.items.theme.currentValue : ''
   }
 
   /**
    * @returns {String} - tokenizer option value
    */
   get tokenizerOptionValue () {
-    return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentItem('value') : ''
+    return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
+  }
+
+  get tokenizerOptionsLoaded () {
+    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
   formattedOptions (localOptions) {
@@ -60908,51 +60894,40 @@ class SettingsController {
    * Creates all type of options from default data
    */
   defineSettings () {
-    this.options.app = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(this.defaultSettings.app, new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea(this.defaultSettings.app.domain))
-    this.options.sourceText = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(this.defaultSettings.sourceText, new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea(this.defaultSettings.sourceText.domain))
+    Object.keys(this.defaultSettings).forEach(defaultSName => {
+      this.options[defaultSName] = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
+    })
     this.store.commit('incrementOptionsUpdated')
+    this.submitEventUpdateTheme()
+  }
+
+  submitEventUpdateTheme () {
+    SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
+      theme: this.options.app.items.theme.currentValue,
+      themesList: this.options.app.items.theme.values.map(val => val.value)
+    })
   }
 
   /**
    * Loads options from the storageAdapter
    */
-  init () {
-    return [this.options.app.load(), this.options.sourceText.load()]
+  async init () {
+    const optionsStep1 = Object.values(this.options).map(options => options.load())
+
+    await Promise.all(optionsStep1)
+    this.submitEventUpdateTheme()
+    this.store.commit('incrementOptionsUpdated')
   }
 
-  async uploadDefaultTokenizeOptions () {
-    const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_1__.ClientAdapters.tokenizationGroup.alpheios({
-      method: 'getConfig',
-      params: {
-        storage: alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea
-      }
-    })
-
-    if (adapterTokenizerRes.errors.length > 0) {
-      adapterTokenizerRes.errors.forEach(error => {
-        console.log(error)
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-          text: error.message,
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-        })
-      })
-    }
-
-    this.options.tokenize = adapterTokenizerRes.result
-
-    await Promise.all([this.options.tokenize.text.load(), this.options.tokenize.tei.load()])
-
-    // console.info('this.options.tokenize.text - ', this.options.tokenize.text)
+  async uploadRemoteSettings () {
+    this.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(this.storageAdapter)
     this.store.commit('incrementOptionsUpdated')
-    this.tokenizerOptionsLoaded = true
+    console.info('this.options - ', this.options)
   }
 
   changeOption (optionItem) {
     if (optionItem.name.match('__theme$')) {
-      return SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
-        theme: optionItem.currentItem().value,
-        themesList: optionItem.values.map(val => val.value)
-      })
+      this.submitEventUpdateTheme()
     }
     if (optionItem.name.match('__tokenizer$')) {
       this.store.commit('incrementTokenizerUpdated')
@@ -60963,14 +60938,16 @@ class SettingsController {
   }
 
   cloneOptions (options, domainPostfix) {
+    console.info('cloneOptions - ', options)
     const defaults = Object.assign({}, options.defaults)
-    console.info('cloneOptions - defaults', defaults)
+
     defaults.domain = `${defaults.domain}-${domainPostfix}`
 
-    return new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(defaults, new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea(defaults.domain))
+    return new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
   }
 
   async cloneSourceOptions (typeText, indexText) {
+    console.info('cloneSourceOptions - started', typeText, indexText)
     const sourceTypes = this.options.sourceText.items.sourceType.values.map(value => value.value)
     const optionPromises = []
     const result = {
@@ -60980,11 +60957,10 @@ class SettingsController {
     optionPromises.push(result.sourceText.load())
 
     sourceTypes.forEach(sourceType => {
-      result[sourceType] = this.cloneOptions(this.options.tokenize[sourceType], `${typeText}-${indexText}-${sourceType}`)
+      result[sourceType] = this.cloneOptions(this.options.tokenize[this.tokenizerOptionValue][sourceType], `${typeText}-${indexText}-${sourceType}`)
       optionPromises.push(result[sourceType].load())
     })
 
-    console.info('result - ', result)
     await Promise.all(optionPromises)
     return result
   }
@@ -61229,7 +61205,7 @@ class TextsController {
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61241,7 +61217,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/tokenizers/alpheios-remote-tokenizer.js */ "./lib/tokenizers/alpheios-remote-tokenizer.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__);
 ;
+
 
 
 
@@ -61261,7 +61240,8 @@ class TokenizeController {
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
-        hasOptions: true
+        hasOptions: true,
+        uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this)
       }
     }
   }
@@ -61298,6 +61278,46 @@ class TokenizeController {
     }
 
     return tokenizationOptions
+  }
+
+  static async uploadOptions (storage) {
+    const resultOptions = {}
+
+    for (let i = 0; i < Object.keys(this.tokenizeMethods).length; i++) {
+      const tokenizeMName = Object.keys(this.tokenizeMethods)[i]
+      const tokenizeM = this.tokenizeMethods[tokenizeMName]
+
+      if (tokenizeM.hasOptions && tokenizeM.uploadOptionsMethod) {
+        resultOptions[tokenizeMName] = await tokenizeM.uploadOptionsMethod(storage, tokenizeM)
+      }
+    }
+    return resultOptions
+  }
+
+  static async uploadDefaultRemoteTokenizeOptions (storage) {
+    const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__.ClientAdapters.tokenizationGroup.alpheios({
+      method: 'getConfig',
+      params: {
+        storage
+      }
+    })
+
+    if (adapterTokenizerRes.errors.length > 0) {
+      adapterTokenizerRes.errors.forEach(error => {
+        console.log(error)
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+          text: error.message,
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
+        })
+      })
+    }
+
+    if (adapterTokenizerRes.result.text && adapterTokenizerRes.result.tei) {
+      await Promise.all([adapterTokenizerRes.result.text.load(), adapterTokenizerRes.result.tei.load()])
+      return adapterTokenizerRes.result
+    }
+
+    return false
   }
 }
 
@@ -62184,7 +62204,6 @@ class Alignment {
    * @returns {Boolean}
    */
   async createAlignedTexts () {
-    // console.info('this.origin.docSource - ', this.origin.docSource)
     if (!this.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
@@ -63544,7 +63563,6 @@ class AlpheiosRemoteTokenizer {
       sourceType: docSource.tokenization.sourceType
     }, docSource.tokenization)
 
-    // console.info('fetchOptions - ', fetchOptions)
     const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {
@@ -64973,11 +64991,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changeOption () {
-      // console.info('changeOption - ', this.selected, this.emitUpdateData, this.optionItem)
       this.optionItem.setValue(this.selected)
       this.$settingsC.changeOption(this.optionItem)
       if (this.emitUpdateData) {
-        // console.info('changeOption - inside')
         this.$emit('updateData')
       }
     }
@@ -65051,6 +65067,98 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/form-items/radio-items.vue */ "./vue/form-items/radio-items.vue");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+;
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'TokenizeOptionsBlock',
+  components: {
+    radioItems: _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  },
+  props: {
+    textType: {
+      type: String,
+      required: true
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 0
+    }
+  },
+  data () {
+    return {
+      sourceType: null,
+
+      showDirectionOption: true,
+      localDirectionOption: { ready: false }
+    }
+  },
+  async mounted () {
+    if (!this.localDirectionOption.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      await this.prepareDefaultTokenizeOptions()
+    }
+  },
+  watch: {
+    async '$store.state.optionsUpdated' () {
+      if (!this.localTokenizeOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTokenizeOptions()
+      }
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+    },
+    idRadioPrefix () {
+      return `alpheios-alignment-editor-tokenize-options__${this.textType}__${this.index}`
+    },
+    renderTokenizeOptions () {
+      return Boolean(this.$store.state.optionsUpdated) && this.localTokenizeOptions.ready
+    }
+  },
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
@@ -65074,6 +65182,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/form-items/radio-items.vue */ "./vue/form-items/radio-items.vue");
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65128,6 +65244,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditorSingleBlock',
   props: {
@@ -65149,7 +65267,8 @@ __webpack_require__.r(__webpack_exports__);
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     radioItems: _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_4__.default,
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default
   },
   data () {
     return {
@@ -65162,7 +65281,8 @@ __webpack_require__.r(__webpack_exports__);
       selectedAvaLang: null,
       selectedOtherLang: null,
 
-      localTokenizeOptions: null
+      localTokenizeOptions: null,
+      localSourceTextOptions: null
     }
   },
   /**
@@ -65290,10 +65410,11 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    updateDirection (dir) {
-      this.direction = dir
+    updateLocalSourceTextOptions (localOptions) {
+      this.localSourceTextOptions = localOptions
       this.updateText()
     },
+
 
     updateLocalTokenizeOptions (localOptions) {
       this.localTokenizeOptions = localOptions
@@ -65310,8 +65431,6 @@ __webpack_require__.r(__webpack_exports__);
         id: this.textId,
         tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC, this.localTokenizeOptions)
       }
-
-      // console.info('updateText - ', params)
       
       this.$textC[this.updateTextMethod](params)
 
@@ -65511,22 +65630,22 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       sourceType: null,
-
-      showTokenizeOptions: true,
       localTokenizeOptions: { ready: false }
     }
   },
   async mounted () {
-    this.showTokenizeOptions = (this.$settingsC.tokenizerOptionValue === 'alpheiosRemoteTokenizer')
-    await this.prepareDefaultTokenizeOptions()
+    if (!this.localTokenizeOptions.ready && this.showTokenizeOptions) {
+      await this.prepareDefaultTokenizeOptions()
+    }
   },
   watch: {
     '$store.state.tokenizerUpdated' () {
-      this.showTokenizeOptions = (this.$settingsC.tokenizerOptionValue === 'alpheiosRemoteTokenizer')
       this.$emit('updateText')
     },
     async '$store.state.optionsUpdated' () {
-      await this.prepareDefaultTokenizeOptions()
+      if (!this.localTokenizeOptions.ready && this.showTokenizeOptions) {
+        await this.prepareDefaultTokenizeOptions()
+      }
     }
   },
   computed: {
@@ -65541,22 +65660,25 @@ __webpack_require__.r(__webpack_exports__);
     },
     renderTokenizeOptions () {
       return Boolean(this.$store.state.optionsUpdated) && this.localTokenizeOptions.ready
+    },
+    showTokenizeOptions () {
+      console.info('showTokenizeOptions - ', this.$settingsC.tokenizerOptionsLoaded)
+      return Boolean(this.$store.state.tokenizerUpdated) && Boolean(this.$store.state.optionsUpdated) && this.$settingsC.tokenizerOptionsLoaded
     }
+
   },
   methods: {
     async prepareDefaultTokenizeOptions () {
-      if (!this.localTokenizeOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        const clonedOptions = await this.$settingsC.cloneSourceOptions(this.textType, this.index)
+      const clonedOptions = await this.$settingsC.cloneSourceOptions(this.textType, this.index)
 
-        this.localTokenizeOptions.text = clonedOptions.text
-        this.localTokenizeOptions.tei = clonedOptions.tei
-        this.localTokenizeOptions.sourceText = clonedOptions.sourceText
+      this.localTokenizeOptions.text = clonedOptions.text
+      this.localTokenizeOptions.tei = clonedOptions.tei
+      this.localTokenizeOptions.sourceText = clonedOptions.sourceText
 
-        this.localTokenizeOptions.ready = true
+      this.localTokenizeOptions.ready = true
 
-        this.sourceType = this.localTokenizeOptions.sourceText.items.sourceType.currentValue
-        this.updateData()
-      }
+      this.sourceType = this.localTokenizeOptions.sourceText.items.sourceType.currentValue
+      this.updateData()
     },
 
     updateSourceType () {
@@ -66064,6 +66186,49 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "vue/options/options-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/text-editor/direction-options-block.vue":
+/*!*****************************************************!*\
+  !*** ./vue/text-editor/direction-options-block.vue ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=template&id=417d0327& */ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
+/* harmony import */ var _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+;
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.render,
+  _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/direction-options-block.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -66652,6 +66817,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./direction-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
+; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
@@ -66950,6 +67135,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./options-block.vue?vue&type=template&id=7e2b5386& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&":
+/*!************************************************************************************!*\
+  !*** ./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& ***!
+  \************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& .render */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& .staticRenderFns */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./direction-options-block.vue?vue&type=template&id=417d0327& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
 
 
 /***/ }),
@@ -67854,7 +68061,7 @@ var render = function() {
                 ],
                 staticClass:
                   "alpheios-editor-select alpheios-editor-setting__control",
-                attrs: { id: _vm.itemId },
+                attrs: { id: _vm.itemId, disabled: _vm.disabled },
                 on: {
                   change: [
                     function($event) {
@@ -67897,7 +68104,7 @@ var render = function() {
               ],
               staticClass:
                 "alpheios-editor-input alpheios-editor-setting__control",
-              attrs: { type: "text", id: _vm.itemId },
+              attrs: { type: "text", id: _vm.itemId, disabled: _vm.disabled },
               domProps: { value: _vm.selected },
               on: {
                 change: _vm.changeOption,
@@ -68085,6 +68292,75 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.renderTokenizeOptions
+    ? _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showDirectionOption,
+              expression: "showDirectionOption"
+            }
+          ],
+          staticClass: "alpheios-alignment-editor-text-block__tokenizer-block"
+        },
+        [
+          _c(
+            "fieldset",
+            { staticClass: "alpheios-alignment-text__group" },
+            [
+              _c("legend", [
+                _vm._v(
+                  _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS"))
+                )
+              ]),
+              _vm._v(" "),
+              _c("option-item-block", {
+                attrs: {
+                  optionItem:
+                    _vm.localTokenizeOptions.sourceText.items.sourceType,
+                  emitUpdateData: true,
+                  disabled: !_vm.docSourceEditAvailable
+                },
+                on: { updateData: _vm.updateSourceType }
+              })
+            ],
+            1
+          )
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&":
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& ***!
@@ -68141,16 +68417,6 @@ var render = function() {
           1
         )
       ]),
-      _vm._v(" "),
-      _c("radio-items", {
-        attrs: {
-          itemName: "direction",
-          properties: _vm.directionProperties,
-          disabled: !_vm.docSourceEditAvailable,
-          idPrefix: _vm.idRadioPrefix
-        },
-        on: { updateData: _vm.updateDirection }
-      }),
       _vm._v(" "),
       _c(
         "textarea",
@@ -68482,7 +68748,8 @@ var render = function() {
                 attrs: {
                   optionItem:
                     _vm.localTokenizeOptions.sourceText.items.sourceType,
-                  emitUpdateData: true
+                  emitUpdateData: true,
+                  disabled: !_vm.docSourceEditAvailable
                 },
                 on: { updateData: _vm.updateSourceType }
               })
@@ -68518,7 +68785,11 @@ var render = function() {
               ) {
                 return _c("option-item-block", {
                   key: textOptItem.domain,
-                  attrs: { optionItem: textOptItem, emitUpdateData: true },
+                  attrs: {
+                    optionItem: textOptItem,
+                    emitUpdateData: true,
+                    disabled: !_vm.docSourceEditAvailable
+                  },
                   on: { updateData: _vm.updateData }
                 })
               })
@@ -68552,7 +68823,11 @@ var render = function() {
               _vm._l(_vm.localTokenizeOptions.tei.items, function(textOptItem) {
                 return _c("option-item-block", {
                   key: textOptItem.domain,
-                  attrs: { optionItem: textOptItem, emitUpdateData: true },
+                  attrs: {
+                    optionItem: textOptItem,
+                    emitUpdateData: true,
+                    disabled: !_vm.docSourceEditAvailable
+                  },
                   on: { updateData: _vm.updateData }
                 })
               })
@@ -70246,7 +70521,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":1,\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"select\":true,\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]},\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"select\":true,\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":\"1\",\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"select\":true,\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]},\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"select\":true,\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]}}}");
 
 /***/ }),
 
@@ -70257,6 +70532,21 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /*! default exports */
 /*! export domain [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export items [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export direction [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export radio [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       other exports [not provided] [no usage info] */
+/*!     other exports [not provided] [no usage info] */
 /*!   export sourceType [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
@@ -70279,7 +70569,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text\",\"version\":\"1\",\"items\":{\"sourceType\":{\"defaultValue\":\"text\",\"labelText\":\"Text Source Type\",\"radio\":true,\"values\":[{\"value\":\"text\",\"text\":\"Text\"},{\"value\":\"tei\",\"text\":\"TEI\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text\",\"version\":\"1\",\"items\":{\"sourceType\":{\"defaultValue\":\"text\",\"labelText\":\"Text Source Type\",\"radio\":true,\"values\":[{\"value\":\"text\",\"text\":\"Text\"},{\"value\":\"tei\",\"text\":\"TEI\"}]},\"direction\":{\"defaultValue\":\"ltr\",\"labelText\":\"Direction\",\"radio\":true,\"values\":[{\"value\":\"ltr\",\"text\":\"ltr\"},{\"value\":\"rtl\",\"text\":\"rtl\"}]}}}");
 
 /***/ })
 

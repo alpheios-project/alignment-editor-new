@@ -6,7 +6,7 @@
         class="alpheios-editor-select alpheios-editor-setting__control"
         v-if="optionType === 'select'"
         v-model="selected" :id="itemId"
-        @change = "changeOption"
+        @change = "changeOption" :disabled="disabled"
         >
       <option v-for="item in values" :key="item.value" :value = "item.value">{{item.text}}</option>
     </select>
@@ -16,7 +16,7 @@
         type="text"
         v-if="optionType === 'text'"
         v-model="selected"
-        :id="itemId"
+        :id="itemId" :disabled="disabled"
         @change = "changeOption"
     >
 
@@ -104,11 +104,9 @@ export default {
   },
   methods: {
     changeOption () {
-      // console.info('changeOption - ', this.selected, this.emitUpdateData, this.optionItem)
       this.optionItem.setValue(this.selected)
       this.$settingsC.changeOption(this.optionItem)
       if (this.emitUpdateData) {
-        // console.info('changeOption - inside')
         this.$emit('updateData')
       }
     }

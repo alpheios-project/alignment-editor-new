@@ -1,9 +1,10 @@
 import { Options, LocalStorageArea, PsEvent } from 'alpheios-data-models'
-import { ClientAdapters } from 'alpheios-client-adapters'
 
-import NotificationSingleton from '@/lib/notifications/notification-singleton'
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
+
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 export default class SettingsController {
   constructor (store) {
@@ -17,21 +18,24 @@ export default class SettingsController {
 
     this.options = {}
     this.defineSettings()
-    this.tokenizerOptionsLoaded = false
   }
 
   /**
    * @returns {String} - theme option value
    */
   get themeOptionValue () {
-    return this.options.app && this.options.app.items.theme ? this.options.app.items.theme.currentItem('value') : ''
+    return this.options.app && this.options.app.items.theme ? this.options.app.items.theme.currentValue : ''
   }
 
   /**
    * @returns {String} - tokenizer option value
    */
   get tokenizerOptionValue () {
-    return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentItem('value') : ''
+    return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
+  }
+
+  get tokenizerOptionsLoaded () {
+    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
   formattedOptions (localOptions) {
@@ -48,51 +52,40 @@ export default class SettingsController {
    * Creates all type of options from default data
    */
   defineSettings () {
-    this.options.app = new Options(this.defaultSettings.app, new LocalStorageArea(this.defaultSettings.app.domain))
-    this.options.sourceText = new Options(this.defaultSettings.sourceText, new LocalStorageArea(this.defaultSettings.sourceText.domain))
+    Object.keys(this.defaultSettings).forEach(defaultSName => {
+      this.options[defaultSName] = new Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
+    })
     this.store.commit('incrementOptionsUpdated')
+    this.submitEventUpdateTheme()
+  }
+
+  submitEventUpdateTheme () {
+    SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
+      theme: this.options.app.items.theme.currentValue,
+      themesList: this.options.app.items.theme.values.map(val => val.value)
+    })
   }
 
   /**
    * Loads options from the storageAdapter
    */
-  init () {
-    return [this.options.app.load(), this.options.sourceText.load()]
+  async init () {
+    const optionsStep1 = Object.values(this.options).map(options => options.load())
+
+    await Promise.all(optionsStep1)
+    this.submitEventUpdateTheme()
+    this.store.commit('incrementOptionsUpdated')
   }
 
-  async uploadDefaultTokenizeOptions () {
-    const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
-      method: 'getConfig',
-      params: {
-        storage: LocalStorageArea
-      }
-    })
-
-    if (adapterTokenizerRes.errors.length > 0) {
-      adapterTokenizerRes.errors.forEach(error => {
-        console.log(error)
-        NotificationSingleton.addNotification({
-          text: error.message,
-          type: NotificationSingleton.types.ERROR
-        })
-      })
-    }
-
-    this.options.tokenize = adapterTokenizerRes.result
-
-    await Promise.all([this.options.tokenize.text.load(), this.options.tokenize.tei.load()])
-
-    // console.info('this.options.tokenize.text - ', this.options.tokenize.text)
+  async uploadRemoteSettings () {
+    this.options.tokenize = await TokenizeController.uploadOptions(this.storageAdapter)
     this.store.commit('incrementOptionsUpdated')
-    this.tokenizerOptionsLoaded = true
+    console.info('this.options - ', this.options)
   }
 
   changeOption (optionItem) {
     if (optionItem.name.match('__theme$')) {
-      return SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
-        theme: optionItem.currentItem().value,
-        themesList: optionItem.values.map(val => val.value)
-      })
+      this.submitEventUpdateTheme()
     }
     if (optionItem.name.match('__tokenizer$')) {
       this.store.commit('incrementTokenizerUpdated')
@@ -103,14 +96,16 @@ export default class SettingsController {
   }
 
   cloneOptions (options, domainPostfix) {
+    console.info('cloneOptions - ', options)
     const defaults = Object.assign({}, options.defaults)
-    console.info('cloneOptions - defaults', defaults)
+
     defaults.domain = `${defaults.domain}-${domainPostfix}`
 
-    return new Options(defaults, new LocalStorageArea(defaults.domain))
+    return new Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
   }
 
   async cloneSourceOptions (typeText, indexText) {
+    console.info('cloneSourceOptions - started', typeText, indexText)
     const sourceTypes = this.options.sourceText.items.sourceType.values.map(value => value.value)
     const optionPromises = []
     const result = {
@@ -120,11 +115,10 @@ export default class SettingsController {
     optionPromises.push(result.sourceText.load())
 
     sourceTypes.forEach(sourceType => {
-      result[sourceType] = this.cloneOptions(this.options.tokenize[sourceType], `${typeText}-${indexText}-${sourceType}`)
+      result[sourceType] = this.cloneOptions(this.options.tokenize[this.tokenizerOptionValue][sourceType], `${typeText}-${indexText}-${sourceType}`)
       optionPromises.push(result[sourceType].load())
     })
 
-    console.info('result - ', result)
     await Promise.all(optionPromises)
     return result
   }

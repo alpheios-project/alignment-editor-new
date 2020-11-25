@@ -16,6 +16,21 @@
             "text": "TEI"
           }
         ]
+      },
+      "direction": {
+        "defaultValue": "ltr",
+        "labelText": "Direction",
+        "radio": true,
+        "values": [
+          {
+            "value": "ltr",
+            "text": "ltr"
+          },
+          {
+            "value": "rtl",
+            "text": "rtl"
+          }
+        ]
       }
     }
   }

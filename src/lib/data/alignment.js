@@ -148,7 +148,6 @@ export default class Alignment {
    * @returns {Boolean}
    */
   async createAlignedTexts () {
-    // console.info('this.origin.docSource - ', this.origin.docSource)
     if (!this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({

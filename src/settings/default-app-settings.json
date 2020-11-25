@@ -1,6 +1,6 @@
 {
   "domain": "alpheios-alignment-editor-app",
-  "version": 1,
+  "version": "1",
   "items": {
     "theme": {
       "defaultValue": "v1-theme",

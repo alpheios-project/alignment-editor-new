@@ -15,7 +15,6 @@ export default class AlpheiosRemoteTokenizer {
       sourceType: docSource.tokenization.sourceType
     }, docSource.tokenization)
 
-    // console.info('fetchOptions - ', fetchOptions)
     const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {
