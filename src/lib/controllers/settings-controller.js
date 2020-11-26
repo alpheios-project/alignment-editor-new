@@ -88,15 +88,14 @@ export default class SettingsController {
       this.submitEventUpdateTheme()
     }
     if (optionItem.name.match('__tokenizer$')) {
+      console.info('changeOption - tokenizer')
       this.store.commit('incrementTokenizerUpdated')
-      return
     }
 
     this.store.commit('incrementOptionsUpdated')
   }
 
   cloneOptions (options, domainPostfix) {
-    console.info('cloneOptions - ', options)
     const defaults = Object.assign({}, options.defaults)
 
     defaults.domain = `${defaults.domain}-${domainPostfix}`
@@ -104,8 +103,7 @@ export default class SettingsController {
     return new Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
   }
 
-  async cloneSourceOptions (typeText, indexText) {
-    console.info('cloneSourceOptions - started', typeText, indexText)
+  async cloneTextEditorOptions (typeText, indexText) {
     const sourceTypes = this.options.sourceText.items.sourceType.values.map(value => value.value)
     const optionPromises = []
     const result = {
@@ -128,9 +126,5 @@ export default class SettingsController {
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController),
-
-  SETTINGS_CONTROLLER_TOKENIZER_UPDATED: new PsEvent('Tokenizer Type is updated', SettingsController),
-
-  SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED: new PsEvent('Tokenizer Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new PsEvent('Theme Option is updated', SettingsController)
 }

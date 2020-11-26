@@ -1,11 +1,11 @@
 <template>
-    <div class="alpheios-alignment-editor-text-block__tokenizer-block" v-show="showDirectionOption" v-if="renderTokenizeOptions">
-        <fieldset class="alpheios-alignment-text__group">
-            <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS') }}</legend>
+    <div class="alpheios-alignment-editor-text-block__tokenizer-block" v-show="showOptions" v-if="renderOptions">
+        <fieldset class="alpheios-alignment-text__group alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
+            <legend>{{ l10n.getMsgS('RADIO_BLOCK_DIRECTION_LABEL') }}</legend>
             <option-item-block
-              :optionItem = "localTokenizeOptions.sourceText.items.sourceType"
+              :optionItem = "localOptions.sourceText.items.direction"
               :emitUpdateData = "true"
-              @updateData = "updateSourceType" :disabled="!docSourceEditAvailable"
+              @updateData = "updateData" :disabled="!docSourceEditAvailable"
             />
         </fieldset>
     </div>
@@ -31,26 +31,14 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    localOptions: {
+      type: Object,
+      required: true
     }
   },
   data () {
     return {
-      sourceType: null,
-
-      showDirectionOption: true,
-      localDirectionOption: { ready: false }
-    }
-  },
-  async mounted () {
-    if (!this.localDirectionOption.ready && this.$settingsC.tokenizerOptionsLoaded) {
-      await this.prepareDefaultTokenizeOptions()
-    }
-  },
-  watch: {
-    async '$store.state.optionsUpdated' () {
-      if (!this.localTokenizeOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTokenizeOptions()
-      }
     }
   },
   computed: {
@@ -61,11 +49,42 @@ export default {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
     idRadioPrefix () {
-      return `alpheios-alignment-editor-tokenize-options__${this.textType}__${this.index}`
+      return `alpheios-alignment-editor-direction-options__${this.textType}__${this.index}`
     },
-    renderTokenizeOptions () {
-      return Boolean(this.$store.state.optionsUpdated) && this.localTokenizeOptions.ready
+    renderOptions () {
+      return this.$store.state.optionsUpdated && this.localOptions.ready
+    },
+    showOptions () {
+      return this.$store.state.optionsUpdated && this.$settingsC.tokenizerOptionsLoaded
     }
   },
+  methods: {
+    updateData () {
+      this.$emit('updateText')
+    }
+  }
 }
 </script>
+<style lang="scss">
+fieldset.alpheios-alignment-slim-fieldset {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+
+  legend {
+    display: none;
+  }
+}
+
+.alpheios-alignment-fieldset-label-auto {
+  .alpheios-editor-setting__label {
+    width: auto;
+    margin-right: 20px;
+  }
+  input.alpheios-editor-input, 
+  .alpheios-editor-select, 
+  .alpheios-alignment-radio-block {
+    width: auto;
+  }
+}
+</style>

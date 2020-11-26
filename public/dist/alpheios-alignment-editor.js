@@ -122,6 +122,18 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements:  */
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -60541,12 +60553,6 @@ class AppController {
 
   defineEvents () {
     _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
-    /*
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_UPDATED.sub(this.alignedC.updateTokenizer.bind(this.alignedC))
-
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_UPDATED.sub(this.textC.updateTokenizer.bind(this.textC))
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.textC.updateDefaultTokenizationOptions.bind(this.textC))
-    */
   }
 
   /**
@@ -60930,15 +60936,14 @@ class SettingsController {
       this.submitEventUpdateTheme()
     }
     if (optionItem.name.match('__tokenizer$')) {
+      console.info('changeOption - tokenizer')
       this.store.commit('incrementTokenizerUpdated')
-      return
     }
 
     this.store.commit('incrementOptionsUpdated')
   }
 
   cloneOptions (options, domainPostfix) {
-    console.info('cloneOptions - ', options)
     const defaults = Object.assign({}, options.defaults)
 
     defaults.domain = `${defaults.domain}-${domainPostfix}`
@@ -60946,8 +60951,7 @@ class SettingsController {
     return new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
   }
 
-  async cloneSourceOptions (typeText, indexText) {
-    console.info('cloneSourceOptions - started', typeText, indexText)
+  async cloneTextEditorOptions (typeText, indexText) {
     const sourceTypes = this.options.sourceText.items.sourceType.values.map(value => value.value)
     const optionPromises = []
     const result = {
@@ -60970,11 +60974,7 @@ class SettingsController {
  * This is a description of a SettingsController event interface.
  */
 SettingsController.evt = {
-  SETTINGS_CONTROLLER_THEME_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Theme Option is updated', SettingsController),
-
-  SETTINGS_CONTROLLER_TOKENIZER_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Tokenizer Type is updated', SettingsController),
-
-  SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Tokenizer Option is updated', SettingsController)
+  SETTINGS_CONTROLLER_THEME_UPDATED: new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.PsEvent('Theme Option is updated', SettingsController)
 }
 
 
@@ -65118,26 +65118,14 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 0
+    },
+    localOptions: {
+      type: Object,
+      required: true
     }
   },
   data () {
     return {
-      sourceType: null,
-
-      showDirectionOption: true,
-      localDirectionOption: { ready: false }
-    }
-  },
-  async mounted () {
-    if (!this.localDirectionOption.ready && this.$settingsC.tokenizerOptionsLoaded) {
-      await this.prepareDefaultTokenizeOptions()
-    }
-  },
-  watch: {
-    async '$store.state.optionsUpdated' () {
-      if (!this.localTokenizeOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTokenizeOptions()
-      }
     }
   },
   computed: {
@@ -65148,12 +65136,20 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
     idRadioPrefix () {
-      return `alpheios-alignment-editor-tokenize-options__${this.textType}__${this.index}`
+      return `alpheios-alignment-editor-direction-options__${this.textType}__${this.index}`
     },
-    renderTokenizeOptions () {
-      return Boolean(this.$store.state.optionsUpdated) && this.localTokenizeOptions.ready
+    renderOptions () {
+      return this.$store.state.optionsUpdated && this.localOptions.ready
+    },
+    showOptions () {
+      return this.$store.state.optionsUpdated && this.$settingsC.tokenizerOptionsLoaded
     }
   },
+  methods: {
+    updateData () {
+      this.$emit('updateText')
+    }
+  }
 });
 
 
@@ -65183,15 +65179,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
 /* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -65274,15 +65261,12 @@ __webpack_require__.r(__webpack_exports__);
     return {
       text: null,
       prevText: null,
-      direction: 'ltr',
-      directionProperties: ['ltr', 'rtl'],
 
       langsList: [],
       selectedAvaLang: null,
       selectedOtherLang: null,
 
-      localTokenizeOptions: null,
-      localSourceTextOptions: null
+      localTextEditorOptions: {}
     }
   },
   /**
@@ -65292,13 +65276,22 @@ __webpack_require__.r(__webpack_exports__);
     this.langsList = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__.default.all
     this.selectedAvaLang = this.langsList[0].value
   },
-
+  async mounted () {
+    if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      await this.prepareDefaultTextEditorOptions()
+    }
+  },
   watch: {
     text (val) {
       if ((!this.prevText && val) || (this.prevText && !val)) {
         this.updateText()
       }
       this.prevText = val
+    },
+    async '$store.state.optionsUpdated' () {
+      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTextEditorOptions()
+      }
     }
   },
   computed: {
@@ -65375,6 +65368,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+    },
+    direction () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     }
   },
   methods: {
@@ -65382,7 +65378,7 @@ __webpack_require__.r(__webpack_exports__);
       const data = this.$textC.getDocSource(this.textType, this.textId)
       if (data && data.lang) {
         this.text = data.text
-        this.direction = data.direction
+        // this.direction = data.direction
         this.updateLang(data.lang)
       }
     },
@@ -65410,16 +65406,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    updateLocalSourceTextOptions (localOptions) {
-      this.localSourceTextOptions = localOptions
-      this.updateText()
-    },
-
-
-    updateLocalTokenizeOptions (localOptions) {
-      this.localTokenizeOptions = localOptions
-      this.updateText()
-    },
     /**
      * Emits update-text event with data from properties
      */
@@ -65437,6 +65423,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
+    },
+    async prepareDefaultTextEditorOptions () {
+      this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions.ready = true
+
+      this.sourceType = this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      this.updateText()
     }
   }
 });
@@ -65625,27 +65618,19 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 0
+    },
+    localOptions: {
+      type: Object,
+      required: true
     }
   },
   data () {
     return {
-      sourceType: null,
-      localTokenizeOptions: { ready: false }
-    }
-  },
-  async mounted () {
-    if (!this.localTokenizeOptions.ready && this.showTokenizeOptions) {
-      await this.prepareDefaultTokenizeOptions()
     }
   },
   watch: {
     '$store.state.tokenizerUpdated' () {
       this.$emit('updateText')
-    },
-    async '$store.state.optionsUpdated' () {
-      if (!this.localTokenizeOptions.ready && this.showTokenizeOptions) {
-        await this.prepareDefaultTokenizeOptions()
-      }
     }
   },
   computed: {
@@ -65653,44 +65638,25 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
     idRadioPrefix () {
       return `alpheios-alignment-editor-tokenize-options__${this.textType}__${this.index}`
     },
-    renderTokenizeOptions () {
-      return Boolean(this.$store.state.optionsUpdated) && this.localTokenizeOptions.ready
+    renderOptions () {
+      return this.$store.state.optionsUpdated && this.localOptions.ready
     },
-    showTokenizeOptions () {
-      console.info('showTokenizeOptions - ', this.$settingsC.tokenizerOptionsLoaded)
-      return Boolean(this.$store.state.tokenizerUpdated) && Boolean(this.$store.state.optionsUpdated) && this.$settingsC.tokenizerOptionsLoaded
+    showOptions () {
+      return this.$store.state.optionsUpdated && this.$settingsC.tokenizerOptionsLoaded
+    },
+    sourceType () {
+      return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
     }
 
   },
   methods: {
-    async prepareDefaultTokenizeOptions () {
-      const clonedOptions = await this.$settingsC.cloneSourceOptions(this.textType, this.index)
-
-      this.localTokenizeOptions.text = clonedOptions.text
-      this.localTokenizeOptions.tei = clonedOptions.tei
-      this.localTokenizeOptions.sourceText = clonedOptions.sourceText
-
-      this.localTokenizeOptions.ready = true
-
-      this.sourceType = this.localTokenizeOptions.sourceText.items.sourceType.currentValue
-      this.updateData()
-    },
-
-    updateSourceType () {
-      this.sourceType = this.localTokenizeOptions.sourceText.items.sourceType.currentValue
-      this.updateData()
-    },
-
     updateData () {
-      this.$emit('updateLocalTokenizeOptions', {
-        sourceType: this.localTokenizeOptions.sourceText,
-        localTokenizeOptions: this.localTokenizeOptions[this.sourceType]
-      })
+      this.$emit('updateText')
     }
   }
 });
@@ -66207,15 +66173,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=template&id=417d0327& */ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
 /* harmony import */ var _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _direction_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 ;
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.render,
   _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -66550,6 +66518,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss&":
+/*!***************************************************************************************!*\
+  !*** ./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************/
+/*! namespace exports */
+/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss& */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./direction-options-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -68313,7 +68302,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.renderTokenizeOptions
+  return _vm.renderOptions
     ? _c(
         "div",
         {
@@ -68321,8 +68310,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showDirectionOption,
-              expression: "showDirectionOption"
+              value: _vm.showOptions,
+              expression: "showOptions"
             }
           ],
           staticClass: "alpheios-alignment-editor-text-block__tokenizer-block"
@@ -68330,22 +68319,22 @@ var render = function() {
         [
           _c(
             "fieldset",
-            { staticClass: "alpheios-alignment-text__group" },
+            {
+              staticClass:
+                "alpheios-alignment-text__group alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto"
+            },
             [
               _c("legend", [
-                _vm._v(
-                  _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS"))
-                )
+                _vm._v(_vm._s(_vm.l10n.getMsgS("RADIO_BLOCK_DIRECTION_LABEL")))
               ]),
               _vm._v(" "),
               _c("option-item-block", {
                 attrs: {
-                  optionItem:
-                    _vm.localTokenizeOptions.sourceText.items.sourceType,
+                  optionItem: _vm.localOptions.sourceText.items.direction,
                   emitUpdateData: true,
                   disabled: !_vm.docSourceEditAvailable
                 },
-                on: { updateData: _vm.updateSourceType }
+                on: { updateData: _vm.updateData }
               })
             ],
             1
@@ -68417,6 +68406,15 @@ var render = function() {
           1
         )
       ]),
+      _vm._v(" "),
+      _c("direction-options-block", {
+        attrs: {
+          textType: _vm.textType,
+          index: _vm.index,
+          localOptions: _vm.localTextEditorOptions
+        },
+        on: { updateText: _vm.updateText }
+      }),
       _vm._v(" "),
       _c(
         "textarea",
@@ -68577,11 +68575,12 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("tokenize-options-block", {
-        attrs: { textType: _vm.textType, index: _vm.index },
-        on: {
-          updateText: _vm.updateText,
-          updateLocalTokenizeOptions: _vm.updateLocalTokenizeOptions
-        }
+        attrs: {
+          textType: _vm.textType,
+          index: _vm.index,
+          localOptions: _vm.localTextEditorOptions
+        },
+        on: { updateText: _vm.updateText, updateData: _vm.updateText }
       })
     ],
     1
@@ -68719,7 +68718,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.renderTokenizeOptions
+  return _vm.renderOptions
     ? _c(
         "div",
         {
@@ -68727,8 +68726,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.showTokenizeOptions,
-              expression: "showTokenizeOptions"
+              value: _vm.showOptions,
+              expression: "showOptions"
             }
           ],
           staticClass: "alpheios-alignment-editor-text-block__tokenizer-block"
@@ -68746,12 +68745,11 @@ var render = function() {
               _vm._v(" "),
               _c("option-item-block", {
                 attrs: {
-                  optionItem:
-                    _vm.localTokenizeOptions.sourceText.items.sourceType,
+                  optionItem: _vm.localOptions.sourceText.items.sourceType,
                   emitUpdateData: true,
                   disabled: !_vm.docSourceEditAvailable
                 },
-                on: { updateData: _vm.updateSourceType }
+                on: { updateData: _vm.updateData }
               })
             ],
             1
@@ -68780,9 +68778,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._l(_vm.localTokenizeOptions.text.items, function(
-                textOptItem
-              ) {
+              _vm._l(_vm.localOptions.text.items, function(textOptItem) {
                 return _c("option-item-block", {
                   key: textOptItem.domain,
                   attrs: {
@@ -68820,7 +68816,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._l(_vm.localTokenizeOptions.tei.items, function(textOptItem) {
+              _vm._l(_vm.localOptions.tei.items, function(textOptItem) {
                 return _c("option-item-block", {
                   key: textOptItem.domain,
                   attrs: {

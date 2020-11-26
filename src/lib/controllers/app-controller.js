@@ -92,12 +92,6 @@ export default class AppController {
 
   defineEvents () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
-    /*
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_UPDATED.sub(this.alignedC.updateTokenizer.bind(this.alignedC))
-
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_UPDATED.sub(this.textC.updateTokenizer.bind(this.textC))
-    SettingsController.evt.SETTINGS_CONTROLLER_TOKENIZER_DATA_UPDATED.sub(this.textC.updateDefaultTokenizationOptions.bind(this.textC))
-    */
   }
 
   /**

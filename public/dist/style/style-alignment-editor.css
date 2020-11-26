@@ -555,6 +555,23 @@ div.alpheios-editor-checkbox-block {
   margin-top: 0;
   margin-bottom: 0;
 }
+fieldset.alpheios-alignment-slim-fieldset {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}
+fieldset.alpheios-alignment-slim-fieldset legend {
+  display: none;
+}
+.alpheios-alignment-fieldset-label-auto .alpheios-editor-setting__label {
+  width: auto;
+  margin-right: 20px;
+}
+.alpheios-alignment-fieldset-label-auto input.alpheios-editor-input,
+.alpheios-alignment-fieldset-label-auto .alpheios-editor-select,
+.alpheios-alignment-fieldset-label-auto .alpheios-alignment-radio-block {
+  width: auto;
+}
 .alpheios-alignment-editor-text-block textarea {
   width: 100%;
   min-height: 300px;

@@ -5,19 +5,10 @@
           <delete-icon />
         </span>
       </p>
-      <!--
-      <radio-items 
-        itemName = "direction"
-        :properties = "directionProperties"
-        :disabled="!docSourceEditAvailable"
-        :idPrefix = "idRadioPrefix"
-        @updateData = "updateDirection"
-      />
-      
+
       <direction-options-block :textType = "textType" :index = "index" 
-        @updateText = "updateText" @updateLocalSourceTextOptions = "updateLocalSourceTextOptions"
+        @updateText = "updateText" :localOptions = "localTextEditorOptions"
       />
-      -->
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
@@ -41,8 +32,8 @@
         
       </div>
 
-      <tokenize-options-block :textType = "textType" :index = "index" 
-        @updateText = "updateText" @updateLocalTokenizeOptions = "updateLocalTokenizeOptions"
+      <tokenize-options-block :textType = "textType" :index = "index" :localOptions = "localTextEditorOptions"
+        @updateText = "updateText" @updateData = "updateText"
       />
 
   </div>
@@ -89,15 +80,12 @@ export default {
     return {
       text: null,
       prevText: null,
-      direction: 'ltr',
-      directionProperties: ['ltr', 'rtl'],
 
       langsList: [],
       selectedAvaLang: null,
       selectedOtherLang: null,
 
-      localTokenizeOptions: null,
-      localSourceTextOptions: null
+      localTextEditorOptions: {}
     }
   },
   /**
@@ -107,13 +95,22 @@ export default {
     this.langsList = Langs.all
     this.selectedAvaLang = this.langsList[0].value
   },
-
+  async mounted () {
+    if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      await this.prepareDefaultTextEditorOptions()
+    }
+  },
   watch: {
     text (val) {
       if ((!this.prevText && val) || (this.prevText && !val)) {
         this.updateText()
       }
       this.prevText = val
+    },
+    async '$store.state.optionsUpdated' () {
+      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTextEditorOptions()
+      }
     }
   },
   computed: {
@@ -190,6 +187,9 @@ export default {
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+    },
+    direction () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     }
   },
   methods: {
@@ -197,7 +197,7 @@ export default {
       const data = this.$textC.getDocSource(this.textType, this.textId)
       if (data && data.lang) {
         this.text = data.text
-        this.direction = data.direction
+        // this.direction = data.direction
         this.updateLang(data.lang)
       }
     },
@@ -225,16 +225,6 @@ export default {
       }
     },
 
-    updateLocalSourceTextOptions (localOptions) {
-      this.localSourceTextOptions = localOptions
-      this.updateText()
-    },
-
-
-    updateLocalTokenizeOptions (localOptions) {
-      this.localTokenizeOptions = localOptions
-      this.updateText()
-    },
     /**
      * Emits update-text event with data from properties
      */
@@ -252,6 +242,13 @@ export default {
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
+    },
+    async prepareDefaultTextEditorOptions () {
+      this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions.ready = true
+
+      this.sourceType = this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      this.updateText()
     }
   }
 }
