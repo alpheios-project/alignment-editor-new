@@ -54,7 +54,7 @@
   src: url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.eot);
   src: url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.eot?#iefix) format("embedded-opentype"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.woff2) format("woff2"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.woff) format("woff"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.ttf) format("truetype");
 }
-.alpheios-editor-select {
+.alpheios-alignment-select {
   font-family: "Source Sans Pro", sans-serif;
   box-sizing: border-box;
   margin: 0;
@@ -69,27 +69,27 @@
   color: #757575;
   -webkit-appearance: none;
 }
-.alpheios-editor-select:not([multiple]):not([size]) {
+.alpheios-alignment-select:not([multiple]):not([size]) {
   height: 42px;
   vertical-align: middle;
   display: inline-block;
 }
-.alpheios-editor-select:not(select) {
+.alpheios-alignment-select:not(select) {
   line-height: 42px;
 }
-.alpheios-editor-select[multiple], .alpheios-editor-select[size] {
+.alpheios-alignment-select[multiple], .alpheios-alignment-select[size] {
   padding-top: 4px;
   padding-bottom: 4px;
   vertical-align: top;
 }
-.alpheios-editor-select:focus {
+.alpheios-alignment-select:focus {
   outline: none;
 }
-.alpheios-editor-select:disabled {
+.alpheios-alignment-select:disabled {
   background-color: #fff;
   color: #909090;
 }
-.alpheios-editor-select:not([multiple]):not([size]) {
+.alpheios-alignment-select:not([multiple]):not([size]) {
   -webkit-appearance: none;
   -moz-appearance: none;
   padding-right: 20px;
@@ -98,17 +98,17 @@
   background-position: 100% 50%;
   background-size: 24px;
 }
-.alpheios-editor-select:not([multiple]):not([size])::-ms-expand {
+.alpheios-alignment-select:not([multiple]):not([size])::-ms-expand {
   display: none;
 }
-.alpheios-editor-select:not([multiple]):not([size]) option {
+.alpheios-alignment-select:not([multiple]):not([size]) option {
   color: #757575;
 }
-.alpheios-editor-select:not([multiple]):not([size]):disabled {
+.alpheios-alignment-select:not([multiple]):not([size]):disabled {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
 }
 
-input.alpheios-editor-input, input.alpheios-editor-input[type] {
+input.alpheios-alignment-input, input.alpheios-alignment-input[type] {
   box-sizing: border-box;
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
@@ -124,35 +124,35 @@ input.alpheios-editor-input, input.alpheios-editor-input[type] {
   display: inline-block;
   -webkit-appearance: none;
 }
-input.alpheios-editor-input[type=search]::-webkit-search-cancel-button, input.alpheios-editor-input[type=search]::-webkit-search-decoration {
+input.alpheios-alignment-input[type=search]::-webkit-search-cancel-button, input.alpheios-alignment-input[type=search]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-input.alpheios-editor-input[type=number]::-webkit-inner-spin-button, input.alpheios-editor-input[type=number]::-webkit-outer-spin-button {
+input.alpheios-alignment-input[type=number]::-webkit-inner-spin-button, input.alpheios-alignment-input[type=number]::-webkit-outer-spin-button {
   height: auto;
 }
-input.alpheios-editor-input::-moz-placeholder {
+input.alpheios-alignment-input::-moz-placeholder {
   opacity: 1;
 }
-input.alpheios-editor-input:not(input) {
+input.alpheios-alignment-input:not(input) {
   line-height: 40px;
 }
-input.alpheios-editor-input:focus, input.alpheios-editor-input[type]:focus {
+input.alpheios-alignment-input:focus, input.alpheios-alignment-input[type]:focus {
   outline: none;
   border: inherit;
   border: 1px solid #757575;
   border: 1px solid #757575;
   border-radius: 10px;
 }
-input.alpheios-editor-input:disabled {
+input.alpheios-alignment-input:disabled {
   background-color: #e3e3e3;
   color: #909090;
   border: 1px solid #757575;
   border-radius: 10px;
 }
-input.alpheios-editor-input::placeholder {
+input.alpheios-alignment-input::placeholder {
   color: #fff;
 }
-input.alpheios-editor-input::-ms-input-placeholder {
+input.alpheios-alignment-input::-ms-input-placeholder {
   color: #fff !important;
 }
 
@@ -233,7 +233,7 @@ input.alpheios-editor-input::-ms-input-placeholder {
   box-shadow: inset 0 0.25em 0.25em rgba(0, 0, 0, 0.1);
 }
 
-div.alpheios-editor-checkbox-block {
+div.alpheios-alignment-checkbox-block {
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -243,12 +243,12 @@ div.alpheios-editor-checkbox-block {
   min-height: 17px;
 }
 
-.alpheios-editor-checkbox-block input[type=checkbox] {
+.alpheios-alignment-checkbox-block input[type=checkbox] {
   opacity: 0;
   position: absolute;
   left: -999px;
 }
-.alpheios-editor-checkbox-block label {
+.alpheios-alignment-checkbox-block label {
   position: relative;
   display: inline-block;
   user-select: none;
@@ -257,13 +257,13 @@ div.alpheios-editor-checkbox-block {
   padding-left: 22px;
   padding-top: 2px;
 }
-.alpheios-editor-checkbox-block label::before, .alpheios-editor-checkbox-block label::after {
+.alpheios-alignment-checkbox-block label::before, .alpheios-alignment-checkbox-block label::after {
   position: absolute;
   content: "";
   /*Needed for the line-height to take effect*/
   display: inline-block;
 }
-.alpheios-editor-checkbox-block label::before {
+.alpheios-alignment-checkbox-block label::before {
   height: 16px;
   width: 16px;
   border: 1px solid;
@@ -274,7 +274,7 @@ div.alpheios-editor-checkbox-block {
    */
   top: 3px;
 }
-.alpheios-editor-checkbox-block label::after {
+.alpheios-alignment-checkbox-block label::after {
   height: 5px;
   width: 9px;
   border-left: 2px solid;
@@ -283,10 +283,10 @@ div.alpheios-editor-checkbox-block {
   left: 3px;
   top: 6px;
 }
-.alpheios-editor-checkbox-block input[type=checkbox] + label::after {
+.alpheios-alignment-checkbox-block input[type=checkbox] + label::after {
   content: none;
 }
-.alpheios-editor-checkbox-block input[type=checkbox]:checked + label::after {
+.alpheios-alignment-checkbox-block input[type=checkbox]:checked + label::after {
   content: "";
 }
 
@@ -531,63 +531,45 @@ div.alpheios-editor-checkbox-block {
   fill: #1B374F;
   stroke: #1B374F;
 }
-.alpheios-alignment-radio-block-container {
-  margin-top: 0;
-}
-.alpheios-editor-option-item {
+.alpheios-alignment-option-item {
   display: inline-block;
   width: 100%;
   vertical-align: top;
   padding-right: 20px;
   margin-bottom: 20px;
 }
-.alpheios-editor-option-item > label {
+.alpheios-alignment-option-item > label {
   width: 49%;
   display: inline-block;
   vertical-align: top;
 }
-.alpheios-editor-option-item input.alpheios-editor-input, .alpheios-editor-option-item .alpheios-editor-select, .alpheios-editor-option-item .alpheios-alignment-radio-block {
+.alpheios-alignment-option-item input.alpheios-alignment-input,
+.alpheios-alignment-option-item .alpheios-alignment-select,
+.alpheios-alignment-option-item .alpheios-alignment-radio-block {
   display: inline-block;
   width: 50%;
   vertical-align: top;
 }
-.alpheios-editor-option-item p.alpheios-alignment-radio-block {
+.alpheios-alignment-option-item p.alpheios-alignment-radio-block {
   margin-top: 0;
   margin-bottom: 0;
 }
-fieldset.alpheios-alignment-slim-fieldset {
-  padding: 0;
-  margin-bottom: 0;
-  border: 0;
+.alpheios-alignment-option-item .alpheios-alignment-select-input__select-container span,
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input-container span {
+  min-width: 160px;
+  display: inline-block;
+  vertical-align: top;
 }
-fieldset.alpheios-alignment-slim-fieldset legend {
-  display: none;
+.alpheios-alignment-option-item .alpheios-alignment-select-input__select,
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input {
+  width: 80%;
+  max-width: 300px;
+  display: inline-block;
+  vertical-align: top;
 }
-.alpheios-alignment-fieldset-label-auto .alpheios-editor-setting__label {
-  width: auto;
-  margin-right: 20px;
-}
-.alpheios-alignment-fieldset-label-auto input.alpheios-editor-input,
-.alpheios-alignment-fieldset-label-auto .alpheios-editor-select,
-.alpheios-alignment-fieldset-label-auto .alpheios-alignment-radio-block {
-  width: auto;
-}
-fieldset.alpheios-alignment-slim-fieldset {
-  padding: 0;
-  margin-bottom: 0;
-  border: 0;
-}
-fieldset.alpheios-alignment-slim-fieldset legend {
-  display: none;
-}
-.alpheios-alignment-fieldset-label-auto .alpheios-editor-setting__label {
-  width: auto;
-  margin-right: 20px;
-}
-.alpheios-alignment-fieldset-label-auto input.alpheios-editor-input,
-.alpheios-alignment-fieldset-label-auto .alpheios-editor-select,
-.alpheios-alignment-fieldset-label-auto .alpheios-alignment-radio-block {
-  width: auto;
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
+  font-size: 90%;
+  color: #888;
 }
 .alpheios-alignment-editor-text-block textarea {
   width: 100%;
@@ -595,23 +577,6 @@ fieldset.alpheios-alignment-slim-fieldset legend {
 }
 .alpheios-alignment-editor-text-block p {
   margin-bottom: 10px;
-}
-.alpheios-alignment-editor-text-block .alpheios-alignment-editor-text-block__ava-lang span,
-.alpheios-alignment-editor-text-block .alpheios-alignment-editor-text-block__other-lang span {
-  min-width: 160px;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-editor-text-block .alpheios-alignment-editor-text-block__ava-lang__select,
-.alpheios-alignment-editor-text-block .alpheios-alignment-editor-text-block__other-lang-input-block {
-  width: 80%;
-  max-width: 300px;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-editor-text-block .alpheios-alignment-editor-text-block__other-lang__description {
-  font-size: 90%;
-  color: #888;
 }
 .alpheios-alignment-editor-text-block__title {
   position: relative;
@@ -631,12 +596,12 @@ fieldset.alpheios-alignment-slim-fieldset legend {
   width: 100%;
   height: 100%;
 }
-.alpheios-alignment-text__group {
+.alpheios-alignment-options-fieldset {
   padding: 10px;
   border: 2px groove #f8f8f8;
   margin-bottom: 30px;
 }
-.alpheios-alignment-text__group legend {
+.alpheios-alignment-options-fieldset legend {
   display: block;
   padding: 0 10px;
   margin-bottom: 10px;
@@ -644,6 +609,23 @@ fieldset.alpheios-alignment-slim-fieldset legend {
   color: inherit;
   white-space: normal;
   font-size: 110%;
+}
+fieldset.alpheios-alignment-slim-fieldset {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}
+fieldset.alpheios-alignment-slim-fieldset legend {
+  display: none;
+}
+.alpheios-alignment-fieldset-label-auto .alpheios-editor-setting__label {
+  width: auto;
+  margin-right: 20px;
+}
+.alpheios-alignment-fieldset-label-auto input.alpheios-alignment-input,
+.alpheios-alignment-fieldset-label-auto .alpheios-alignment-select,
+.alpheios-alignment-fieldset-label-auto .alpheios-alignment-radio-block {
+  width: auto;
 }
 .alpheios-alignment-editor-text-define-container-inner:before, .alpheios-alignment-editor-text-define-container-inner:after {
   content: "";

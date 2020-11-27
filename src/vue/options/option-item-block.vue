@@ -1,9 +1,9 @@
 <template>
-  <div class="alpheios-editor-option-item" v-if="!optionItem.hidden">
-    <label class="alpheios-editor-setting__label" v-show="showLabelText" v-html="labelText"></label>
+  <div class="alpheios-alignment-option-item" v-if="!optionItem.hidden">
+    <label class="alpheios-alignment-option-item__label" v-show="showLabelText" v-html="labelText"></label>
 
     <select
-        class="alpheios-editor-select alpheios-editor-setting__control"
+        class="alpheios-alignment-select alpheios-alignment-option-item__control"
         v-if="optionType === 'select'"
         v-model="selected" :id="itemId"
         @change = "changeOption" :disabled="disabled"
@@ -12,7 +12,7 @@
     </select>
 
     <input
-        class="alpheios-editor-input alpheios-editor-setting__control"
+        class="alpheios-alignment-input alpheios-alignment-option-item__control"
         type="text"
         v-if="optionType === 'text'"
         v-model="selected"
@@ -20,14 +20,14 @@
         @change = "changeOption"
     >
 
-    <div class="alpheios-editor-checkbox-block alpheios-editor-setting__control" v-if="optionType === 'boolean'">
+    <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'">
       <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption">
       <label :for="itemId">{{ checkboxLabel }}
         <span v-html="labelText" v-if="showCheckboxTitle"></span>
       </label>
     </div>
 
-    <p class = "alpheios-alignment-radio-block" v-if="optionType === 'radio'">
+    <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'">
         <span v-for="item in values" :key="item.value">
             <input type="radio" :id="itemId" :value="item.value" v-model="selected"
                    @change="changeOption" :disabled="disabled" >
@@ -36,24 +36,23 @@
     </p>
 
 
-    <div class="alpheios-alignment-editor-text-block-select-input" v-if="optionType === 'selectInput'">
-      <p class="alpheios-alignment-editor-text-block__ava-lang" >
+    <div class="alpheios-alignment-select-input alpheios-alignment-option-item__control" v-if="optionType === 'selectInput'">
+      <p class="alpheios-alignment-select-input__select-container" >
           <span>{{ selectInputLabelsSelect }}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select" v-model="selectedS" @change="updateSelectSI" :disabled="disabled" >
+          <select class="alpheios-alignment-select-input__select alpheios-alignment-select" 
+            v-model="selectedS" @change="updateSelectSI" :disabled="disabled" :id="itemId+'-select'">
             <option v-for="item in values" :key="item.value" :value="item.value">{{ item.text }}</option>
           </select>
       </p>
-      <div class="alpheios-alignment-editor-text-block__other-lang-block">
-        <div class="alpheios-alignment-editor-text-block__other-lang">
-          <span>{{ selectInputLabelsInput }}</span>
-          <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-editor-input" v-model="selectedI" @change="changeOption" :disabled="disabled" >
-            <p class="alpheios-alignment-editor-text-block__other-lang__description">
-              {{ selectInputDescription }}
-            </p>
-          </div>
-        </div>
-        
+      <div class="alpheios-alignment-select-input__input-container">
+        <span>{{ selectInputLabelsInput }}</span>
+        <div class="alpheios-alignment-select-input__input">
+          <input type="text" class="alpheios-alignment-input" 
+            v-model="selectedI" @change="changeOption" :disabled="disabled" :id="itemId+'-input'" >
+          <p class="alpheios-alignment-select-input__input-description">
+            {{ selectInputDescription }}
+          </p>
+        </div>        
       </div>
     </div>
   </div>
@@ -121,7 +120,7 @@ export default {
       return L10nSingleton
     },
     itemId () {
-      return `${this.optionItem.name}-id`
+      return `${this.optionItem.name.replace('.', '_')}-id`
     },
     values () {
       return (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput) ? this.optionItem.values : []
@@ -167,7 +166,6 @@ export default {
   },
   methods: {
     changeOption () {
-      console.info('changeOption - ', this.optionItem)
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
       }
@@ -186,7 +184,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.alpheios-editor-option-item {
+.alpheios-alignment-option-item {
   display: inline-block;
   width: 100%;
   vertical-align: top;
@@ -198,7 +196,9 @@ export default {
     display: inline-block;
     vertical-align: top;
   }
-  input.alpheios-editor-input, .alpheios-editor-select, .alpheios-alignment-radio-block {
+  input.alpheios-alignment-input, 
+  .alpheios-alignment-select, 
+  .alpheios-alignment-radio-block {
     display: inline-block;
     width: 50%;
     vertical-align: top;
@@ -207,6 +207,27 @@ export default {
   p.alpheios-alignment-radio-block {
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  .alpheios-alignment-select-input__select-container,
+  .alpheios-alignment-select-input__input-container {
+    span {
+      min-width: 160px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+  .alpheios-alignment-select-input__select,
+  .alpheios-alignment-select-input__input {
+      width: 80%;
+      max-width: 300px;
+      display: inline-block;
+      vertical-align: top;
+  }
+
+  .alpheios-alignment-select-input__input-description {
+    font-size: 90%;
+    color: #888;
   }
 }
 </style>

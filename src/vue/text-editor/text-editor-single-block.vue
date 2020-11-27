@@ -6,19 +6,19 @@
         </span>
       </p>
 
-      <direction-options-block :textType = "textType" :index = "index" 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions"
+      <direction-options-block 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"
       />
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText"
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
 
-      <language-options-block :textType = "textType" :index = "index" 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions"
+      <language-options-block :textType = "textType" 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"
       />
 
       <tokenize-options-block :textType = "textType" :index = "index" :localOptions = "localTextEditorOptions"
-        @updateText = "updateText"
+        @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
 
   </div>
@@ -30,7 +30,6 @@ import Langs from '@/lib/data/langs/langs.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
-import RadioItems from '@/vue/form-items/radio-items.vue'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
@@ -57,7 +56,6 @@ export default {
   },
   components: {
     deleteIcon: DeleteIcon,
-    radioItems: RadioItems,
     optionItemBlock: OptionItemBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
@@ -182,7 +180,6 @@ export default {
      * Emits update-text event with data from properties
      */
     updateText () {
-      console.info('updateText', this.textType, this.localTextEditorOptions, this.localTextEditorOptions[this.sourceType])
       const params = {
         text: this.text,
         direction: this.direction,
@@ -192,7 +189,6 @@ export default {
         tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
       }
       
-      console.info('updateText - ', params)
       this.$textC[this.updateTextMethod](params)
 
     },
@@ -217,27 +213,6 @@ export default {
         p {
             margin-bottom: 10px;
         }
-
-        .alpheios-alignment-editor-text-block__ava-lang,
-        .alpheios-alignment-editor-text-block__other-lang {
-          span {
-            min-width: 160px;
-            display: inline-block;
-            vertical-align: top;
-          }
-        }
-        .alpheios-alignment-editor-text-block__ava-lang__select,
-        .alpheios-alignment-editor-text-block__other-lang-input-block {
-            width: 80%;
-            max-width: 300px;
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .alpheios-alignment-editor-text-block__other-lang__description {
-          font-size: 90%;
-          color: #888;
-        }
     }
 
     .alpheios-alignment-editor-text-block__title {
@@ -261,7 +236,7 @@ export default {
       }
     }
 
-    .alpheios-alignment-text__group {
+    .alpheios-alignment-options-fieldset {
       padding: 10px;
       border: 2px groove #f8f8f8;
       margin-bottom: 30px;
@@ -274,6 +249,28 @@ export default {
         color: inherit;
         white-space: normal;
         font-size: 110%;
+      }
+    }
+
+    fieldset.alpheios-alignment-slim-fieldset {
+      padding: 0;
+      margin-bottom: 0;
+      border: 0;
+
+      legend {
+        display: none;
+      }
+    }
+
+    .alpheios-alignment-fieldset-label-auto {
+      .alpheios-editor-setting__label {
+        width: auto;
+        margin-right: 20px;
+      }
+      input.alpheios-alignment-input, 
+      .alpheios-alignment-select, 
+      .alpheios-alignment-radio-block {
+        width: auto;
       }
     }
 </style>
