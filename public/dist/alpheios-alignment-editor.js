@@ -134,6 +134,18 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements:  */
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -60500,6 +60512,8 @@ class AppController {
    */
   async init () {
     this.defineStore()
+    this.defineL10Support()
+    this.defineNotificationSupport()
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {
@@ -60528,9 +60542,6 @@ class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
-    this.defineL10Support()
-    this.defineNotificationSupport()
-
     this.defineTextController()
     this.defineAlignedController()
     this.defineHistoryController()
@@ -60843,16 +60854,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/settings/default-app-settings.json */ "./settings/default-app-settings.json");
-/* harmony import */ var _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/settings/default-source-text-settings.json */ "./settings/default-source-text-settings.json");
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/settings/default-app-settings.json */ "./settings/default-app-settings.json");
+/* harmony import */ var _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/settings/default-source-text-settings.json */ "./settings/default-source-text-settings.json");
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 ;
 
-// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 
 
 
+
+
+
+
+
+const valuesClassesList = {
+  Langs: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__.default
+}
 
 class SettingsController {
   constructor (store) {
@@ -60860,8 +60881,8 @@ class SettingsController {
     this.storageAdapter = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea
 
     this.defaultSettings = {
-      app: _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_1__,
-      sourceText: _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_2__
+      app: _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_2__,
+      sourceText: _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_3__
     }
 
     this.options = {}
@@ -60886,13 +60907,18 @@ class SettingsController {
     return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
+  get sourceTextOptionsLoaded () {
+    return Boolean(this.options.sourceText)
+  }
+
   formattedOptions (localOptions) {
     const result = {}
 
-    Object.keys(localOptions.items).forEach(nameItem => {
-      result[nameItem] = localOptions.items[nameItem].currentValue
-    })
-
+    if (localOptions && localOptions.items) {
+      Object.keys(localOptions.items).forEach(nameItem => {
+        result[nameItem] = localOptions.items[nameItem].currentValue
+      })
+    }
     return result
   }
 
@@ -60903,6 +60929,8 @@ class SettingsController {
     Object.keys(this.defaultSettings).forEach(defaultSName => {
       this.options[defaultSName] = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
     })
+    this.checkAndUploadClassValues()
+
     this.store.commit('incrementOptionsUpdated')
     this.submitEventUpdateTheme()
   }
@@ -60912,6 +60940,28 @@ class SettingsController {
       theme: this.options.app.items.theme.currentValue,
       themesList: this.options.app.items.theme.values.map(val => val.value)
     })
+  }
+
+  checkAndUploadClassValues () {
+    Object.values(this.options).forEach(optionsGroup => {
+      Object.values(optionsGroup.items).forEach(optionItem => {
+        if (optionItem.valuesClass && !optionItem.values) {
+          this.uploadClassValues(optionItem)
+        }
+      })
+    })
+  }
+
+  uploadClassValues (optionItem) {
+    if (valuesClassesList[optionItem.valuesClass]) {
+      optionItem.values = [...valuesClassesList[optionItem.valuesClass].all]
+      optionItem.defaultValue = optionItem.values[0].value
+    } else {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default.getMsgS('SETTINGS_CONTROLLER_NO_VALUES_CLASS', { className: optionItem.valuesClass }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+    }
   }
 
   /**
@@ -60926,7 +60976,7 @@ class SettingsController {
   }
 
   async uploadRemoteSettings () {
-    this.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(this.storageAdapter)
+    this.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.uploadOptions(this.storageAdapter)
     this.store.commit('incrementOptionsUpdated')
     console.info('this.options - ', this.options)
   }
@@ -60948,7 +60998,15 @@ class SettingsController {
 
     defaults.domain = `${defaults.domain}-${domainPostfix}`
 
-    return new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
+    const newOptions = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
+    Object.values(newOptions.items).forEach(optionItem => {
+      if (optionItem.valuesClass && !optionItem.values) {
+        optionItem.values = [...valuesClassesList[optionItem.valuesClass].all]
+        optionItem.defaultValue = optionItem.values[0].value
+      }
+    })
+
+    return newOptions
   }
 
   async cloneTextEditorOptions (typeText, indexText) {
@@ -61269,12 +61327,9 @@ class TokenizeController {
 
     let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
 
-    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions) {
-      if (definedLocalOptions) {
-        Object.values(definedLocalOptions).forEach(options => {
-          tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(options))
-        })
-      }
+    console.info('defineTextTokenizationOptions - ', this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions, definedLocalOptions)
+    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions && definedLocalOptions) {
+      tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(definedLocalOptions))
     }
 
     return tokenizationOptions
@@ -62685,7 +62740,7 @@ class Langs {
       const l10nMessage = _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS(l10nLabel)
       return {
         value: langData.value,
-        label: l10nMessage || langData.label
+        text: l10nMessage || langData.label
       }
     })
   }
@@ -63558,11 +63613,15 @@ class AlpheiosRemoteTokenizer {
      */
   static async tokenize (docSource, idPrefix) {
     const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
+
+    console.info('tokenize docSource - ', docSource)
     const fetchOptions = Object.assign({
       lang: docSource.lang,
-      sourceType: docSource.tokenization.sourceType
+      sourceType: docSource.sourceType,
+      direction: docSource.direction
     }, docSource.tokenization)
 
+    console.info('tokenize fetchOptions - ', fetchOptions)
     const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {
@@ -64924,6 +64983,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 ;
 
@@ -64953,15 +65033,34 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+    labelsListType: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
     return {
-      selected: null
+      selected: null,
+      selectedI: null,
+      selectedS: null
     }
   },
   mounted () {
     this.selected = this.optionItem.currentValue
+
+    if (this.optionItem.selectInput) {
+      const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
+
+      if (valueFromSelect) {
+        this.selectedS = this.optionItem.currentValue
+        this.selectedI = null
+      } else {
+        this.selectedI = this.optionItem.currentValue
+        this.selectedS = this.langsList[0].value
+      }
+    }
   },
   computed: {
     l10n () {
@@ -64971,7 +65070,7 @@ __webpack_require__.r(__webpack_exports__);
       return `${this.optionItem.name}-id`
     },
     values () {
-      return this.optionItem.select || this.optionItem.radio ? this.optionItem.values : []
+      return (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput) ? this.optionItem.values : []
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -64986,16 +65085,48 @@ __webpack_require__.r(__webpack_exports__);
       if (this.optionItem.boolean) { return 'boolean' }
       if (this.optionItem.radio) { return 'radio' }
       if (this.optionItem.select) { return 'select' }
+      if (this.optionItem.selectInput) { return 'selectInput' }
+      
       return 'text'
+    },
+    selectInputLabelsSelect () {
+      if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
+        return this.optionItem.labelsList[this.labelsListType].selectLabel
+      }
+      return ''
+    },
+    selectInputLabelsInput () {
+      if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
+        return this.optionItem.labelsList[this.labelsListType].inputLabel
+      }
+      return ''
+    },
+    selectInputDescription () {
+      if (this.optionItem.selectInput && this.optionItem.description) {
+        return this.optionItem.description
+      }
+      return ''
+    },
+    selectedSI () {
+      return this.selectedI ? this.selectedI : this.selectedS
     }
   },
   methods: {
     changeOption () {
+      console.info('changeOption - ', this.optionItem)
+      if (this.optionItem.selectInput) {
+        this.selected = this.selectedSI
+      }
+
       this.optionItem.setValue(this.selected)
       this.$settingsC.changeOption(this.optionItem)
       if (this.emitUpdateData) {
         this.$emit('updateData')
       }
+    },
+    updateSelectSI () {
+      this.selectedI = null
+      this.changeOption()
     }
   }
 });
@@ -65082,10 +65213,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/form-items/radio-items.vue */ "./vue/form-items/radio-items.vue");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-//
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 //
 //
 //
@@ -65100,14 +65228,10 @@ __webpack_require__.r(__webpack_exports__);
 
 ;
 
-
-
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokenizeOptionsBlock',
   components: {
-    radioItems: _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
     textType: {
@@ -65129,9 +65253,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
-    },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
     },
@@ -65142,7 +65263,85 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.localOptions.ready
     },
     showOptions () {
-      return this.$store.state.optionsUpdated && this.$settingsC.tokenizerOptionsLoaded
+      return this.$store.state.optionsUpdated && this.$settingsC.sourceTextOptionsLoaded
+    }
+  },
+  methods: {
+    updateData () {
+      this.$emit('updateText')
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'TokenizeOptionsBlock',
+  components: {
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    textType: {
+      type: String,
+      required: true
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    localOptions: {
+      type: Object,
+      required: true
+    }
+  },
+  data () {
+    return {
+    }
+  },
+  computed: {
+    docSourceEditAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+    },
+    idRadioPrefix () {
+      return `alpheios-alignment-editor-direction-options__${this.textType}__${this.index}`
+    },
+    renderOptions () {
+      return this.$store.state.optionsUpdated && this.localOptions.ready
+    },
+    showOptions () {
+      return this.$store.state.optionsUpdated && this.$settingsC.sourceTextOptionsLoaded
     }
   },
   methods: {
@@ -65179,21 +65378,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
 /* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
 //
 //
 //
@@ -65233,6 +65418,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditorSingleBlock',
   props: {
@@ -65255,16 +65441,13 @@ __webpack_require__.r(__webpack_exports__);
     radioItems: _vue_form_items_radio_items_vue__WEBPACK_IMPORTED_MODULE_4__.default,
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
     tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default
   },
   data () {
     return {
       text: null,
       prevText: null,
-
-      langsList: [],
-      selectedAvaLang: null,
-      selectedOtherLang: null,
 
       localTextEditorOptions: {}
     }
@@ -65272,10 +65455,6 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Uploads lang list from Json and defines default lang
    */
-  created () {
-    this.langsList = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__.default.all
-    this.selectedAvaLang = this.langsList[0].value
-  },
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
@@ -65320,18 +65499,6 @@ __webpack_require__.r(__webpack_exports__);
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-    /**
-     * Defines Label for available language list
-     */
-    chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
-    },
-    /**
-     * Defines final language
-     */
-    selectedLang () {
-      return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
-    },
 
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
@@ -65371,53 +65538,42 @@ __webpack_require__.r(__webpack_exports__);
     },
     direction () {
       return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+    },
+    language () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+    },
+    sourceType () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     }
   },
   methods: {
+    
     updateFromExternal () {
+      /*
       const data = this.$textC.getDocSource(this.textType, this.textId)
       if (data && data.lang) {
         this.text = data.text
         // this.direction = data.direction
         this.updateLang(data.lang)
       }
-    },
-
-    /**
-     * If a user reselects language from select, input[text] would be cleared
-     */
-    updateAvaLang () {
-      this.selectedOtherLang = null
-      this.updateText()
-    },
-    /**
-     * It is used when we need to upload lang from external source,
-     * first it checks langs list, and if it is failed, then it would be printed to unput[text]
-     */
-    updateLang (lang) {
-      const langFromList = this.langsList.find(langOb => langOb.value === lang)
-
-      if (langFromList) {
-        this.selectedAvaLang = langFromList.value
-        this.selectedOtherLang = null
-      } else {
-        this.selectedOtherLang = lang
-        this.selectedAvaLang = this.langsList[0].value
-      }
+      */
     },
 
     /**
      * Emits update-text event with data from properties
      */
     updateText () {
+      console.info('updateText', this.textType, this.localTextEditorOptions, this.localTextEditorOptions[this.sourceType])
       const params = {
         text: this.text,
         direction: this.direction,
-        lang: this.selectedLang,
+        lang: this.language,
         id: this.textId,
-        tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC, this.localTokenizeOptions)
+        sourceType: this.sourceType,
+        tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
       }
       
+      console.info('updateText - ', params)
       this.$textC[this.updateTextMethod](params)
 
     },
@@ -65427,8 +65583,6 @@ __webpack_require__.r(__webpack_exports__);
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-
-      this.sourceType = this.localTextEditorOptions.sourceText.items.sourceType.currentValue
       this.updateText()
     }
   }
@@ -66201,6 +66355,51 @@ component.options.__file = "vue/text-editor/direction-options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/text-editor/language-options-block.vue":
+/*!****************************************************!*\
+  !*** ./vue/text-editor/language-options-block.vue ***!
+  \****************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=template&id=d0c3793c& */ "./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&");
+/* harmony import */ var _language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _language_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+;
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/language-options-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/text-editor/text-editor-single-block.vue":
 /*!******************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue ***!
@@ -66544,6 +66743,27 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************!*\
+  !*** ./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************/
+/*! namespace exports */
+/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss& */
+/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./language-options-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -66823,6 +67043,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./direction-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
 ; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./language-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
+; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -67146,6 +67386,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./direction-options-block.vue?vue&type=template&id=417d0327& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
+/*!***********************************************************************************!*\
+  !*** ./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
+  \***********************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& .render */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& .staticRenderFns */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./language-options-block.vue?vue&type=template&id=d0c3793c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&");
 
 
 /***/ }),
@@ -68209,6 +68471,140 @@ var render = function() {
               }),
               0
             )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.optionType === "selectInput"
+          ? _c(
+              "div",
+              {
+                staticClass: "alpheios-alignment-editor-text-block-select-input"
+              },
+              [
+                _c(
+                  "p",
+                  {
+                    staticClass:
+                      "alpheios-alignment-editor-text-block__ava-lang"
+                  },
+                  [
+                    _c("span", [_vm._v(_vm._s(_vm.selectInputLabelsSelect))]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedS,
+                            expression: "selectedS"
+                          }
+                        ],
+                        staticClass:
+                          "alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select",
+                        attrs: { disabled: _vm.disabled },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.selectedS = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            _vm.updateSelectSI
+                          ]
+                        }
+                      },
+                      _vm._l(_vm.values, function(item) {
+                        return _c(
+                          "option",
+                          { key: item.value, domProps: { value: item.value } },
+                          [_vm._v(_vm._s(item.text))]
+                        )
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "alpheios-alignment-editor-text-block__other-lang-block"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "alpheios-alignment-editor-text-block__other-lang"
+                      },
+                      [
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.selectInputLabelsInput))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "alpheios-alignment-editor-text-block__other-lang-input-block"
+                          },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.selectedI,
+                                  expression: "selectedI"
+                                }
+                              ],
+                              staticClass:
+                                "alpheios-alignment-editor-text-block__other-lang__input alpheios-editor-input",
+                              attrs: { type: "text", disabled: _vm.disabled },
+                              domProps: { value: _vm.selectedI },
+                              on: {
+                                change: _vm.changeOption,
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.selectedI = $event.target.value
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                staticClass:
+                                  "alpheios-alignment-editor-text-block__other-lang__description"
+                              },
+                              [
+                                _vm._v(
+                                  "\n            " +
+                                    _vm._s(_vm.selectInputDescription) +
+                                    "\n          "
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
           : _vm._e()
       ])
     : _vm._e()
@@ -68324,15 +68720,77 @@ var render = function() {
                 "alpheios-alignment-text__group alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto"
             },
             [
-              _c("legend", [
-                _vm._v(_vm._s(_vm.l10n.getMsgS("RADIO_BLOCK_DIRECTION_LABEL")))
-              ]),
-              _vm._v(" "),
               _c("option-item-block", {
                 attrs: {
                   optionItem: _vm.localOptions.sourceText.items.direction,
                   emitUpdateData: true,
                   disabled: !_vm.docSourceEditAvailable
+                },
+                on: { updateData: _vm.updateData }
+              })
+            ],
+            1
+          )
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.renderOptions
+    ? _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showOptions,
+              expression: "showOptions"
+            }
+          ],
+          staticClass: "alpheios-alignment-editor-text-block__tokenizer-block"
+        },
+        [
+          _c(
+            "fieldset",
+            {
+              staticClass:
+                "alpheios-alignment-text__group alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto"
+            },
+            [
+              _c("option-item-block", {
+                attrs: {
+                  optionItem: _vm.localOptions.sourceText.items.language,
+                  emitUpdateData: true,
+                  disabled: !_vm.docSourceEditAvailable,
+                  labelsListType: _vm.textType
                 },
                 on: { updateData: _vm.updateData }
               })
@@ -68431,7 +68889,7 @@ var render = function() {
             id: _vm.textareaId,
             dir: _vm.direction,
             tabindex: "2",
-            lang: _vm.selectedLang,
+            lang: _vm.language,
             disabled: !_vm.docSourceEditAvailable
           },
           domProps: { value: _vm.text },
@@ -68448,131 +68906,14 @@ var render = function() {
         [_vm._v("    >")]
       ),
       _vm._v(" "),
-      _c(
-        "p",
-        { staticClass: "alpheios-alignment-editor-text-block__ava-lang" },
-        [
-          _c("span", [_vm._v(_vm._s(_vm.chooseAvaLangLabel))]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedAvaLang,
-                  expression: "selectedAvaLang"
-                }
-              ],
-              staticClass:
-                "alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select",
-              attrs: { disabled: !_vm.docSourceEditAvailable },
-              on: {
-                change: [
-                  function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.selectedAvaLang = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  _vm.updateAvaLang
-                ]
-              }
-            },
-            _vm._l(_vm.langsList, function(lang) {
-              return _c(
-                "option",
-                { key: lang.value, domProps: { value: lang.value } },
-                [_vm._v(_vm._s(lang.label))]
-              )
-            }),
-            0
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "alpheios-alignment-editor-text-block__other-lang-block"
+      _c("language-options-block", {
+        attrs: {
+          textType: _vm.textType,
+          index: _vm.index,
+          localOptions: _vm.localTextEditorOptions
         },
-        [
-          _c(
-            "div",
-            { staticClass: "alpheios-alignment-editor-text-block__other-lang" },
-            [
-              _c("span", [
-                _vm._v(
-                  _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_LANGUAGE_OTHER_LABEL"))
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-text-block__other-lang-input-block"
-                },
-                [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedOtherLang,
-                        expression: "selectedOtherLang"
-                      }
-                    ],
-                    staticClass:
-                      "alpheios-alignment-editor-text-block__other-lang__input alpheios-editor-input",
-                    attrs: {
-                      type: "text",
-                      disabled: !_vm.docSourceEditAvailable
-                    },
-                    domProps: { value: _vm.selectedOtherLang },
-                    on: {
-                      change: _vm.updateText,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.selectedOtherLang = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-text-block__other-lang__description"
-                    },
-                    [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(
-                            _vm.l10n.getMsgS(
-                              "TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION"
-                            )
-                          ) +
-                          "\n          "
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]
-          )
-        ]
-      ),
+        on: { updateText: _vm.updateText }
+      }),
       _vm._v(" "),
       _c("tokenize-options-block", {
         attrs: {
@@ -68580,7 +68921,7 @@ var render = function() {
           index: _vm.index,
           localOptions: _vm.localTextEditorOptions
         },
-        on: { updateText: _vm.updateText, updateData: _vm.updateText }
+        on: { updateText: _vm.updateText }
       })
     ],
     1
@@ -69596,6 +69937,14 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     other exports [not provided] [no usage info] */
 /*!   other exports [not provided] [no usage info] */
+/*! export SETTINGS_CONTROLLER_NO_VALUES_CLASS [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
+/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     other exports [not provided] [no usage info] */
+/*!   other exports [not provided] [no usage info] */
 /*! export SOURCE_TEXT_CONVERT_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
 /*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
@@ -69637,7 +69986,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]}}");
 
 /***/ }),
 
@@ -70543,6 +70892,22 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /*!         other exports [not provided] [no usage info] */
 /*!       other exports [not provided] [no usage info] */
 /*!     other exports [not provided] [no usage info] */
+/*!   export language [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export description [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export labelsList [provided] [no usage info] [missing usage info prevents renaming] */
+/*!       export origin [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export inputLabel [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export selectLabel [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       export target [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export inputLabel [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         export selectLabel [provided] [no usage info] [missing usage info prevents renaming] */
+/*!         other exports [not provided] [no usage info] */
+/*!       other exports [not provided] [no usage info] */
+/*!     export selectInput [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     export valuesClass [provided] [no usage info] [missing usage info prevents renaming] */
+/*!     other exports [not provided] [no usage info] */
 /*!   export sourceType [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
 /*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
@@ -70565,7 +70930,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text\",\"version\":\"1\",\"items\":{\"sourceType\":{\"defaultValue\":\"text\",\"labelText\":\"Text Source Type\",\"radio\":true,\"values\":[{\"value\":\"text\",\"text\":\"Text\"},{\"value\":\"tei\",\"text\":\"TEI\"}]},\"direction\":{\"defaultValue\":\"ltr\",\"labelText\":\"Direction\",\"radio\":true,\"values\":[{\"value\":\"ltr\",\"text\":\"ltr\"},{\"value\":\"rtl\",\"text\":\"rtl\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text\",\"version\":\"1\",\"items\":{\"sourceType\":{\"defaultValue\":\"text\",\"labelText\":\"Text Source Type\",\"radio\":true,\"values\":[{\"value\":\"text\",\"text\":\"Text\"},{\"value\":\"tei\",\"text\":\"TEI\"}]},\"direction\":{\"defaultValue\":\"ltr\",\"labelText\":\"Direction\",\"radio\":true,\"values\":[{\"value\":\"ltr\",\"text\":\"Left to Right\"},{\"value\":\"rtl\",\"text\":\"Right to Left\"}]},\"language\":{\"defaultValue\":\"eng\",\"labelsList\":{\"origin\":{\"selectLabel\":\"Origin Language:\",\"inputLabel\":\"Or Other Language:\"},\"target\":{\"selectLabel\":\"Target Language:\",\"inputLabel\":\"Or Other Language:\"}},\"description\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"selectInput\":true,\"valuesClass\":\"Langs\"}}}");
 
 /***/ })
 

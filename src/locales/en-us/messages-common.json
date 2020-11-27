@@ -114,6 +114,12 @@
       "message": "Json file doesn't have all obligatory fields. Source Text won't be created.",
       "description": "An error message for converting from JSON process",
       "component": "SourceText"
+    },
+    "SETTINGS_CONTROLLER_NO_VALUES_CLASS": {
+      "message": "There is no class for uploading settings values that is regestered as {className}",
+      "description": "An error message for settings upload workflow",
+      "component": "SettingsController",
+      "params": ["className"]
     }
 
     

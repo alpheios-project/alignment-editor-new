@@ -8,7 +8,7 @@ export default class Langs {
       const l10nMessage = L10nSingleton.getMsgS(l10nLabel)
       return {
         value: langData.value,
-        label: l10nMessage || langData.label
+        text: l10nMessage || langData.label
       }
     })
   }

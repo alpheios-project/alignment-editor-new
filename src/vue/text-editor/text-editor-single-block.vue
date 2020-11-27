@@ -9,31 +9,16 @@
       <direction-options-block :textType = "textType" :index = "index" 
         @updateText = "updateText" :localOptions = "localTextEditorOptions"
       />
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText"
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
 
-      <p class="alpheios-alignment-editor-text-block__ava-lang">
-          <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
-            <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
-          </select>
-      </p>
-      <div class="alpheios-alignment-editor-text-block__other-lang-block">
-        <div class="alpheios-alignment-editor-text-block__other-lang">
-          <span>{{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
-          <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-editor-input" v-model="selectedOtherLang" @change="updateText" :disabled="!docSourceEditAvailable" >
-            <p class="alpheios-alignment-editor-text-block__other-lang__description">
-              {{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
-            </p>
-          </div>
-        </div>
-        
-      </div>
+      <language-options-block :textType = "textType" :index = "index" 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions"
+      />
 
       <tokenize-options-block :textType = "textType" :index = "index" :localOptions = "localTextEditorOptions"
-        @updateText = "updateText" @updateData = "updateText"
+        @updateText = "updateText"
       />
 
   </div>
@@ -51,6 +36,7 @@ import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
+import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -74,16 +60,13 @@ export default {
     radioItems: RadioItems,
     optionItemBlock: OptionItemBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
-    directionOptionsBlock: DirectionOptionsBlock
+    directionOptionsBlock: DirectionOptionsBlock,
+    languageOptionsBlock: LanguageOptionsBlock
   },
   data () {
     return {
       text: null,
       prevText: null,
-
-      langsList: [],
-      selectedAvaLang: null,
-      selectedOtherLang: null,
 
       localTextEditorOptions: {}
     }
@@ -91,10 +74,6 @@ export default {
   /**
    * Uploads lang list from Json and defines default lang
    */
-  created () {
-    this.langsList = Langs.all
-    this.selectedAvaLang = this.langsList[0].value
-  },
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
@@ -139,18 +118,6 @@ export default {
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-    /**
-     * Defines Label for available language list
-     */
-    chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
-    },
-    /**
-     * Defines final language
-     */
-    selectedLang () {
-      return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
-    },
 
     l10n () {
       return L10nSingleton
@@ -190,53 +157,42 @@ export default {
     },
     direction () {
       return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+    },
+    language () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+    },
+    sourceType () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     }
   },
   methods: {
+    
     updateFromExternal () {
+      /*
       const data = this.$textC.getDocSource(this.textType, this.textId)
       if (data && data.lang) {
         this.text = data.text
         // this.direction = data.direction
         this.updateLang(data.lang)
       }
-    },
-
-    /**
-     * If a user reselects language from select, input[text] would be cleared
-     */
-    updateAvaLang () {
-      this.selectedOtherLang = null
-      this.updateText()
-    },
-    /**
-     * It is used when we need to upload lang from external source,
-     * first it checks langs list, and if it is failed, then it would be printed to unput[text]
-     */
-    updateLang (lang) {
-      const langFromList = this.langsList.find(langOb => langOb.value === lang)
-
-      if (langFromList) {
-        this.selectedAvaLang = langFromList.value
-        this.selectedOtherLang = null
-      } else {
-        this.selectedOtherLang = lang
-        this.selectedAvaLang = this.langsList[0].value
-      }
+      */
     },
 
     /**
      * Emits update-text event with data from properties
      */
     updateText () {
+      console.info('updateText', this.textType, this.localTextEditorOptions, this.localTextEditorOptions[this.sourceType])
       const params = {
         text: this.text,
         direction: this.direction,
-        lang: this.selectedLang,
+        lang: this.language,
         id: this.textId,
-        tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTokenizeOptions)
+        sourceType: this.sourceType,
+        tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
       }
       
+      console.info('updateText - ', params)
       this.$textC[this.updateTextMethod](params)
 
     },
@@ -246,8 +202,6 @@ export default {
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-
-      this.sourceType = this.localTextEditorOptions.sourceText.items.sourceType.currentValue
       this.updateText()
     }
   }

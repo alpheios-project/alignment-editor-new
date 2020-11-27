@@ -24,13 +24,29 @@
         "values": [
           {
             "value": "ltr",
-            "text": "ltr"
+            "text": "Left to Right"
           },
           {
             "value": "rtl",
-            "text": "rtl"
+            "text": "Right to Left"
           }
         ]
+      },
+      "language": {
+        "defaultValue": "eng",
+        "labelsList": {
+          "origin": {
+            "selectLabel": "Origin Language:",
+            "inputLabel": "Or Other Language:"
+          },
+          "target": {
+            "selectLabel": "Target Language:",
+            "inputLabel": "Or Other Language:"
+          }
+        },
+        "description": "Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages",
+        "selectInput": true,
+        "valuesClass": "Langs"
       }
   }
 }

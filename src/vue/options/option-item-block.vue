@@ -35,6 +35,27 @@
         </span>
     </p>
 
+
+    <div class="alpheios-alignment-editor-text-block-select-input" v-if="optionType === 'selectInput'">
+      <p class="alpheios-alignment-editor-text-block__ava-lang" >
+          <span>{{ selectInputLabelsSelect }}</span>
+          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-editor-select" v-model="selectedS" @change="updateSelectSI" :disabled="disabled" >
+            <option v-for="item in values" :key="item.value" :value="item.value">{{ item.text }}</option>
+          </select>
+      </p>
+      <div class="alpheios-alignment-editor-text-block__other-lang-block">
+        <div class="alpheios-alignment-editor-text-block__other-lang">
+          <span>{{ selectInputLabelsInput }}</span>
+          <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
+            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-editor-input" v-model="selectedI" @change="changeOption" :disabled="disabled" >
+            <p class="alpheios-alignment-editor-text-block__other-lang__description">
+              {{ selectInputDescription }}
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -66,15 +87,34 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    labelsListType: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
     return {
-      selected: null
+      selected: null,
+      selectedI: null,
+      selectedS: null
     }
   },
   mounted () {
     this.selected = this.optionItem.currentValue
+
+    if (this.optionItem.selectInput) {
+      const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
+
+      if (valueFromSelect) {
+        this.selectedS = this.optionItem.currentValue
+        this.selectedI = null
+      } else {
+        this.selectedI = this.optionItem.currentValue
+        this.selectedS = this.langsList[0].value
+      }
+    }
   },
   computed: {
     l10n () {
@@ -84,7 +124,7 @@ export default {
       return `${this.optionItem.name}-id`
     },
     values () {
-      return this.optionItem.select || this.optionItem.radio ? this.optionItem.values : []
+      return (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput) ? this.optionItem.values : []
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -99,16 +139,48 @@ export default {
       if (this.optionItem.boolean) { return 'boolean' }
       if (this.optionItem.radio) { return 'radio' }
       if (this.optionItem.select) { return 'select' }
+      if (this.optionItem.selectInput) { return 'selectInput' }
+      
       return 'text'
+    },
+    selectInputLabelsSelect () {
+      if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
+        return this.optionItem.labelsList[this.labelsListType].selectLabel
+      }
+      return ''
+    },
+    selectInputLabelsInput () {
+      if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
+        return this.optionItem.labelsList[this.labelsListType].inputLabel
+      }
+      return ''
+    },
+    selectInputDescription () {
+      if (this.optionItem.selectInput && this.optionItem.description) {
+        return this.optionItem.description
+      }
+      return ''
+    },
+    selectedSI () {
+      return this.selectedI ? this.selectedI : this.selectedS
     }
   },
   methods: {
     changeOption () {
+      console.info('changeOption - ', this.optionItem)
+      if (this.optionItem.selectInput) {
+        this.selected = this.selectedSI
+      }
+
       this.optionItem.setValue(this.selected)
       this.$settingsC.changeOption(this.optionItem)
       if (this.emitUpdateData) {
         this.$emit('updateData')
       }
+    },
+    updateSelectSI () {
+      this.selectedI = null
+      this.changeOption()
     }
   }
 }

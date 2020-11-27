@@ -39,6 +39,8 @@ export default class AppController {
    */
   async init () {
     this.defineStore()
+    this.defineL10Support()
+    this.defineNotificationSupport()
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {
@@ -67,9 +69,6 @@ export default class AppController {
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
-    this.defineL10Support()
-    this.defineNotificationSupport()
-
     this.defineTextController()
     this.defineAlignedController()
     this.defineHistoryController()

@@ -48,12 +48,9 @@ export default class TokenizeController {
 
     let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
 
-    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions) {
-      if (definedLocalOptions) {
-        Object.values(definedLocalOptions).forEach(options => {
-          tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(options))
-        })
-      }
+    console.info('defineTextTokenizationOptions - ', this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions, definedLocalOptions)
+    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions && definedLocalOptions) {
+      tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(definedLocalOptions))
     }
 
     return tokenizationOptions

@@ -2,9 +2,9 @@
     <div class="alpheios-alignment-editor-text-block__tokenizer-block" v-show="showOptions" v-if="renderOptions">
         <fieldset class="alpheios-alignment-text__group alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
             <option-item-block
-              :optionItem = "localOptions.sourceText.items.direction"
+              :optionItem = "localOptions.sourceText.items.language"
               :emitUpdateData = "true"
-              @updateData = "updateData" :disabled="!docSourceEditAvailable"
+              @updateData = "updateData" :disabled="!docSourceEditAvailable" :labelsListType="textType"
             />
         </fieldset>
     </div>

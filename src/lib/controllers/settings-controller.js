@@ -1,10 +1,17 @@
 import { Options, LocalStorageArea, PsEvent } from 'alpheios-data-models'
 
-// import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
+import Langs from '@/lib/data/langs/langs.js'
+
+const valuesClassesList = {
+  Langs: Langs
+}
 
 export default class SettingsController {
   constructor (store) {
@@ -38,13 +45,18 @@ export default class SettingsController {
     return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
+  get sourceTextOptionsLoaded () {
+    return Boolean(this.options.sourceText)
+  }
+
   formattedOptions (localOptions) {
     const result = {}
 
-    Object.keys(localOptions.items).forEach(nameItem => {
-      result[nameItem] = localOptions.items[nameItem].currentValue
-    })
-
+    if (localOptions && localOptions.items) {
+      Object.keys(localOptions.items).forEach(nameItem => {
+        result[nameItem] = localOptions.items[nameItem].currentValue
+      })
+    }
     return result
   }
 
@@ -55,6 +67,8 @@ export default class SettingsController {
     Object.keys(this.defaultSettings).forEach(defaultSName => {
       this.options[defaultSName] = new Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
     })
+    this.checkAndUploadClassValues()
+
     this.store.commit('incrementOptionsUpdated')
     this.submitEventUpdateTheme()
   }
@@ -64,6 +78,28 @@ export default class SettingsController {
       theme: this.options.app.items.theme.currentValue,
       themesList: this.options.app.items.theme.values.map(val => val.value)
     })
+  }
+
+  checkAndUploadClassValues () {
+    Object.values(this.options).forEach(optionsGroup => {
+      Object.values(optionsGroup.items).forEach(optionItem => {
+        if (optionItem.valuesClass && !optionItem.values) {
+          this.uploadClassValues(optionItem)
+        }
+      })
+    })
+  }
+
+  uploadClassValues (optionItem) {
+    if (valuesClassesList[optionItem.valuesClass]) {
+      optionItem.values = [...valuesClassesList[optionItem.valuesClass].all]
+      optionItem.defaultValue = optionItem.values[0].value
+    } else {
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('SETTINGS_CONTROLLER_NO_VALUES_CLASS', { className: optionItem.valuesClass }),
+        type: NotificationSingleton.types.ERROR
+      })
+    }
   }
 
   /**
@@ -100,7 +136,15 @@ export default class SettingsController {
 
     defaults.domain = `${defaults.domain}-${domainPostfix}`
 
-    return new Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
+    const newOptions = new Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
+    Object.values(newOptions.items).forEach(optionItem => {
+      if (optionItem.valuesClass && !optionItem.values) {
+        optionItem.values = [...valuesClassesList[optionItem.valuesClass].all]
+        optionItem.defaultValue = optionItem.values[0].value
+      }
+    })
+
+    return newOptions
   }
 
   async cloneTextEditorOptions (typeText, indexText) {
