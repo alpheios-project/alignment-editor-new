@@ -322,10 +322,12 @@ div.alpheios-alignment-checkbox-block {
   background: #8bafb6;
   border-color: #8bafb6;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-text-define-container__show-label {
+.alpheios-standard-theme .alpheios-alignment-editor-text-define-container__show-label,
+.alpheios-standard-theme .alpheios-alignment-tokenize-options-details-toggle {
   color: #185F6D;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-text-define-container__show-label:hover {
+.alpheios-standard-theme .alpheios-alignment-editor-text-define-container__show-label:hover,
+.alpheios-standard-theme .alpheios-alignment-tokenize-options-details-toggle:hover {
   color: #10424c;
 }
 .alpheios-standard-theme .alpheios-alignment-editor-align-define-container-view-mode {
@@ -406,10 +408,12 @@ div.alpheios-alignment-checkbox-block {
   background: #6e6e6e;
   border-color: #505050;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-text-define-container__show-label {
+.alpheios-v1-theme .alpheios-alignment-editor-text-define-container__show-label,
+.alpheios-v1-theme .alpheios-alignment-tokenize-options-details-toggle {
   color: #46788d;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-text-define-container__show-label:hover {
+.alpheios-v1-theme .alpheios-alignment-editor-text-define-container__show-label:hover,
+.alpheios-v1-theme .alpheios-alignment-tokenize-options-details-toggle:hover {
   color: #6a9fb5;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-align-define-container-view-mode {
@@ -539,7 +543,7 @@ div.alpheios-alignment-checkbox-block {
   margin-bottom: 20px;
 }
 .alpheios-alignment-option-item > label {
-  width: 49%;
+  width: 48%;
   display: inline-block;
   vertical-align: top;
 }
@@ -570,6 +574,24 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
   font-size: 90%;
   color: #888;
+}
+p.alpheios-alignment-tokenize-options-details-toggle {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 90%;
+  text-decoration: underline;
+  color: #185F6D;
+  margin: 0;
+}
+.alpheios-alignment-tokenize-options .alpheios-alignment-option-item {
+  margin-bottom: 5px;
+}
+.alpheios-alignment-tokenize-options p.alpheios-alignment-tokenize-options-details-toggle {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 90%;
+  text-decoration: underline;
+  margin: 0;
 }
 .alpheios-alignment-editor-text-block textarea {
   width: 100%;
@@ -618,7 +640,7 @@ fieldset.alpheios-alignment-slim-fieldset {
 fieldset.alpheios-alignment-slim-fieldset legend {
   display: none;
 }
-.alpheios-alignment-fieldset-label-auto .alpheios-editor-setting__label {
+.alpheios-alignment-fieldset-label-auto .alpheios-alignment-option-item__label {
   width: auto;
   margin-right: 20px;
 }

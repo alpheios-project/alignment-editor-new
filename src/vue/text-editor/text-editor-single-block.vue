@@ -13,11 +13,11 @@
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
 
-      <language-options-block :textType = "textType" 
+      <language-options-block :textType = "textType"
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"
       />
 
-      <tokenize-options-block :textType = "textType" :index = "index" :localOptions = "localTextEditorOptions"
+      <tokenize-options-block :localOptions = "localTextEditorOptions"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
 
@@ -263,7 +263,7 @@ export default {
     }
 
     .alpheios-alignment-fieldset-label-auto {
-      .alpheios-editor-setting__label {
+      .alpheios-alignment-option-item__label {
         width: auto;
         margin-right: 20px;
       }

@@ -40,7 +40,8 @@
         }
     }
 
-    .alpheios-alignment-editor-text-define-container__show-label {
+    .alpheios-alignment-editor-text-define-container__show-label,
+    .alpheios-alignment-tokenize-options-details-toggle {
         color: map.get($theme, 'text-link-color');
         &:hover {
             color: map.get($theme, 'text-link-color-hover');
