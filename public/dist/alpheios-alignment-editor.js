@@ -60578,7 +60578,6 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    // this.textC.updateTokenizer(this.settingsC.tokenizerOptionValue)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$textC = this.textC
   }
 
@@ -60587,7 +60586,6 @@ class AppController {
    */
   defineAlignedController () {
     this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    // this.alignedC.updateTokenizer(this.settingsC.tokenizerOptionValue)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$alignedC = this.alignedC
   }
 
@@ -60889,10 +60887,16 @@ class SettingsController {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
   }
 
+  /**
+   * @returns {Boolean} - true - if tokenize options are already defined
+   */
   get tokenizerOptionsLoaded () {
     return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
+  /**
+   * @returns {Boolean} - true - if sourceText options are already defined
+   */
   get sourceTextOptionsLoaded () {
     return Boolean(this.options.sourceText)
   }
@@ -60911,6 +60915,9 @@ class SettingsController {
     this.submitEventUpdateTheme()
   }
 
+  /**
+   * Publish event for change application theme - event subscribers are defined in AppContoller
+   */
   submitEventUpdateTheme () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
       theme: this.options.app.items.theme.currentValue,
@@ -60922,18 +60929,26 @@ class SettingsController {
    * Loads options from the storageAdapter
    */
   async init () {
-    const optionsStep1 = Object.values(this.options).map(options => options.load())
+    const optionsPromises = Object.values(this.options).map(options => options.load())
 
-    await Promise.all(optionsStep1)
+    await Promise.all(optionsPromises)
     this.submitEventUpdateTheme()
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Starts upload options for tokenization process,
+   * we could need to upload from a remote source
+   */
   async uploadRemoteSettings () {
     this.options.tokenize = await _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.uploadOptions(this.storageAdapter)
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Executes some reactions to options change
+   * @param {OptionItem} optionItem
+   */
   changeOption (optionItem) {
     if (optionItem.name.match('__theme$')) {
       this.submitEventUpdateTheme()
@@ -60945,6 +60960,12 @@ class SettingsController {
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Creates a new instance for all options to the text of the passed textType and index
+   * @param {String} typeText - origin/target
+   * @param {Number} indexText - the number of the text with the type
+   * @returns {Options}
+   */
   async cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
       sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)

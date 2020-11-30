@@ -41,10 +41,16 @@ export default class SettingsController {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
   }
 
+  /**
+   * @returns {Boolean} - true - if tokenize options are already defined
+   */
   get tokenizerOptionsLoaded () {
     return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
+  /**
+   * @returns {Boolean} - true - if sourceText options are already defined
+   */
   get sourceTextOptionsLoaded () {
     return Boolean(this.options.sourceText)
   }
@@ -63,6 +69,9 @@ export default class SettingsController {
     this.submitEventUpdateTheme()
   }
 
+  /**
+   * Publish event for change application theme - event subscribers are defined in AppContoller
+   */
   submitEventUpdateTheme () {
     SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.pub({
       theme: this.options.app.items.theme.currentValue,
@@ -74,18 +83,26 @@ export default class SettingsController {
    * Loads options from the storageAdapter
    */
   async init () {
-    const optionsStep1 = Object.values(this.options).map(options => options.load())
+    const optionsPromises = Object.values(this.options).map(options => options.load())
 
-    await Promise.all(optionsStep1)
+    await Promise.all(optionsPromises)
     this.submitEventUpdateTheme()
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Starts upload options for tokenization process,
+   * we could need to upload from a remote source
+   */
   async uploadRemoteSettings () {
     this.options.tokenize = await TokenizeController.uploadOptions(this.storageAdapter)
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Executes some reactions to options change
+   * @param {OptionItem} optionItem
+   */
   changeOption (optionItem) {
     if (optionItem.name.match('__theme$')) {
       this.submitEventUpdateTheme()
@@ -97,6 +114,12 @@ export default class SettingsController {
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Creates a new instance for all options to the text of the passed textType and index
+   * @param {String} typeText - origin/target
+   * @param {Number} indexText - the number of the text with the type
+   * @returns {Options}
+   */
   async cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
       sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)

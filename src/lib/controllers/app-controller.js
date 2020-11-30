@@ -117,7 +117,6 @@ export default class AppController {
    */
   defineTextController () {
     this.textC = new TextsController(this.store)
-    // this.textC.updateTokenizer(this.settingsC.tokenizerOptionValue)
     Vue.prototype.$textC = this.textC
   }
 
@@ -126,7 +125,6 @@ export default class AppController {
    */
   defineAlignedController () {
     this.alignedC = new AlignedController(this.store)
-    // this.alignedC.updateTokenizer(this.settingsC.tokenizerOptionValue)
     Vue.prototype.$alignedC = this.alignedC
   }
 
