@@ -49,17 +49,6 @@ export default class SettingsController {
     return Boolean(this.options.sourceText)
   }
 
-  formattedOptions (localOptions) {
-    const result = {}
-
-    if (localOptions && localOptions.items) {
-      Object.keys(localOptions.items).forEach(nameItem => {
-        result[nameItem] = localOptions.items[nameItem].currentValue
-      })
-    }
-    return result
-  }
-
   /**
    * Creates all type of options from default data
    */

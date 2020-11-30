@@ -34953,7 +34953,7 @@ class Options {
 
     this.defaults = defaults
     this.domain = defaults.domain
-    this.version = defaults.version
+    this.version = defaults.version.toString()
     this.storageAdapter = storageAdapter
     this.items = Options.initItems(this.defaults.items, this.storageAdapter, this.domain, this.version)
   }
@@ -34996,11 +34996,9 @@ class Options {
   async load () {
     try {
       const values = await this.storageAdapter.get()
-
       for (const key in values) {
         const parsedKey = Options.parseKey(key)
         // TODO when we do increase the version we should handle conversion
-
         if (this.items.hasOwnProperty(parsedKey.name) && this.version === parsedKey.version) { // eslint-disable-line no-prototype-builtins
           if (parsedKey.group) {
             this.items[parsedKey.name].forEach((f) => {
@@ -35068,6 +35066,19 @@ class Options {
     }
     return parsed
   }
+
+  /**
+   * Converts optionItems to the object: { name of the option: currentValue }
+   *
+   * @returns {object}
+   */
+  get formatLabelValueList () {
+    const result = {}
+    Object.keys(this.items).forEach(nameItem => {
+      result[nameItem] = this.items[nameItem].currentValue
+    })
+    return result
+  }
 }
 
 
@@ -35081,16 +35092,16 @@ class Options {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_366655__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_366975__) => {
 
 "use strict";
-__nested_webpack_require_366655__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_366655__.d(__webpack_exports__, {
+__nested_webpack_require_366975__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_366975__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PersianLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_366655__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_366655__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_366655__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_366975__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_366975__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_366975__(/*! ./constants.js */ "./constants.js");
 ;
 
 
@@ -35160,11 +35171,11 @@ class PersianLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_369784__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_370104__) => {
 
 "use strict";
-__nested_webpack_require_369784__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_369784__.d(__webpack_exports__, {
+__nested_webpack_require_370104__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_370104__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEventData
 /* harmony export */ });
 /**
@@ -35215,16 +35226,16 @@ class PsEventData {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_372266__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_372586__) => {
 
 "use strict";
-__nested_webpack_require_372266__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_372266__.d(__webpack_exports__, {
+__nested_webpack_require_372586__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_372586__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEvent
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_372266__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_372266__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_372266__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_372586__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_372586__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_372586__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
 ;
 
 
@@ -35324,11 +35335,11 @@ class PsEvent {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_375958__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_376278__) => {
 
 "use strict";
-__nested_webpack_require_375958__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_375958__.d(__webpack_exports__, {
+__nested_webpack_require_376278__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_376278__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /**
@@ -35411,11 +35422,11 @@ class ResourceProvider {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_378610__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_378930__) => {
 
 "use strict";
-__nested_webpack_require_378610__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_378610__.d(__webpack_exports__, {
+__nested_webpack_require_378930__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_378930__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* eslint-disable */
@@ -35599,14 +35610,14 @@ class Sha1 {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_386196__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_386516__) => {
 
 "use strict";
-__nested_webpack_require_386196__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_386196__.d(__webpack_exports__, {
+__nested_webpack_require_386516__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_386516__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ DefaultsLoader
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_386196__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_386516__(/*! ../logging/logger.js */ "./logging/logger.js");
 ;
 
 class DefaultsLoader {
@@ -35631,14 +35642,14 @@ class DefaultsLoader {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_387443__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_387763__) => {
 
 "use strict";
-__nested_webpack_require_387443__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_387443__.d(__webpack_exports__, {
+__nested_webpack_require_387763__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_387763__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ ExtensionSyncStorage
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_387443__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_387763__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 /* global browser */
 ;
 
@@ -35690,14 +35701,14 @@ class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_390114__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_390434__) => {
 
 "use strict";
-__nested_webpack_require_390114__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_390114__.d(__webpack_exports__, {
+__nested_webpack_require_390434__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_390434__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ LocalStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_390114__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_390434__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 ;
 
 /**
@@ -35856,16 +35867,16 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_396154__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_396474__) => {
 
 "use strict";
-__nested_webpack_require_396154__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_396154__.d(__webpack_exports__, {
+__nested_webpack_require_396474__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_396474__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteAuthStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_396154__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_396154__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_396154__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_396474__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_396474__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_396474__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -35964,11 +35975,11 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_400665__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_400985__) => {
 
 "use strict";
-__nested_webpack_require_400665__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_400665__.d(__webpack_exports__, {
+__nested_webpack_require_400985__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_400985__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ StorageAdapter
 /* harmony export */ });
 /**
@@ -36046,14 +36057,14 @@ class StorageAdapter {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_404578__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_404898__) => {
 
 "use strict";
-__nested_webpack_require_404578__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_404578__.d(__webpack_exports__, {
+__nested_webpack_require_404898__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_404898__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TempStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_404578__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_404898__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 ;
 
 /**
@@ -36100,19 +36111,19 @@ class TempStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.d
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_407212__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_407532__) => {
 
 "use strict";
-__nested_webpack_require_407212__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_407212__.d(__webpack_exports__, {
+__nested_webpack_require_407532__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_407532__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ SyriacLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_407212__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_407212__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_407212__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_407212__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_407212__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
-/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_407212__(/*! ./inflection_group */ "./inflection_group.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_407532__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_407532__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_407532__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_407532__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_407532__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
+/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_407532__(/*! ./inflection_group */ "./inflection_group.js");
 ;
 
 
@@ -36352,11 +36363,11 @@ for the current node
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_419348__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_419668__) => {
 
 "use strict";
-__nested_webpack_require_419348__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_419348__.d(__webpack_exports__, {
+__nested_webpack_require_419668__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_419668__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class Author {
@@ -36431,11 +36442,11 @@ class Author {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_421926__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_422246__) => {
 
 "use strict";
-__nested_webpack_require_421926__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_421926__.d(__webpack_exports__, {
+__nested_webpack_require_422246__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_422246__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class TextWork {
@@ -36521,15 +36532,15 @@ class TextWork {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_424815__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_425135__) => {
 
 "use strict";
-__nested_webpack_require_424815__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_424815__.d(__webpack_exports__, {
+__nested_webpack_require_425135__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_425135__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordUsageExample
 /* harmony export */ });
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_424815__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_424815__(/*! ../language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_425135__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_425135__(/*! ../language_model_factory.js */ "./language_model_factory.js");
 ;
 
 
@@ -36631,14 +36642,14 @@ class WordUsageExample extends _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MOD
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_428495__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_428815__) => {
 
 "use strict";
-__nested_webpack_require_428495__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_428495__.d(__webpack_exports__, {
+__nested_webpack_require_428815__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_428815__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_428495__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_428815__(/*! ./resource_provider.js */ "./resource_provider.js");
 ;
 /**
  * stores a scope of lemma translations from python service
@@ -36714,11 +36725,11 @@ class Translation {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_431503__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_431823__) => {
 
 "use strict";
-__nested_webpack_require_431503__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_431503__.d(__webpack_exports__, {
+__nested_webpack_require_431823__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_431823__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TreebankDataItem
 /* harmony export */ });
 class TreebankDataItem {
@@ -36914,15 +36925,15 @@ class TreebankDataItem {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_440440__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_440760__) => {
 
 "use strict";
-__nested_webpack_require_440440__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_440440__.d(__webpack_exports__, {
+__nested_webpack_require_440760__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_440760__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TextQuoteSelector
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_440440__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_440440__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_440760__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_440760__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
  */
@@ -36985,15 +36996,15 @@ class TextQuoteSelector {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_443206__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_443526__) => {
 
 "use strict";
-__nested_webpack_require_443206__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_443206__.d(__webpack_exports__, {
+__nested_webpack_require_443526__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_443526__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordItem
 /* harmony export */ });
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_443206__(/*! ./homonym.js */ "./homonym.js");
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_443206__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_443526__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_443526__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
 ;
 
 
@@ -37150,14 +37161,14 @@ class WordItem {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_448056__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_448376__) => {
 
 "use strict";
-__nested_webpack_require_448056__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_448056__.d(__webpack_exports__, {
+__nested_webpack_require_448376__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_448376__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordList
 /* harmony export */ });
-/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_448056__(/*! ./word-item */ "./word-item.js");
+/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_448376__(/*! ./word-item */ "./word-item.js");
 ;
 
 class WordList {
@@ -37271,7 +37282,7 @@ class WordList {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_451311__(moduleId) {
+/******/ 	function __nested_webpack_require_451631__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -37284,7 +37295,7 @@ class WordList {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_451311__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_451631__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -37294,11 +37305,11 @@ class WordList {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_451311__.n = (module) => {
+/******/ 		__nested_webpack_require_451631__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_451311__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_451631__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -37306,9 +37317,9 @@ class WordList {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_451311__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_451631__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_451311__.o(definition, key) && !__nested_webpack_require_451311__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_451631__.o(definition, key) && !__nested_webpack_require_451631__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -37317,13 +37328,13 @@ class WordList {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_451311__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_451631__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_451311__.r = (exports) => {
+/******/ 		__nested_webpack_require_451631__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -37335,7 +37346,7 @@ class WordList {
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_451311__("./driver.js");
+/******/ 	return __nested_webpack_require_451631__("./driver.js");
 /******/ })()
 ;
 });
@@ -60887,17 +60898,6 @@ class SettingsController {
     return Boolean(this.options.sourceText)
   }
 
-  formattedOptions (localOptions) {
-    const result = {}
-
-    if (localOptions && localOptions.items) {
-      Object.keys(localOptions.items).forEach(nameItem => {
-        result[nameItem] = localOptions.items[nameItem].currentValue
-      })
-    }
-    return result
-  }
-
   /**
    * Creates all type of options from default data
    */
@@ -61296,16 +61296,17 @@ class TokenizeController {
     return false
   }
 
-  static defineTextTokenizationOptions (settingsC, definedLocalOptions = {}) {
+  static defineTextTokenizationOptions (settingsC, definedLocalOptions) {
+    console.info('defineTextTokenizationOptions - ', definedLocalOptions)
+
     if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
       return
     }
 
     let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
 
-    console.info('defineTextTokenizationOptions - ', this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions, definedLocalOptions)
     if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions && definedLocalOptions) {
-      tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(definedLocalOptions))
+      tokenizationOptions = Object.assign(tokenizationOptions, definedLocalOptions.formatLabelValueList)
     }
 
     return tokenizationOptions

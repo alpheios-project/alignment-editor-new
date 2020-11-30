@@ -41,16 +41,17 @@ export default class TokenizeController {
     return false
   }
 
-  static defineTextTokenizationOptions (settingsC, definedLocalOptions = {}) {
+  static defineTextTokenizationOptions (settingsC, definedLocalOptions) {
+    console.info('defineTextTokenizationOptions - ', definedLocalOptions)
+
     if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
       return
     }
 
     let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
 
-    console.info('defineTextTokenizationOptions - ', this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions, definedLocalOptions)
     if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions && definedLocalOptions) {
-      tokenizationOptions = Object.assign(tokenizationOptions, settingsC.formattedOptions(definedLocalOptions))
+      tokenizationOptions = Object.assign(tokenizationOptions, definedLocalOptions.formatLabelValueList)
     }
 
     return tokenizationOptions
