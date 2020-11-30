@@ -46,7 +46,7 @@
         },
         "description": "Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages",
         "selectInput": true,
-        "valuesClass": "Langs"
+        "valuesArray": "Langs"
       }
   }
 }

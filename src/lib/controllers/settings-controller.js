@@ -1,17 +1,13 @@
 import { Options, LocalStorageArea, PsEvent } from 'alpheios-data-models'
 
-import NotificationSingleton from '@/lib/notifications/notification-singleton'
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
-import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+// import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import Langs from '@/lib/data/langs/langs.js'
-
-const valuesClassesList = {
-  Langs: Langs
-}
 
 export default class SettingsController {
   constructor (store) {
@@ -24,6 +20,10 @@ export default class SettingsController {
     }
 
     this.options = {}
+
+    this.valuesClassesList = {
+      Langs: Langs.all
+    }
     this.defineSettings()
   }
 
@@ -56,8 +56,9 @@ export default class SettingsController {
     Object.keys(this.defaultSettings).forEach(defaultSName => {
       this.options[defaultSName] = new Options(this.defaultSettings[defaultSName], new this.storageAdapter(this.defaultSettings[defaultSName].domain)) // eslint-disable-line new-cap
     })
-    this.checkAndUploadClassValues()
-
+    Object.values(this.options).forEach(optionsGroup => {
+      optionsGroup.checkAndUploadValuesFromArray(this.valuesClassesList)
+    })
     this.store.commit('incrementOptionsUpdated')
     this.submitEventUpdateTheme()
   }
@@ -67,28 +68,6 @@ export default class SettingsController {
       theme: this.options.app.items.theme.currentValue,
       themesList: this.options.app.items.theme.values.map(val => val.value)
     })
-  }
-
-  checkAndUploadClassValues () {
-    Object.values(this.options).forEach(optionsGroup => {
-      Object.values(optionsGroup.items).forEach(optionItem => {
-        if (optionItem.valuesClass && !optionItem.values) {
-          this.uploadClassValues(optionItem)
-        }
-      })
-    })
-  }
-
-  uploadClassValues (optionItem) {
-    if (valuesClassesList[optionItem.valuesClass]) {
-      optionItem.values = [...valuesClassesList[optionItem.valuesClass].all]
-      optionItem.defaultValue = optionItem.values[0].value
-    } else {
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('SETTINGS_CONTROLLER_NO_VALUES_CLASS', { className: optionItem.valuesClass }),
-        type: NotificationSingleton.types.ERROR
-      })
-    }
   }
 
   /**
@@ -105,7 +84,6 @@ export default class SettingsController {
   async uploadRemoteSettings () {
     this.options.tokenize = await TokenizeController.uploadOptions(this.storageAdapter)
     this.store.commit('incrementOptionsUpdated')
-    console.info('this.options - ', this.options)
   }
 
   changeOption (optionItem) {
@@ -113,45 +91,24 @@ export default class SettingsController {
       this.submitEventUpdateTheme()
     }
     if (optionItem.name.match('__tokenizer$')) {
-      console.info('changeOption - tokenizer')
       this.store.commit('incrementTokenizerUpdated')
     }
 
     this.store.commit('incrementOptionsUpdated')
   }
 
-  cloneOptions (options, domainPostfix) {
-    const defaults = Object.assign({}, options.defaults)
-
-    defaults.domain = `${defaults.domain}-${domainPostfix}`
-
-    const newOptions = new Options(defaults, new this.storageAdapter(defaults.domain)) // eslint-disable-line new-cap
-    Object.values(newOptions.items).forEach(optionItem => {
-      if (optionItem.valuesClass && !optionItem.values) {
-        optionItem.values = [...valuesClassesList[optionItem.valuesClass].all]
-        optionItem.defaultValue = optionItem.values[0].value
-      }
-    })
-
-    return newOptions
-  }
-
   async cloneTextEditorOptions (typeText, indexText) {
-    const sourceTypes = this.options.sourceText.items.sourceType.values.map(value => value.value)
-    const optionPromises = []
-    const result = {
-      sourceText: this.cloneOptions(this.options.sourceText, `${typeText}-${indexText}`)
+    const clonedOpts = {
+      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
     }
-
-    optionPromises.push(result.sourceText.load())
-
-    sourceTypes.forEach(sourceType => {
-      result[sourceType] = this.cloneOptions(this.options.tokenize[this.tokenizerOptionValue][sourceType], `${typeText}-${indexText}-${sourceType}`)
-      optionPromises.push(result[sourceType].load())
+    Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
+      clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}-${sourceType}`, this.storageAdapter)
     })
+
+    const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
 
     await Promise.all(optionPromises)
-    return result
+    return clonedOpts
   }
 }
 
