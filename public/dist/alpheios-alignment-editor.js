@@ -60154,48 +60154,6 @@ class AlignedController {
   }
 
   /**
-   *
-   * @param {Object} tokenizeParams - params from application settings
-   *         {String} tokenizer - tokenizer name
-   *         {String} segments - parameter for remote service
-   */
-  /*
-   updateTokenizer (tokenizer) {
-    this.tokenizer = this.defineTokenizer(tokenizer)
-  }
-  */
-
-  /**
-   * @returns {Array[String]} - available tokenizer's names
-   */
-  get availableTokenizers () {
-    return ['simpleLocalTokenizer', 'alpheiosRemoteTokenizer']
-  }
-
-  /**
-   * @returns {String} - default tokenizer name
-   */
-  get defaultTokenizer () {
-    return 'alpheiosRemoteTokenizer'
-  }
-
-  /**
-   * @param {String} tokenizer - tokenizer name
-   * @returns {Boolean} - true - tokenizer is supported
-   */
-  tokenizerIsSupported (tokenizer) {
-    return Boolean(tokenizer) && this.availableTokenizers.includes(tokenizer)
-  }
-
-  /**
-   * @param {String} tokenizer - tokenizer name
-   * @returns {String} - final tokenizer name
-   */
-  defineTokenizer (tokenizer) {
-    return this.tokenizerIsSupported(tokenizer) ? tokenizer : this.defaultTokenizer
-  }
-
-  /**
    * Checks the ability to align and creats sets of tokens for each text - origin, target and saves it to the alignment
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
