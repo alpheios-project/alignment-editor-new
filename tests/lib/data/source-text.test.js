@@ -8,14 +8,16 @@ describe('source-text.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
-
-  beforeAll(() => {
-    const appC = new AppController({
+  
+  let appC
+  beforeAll(async () => {
+    appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {
@@ -27,27 +29,41 @@ describe('source-text.test.js', () => {
 
   it('1 SourceText - constructor uploads the following fields - textType, text, direction, lang ', () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
   
     expect(sourceText).toHaveProperty('textType', 'origin')
     expect(sourceText).toHaveProperty('text', 'some text')
     expect(sourceText).toHaveProperty('direction', 'ltr')
     expect(sourceText).toHaveProperty('lang', 'eng')
+    expect(sourceText).toHaveProperty('sourceType', 'text')
+    expect(sourceText).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
   })
 
   it('2 SourceText - update the following fields - textType, text, direction, lang ', () => {
     let sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
   
     sourceText.update({
-      text: 'target text', direction: 'rtl', lang: 'lat'
+      text: 'target text', direction: 'rtl', lang: 'lat', sourceType: 'tei', tokenization: { tokenizer: "alpheiosRemoteTokenizer", segments: "doubline" }
     })
 
     expect(sourceText).toHaveProperty('text', 'target text')
     expect(sourceText).toHaveProperty('direction', 'rtl')
     expect(sourceText).toHaveProperty('lang', 'lat')
+    expect(sourceText).toHaveProperty('sourceType', 'tei')
+    expect(sourceText).toHaveProperty('tokenization', { tokenizer: "alpheiosRemoteTokenizer", segments: "doubline" })
+
+    sourceText.update({
+      tokenization: { segments: "singleline" }
+    })
+
+    expect(sourceText).toHaveProperty('text', 'target text')
+    expect(sourceText).toHaveProperty('direction', 'rtl')
+    expect(sourceText).toHaveProperty('lang', 'lat')
+    expect(sourceText).toHaveProperty('sourceType', 'tei')
+    expect(sourceText).toHaveProperty('tokenization', { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" })
   })
 
   it('3 SourceText - fullyDefined returns true if obligatory fields are defined ', () => {
@@ -62,13 +78,20 @@ describe('source-text.test.js', () => {
     sourceText.update({
       text: 'target text'
     })
-    expect(sourceText.fullyDefined).toBeTruthy() // direction and lang  are defined by default
+    expect(sourceText.fullyDefined).toBeFalsy()
+
     expect(sourceText.direction).toEqual('ltr')
     expect(sourceText.lang).toEqual('eng')
 
     sourceText.update({
       text: 'target text', direction: 'rtl', lang: 'lat'
     })
+    expect(sourceText.fullyDefined).toBeFalsy()
+
+    sourceText.update({
+      sourceType: 'text', tokenization: { tokenizer: "alpheiosRemoteTokenizer" }
+    })
+
     expect(sourceText.fullyDefined).toBeTruthy()
   })
 
@@ -76,25 +99,39 @@ describe('source-text.test.js', () => {
     // no data
     let sourceTextJson = {}
   
-    let sourceText = SourceText.convertFromJSON('origin', sourceTextJson)
+    let sourceText = SourceText.convertFromJSON('target', sourceTextJson)
     expect(sourceText).toBeFalsy()
 
     // data is not fully defined
     sourceTextJson = { text: 'target text' }
 
-    sourceText = SourceText.convertFromJSON('origin', sourceTextJson)
+    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
     expect(sourceText).toBeFalsy()
 
     sourceTextJson = { text: 'target text', direction: 'rtl' }
 
-    sourceText = SourceText.convertFromJSON('origin', sourceTextJson)
+    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
     expect(sourceText).toBeFalsy()
-
-    // data is correct
 
     sourceTextJson = { text: 'target text', direction: 'rtl', lang: 'lat' }
 
-    sourceText = SourceText.convertFromJSON('origin', sourceTextJson)
+    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
+    expect(sourceText).toBeFalsy()
+
+    sourceTextJson = { text: 'target text', direction: 'rtl', lang: 'lat', sourceType: 'text' }
+
+    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
     expect(sourceText).toBeInstanceOf(SourceText)
+
+    sourceTextJson = { text: 'target text', direction: 'rtl', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" } }
+
+    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
+    expect(sourceText).toBeInstanceOf(SourceText)
+    expect(sourceText).toHaveProperty('text', 'target text')
+    expect(sourceText).toHaveProperty('direction', 'rtl')
+    expect(sourceText).toHaveProperty('lang', 'lat')
+    expect(sourceText).toHaveProperty('sourceType', 'text')
+    expect(sourceText).toHaveProperty('tokenization', { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" })
   })
+
 })

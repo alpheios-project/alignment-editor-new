@@ -12,13 +12,15 @@ describe('aligned-text.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeAll(() => {
-    const appC = new AppController({
+  let appC
+  beforeAll(async () => {
+    appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {
@@ -30,19 +32,18 @@ describe('aligned-text.test.js', () => {
 
   it('1 AlignedText - constructor uploads the following fields - textType, tokenizer, direction, lang and executes tokenize method to create tokens', async () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const alignedText1 = new AlignedText({
       docSource: sourceText, 
-      tokenizer: 'simpleLocalTokenizer', 
       tokenPrefix: '5'
     })
 
     await alignedText1.tokenize(sourceText)
   
     expect(alignedText1).toHaveProperty('textType', 'origin')
-    expect(alignedText1).toHaveProperty('tokenizer', 'simpleLocalTokenizer')
+    expect(alignedText1).toHaveProperty('tokenization', { tokenizer: "simpleLocalTokenizer" })
     expect(alignedText1).toHaveProperty('direction', 'ltr')
     expect(alignedText1).toHaveProperty('lang', 'eng')
     expect(alignedText1).toHaveProperty('tokenPrefix', '5') // defined tokenPrefix
@@ -61,23 +62,21 @@ describe('aligned-text.test.js', () => {
 
   it('2 AlignedText - tokenPrefix gives 1 for origin, 2 for target', () => {
     const sourceTextOrigin = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const alignedTextOrigin = new AlignedText({
-      docSource: sourceTextOrigin, 
-      tokenizer: 'simpleLocalTokenizer'
+      docSource: sourceTextOrigin
     })
 
     expect(alignedTextOrigin.tokenPrefix).toEqual('1')
 
     const sourceTextTarget = new SourceText('target', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const alignedTextTarget = new AlignedText({
-      docSource: sourceTextTarget, 
-      tokenizer: 'simpleLocalTokenizer'
+      docSource: sourceTextTarget
     })
 
     expect(alignedTextTarget.tokenPrefix).toEqual('2')
@@ -85,12 +84,11 @@ describe('aligned-text.test.js', () => {
 
   it('3 AlignedText - tokenize - 1. defines tokenize method, 2. get tokens with the method, 3. format to Tokens', async () => {
     const sourceText = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const alignedText = new AlignedText({
-      docSource: sourceText, 
-      tokenizer: 'simpleLocalTokenizer'
+      docSource: sourceText
     })
 
     jest.spyOn(TokenizeController, 'getTokenizer')
@@ -106,12 +104,11 @@ describe('aligned-text.test.js', () => {
 
   it('4 AlignedText - segmentsAmount - returns amount of segments', async () => {
     const sourceText1 = new SourceText('origin', {
-      text: 'some text', direction: 'ltr', lang: 'eng'
+      text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const alignedText1 = new AlignedText({
-      docSource: sourceText1, 
-      tokenizer: 'simpleLocalTokenizer'
+      docSource: sourceText1
     })
 
     await alignedText1.tokenize(sourceText1)
@@ -119,12 +116,11 @@ describe('aligned-text.test.js', () => {
     expect(alignedText1.segmentsAmount).toEqual(1)
 
     const sourceText2 = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng'
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const alignedText2 = new AlignedText({
-      docSource: sourceText2, 
-      tokenizer: 'simpleLocalTokenizer'
+      docSource: sourceText2
     })
 
     await alignedText2.tokenize(sourceText2)

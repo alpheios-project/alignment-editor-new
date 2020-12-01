@@ -60175,7 +60175,7 @@ class AlignedController {
       type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
+    const result = await this.alignment.createAlignedTexts()
 
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
       text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
@@ -61175,35 +61175,6 @@ class TextsController {
     }
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
   }
-
-  /*
-  updateTokenizer (tokenizer) {
-    if (!this.alignment) { return }
-
-    if (this.originDocSource) {
-      this.originDocSource.updateTokenizer(tokenizer)
-    }
-
-    this.allTargetDocSources.forEach(targetDocSource => targetDocSource.updateTokenizer(tokenizer))
-  }
-*/
-  /**
-   * Inits tokenization options for all sourceTexts if they are not still defined
-   * @param {Object} tokenizeOptions  - uploaded default options for remote tokenization service
-   *        {Options} text
-   *        {Options} tei
-   */
-  /*
-  updateDefaultTokenizationOptions (tokenizeOptions) {
-    if (!this.alignment) { return }
-
-    if (this.originDocSource) {
-      this.originDocSource.updateDefaultTokenizationOptions(tokenizeOptions)
-    }
-
-    this.allTargetDocSources.forEach(targetDocSource => targetDocSource.updateDefaultTokenizationOptions(tokenizeOptions))
-  }
-  */
 }
 
 
@@ -61273,9 +61244,13 @@ class TokenizeController {
     return false
   }
 
+  /**
+   * Formats options to the format that would be used by ClientAdapter methods
+   * @param {SettingsController} settingsC
+   * @param {Options} definedLocalOptions
+   * @returns {Object} - name: value for each option
+   */
   static defineTextTokenizationOptions (settingsC, definedLocalOptions) {
-    console.info('defineTextTokenizationOptions - ', definedLocalOptions)
-
     if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
       return
     }
@@ -61289,6 +61264,10 @@ class TokenizeController {
     return tokenizationOptions
   }
 
+  /**
+   * Upload default options values for tokenizers
+   * @param {StorageAdapter} storage
+   */
   static async uploadOptions (storage) {
     const resultOptions = {}
 
@@ -61455,18 +61434,17 @@ __webpack_require__.r(__webpack_exports__);
 
 class AlignedText {
   /**
-   *
-   *
    * @param {SourceText} docSource
-   * @param {String} tokenizer - the name of tokenizer approach
+   * @param {String} tokenPrefix - prefix for tokens
    */
-  constructor ({ docSource, tokenizer, tokenPrefix } = {}) {
+  constructor ({ docSource, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
-    this.tokenizer = tokenizer
     this.direction = docSource.direction
     this.lang = docSource.lang
 
+    this.sourceType = docSource.sourceType
+    this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
   }
 
@@ -62784,7 +62762,7 @@ class SourceText {
     this.text = docSource ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
-    this.sourceType = 'text'
+    this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
   }
 
@@ -62794,6 +62772,10 @@ class SourceText {
 
   get defaultLang () {
     return 'eng'
+  }
+
+  get defaultSourceType () {
+    return 'text'
   }
 
   /**
@@ -62808,7 +62790,9 @@ class SourceText {
     this.direction = docSource.direction ? docSource.direction : this.direction
     this.lang = docSource.lang ? docSource.lang : this.lang
 
-    this.tokenization = docSource.tokenization
+    this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
+
+    this.tokenization = Object.assign(this.tokenization, docSource.tokenization)
   }
 
   /**
@@ -62816,7 +62800,7 @@ class SourceText {
    * @return {Boolean}
    */
   get fullyDefined () {
-    return Boolean(this.textType && this.text && this.direction && this.lang)
+    return Boolean(this.textType && this.text && this.direction && this.lang && this.sourceType && this.tokenization.tokenizer)
   }
 
   /**
@@ -62828,7 +62812,7 @@ class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
-    if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
+    if (!jsonData.text || !jsonData.direction || !jsonData.lang || !jsonData.sourceType) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
@@ -62840,8 +62824,10 @@ class SourceText {
     const text = jsonData.text.replace(/\t/g, '\u000D').trim()
     const direction = jsonData.direction.trim()
     const lang = jsonData.lang.trim()
+    const sourceType = jsonData.sourceType.trim()
+    const tokenization = jsonData.tokenization
 
-    const sourceText = new SourceText(textType, { text, direction, lang })
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
     return sourceText
   }
 }
@@ -63568,14 +63554,12 @@ class AlpheiosRemoteTokenizer {
   static async tokenize (docSource, idPrefix) {
     const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
 
-    console.info('tokenize docSource - ', docSource)
     const fetchOptions = Object.assign({
       lang: docSource.lang,
       sourceType: docSource.sourceType,
       direction: docSource.direction
     }, docSource.tokenization)
 
-    console.info('tokenize fetchOptions - ', fetchOptions)
     const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {
@@ -64957,7 +64941,6 @@ __webpack_require__.r(__webpack_exports__);
       return 'text'
     },
     selectInputLabelsSelect () {
-      console.info('selectInputLabelsSelect - ', this.optionItem, this.labelsListType)
       if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
         return this.optionItem.labelsList[this.labelsListType].selectLabel
       }
@@ -65419,9 +65402,7 @@ __webpack_require__.r(__webpack_exports__);
         sourceType: this.sourceType,
         tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
       }
-      
-      this.$textC[this.updateTextMethod](params)
-
+      this.$textC[this.updateTextMethod](params)  
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)

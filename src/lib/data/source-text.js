@@ -20,7 +20,7 @@ export default class SourceText {
     this.text = docSource ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
-    this.sourceType = 'text'
+    this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
   }
 
@@ -30,6 +30,10 @@ export default class SourceText {
 
   get defaultLang () {
     return 'eng'
+  }
+
+  get defaultSourceType () {
+    return 'text'
   }
 
   /**
@@ -44,7 +48,9 @@ export default class SourceText {
     this.direction = docSource.direction ? docSource.direction : this.direction
     this.lang = docSource.lang ? docSource.lang : this.lang
 
-    this.tokenization = docSource.tokenization
+    this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
+
+    this.tokenization = Object.assign(this.tokenization, docSource.tokenization)
   }
 
   /**
@@ -52,7 +58,7 @@ export default class SourceText {
    * @return {Boolean}
    */
   get fullyDefined () {
-    return Boolean(this.textType && this.text && this.direction && this.lang)
+    return Boolean(this.textType && this.text && this.direction && this.lang && this.sourceType && this.tokenization.tokenizer)
   }
 
   /**
@@ -64,7 +70,7 @@ export default class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
-    if (!jsonData.text || !jsonData.direction || !jsonData.lang) {
+    if (!jsonData.text || !jsonData.direction || !jsonData.lang || !jsonData.sourceType) {
       console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
@@ -76,8 +82,10 @@ export default class SourceText {
     const text = jsonData.text.replace(/\t/g, '\u000D').trim()
     const direction = jsonData.direction.trim()
     const lang = jsonData.lang.trim()
+    const sourceType = jsonData.sourceType.trim()
+    const tokenization = jsonData.tokenization
 
-    const sourceText = new SourceText(textType, { text, direction, lang })
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
     return sourceText
   }
 }

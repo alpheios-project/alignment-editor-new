@@ -16,13 +16,14 @@ describe('texts-controller.test.js', () => {
   console.warn = function () {}
 
   let appC
-  beforeAll(() => {
+  beforeAll(async () => {
     appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {
@@ -31,7 +32,7 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-
+/*
   it('1 TextsController - createAlignment defines alignment object ', () => {
     const textsC = new TextsController(appC.store)
 
@@ -43,7 +44,14 @@ describe('texts-controller.test.js', () => {
   it('2 TextsController - couldStartAlign returns true if all texts defined properly', () => {
     const textsC = new TextsController(appC.store)
 
-    textsC.createAlignment({ text: 'originDocSource', direction: 'ltr', lang: 'lat' }, { text: 'targetDocSource', direction: 'ltr', lang: 'lat' })
+    const originDocSource = new SourceText('origin', {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('origin', {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    textsC.createAlignment(originDocSource, targetDocSource)
 
     expect(textsC.couldStartAlign).toBeTruthy()
     textsC.updateTargetDocSource({ text: '', direction: 'ltr', lang: 'lat' })
@@ -55,11 +63,15 @@ describe('texts-controller.test.js', () => {
     const textsC = new TextsController(appC.store)
 
     jest.spyOn(textsC, 'createAlignment')
-    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateOriginDocSource(docSource)
+    
+    const originDocSource = new SourceText('origin', {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    textsC.updateOriginDocSource(originDocSource)
 
     expect(textsC.alignment).toBeDefined()
-    expect(textsC.createAlignment).toHaveBeenCalledWith(docSource, null)
+    expect(textsC.createAlignment).toHaveBeenCalledWith(originDocSource, null)
   })
 
   it('4 TextsController - updateOriginDocSource updates origin document source to an existed alignment object ', () => {
@@ -70,11 +82,14 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC, 'createAlignment')
     jest.spyOn(textsC.alignment, 'updateOriginDocSource')
 
-    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateOriginDocSource(docSource)
+    const originDocSource = new SourceText('origin', {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    textsC.updateOriginDocSource(originDocSource)
 
     expect(textsC.createAlignment).not.toHaveBeenCalled()
-    expect(textsC.alignment.updateOriginDocSource).toHaveBeenCalledWith(docSource)
+    expect(textsC.alignment.updateOriginDocSource).toHaveBeenCalledWith(originDocSource)
   })
 
   it('5 TextsController - updateTargetDocSource updates target document source to an existed alignment object ', () => {
@@ -85,24 +100,36 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC, 'createAlignment')
     jest.spyOn(textsC.alignment, 'updateTargetDocSource')
 
-    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSource)
+    const originDocSource = new SourceText('target', {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    textsC.updateTargetDocSource(originDocSource)
 
     expect(textsC.createAlignment).not.toHaveBeenCalled()
-    expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith(docSource, undefined)
+    expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith(originDocSource, undefined)
   })
-
+*/
   it('6 TextsController - deleteText removes target source text', () => {
     const textsC = new TextsController(appC.store)
 
-    textsC.createAlignment({ text: 'originDocSource', direction: 'ltr', lang: 'lat' }, null)
+    const originDocSource = new SourceText('origin', {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const docSource = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    textsC.createAlignment(originDocSource, null)
 
-    textsC.updateTargetDocSource(docSource, textsC.allTargetTextsIds[0])
+    const targetDocSource = {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
 
-    const docSource2 = { text: 'targetDocSource2', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSource2)
+    textsC.updateTargetDocSource(targetDocSource, textsC.allTargetTextsIds[0])
+
+    const targetDocSource2 = new SourceText('target', {
+      text: 'targetDocSource2', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    textsC.updateTargetDocSource(targetDocSource2)
     
     textsC.deleteText('origin', textsC.alignment.origin.docSource.id) // will do nothing
 
@@ -114,7 +141,6 @@ describe('texts-controller.test.js', () => {
 
     textsC.deleteText('target', textsC.allTargetTextsIds[0]) // won't delete because we couldn't delete the last target text
     expect(textsC.allTargetTextsIds.length).toEqual(1)
-
   })
 
 
@@ -123,21 +149,30 @@ describe('texts-controller.test.js', () => {
 
     expect(textsC.originDocSource).toBeNull()
 
-    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateOriginDocSource(docSource)
+    const originDocSource = new SourceText('origin', {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    textsC.updateOriginDocSource(originDocSource)
     expect(textsC.originDocSource).toBeInstanceOf(SourceText)
   })
+
 
   it('8 TextsController - allTargetTextsIds returns an array with all targetIds', () => {
     const textsC = new TextsController(appC.store)
 
-    const docSourceOrigin = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateOriginDocSource(docSourceOrigin)
+    const originDocSource = new SourceText('origin', {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    textsC.updateOriginDocSource(originDocSource)
 
     expect(textsC.allTargetTextsIds.length).toEqual(1)
 
-    const docSourceTarget = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
-    textsC.updateTargetDocSource(docSourceTarget, textsC.allTargetTextsIds[0])
+    const targetDocSource = {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
+
+    textsC.updateTargetDocSource(targetDocSource, textsC.allTargetTextsIds[0])
     expect(textsC.allTargetTextsIds.length).toEqual(1)
   })
 
@@ -146,10 +181,14 @@ describe('texts-controller.test.js', () => {
 
     expect(textsC.originDocSource).toBeNull()
 
-    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
+    const docSource =  {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
     textsC.updateOriginDocSource(docSource)
 
-    const docSourceTarget = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    const docSourceTarget =  {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
     textsC.updateTargetDocSource(docSourceTarget)
 
     const targetId = textsC.allTargetTextsIds[0]
@@ -162,10 +201,14 @@ describe('texts-controller.test.js', () => {
 
     expect(textsC.originDocSource).toBeNull()
 
-    const docSource = { text: 'originDocSource', direction: 'ltr', lang: 'lat' }
+    const docSource =  {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
     textsC.updateOriginDocSource(docSource)
 
-    const docSourceTarget = { text: 'targetDocSource', direction: 'ltr', lang: 'lat' }
+    const docSourceTarget =  {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
     textsC.updateTargetDocSource(docSourceTarget)
 
     const targetId = textsC.allTargetTextsIds[0]

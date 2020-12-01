@@ -3,18 +3,17 @@ import Segment from '@/lib/data/segment'
 
 export default class AlignedText {
   /**
-   *
-   *
    * @param {SourceText} docSource
-   * @param {String} tokenizer - the name of tokenizer approach
+   * @param {String} tokenPrefix - prefix for tokens
    */
-  constructor ({ docSource, tokenizer, tokenPrefix } = {}) {
+  constructor ({ docSource, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
-    this.tokenizer = tokenizer
     this.direction = docSource.direction
     this.lang = docSource.lang
 
+    this.sourceType = docSource.sourceType
+    this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
   }
 

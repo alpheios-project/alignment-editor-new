@@ -143,7 +143,6 @@ export default {
       return 'text'
     },
     selectInputLabelsSelect () {
-      console.info('selectInputLabelsSelect - ', this.optionItem, this.labelsListType)
       if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
         return this.optionItem.labelsList[this.labelsListType].selectLabel
       }

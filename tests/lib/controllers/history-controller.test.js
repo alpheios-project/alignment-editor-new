@@ -4,6 +4,7 @@
 import HistoryController from '@/lib/controllers/history-controller.js'
 import AppController from '@/lib/controllers/app-controller.js'
 import Alignment from '@/lib/data/alignment.js'
+import SourceText from '@/lib/data/source-text'
 
 describe('history-controller.test.js', () => {
   console.error = function () {}
@@ -11,13 +12,14 @@ describe('history-controller.test.js', () => {
   console.warn = function () {}
 
   let appC
-  beforeAll(() => {
+  beforeAll(async () => {
     appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {
@@ -39,20 +41,19 @@ describe('history-controller.test.js', () => {
   it('2 HistoryController - undo - if there is an active alignment group and it has more than 1 token, then it would execute alignment.undoInActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const sourceTextTarget = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-
-    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     alignment.undoInActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
 
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
+    await alignment.createAlignedTexts()
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[1])
 
@@ -63,20 +64,19 @@ describe('history-controller.test.js', () => {
   it('3 HistoryController - undo - if there is an active alignment group and it has only 1 token, then it would execute alignment.undoActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const sourceTextTarget = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-
-    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     alignment.undoActiveGroup = jest.fn()
     
     historyC.startTracking(alignment)
 
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
+    await alignment.createAlignedTexts()
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
 
     historyC.undo()
@@ -86,22 +86,21 @@ describe('history-controller.test.js', () => {
   it('4 HistoryController - undo - if there are no active alignment group and it has saved groups - then it would execute alignment.activateGroupByGroupIndex', async () => {
     const historyC = new HistoryController(appC.store)
 
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const sourceTextTarget = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-
-    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
 
     alignment.activateGroupByGroupIndex = jest.fn()
     
     historyC.startTracking(alignment)
 
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
+    await alignment.createAlignedTexts()
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
     alignment.finishActiveAlignmentGroup()
@@ -113,21 +112,20 @@ describe('history-controller.test.js', () => {
   it('5 HistoryController - redo - if there is an active alignment group and it has future undone steps, then it would execute alignment.redoInActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const sourceTextTarget = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-
-    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
     alignment.redoInActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
 
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
+    await alignment.createAlignedTexts()
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
@@ -139,21 +137,20 @@ describe('history-controller.test.js', () => {
   it('6 HistoryController - redo - if there is an active alignment group and it has no future undone steps, then it would not execute alignment.returnActiveGroupToList', async () => {
     const historyC = new HistoryController(appC.store)
 
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const sourceTextTarget = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-    
-    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
     alignment.returnActiveGroupToList = jest.fn()
 
     historyC.startTracking(alignment)
 
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
+    await alignment.createAlignedTexts()
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[1])
 
@@ -164,21 +161,20 @@ describe('history-controller.test.js', () => {
   it('7 HistoryController - redo - if there are no active alignment group and it has future undone groups, then it would execute alignment.redoActiveGroup', async () => {
     const historyC = new HistoryController(appC.store)
 
-    const sourceTextOrigin = {
-      text: 'origin some text', direction: 'ltr', lang: 'lat'
-    }
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
 
-    const sourceTextTarget = {
-      text: 'target some text', direction: 'ltr', lang: 'lat'
-    }
-
-    let alignment = new Alignment(sourceTextOrigin, sourceTextTarget)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
     alignment.redoActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
 
-    await alignment.createAlignedTexts('simpleLocalTokenizer')
+    await alignment.createAlignedTexts()
     
     alignment.startNewAlignmentGroup(alignment.origin.alignedText.segments[0].tokens[0])
     alignment.addToAlignmentGroup(alignment.targets[targetId].alignedText.segments[0].tokens[0])

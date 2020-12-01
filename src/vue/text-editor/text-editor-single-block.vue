@@ -188,9 +188,7 @@ export default {
         sourceType: this.sourceType,
         tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
       }
-      
-      this.$textC[this.updateTextMethod](params)
-
+      this.$textC[this.updateTextMethod](params)  
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)

@@ -11,14 +11,12 @@ export default class AlpheiosRemoteTokenizer {
   static async tokenize (docSource, idPrefix) {
     const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
 
-    console.info('tokenize docSource - ', docSource)
     const fetchOptions = Object.assign({
       lang: docSource.lang,
       sourceType: docSource.sourceType,
       direction: docSource.direction
     }, docSource.tokenization)
 
-    console.info('tokenize fetchOptions - ', fetchOptions)
     const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',
       params: {

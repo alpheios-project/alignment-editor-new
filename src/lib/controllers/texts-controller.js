@@ -162,33 +162,4 @@ export default class TextsController {
     }
     return DownloadController.download(downloadType, data)
   }
-
-  /*
-  updateTokenizer (tokenizer) {
-    if (!this.alignment) { return }
-
-    if (this.originDocSource) {
-      this.originDocSource.updateTokenizer(tokenizer)
-    }
-
-    this.allTargetDocSources.forEach(targetDocSource => targetDocSource.updateTokenizer(tokenizer))
-  }
-*/
-  /**
-   * Inits tokenization options for all sourceTexts if they are not still defined
-   * @param {Object} tokenizeOptions  - uploaded default options for remote tokenization service
-   *        {Options} text
-   *        {Options} tei
-   */
-  /*
-  updateDefaultTokenizationOptions (tokenizeOptions) {
-    if (!this.alignment) { return }
-
-    if (this.originDocSource) {
-      this.originDocSource.updateDefaultTokenizationOptions(tokenizeOptions)
-    }
-
-    this.allTargetDocSources.forEach(targetDocSource => targetDocSource.updateDefaultTokenizationOptions(tokenizeOptions))
-  }
-  */
 }

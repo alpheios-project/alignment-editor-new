@@ -41,9 +41,13 @@ export default class TokenizeController {
     return false
   }
 
+  /**
+   * Formats options to the format that would be used by ClientAdapter methods
+   * @param {SettingsController} settingsC
+   * @param {Options} definedLocalOptions
+   * @returns {Object} - name: value for each option
+   */
   static defineTextTokenizationOptions (settingsC, definedLocalOptions) {
-    console.info('defineTextTokenizationOptions - ', definedLocalOptions)
-
     if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
       return
     }
@@ -57,6 +61,10 @@ export default class TokenizeController {
     return tokenizationOptions
   }
 
+  /**
+   * Upload default options values for tokenizers
+   * @param {StorageAdapter} storage
+   */
   static async uploadOptions (storage) {
     const resultOptions = {}
 

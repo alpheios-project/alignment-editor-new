@@ -31,7 +31,7 @@ export default class AlignedController {
       type: NotificationSingleton.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
+    const result = await this.alignment.createAlignedTexts()
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
