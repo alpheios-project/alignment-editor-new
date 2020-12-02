@@ -15,17 +15,12 @@ describe('target-texts.test.js', () => {
       appId:'alpheios-alignment-editor'
     })
     appC.defineStore()
-    await appC.defineSettingsController()
-
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+
+    await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
-
-    appC.updateTokenizerData({
-      tokenizer: 'simpleLocalTokenizer'
-    })
-
     appC.defineHistoryController(appC.store)
   })
   
@@ -41,19 +36,32 @@ describe('target-texts.test.js', () => {
 
     // add origin doc source
     cmp.vm.$textC.updateOriginDocSource({
-      text: 'Humano capiti cervicem pictor equinam'
+      text: 'Humano capiti cervicem pictor equinam',
+      lang: 'lat',
+      direction: 'ltr',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     // add the first target doc source
     cmp.vm.$textC.updateTargetDocSource({
       text: 'Human head neck painter equinam',
-      lang: 'lat'
+      lang: 'lat',
+      direction: 'ltr',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     // add the second target doc source
     cmp.vm.$textC.updateTargetDocSource({
       text: 'join if you choose, and the various to bring the feathers,',
-      lang: 'lat'
+      lang: 'lat',
+      direction: 'ltr',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     // create aligned texts
