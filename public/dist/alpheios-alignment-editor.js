@@ -60891,7 +60891,9 @@ class SettingsController {
    * @returns {Boolean} - true - if tokenize options are already defined
    */
   get tokenizerOptionsLoaded () {
-    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
+    // console.info('tokenizerOptionsLoaded - ', this.tokenizerOptionValue, this.options.tokenize)
+    // console.info('tokenizerOptionsLoaded - result', TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize))
+    return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize)
   }
 
   /**
@@ -60970,14 +60972,28 @@ class SettingsController {
     const clonedOpts = {
       sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
     }
-    Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-      clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}-${sourceType}`, this.storageAdapter)
-    })
 
+    if (this.options.tokenize && this.options.tokenize[this.tokenizerOptionValue]) {
+      Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
+        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}-${sourceType}`, this.storageAdapter)
+      })
+    }
     const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
-
     await Promise.all(optionPromises)
+
     return clonedOpts
+  }
+
+  updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
+    if (sourceTextData.lang) {
+      localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+    }
+    if (sourceTextData.direction) {
+      localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+    }
+    if (sourceTextData.sourceType) {
+      localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+    }
   }
 }
 
@@ -61226,6 +61242,13 @@ class TokenizeController {
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this)
       }
     }
+  }
+
+  static fullyDefinedOptions (tokenizer, tokenizeOptions) {
+    return Boolean(this.tokenizeMethods[tokenizer]) &&
+           (!this.tokenizeMethods[tokenizer].hasOptions ||
+              (this.tokenizeMethods[tokenizer].hasOptions && Boolean(tokenizeOptions))
+           )
   }
 
   /**
@@ -65368,6 +65391,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
+      // console.info('direction - this.$store.state.optionsUpdated', this.$store.state.optionsUpdated)
+      // console.info('direction - this.localTextEditorOptions.ready', this.localTextEditorOptions.ready)
+      // console.info('direction - this.localTextEditorOptions.sourceText.items.direction', this.localTextEditorOptions.sourceText)
+
       return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
@@ -65378,16 +65405,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    
     updateFromExternal () {
-      /*
-      const data = this.$textC.getDocSource(this.textType, this.textId)
-      if (data && data.lang) {
-        this.text = data.text
-        // this.direction = data.direction
-        this.updateLang(data.lang)
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      if (sourceTextData) {
+        this.text = sourceTextData.text
+        this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
       }
-      */
     },
 
     /**
@@ -65410,6 +65433,7 @@ __webpack_require__.r(__webpack_exports__);
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
+
       this.updateText()
     }
   }

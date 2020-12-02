@@ -45,7 +45,9 @@ export default class SettingsController {
    * @returns {Boolean} - true - if tokenize options are already defined
    */
   get tokenizerOptionsLoaded () {
-    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
+    // console.info('tokenizerOptionsLoaded - ', this.tokenizerOptionValue, this.options.tokenize)
+    // console.info('tokenizerOptionsLoaded - result', TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize))
+    return TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize)
   }
 
   /**
@@ -124,14 +126,28 @@ export default class SettingsController {
     const clonedOpts = {
       sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
     }
-    Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-      clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}-${sourceType}`, this.storageAdapter)
-    })
 
+    if (this.options.tokenize && this.options.tokenize[this.tokenizerOptionValue]) {
+      Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
+        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}-${sourceType}`, this.storageAdapter)
+      })
+    }
     const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
-
     await Promise.all(optionPromises)
+
     return clonedOpts
+  }
+
+  updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
+    if (sourceTextData.lang) {
+      localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+    }
+    if (sourceTextData.direction) {
+      localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+    }
+    if (sourceTextData.sourceType) {
+      localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+    }
   }
 }
 

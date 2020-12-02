@@ -13,7 +13,7 @@ localVue.use(Vuex)
 
 let appC
 
-describe('main-menu.test.js', () => {
+describe('app.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
@@ -28,10 +28,10 @@ describe('main-menu.test.js', () => {
     })
     
     appC.defineStore()
-    await appC.defineSettingsController()
-
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+
+    await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
     appC.defineHistoryController(appC.store)

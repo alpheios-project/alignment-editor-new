@@ -31,33 +31,41 @@ describe('align-editor-tabs.test.js', () => {
       appId:'alpheios-alignment-editor'
     })
     
-    appC.defineStore()
-    await appC.defineSettingsController()
-
-    appC.defineL10Support()
-    appC.defineNotificationSupport(appC.store)
-    appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
-
-    appC.updateTokenizerData({
-      tokenizer: 'simpleLocalTokenizer'
+    appC = new AppController({
+      appId:'alpheios-alignment-editor'
     })
     
+    appC.defineStore()
+    appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
+
+    await appC.defineSettingsController()
+    appC.defineTextController(appC.store)
+    appC.defineAlignedController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
     appC.historyC.startTracking(appC.textC.alignment)
+    
+    appC.textC.createAlignment()
+    appC.historyC.startTracking(appC.textC.alignment)
 
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat'
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     const targetDocSource2 = new SourceText('target', {
-      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat'
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     appC.textC.alignment.updateOriginDocSource(originDocSource)

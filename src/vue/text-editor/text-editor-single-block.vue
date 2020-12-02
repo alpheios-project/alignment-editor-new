@@ -154,6 +154,10 @@ export default {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
+      // console.info('direction - this.$store.state.optionsUpdated', this.$store.state.optionsUpdated)
+      // console.info('direction - this.localTextEditorOptions.ready', this.localTextEditorOptions.ready)
+      // console.info('direction - this.localTextEditorOptions.sourceText.items.direction', this.localTextEditorOptions.sourceText)
+
       return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
@@ -164,16 +168,12 @@ export default {
     }
   },
   methods: {
-    
     updateFromExternal () {
-      /*
-      const data = this.$textC.getDocSource(this.textType, this.textId)
-      if (data && data.lang) {
-        this.text = data.text
-        // this.direction = data.direction
-        this.updateLang(data.lang)
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      if (sourceTextData) {
+        this.text = sourceTextData.text
+        this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
       }
-      */
     },
 
     /**
@@ -196,6 +196,7 @@ export default {
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
+
       this.updateText()
     }
   }

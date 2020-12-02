@@ -25,6 +25,13 @@ export default class TokenizeController {
     }
   }
 
+  static fullyDefinedOptions (tokenizer, tokenizeOptions) {
+    return Boolean(this.tokenizeMethods[tokenizer]) &&
+           (!this.tokenizeMethods[tokenizer].hasOptions ||
+              (this.tokenizeMethods[tokenizer].hasOptions && Boolean(tokenizeOptions))
+           )
+  }
+
   /**
    * Selects correct tokenizer method by its name
    * @param {String} tokenizer - workflow's name
