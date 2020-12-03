@@ -46,7 +46,7 @@ export default class AppController {
     if (this.settingsC.themeOptionValue) {
       this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
     }
-    if (this.pageSettings.appId) {
+    if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
   }
@@ -54,6 +54,7 @@ export default class AppController {
   /**
    *
    * @param {String} theme - theme name
+   * @param {Array[String]} themesList - available theme's names
    */
   defineColorTheme ({ theme, themesList }) {
     themesList.forEach(themeItem => {

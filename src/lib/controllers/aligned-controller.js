@@ -31,22 +31,22 @@ export default class AlignedController {
       type: NotificationSingleton.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts()
+    const resultAlignment = await this.alignment.createAlignedTexts()
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
       type: NotificationSingleton.types.INFO
     })
 
-    if (!result) {
+    if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
       this.store.commit('incrementAlignmentUpdated')
       return false
     }
 
-    const res2 = this.alignment.equalSegmentsAmount
+    const resultSegmentsCheck = this.alignment.equalSegmentsAmount
 
-    if (!res2) {
+    if (!resultSegmentsCheck) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'),
@@ -57,7 +57,7 @@ export default class AlignedController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
-    return result
+    return resultAlignment
   }
 
   /**

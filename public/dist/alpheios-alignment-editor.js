@@ -60175,22 +60175,22 @@ class AlignedController {
       type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts()
+    const resultAlignment = await this.alignment.createAlignedTexts()
 
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
       text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
       type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
     })
 
-    if (!result) {
+    if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
       this.store.commit('incrementAlignmentUpdated')
       return false
     }
 
-    const res2 = this.alignment.equalSegmentsAmount
+    const resultSegmentsCheck = this.alignment.equalSegmentsAmount
 
-    if (!res2) {
+    if (!resultSegmentsCheck) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'),
@@ -60201,7 +60201,7 @@ class AlignedController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
-    return result
+    return resultAlignment
   }
 
   /**
@@ -60507,7 +60507,7 @@ class AppController {
     if (this.settingsC.themeOptionValue) {
       this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
     }
-    if (this.pageSettings.appId) {
+    if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
   }
@@ -60515,6 +60515,7 @@ class AppController {
   /**
    *
    * @param {String} theme - theme name
+   * @param {Array[String]} themesList - available theme's names
    */
   defineColorTheme ({ theme, themesList }) {
     themesList.forEach(themeItem => {
@@ -60697,12 +60698,12 @@ class DownloadController {
       })
       return false
     }
-    let fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang] // eslint-disable-line prefer-const
+    let fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang, data.originDocSource.sourceType] // eslint-disable-line prefer-const
 
     let langs = [] // eslint-disable-line prefer-const
 
     data.targetDocSources.forEach(targetText => {
-      fields.push(...[targetText.text, targetText.direction, targetText.lang])
+      fields.push(...[targetText.text, targetText.direction, targetText.lang, targetText.sourceType])
 
       if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
     })
@@ -60891,8 +60892,6 @@ class SettingsController {
    * @returns {Boolean} - true - if tokenize options are already defined
    */
   get tokenizerOptionsLoaded () {
-    // console.info('tokenizerOptionsLoaded - ', this.tokenizerOptionValue, this.options.tokenize)
-    // console.info('tokenizerOptionsLoaded - result', TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize))
     return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize)
   }
 
@@ -61244,6 +61243,11 @@ class TokenizeController {
     }
   }
 
+  /**
+   * Checks if options are enough for the tokenizer
+   * @param {String} tokenizer - tokenizer name, as it is defined in tokenizeMethods
+   * @param {Options} tokenizeOptions
+   */
   static fullyDefinedOptions (tokenizer, tokenizeOptions) {
     return Boolean(this.tokenizeMethods[tokenizer]) &&
            (!this.tokenizeMethods[tokenizer].hasOptions ||
@@ -61269,18 +61273,18 @@ class TokenizeController {
 
   /**
    * Formats options to the format that would be used by ClientAdapter methods
-   * @param {SettingsController} settingsC
+   * @param {String} tokenizer
    * @param {Options} definedLocalOptions
    * @returns {Object} - name: value for each option
    */
-  static defineTextTokenizationOptions (settingsC, definedLocalOptions) {
-    if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
+  static defineTextTokenizationOptions (tokenizer, definedLocalOptions) {
+    if (!this.tokenizeMethods[tokenizer]) {
       return
     }
 
-    let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
+    let tokenizationOptions = { tokenizer: tokenizer }
 
-    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions && definedLocalOptions) {
+    if (this.tokenizeMethods[tokenizer].hasOptions && definedLocalOptions) {
       tokenizationOptions = Object.assign(tokenizationOptions, definedLocalOptions.formatLabelValueList)
     }
 
@@ -61288,8 +61292,9 @@ class TokenizeController {
   }
 
   /**
-   * Upload default options values for tokenizers
+   * Upload default options values for tokenizers (for now only for the alpheiosRemoteTokenizer)
    * @param {StorageAdapter} storage
+   * @returns {Object} - tokenizerName: { sourceType: Options }
    */
   static async uploadOptions (storage) {
     const resultOptions = {}
@@ -61305,6 +61310,11 @@ class TokenizeController {
     return resultOptions
   }
 
+  /**
+   * Options upload method for alpheiosRemoteTokenizer tokenizer
+   * @param {StorageAdapter} storage
+   * @returns {Object} - tokenizerName: { sourceType: Options }
+   */
   static async uploadDefaultRemoteTokenizeOptions (storage) {
     const adapterTokenizerRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__.ClientAdapters.tokenizationGroup.alpheios({
       method: 'getConfig',
@@ -61403,7 +61413,7 @@ class UploadController {
     }
     const fileData = fileString.split(/\r\n|\r|\n/)
 
-    if (!Array.isArray(fileData) || fileData.length < 6) {
+    if (!Array.isArray(fileData) || fileData.length < 8) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61412,17 +61422,18 @@ class UploadController {
       return
     }
 
-    const originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] })
+    const originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2], sourceType: fileData[3] })
     const targetDocSources = []
 
-    let i = 3
+    let i = 4
     while (i < fileData.length) {
       const text = fileData[i]
       const direction = fileData[i + 1]
       const lang = fileData[i + 2]
+      const sourceType = fileData[i + 3]
 
-      targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { text, direction, lang }))
-      i = i + 3
+      targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { text, direction, lang, sourceType }))
+      i = i + 4
     }
 
     return {
@@ -64708,6 +64719,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     toggleOptionsTitle () {
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
+    },
+    addTargetAvailable () {
+      return this.docSourceEditAvailable && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     }
   },
   methods: {
@@ -65303,7 +65317,7 @@ __webpack_require__.r(__webpack_exports__);
       text: null,
       prevText: null,
 
-      localTextEditorOptions: {}
+      localTextEditorOptions: { ready: false }
     }
   },
   /**
@@ -65328,7 +65342,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
-    dataUpdated () {
+    async dataUpdated () {
+      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTextEditorOptions()
+      }
       this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
@@ -65391,10 +65408,6 @@ __webpack_require__.r(__webpack_exports__);
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      // console.info('direction - this.$store.state.optionsUpdated', this.$store.state.optionsUpdated)
-      // console.info('direction - this.localTextEditorOptions.ready', this.localTextEditorOptions.ready)
-      // console.info('direction - this.localTextEditorOptions.sourceText.items.direction', this.localTextEditorOptions.sourceText)
-
       return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
@@ -65417,15 +65430,17 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     updateText () {
-      const params = {
-        text: this.text,
-        direction: this.direction,
-        lang: this.language,
-        id: this.textId,
-        sourceType: this.sourceType,
-        tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
+      if (this.text) {
+        const params = {
+          text: this.text,
+          direction: this.direction,
+          lang: this.language,
+          id: this.textId,
+          sourceType: this.sourceType,
+          tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+        }
+        this.$textC[this.updateTextMethod](params)  
       }
-      this.$textC[this.updateTextMethod](params)  
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
@@ -67682,7 +67697,7 @@ var render = function() {
             staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-add-target",
-              disabled: !_vm.docSourceEditAvailable
+              disabled: !_vm.addTargetAvailable
             },
             on: {
               click: function($event) {

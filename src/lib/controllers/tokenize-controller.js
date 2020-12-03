@@ -25,6 +25,11 @@ export default class TokenizeController {
     }
   }
 
+  /**
+   * Checks if options are enough for the tokenizer
+   * @param {String} tokenizer - tokenizer name, as it is defined in tokenizeMethods
+   * @param {Options} tokenizeOptions
+   */
   static fullyDefinedOptions (tokenizer, tokenizeOptions) {
     return Boolean(this.tokenizeMethods[tokenizer]) &&
            (!this.tokenizeMethods[tokenizer].hasOptions ||
@@ -50,18 +55,18 @@ export default class TokenizeController {
 
   /**
    * Formats options to the format that would be used by ClientAdapter methods
-   * @param {SettingsController} settingsC
+   * @param {String} tokenizer
    * @param {Options} definedLocalOptions
    * @returns {Object} - name: value for each option
    */
-  static defineTextTokenizationOptions (settingsC, definedLocalOptions) {
-    if (!this.tokenizeMethods[settingsC.tokenizerOptionValue]) {
+  static defineTextTokenizationOptions (tokenizer, definedLocalOptions) {
+    if (!this.tokenizeMethods[tokenizer]) {
       return
     }
 
-    let tokenizationOptions = { tokenizer: settingsC.tokenizerOptionValue }
+    let tokenizationOptions = { tokenizer: tokenizer }
 
-    if (this.tokenizeMethods[tokenizationOptions.tokenizer].hasOptions && definedLocalOptions) {
+    if (this.tokenizeMethods[tokenizer].hasOptions && definedLocalOptions) {
       tokenizationOptions = Object.assign(tokenizationOptions, definedLocalOptions.formatLabelValueList)
     }
 
@@ -69,8 +74,9 @@ export default class TokenizeController {
   }
 
   /**
-   * Upload default options values for tokenizers
+   * Upload default options values for tokenizers (for now only for the alpheiosRemoteTokenizer)
    * @param {StorageAdapter} storage
+   * @returns {Object} - tokenizerName: { sourceType: Options }
    */
   static async uploadOptions (storage) {
     const resultOptions = {}
@@ -86,6 +92,11 @@ export default class TokenizeController {
     return resultOptions
   }
 
+  /**
+   * Options upload method for alpheiosRemoteTokenizer tokenizer
+   * @param {StorageAdapter} storage
+   * @returns {Object} - tokenizerName: { sourceType: Options }
+   */
   static async uploadDefaultRemoteTokenizeOptions (storage) {
     const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
       method: 'getConfig',

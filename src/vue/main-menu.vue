@@ -6,7 +6,7 @@
                 {{ toggleOptionsTitle }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-add-target" 
-                @click="$emit('add-target')" :disabled="!docSourceEditAvailable" >
+                @click="$emit('add-target')" :disabled="!addTargetAvailable" >
                 {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
         </button>
 
@@ -74,6 +74,9 @@ export default {
     },
     toggleOptionsTitle () {
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
+    },
+    addTargetAvailable () {
+      return this.docSourceEditAvailable && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     }
   },
   methods: {

@@ -66,7 +66,7 @@ export default {
       text: null,
       prevText: null,
 
-      localTextEditorOptions: {}
+      localTextEditorOptions: { ready: false }
     }
   },
   /**
@@ -91,7 +91,10 @@ export default {
     }
   },
   computed: {
-    dataUpdated () {
+    async dataUpdated () {
+      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTextEditorOptions()
+      }
       this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
@@ -154,10 +157,6 @@ export default {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      // console.info('direction - this.$store.state.optionsUpdated', this.$store.state.optionsUpdated)
-      // console.info('direction - this.localTextEditorOptions.ready', this.localTextEditorOptions.ready)
-      // console.info('direction - this.localTextEditorOptions.sourceText.items.direction', this.localTextEditorOptions.sourceText)
-
       return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
@@ -180,15 +179,17 @@ export default {
      * Emits update-text event with data from properties
      */
     updateText () {
-      const params = {
-        text: this.text,
-        direction: this.direction,
-        lang: this.language,
-        id: this.textId,
-        sourceType: this.sourceType,
-        tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC, this.localTextEditorOptions[this.sourceType])
+      if (this.text) {
+        const params = {
+          text: this.text,
+          direction: this.direction,
+          lang: this.language,
+          id: this.textId,
+          sourceType: this.sourceType,
+          tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+        }
+        this.$textC[this.updateTextMethod](params)  
       }
-      this.$textC[this.updateTextMethod](params)  
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)

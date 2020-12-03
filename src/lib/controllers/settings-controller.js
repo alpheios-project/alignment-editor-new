@@ -45,8 +45,6 @@ export default class SettingsController {
    * @returns {Boolean} - true - if tokenize options are already defined
    */
   get tokenizerOptionsLoaded () {
-    // console.info('tokenizerOptionsLoaded - ', this.tokenizerOptionValue, this.options.tokenize)
-    // console.info('tokenizerOptionsLoaded - result', TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize))
     return TokenizeController.fullyDefinedOptions(this.tokenizerOptionValue, this.options.tokenize)
   }
 

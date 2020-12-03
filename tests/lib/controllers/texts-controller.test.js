@@ -32,7 +32,7 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-/*
+
   it('1 TextsController - createAlignment defines alignment object ', () => {
     const textsC = new TextsController(appC.store)
 
@@ -109,7 +109,7 @@ describe('texts-controller.test.js', () => {
     expect(textsC.createAlignment).not.toHaveBeenCalled()
     expect(textsC.alignment.updateTargetDocSource).toHaveBeenCalledWith(originDocSource, undefined)
   })
-*/
+
   it('6 TextsController - deleteText removes target source text', () => {
     const textsC = new TextsController(appC.store)
 
