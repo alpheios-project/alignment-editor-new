@@ -61238,7 +61238,8 @@ class TokenizeController {
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
         hasOptions: true,
-        uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this)
+        uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
+        checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this)
       }
     }
   }
@@ -61251,8 +61252,12 @@ class TokenizeController {
   static fullyDefinedOptions (tokenizer, tokenizeOptions) {
     return Boolean(this.tokenizeMethods[tokenizer]) &&
            (!this.tokenizeMethods[tokenizer].hasOptions ||
-              (this.tokenizeMethods[tokenizer].hasOptions && Boolean(tokenizeOptions))
+              (this.tokenizeMethods[tokenizer].hasOptions && tokenizeOptions && this.tokenizeMethods[tokenizer].checkOptionsMethod(tokenizeOptions[tokenizer]))
            )
+  }
+
+  static checkRemoteTokenizeOptionsMethod (tokenizeOptions) {
+    return Boolean(tokenizeOptions) && Boolean(tokenizeOptions.text) && Boolean(tokenizeOptions.tei)
   }
 
   /**
@@ -65321,7 +65326,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   /**
-   * Uploads lang list from Json and defines default lang
+   * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {

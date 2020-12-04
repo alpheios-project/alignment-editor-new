@@ -46,7 +46,7 @@ describe('alignment.test.js', () => {
     const originDocSource = new SourceText('origin', {
       text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const targetDocSource = new SourceText('origin', {
+    const targetDocSource = new SourceText('target', {
       text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
@@ -61,7 +61,7 @@ describe('alignment.test.js', () => {
     const originDocSource = new SourceText('origin', {
       text: 'origin some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const targetDocSource = new SourceText('origin', {
+    const targetDocSource = new SourceText('target', {
       text: 'target some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
@@ -83,11 +83,11 @@ describe('alignment.test.js', () => {
       text: 'origin some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const targetDocSource1 = new SourceText('origin', {
+    const targetDocSource1 = new SourceText('target', {
       text: 'target some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const targetDocSource2 = new SourceText('origin', {
+    const targetDocSource2 = new SourceText('target', {
       text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
@@ -108,7 +108,7 @@ describe('alignment.test.js', () => {
     const originDocSource1 = new SourceText('origin', {
       text: 'origin some text1', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const originDocSource2 = new SourceText('origin', {
+    const originDocSource2 = new SourceText('target', {
       text: 'origin some text2', direction: 'rtl', lang: 'lat', sourceType: 'tei', tokenization: { tokenizer: "alpheiosRemoteTokenizer" }
     })
 
@@ -134,10 +134,10 @@ describe('alignment.test.js', () => {
       text: 'origin some text1', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const targetDocSource1 = new SourceText('origin', {
+    const targetDocSource1 = new SourceText('target', {
       text: 'target some text1', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const targetDocSource3 = new SourceText('origin', {
+    const targetDocSource3 = new SourceText('target', {
       text: 'target some text3', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
@@ -172,10 +172,10 @@ describe('alignment.test.js', () => {
     const originDocSource1 = new SourceText('origin', {
       text: 'origin some text1', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const targetDocSource1 = new SourceText('origin', {
+    const targetDocSource1 = new SourceText('target', {
       text: 'target some text1', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const targetDocSource3 = new SourceText('origin', {
+    const targetDocSource3 = new SourceText('target', {
       text: 'target some text3', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 

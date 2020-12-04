@@ -70,7 +70,7 @@ export default {
     }
   },
   /**
-   * Uploads lang list from Json and defines default lang
+   * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {

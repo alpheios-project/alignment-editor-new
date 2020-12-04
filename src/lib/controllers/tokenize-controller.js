@@ -20,7 +20,8 @@ export default class TokenizeController {
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
         hasOptions: true,
-        uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this)
+        uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
+        checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this)
       }
     }
   }
@@ -33,8 +34,12 @@ export default class TokenizeController {
   static fullyDefinedOptions (tokenizer, tokenizeOptions) {
     return Boolean(this.tokenizeMethods[tokenizer]) &&
            (!this.tokenizeMethods[tokenizer].hasOptions ||
-              (this.tokenizeMethods[tokenizer].hasOptions && Boolean(tokenizeOptions))
+              (this.tokenizeMethods[tokenizer].hasOptions && tokenizeOptions && this.tokenizeMethods[tokenizer].checkOptionsMethod(tokenizeOptions[tokenizer]))
            )
+  }
+
+  static checkRemoteTokenizeOptionsMethod (tokenizeOptions) {
+    return Boolean(tokenizeOptions) && Boolean(tokenizeOptions.text) && Boolean(tokenizeOptions.tei)
   }
 
   /**

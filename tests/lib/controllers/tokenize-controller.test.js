@@ -45,6 +45,7 @@ describe('tokenize-controller.test.js', () => {
 
     expect(TokenizeController.fullyDefinedOptions('alpheiosRemoteTokenizer')).toBeFalsy()
     expect(TokenizeController.fullyDefinedOptions('alpheiosRemoteTokenizer', remoteTokenizeOptions)).toBeTruthy()
+
   })
 
   it('3 TokenizeController - getTokenizer returns method if tokenizer is defined correctly', async () => {
@@ -87,4 +88,5 @@ describe('tokenize-controller.test.js', () => {
     expect(resultOptions.text).toEqual(expect.any(Options))
     expect(resultOptions.tei).toEqual(expect.any(Options))
   })
+
 })
