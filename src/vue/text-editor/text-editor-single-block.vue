@@ -7,17 +7,17 @@
       </p>
 
       <direction-options-block 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText"
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText" 
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
 
       <language-options-block :textType = "textType"
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
 
-      <tokenize-options-block :localOptions = "localTextEditorOptions"
+      <tokenize-options-block :localOptions = "localTextEditorOptions" 
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
 
@@ -88,6 +88,9 @@ export default {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
       }
+    },
+    '$store.state.tokenizerUpdated' () {
+      this.updateText()
     }
   },
   computed: {
@@ -149,9 +152,6 @@ export default {
      */
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
-    },
-    idRadioPrefix () {
-      return `alpheios-alignment-editor-text-block__${this.textType}__${this.textId}`
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'

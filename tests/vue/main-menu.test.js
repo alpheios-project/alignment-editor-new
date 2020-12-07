@@ -13,7 +13,7 @@ localVue.use(Vuex)
 
 let appC
 
-describe('app.test.js', () => {
+describe('main-menu.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}

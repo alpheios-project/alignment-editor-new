@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-alignment-direction-options" v-show="showOptions" v-if="renderOptions">
+    <div class="alpheios-alignment-direction-options" v-if="showOptions">
         <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
             <option-item-block
               :optionItem = "localOptions.sourceText.items.direction"
@@ -33,11 +33,11 @@ export default {
     }
   },
   computed: {
-    renderOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready
-    },
+    /**
+     * @returns {Boolean} - true if sourceText options are loaded
+     */
     showOptions () {
-      return this.$store.state.optionsUpdated && this.$settingsC.sourceTextOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
     }
   },
   methods: {

@@ -2,11 +2,17 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
+import { LocalStorageArea, Options } from 'alpheios-data-models'
+
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
 
 import AppController from '@/lib/controllers/app-controller.js'
 import LangsList from '@/lib/data/langs/langs-list.json'
 import Vue from '@vue-runtime'
+
+import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
+import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
+import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 
 import Vuex from "vuex"
 
@@ -72,7 +78,46 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.removeId).toEqual(expect.stringContaining('targetIdTest'))
   })
 
-  it('3 TextEditorSingleBlock - textTypeFormatted, textBlockTitle, chooseAvaLangLabel uses textType', () => {
+  it('3 TextEditorSingleBlock - has the following blocks with options - DirectionOptionsBlock, LanguageOptionsBlock, TokenizeOptionsBlock', () => {
+    let cmp = shallowMount(TextEditorSingleBlock,{
+        store: appC.store,
+        localVue,
+        propsData: {
+          textType: 'target',
+          textId: 'targetIdTest'
+        }
+      })
+
+    expect(cmp.findComponent(DirectionOptionsBlock)).toBeTruthy()
+    expect(cmp.findComponent(LanguageOptionsBlock)).toBeTruthy()
+    expect(cmp.findComponent(TokenizeOptionsBlock)).toBeTruthy()
+    
+    console.info(cmp.vm.localTextEditorOptions)
+  })
+
+  it('4 TextEditorSingleBlock - localTextEditorOptions prepares a local instance of options', async () => {
+    let cmp = shallowMount(TextEditorSingleBlock,{
+        store: appC.store,
+        localVue,
+        propsData: {
+          textType: 'target',
+          textId: 'targetIdTest'
+        }
+      })
+
+    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: false })
+    await cmp.vm.prepareDefaultTextEditorOptions()
+
+    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: true, sourceText: expect.any(Options)})
+
+    // at the start these options equal to default values
+    expect(cmp.vm.direction).toEqual('ltr')
+    expect(cmp.vm.language).toEqual('eng')
+    expect(cmp.vm.sourceType).toEqual('text')
+  })
+
+  
+  it('5 TextEditorSingleBlock - textTypeFormatted, textBlockTitle uses textType', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
         store: appC.store,
         localVue,      
@@ -85,7 +130,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Target'))
   })
 
-  it('5 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
+  it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -125,7 +170,7 @@ describe('text-editor-single-block.test.js', () => {
   })
 
 
-  it('8 TextEditorSingleBlock - updateText uses $textC updateOriginDocSource or updateTargetDocSource (depends on textType prop)', async () => {
+  it('7 TextEditorSingleBlock - updateText uses $textC updateOriginDocSource or updateTargetDocSource (depends on textType prop)', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -161,7 +206,7 @@ describe('text-editor-single-block.test.js', () => {
 
   })
 
-  it('9 TextEditorSingleBlock - uploads data from $textC when it is updated (with alignmentUpdated)', async () => {
+  it('8 TextEditorSingleBlock - uploads data from $textC when it is updated (with alignmentUpdated)', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -192,7 +237,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.sourceType).toEqual('text')
   })
 
-  it('10 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target', () => {
+  it('9 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,

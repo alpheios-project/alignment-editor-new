@@ -15,6 +15,9 @@ import HistoryController from '@/lib/controllers/history-controller.js'
 import Alignment from '@/lib/data/alignment'
 import SourceText from '@/lib/data/source-text'
 
+import OptionsBlock from '@/vue/options/options-block.vue'
+import Vue from '@vue-runtime'
+
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
@@ -54,6 +57,7 @@ describe('app.test.js', () => {
   it('2 App - should contain MainMenu, TextEditor, AlignEditor', () => {
     let cmp = shallowMount(App)
     expect(cmp.findComponent(MainMenu)).toBeTruthy()
+    expect(cmp.findComponent(OptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TextEditor)).toBeTruthy()
     expect(cmp.findComponent(AlignEditor)).toBeTruthy()
   })
@@ -171,6 +175,22 @@ describe('app.test.js', () => {
     
   })
 
+  it('11 App - toggleOptions - shows/hide options block', async () => {
+    let cmp = shallowMount(App, { 
+      store: appC.store,
+      localVue 
+    })
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+
+    cmp.vm.toggleOptions()
+
+    await Vue.nextTick()
+
+    expect(cmp.vm.shownOptionsBlock).toBeTruthy()
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
+  })
 })
 
 

@@ -10,6 +10,10 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import Langs from '@/lib/data/langs/langs.js'
 
 export default class SettingsController {
+  /**
+   *
+   * @param {Vuex.Store} store
+   */
   constructor (store) {
     this.store = store
     this.storageAdapter = LocalStorageArea
@@ -117,7 +121,7 @@ export default class SettingsController {
   /**
    * Creates a new instance for all options to the text of the passed textType and index
    * @param {String} typeText - origin/target
-   * @param {Number} indexText - the number of the text with the type
+   * @param {Number} indexText - the number of the text with the type (used for targets)
    * @returns {Options}
    */
   async cloneTextEditorOptions (typeText, indexText) {
@@ -127,7 +131,7 @@ export default class SettingsController {
 
     if (this.options.tokenize && this.options.tokenize[this.tokenizerOptionValue]) {
       Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}-${sourceType}`, this.storageAdapter)
+        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.storageAdapter)
       })
     }
     const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
@@ -136,6 +140,14 @@ export default class SettingsController {
     return clonedOpts
   }
 
+  /**
+   *
+   * @param {Options} localTextEditorOptions
+   * @param {Object} sourceTextData - currentValues for options
+   *        {String} sourceTextData.lang
+   *        {String} sourceTextData.direction
+   *        {String} sourceTextData.sourceType
+   */
   updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
     if (sourceTextData.lang) {
       localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang

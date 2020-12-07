@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-alignment-language-options" v-show="showOptions" v-if="renderOptions">
+    <div class="alpheios-alignment-language-options" v-if="showOptions">
         <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
             <option-item-block
               :optionItem = "localOptions.sourceText.items.language"
@@ -37,11 +37,8 @@ export default {
     }
   },
   computed: {
-    renderOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready
-    },
     showOptions () {
-      return this.$store.state.optionsUpdated && this.$settingsC.sourceTextOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
     }
   },
   methods: {

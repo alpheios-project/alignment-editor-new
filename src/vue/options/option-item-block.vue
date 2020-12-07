@@ -120,10 +120,10 @@ export default {
       return L10nSingleton
     },
     itemId () {
-      return `${this.optionItem.name.replace('.', '_')}-id`
+      return `${this.optionItem.name.replace(/\./g, '_')}-id`
     },
     values () {
-      return (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput) ? this.optionItem.values : []
+      return (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput) ? this.optionItem.values : null
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -132,7 +132,7 @@ export default {
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.optionItem && this.optionItem.values) ? this.optionItem.textValues()[0].text : ''
+      return (this.optionItem && this.optionItem.boolean && this.optionItem.values) ? this.optionItem.textValues()[0].text : null
     },
     optionType () {
       if (this.optionItem.boolean) { return 'boolean' }
@@ -143,22 +143,28 @@ export default {
       return 'text'
     },
     selectInputLabelsSelect () {
-      if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
-        return this.optionItem.labelsList[this.labelsListType].selectLabel
+      if (this.optionItem.selectInput && this.optionItem.labelsList) {
+        if (this.labelsListType) {
+          return this.optionItem.labelsList[this.labelsListType].selectLabel
+        }
+         return this.optionItem.labelsList.selectLabel
       }
-      return ''
+      return null
     },
     selectInputLabelsInput () {
-      if (this.optionItem.selectInput && this.optionItem.labelsList && this.labelsListType) {
-        return this.optionItem.labelsList[this.labelsListType].inputLabel
+      if (this.optionItem.selectInput && this.optionItem.labelsList) {
+        if (this.labelsListType) {
+          return this.optionItem.labelsList[this.labelsListType].inputLabel
+        }
+         return this.optionItem.labelsList.inputLabel
       }
-      return ''
+      return null
     },
     selectInputDescription () {
       if (this.optionItem.selectInput && this.optionItem.description) {
         return this.optionItem.description
       }
-      return ''
+      return null
     },
     selectedSI () {
       return this.selectedI ? this.selectedI : this.selectedS

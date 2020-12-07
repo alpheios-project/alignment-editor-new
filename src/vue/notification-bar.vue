@@ -36,7 +36,6 @@ export default {
       return `alpheios-alignment-notification-bar-message___${message.type}`
     },
     toggleShown (message) {
-      // message.shown = !message.shown
       NotificationSingleton.removeNotification(message)
     }
   }

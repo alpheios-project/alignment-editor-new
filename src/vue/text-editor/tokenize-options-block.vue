@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-alignment-tokenize-options" v-show="showOptions" v-if="renderOptions">
+    <div class="alpheios-alignment-tokenize-options" v-if="showOptions">
         <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
             <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS') }}</legend>
             <option-item-block
@@ -58,20 +58,12 @@ export default {
       showTokenizeDetails: false
     }
   },
-  watch: {
-    '$store.state.tokenizerUpdated' () {
-      this.$emit('updateText')
-    }
-  },
   computed: {
     l10n () {
       return L10nSingleton
     },
-    renderOptions () {
-      return this.$store.state.optionsUpdated && this.localOptions.ready
-    },
     showOptions () {
-      return this.$store.state.optionsUpdated && this.$settingsC.tokenizerOptionsLoaded
+      return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.tokenizerOptionsLoaded
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
