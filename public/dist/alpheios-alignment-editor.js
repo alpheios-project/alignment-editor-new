@@ -62877,7 +62877,7 @@ class SourceText {
       return false
     }
 
-    const text = jsonData.text.replace(/\t/g, '\u000D').trim()
+    const text = jsonData.text.replace(/\t/g, '\u000A').trim()
     const direction = jsonData.direction.trim()
     const lang = jsonData.lang.trim()
     const sourceType = jsonData.sourceType.trim()
