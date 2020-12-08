@@ -33,9 +33,6 @@ describe('language-options-block.test.js', () => {
 
     await appC.defineSettingsController()
     await appC.settingsC.init()
-    await appC.settingsC.uploadRemoteSettings()
-
-    appC.settingsC.options.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
 
     localTextEditorOptions = await appC.settingsC.cloneTextEditorOptions('target', 0)
     localTextEditorOptions.ready = true

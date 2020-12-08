@@ -4,6 +4,7 @@
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
+import { LocalStorageArea, Options } from 'alpheios-data-models'
 
 import Vuex from "vuex"
 
@@ -16,6 +17,83 @@ describe('option-item-block.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
+
+  const fixtureForRemoteSettings = () => {
+    const defaultsTei = {
+      domain: 'alpheios-remote-tokenization-tei',
+      version: '1.0.0',
+      description: 'Tokenize a TEI XML text',
+      items: {
+        segments: {
+          defaultValue: 'body',
+          labelText: 'Comma-separated list of elements which identify segments.',
+          select: false,
+          boolean: false
+        },
+        ignore: {
+          defaultValue: 'label,ref,milestone,orig,abbr,head,title,teiHeader,del,g,bibl,front,back,speaker',
+          labelText: 'Comma-separated list of elements whose contents should be ignored.',
+          select: false,
+          boolean: false
+        },
+        segstart: {
+          defaultValue: 0,
+          labelText: 'Starting segment index.',
+          select: false,
+          boolean: false
+        },
+        linebreaks: {
+          defaultValue: 'p,div,seg,l,ab',
+          labelText: 'Comma-separated list of elements to line-break after for display.',
+          select: false,
+          boolean: false
+        },
+        tbseg: {
+          defaultValue: false,
+          labelText: "True means 'alpheios_data_tb_sent' metadata to be set from segment index",
+          select: false,
+          boolean: true
+        }
+      }
+    }
+
+    const defaultsText = {
+      domain: 'alpheios-remote-tokenization-text',
+      version: '1.0.0',
+      description: 'Tokenize a plain text document.',
+      items: {
+        segments: {
+          defaultValue: 'singleline',
+          labelText: 'Segment indicator.',
+          select: true,
+          boolean: false,
+          values: [
+            { value: 'singleline', text: 'singleline' },
+            { value: 'doubline', text: 'doubline' }
+          ]
+        },
+        segstart: {
+          defaultValue: 0,
+          labelText: 'Starting segment index.',
+          select: false,
+          boolean: false
+        },
+        tbseg: {
+          defaultValue: false,
+          labelText: "True means 'alpheios_data_tb_sent' metadata to be set from segment index.",
+          select: false,
+          boolean: true
+        }
+      }
+    }
+
+    return {
+      alpheiosRemoteTokenizer: {
+        text: new Options(defaultsText, new appC.settingsC.storageAdapter('alpheios-remote-tokenization-text')),
+        tei: new Options(defaultsTei, new appC.settingsC.storageAdapter('alpheios-remote-tokenization-tei')) 
+      }
+    }
+  }
 
   beforeEach(async () => {
     jest.spyOn(console, 'error')
@@ -32,8 +110,9 @@ describe('option-item-block.test.js', () => {
 
     await appC.defineSettingsController()
     await appC.settingsC.init()
-    await appC.settingsC.uploadRemoteSettings()
 
+    appC.settingsC.options.tokenize = fixtureForRemoteSettings()
+    
     appC.settingsC.options.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
   })
 

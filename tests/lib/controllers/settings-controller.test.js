@@ -22,7 +22,84 @@ describe('settings-controller.test.js', () => {
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
   })
-  
+
+  const fixtureForRemoteSettings = () => {
+    const defaultsTei = {
+      domain: 'alpheios-remote-tokenization-tei',
+      version: '1.0.0',
+      description: 'Tokenize a TEI XML text',
+      items: {
+        segments: {
+          defaultValue: 'body',
+          labelText: 'Comma-separated list of elements which identify segments.',
+          select: false,
+          boolean: false
+        },
+        ignore: {
+          defaultValue: 'label,ref,milestone,orig,abbr,head,title,teiHeader,del,g,bibl,front,back,speaker',
+          labelText: 'Comma-separated list of elements whose contents should be ignored.',
+          select: false,
+          boolean: false
+        },
+        segstart: {
+          defaultValue: 0,
+          labelText: 'Starting segment index.',
+          select: false,
+          boolean: false
+        },
+        linebreaks: {
+          defaultValue: 'p,div,seg,l,ab',
+          labelText: 'Comma-separated list of elements to line-break after for display.',
+          select: false,
+          boolean: false
+        },
+        tbseg: {
+          defaultValue: false,
+          labelText: "True means 'alpheios_data_tb_sent' metadata to be set from segment index",
+          select: false,
+          boolean: true
+        }
+      }
+    }
+
+    const defaultsText = {
+      domain: 'alpheios-remote-tokenization-text',
+      version: '1.0.0',
+      description: 'Tokenize a plain text document.',
+      items: {
+        segments: {
+          defaultValue: 'singleline',
+          labelText: 'Segment indicator.',
+          select: true,
+          boolean: false,
+          values: [
+            { value: 'singleline', text: 'singleline' },
+            { value: 'doubline', text: 'doubline' }
+          ]
+        },
+        segstart: {
+          defaultValue: 0,
+          labelText: 'Starting segment index.',
+          select: false,
+          boolean: false
+        },
+        tbseg: {
+          defaultValue: false,
+          labelText: "True means 'alpheios_data_tb_sent' metadata to be set from segment index.",
+          select: false,
+          boolean: true
+        }
+      }
+    }
+
+    return {
+      alpheiosRemoteTokenizer: {
+        text: new Options(defaultsText, new LocalStorageArea('alpheios-remote-tokenization-text')),
+        tei: new Options(defaultsTei, new LocalStorageArea('alpheios-remote-tokenization-tei')) 
+      }
+    }
+  }
+
   beforeEach(() => {
     jest.clearAllMocks()
     jest.spyOn(console, 'error')
@@ -69,7 +146,7 @@ describe('settings-controller.test.js', () => {
     expect(settingsC.tokenizerOptionValue).toEqual('alpheiosRemoteTokenizer')
     expect(settingsC.tokenizerOptionsLoaded).toBeFalsy()
 
-    await settingsC.uploadRemoteSettings()
+    settingsC.options.tokenize = fixtureForRemoteSettings()
     expect(settingsC.tokenizerOptionsLoaded).toBeTruthy()
   })
 
@@ -148,7 +225,7 @@ describe('settings-controller.test.js', () => {
   it('10 SettingsController - cloneTextEditorOptions - clones options for the source text instance', async () => {
     const settingsC = new SettingsController(appC.store)
     await settingsC.init()
-    await settingsC.uploadRemoteSettings()
+    settingsC.options.tokenize = fixtureForRemoteSettings()
 
     const resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
 
@@ -164,7 +241,7 @@ describe('settings-controller.test.js', () => {
   it('10 SettingsController - updateLocalTextEditorOptions - sets currentValue for local options - language, direction, sourceType', async () => {
     const settingsC = new SettingsController(appC.store)
     await settingsC.init()
-    await settingsC.uploadRemoteSettings()
+    settingsC.options.tokenize = fixtureForRemoteSettings()
 
     const resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
 
