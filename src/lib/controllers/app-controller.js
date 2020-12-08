@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 import StoreDefinition from '@/lib/store/store-definition'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -23,85 +24,58 @@ export default class AppController {
    *
    * @param {String} appId - id attribute of the HTML element where Vue application should be attached
    */
-  constructor ({ appId, theme, tokenizeParams } = {}) {
+  constructor ({ appId } = {}) {
     if (!appId) {
       console.error('You should define id inside AppController initialization to start the application.')
       return
     }
-    this.appId = appId
-    this.theme = this.defineThemeFromUrl(theme)
-    this.tokenizeParams = tokenizeParams
-  }
-
-  /**
-   * Registered themes in scss
-   * @returns {Array[String]}
-   */
-  get availableThemes () {
-    return ['standard-theme', 'v1-theme']
-  }
-
-  /**
-   * @returns {String} - the name of the default theme
-   */
-  get defaultTheme () {
-    return this.availableThemes[0]
-  }
-
-  /**
-   * Defines final theme according to the following priority:
-   * 1. A theme is defined in url GET parameters - theme
-   * 2. A theme is defined in application code - theme
-   * 3. A default theme
-   * @param {String} theme - passed from the application initialization code
-   */
-  defineThemeFromUrl (theme) {
-    const params = window.location.search
-      .substring(1)
-      .split('&')
-      .map(v => v.split('='))
-      .reduce((map, [key, value]) => map.set(key, decodeURIComponent(value)), new Map())
-
-    const themeFromUrl = params.get('theme')
-    if (themeFromUrl && this.availableThemes.includes(themeFromUrl)) {
-      return themeFromUrl
-    } else if (theme && this.availableThemes.includes(theme)) {
-      return theme
+    this.pageSettings = {
+      appId
     }
-    return this.defaultTheme
   }
 
   /**
    * Executes methods for initialization and attaching components to the current HTML layout with defined properties
    */
-  init () {
-    if (this.theme) {
-      this.defineColorTheme()
+  async init () {
+    this.defineStore()
+    this.defineL10Support()
+    this.defineNotificationSupport()
+    await this.defineSettingsController()
+
+    if (this.settingsC.themeOptionValue) {
+      this.defineColorTheme({ theme: this.settingsC.themeOptionValue, themesList: [] })
     }
-    if (this.appId) {
+    if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
   }
 
-  defineColorTheme () {
-    document.documentElement.classList.add(`alpheios-${this.theme}`)
-    document.body.classList.add(`alpheios-${this.theme}`)
+  /**
+   *
+   * @param {String} theme - theme name
+   * @param {Array[String]} themesList - available theme's names
+   */
+  defineColorTheme ({ theme, themesList }) {
+    themesList.forEach(themeItem => {
+      document.documentElement.classList.remove(`alpheios-${themeItem}`)
+      document.body.classList.remove(`alpheios-${themeItem}`)
+    })
+
+    document.documentElement.classList.add(`alpheios-${theme}`)
+    document.body.classList.add(`alpheios-${theme}`)
   }
 
   /**
    * Creates and attaches App Vue component, defines additional controllers
    */
   attachVueComponents () {
-    this.defineStore()
-
-    this.defineL10Support()
-    this.defineNotificationSupport()
     this.defineTextController()
     this.defineAlignedController()
     this.defineHistoryController()
 
     const rootVi = new Vue({ store: this.store })
-    const mountEl = document.getElementById(this.appId)
+    const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
@@ -112,11 +86,31 @@ export default class AppController {
     })
 
     this._viAppComp.$mount(appContainerEl)
+
+    this.defineEvents()
   }
 
+  defineEvents () {
+    SettingsController.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+  }
+
+  /**
+   * Inits Vuex Store
+   */
   defineStore () {
     Vue.use(Vuex)
     this.store = new Vuex.Store(StoreDefinition.defaultDefinition)
+  }
+
+  /**
+   * Creates SettingsController and attaches to Vue components
+   */
+  async defineSettingsController () {
+    this.settingsC = new SettingsController(this.store)
+    await this.settingsC.init()
+    Vue.prototype.$settingsC = this.settingsC
+
+    this.settingsC.uploadRemoteSettings()
   }
 
   /**
@@ -131,7 +125,7 @@ export default class AppController {
    * Creates AlignedController and attaches to Vue components
    */
   defineAlignedController () {
-    this.alignedC = new AlignedController(this.store, this.tokenizeParams)
+    this.alignedC = new AlignedController(this.store)
     Vue.prototype.$alignedC = this.alignedC
   }
 

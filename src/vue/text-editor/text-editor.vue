@@ -8,6 +8,7 @@
           <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
             <text-editor-single-block 
                 text-type="origin" 
+                :text-id = "originId"
             />
           </div>
 
@@ -62,8 +63,11 @@ export default {
     this.$historyC.startTracking(this.$textC.alignment)
   },
   computed: {
+    originId () {
+      return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : 'no-id'
+    },
     allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ 'no-id' ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks

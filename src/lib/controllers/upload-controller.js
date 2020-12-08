@@ -48,7 +48,7 @@ export default class UploadController {
     }
     const fileData = fileString.split(/\r\n|\r|\n/)
 
-    if (!Array.isArray(fileData) || fileData.length < 6) {
+    if (!Array.isArray(fileData) || fileData.length < 8) {
       console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -57,17 +57,18 @@ export default class UploadController {
       return
     }
 
-    const originDocSource = SourceText.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2] })
+    const originDocSource = SourceText.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2], sourceType: fileData[3] })
     const targetDocSources = []
 
-    let i = 3
+    let i = 4
     while (i < fileData.length) {
       const text = fileData[i]
       const direction = fileData[i + 1]
       const lang = fileData[i + 2]
+      const sourceType = fileData[i + 3]
 
-      targetDocSources.push(SourceText.convertFromJSON('target', { text, direction, lang }))
-      i = i + 3
+      targetDocSources.push(SourceText.convertFromJSON('target', { text, direction, lang, sourceType }))
+      i = i + 4
     }
 
     return {

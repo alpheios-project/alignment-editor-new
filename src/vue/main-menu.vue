@@ -1,32 +1,36 @@
 <template>
   <div class="alpheios-alignment-app-menu" id="alpheios-main-menu">
       <div class="alpheios-alignment-app-menu__buttons">
-        <button class="alpheios-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-add-target" 
-                @click="$emit('add-target')" :disabled="!docSourceEditAvailable" >
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-options" 
+                @click="$emit('toggle-options')" >
+                {{ toggleOptionsTitle }}
+        </button>
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-add-target" 
+                @click="$emit('add-target')" :disabled="!addTargetAvailable" >
                 {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
         </button>
 
-        <button class="alpheios-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-download" 
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-download" 
                 @click="$emit('download-data')"  :disabled="!docSourceEditAvailable" >
                 {{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}
         </button>
 
-        <button class="alpheios-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-upload" 
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-upload" 
                 @click="uploadTexts"  :disabled="!docSourceEditAvailable" >
                 {{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}
         </button>
 
-        <button class="alpheios-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-align" 
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-align" 
                 @click="$emit('align-texts')" :disabled="!alignAvailable">
                 {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
         </button>
         
-        <button class="alpheios-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-undo" 
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-undo" 
                 @click="$emit('undo-action')" :disabled="!undoAvailable">
                 {{ l10n.getMsgS('MAIN_MENU_UNDO_TITLE') }}
         </button>
 
-        <button class="alpheios-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-redo" 
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-redo" 
                 @click="$emit('redo-action')" :disabled="!redoAvailable">
                 {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
         </button>
@@ -42,6 +46,10 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 export default {
   name: 'MainMenu',
   props: {
+    shownOptionsBlock: {
+      type: Boolean,
+      required: true
+    }
   },
   data () {
     return {
@@ -63,6 +71,12 @@ export default {
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+    },
+    toggleOptionsTitle () {
+      return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
+    },
+    addTargetAvailable () {
+      return this.docSourceEditAvailable && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     }
   },
   methods: {

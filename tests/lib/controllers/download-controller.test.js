@@ -11,13 +11,14 @@ describe('download-controller.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeAll(() => {
+  beforeAll(async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {
@@ -38,10 +39,10 @@ describe('download-controller.test.js', () => {
     const downloadType = 'fakeMethod'
     const data = {
       originDocSource: {
-        text: 'originText', direction: 'ltr', lang: 'lat'
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       },
       targetDocSource: {
-        text: 'targetText', direction: 'ltr', lang: 'eng'
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       }
     }
   
@@ -55,10 +56,10 @@ describe('download-controller.test.js', () => {
     const downloadType = 'plainSourceDownload'
     const data = {
       originDocSource: {
-        text: 'originText', direction: 'ltr', lang: 'lat'
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       },
       targetDocSource: {
-        text: 'targetText', direction: 'ltr', lang: 'eng'
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       }
     }
     
@@ -82,7 +83,7 @@ describe('download-controller.test.js', () => {
     // no originDocSource data
     data = {
       targetDocSource: new SourceText('target', {
-        text: 'targetText', direction: 'ltr', lang: 'eng'
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })
     } 
     result = DownloadController.plainSourceDownload(data)
@@ -93,7 +94,7 @@ describe('download-controller.test.js', () => {
     // no targetDocSource data
     data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', lang: 'lat'
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })
     }
       
@@ -105,10 +106,10 @@ describe('download-controller.test.js', () => {
     // originDocSource data is not correctly defined
     data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr'
+        text: 'originText', direction: 'ltr', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       }),
       targetDocSource: new SourceText('target', {
-        text: 'targetText', direction: 'ltr', lang: 'eng'
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })
     }
       
@@ -120,10 +121,10 @@ describe('download-controller.test.js', () => {
     // targetDocSource data is not correctly defined
     data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', lang: 'lat'
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       }),
       targetDocSource: new SourceText('target', {
-        text: 'targetText', lang: 'eng'
+        text: 'targetText', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })
     }
     
@@ -139,10 +140,10 @@ describe('download-controller.test.js', () => {
 
     const data = {
       originDocSource: new SourceText('origin', {
-        text: 'originText', direction: 'ltr', lang: 'lat'
+        text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       }),
       targetDocSources: [new SourceText('target', {
-        text: 'targetText', direction: 'ltr', lang: 'eng'
+        text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })]
     } 
     DownloadController.plainSourceDownload(data)

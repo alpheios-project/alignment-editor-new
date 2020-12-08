@@ -8,12 +8,14 @@ export default class AlpheiosRemoteTokenizer {
      * @param {String} idPrefix - prefix for creating tokens idWord
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
-  static async tokenize (docSource, idPrefix, tokenizeParams) {
+  static async tokenize (docSource, idPrefix) {
     const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
+
     const fetchOptions = Object.assign({
       lang: docSource.lang,
-      sourceType: docSource.sourceType
-    }, tokenizeParams)
+      sourceType: docSource.sourceType,
+      direction: docSource.direction
+    }, docSource.tokenization)
 
     const adapterTokenizerRes = await ClientAdapters.tokenizationGroup.alpheios({
       method: 'getTokens',

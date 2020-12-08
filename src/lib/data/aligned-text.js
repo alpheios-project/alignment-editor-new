@@ -3,18 +3,17 @@ import Segment from '@/lib/data/segment'
 
 export default class AlignedText {
   /**
-   *
-   *
    * @param {SourceText} docSource
-   * @param {String} tokenizer - the name of tokenizer approach
+   * @param {String} tokenPrefix - prefix for tokens
    */
-  constructor ({ docSource, tokenizer, tokenPrefix } = {}) {
+  constructor ({ docSource, tokenPrefix } = {}) {
     this.id = docSource.id
     this.textType = docSource.textType
-    this.tokenizer = tokenizer
     this.direction = docSource.direction
     this.lang = docSource.lang
 
+    this.sourceType = docSource.sourceType
+    this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
   }
 
@@ -37,9 +36,9 @@ export default class AlignedText {
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
    */
-  async tokenize (docSource, tokenizeParams) {
-    const tokenizeMethod = TokenizeController.getTokenizer(this.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix, tokenizeParams)
+  async tokenize (docSource) {
+    const tokenizeMethod = TokenizeController.getTokenizer(docSource.tokenization.tokenizer)
+    const result = await tokenizeMethod(docSource, this.tokenPrefix)
 
     if (result && result.segments) {
       this.segments = result.segments.map(segment => new Segment({

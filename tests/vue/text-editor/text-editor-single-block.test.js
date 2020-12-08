@@ -2,11 +2,17 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
+import { LocalStorageArea, Options } from 'alpheios-data-models'
+
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
 
 import AppController from '@/lib/controllers/app-controller.js'
 import LangsList from '@/lib/data/langs/langs-list.json'
 import Vue from '@vue-runtime'
+
+import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
+import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
+import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 
 import Vuex from "vuex"
 
@@ -20,7 +26,7 @@ describe('text-editor-single-block.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
@@ -32,12 +38,16 @@ describe('text-editor-single-block.test.js', () => {
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+
+    await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
     appC.historyC.startTracking(appC.textC.alignment)
+
+    appC.settingsC.options.app.items.tokenizer.currentValue = 'simpleLocalTokenizer'
   })
 
   it('1 TextEditorSingleBlock - renders a vue instance (min requirements)', () => {
@@ -68,7 +78,46 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.removeId).toEqual(expect.stringContaining('targetIdTest'))
   })
 
-  it('3 TextEditorSingleBlock - textTypeFormatted, textBlockTitle, chooseAvaLangLabel uses textType', () => {
+  it('3 TextEditorSingleBlock - has the following blocks with options - DirectionOptionsBlock, LanguageOptionsBlock, TokenizeOptionsBlock', () => {
+    let cmp = shallowMount(TextEditorSingleBlock,{
+        store: appC.store,
+        localVue,
+        propsData: {
+          textType: 'target',
+          textId: 'targetIdTest'
+        }
+      })
+
+    expect(cmp.findComponent(DirectionOptionsBlock)).toBeTruthy()
+    expect(cmp.findComponent(LanguageOptionsBlock)).toBeTruthy()
+    expect(cmp.findComponent(TokenizeOptionsBlock)).toBeTruthy()
+    
+    console.info(cmp.vm.localTextEditorOptions)
+  })
+
+  it('4 TextEditorSingleBlock - localTextEditorOptions prepares a local instance of options', async () => {
+    let cmp = shallowMount(TextEditorSingleBlock,{
+        store: appC.store,
+        localVue,
+        propsData: {
+          textType: 'target',
+          textId: 'targetIdTest'
+        }
+      })
+
+    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: false })
+    await cmp.vm.prepareDefaultTextEditorOptions()
+
+    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: true, sourceText: expect.any(Options)})
+
+    // at the start these options equal to default values
+    expect(cmp.vm.direction).toEqual('ltr')
+    expect(cmp.vm.language).toEqual('eng')
+    expect(cmp.vm.sourceType).toEqual('text')
+  })
+
+  
+  it('5 TextEditorSingleBlock - textTypeFormatted, textBlockTitle uses textType', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
         store: appC.store,
         localVue,      
@@ -79,25 +128,9 @@ describe('text-editor-single-block.test.js', () => {
       })
     expect(cmp.vm.textTypeFormatted).toEqual('Target')
     expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Target'))
-    expect(cmp.vm.chooseAvaLangLabel).toEqual(expect.stringContaining('Target'))
   })
 
-  it('4 TextEditorSingleBlock - selectedLang defines language for the text', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'target',
-        textId: 'targetIdTest'
-      }
-    })
-
-    expect(cmp.vm.selectedLang).toEqual(cmp.vm.selectedAvaLang) // by default
-    cmp.vm.selectedOtherLang = 'some-lang'
-    expect(cmp.vm.selectedLang).toEqual('some-lang') // custom lang
-  })
-
-  it('5 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
+  it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -136,61 +169,8 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.indexData).toEqual('1. ') 
   })
 
-  it('6 TextEditorSingleBlock - directionRadioId contains textType and direction', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-        store: appC.store,
-        localVue,
-        propsData: {
-          textType: 'target',
-          textId: 'targetIdTest'
-        }
-      })
-    expect(cmp.vm.directionRadioId('ltr')).toEqual(expect.stringContaining('target__ltr'))
-  })
 
-  it('7 TextEditorSingleBlock - updateAvaLang clears custom input with language', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'target',
-        textId: 'targetIdTest'
-      }
-    })
-    expect(cmp.vm.selectedOtherLang).toBeNull()
-
-    cmp.vm.selectedOtherLang = 'some-lang'
-    expect(cmp.vm.selectedLang).toEqual('some-lang') // custom lang
-
-    cmp.vm.updateAvaLang()
-
-    expect(cmp.vm.selectedOtherLang).toBeNull()
-  })
-
-  it('8 TextEditorSingleBlock - updateLang updates lang from external source', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'target',
-        textId: 'targetIdTest'
-      }
-    })
-
-    cmp.vm.updateLang('grc')
-    expect(cmp.vm.selectedOtherLang).toBeNull()
-    expect(cmp.vm.selectedAvaLang).toEqual('grc')
-
-    cmp.vm.updateLang('grc-test')
-    expect(cmp.vm.selectedOtherLang).toEqual('grc-test')
-    expect(cmp.vm.selectedAvaLang).toEqual(LangsList[0].value)
-
-    cmp.vm.updateLang('ara')
-    expect(cmp.vm.selectedOtherLang).toBeNull()
-    expect(cmp.vm.selectedAvaLang).toEqual('ara')
-  })
-
-  it('8 TextEditorSingleBlock - updateText uses $textC updateOriginDocSource or updateTargetDocSource (depends on textType prop)', () => {
+  it('7 TextEditorSingleBlock - updateText uses $textC updateOriginDocSource or updateTargetDocSource (depends on textType prop)', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -202,20 +182,31 @@ describe('text-editor-single-block.test.js', () => {
 
     cmp.vm.text = 'some origin text'
 
+    await cmp.vm.prepareDefaultTextEditorOptions()
+    expect(cmp.vm.direction).toEqual('ltr')
+    expect(cmp.vm.language).toEqual('eng')
+    expect(cmp.vm.sourceType).toEqual('text')
+
     jest.spyOn(cmp.vm.$textC, 'updateOriginDocSource')
     jest.spyOn(cmp.vm.$textC, 'updateTargetDocSource')
+
 
     cmp.vm.updateText()
 
     expect(cmp.vm.$textC.updateOriginDocSource).toHaveBeenCalledWith({
       text: 'some origin text',
       direction: 'ltr',
-      lang: LangsList[0].value,
-      id: 'originIdTest'
+      lang: 'eng',
+      sourceType: 'text',
+      id: 'originIdTest',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
+
   })
 
-  it('9 TextEditorSingleBlock - uploads data from $textC when it is updated (with alignmentUpdated)', async () => {
+  it('8 TextEditorSingleBlock - uploads data from $textC when it is updated (with alignmentUpdated)', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -224,9 +215,13 @@ describe('text-editor-single-block.test.js', () => {
         textId: 'originIdTest'
       }
     })
+
+    await cmp.vm.prepareDefaultTextEditorOptions()
+
     expect(cmp.vm.text).toBeNull()
     expect(cmp.vm.direction).toEqual('ltr')
-    expect(cmp.vm.selectedLang).toEqual(LangsList[0].value)
+    expect(cmp.vm.language).toEqual('eng')
+    expect(cmp.vm.sourceType).toEqual('text')
 
     cmp.vm.$textC.updateOriginDocSource({
       text: 'Humano capiti cervicem pictor equinam',
@@ -238,10 +233,11 @@ describe('text-editor-single-block.test.js', () => {
 
     expect(cmp.vm.text).toEqual('Humano capiti cervicem pictor equinam')
     expect(cmp.vm.direction).toEqual('rtl')
-    expect(cmp.vm.selectedLang).toEqual('grc')
+    expect(cmp.vm.language).toEqual('grc')
+    expect(cmp.vm.sourceType).toEqual('text')
   })
 
-  it('10 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target', () => {
+  it('9 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -257,5 +253,6 @@ describe('text-editor-single-block.test.js', () => {
 
     expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
   })
+
 })
 

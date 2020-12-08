@@ -1,0 +1,52 @@
+{
+    "domain": "alpheios-alignment-editor-source-text",
+    "version": "1",
+    "items": {
+      "sourceType": {
+        "defaultValue": "text",
+        "labelText": "Text Source Type",
+        "radio": true,
+        "values": [
+          {
+            "value": "text",
+            "text": "Text"
+          },
+          {
+            "value": "tei",
+            "text": "TEI"
+          }
+        ]
+      },
+      "direction": {
+        "defaultValue": "ltr",
+        "labelText": "Direction",
+        "radio": true,
+        "values": [
+          {
+            "value": "ltr",
+            "text": "Left to Right"
+          },
+          {
+            "value": "rtl",
+            "text": "Right to Left"
+          }
+        ]
+      },
+      "language": {
+        "defaultValue": "eng",
+        "labelsList": {
+          "origin": {
+            "selectLabel": "Origin Language:",
+            "inputLabel": "Or Other Language:"
+          },
+          "target": {
+            "selectLabel": "Target Language:",
+            "inputLabel": "Or Other Language:"
+          }
+        },
+        "description": "Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages",
+        "selectInput": true,
+        "valuesArray": "Langs"
+      }
+  }
+}

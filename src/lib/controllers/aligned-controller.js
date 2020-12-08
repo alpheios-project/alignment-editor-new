@@ -4,45 +4,9 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 export default class AlignedController {
   /**
    * @param {Vuex Store} store
-   * @param {Object} tokenizeParams - params from application settings
-   *         {String} tokenizer - tokenizer name
-   *         {String} segments - parameter for remote service
    */
-  constructor (store, tokenizeParams = {}) {
+  constructor (store) {
     this.store = store
-
-    this.tokenizer = this.defineTokenizer(tokenizeParams.tokenizer)
-    this.tokenizeParams = tokenizeParams
-  }
-
-  /**
-   * @returns {Array[String]} - available tokenizer's names
-   */
-  get availableTokenizers () {
-    return ['simpleLocalTokenizer', 'alpheiosRemoteTokenizer']
-  }
-
-  /**
-   * @returns {String} - default tokenizer name
-   */
-  get defaultTokenizer () {
-    return 'alpheiosRemoteTokenizer'
-  }
-
-  /**
-   * @param {String} tokenizer - tokenizer name
-   * @returns {Boolean} - true - tokenizer is supported
-   */
-  tokenizerIsSupported (tokenizer) {
-    return Boolean(tokenizer) && this.availableTokenizers.includes(tokenizer)
-  }
-
-  /**
-   * @param {String} tokenizer - tokenizer name
-   * @returns {String} - final tokenizer name
-   */
-  defineTokenizer (tokenizer) {
-    return this.tokenizerIsSupported(tokenizer) ? tokenizer : this.defaultTokenizer
   }
 
   /**
@@ -67,22 +31,22 @@ export default class AlignedController {
       type: NotificationSingleton.types.INFO
     })
 
-    const result = await this.alignment.createAlignedTexts(this.tokenizer, this.tokenizeParams)
+    const resultAlignment = await this.alignment.createAlignedTexts()
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
       type: NotificationSingleton.types.INFO
     })
 
-    if (!result) {
+    if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
       this.store.commit('incrementAlignmentUpdated')
       return false
     }
 
-    const res2 = this.alignment.equalSegmentsAmount
+    const resultSegmentsCheck = this.alignment.equalSegmentsAmount
 
-    if (!res2) {
+    if (!resultSegmentsCheck) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS'),
@@ -93,7 +57,7 @@ export default class AlignedController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
-    return result
+    return resultAlignment
   }
 
   /**

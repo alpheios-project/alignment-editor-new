@@ -5,34 +5,22 @@
           <delete-icon />
         </span>
       </p>
-      <p class="alpheios-alignment-editor-text-block__direction">
-          <span>{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LABEL') }}  </span>
-          <input type="radio" :id="directionRadioId('ltr')" value="ltr" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
-          <label :for="directionRadioId('ltr')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_LEFT_TO_RIGHT') }}</label>
-          <input type="radio" :id="directionRadioId('rtl')" value="rtl" v-model="direction" tabindex="1" @change="updateText" :disabled="!docSourceEditAvailable" >
-          <label :for="directionRadioId('rtl')">{{ l10n.getMsgS('TEXT_EDITOR_DIRECTION_RIGHT_TO_LEFT') }}</label>
-      </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="selectedLang" @blur="updateText"
+
+      <direction-options-block 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
+      />
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText" 
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
-      <p class="alpheios-alignment-editor-text-block__ava-lang">
-          <span>{{ chooseAvaLangLabel}}</span>
-          <select class="alpheios-alignment-editor-text-block__ava-lang__select alpheios-select" v-model="selectedAvaLang" @change="updateAvaLang" :disabled="!docSourceEditAvailable" >
-            <option v-for="lang in langsList" :key="lang.value" :value="lang.value">{{ lang.label }}</option>
-          </select>
-      </p>
-      <div class="alpheios-alignment-editor-text-block__other-lang-block">
-        <div class="alpheios-alignment-editor-text-block__other-lang">
-          <span>{{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_LABEL') }}</span>
-          <div class="alpheios-alignment-editor-text-block__other-lang-input-block">
-            <input type="text" class="alpheios-alignment-editor-text-block__other-lang__input alpheios-input" v-model="selectedOtherLang" @change="updateText" :disabled="!docSourceEditAvailable" >
-            <p class="alpheios-alignment-editor-text-block__other-lang__description">
-              {{ l10n.getMsgS('TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION') }}
-            </p>
-          </div>
-        </div>
-        
-      </div>
+
+      <language-options-block :textType = "textType"
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
+      />
+
+      <tokenize-options-block :localOptions = "localTextEditorOptions" 
+        @updateText = "updateText" :disabled="!docSourceEditAvailable"
+      />
+
   </div>
 </template>
 <script>
@@ -40,6 +28,14 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Langs from '@/lib/data/langs/langs.js'
 
 import DeleteIcon from '@/inline-icons/delete.svg'
+
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+
+import OptionItemBlock from '@/vue/options/option-item-block.vue'
+
+import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
+import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
+import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -59,24 +55,27 @@ export default {
     }
   },
   components: {
-    deleteIcon: DeleteIcon
+    deleteIcon: DeleteIcon,
+    optionItemBlock: OptionItemBlock,
+    tokenizeOptionsBlock: TokenizeOptionsBlock,
+    directionOptionsBlock: DirectionOptionsBlock,
+    languageOptionsBlock: LanguageOptionsBlock
   },
   data () {
     return {
       text: null,
       prevText: null,
-      direction: 'ltr',
-      langsList: [],
-      selectedAvaLang: null,
-      selectedOtherLang: null
+
+      localTextEditorOptions: { ready: false }
     }
   },
   /**
-   * Uploads lang list from Json and defines default lang
+   * Clone options (sourceText and tokenize options) for the cuurent instance of a sourceText
    */
-  created () {
-    this.langsList = Langs.all
-    this.selectedAvaLang = this.langsList[0].value
+  async mounted () {
+    if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+      await this.prepareDefaultTextEditorOptions()
+    }
   },
   watch: {
     text (val) {
@@ -84,10 +83,21 @@ export default {
         this.updateText()
       }
       this.prevText = val
+    },
+    async '$store.state.optionsUpdated' () {
+      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTextEditorOptions()
+      }
+    },
+    '$store.state.tokenizerUpdated' () {
+      this.updateText()
     }
   },
   computed: {
-    dataUpdated () {
+    async dataUpdated () {
+      if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
+        await this.prepareDefaultTextEditorOptions()
+      }
       this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
@@ -112,18 +122,6 @@ export default {
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-    /**
-     * Defines Label for available language list
-     */
-    chooseAvaLangLabel () {
-      return this.l10n.getMsgS('TEXT_EDITOR_AVA_LANGUAGE_TITLE', { textType: this.textTypeFormatted })
-    },
-    /**
-     * Defines final language
-     */
-    selectedLang () {
-      return this.selectedOtherLang ? this.selectedOtherLang : this.selectedAvaLang
-    },
 
     l10n () {
       return L10nSingleton
@@ -154,61 +152,53 @@ export default {
      */
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+    },
+    updateTextMethod () {
+      return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
+    },
+    direction () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+    },
+    language () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+    },
+    sourceType () {
+      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     }
   },
   methods: {
     updateFromExternal () {
-      const data = this.$textC.getDocSource(this.textType, this.textId)
-      if (data && data.lang) {
-        this.text = data.text
-        this.direction = data.direction
-        this.updateLang(data.lang)
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      if (sourceTextData) {
+        this.text = sourceTextData.text
+        this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
       }
     },
-    /**
-     * Defines unique id for direction input
-     */
-    directionRadioId (dir) {
-      return `alpheios-alignment-editor-text-block__${this.textType}__${dir}_${this.textId}`
-    },
-    /**
-     * If a user reselects language from select, input[text] would be cleared
-     */
-    updateAvaLang () {
-      this.selectedOtherLang = null
-      this.updateText()
-    },
-    /**
-     * It is used when we need to upload lang from external source,
-     * first it checks langs list, and if it is failed, then it would be printed to unput[text]
-     */
-    updateLang (lang) {
-      const langFromList = this.langsList.find(langOb => langOb.value === lang)
 
-      if (langFromList) {
-        this.selectedAvaLang = langFromList.value
-        this.selectedOtherLang = null
-      } else {
-        this.selectedOtherLang = lang
-        this.selectedAvaLang = this.langsList[0].value
-      }
-    },
     /**
      * Emits update-text event with data from properties
      */
     updateText () {
-      const methodName = this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
-
-      this.$textC[methodName]({
-        text: this.text,
-        direction: this.direction,
-        lang: this.selectedLang,
-        id: this.textId
-      })
+      if (this.text) {
+        const params = {
+          text: this.text,
+          direction: this.direction,
+          lang: this.language,
+          id: this.textId,
+          sourceType: this.sourceType,
+          tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+        }
+        this.$textC[this.updateTextMethod](params)  
+      }
     },
-
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
+    },
+    async prepareDefaultTextEditorOptions () {
+      this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+      this.localTextEditorOptions.ready = true
+
+      this.updateText()
     }
   }
 }
@@ -222,27 +212,6 @@ export default {
 
         p {
             margin-bottom: 10px;
-        }
-
-        .alpheios-alignment-editor-text-block__ava-lang,
-        .alpheios-alignment-editor-text-block__other-lang {
-          span {
-            min-width: 160px;
-            display: inline-block;
-            vertical-align: top;
-          }
-        }
-        .alpheios-alignment-editor-text-block__ava-lang__select,
-        .alpheios-alignment-editor-text-block__other-lang-input-block {
-            width: 80%;
-            max-width: 300px;
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .alpheios-alignment-editor-text-block__other-lang__description {
-          font-size: 90%;
-          color: #888;
         }
     }
 
@@ -267,4 +236,41 @@ export default {
       }
     }
 
+    .alpheios-alignment-options-fieldset {
+      padding: 10px;
+      border: 2px groove #f8f8f8;
+      margin-bottom: 30px;
+
+      legend {
+        display: block;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        line-height: inherit;
+        color: inherit;
+        white-space: normal;
+        font-size: 110%;
+      }
+    }
+
+    fieldset.alpheios-alignment-slim-fieldset {
+      padding: 0;
+      margin-bottom: 0;
+      border: 0;
+
+      legend {
+        display: none;
+      }
+    }
+
+    .alpheios-alignment-fieldset-label-auto {
+      .alpheios-alignment-option-item__label {
+        width: auto;
+        margin-right: 20px;
+      }
+      input.alpheios-alignment-input, 
+      .alpheios-alignment-select, 
+      .alpheios-alignment-radio-block {
+        width: auto;
+      }
+    }
 </style>

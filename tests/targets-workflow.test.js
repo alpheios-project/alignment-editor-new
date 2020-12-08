@@ -5,21 +5,20 @@ import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import App from '@/vue/app.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 
-describe('aligned-text.test.js', () => {
+describe('target-texts.test.js', () => {
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
   
-  beforeAll(() => {
+  beforeAll(async () => {
     const appC = new AppController({
-      appId:'alpheios-alignment-editor',
-      tokenizeParams: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
+      appId:'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+
+    await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
     appC.defineHistoryController(appC.store)
@@ -37,19 +36,32 @@ describe('aligned-text.test.js', () => {
 
     // add origin doc source
     cmp.vm.$textC.updateOriginDocSource({
-      text: 'Humano capiti cervicem pictor equinam'
+      text: 'Humano capiti cervicem pictor equinam',
+      lang: 'lat',
+      direction: 'ltr',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     // add the first target doc source
     cmp.vm.$textC.updateTargetDocSource({
       text: 'Human head neck painter equinam',
-      lang: 'lat'
+      lang: 'lat',
+      direction: 'ltr',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     // add the second target doc source
     cmp.vm.$textC.updateTargetDocSource({
       text: 'join if you choose, and the various to bring the feathers,',
-      lang: 'lat'
+      lang: 'lat',
+      direction: 'ltr',
+      tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
     })
 
     // create aligned texts

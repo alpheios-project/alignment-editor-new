@@ -46,12 +46,12 @@ export default class DownloadController {
       })
       return false
     }
-    let fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang] // eslint-disable-line prefer-const
+    let fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang, data.originDocSource.sourceType] // eslint-disable-line prefer-const
 
     let langs = [] // eslint-disable-line prefer-const
 
     data.targetDocSources.forEach(targetText => {
-      fields.push(...[targetText.text, targetText.direction, targetText.lang])
+      fields.push(...[targetText.text, targetText.direction, targetText.lang, targetText.sourceType])
 
       if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
     })

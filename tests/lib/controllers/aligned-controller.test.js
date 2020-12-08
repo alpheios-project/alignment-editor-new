@@ -9,23 +9,21 @@ import Segment from '@/lib/data/segment'
 import Token from '@/lib/data/token'
 import AppController from '@/lib/controllers/app-controller.js'
 
-describe('texts-controller.test.js', () => {
+describe('aligned-controller.test.js', () => {
 
   console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
   
   let appC
-  beforeAll(() => {
+  beforeAll(async () => {
     appC = new AppController({
-      appId:'alpheios-alignment-editor',
-      tokenizeParams: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
+      appId:'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {
@@ -44,22 +42,50 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('2 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not ready', async () => {
+  it('2 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not ready, executes clearAlignedTexts', async () => {
     const alignedC = new AlignedController(appC.store)
     
-    const alignment = new Alignment({ text: 'origin' }, { text: '' })
+    const alignment = new Alignment({ text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}, { text: '', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}) // texts are not defined properly
     jest.spyOn(alignment, 'createAlignedTexts')
+
     const result = await alignedC.createAlignedTexts(alignment)
 
     expect(console.error).toHaveBeenCalled()
     expect(alignment.createAlignedTexts).not.toHaveBeenCalled()
+
     expect(result).toBeFalsy()
   })
 
-  it('3 AlignedController - createAlignedTexts defines alignment and executes tokenizer', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
+  it('3 AlignedController - createAlignedTexts prints error and doesn\'t init tokenization if alignment.createAlignedTexts is failed because of different amount of segments', async () => {
+    const alignedC = new AlignedController(appC.store)
+    
+    const alignment = new Alignment(
+      { text: 'some origin text\u2028for origin test', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}, 
+      { text: 'some target text', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}
+    ) // texts are not defined properly
 
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+    jest.spyOn(alignment, 'createAlignedTexts')
+    jest.spyOn(alignment, 'clearAlignedTexts')
+
+    const result = await alignedC.createAlignedTexts(alignment)
+
+    expect(alignment.createAlignedTexts).toHaveBeenCalled()
+    expect(alignment.clearAlignedTexts).toHaveBeenCalled()
+
+    expect(result).toBeFalsy()
+  })
+4
+  it('4 AlignedController - createAlignedTexts defines alignment and executes tokenizer', async () => {
+    const alignedC = new AlignedController(appC.store)
+
+    const originDocSource = new SourceText('origin', {
+      text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignment = new Alignment(originDocSource, targetDocSource)
     jest.spyOn(alignment, 'createAlignedTexts')
     
     const result = await alignedC.createAlignedTexts(alignment)
@@ -68,11 +94,17 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeTruthy()
   })
 
-  it('4 AlignedController - hasOriginAlignedText, hasTargetAlignedTexts, alignmentGroupsWorkflowStarted show that texts are already tokenized', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('5 AlignedController - hasOriginAlignedText, hasTargetAlignedTexts, alignmentGroupsWorkflowStarted show that texts are already tokenized', async () => {
+    const alignedC = new AlignedController(appC.store)
     
+    const originDocSource = new SourceText('origin', {
+      text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
     expect(alignedC.hasOriginAlignedText).toBeFalsy()
     expect(alignedC.hasTargetAlignedTexts).toBeFalsy()
     expect(alignedC.alignmentGroupsWorkflowStarted).toBeFalsy()
@@ -84,11 +116,17 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()
   })
 
-  it('5 AlignedController - allAlignedTextsSegments - returns an object with all segmenets ordered by segment order', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
+  it('6 AlignedController - allAlignedTextsSegments - returns an object with all segmenets ordered by segment order', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
     await alignedC.createAlignedTexts(alignment)
     const result = alignedC.allAlignedTextsSegments
@@ -114,10 +152,18 @@ describe('texts-controller.test.js', () => {
     expect(result[1].targets[targetIds[1]]).toEqual(expect.any(Segment))
   })
 
-  it('6 AlignedController - clickToken executes activateGroupByToken if there is no active alignment and token is already grouped inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('7 AlignedController - clickToken executes activateGroupByToken if there is no active alignment and token is already grouped inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -149,10 +195,17 @@ describe('texts-controller.test.js', () => {
     expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
   })
 
-  it('7 AlignedController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('8 AlignedController - clickToken executes startNewAlignmentGroup if there is no active alignment and token is not grouped inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -184,10 +237,17 @@ describe('texts-controller.test.js', () => {
   })
 
 
-  it('8 AlignedController - clickToken executes finishActiveAlignmentGroup if there is an active alignment and token meets the conditions for finishing group', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('9 AlignedController - clickToken executes finishActiveAlignmentGroup if there is an active alignment and token meets the conditions for finishing group', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -217,10 +277,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.finishActiveAlignmentGroup).toHaveBeenCalledWith()
   })
 
-  it('9 AlignedController - clickToken executes removeFromAlignmentGroup if there is an active alignment and token meets the conditions for removing from a group inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('10 AlignedController - clickToken executes removeFromAlignmentGroup if there is an active alignment and token meets the conditions for removing from a group inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -252,10 +320,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.removeFromAlignmentGroup).toHaveBeenCalledWith(tokenTarget2, targetIds[0])
   })
 
-  it('10 AlignedController - clickToken executes mergeActiveGroupWithAnotherByToken if there is an active alignment and token is in another group inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('11 AlignedController - clickToken executes mergeActiveGroupWithAnotherByToken if there is an active alignment and token is in another group inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -295,10 +371,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.mergeActiveGroupWithAnotherByToken).toHaveBeenCalledWith(tokenOrigin1, targetIds[0])
   })
 
-  it('11 AlignedController - clickToken executes addToAlignmentGroup if there is an active alignment and token should be added inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('12 AlignedController - clickToken executes addToAlignmentGroup if there is an active alignment and token should be added inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -327,7 +411,7 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.addToAlignmentGroup).toHaveBeenCalledWith(tokenTarget1, targetIds[0])
   })
 
-  it('12 AlignedController - startNewAlignmentGroup returns false if alignment is not defined', () => {
+  it('13 AlignedController - startNewAlignmentGroup returns false if alignment is not defined', () => {
     const alignedC = new AlignedController()
 
     const token = new Token({ 
@@ -340,8 +424,8 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('13 AlignedController - findAlignmentGroup returns false if alignment is not defined', () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
+  it('14 AlignedController - findAlignmentGroup returns false if alignment is not defined', () => {
+    const alignedC = new AlignedController(appC.store)
 
     const token = new Token({ 
       textType: 'origin',
@@ -353,9 +437,16 @@ describe('texts-controller.test.js', () => {
     expect(result).toBeFalsy()
   })
 
-  it('14 AlignedController - findAlignmentGroup returns false if token is not grouped', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'origin', direction: 'ltr', lang: 'eng' }, { text: 'target', direction: 'ltr', lang: 'eng' })
+  it('15 AlignedController - findAlignmentGroup returns false if token is not grouped', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
     await alignedC.createAlignedTexts(alignment)
 
     jest.spyOn(alignment, 'findAlignmentGroup')
@@ -370,10 +461,17 @@ describe('texts-controller.test.js', () => {
     expect(alignment.findAlignmentGroup).toHaveBeenCalled()
   })
 
-  it('15 AlignedController - findAlignmentGroup returns AlignmentGroup if token is grouped inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('16 AlignedController - findAlignmentGroup returns AlignmentGroup if token is grouped inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -396,10 +494,18 @@ describe('texts-controller.test.js', () => {
   })
 
 
-  it('16 AlignedController - tokenIsGrouped returns true if a token is grouped on the current targetId if it is passed', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('17 AlignedController - tokenIsGrouped returns true if a token is grouped on the current targetId if it is passed', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -419,10 +525,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.tokenIsGrouped(tokenOrigin1, targetIds[1])).toBeFalsy()
   })
 
-  it('17 AlignedController - tokenInActiveGroup returns true if a token is in an active group on the current targetId if it is passed', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('18 AlignedController - tokenInActiveGroup returns true if a token is in an active group on the current targetId if it is passed', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -444,10 +558,17 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.tokenInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
   })
 
-  it('18 AlignedController - isFirstInActiveGroup returns true if a token is the first in an active group on the current targetId if it is passed', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('19 AlignedController - isFirstInActiveGroup returns true if a token is the first in an active group on the current targetId if it is passed', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -473,10 +594,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.isFirstInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
   })
 
-  it('19 AlignedController - hasActiveAlignmentGroup returns true if an active alignment group is started', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('20 AlignedController - hasActiveAlignmentGroup returns true if an active alignment group is started', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -488,10 +617,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.hasActiveAlignmentGroup).toBeTruthy()
   })
 
-  it('20 AlignedController - isFirstInActiveGroup returns true if a token is the first in an active group on the current targetId if it is passed', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('21 AlignedController - isFirstInActiveGroup returns true if a token is the first in an active group on the current targetId if it is passed', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -517,10 +654,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.isFirstInActiveGroup(tokenTarget2, targetIds[1])).toBeFalsy()
   })
 
-  it('20 AlignedController - shouldFinishAlignmentGroup returns true if we should finish an active group after clicking on the token', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('22 AlignedController - shouldFinishAlignmentGroup returns true if we should finish an active group after clicking on the token', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -550,10 +695,18 @@ describe('texts-controller.test.js', () => {
     expect(alignment.hasActiveAlignmentGroup).toBeFalsy()
   })
 
-  it('21 AlignedController - shouldRemoveFromAlignmentGroup returns true if we should remove the token from an active group after clicking on the token', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('23 AlignedController - shouldRemoveFromAlignmentGroup returns true if we should remove the token from an active group after clicking on the token', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -584,10 +737,18 @@ describe('texts-controller.test.js', () => {
     expect(alignment.activeAlignmentGroup.groupLen).toEqual(2)
   })
 
-  it('22 AlignedController - activateGroupByToken makes group active if it has passed token inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('24 AlignedController - activateGroupByToken makes group active if it has passed token inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -612,10 +773,18 @@ describe('texts-controller.test.js', () => {
     expect(alignment.hasActiveAlignmentGroup).toBeTruthy()
   })
 
-  it('22 AlignedController - activateHoverOnAlignmentGroups defines hoveredGroups inside alignment and returns them inside correct target text (limitByTargetId)', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('25 AlignedController - activateHoverOnAlignmentGroups defines hoveredGroups inside alignment and returns them inside correct target text (limitByTargetId)', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -641,10 +810,18 @@ describe('texts-controller.test.js', () => {
     expect(alignedC.activateHoverOnAlignmentGroups(tokenOrigin1).length).toEqual(2) // hovered both groups
   })
 
-  it('23 AlignedController - clearHoverOnAlignmentGroups clears hoveredGroups', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('26 AlignedController - clearHoverOnAlignmentGroups clears hoveredGroups', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds
@@ -663,10 +840,18 @@ describe('texts-controller.test.js', () => {
     expect(alignment.hoveredGroups.length).toEqual(0)
   })
 
-  it('24 AlignedController - selectedToken checks if token is hovered', async () => {
-    const alignedC = new AlignedController(appC.store, { tokenizer: 'simpleLocalTokenizer' })
-    const alignment = new Alignment({ text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng' }, { text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng' })
-    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng' }))
+  it('27 AlignedController - selectedToken checks if token is hovered', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
 
     await alignedC.createAlignedTexts(alignment)
     const targetIds = alignment.allTargetTextsIds

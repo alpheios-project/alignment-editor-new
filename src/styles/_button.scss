@@ -36,7 +36,7 @@
   @extend %alpheios-button;
 }
 
-.alpheios-button-primary {
+.alpheios-editor-button-primary {
   @extend %alpheios-button;
   color: #FFF; // To override styles on Loeb Classics
   background-color: #C64906;
@@ -64,7 +64,7 @@
   }
 }
 
-.alpheios-button-tertiary, button.alpheios-button-tertiary {
+.alpheios-editor-button-tertiary, button.alpheios-editor-button-tertiary {
   @extend %alpheios-button;
   color: #185F6D;
   background: #fff;

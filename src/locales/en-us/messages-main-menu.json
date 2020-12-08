@@ -28,5 +28,15 @@
       "message": "Add target",
       "description": "Button in main menu",
       "component": "MainMenu"
+    },
+    "MAIN_MENU_SHOW_OPTIONS_TITLE": {
+      "message": "Show options",
+      "description": "Button in main menu",
+      "component": "MainMenu"
+    },
+    "MAIN_MENU_HIDE_OPTIONS_TITLE": {
+      "message": "Hide options",
+      "description": "Button in main menu",
+      "component": "MainMenu"
     }
 }

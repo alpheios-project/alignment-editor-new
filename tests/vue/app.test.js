@@ -15,6 +15,9 @@ import HistoryController from '@/lib/controllers/history-controller.js'
 import Alignment from '@/lib/data/alignment'
 import SourceText from '@/lib/data/source-text'
 
+import OptionsBlock from '@/vue/options/options-block.vue'
+import Vue from '@vue-runtime'
+
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
@@ -27,21 +30,20 @@ describe('app.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
 
     appC = new AppController({
-      appId:'alpheios-alignment-editor',
-      tokenizeParams: {
-        tokenizer: 'simpleLocalTokenizer'
-      }
+      appId:'alpheios-alignment-editor'
     })
     
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+
+    await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedController(appC.store)
     appC.defineHistoryController(appC.store)
@@ -55,6 +57,7 @@ describe('app.test.js', () => {
   it('2 App - should contain MainMenu, TextEditor, AlignEditor', () => {
     let cmp = shallowMount(App)
     expect(cmp.findComponent(MainMenu)).toBeTruthy()
+    expect(cmp.findComponent(OptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TextEditor)).toBeTruthy()
     expect(cmp.findComponent(AlignEditor)).toBeTruthy()
   })
@@ -150,15 +153,15 @@ describe('app.test.js', () => {
     expect(cmp.vm.alignEditorAvailable).toBeFalsy() // alignment workflow didn't start
 
     const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat'
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat'
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     const targetDocSource2 = new SourceText('target', {
-      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat'
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
@@ -166,9 +169,27 @@ describe('app.test.js', () => {
     await cmp.vm.$alignedC.createAlignedTexts(alignment)
     
     expect(cmp.vm.$store.state.alignmentUpdated).toEqual(2)
+
     expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()
     expect(cmp.vm.alignEditorAvailable).toBeTruthy() // alignment workflow started
     
+  })
+
+  it('11 App - toggleOptions - shows/hide options block', async () => {
+    let cmp = shallowMount(App, { 
+      store: appC.store,
+      localVue 
+    })
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+
+    cmp.vm.toggleOptions()
+
+    await Vue.nextTick()
+
+    expect(cmp.vm.shownOptionsBlock).toBeTruthy()
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
   })
 })
 

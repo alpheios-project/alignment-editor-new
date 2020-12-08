@@ -40,7 +40,8 @@
         }
     }
 
-    .alpheios-alignment-editor-text-define-container__show-label {
+    .alpheios-alignment-editor-text-define-container__show-label,
+    .alpheios-alignment-tokenize-options-details-toggle {
         color: map.get($theme, 'text-link-color');
         &:hover {
             color: map.get($theme, 'text-link-color-hover');
@@ -103,5 +104,13 @@
                 background: map.get($theme, 'align-editor-text-background-color-first-active');
             }
         }
+    }
+
+    .alpheios-alignment-options-block .alpheios-alignment-editor-container {
+        border-color: map.get($theme, 'settings-container-border-color');
+    }
+
+    .alpheios-alignment-options__group {
+        border-color: map.get($theme, 'settings-fieldset-border-color');
     }
 }
