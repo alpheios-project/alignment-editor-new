@@ -105,13 +105,18 @@ export default class SettingsController {
 
   /**
    * Executes some reactions to options change
+   * March rules are based on constructKey rule Options class
+   *
+   * key = `${domain}__${version}__${name}`
+   * if (group) { key = `${key}__${group}` }
    * @param {OptionItem} optionItem
    */
   changeOption (optionItem) {
-    if (optionItem.name.match('__theme$')) {
+    const optionNameParts = optionItem.name.split('__')
+    if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     }
-    if (optionItem.name.match('__tokenizer$')) {
+    if (optionNameParts[2] === 'tokenizer') {
       this.store.commit('incrementTokenizerUpdated')
     }
 
