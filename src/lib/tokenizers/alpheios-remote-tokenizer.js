@@ -9,7 +9,7 @@ export default class AlpheiosRemoteTokenizer {
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
   static async tokenize (docSource, idPrefix) {
-    const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
+    const textFormatted = docSource.text.split(/[ \r\t\f]*\n[ \r\t\f]*/).join('\n')
 
     const fetchOptions = Object.assign({
       lang: docSource.lang,
@@ -57,6 +57,9 @@ export default class AlpheiosRemoteTokenizer {
         token.textType = textType
         token.word = token.text
         token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+        if (token.line_break_before === true && iTok > 0) {
+          tokens[iTok - 1].hasLineBreak = true
+        }
       }
     }
 

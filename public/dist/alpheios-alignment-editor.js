@@ -3,11 +3,9 @@ window.AlignmentEditor =
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./styles/style.scss":
-/*!***************************!*\
+/*!***************************!*
   !*** ./styles/style.scss ***!
   \***************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -15,11 +13,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -27,11 +23,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -39,11 +33,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -51,11 +43,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -63,11 +53,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -75,11 +63,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=style&index=0&lang=scss&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=style&index=0&lang=scss& ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -87,11 +73,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -99,11 +83,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -111,11 +93,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -123,11 +103,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -135,11 +113,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements:  */
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -147,12 +123,9 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js":
-/*!***********************************************************************************************!*\
+/*!***********************************************************************************************!*
   !*** ../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js ***!
   \***********************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 3:2-16 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -2672,11 +2645,13 @@ __nested_webpack_require_86553__.r(__webpack_exports__);
 /* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_86553__(/*! alpheios-l10n */ "alpheios-l10n");
 /* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_86553__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_86553__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_86553__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
-/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_86553__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_86553__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_86553__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_86553__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_86553__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_86553__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_86553__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_86553__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 ;
+
 
 
 
@@ -2693,9 +2668,9 @@ class BaseAdapter {
   constructor () {
     this.errors = []
     this.l10n = new alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__.L10n()
-      .addMessages(_clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_6__, _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US)
-      .addMessages(_clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__, _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_GB)
-      .setLocale(_clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_5__.default.en_US)
+      .addMessages(_clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__, _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__.default.en_US)
+      .addMessages(_clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__, _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__.default.en_GB)
+      .setLocale(_clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__.default.en_US)
   }
 
   /**
@@ -2708,8 +2683,13 @@ class BaseAdapter {
   }
 
   addRemoteError (errorCode, message) {
-    const error = new _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_4__.default(this.config.category, this.config.adapterName, this.config.method, errorCode, message)
+    const error = new _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__.default(this.config.category, this.config.adapterName, this.config.method, errorCode, message)
     this.errors.push(error)
+  }
+
+  addWarning (errorCode, message) {
+    const warning = new _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__.default(this.config.category, this.config.adapterName, this.config.method, errorCode, message)
+    this.errors.push(warning)
   }
 
   /**
@@ -2904,19 +2884,19 @@ class BaseAdapter {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_97426__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_97881__) => {
 
 "use strict";
-__nested_webpack_require_97426__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_97426__.d(__webpack_exports__, {
+__nested_webpack_require_97881__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_97881__.d(__webpack_exports__, {
 /* harmony export */   "CedictCharacterForms": () => /* binding */ CedictCharacterForms,
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_97426__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_97426__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_97426__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_97426__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_97426__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_97881__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_97881__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_97881__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_97881__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_97881__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
 /* eslint-disable no-unused-vars */
 ;
 
@@ -3093,18 +3073,18 @@ class AlpheiosChineseLocAdapter extends _clAdapters_adapters_base_adapter__WEBPA
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_107160__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_107615__) => {
 
 "use strict";
-__nested_webpack_require_107160__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_107160__.d(__webpack_exports__, {
+__nested_webpack_require_107615__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_107615__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_107160__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
-/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_107160__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_107160__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_107160__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_107160__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_107615__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
+/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_107615__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_107615__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_107615__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_107615__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 ;
 
 
@@ -3425,19 +3405,19 @@ class AlpheiosConcordanceAdapter extends _clAdapters_adapters_base_adapter__WEBP
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_121853__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_122308__) => {
 
 "use strict";
-__nested_webpack_require_121853__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_121853__.d(__webpack_exports__, {
+__nested_webpack_require_122308__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_122308__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_121853__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_121853__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_121853__(/*! papaparse */ "papaparse");
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_121853__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_121853__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_121853__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_122308__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_122308__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_122308__(/*! papaparse */ "papaparse");
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_122308__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_122308__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_122308__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
 ;
 
 
@@ -3982,17 +3962,17 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_145055__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_145510__) => {
 
 "use strict";
-__nested_webpack_require_145055__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_145055__.d(__webpack_exports__, {
+__nested_webpack_require_145510__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_145510__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_145055__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_145055__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_145055__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_145055__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_145510__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_145510__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_145510__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_145510__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 ;
 
 
@@ -4103,17 +4083,17 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_149967__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150422__) => {
 
 "use strict";
-__nested_webpack_require_149967__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_149967__.d(__webpack_exports__, {
+__nested_webpack_require_150422__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_150422__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149967__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149967__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149967__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_149967__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150422__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150422__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150422__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150422__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 ;
 
 
@@ -4282,17 +4262,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_156276__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_156731__) => {
 
 "use strict";
-__nested_webpack_require_156276__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_156276__.d(__webpack_exports__, {
+__nested_webpack_require_156731__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_156731__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_156276__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_156276__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_156276__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_156276__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_156731__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_156731__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_156731__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_156731__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 ;
 
 
@@ -4425,19 +4405,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162182__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162637__) => {
 
 "use strict";
-__nested_webpack_require_162182__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_162182__.d(__webpack_exports__, {
+__nested_webpack_require_162637__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_162637__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162182__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_162182__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162182__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_162182__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_162182__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_162182__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162637__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_162637__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162637__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_162637__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_162637__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_162637__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 ;
 
 
@@ -4561,16 +4541,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_168512__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_168967__) => {
 
 "use strict";
-__nested_webpack_require_168512__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_168512__.d(__webpack_exports__, {
+__nested_webpack_require_168967__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_168967__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_168512__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_168512__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_168512__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_168967__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_168967__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_168967__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4589,16 +4569,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170127__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170582__) => {
 
 "use strict";
-__nested_webpack_require_170127__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_170127__.d(__webpack_exports__, {
+__nested_webpack_require_170582__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_170582__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170127__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170127__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170127__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170582__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170582__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170582__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4620,16 +4600,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_171972__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172427__) => {
 
 "use strict";
-__nested_webpack_require_171972__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_171972__.d(__webpack_exports__, {
+__nested_webpack_require_172427__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_172427__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_171972__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_171972__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_171972__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172427__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172427__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172427__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4682,16 +4662,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175668__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176123__) => {
 
 "use strict";
-__nested_webpack_require_175668__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_175668__.d(__webpack_exports__, {
+__nested_webpack_require_176123__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_176123__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175668__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175668__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175668__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176123__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176123__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176123__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4738,16 +4718,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_178476__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_178931__) => {
 
 "use strict";
-__nested_webpack_require_178476__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_178476__.d(__webpack_exports__, {
+__nested_webpack_require_178931__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_178931__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_178476__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_178476__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_178476__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_178931__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_178931__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_178931__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4766,16 +4746,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180107__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180562__) => {
 
 "use strict";
-__nested_webpack_require_180107__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180107__.d(__webpack_exports__, {
+__nested_webpack_require_180562__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180562__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180107__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180107__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180107__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180562__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180562__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180562__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4896,21 +4876,21 @@ data.setLemmaParser(function (lemma) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_186599__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_187054__) => {
 
 "use strict";
-__nested_webpack_require_186599__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_186599__.d(__webpack_exports__, {
+__nested_webpack_require_187054__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_187054__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186599__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186599__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186599__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186599__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186599__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_186599__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_186599__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_186599__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_187054__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_187054__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 ;
 
 
@@ -4965,25 +4945,25 @@ class EnginesSet {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190456__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190911__) => {
 
 "use strict";
-__nested_webpack_require_190456__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_190456__.d(__webpack_exports__, {
+__nested_webpack_require_190911__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_190911__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_190456__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_190456__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_190456__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_190911__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_190911__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
 ;
 
 
@@ -5423,11 +5403,11 @@ class ClientAdapters {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_211085__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_211540__) => {
 
 "use strict";
-__nested_webpack_require_211085__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_211085__.d(__webpack_exports__, {
+__nested_webpack_require_211540__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_211540__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class AdapterError extends Error {
@@ -5446,6 +5426,11 @@ class AdapterError extends Error {
     }
   }
 
+  /**
+   * @deprecated
+   * This method is obsolete. It will be removed in future versions.
+   * No replacement for its functionality has been provided as it is not used anywhere.
+   */
   update (config) {
     this.adapter = `${config.category}.${config.adapterName}`
     this.methodName = config.method
@@ -5460,6 +5445,47 @@ class AdapterError extends Error {
 
 /***/ }),
 
+/***/ "./errors/adapter-warning.js":
+/*!***********************************!*\
+  !*** ./errors/adapter-warning.js ***!
+  \***********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_213295__) => {
+
+"use strict";
+__nested_webpack_require_213295__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_213295__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ AdapterWarning
+/* harmony export */ });
+/**
+ A warning represents a problem that is less severe than an error.
+ In case of an error the problem that caused it cannot be ignored and,
+ because of that, the normal execution of the workflow is impossible.
+ The warning, in contrast, represents a issue that is important enough to be noticed,
+ but that does not, on itself, prevent the code from being executed normally.
+ */
+class AdapterWarning extends Error {
+  /**
+   * @param {string} category
+   * @param {string} adapterName - The name of the client adapter where the warning was originated.
+   * @param {string} methodName - The name of the method from where the warning came from.
+   * @param {string} errorCode - A short string representing the alphanumeric error code, such as `SOME_DATA_MISSING`
+   * @param errorMessage
+   */
+  constructor (category, adapterName, methodName, errorCode, errorMessage) {
+    super(errorMessage)
+    this.adapter = `${category}.${adapterName}`
+    this.methodName = methodName
+    this.errorCode = errorCode
+  }
+}
+
+
+/***/ }),
+
 /***/ "./errors/no-required-param-error.js":
 /*!*******************************************!*\
   !*** ./errors/no-required-param-error.js ***!
@@ -5468,11 +5494,11 @@ class AdapterError extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_212681__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_215115__) => {
 
 "use strict";
-__nested_webpack_require_212681__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_212681__.d(__webpack_exports__, {
+__nested_webpack_require_215115__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_215115__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -5499,11 +5525,11 @@ class NoRequiredParamError extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_213936__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_216370__) => {
 
 "use strict";
-__nested_webpack_require_213936__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_213936__.d(__webpack_exports__, {
+__nested_webpack_require_216370__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_216370__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteError
 /* harmony export */ });
 class RemoteError extends Error {
@@ -5526,6 +5552,33 @@ class RemoteError extends Error {
 
 /***/ }),
 
+/***/ "./errors/warning-codes.js":
+/*!*********************************!*\
+  !*** ./errors/warning-codes.js ***!
+  \*********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217615__) => {
+
+"use strict";
+__nested_webpack_require_217615__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217615__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/** @enum {string} */
+const WarningCodes = {
+  /*
+  `hdwd` field of the response of the morphological adapter contains a number, not a string
+   */
+  NO_LEMMA_IN_HDWD: 'NO_LEMMA_IN_HDWD'
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WarningCodes);
+
+
+/***/ }),
+
 /***/ "./errors/wrong-method-error.js":
 /*!**************************************!*\
   !*** ./errors/wrong-method-error.js ***!
@@ -5534,11 +5587,11 @@ class RemoteError extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_215185__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218656__) => {
 
 "use strict";
-__nested_webpack_require_215185__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_215185__.d(__webpack_exports__, {
+__nested_webpack_require_218656__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_218656__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -5566,18 +5619,18 @@ class WrongMethodError extends Error {
 /*! export RemoteError [provided] [maybe used in main (runtime-defined)] [usage prevents renaming] -> ./errors/remote-error.js .default */
 /*! other exports [not provided] [maybe used in main (runtime-defined)] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_216666__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220137__) => {
 
 "use strict";
-__nested_webpack_require_216666__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_216666__.d(__webpack_exports__, {
+__nested_webpack_require_220137__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220137__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => /* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default,
 /* harmony export */   "AdapterError": () => /* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default,
 /* harmony export */   "RemoteError": () => /* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_216666__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_216666__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_216666__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220137__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_220137__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_220137__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 ;
 
 
@@ -5595,15 +5648,15 @@ __nested_webpack_require_216666__.r(__webpack_exports__);
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218303__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221774__) => {
 
 "use strict";
-__nested_webpack_require_218303__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_218303__.d(__webpack_exports__, {
+__nested_webpack_require_221774__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221774__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_218303__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_218303__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_221774__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_221774__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 ;
 
 
@@ -5627,16 +5680,18 @@ __nested_webpack_require_218303__.r(__webpack_exports__);
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_219758__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_223229__) => {
 
 "use strict";
-__nested_webpack_require_219758__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_219758__.d(__webpack_exports__, {
+__nested_webpack_require_223229__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_223229__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_219758__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_219758__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_223229__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_223229__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_223229__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
 ;
+
 
 /**
  Transforms morphological output adhering to the Alpheios lexicon
@@ -5775,8 +5830,8 @@ class AlpheiosLexiconTransformer {
 
   /**
    * This method defines language from dictData nd inflections data
-   * @param {Object} data - jsonObj from adapter
-   * @param {Object} term - data from inflections
+   * @param {Object} jsonObj - jsonObj from adapter
+   * @param {string} targetWord - a word for which a request is made
    * Returned values:
    *     - {Homonym}
    *     - {undefined}
@@ -5819,14 +5874,13 @@ class AlpheiosLexiconTransformer {
         // and not a String
         const lemmaText = elem.hdwd && elem.hdwd.$ ? `${elem.hdwd.$}` : ''
         if (!lemmaText) {
-          this.adapter.addError(this.adapter.l10n.getMsg('MORPH_TRANSFORM_NO_LEMMA'))
+          this.adapter.addWarning(_clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__.default.NO_LEMMA_IN_HDWD, this.adapter.l10n.getMsg('MORPH_TRANSFORM_NO_LEMMA'))
           continue
         }
         const lemma = this.mappingData.parseLemma(lemmaText, language)
         lemmas.push(lemma)
 
-        const features = featuresArray
-        for (const feature of features) {
+        for (const feature of featuresArray) {
           this.mappingData.mapFeature(lemma, elem, ...feature, this.allowUnknownValues)
         }
 
@@ -5957,15 +6011,15 @@ class AlpheiosLexiconTransformer {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_234317__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_238055__) => {
 
 "use strict";
-__nested_webpack_require_234317__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_234317__.d(__webpack_exports__, {
+__nested_webpack_require_238055__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_238055__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_234317__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_234317__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_238055__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_238055__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -25949,7 +26003,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_2093838__(moduleId) {
+/******/ 	function __nested_webpack_require_2097576__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -25962,7 +26016,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_2093838__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_2097576__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -25975,11 +26029,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_2093838__.n = (module) => {
+/******/ 		__nested_webpack_require_2097576__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_2093838__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_2097576__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -25987,9 +26041,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_2093838__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_2097576__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_2093838__.o(definition, key) && !__nested_webpack_require_2093838__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_2097576__.o(definition, key) && !__nested_webpack_require_2097576__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -25998,13 +26052,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_2093838__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_2097576__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_2093838__.r = (exports) => {
+/******/ 		__nested_webpack_require_2097576__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -26014,7 +26068,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_2093838__.nmd = (module) => {
+/******/ 		__nested_webpack_require_2097576__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -26025,7 +26079,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_2093838__("./index.js");
+/******/ 	return __nested_webpack_require_2097576__("./index.js");
 /******/ })()
 ;
 });
@@ -26034,12 +26088,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /***/ }),
 
 /***/ "../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js":
-/*!***************************************************************************************!*\
+/*!***************************************************************************************!*
   !*** ../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js ***!
   \***************************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 3:2-16 */
 /***/ ((module) => {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -35082,7 +35133,7 @@ class Options {
    * @returns {object}
    */
   get formatLabelValueList () {
-    const result = {}
+    let result = {} // eslint-disable-line prefer-const
     Object.keys(this.items).forEach(nameItem => {
       result[nameItem] = this.items[nameItem].currentValue
     })
@@ -35108,12 +35159,12 @@ class Options {
    * @param {StorageAdapter} storageAdapter - class of the storage adapter
    */
   clone (domainPostfix, storageAdapter) {
-    const defaults = Object.assign({}, this.defaults)
+    let defaults = Object.assign({}, this.defaults) // eslint-disable-line prefer-const
 
     defaults.domain = `${defaults.domain}-${domainPostfix}`
     const newOptions = new Options(defaults, new storageAdapter(defaults.domain)) // eslint-disable-line new-cap
     Object.keys(newOptions.items).forEach(optionKey => {
-      const newOptionItem = newOptions.items[optionKey]
+      let newOptionItem = newOptions.items[optionKey] // eslint-disable-line prefer-const
 
       if (this.items[optionKey].values) {
         newOptionItem.uploadValuesFromArray(this.items[optionKey].values)
@@ -35135,16 +35186,16 @@ class Options {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_368388__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_368490__) => {
 
 "use strict";
-__nested_webpack_require_368388__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_368388__.d(__webpack_exports__, {
+__nested_webpack_require_368490__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_368490__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PersianLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_368388__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_368388__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_368388__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_368490__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_368490__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_368490__(/*! ./constants.js */ "./constants.js");
 ;
 
 
@@ -35214,11 +35265,11 @@ class PersianLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_371517__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_371619__) => {
 
 "use strict";
-__nested_webpack_require_371517__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_371517__.d(__webpack_exports__, {
+__nested_webpack_require_371619__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_371619__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEventData
 /* harmony export */ });
 /**
@@ -35269,16 +35320,16 @@ class PsEventData {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_373999__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_374101__) => {
 
 "use strict";
-__nested_webpack_require_373999__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_373999__.d(__webpack_exports__, {
+__nested_webpack_require_374101__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_374101__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEvent
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_373999__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_373999__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_373999__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_374101__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_374101__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_374101__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
 ;
 
 
@@ -35378,11 +35429,11 @@ class PsEvent {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_377691__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_377793__) => {
 
 "use strict";
-__nested_webpack_require_377691__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_377691__.d(__webpack_exports__, {
+__nested_webpack_require_377793__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_377793__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /**
@@ -35465,11 +35516,11 @@ class ResourceProvider {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_380343__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_380445__) => {
 
 "use strict";
-__nested_webpack_require_380343__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_380343__.d(__webpack_exports__, {
+__nested_webpack_require_380445__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_380445__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* eslint-disable */
@@ -35653,14 +35704,14 @@ class Sha1 {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_387929__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_388031__) => {
 
 "use strict";
-__nested_webpack_require_387929__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_387929__.d(__webpack_exports__, {
+__nested_webpack_require_388031__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_388031__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ DefaultsLoader
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_387929__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_388031__(/*! ../logging/logger.js */ "./logging/logger.js");
 ;
 
 class DefaultsLoader {
@@ -35685,14 +35736,14 @@ class DefaultsLoader {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_389176__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_389278__) => {
 
 "use strict";
-__nested_webpack_require_389176__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_389176__.d(__webpack_exports__, {
+__nested_webpack_require_389278__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_389278__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ ExtensionSyncStorage
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_389176__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_389278__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 /* global browser */
 ;
 
@@ -35744,14 +35795,14 @@ class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_391847__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_391949__) => {
 
 "use strict";
-__nested_webpack_require_391847__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_391847__.d(__webpack_exports__, {
+__nested_webpack_require_391949__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_391949__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ LocalStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_391847__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_391949__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 ;
 
 /**
@@ -35910,16 +35961,16 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_397887__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_397989__) => {
 
 "use strict";
-__nested_webpack_require_397887__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_397887__.d(__webpack_exports__, {
+__nested_webpack_require_397989__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_397989__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteAuthStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_397887__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_397887__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_397887__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_397989__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_397989__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_397989__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -36018,11 +36069,11 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_402398__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_402500__) => {
 
 "use strict";
-__nested_webpack_require_402398__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_402398__.d(__webpack_exports__, {
+__nested_webpack_require_402500__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_402500__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ StorageAdapter
 /* harmony export */ });
 /**
@@ -36100,14 +36151,14 @@ class StorageAdapter {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_406311__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_406413__) => {
 
 "use strict";
-__nested_webpack_require_406311__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_406311__.d(__webpack_exports__, {
+__nested_webpack_require_406413__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_406413__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TempStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_406311__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_406413__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 ;
 
 /**
@@ -36154,19 +36205,19 @@ class TempStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.d
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_408945__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_409047__) => {
 
 "use strict";
-__nested_webpack_require_408945__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_408945__.d(__webpack_exports__, {
+__nested_webpack_require_409047__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_409047__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ SyriacLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_408945__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_408945__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_408945__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_408945__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_408945__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
-/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_408945__(/*! ./inflection_group */ "./inflection_group.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_409047__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_409047__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_409047__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_409047__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_409047__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
+/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_409047__(/*! ./inflection_group */ "./inflection_group.js");
 ;
 
 
@@ -36406,11 +36457,11 @@ for the current node
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_421081__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_421183__) => {
 
 "use strict";
-__nested_webpack_require_421081__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_421081__.d(__webpack_exports__, {
+__nested_webpack_require_421183__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_421183__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class Author {
@@ -36485,11 +36536,11 @@ class Author {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_423659__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_423761__) => {
 
 "use strict";
-__nested_webpack_require_423659__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_423659__.d(__webpack_exports__, {
+__nested_webpack_require_423761__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_423761__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class TextWork {
@@ -36575,15 +36626,15 @@ class TextWork {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_426548__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_426650__) => {
 
 "use strict";
-__nested_webpack_require_426548__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_426548__.d(__webpack_exports__, {
+__nested_webpack_require_426650__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_426650__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordUsageExample
 /* harmony export */ });
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_426548__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_426548__(/*! ../language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_426650__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_426650__(/*! ../language_model_factory.js */ "./language_model_factory.js");
 ;
 
 
@@ -36685,14 +36736,14 @@ class WordUsageExample extends _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MOD
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_430228__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_430330__) => {
 
 "use strict";
-__nested_webpack_require_430228__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_430228__.d(__webpack_exports__, {
+__nested_webpack_require_430330__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_430330__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_430228__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_430330__(/*! ./resource_provider.js */ "./resource_provider.js");
 ;
 /**
  * stores a scope of lemma translations from python service
@@ -36768,11 +36819,11 @@ class Translation {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_433236__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_433338__) => {
 
 "use strict";
-__nested_webpack_require_433236__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_433236__.d(__webpack_exports__, {
+__nested_webpack_require_433338__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_433338__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TreebankDataItem
 /* harmony export */ });
 class TreebankDataItem {
@@ -36968,15 +37019,15 @@ class TreebankDataItem {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_442173__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_442275__) => {
 
 "use strict";
-__nested_webpack_require_442173__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_442173__.d(__webpack_exports__, {
+__nested_webpack_require_442275__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_442275__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TextQuoteSelector
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_442173__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_442173__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_442275__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_442275__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
  */
@@ -37039,15 +37090,15 @@ class TextQuoteSelector {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_444939__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_445041__) => {
 
 "use strict";
-__nested_webpack_require_444939__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_444939__.d(__webpack_exports__, {
+__nested_webpack_require_445041__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_445041__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordItem
 /* harmony export */ });
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_444939__(/*! ./homonym.js */ "./homonym.js");
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_444939__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_445041__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_445041__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
 ;
 
 
@@ -37204,14 +37255,14 @@ class WordItem {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_449789__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_449891__) => {
 
 "use strict";
-__nested_webpack_require_449789__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_449789__.d(__webpack_exports__, {
+__nested_webpack_require_449891__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_449891__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordList
 /* harmony export */ });
-/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_449789__(/*! ./word-item */ "./word-item.js");
+/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_449891__(/*! ./word-item */ "./word-item.js");
 ;
 
 class WordList {
@@ -37325,7 +37376,7 @@ class WordList {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_453044__(moduleId) {
+/******/ 	function __nested_webpack_require_453146__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -37338,7 +37389,7 @@ class WordList {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_453044__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_453146__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -37348,11 +37399,11 @@ class WordList {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_453044__.n = (module) => {
+/******/ 		__nested_webpack_require_453146__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_453044__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_453146__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -37360,9 +37411,9 @@ class WordList {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_453044__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_453146__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_453044__.o(definition, key) && !__nested_webpack_require_453044__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_453146__.o(definition, key) && !__nested_webpack_require_453146__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -37371,13 +37422,13 @@ class WordList {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_453044__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_453146__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_453044__.r = (exports) => {
+/******/ 		__nested_webpack_require_453146__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -37389,7 +37440,7 @@ class WordList {
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_453044__("./driver.js");
+/******/ 	return __nested_webpack_require_453146__("./driver.js");
 /******/ })()
 ;
 });
@@ -37398,12 +37449,9 @@ class WordList {
 /***/ }),
 
 /***/ "../node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js":
-/*!*************************************************************************!*\
+/*!*************************************************************************!*
   !*** ../node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js ***!
   \*************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 3:2-16 */
 /***/ ((module) => {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -42971,12 +43019,9 @@ class Message {
 /***/ }),
 
 /***/ "../node_modules/alpheios-messaging/dist/prod/alpheios-messaging.min.js":
-/*!******************************************************************************!*\
+/*!******************************************************************************!*
   !*** ../node_modules/alpheios-messaging/dist/prod/alpheios-messaging.min.js ***!
   \******************************************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 1:101-115 */
 /***/ ((module) => {
 
 !function webpackUniversalModuleDefinition(e,s){if(true)module.exports=s();else { var r, t; }}(window,(function(){return function(e){var s={};function __nested_webpack_require_303__(t){if(s[t])return s[t].exports;var r=s[t]={i:t,l:!1,exports:{}};return e[t].call(r.exports,r,r.exports,__nested_webpack_require_303__),r.l=!0,r.exports}return __nested_webpack_require_303__.m=e,__nested_webpack_require_303__.c=s,__nested_webpack_require_303__.d=function(e,s,t){__nested_webpack_require_303__.o(e,s)||Object.defineProperty(e,s,{enumerable:!0,get:t})},__nested_webpack_require_303__.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},__nested_webpack_require_303__.t=function(e,s){if(1&s&&(e=__nested_webpack_require_303__(e)),8&s)return e;if(4&s&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(__nested_webpack_require_303__.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&s&&"string"!=typeof e)for(var r in e)__nested_webpack_require_303__.d(t,r,function(s){return e[s]}.bind(null,r));return t},__nested_webpack_require_303__.n=function(e){var s=e&&e.__esModule?function getDefault(){return e.default}:function getModuleExports(){return e};return __nested_webpack_require_303__.d(s,"a",s),s},__nested_webpack_require_303__.o=function(e,s){return Object.prototype.hasOwnProperty.call(e,s)},__nested_webpack_require_303__.p="",__nested_webpack_require_303__(__nested_webpack_require_303__.s=0)}([function(e,s,t){"use strict";t.r(s),t.d(s,"MessagingService",(function(){return messaging_service_MessagingService})),t.d(s,"WindowIframeDestination",(function(){return window_iframe_destination_WindowIframeDestination})),t.d(s,"RequestMessage",(function(){return request_message_RequestMessage})),t.d(s,"ResponseMessage",(function(){return response_message_ResponseMessage})),t.d(s,"CedictDestinationConfig",(function(){return c})),t.d(s,"CedictDestinationDevConfig",(function(){return u}));var r="undefined"!=typeof crypto&&crypto.getRandomValues&&crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&&"function"==typeof msCrypto.getRandomValues&&msCrypto.getRandomValues.bind(msCrypto),n=new Uint8Array(16);function rng(){if(!r)throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return r(n)}for(var i=[],o=0;o<256;++o)i[o]=(o+256).toString(16).substr(1);var a=function bytesToUuid(e,s){var t=s||0,r=i;return[r[e[t++]],r[e[t++]],r[e[t++]],r[e[t++]],"-",r[e[t++]],r[e[t++]],"-",r[e[t++]],r[e[t++]],"-",r[e[t++]],r[e[t++]],"-",r[e[t++]],r[e[t++]],r[e[t++]],r[e[t++]],r[e[t++]],r[e[t++]]].join("")};var d=function v4(e,s,t){var r=s&&t||0;"string"==typeof e&&(s="binary"===e?new Array(16):null,e=null);var n=(e=e||{}).random||(e.rng||rng)();if(n[6]=15&n[6]|64,n[8]=63&n[8]|128,s)for(var i=0;i<16;++i)s[r+i]=n[i];return s||a(n)};class message_Message{constructor(e={}){this.role=void 0,this.type=message_Message.types.GENERIC,this.ID=d(),this.body=e}static isKnownType(e){return Object.values(message_Message.types).includes(e)}}message_Message.roles={REQUEST:"Request",RESPONSE:"Response"},message_Message.types={GENERIC:"ALPHEIOS_MESSAGE"};class request_message_RequestMessage extends message_Message{constructor(e={}){super(e),this.role=message_Message.roles.REQUEST,this.header={}}}class response_message_ResponseMessage extends message_Message{constructor(e,s={},t=response_message_ResponseMessage.responseCodes.UNDEFINED,{errorCode:r}={}){if(super(s),!e)throw new Error("Request is not provided");if(!e.ID)throw new Error("Request has no ID");if(this.role=message_Message.roles.RESPONSE,this.requestHeader=e.header||{},this.requestID=e.ID,this.responseCode=t,this.errorCode=0,t===response_message_ResponseMessage.responseCodes.ERROR){if(!r)throw new Error("An error code must be provided for failed requests");this.errorCode=r}}static Success(e,s={}){return new this(e,s,response_message_ResponseMessage.responseCodes.SUCCESS)}static Error(e,s,t){return new this(e,s,response_message_ResponseMessage.responseCodes.ERROR,{errorCode:t})}static isResponse(e){return e.role&&e.role===message_Message.roles.RESPONSE&&e.requestHeader&&e.requestID}}response_message_ResponseMessage.responseCodes={SUCCESS:"Success",UNDEFINED:"Undefined",ERROR:"Error"},response_message_ResponseMessage.errorCodes={SERVICE_UNINITIALIZED:1,INITIALIZATION_ERROR:2,UNKNOWN_REQUEST:3,INTERNAL_ERROR:4};class StoredRequest{constructor(){this.resolve=null,this.reject=null,this.promise=new Promise(this.executor.bind(this))}executor(e,s){this.resolve=e,this.reject=s}}let _=new Map;class messaging_service_MessagingService{constructor(e,s=[]){if(!e)throw new Error(messaging_service_MessagingService.errMsgs.NO_NAME);this.name=e,this._messages=new Map,this._destinations=new Map,Array.isArray(s)||(s=[s]),s.forEach(e=>this.registerDestination(e))}static hasService(e){return _.has(e)}static getService(e){return _.get(e)}static createService(e,s=[]){const t=new messaging_service_MessagingService(e,s);return _.set(e,t),t}static deleteService(e){return _.delete(e)}registerDestination(e){if(this._destinations.has(e.name))throw new Error("Destination already exists");this._destinations.set(e.name,e),e.ableToSend&&e.registerResponseCallback(this.dispatchMessage.bind(this))}updateDestination(e){if(!this._destinations.has(e.name))throw new Error("Cannot update a destination that does not exist");this._destinations.get(e.name).deregister(),this._destinations.set(e.name,e),e.ableToSend&&e.registerResponseCallback(this.dispatchMessage.bind(this))}dispatchMessage(e){if(!message_Message.isKnownType(e.type))return;if(!response_message_ResponseMessage.isResponse(e))return void console.error("A message not following a response format will be ignored:",e);if(!this._messages.has(e.requestID))return;const s=this._messages.get(e.requestID);window.clearTimeout(s.timeoutID),e.responseCode===response_message_ResponseMessage.responseCodes.ERROR?s.reject(e):s.resolve(e),this._messages.delete(e.requestID)}registerRequest(e,s=1e4){if(this._messages.has(e.ID))throw new Error(`Request with ${e.ID} ID is already registered`);let t=new StoredRequest(e);return this._messages.set(e.ID,t),t.timeoutID=window.setTimeout(s=>{t.reject(new Error("Timeout has been expired for a message with request ID "+e.ID)),this._messages.delete(s)},s),t.promise}sendRequestTo(e,s,t=1e4){if(!e)throw new Error("Destination name is not provided");if(!this._destinations.has(e))throw new Error("Unknown destination "+e);try{this._destinations.get(e).sendRequest(s)}catch(s){throw new Error(`Request to ${e} failed: ${s.message}`)}return this.registerRequest(s,t)}}messaging_service_MessagingService.errMsgs={NO_NAME:"MessagingService must be created with a name"};class Destination{constructor({name:e,commModes:s=[Destination.commModes.SEND]}={}){if(!e)throw new Error(Destination.errMsgs.NO_DESTINATION);this.name=e,this.commModes=s,this._responseCallback=null}get ableToSend(){return this.commModes.includes(Destination.commModes.SEND)}get ableToReceive(){return this.commModes.includes(Destination.commModes.RECEIVE)}deregister(){throw new Error(Destination.errMsgs.DEREGISTER_NOT_DEFINED)}}Destination.commModes={SEND:"Send",RECEIVE:"Receive"},Destination.errMsgs={NO_DESTINATION:"Destination name is missing",DEREGISTER_NOT_DEFINED:"Deregister method must be defined in a subclass"};class window_iframe_destination_WindowIframeDestination extends Destination{constructor({name:e,commModes:s,targetURL:t,targetIframeID:r,receiverCB:n}={}){if(super({name:e,commModes:s}),this._targetURL=null,this._targetIframeID=null,this._registeredRequestHandler=null,this._registeredResponseHandler=null,this.ableToSend){if(!t)throw new Error(window_iframe_destination_WindowIframeDestination.errMsgs.NO_TARGET_URL);if(!r)throw new Error(window_iframe_destination_WindowIframeDestination.errMsgs.NO_TARGET_IFRAME_ID);this._targetURL=t,this._targetIframeID=r}if(this.ableToReceive){if(!n)throw new Error(window_iframe_destination_WindowIframeDestination.errMsgs.NO_RECEIVER_CB);this._registeredRequestHandler=this._requestHandler.bind(this,n),window.addEventListener("message",this._registeredRequestHandler,!1)}}registerResponseCallback(e){this._registeredResponseHandler=this._responseHandler.bind(this),window.addEventListener("message",this._registeredResponseHandler,!1),this._responseCallback=e}sendRequest(e){const s=document.querySelector("#"+this._targetIframeID);if(!s)throw new Error(`An #${this._targetIframeID} iframe does not exist in the document`);const t=s.contentWindow;let r=!1;try{r="about:blank"===t.location.href}catch(e){if(!(e instanceof DOMException))throw e}if(r)throw new Error(`Target document ${this._targetURL} is not loaded yet`);try{t.postMessage(e,this._targetURL)}catch(s){if(!(s instanceof DOMException&&"DataCloneError"===s.name))throw s;console.warn("Request that does not confirm to the structured clone algorithm cannot be sent, will try to convert it to a plain object and send again"),e.body=window_iframe_destination_WindowIframeDestination._toPostable(e.body),t.postMessage(e,this._targetURL)}}sendResponse(e){try{window.parent.postMessage(e,e.requestHeader.origin)}catch(s){if(!(s instanceof DOMException&&"DataCloneError"===s.name))throw s;console.warn("Response that does not confirm to the structured clone algorithm cannot be sent, will try to convert it to a plain object and send again"),e.body=window_iframe_destination_WindowIframeDestination._toPostable(e.body),window.parent.postMessage(e,e.requestHeader.origin)}}_requestHandler(e,s){if(!window_iframe_destination_WindowIframeDestination._isSupportedEvent(s))return;let t=s.data;t.header.origin=s.origin,e(t,this.sendResponse.bind(this))}_responseHandler(e){if(!window_iframe_destination_WindowIframeDestination._isSupportedEvent(e))return;const s=e.data;this._responseCallback&&this._responseCallback(s)}static _isSupportedEvent(e){return Boolean(e&&e.data&&e.data.type&&message_Message.isKnownType(e.data.type))}deregister(){this._registeredResponseHandler&&(window.removeEventListener("message",this._registeredResponseHandler,!1),this._registeredResponseHandler=null),this._registeredRequestHandler||(window.removeEventListener("message",this._registeredRequestHandler,!1),this._registeredRequestHandler=null)}static _toPostable(e){let s;return s=e instanceof Error?{name:e.name,message:e.message}:JSON.parse(JSON.stringify(e)),s}}window_iframe_destination_WindowIframeDestination.errMsgs={NO_TARGET_URL:"Target URL is not provided",NO_TARGET_IFRAME_ID:"Target iframe ID is not provided",NO_RECEIVER_CB:"A receiver callback must be provided for a destination in the RECEIVE communication mode"};const c={name:"cedict",targetURL:"https://lexis-dev.alpheios.net",targetIframeID:"alpheios-lexis-cs"},u={name:"cedict",targetURL:"https://lexis-dev.alpheios.net/index-dev.html",targetIframeID:"alpheios-lexis-cs"}}])}));
@@ -42984,12 +43029,9 @@ class Message {
 /***/ }),
 
 /***/ "../node_modules/emitter-component/index.js":
-/*!**************************************************!*\
+/*!**************************************************!*
   !*** ../node_modules/emitter-component/index.js ***!
   \**************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 6:0-14 */
 /***/ ((module) => {
 
 
@@ -43161,12 +43203,9 @@ Emitter.prototype.hasListeners = function(event){
 /***/ }),
 
 /***/ "../node_modules/fast-memoize/src/index.js":
-/*!*************************************************!*\
+/*!*************************************************!*
   !*** ../node_modules/fast-memoize/src/index.js ***!
   \*************************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 140:0-14 */
 /***/ ((module) => {
 
 //
@@ -43318,30 +43357,9 @@ module.exports.strategies = {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/index.js":
-/*!**************************************************************!*\
+/*!**************************************************************!*
   !*** ../node_modules/intl-messageformat-parser/lib/index.js ***!
   \**************************************************************/
-/*! namespace exports */
-/*! export SKELETON_TYPE [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .SKELETON_TYPE */
-/*! export SyntaxError [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/parser.js .SyntaxError */
-/*! export TYPE [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .TYPE */
-/*! export createLiteralElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .createLiteralElement */
-/*! export createNumberElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .createNumberElement */
-/*! export isArgumentElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isArgumentElement */
-/*! export isDateElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isDateElement */
-/*! export isDateTimeSkeleton [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isDateTimeSkeleton */
-/*! export isLiteralElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isLiteralElement */
-/*! export isNumberElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isNumberElement */
-/*! export isNumberSkeleton [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isNumberSkeleton */
-/*! export isPluralElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isPluralElement */
-/*! export isPoundElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isPoundElement */
-/*! export isSelectElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isSelectElement */
-/*! export isTagElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isTagElement */
-/*! export isTimeElement [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/types.js .isTimeElement */
-/*! export parse [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export pegParse [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat-parser/lib/src/parser.js .pegParse */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -43370,7 +43388,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/parser */ "../node_modules/intl-messageformat-parser/lib/src/parser.js");
 /* harmony import */ var _src_normalize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/normalize */ "../node_modules/intl-messageformat-parser/lib/src/normalize.js");
 /* harmony import */ var _src_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
-;
+
 
 
 
@@ -43388,13 +43406,9 @@ function parse(input, opts) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/normalize.js":
-/*!**********************************************************************!*\
+/*!**********************************************************************!*
   !*** ../node_modules/intl-messageformat-parser/lib/src/normalize.js ***!
   \**********************************************************************/
-/*! namespace exports */
-/*! export normalizeHashtagInPlural [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -43405,7 +43419,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
 /* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parser */ "../node_modules/intl-messageformat-parser/lib/src/parser.js");
-;
+
 
 
 var PLURAL_HASHTAG_REGEX = /(^|[^\\])#/g;
@@ -43451,14 +43465,9 @@ function normalizeHashtagInPlural(els) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/parser.js":
-/*!*******************************************************************!*\
+/*!*******************************************************************!*
   !*** ../node_modules/intl-messageformat-parser/lib/src/parser.js ***!
   \*******************************************************************/
-/*! namespace exports */
-/*! export SyntaxError [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export pegParse [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -43471,7 +43480,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
 /* harmony import */ var _skeleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./skeleton */ "../node_modules/intl-messageformat-parser/lib/src/skeleton.js");
 // @ts-nocheck
-;
+
 // @generated
 
 
@@ -46586,14 +46595,9 @@ var pegParse = peg$parse;
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/skeleton.js":
-/*!*********************************************************************!*\
+/*!*********************************************************************!*
   !*** ../node_modules/intl-messageformat-parser/lib/src/skeleton.js ***!
   \*********************************************************************/
-/*! namespace exports */
-/*! export parseDateTimeSkeleton [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export parseNumberSkeleton [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46603,7 +46607,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "parseNumberSkeleton": () => /* binding */ parseNumberSkeleton
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-;
+
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
  * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
@@ -46906,27 +46910,9 @@ function parseNumberSkeleton(tokens) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/types.js":
-/*!******************************************************************!*\
+/*!******************************************************************!*
   !*** ../node_modules/intl-messageformat-parser/lib/src/types.js ***!
   \******************************************************************/
-/*! namespace exports */
-/*! export SKELETON_TYPE [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export TYPE [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export createLiteralElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export createNumberElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isArgumentElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isDateElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isDateTimeSkeleton [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isLiteralElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isNumberElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isNumberSkeleton [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isPluralElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isPoundElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isSelectElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isTagElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isTimeElement [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47047,22 +47033,9 @@ function createNumberElement(value, style) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/index.js":
-/*!*******************************************************!*\
+/*!*******************************************************!*
   !*** ../node_modules/intl-messageformat/lib/index.js ***!
   \*******************************************************/
-/*! namespace exports */
-/*! export ErrorCode [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/error.js .ErrorCode */
-/*! export FormatError [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/error.js .FormatError */
-/*! export IntlMessageFormat [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/core.js .IntlMessageFormat */
-/*! export InvalidValueError [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/error.js .InvalidValueError */
-/*! export InvalidValueTypeError [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/error.js .InvalidValueTypeError */
-/*! export MissingValueError [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/error.js .MissingValueError */
-/*! export PART_TYPE [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/formatters.js .PART_TYPE */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export formatToParts [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/formatters.js .formatToParts */
-/*! export isFormatXMLElementFn [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/intl-messageformat/lib/src/formatters.js .isFormatXMLElementFn */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47087,7 +47060,7 @@ Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
 See the accompanying LICENSE file for terms.
 */
-;
+
 
 
 
@@ -47097,13 +47070,9 @@ See the accompanying LICENSE file for terms.
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/src/core.js":
-/*!**********************************************************!*\
+/*!**********************************************************!*
   !*** ../node_modules/intl-messageformat/lib/src/core.js ***!
   \**********************************************************/
-/*! namespace exports */
-/*! export IntlMessageFormat [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47121,7 +47090,7 @@ Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
 See the accompanying LICENSE file for terms.
 */
-;
+
 
 
 
@@ -47348,17 +47317,9 @@ var IntlMessageFormat = /** @class */ (function () {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/src/error.js":
-/*!***********************************************************!*\
+/*!***********************************************************!*
   !*** ../node_modules/intl-messageformat/lib/src/error.js ***!
   \***********************************************************/
-/*! namespace exports */
-/*! export ErrorCode [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export FormatError [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export InvalidValueError [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export InvalidValueTypeError [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export MissingValueError [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47371,7 +47332,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "MissingValueError": () => /* binding */ MissingValueError
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-;
+
 var ErrorCode;
 (function (ErrorCode) {
     // When we have a placeholder but no value to format
@@ -47424,15 +47385,9 @@ var MissingValueError = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/src/formatters.js":
-/*!****************************************************************!*\
+/*!****************************************************************!*
   !*** ../node_modules/intl-messageformat/lib/src/formatters.js ***!
   \****************************************************************/
-/*! namespace exports */
-/*! export PART_TYPE [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export formatToParts [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export isFormatXMLElementFn [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47444,7 +47399,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat-parser */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "../node_modules/intl-messageformat/lib/src/error.js");
-;
+
 
 var PART_TYPE;
 (function (PART_TYPE) {
@@ -47621,12 +47576,9 @@ originalMessage) {
 /***/ }),
 
 /***/ "../node_modules/papaparse/papaparse.js":
-/*!**********************************************!*\
+/*!**********************************************!*
   !*** ../node_modules/papaparse/papaparse.js ***!
   \**********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: top-level-this-exports, __webpack_require__, __webpack_exports__, module */
-/*! CommonJS bailout: this is used directly at 31:2-6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* @license
@@ -49560,12 +49512,9 @@ License: MIT
 /***/ }),
 
 /***/ "../node_modules/stream/index.js":
-/*!***************************************!*\
+/*!***************************************!*
   !*** ../node_modules/stream/index.js ***!
   \***************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 28:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -49688,35 +49637,9 @@ Stream.prototype.pipe = function(dest, options) {
 /***/ }),
 
 /***/ "../node_modules/tslib/tslib.es6.js":
-/*!******************************************!*\
+/*!******************************************!*
   !*** ../node_modules/tslib/tslib.es6.js ***!
   \******************************************/
-/*! namespace exports */
-/*! export __assign [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __asyncDelegator [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __asyncGenerator [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __asyncValues [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __await [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __awaiter [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __classPrivateFieldGet [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __classPrivateFieldSet [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __createBinding [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __decorate [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __exportStar [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __extends [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __generator [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __importDefault [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __importStar [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __makeTemplateObject [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __metadata [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __param [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __read [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __rest [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __spread [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __spreadArrays [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export __values [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -49978,12 +49901,9 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /***/ }),
 
 /***/ "../node_modules/uuid/index.js":
-/*!*************************************!*\
+/*!*************************************!*
   !*** ../node_modules/uuid/index.js ***!
   \*************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 8:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var v1 = __webpack_require__(/*! ./v1 */ "../node_modules/uuid/v1.js");
@@ -49999,12 +49919,9 @@ module.exports = uuid;
 /***/ }),
 
 /***/ "../node_modules/uuid/lib/bytesToUuid.js":
-/*!***********************************************!*\
+/*!***********************************************!*
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 26:0-14 */
 /***/ ((module) => {
 
 /**
@@ -50038,13 +49955,9 @@ module.exports = bytesToUuid;
 /***/ }),
 
 /***/ "../node_modules/uuid/lib/rng-browser.js":
-/*!***********************************************!*\
+/*!***********************************************!*
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 15:2-16 */
-/*! CommonJS bailout: module.exports is used directly at 26:2-16 */
 /***/ ((module) => {
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -50086,12 +49999,9 @@ if (getRandomValues) {
 /***/ }),
 
 /***/ "../node_modules/uuid/v1.js":
-/*!**********************************!*\
+/*!**********************************!*
   !*** ../node_modules/uuid/v1.js ***!
   \**********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 109:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var rng = __webpack_require__(/*! ./lib/rng */ "../node_modules/uuid/lib/rng-browser.js");
@@ -50208,12 +50118,9 @@ module.exports = v1;
 /***/ }),
 
 /***/ "../node_modules/uuid/v4.js":
-/*!**********************************!*\
+/*!**********************************!*
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 29:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var rng = __webpack_require__(/*! ./lib/rng */ "../node_modules/uuid/lib/rng-browser.js");
@@ -50250,13 +50157,9 @@ module.exports = v4;
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js":
-/*!*********************************************************************!*\
+/*!*********************************************************************!*
   !*** ../node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
   \*********************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -50367,13 +50270,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ "../node_modules/vue/dist/vue.runtime.esm.js":
-/*!***************************************************!*\
+/*!***************************************************!*
   !*** ../node_modules/vue/dist/vue.runtime.esm.js ***!
   \***************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.g, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -58823,42 +58722,20 @@ if (inBrowser) {
 
 /***/ }),
 
-/***/ "../node_modules/vuex/dist/vuex.esm.js":
-/*!*********************************************!*\
-  !*** ../node_modules/vuex/dist/vuex.esm.js ***!
-  \*********************************************/
-/*! namespace exports */
-/*! export Store [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export createLogger [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export createNamespacedHelpers [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export install [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export mapActions [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export mapGetters [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export mapMutations [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export mapState [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.g, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "../node_modules/vuex/dist/vuex.common.js":
+/*!************************************************!*
+  !*** ../node_modules/vuex/dist/vuex.common.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__,
-/* harmony export */   "Store": () => /* binding */ Store,
-/* harmony export */   "createLogger": () => /* binding */ createLogger,
-/* harmony export */   "createNamespacedHelpers": () => /* binding */ createNamespacedHelpers,
-/* harmony export */   "install": () => /* binding */ install,
-/* harmony export */   "mapActions": () => /* binding */ mapActions,
-/* harmony export */   "mapGetters": () => /* binding */ mapGetters,
-/* harmony export */   "mapMutations": () => /* binding */ mapMutations,
-/* harmony export */   "mapState": () => /* binding */ mapState
-/* harmony export */ });
 /*!
- * vuex v3.5.1
+ * vuex v3.6.0
  * (c) 2020 Evan You
  * @license MIT
  */
+
+
 function applyMixin (Vue) {
   var version = Number(Vue.version.split('.')[0]);
 
@@ -59142,7 +59019,11 @@ ModuleCollection.prototype.isRegistered = function isRegistered (path) {
   var parent = this.get(path.slice(0, -1));
   var key = path[path.length - 1];
 
-  return parent.hasChild(key)
+  if (parent) {
+    return parent.hasChild(key)
+  }
+
+  return false
 };
 
 function update (path, targetModule, newModule) {
@@ -60079,10 +59960,10 @@ function pad (num, maxLength) {
   return repeat('0', maxLength - num.toString().length) + num
 }
 
-var index = {
+var index_cjs = {
   Store: Store,
   install: install,
-  version: '3.5.1',
+  version: '3.6.0',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
@@ -60091,21 +59972,15 @@ var index = {
   createLogger: createLogger
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
-
+module.exports = index_cjs;
 
 
 /***/ }),
 
 /***/ "./index.js":
-/*!******************!*\
+/*!******************!*
   !*** ./index.js ***!
   \******************/
-/*! namespace exports */
-/*! export AppController [provided] [maybe used in main (runtime-defined)] [usage prevents renaming] -> ./lib/controllers/app-controller.js .default */
-/*! export Style [provided] [maybe used in main (runtime-defined)] [usage prevents renaming] -> ./styles/style.scss .default */
-/*! other exports [not provided] [maybe used in main (runtime-defined)] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60117,7 +59992,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/styles/style.scss */ "./styles/style.scss");
 /* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/app-controller.js */ "./lib/controllers/app-controller.js");
-;
+
 
 
 
@@ -60126,13 +60001,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./lib/controllers/aligned-controller.js":
-/*!***********************************************!*\
+/*!***********************************************!*
   !*** ./lib/controllers/aligned-controller.js ***!
   \***********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60142,7 +60013,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-;
+
 
 
 class AlignedController {
@@ -60428,13 +60299,9 @@ class AlignedController {
 /***/ }),
 
 /***/ "./lib/controllers/app-controller.js":
-/*!*******************************************!*\
+/*!*******************************************!*
   !*** ./lib/controllers/app-controller.js ***!
   \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60444,7 +60311,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
 /* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.common.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
 /* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
@@ -60459,7 +60327,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
 /* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-;
+
 
 
 
@@ -60559,8 +60427,8 @@ class AppController {
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.use(vuex__WEBPACK_IMPORTED_MODULE_16__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_16__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_5__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.use((vuex__WEBPACK_IMPORTED_MODULE_16___default()))
+    this.store = new (vuex__WEBPACK_IMPORTED_MODULE_16___default().Store)(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_5__.default.defaultDefinition)
   }
 
   /**
@@ -60633,13 +60501,9 @@ class AppController {
 /***/ }),
 
 /***/ "./lib/controllers/download-controller.js":
-/*!************************************************!*\
+/*!************************************************!*
   !*** ./lib/controllers/download-controller.js ***!
   \************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60650,7 +60514,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-one-column.js */ "./lib/download/download-file-one-column.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-;
+
 
 
 
@@ -60717,13 +60581,9 @@ class DownloadController {
 /***/ }),
 
 /***/ "./lib/controllers/history-controller.js":
-/*!***********************************************!*\
+/*!***********************************************!*
   !*** ./lib/controllers/history-controller.js ***!
   \***********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60825,13 +60685,9 @@ class HistoryController {
 /***/ }),
 
 /***/ "./lib/controllers/settings-controller.js":
-/*!************************************************!*\
+/*!************************************************!*
   !*** ./lib/controllers/settings-controller.js ***!
   \************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -60845,7 +60701,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _settings_default_source_text_settings_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/settings/default-source-text-settings.json */ "./settings/default-source-text-settings.json");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
-;
+
 
 // import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
@@ -61024,13 +60880,9 @@ SettingsController.evt = {
 /***/ }),
 
 /***/ "./lib/controllers/texts-controller.js":
-/*!*********************************************!*\
+/*!*********************************************!*
   !*** ./lib/controllers/texts-controller.js ***!
   \*********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61045,7 +60897,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 // import { v4 as uuidv4 } from 'uuid'
 
-;
+
 
 
 
@@ -61213,13 +61065,9 @@ class TextsController {
 /***/ }),
 
 /***/ "./lib/controllers/tokenize-controller.js":
-/*!************************************************!*\
+/*!************************************************!*
   !*** ./lib/controllers/tokenize-controller.js ***!
   \************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61233,7 +61081,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__);
-;
+
 
 
 
@@ -61368,13 +61216,9 @@ class TokenizeController {
 /***/ }),
 
 /***/ "./lib/controllers/upload-controller.js":
-/*!**********************************************!*\
+/*!**********************************************!*
   !*** ./lib/controllers/upload-controller.js ***!
   \**********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61385,7 +61229,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-;
+
 
 
 
@@ -61469,13 +61313,9 @@ class UploadController {
 /***/ }),
 
 /***/ "./lib/data/aligned-text.js":
-/*!**********************************!*\
+/*!**********************************!*
   !*** ./lib/data/aligned-text.js ***!
   \**********************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61485,7 +61325,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/segment */ "./lib/data/segment.js");
-;
+
 
 
 class AlignedText {
@@ -61546,13 +61386,9 @@ class AlignedText {
 /***/ }),
 
 /***/ "./lib/data/alignment-group.js":
-/*!*************************************!*\
+/*!*************************************!*
   !*** ./lib/data/alignment-group.js ***!
   \*************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -61565,7 +61401,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_alignment_step__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment-step */ "./lib/data/alignment-step.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-;
+
 
 
 
@@ -62007,13 +61843,9 @@ class AlignmentGroup {
 /***/ }),
 
 /***/ "./lib/data/alignment-step.js":
-/*!************************************!*\
+/*!************************************!*
   !*** ./lib/data/alignment-step.js ***!
   \************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62024,7 +61856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
-;
+
 
 
 class AlignmentStep {
@@ -62076,13 +61908,9 @@ AlignmentStep.types = {
 /***/ }),
 
 /***/ "./lib/data/alignment.js":
-/*!*******************************!*\
+/*!*******************************!*
   !*** ./lib/data/alignment.js ***!
   \*******************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62097,7 +61925,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-;
+
 
 
 
@@ -62702,13 +62530,9 @@ class Alignment {
 /***/ }),
 
 /***/ "./lib/data/langs/langs.js":
-/*!*********************************!*\
+/*!*********************************!*
   !*** ./lib/data/langs/langs.js ***!
   \*********************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62718,7 +62542,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/langs/langs-list.json */ "./lib/data/langs/langs-list.json");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-;
+
 
 
 class Langs {
@@ -62738,13 +62562,9 @@ class Langs {
 /***/ }),
 
 /***/ "./lib/data/segment.js":
-/*!*****************************!*\
+/*!*****************************!*
   !*** ./lib/data/segment.js ***!
   \*****************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62753,7 +62573,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ Segment
 /* harmony export */ });
 /* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
-;
+
 
 class Segment {
   constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
@@ -62778,13 +62598,9 @@ class Segment {
 /***/ }),
 
 /***/ "./lib/data/source-text.js":
-/*!*********************************!*\
+/*!*********************************!*
   !*** ./lib/data/source-text.js ***!
   \*********************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62796,7 +62612,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
-;
+
 
 
 
@@ -62892,13 +62708,9 @@ class SourceText {
 /***/ }),
 
 /***/ "./lib/data/token.js":
-/*!***************************!*\
+/*!***************************!*
   !*** ./lib/data/token.js ***!
   \***************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62938,13 +62750,9 @@ class Token {
 /***/ }),
 
 /***/ "./lib/download/download-file-one-column.js":
-/*!**************************************************!*\
+/*!**************************************************!*
   !*** ./lib/download/download-file-one-column.js ***!
   \**************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -62996,13 +62804,9 @@ class DownloadFileOneColumn {
 /***/ }),
 
 /***/ "./lib/l10n/l10n-singleton.js":
-/*!************************************!*\
+/*!************************************!*
   !*** ./lib/l10n/l10n-singleton.js ***!
   \************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63012,7 +62816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 /* istanbul ignore file */
-;
+
 
 let l10NInstance
 
@@ -63040,13 +62844,9 @@ class L10nSingleton extends _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.defau
 /***/ }),
 
 /***/ "./lib/l10n/l10n.js":
-/*!**************************!*\
+/*!**************************!*
   !*** ./lib/l10n/l10n.js ***!
   \**************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63056,7 +62856,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
 /* istanbul ignore file */
-;
+
 
 /**
  * Combines several message bundles of different locales.
@@ -63162,13 +62962,9 @@ class L10n {
 /***/ }),
 
 /***/ "./lib/l10n/message-bundle.js":
-/*!************************************!*\
+/*!************************************!*
   !*** ./lib/l10n/message-bundle.js ***!
   \************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63178,7 +62974,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message.js */ "./lib/l10n/message.js");
 /* istanbul ignore file */
-;
+
 // TODO: Deal with situations when message is not available, but is requested
 
 /**
@@ -63358,13 +63154,9 @@ class MessageBundle {
 /***/ }),
 
 /***/ "./lib/l10n/message.js":
-/*!*****************************!*\
+/*!*****************************!*
   !*** ./lib/l10n/message.js ***!
   \*****************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63374,7 +63166,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat */ "../node_modules/intl-messageformat/lib/index.js");
 /* istanbul ignore file */
-;
+
 
 /**
  * Represents a single message object
@@ -63455,13 +63247,9 @@ class Message {
 /***/ }),
 
 /***/ "./lib/notifications/notification-singleton.js":
-/*!*****************************************************!*\
+/*!*****************************************************!*
   !*** ./lib/notifications/notification-singleton.js ***!
   \*****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63514,13 +63302,9 @@ NotificationSingleton.types = {
 /***/ }),
 
 /***/ "./lib/store/store-definition.js":
-/*!***************************************!*\
+/*!***************************************!*
   !*** ./lib/store/store-definition.js ***!
   \***************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63580,13 +63364,9 @@ class StoreDefinition {
 /***/ }),
 
 /***/ "./lib/tokenizers/alpheios-remote-tokenizer.js":
-/*!*****************************************************!*\
+/*!*****************************************************!*
   !*** ./lib/tokenizers/alpheios-remote-tokenizer.js ***!
   \*****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63597,7 +63377,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-;
+
 
 
 class AlpheiosRemoteTokenizer {
@@ -63608,7 +63388,7 @@ class AlpheiosRemoteTokenizer {
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
   static async tokenize (docSource, idPrefix) {
-    const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
+    const textFormatted = docSource.text.split(/[ \r\t\f]*\n[ \r\t\f]*/).join('\n')
 
     const fetchOptions = Object.assign({
       lang: docSource.lang,
@@ -63656,6 +63436,9 @@ class AlpheiosRemoteTokenizer {
         token.textType = textType
         token.word = token.text
         token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+        if (token.line_break_before === true && iTok > 0) {
+          tokens[iTok - 1].hasLineBreak = true
+        }
       }
     }
 
@@ -63667,13 +63450,9 @@ class AlpheiosRemoteTokenizer {
 /***/ }),
 
 /***/ "./lib/tokenizers/simple-local-tokenizer.js":
-/*!**************************************************!*\
+/*!**************************************************!*
   !*** ./lib/tokenizers/simple-local-tokenizer.js ***!
   \**************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63844,13 +63623,9 @@ class SimpleLocalTokenizer {
 /***/ }),
 
 /***/ "./locales/locales.js":
-/*!****************************!*\
+/*!****************************!*
   !*** ./locales/locales.js ***!
   \****************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -63866,7 +63641,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
 /* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 /* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
-;
+
 
 
 
@@ -63924,13 +63699,9 @@ const availableMessages = {
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
+/*!***********************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64000,13 +63771,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64047,7 +63814,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 
@@ -64152,13 +63919,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
+/*!******************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64182,7 +63945,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 
@@ -64242,13 +64005,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
+/*!*******************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64279,7 +64038,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentBlock',
@@ -64440,13 +64199,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
+/*!*****************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64525,13 +64280,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************!*\
+/*!********************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64567,7 +64318,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 
@@ -64650,13 +64401,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************!*\
+/*!**************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64708,7 +64455,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
@@ -64775,13 +64522,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*\
+/*!*********************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64807,7 +64550,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 
@@ -64839,13 +64582,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*\
+/*!******************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -64914,7 +64653,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionItemBlock',
@@ -65049,13 +64788,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
+/*!**************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65082,7 +64817,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 
@@ -65113,13 +64848,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65140,7 +64871,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'DirectionOptionsBlock',
@@ -65181,13 +64912,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************!*\
+/*!***************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65208,7 +64935,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LanguageOptionsBlock',
@@ -65250,13 +64977,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
+/*!*****************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65299,7 +65022,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 
@@ -65482,13 +65205,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65525,7 +65244,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -65593,13 +65312,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************!*\
+/*!***************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65645,7 +65360,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-;
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -65699,13 +65414,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue":
-/*!************************************************!*\
+/*!************************************************!*
   !*** ./vue/align-editor/align-editor-tabs.vue ***!
   \************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65717,7 +65428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&");
 /* harmony import */ var _align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -65744,13 +65455,9 @@ component.options.__file = "vue/align-editor/align-editor-tabs.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue":
-/*!*****************************************************!*\
+/*!*****************************************************!*
   !*** ./vue/align-editor/align-editor-view-mode.vue ***!
   \*****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65762,7 +65469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
 /* harmony import */ var _align_editor_view_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -65789,13 +65496,9 @@ component.options.__file = "vue/align-editor/align-editor-view-mode.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor.vue":
-/*!*******************************************!*\
+/*!*******************************************!*
   !*** ./vue/align-editor/align-editor.vue ***!
   \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65806,7 +65509,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor.vue?vue&type=template&id=d51e2a30& */ "./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&");
 /* harmony import */ var _align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 
@@ -65832,13 +65535,9 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/segment-block.vue":
-/*!********************************************!*\
+/*!********************************************!*
   !*** ./vue/align-editor/segment-block.vue ***!
   \********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65849,7 +65548,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./segment-block.vue?vue&type=template&id=c614d760& */ "./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&");
 /* harmony import */ var _segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./segment-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/segment-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 
@@ -65875,13 +65574,9 @@ component.options.__file = "vue/align-editor/segment-block.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue":
-/*!******************************************!*\
+/*!******************************************!*
   !*** ./vue/align-editor/token-block.vue ***!
   \******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65893,7 +65588,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _token_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./token-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -65920,13 +65615,9 @@ component.options.__file = "vue/align-editor/token-block.vue"
 /***/ }),
 
 /***/ "./vue/app.vue":
-/*!*********************!*\
+/*!*********************!*
   !*** ./vue/app.vue ***!
   \*********************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65938,7 +65629,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.vue?vue&type=script&lang=js& */ "./vue/app.vue?vue&type=script&lang=js&");
 /* harmony import */ var _app_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.vue?vue&type=style&index=0&lang=scss& */ "./vue/app.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -65965,13 +65656,9 @@ component.options.__file = "vue/app.vue"
 /***/ }),
 
 /***/ "./vue/main-menu.vue":
-/*!***************************!*\
+/*!***************************!*
   !*** ./vue/main-menu.vue ***!
   \***************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -65983,7 +65670,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main-menu.vue?vue&type=script&lang=js& */ "./vue/main-menu.vue?vue&type=script&lang=js&");
 /* harmony import */ var _main_menu_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./main-menu.vue?vue&type=style&index=0&lang=scss& */ "./vue/main-menu.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66010,13 +65697,9 @@ component.options.__file = "vue/main-menu.vue"
 /***/ }),
 
 /***/ "./vue/notification-bar.vue":
-/*!**********************************!*\
+/*!**********************************!*
   !*** ./vue/notification-bar.vue ***!
   \**********************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66028,7 +65711,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notification-bar.vue?vue&type=script&lang=js& */ "./vue/notification-bar.vue?vue&type=script&lang=js&");
 /* harmony import */ var _notification_bar_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./notification-bar.vue?vue&type=style&index=0&lang=scss& */ "./vue/notification-bar.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66055,13 +65738,9 @@ component.options.__file = "vue/notification-bar.vue"
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue":
-/*!*******************************************!*\
+/*!*******************************************!*
   !*** ./vue/options/option-item-block.vue ***!
   \*******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66073,7 +65752,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./option-item-block.vue?vue&type=script&lang=js& */ "./vue/options/option-item-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _option_item_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./option-item-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66100,13 +65779,9 @@ component.options.__file = "vue/options/option-item-block.vue"
 /***/ }),
 
 /***/ "./vue/options/options-block.vue":
-/*!***************************************!*\
+/*!***************************************!*
   !*** ./vue/options/options-block.vue ***!
   \***************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66118,7 +65793,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./options-block.vue?vue&type=script&lang=js& */ "./vue/options/options-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./options-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/options/options-block.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66145,13 +65820,9 @@ component.options.__file = "vue/options/options-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/direction-options-block.vue":
-/*!*****************************************************!*\
+/*!*****************************************************!*
   !*** ./vue/text-editor/direction-options-block.vue ***!
   \*****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66162,7 +65833,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=template&id=417d0327& */ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
 /* harmony import */ var _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 
@@ -66188,13 +65859,9 @@ component.options.__file = "vue/text-editor/direction-options-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/language-options-block.vue":
-/*!****************************************************!*\
+/*!****************************************************!*
   !*** ./vue/text-editor/language-options-block.vue ***!
   \****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66205,7 +65872,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=template&id=d0c3793c& */ "./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&");
 /* harmony import */ var _language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 
@@ -66231,13 +65898,9 @@ component.options.__file = "vue/text-editor/language-options-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue":
-/*!******************************************************!*\
+/*!******************************************************!*
   !*** ./vue/text-editor/text-editor-single-block.vue ***!
   \******************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66249,7 +65912,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./text-editor-single-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _text_editor_single_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./text-editor-single-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66276,13 +65939,9 @@ component.options.__file = "vue/text-editor/text-editor-single-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue":
-/*!*****************************************!*\
+/*!*****************************************!*
   !*** ./vue/text-editor/text-editor.vue ***!
   \*****************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66294,7 +65953,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./text-editor.vue?vue&type=script&lang=js& */ "./vue/text-editor/text-editor.vue?vue&type=script&lang=js&");
 /* harmony import */ var _text_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./text-editor.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66321,13 +65980,9 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue":
-/*!****************************************************!*\
+/*!****************************************************!*
   !*** ./vue/text-editor/tokenize-options-block.vue ***!
   \****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66339,7 +65994,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tokenize-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
 /* harmony import */ var _tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tokenize-options-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-;
+
 
 
 ;
@@ -66366,13 +66021,9 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************!*\
+/*!**********************************************************************************!*
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
   \**********************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66387,13 +66038,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************!*\
+/*!***************************************************************************************!*
   !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66408,13 +66055,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************!*\
+/*!****************************************************************************!*
   !*** ./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66429,13 +66072,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/app.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************!*\
+/*!*******************************************************!*
   !*** ./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
   \*******************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66450,13 +66089,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/main-menu.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************!*\
+/*!*************************************************************!*
   !*** ./vue/main-menu.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66471,13 +66106,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/notification-bar.vue?vue&type=style&index=0&lang=scss&":
-/*!********************************************************************!*\
+/*!********************************************************************!*
   !*** ./vue/notification-bar.vue?vue&type=style&index=0&lang=scss& ***!
   \********************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66492,13 +66123,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************!*\
+/*!*****************************************************************************!*
   !*** ./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66513,13 +66140,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************!*\
+/*!*************************************************************************!*
   !*** ./vue/options/options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66534,13 +66157,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************!*\
+/*!****************************************************************************************!*
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66555,13 +66174,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************!*\
+/*!***************************************************************************!*
   !*** ./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66576,13 +66191,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************!*\
+/*!**************************************************************************************!*
   !*** ./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************/
-/*! namespace exports */
-/*! export default [not provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [maybe provided (runtime-defined)] [no usage info] -> ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss& */
-/*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66597,13 +66208,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
+/*!*************************************************************************!*
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
   \*************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66612,18 +66219,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-tabs.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
+/*!******************************************************************************!*
   !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66632,18 +66235,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-view-mode.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*\
+/*!********************************************************************!*
   !*** ./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66652,18 +66251,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/align-editor/segment-block.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
+/*!*********************************************************************!*
   !*** ./vue/align-editor/segment-block.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66672,18 +66267,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************!*\
+/*!*******************************************************************!*
   !*** ./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
   \*******************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66692,18 +66283,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/app.vue?vue&type=script&lang=js&":
-/*!**********************************************!*\
+/*!**********************************************!*
   !*** ./vue/app.vue?vue&type=script&lang=js& ***!
   \**********************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66712,18 +66299,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./app.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/main-menu.vue?vue&type=script&lang=js&":
-/*!****************************************************!*\
+/*!****************************************************!*
   !*** ./vue/main-menu.vue?vue&type=script&lang=js& ***!
   \****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66732,18 +66315,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./main-menu.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/notification-bar.vue?vue&type=script&lang=js&":
-/*!***********************************************************!*\
+/*!***********************************************************!*
   !*** ./vue/notification-bar.vue?vue&type=script&lang=js& ***!
   \***********************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66752,18 +66331,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./notification-bar.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*\
+/*!********************************************************************!*
   !*** ./vue/options/option-item-block.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66772,18 +66347,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./option-item-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/options/options-block.vue?vue&type=script&lang=js&":
-/*!****************************************************************!*\
+/*!****************************************************************!*
   !*** ./vue/options/options-block.vue?vue&type=script&lang=js& ***!
   \****************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66792,18 +66363,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
+/*!******************************************************************************!*
   !*** ./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66812,18 +66379,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./direction-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
+/*!*****************************************************************************!*
   !*** ./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66832,18 +66395,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./language-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
+/*!*******************************************************************************!*
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66852,18 +66411,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor-single-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************!*\
+/*!******************************************************************!*
   !*** ./vue/text-editor/text-editor.vue?vue&type=script&lang=js& ***!
   \******************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66872,18 +66427,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
+/*!*****************************************************************************!*
   !*** ./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66892,19 +66443,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokenize-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
-; /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
-/*!*******************************************************************************!*\
+/*!*******************************************************************************!*
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
   \*******************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66919,14 +66465,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&":
-/*!************************************************************************************!*\
+/*!************************************************************************************!*
   !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& ***!
   \************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66941,14 +66482,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
-/*!**************************************************************************!*\
+/*!**************************************************************************!*
   !*** ./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
   \**************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66963,14 +66499,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&":
-/*!***************************************************************************!*\
+/*!***************************************************************************!*
   !*** ./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760& ***!
   \***************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -66985,14 +66516,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
-/*!*************************************************************************!*\
+/*!*************************************************************************!*
   !*** ./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
   \*************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67007,14 +66533,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/app.vue?vue&type=template&id=2307d2fa&":
-/*!****************************************************!*\
+/*!****************************************************!*
   !*** ./vue/app.vue?vue&type=template&id=2307d2fa& ***!
   \****************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67029,14 +66550,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/main-menu.vue?vue&type=template&id=0482afe8&":
-/*!**********************************************************!*\
+/*!**********************************************************!*
   !*** ./vue/main-menu.vue?vue&type=template&id=0482afe8& ***!
   \**********************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67051,14 +66567,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/notification-bar.vue?vue&type=template&id=0bf96128&":
-/*!*****************************************************************!*\
+/*!*****************************************************************!*
   !*** ./vue/notification-bar.vue?vue&type=template&id=0bf96128& ***!
   \*****************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67073,14 +66584,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue?vue&type=template&id=b17943da&":
-/*!**************************************************************************!*\
+/*!**************************************************************************!*
   !*** ./vue/options/option-item-block.vue?vue&type=template&id=b17943da& ***!
   \**************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67095,14 +66601,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/options-block.vue?vue&type=template&id=7e2b5386&":
-/*!**********************************************************************!*\
+/*!**********************************************************************!*
   !*** ./vue/options/options-block.vue?vue&type=template&id=7e2b5386& ***!
   \**********************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67117,14 +66618,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&":
-/*!************************************************************************************!*\
+/*!************************************************************************************!*
   !*** ./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& ***!
   \************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67139,14 +66635,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
-/*!***********************************************************************************!*\
+/*!***********************************************************************************!*
   !*** ./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
   \***********************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67161,14 +66652,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&":
-/*!*************************************************************************************!*\
+/*!*************************************************************************************!*
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& ***!
   \*************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67183,14 +66669,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64&":
-/*!************************************************************************!*\
+/*!************************************************************************!*
   !*** ./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64& ***!
   \************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67205,14 +66686,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&":
-/*!***********************************************************************************!*\
+/*!***********************************************************************************!*
   !*** ./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05& ***!
   \***********************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05& .render */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] -> ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05& .staticRenderFns */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67227,14 +66703,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
-/*!************************************************************************************************************************************************************************************************************************!*\
+/*!************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
   \************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67282,14 +66753,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
+/*!*****************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& ***!
   \*****************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67391,14 +66857,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
+/*!*******************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
   \*******************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67467,14 +66928,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&":
-/*!********************************************************************************************************************************************************************************************************************!*\
+/*!********************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760& ***!
   \********************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67539,14 +66995,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
-/*!******************************************************************************************************************************************************************************************************************!*\
+/*!******************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
   \******************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67593,14 +67044,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&":
-/*!*********************************************************************************************************************************************************************************************!*\
+/*!*********************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& ***!
   \*********************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67661,14 +67107,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8&":
-/*!***************************************************************************************************************************************************************************************************!*\
+/*!***************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8& ***!
   \***************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67874,14 +67315,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128&":
-/*!**********************************************************************************************************************************************************************************************************!*\
+/*!**********************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128& ***!
   \**********************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -67937,14 +67373,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
+/*!*******************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da& ***!
   \*******************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68287,14 +67718,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386&":
-/*!***************************************************************************************************************************************************************************************************************!*\
+/*!***************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386& ***!
   \***************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68348,14 +67774,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
+/*!*****************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& ***!
   \*****************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68399,14 +67820,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
   \****************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68451,14 +67867,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&":
-/*!******************************************************************************************************************************************************************************************************************************!*\
+/*!******************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& ***!
   \******************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68575,14 +67986,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
+/*!*****************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64& ***!
   \*****************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68679,14 +68085,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&":
-/*!****************************************************************************************************************************************************************************************************************************!*\
+/*!****************************************************************************************************************************************************************************************************************************!*
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05& ***!
   \****************************************************************************************************************************************************************************************************************************/
-/*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export staticRenderFns [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -68840,12 +68241,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "./inline-icons/delete.svg":
-/*!*********************************!*\
+/*!*********************************!*
   !*** ./inline-icons/delete.svg ***!
   \*********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:6-20 */
 /***/ ((module) => {
 
 
@@ -68880,12 +68278,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "./inline-icons/x-close.svg":
-/*!**********************************!*\
+/*!**********************************!*
   !*** ./inline-icons/x-close.svg ***!
   \**********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 2:6-20 */
 /***/ ((module) => {
 
 
@@ -68920,528 +68315,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ "./lib/data/langs/langs-list.json":
-/*!****************************************!*\
+/*!****************************************!*
   !*** ./lib/data/langs/langs-list.json ***!
   \****************************************/
-/*! default exports */
-/*! export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 10 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 100 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 101 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 102 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 103 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 104 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 105 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 106 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 107 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 108 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 109 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 11 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 110 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 111 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 112 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 113 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 114 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 115 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 116 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 117 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 118 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 119 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 12 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 120 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 121 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 122 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 123 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 124 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 125 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 126 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 127 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 128 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 13 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 14 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 15 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 16 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 17 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 18 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 19 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 2 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 20 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 21 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 22 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 23 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 24 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 25 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 26 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 27 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 28 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 29 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 3 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 30 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 31 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 32 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 33 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 34 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 35 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 36 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 37 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 38 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 39 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 4 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 40 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 41 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 42 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 43 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 44 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 45 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 46 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 47 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 48 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 49 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 5 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 50 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 51 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 52 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 53 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 54 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 55 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 56 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 57 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 58 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 59 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 6 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 60 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 61 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 62 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 63 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 64 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 65 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 66 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 67 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 68 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 69 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 7 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 70 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 71 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 72 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 73 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 74 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 75 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 76 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 77 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 78 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 79 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 8 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 80 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 81 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 82 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 83 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 84 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 85 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 86 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 87 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 88 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 89 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 9 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 90 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 91 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 92 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 93 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 94 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 95 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 96 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 97 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 98 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export 99 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export label [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -69450,17 +68326,9 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ }),
 
 /***/ "./locales/en-gb/messages.json":
-/*!*************************************!*\
+/*!*************************************!*
   !*** ./locales/en-gb/messages.json ***!
   \*************************************/
-/*! default exports */
-/*! export COOKIE_TEST_MESSAGE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -69469,27 +68337,9 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ }),
 
 /***/ "./locales/en-us/messages-align-editor.json":
-/*!**************************************************!*\
+/*!**************************************************!*
   !*** ./locales/en-us/messages-align-editor.json ***!
   \**************************************************/
-/*! default exports */
-/*! export ALIGN_EDITOR_HEADING [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGN_EDITOR_HIDE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGN_EDITOR_SHOW [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -69498,148 +68348,9 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ }),
 
 /***/ "./locales/en-us/messages-common.json":
-/*!********************************************!*\
+/*!********************************************!*
   !*** ./locales/en-us/messages-common.json ***!
   \********************************************/
-/*! default exports */
-/*! export ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNED_CONTROLLER_TOKENIZATION_FINISHED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNED_CONTROLLER_TOKENIZATION_STARTED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_ERROR_ACTIVATE_BY_INDEX [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_ERROR_ADD_TO_ALIGNMENT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_ERROR_TOKENIZATION_CANCELLED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_GROUP_IS_COMPLETED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_GROUP_REDO_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_GROUP_STEP_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_GROUP_UNDO_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_ORIGIN_NOT_TOKENIZED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export ALIGNMENT_TARGET_NOT_TOKENIZED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export DOWNLOAD_CONTROLLER_ERROR_TYPE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export SETTINGS_CONTROLLER_NO_VALUES_CLASS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export SOURCE_TEXT_CONVERT_ERROR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXTS_CONTROLLER_EMPTY_FILE_DATA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export UPLOAD_CONTROLLER_ERROR_TYPE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -69648,657 +68359,9 @@ module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"
 /***/ }),
 
 /***/ "./locales/en-us/messages-languages.json":
-/*!***********************************************!*\
+/*!***********************************************!*
   !*** ./locales/en-us/messages-languages.json ***!
   \***********************************************/
-/*! default exports */
-/*! export LANG_AFR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_AKK [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_AMH [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ANG [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ARA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ARC [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ARG [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_AST [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_AVE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_AZE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_BEN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_BER [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_BOD [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_BOS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_BRE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_BUL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_CAT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_CES [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_CHG [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_CHU [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_COP [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_COR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_CYM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_DAN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_DEU [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_DUM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_EGY [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ELL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ELX [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ENG [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ENM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_EST [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_EUS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_FAS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_FIN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_FRA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_FRM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_FRO [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GEZ [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GLA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GMH [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GOH [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GOT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GRC [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GSW [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_GUJ [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_HEB [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_HIN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_HIT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_HRV [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_HUN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_HYE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_IND [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ISL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ITA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_JAV [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_JPN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_KAN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_KAT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_KHM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_KOR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_KUR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_LAD [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_LAT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_LIT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_MAR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_MGA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_MSA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_MYA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NDS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NEP [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NEW [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NLD [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NNO [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NOB [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NON [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NOR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_NWC [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_OSS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_OTA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PAL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PAN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PEO [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PHN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PLI [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_POL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_POR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PRA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PRO [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_PUS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_RAJ [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ROM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_RON [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_RUS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SAM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SAN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SCN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SCO [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SGA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SIN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SLK [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SLV [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SND [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SOG [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SPA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SQI [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SRP [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SUX [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SWA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SWE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SYC [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_SYR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TAM [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TAT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TEL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TGK [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TGL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_THA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TUK [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_TUR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_UGA [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_UKR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_URD [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_UZB [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_VIE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_WLN [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_YID [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export LANG_ZH [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -70307,52 +68370,9 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ }),
 
 /***/ "./locales/en-us/messages-main-menu.json":
-/*!***********************************************!*\
+/*!***********************************************!*
   !*** ./locales/en-us/messages-main-menu.json ***!
   \***********************************************/
-/*! default exports */
-/*! export MAIN_MENU_ADD_TARGET_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_ALIGN_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_DOWNLOAD_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_HIDE_OPTIONS_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_REDO_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_SHOW_OPTIONS_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_UNDO_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export MAIN_MENU_UPLOAD_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -70361,17 +68381,9 @@ module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Downlo
 /***/ }),
 
 /***/ "./locales/en-us/messages-options-block.json":
-/*!***************************************************!*\
+/*!***************************************************!*
   !*** ./locales/en-us/messages-options-block.json ***!
   \***************************************************/
-/*! default exports */
-/*! export OPTIONS_BLOCK_APPLICATION [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -70380,98 +68392,9 @@ module.exports = JSON.parse("{\"OPTIONS_BLOCK_APPLICATION\":{\"message\":\"Appli
 /***/ }),
 
 /***/ "./locales/en-us/messages-text-editor.json":
-/*!*************************************************!*\
+/*!*************************************************!*
   !*** ./locales/en-us/messages-text-editor.json ***!
   \*************************************************/
-/*! default exports */
-/*! export RADIO_BLOCK_DIRECTION_LABEL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export RADIO_BLOCK_DIRECTION_LTR [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export RADIO_BLOCK_DIRECTION_RTL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export RADIO_BLOCK_TEXTSOURCETYPE_LABEL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export RADIO_BLOCK_TEXTSOURCETYPE_TEI [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export RADIO_BLOCK_TEXTSOURCETYPE_TEXT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_AVA_LANGUAGE_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_HEADING [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_HIDE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_LANGUAGE_OTHER_LABEL [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_SHOW [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   other exports [not provided] [no usage info] */
-/*! export TEXT_EDITOR_TEXT_BLOCK_TITLE [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export component [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export message [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export params [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -70480,46 +68403,9 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ }),
 
 /***/ "./settings/default-app-settings.json":
-/*!********************************************!*\
+/*!********************************************!*
   !*** ./settings/default-app-settings.json ***!
   \********************************************/
-/*! default exports */
-/*! export domain [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export theme [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export select [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export tokenizer [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export select [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export version [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
@@ -70528,62 +68414,9 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ }),
 
 /***/ "./settings/default-source-text-settings.json":
-/*!****************************************************!*\
+/*!****************************************************!*
   !*** ./settings/default-source-text-settings.json ***!
   \****************************************************/
-/*! default exports */
-/*! export domain [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export items [provided] [no usage info] [missing usage info prevents renaming] */
-/*!   export direction [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export radio [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export language [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export description [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export labelsList [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export origin [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export inputLabel [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export selectLabel [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export target [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export inputLabel [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export selectLabel [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     export selectInput [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export valuesArray [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     other exports [not provided] [no usage info] */
-/*!   export sourceType [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export defaultValue [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export labelText [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export radio [provided] [no usage info] [missing usage info prevents renaming] */
-/*!     export values [provided] [no usage info] [missing usage info prevents renaming] */
-/*!       export 0 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       export 1 [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export text [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         export value [provided] [no usage info] [missing usage info prevents renaming] */
-/*!         other exports [not provided] [no usage info] */
-/*!       other exports [not provided] [no usage info] */
-/*!     other exports [not provided] [no usage info] */
-/*!   other exports [not provided] [no usage info] */
-/*! export version [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: module */
 /***/ ((module) => {
 
 "use strict";
