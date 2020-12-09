@@ -9,7 +9,7 @@ export default class AlpheiosRemoteTokenizer {
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
   static async tokenize (docSource, idPrefix) {
-    const textFormatted = docSource.text.split(/\s*\n\s*/).join('\n')
+    const textFormatted = docSource.text.split(/[ \r\t\f]*\n[ \r\t\f]*/).join('\n')
 
     const fetchOptions = Object.assign({
       lang: docSource.lang,
