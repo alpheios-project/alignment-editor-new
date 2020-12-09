@@ -57,6 +57,9 @@ export default class AlpheiosRemoteTokenizer {
         token.textType = textType
         token.word = token.text
         token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+        if (token.line_break_before === true && iTok > 0) {
+          tokens[iTok - 1].hasLineBreak = true
+        }
       }
     }
 
