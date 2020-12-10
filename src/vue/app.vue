@@ -8,12 +8,14 @@
         @undo-action = "undoAction"
         @add-target = "addTarget"
         @toggle-options = "toggleOptions"
+        @clear-all = "startOver"
         :shownOptionsBlock = "shownOptionsBlock"
       />
       <notification-bar />
       <options-block v-show="shownOptionsBlock" />
       <text-editor 
         :hide-editor = "hideTextEditor"
+        :show-editor = "showTextEditor"
       />
       <align-editor 
         :show-editor = "showAlignEditor"
@@ -21,6 +23,8 @@
   </div>
 </template>
 <script>
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
 import MainMenu from '@/vue/main-menu.vue'
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -40,6 +44,7 @@ export default {
   data () {
     return {
       hideTextEditor: 1,
+      showTextEditor: 1,
       showAlignEditor: 1,
       shownOptionsBlock: false
     }
@@ -81,8 +86,8 @@ export default {
     async alignTexts () {
       const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
       if (result) {
-        this.hideTextEditor = this.hideTextEditor + 1
-        this.showAlignEditor = this.showAlignEditor + 1  
+        this.hideTextEditor++
+        this.showAlignEditor++
       }
     },
     /**
@@ -96,6 +101,20 @@ export default {
      */
     toggleOptions () {
       this.shownOptionsBlock = !this.shownOptionsBlock
+    },
+    /**
+     * Clear and start alignment over
+     */
+    startOver () {
+      this.$textC.startOver()
+      this.$historyC.startOver(this.$textC.alignment)
+      this.$alignedC.startOver()
+      
+      NotificationSingleton.clearNotifications()
+      this.$textC.store.commit('incrementAlignmentRestarted')
+      this.$textC.store.commit('incrementAlignmentUpdated')
+
+      this.showTextEditor++
     }
   }
 }

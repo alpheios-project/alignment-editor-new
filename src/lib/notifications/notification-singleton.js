@@ -30,6 +30,11 @@ export default class NotificationSingleton {
     notificationModuleInstance.store.commit('removeNotificationMessage', message)
     notificationModuleInstance.store.commit('incrementNotificationUpdated')
   }
+
+  static clearNotifications () {
+    notificationModuleInstance.store.commit('clearNotificationMessages')
+    notificationModuleInstance.store.commit('incrementNotificationUpdated')
+  }
 }
 
 NotificationSingleton.types = {

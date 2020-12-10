@@ -10,7 +10,8 @@ export default class StoreDefinition {
         notificationUpdated: 1,
         messages: [],
         optionsUpdated: 1,
-        tokenizerUpdated: 1
+        tokenizerUpdated: 1,
+        alignmentRestarted: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -26,11 +27,17 @@ export default class StoreDefinition {
         removeNotificationMessage (state, message) {
           state.messages = StoreDefinition.removeFromMessages(state.messages, message)
         },
+        clearNotificationMessages (state) {
+          state.messages = []
+        },
         incrementOptionsUpdated (state) {
           state.optionsUpdated++
         },
         incrementTokenizerUpdated (state) {
           state.tokenizerUpdated++
+        },
+        incrementAlignmentRestarted (state) {
+          state.alignmentRestarted++
         }
       }
     }

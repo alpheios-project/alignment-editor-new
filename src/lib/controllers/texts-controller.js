@@ -162,4 +162,11 @@ export default class TextsController {
     }
     return DownloadController.download(downloadType, data)
   }
+
+  /**
+   * Clear alignment and start over
+   */
+  startOver () {
+    this.createAlignment()
+  }
 }

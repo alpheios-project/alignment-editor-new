@@ -59,9 +59,10 @@ describe('main-menu.test.js', () => {
     expect(cmp.find('#alpheios-main-menu-align')).toBeTruthy()
     expect(cmp.find('#alpheios-main-menu-upload-block')).toBeTruthy()
     expect(cmp.find('#alpheios-main-menu-upload-block').isVisible()).toBeFalsy()
+    expect(cmp.find('#alpheios-main-menu-clear-all')).toBeTruthy()
   })
 
-  it('3 MainMenu - uploadTexts shows upload block', async () => {
+  it('3 MainMenu - uploadTexts toggles upload block', async () => {
     let cmp = shallowMount(MainMenu, { 
       store: appC.store,
       localVue 
@@ -73,6 +74,10 @@ describe('main-menu.test.js', () => {
 
     await Vue.nextTick()
     expect(uploadBlock.isVisible()).toBeTruthy()
+    cmp.vm.uploadTexts()
+
+    await Vue.nextTick()
+    expect(uploadBlock.isVisible()).toBeFalsy()
   })
 })
 

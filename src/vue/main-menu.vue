@@ -34,9 +34,13 @@
                 @click="$emit('redo-action')" :disabled="!redoAvailable">
                 {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
         </button>
+        <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-clear-all" 
+                @click="$emit('clear-all')">
+                {{ l10n.getMsgS('MAIN_MENU_CLEAR_ALL') }}
+        </button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
-        <input type="file" @change="loadTextFromFile">
+        <input type="file" @change="loadTextFromFile" ref="fileupload">
       </div>
   </div>
 </template>
@@ -81,10 +85,10 @@ export default {
   },
   methods: {
     /**
-     * Shows block with choose file input
+     * Shows/Hides block with choose file input
      */
     uploadTexts () {
-      this.showUploadBlock = true
+      this.showUploadBlock = !this.showUploadBlock
     },
 
     /**
@@ -100,6 +104,8 @@ export default {
         this.showUploadBlock = false
       }
       reader.readAsText(file)
+
+      this.$refs.fileupload.value = ''
     }
   }
 }

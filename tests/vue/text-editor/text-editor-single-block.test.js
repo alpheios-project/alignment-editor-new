@@ -91,8 +91,6 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.findComponent(DirectionOptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(LanguageOptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TokenizeOptionsBlock)).toBeTruthy()
-    
-    console.info(cmp.vm.localTextEditorOptions)
   })
 
   it('4 TextEditorSingleBlock - localTextEditorOptions prepares a local instance of options', async () => {
@@ -235,6 +233,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.direction).toEqual('rtl')
     expect(cmp.vm.language).toEqual('grc')
     expect(cmp.vm.sourceType).toEqual('text')
+
   })
 
   it('9 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target', () => {

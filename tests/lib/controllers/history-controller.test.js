@@ -261,4 +261,33 @@ describe('history-controller.test.js', () => {
     expect(historyC.redoAvailable).toBeFalsy()
   })
 
+  it('10 HistoryController - startOver uploads new alignment', async () => {
+    const historyC = new HistoryController(appC.store)
+
+    // prepare tabs
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource2 = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment(originDocSource, targetDocSource)
+    alignment.updateTargetDocSource(targetDocSource2)   
+
+    const targetId1 = Object.keys(alignment.targets)[0]
+    alignment.redoActiveGroup = jest.fn()
+
+    historyC.startTracking(alignment)
+
+    let alignmentNew = new Alignment()
+    historyC.startOver(alignmentNew)
+
+    expect(historyC.alignment.origin).toEqual({})
+    expect(historyC.alignment.target).not.toBeDefined()
+  })
 })
