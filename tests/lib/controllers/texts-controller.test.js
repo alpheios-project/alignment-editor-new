@@ -278,4 +278,26 @@ describe('texts-controller.test.js', () => {
     expect(DownloadController.download).toHaveBeenCalled()
   })
 
+  it('14 TextsController - startOver - recreates a clear alignment', () => {
+    const textsC = new TextsController(appC.store)
+
+    expect(textsC.originDocSource).toBeNull()
+
+    const docSource =  {
+      text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
+    textsC.updateOriginDocSource(docSource)
+
+    const docSourceTarget =  {
+      text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    }
+    textsC.updateTargetDocSource(docSourceTarget)
+
+
+    textsC.startOver()
+
+    expect(textsC.alignment.origin).toEqual({})
+    expect(textsC.alignment.target).not.toBeDefined()
+  })
+
 })

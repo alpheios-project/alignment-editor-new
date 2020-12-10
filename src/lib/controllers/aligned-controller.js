@@ -278,4 +278,11 @@ export default class AlignedController {
   selectedToken (token) {
     return Boolean(this.alignment) && this.alignment.selectedToken(token)
   }
+
+  /**
+   * Clear alignment and start over
+   */
+  startOver () {
+    this.alignment = null
+  }
 }

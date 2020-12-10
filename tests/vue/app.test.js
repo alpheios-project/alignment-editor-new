@@ -12,6 +12,8 @@ import AppController from '@/lib/controllers/app-controller.js'
 import AlignedController from '@/lib/controllers/aligned-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
 import Alignment from '@/lib/data/alignment'
 import SourceText from '@/lib/data/source-text'
 
@@ -190,6 +192,43 @@ describe('app.test.js', () => {
 
     expect(cmp.vm.shownOptionsBlock).toBeTruthy()
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
+  })
+
+  it('12 App - startOver - starts alignment process from the beginning', async () => {
+    let cmp = shallowMount(App, { 
+      store: appC.store,
+      localVue 
+    })
+    // start alignment normally
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const targetDocSource2 = new SourceText('target', {
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    let alignment = new Alignment(originDocSource, targetDocSource1)
+    alignment.updateTargetDocSource(targetDocSource2)
+    await cmp.vm.$alignedC.createAlignedTexts(alignment)
+
+    // decided to start over
+    jest.spyOn(cmp.vm.$textC, 'startOver')
+    jest.spyOn(cmp.vm.$alignedC, 'startOver')
+    jest.spyOn(cmp.vm.$historyC, 'startOver')
+    jest.spyOn(NotificationSingleton, 'clearNotifications')
+
+    cmp.vm.startOver()
+
+    expect(cmp.vm.$textC.startOver).toHaveBeenCalled()
+    expect(cmp.vm.$alignedC.startOver).toHaveBeenCalled()
+    expect(cmp.vm.$historyC.startOver).toHaveBeenCalled()
+    expect(NotificationSingleton.clearNotifications).toHaveBeenCalled()
+
   })
 })
 

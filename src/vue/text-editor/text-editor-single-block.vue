@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated">
+  <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated" :id="containerId">
       <p class="alpheios-alignment-editor-text-block__title">{{ indexData }}{{ textBlockTitle }}
         <span :id="removeId" class="alpheios-alignment-editor-text-block__remove" v-show="showDeleteIcon" @click="deleteText">
           <delete-icon />
@@ -91,6 +91,9 @@ export default {
     },
     '$store.state.tokenizerUpdated' () {
       this.updateText()
+    },
+    async '$store.state.alignmentRestarted' () {
+      await this.restartTextEditor()
     }
   },
   computed: {
@@ -101,14 +104,17 @@ export default {
       this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
+    containerId () {
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+    },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.textId}`
     },
     removeId () {
-      return `alpheios-alignment-editor-remove-block__${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
@@ -157,13 +163,13 @@ export default {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated &&this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
-      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     }
   },
   methods: {
@@ -173,6 +179,11 @@ export default {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
       }
+    },
+
+    async restartTextEditor () {
+        this.text = ''
+        await this.prepareDefaultTextEditorOptions()
     },
 
     /**

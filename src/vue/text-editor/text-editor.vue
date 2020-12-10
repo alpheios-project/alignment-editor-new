@@ -37,6 +37,10 @@ export default {
     hideEditor: {
       type: Number,
       required: false
+    },
+    showEditor: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -51,6 +55,9 @@ export default {
      */
     hideEditor () {
       this.showTextsBlocks = false
+    },
+    showEditor () {
+      this.showTextsBlocks = true
     }
   },
   /**

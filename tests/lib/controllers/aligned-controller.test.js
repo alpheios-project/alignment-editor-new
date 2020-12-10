@@ -877,6 +877,33 @@ describe('aligned-controller.test.js', () => {
     expect(alignedC.selectedToken(tokenOrigin2)).toBeFalsy()
   })
 
+  it('28 AlignedController - startOver - clears alignment property', async () => {
+    const alignedC = new AlignedController(appC.store)
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const alignment = new Alignment(originDocSource, targetDocSource)
+
+    alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
+
+
+    await alignedC.createAlignedTexts(alignment)
+    const targetIds = alignment.allTargetTextsIds
+
+    const tokenOrigin1 = alignment.origin.alignedText.segments[0].tokens[0]
+    const tokenTarget1 = alignment.targets[targetIds[0]].alignedText.segments[0].tokens[0]
+    const tokenOrigin2 = alignment.origin.alignedText.segments[0].tokens[1]
+
+    alignedC.clickToken(tokenOrigin1, targetIds[0])
+    alignedC.clickToken(tokenTarget1, targetIds[0])
+    alignedC.clickToken(tokenOrigin1, targetIds[0]) // the first group on the first targetId
+
+    alignedC.startOver()
+    expect(alignedC.alignment).toBeNull()
+  })
 })
 
 

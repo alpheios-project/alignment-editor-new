@@ -60293,6 +60293,13 @@ class AlignedController {
   selectedToken (token) {
     return Boolean(this.alignment) && this.alignment.selectedToken(token)
   }
+
+  /**
+   * Clear alignment and start over
+   */
+  startOver () {
+    this.alignment = null
+  }
 }
 
 
@@ -60679,6 +60686,15 @@ class HistoryController {
       return result
     }
   }
+
+  /**
+   * Clear alignment and start over
+   */
+  startOver (alignment) {
+    this.tabsViewMode = false
+    this.undoneSteps = 0
+    this.startTracking(alignment)
+  }
 }
 
 
@@ -61058,6 +61074,13 @@ class TextsController {
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
+  }
+
+  /**
+   * Clear alignment and start over
+   */
+  startOver () {
+    this.createAlignment()
   }
 }
 
@@ -63289,6 +63312,11 @@ class NotificationSingleton {
     notificationModuleInstance.store.commit('removeNotificationMessage', message)
     notificationModuleInstance.store.commit('incrementNotificationUpdated')
   }
+
+  static clearNotifications () {
+    notificationModuleInstance.store.commit('clearNotificationMessages')
+    notificationModuleInstance.store.commit('incrementNotificationUpdated')
+  }
 }
 
 NotificationSingleton.types = {
@@ -63324,7 +63352,8 @@ class StoreDefinition {
         notificationUpdated: 1,
         messages: [],
         optionsUpdated: 1,
-        tokenizerUpdated: 1
+        tokenizerUpdated: 1,
+        alignmentRestarted: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -63340,11 +63369,17 @@ class StoreDefinition {
         removeNotificationMessage (state, message) {
           state.messages = StoreDefinition.removeFromMessages(state.messages, message)
         },
+        clearNotificationMessages (state) {
+          state.messages = []
+        },
         incrementOptionsUpdated (state) {
           state.optionsUpdated++
         },
         incrementTokenizerUpdated (state) {
           state.tokenizerUpdated++
+        },
+        incrementAlignmentRestarted (state) {
+          state.alignmentRestarted++
         }
       }
     }
@@ -63988,7 +64023,7 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -64290,11 +64325,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
-/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
-/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
-/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
-/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
+/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
+/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
+/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
+/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 //
 //
 //
@@ -64317,6 +64353,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
+
 
 
 
@@ -64328,15 +64368,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
-    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_4__.default
+    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_5__.default
   },
   data () {
     return {
       hideTextEditor: 1,
+      showTextEditor: 1,
       showAlignEditor: 1,
       shownOptionsBlock: false
     }
@@ -64378,8 +64419,8 @@ __webpack_require__.r(__webpack_exports__);
     async alignTexts () {
       const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
       if (result) {
-        this.hideTextEditor = this.hideTextEditor + 1
-        this.showAlignEditor = this.showAlignEditor + 1  
+        this.hideTextEditor++
+        this.showAlignEditor++
       }
     },
     /**
@@ -64393,6 +64434,20 @@ __webpack_require__.r(__webpack_exports__);
      */
     toggleOptions () {
       this.shownOptionsBlock = !this.shownOptionsBlock
+    },
+    /**
+     * Clear and start alignment over
+     */
+    startOver () {
+      this.$textC.startOver()
+      this.$historyC.startOver(this.$textC.alignment)
+      this.$alignedC.startOver()
+      
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
+      this.$textC.store.commit('incrementAlignmentRestarted')
+      this.$textC.store.commit('incrementAlignmentUpdated')
+
+      this.showTextEditor++
     }
   }
 });
@@ -64412,6 +64467,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
 //
 //
 //
@@ -64495,10 +64554,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     /**
-     * Shows block with choose file input
+     * Shows/Hides block with choose file input
      */
     uploadTexts () {
-      this.showUploadBlock = true
+      this.showUploadBlock = !this.showUploadBlock
     },
 
     /**
@@ -64514,6 +64573,8 @@ __webpack_require__.r(__webpack_exports__);
         this.showUploadBlock = false
       }
       reader.readAsText(file)
+
+      this.$refs.fileupload.value = ''
     }
   }
 });
@@ -65089,6 +65150,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     '$store.state.tokenizerUpdated' () {
       this.updateText()
+    },
+    async '$store.state.alignmentRestarted' () {
+      await this.restartTextEditor()
     }
   },
   computed: {
@@ -65099,14 +65163,17 @@ __webpack_require__.r(__webpack_exports__);
       this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
+    containerId () {
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+    },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.textId}`
     },
     removeId () {
-      return `alpheios-alignment-editor-remove-block__${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.textId}`
     },
     /**
      * Defines textType from textId
@@ -65155,13 +65222,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated &&this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
-      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     }
   },
   methods: {
@@ -65171,6 +65238,11 @@ __webpack_require__.r(__webpack_exports__);
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
       }
+    },
+
+    async restartTextEditor () {
+        this.text = ''
+        await this.prepareDefaultTextEditorOptions()
     },
 
     /**
@@ -65256,6 +65328,10 @@ __webpack_require__.r(__webpack_exports__);
     hideEditor: {
       type: Number,
       required: false
+    },
+    showEditor: {
+      type: Number,
+      required: false
     }
   },
   data () {
@@ -65270,6 +65346,9 @@ __webpack_require__.r(__webpack_exports__);
      */
     hideEditor () {
       this.showTextsBlocks = false
+    },
+    showEditor () {
+      this.showTextsBlocks = true
     }
   },
   /**
@@ -67075,7 +67154,8 @@ var render = function() {
           "redo-action": _vm.redoAction,
           "undo-action": _vm.undoAction,
           "add-target": _vm.addTarget,
-          "toggle-options": _vm.toggleOptions
+          "toggle-options": _vm.toggleOptions,
+          "clear-all": _vm.startOver
         }
       }),
       _vm._v(" "),
@@ -67092,7 +67172,12 @@ var render = function() {
         ]
       }),
       _vm._v(" "),
-      _c("text-editor", { attrs: { "hide-editor": _vm.hideTextEditor } }),
+      _c("text-editor", {
+        attrs: {
+          "hide-editor": _vm.hideTextEditor,
+          "show-editor": _vm.showTextEditor
+        }
+      }),
       _vm._v(" "),
       _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } })
     ],
@@ -67280,6 +67365,26 @@ var render = function() {
                 "\n      "
             )
           ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
+            attrs: { id: "alpheios-main-menu-clear-all" },
+            on: {
+              click: function($event) {
+                return _vm.$emit("clear-all")
+              }
+            }
+          },
+          [
+            _vm._v(
+              "\n              " +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_CLEAR_ALL")) +
+                "\n      "
+            )
+          ]
         )
       ]),
       _vm._v(" "),
@@ -67299,6 +67404,7 @@ var render = function() {
         },
         [
           _c("input", {
+            ref: "fileupload",
             attrs: { type: "file" },
             on: { change: _vm.loadTextFromFile }
           })
@@ -67893,7 +67999,8 @@ var render = function() {
           expression: "dataUpdated"
         }
       ],
-      staticClass: "alpheios-alignment-editor-text-block"
+      staticClass: "alpheios-alignment-editor-text-block",
+      attrs: { id: _vm.containerId }
     },
     [
       _c("p", { staticClass: "alpheios-alignment-editor-text-block__title" }, [
@@ -68376,7 +68483,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_SHOW_OPTIONS_TITLE\":{\"message\":\"Show options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_HIDE_OPTIONS_TITLE\":{\"message\":\"Hide options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_SHOW_OPTIONS_TITLE\":{\"message\":\"Show options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_HIDE_OPTIONS_TITLE\":{\"message\":\"Hide options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_CLEAR_ALL\":{\"message\":\"Clear all\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
 
 /***/ }),
 

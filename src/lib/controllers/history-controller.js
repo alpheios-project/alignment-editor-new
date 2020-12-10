@@ -86,4 +86,13 @@ export default class HistoryController {
       return result
     }
   }
+
+  /**
+   * Clear alignment and start over
+   */
+  startOver (alignment) {
+    this.tabsViewMode = false
+    this.undoneSteps = 0
+    this.startTracking(alignment)
+  }
 }
