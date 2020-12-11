@@ -36,7 +36,7 @@
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-clear-all" 
                 @click="$emit('clear-all')">
-                {{ l10n.getMsgS('MAIN_MENU_CLEAR_ALL') }}
+                {{ l10n.getMsgS('MAIN_MENU_CLEAR_TEXT') }}
         </button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
