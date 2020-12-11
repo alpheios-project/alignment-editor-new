@@ -67381,7 +67381,7 @@ var render = function() {
           [
             _vm._v(
               "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_CLEAR_ALL")) +
+                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_CLEAR_TEXT")) +
                 "\n      "
             )
           ]
@@ -68483,7 +68483,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_SHOW_OPTIONS_TITLE\":{\"message\":\"Show options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_HIDE_OPTIONS_TITLE\":{\"message\":\"Hide options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_CLEAR_ALL\":{\"message\":\"Clear all\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_SHOW_OPTIONS_TITLE\":{\"message\":\"Show options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_HIDE_OPTIONS_TITLE\":{\"message\":\"Hide options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_CLEAR_TEXT\":{\"message\":\"Clear text\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
 
 /***/ }),
 

@@ -39,8 +39,8 @@
       "description": "Button in main menu",
       "component": "MainMenu"
     },
-    "MAIN_MENU_CLEAR_ALL": {
-      "message": "Clear all",
+    "MAIN_MENU_CLEAR_TEXT": {
+      "message": "Clear text",
       "description": "Button in main menu",
       "component": "MainMenu"
     }
