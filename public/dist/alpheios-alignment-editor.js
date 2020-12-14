@@ -3,7 +3,7 @@ window.AlignmentEditor =
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./styles/style.scss":
-/*!***************************!*
+/*!***************************!*\
   !*** ./styles/style.scss ***!
   \***************************/
 /***/ (() => {
@@ -13,7 +13,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -23,7 +23,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -33,7 +33,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -43,7 +43,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
   \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -53,7 +53,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -63,7 +63,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=style&index=0&lang=scss&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=style&index=0&lang=scss& ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -73,7 +73,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -83,7 +83,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -93,7 +93,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -103,7 +103,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -113,7 +113,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
@@ -123,7 +123,7 @@ window.AlignmentEditor =
 /***/ }),
 
 /***/ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js":
-/*!***********************************************************************************************!*
+/*!***********************************************************************************************!*\
   !*** ../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js ***!
   \***********************************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -3962,17 +3962,17 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_145510__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_145511__) => {
 
 "use strict";
-__nested_webpack_require_145510__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_145510__.d(__webpack_exports__, {
+__nested_webpack_require_145511__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_145511__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_145510__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_145510__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_145510__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_145510__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_145511__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_145511__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_145511__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_145511__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 ;
 
 
@@ -4083,17 +4083,17 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150422__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150423__) => {
 
 "use strict";
-__nested_webpack_require_150422__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_150422__.d(__webpack_exports__, {
+__nested_webpack_require_150423__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_150423__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150422__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150422__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150422__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150422__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150423__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150423__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150423__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150423__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 ;
 
 
@@ -4122,7 +4122,7 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
     try {
       const requestParams = {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: this.defineContentType(),
         body: text
       }
 
@@ -4155,13 +4155,13 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
         return
       }
 
+      let configData
       if (this.sourceData) {
-        return this.sourceData
+        configData = this.sourceData
       } else {
-        const configData = await this.fetch(url)
-
-        return this.formatSettings(configData)
+        configData = await this.fetch(url)
       }
+      return this.formatSettings(configData)
     } catch (error) {
       this.addError(this.l10n.getMsg('TOKENIZATION_FETCH_ERROR', { message: error.message }))
     }
@@ -4247,6 +4247,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
   createConfigFetchURL () {
     return this.fetchOptions.baseUrl
   }
+
+  /**
+   * This method defines type of Content-Type based on the source text type
+   * @returns {Object} - { 'Content-Type':  <mime type> }
+   */
+  defineContentType () {
+    if (this.fetchOptions.sourceType === 'tei') {
+      return { 'Content-Type': 'application/xml' }
+    }
+    return { 'Content-Type': 'text/plain' }
+  }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AlpheiosTokenizationAdapter);
@@ -4262,17 +4273,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_156731__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157080__) => {
 
 "use strict";
-__nested_webpack_require_156731__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_156731__.d(__webpack_exports__, {
+__nested_webpack_require_157080__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_157080__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_156731__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_156731__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_156731__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_156731__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157080__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157080__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_157080__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157080__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 ;
 
 
@@ -4405,19 +4416,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162637__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162986__) => {
 
 "use strict";
-__nested_webpack_require_162637__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_162637__.d(__webpack_exports__, {
+__nested_webpack_require_162986__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_162986__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162637__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_162637__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162637__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_162637__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_162637__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_162637__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162986__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_162986__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162986__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_162986__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_162986__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_162986__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 ;
 
 
@@ -4541,16 +4552,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_168967__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169316__) => {
 
 "use strict";
-__nested_webpack_require_168967__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_168967__.d(__webpack_exports__, {
+__nested_webpack_require_169316__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_169316__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_168967__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_168967__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_168967__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169316__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169316__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_169316__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4569,16 +4580,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170582__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170931__) => {
 
 "use strict";
-__nested_webpack_require_170582__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_170582__.d(__webpack_exports__, {
+__nested_webpack_require_170931__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_170931__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170582__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170582__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170582__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170931__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170931__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170931__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4600,16 +4611,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172427__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172776__) => {
 
 "use strict";
-__nested_webpack_require_172427__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_172427__.d(__webpack_exports__, {
+__nested_webpack_require_172776__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_172776__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172427__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172427__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172427__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172776__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172776__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172776__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4662,16 +4673,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176123__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176472__) => {
 
 "use strict";
-__nested_webpack_require_176123__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_176123__.d(__webpack_exports__, {
+__nested_webpack_require_176472__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_176472__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176123__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176123__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176123__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176472__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176472__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176472__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4718,16 +4729,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_178931__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_179280__) => {
 
 "use strict";
-__nested_webpack_require_178931__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_178931__.d(__webpack_exports__, {
+__nested_webpack_require_179280__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_179280__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_178931__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_178931__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_178931__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_179280__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_179280__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_179280__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4746,16 +4757,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180562__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180911__) => {
 
 "use strict";
-__nested_webpack_require_180562__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180562__.d(__webpack_exports__, {
+__nested_webpack_require_180911__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180911__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180562__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180562__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180562__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180911__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180911__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180911__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 ;
 
 
@@ -4876,21 +4887,21 @@ data.setLemmaParser(function (lemma) {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_187054__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_187403__) => {
 
 "use strict";
-__nested_webpack_require_187054__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_187054__.d(__webpack_exports__, {
+__nested_webpack_require_187403__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_187403__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_187054__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_187054__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_187054__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_187403__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_187403__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_187403__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_187403__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_187403__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_187403__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_187403__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_187403__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 ;
 
 
@@ -4945,25 +4956,25 @@ class EnginesSet {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190911__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_191260__) => {
 
 "use strict";
-__nested_webpack_require_190911__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_190911__.d(__webpack_exports__, {
+__nested_webpack_require_191260__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_191260__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_190911__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_190911__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_190911__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_191260__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_191260__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_191260__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
 ;
 
 
@@ -5368,7 +5379,8 @@ class ClientAdapters {
       method: options.method,
       clientId: options.clientId,
       fetchOptions: options.params.fetchOptions,
-      storage: options.params.storage
+      storage: options.params.storage,
+      sourceData: options.params.sourceData
     })
 
     if (!localTokenizationAdapter.available) {
@@ -5403,11 +5415,11 @@ class ClientAdapters {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_211540__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_211935__) => {
 
 "use strict";
-__nested_webpack_require_211540__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_211540__.d(__webpack_exports__, {
+__nested_webpack_require_211935__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_211935__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class AdapterError extends Error {
@@ -5453,11 +5465,11 @@ class AdapterError extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_213295__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_213690__) => {
 
 "use strict";
-__nested_webpack_require_213295__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_213295__.d(__webpack_exports__, {
+__nested_webpack_require_213690__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_213690__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ AdapterWarning
 /* harmony export */ });
 /**
@@ -5494,11 +5506,11 @@ class AdapterWarning extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_215115__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_215488__) => {
 
 "use strict";
-__nested_webpack_require_215115__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_215115__.d(__webpack_exports__, {
+__nested_webpack_require_215488__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_215488__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -5525,11 +5537,11 @@ class NoRequiredParamError extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_216370__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_216743__) => {
 
 "use strict";
-__nested_webpack_require_216370__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_216370__.d(__webpack_exports__, {
+__nested_webpack_require_216743__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_216743__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteError
 /* harmony export */ });
 class RemoteError extends Error {
@@ -5560,11 +5572,11 @@ class RemoteError extends Error {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217615__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217972__) => {
 
 "use strict";
-__nested_webpack_require_217615__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_217615__.d(__webpack_exports__, {
+__nested_webpack_require_217972__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217972__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /** @enum {string} */
@@ -5587,11 +5599,11 @@ const WarningCodes = {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218656__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_219005__) => {
 
 "use strict";
-__nested_webpack_require_218656__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_218656__.d(__webpack_exports__, {
+__nested_webpack_require_219005__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_219005__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -5619,18 +5631,18 @@ class WrongMethodError extends Error {
 /*! export RemoteError [provided] [maybe used in main (runtime-defined)] [usage prevents renaming] -> ./errors/remote-error.js .default */
 /*! other exports [not provided] [maybe used in main (runtime-defined)] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220137__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220486__) => {
 
 "use strict";
-__nested_webpack_require_220137__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_220137__.d(__webpack_exports__, {
+__nested_webpack_require_220486__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220486__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => /* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default,
 /* harmony export */   "AdapterError": () => /* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default,
 /* harmony export */   "RemoteError": () => /* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220137__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_220137__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_220137__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220486__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_220486__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_220486__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 ;
 
 
@@ -5648,15 +5660,15 @@ __nested_webpack_require_220137__.r(__webpack_exports__);
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221774__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222123__) => {
 
 "use strict";
-__nested_webpack_require_221774__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_221774__.d(__webpack_exports__, {
+__nested_webpack_require_222123__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222123__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_221774__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_221774__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222123__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222123__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 ;
 
 
@@ -5680,16 +5692,16 @@ __nested_webpack_require_221774__.r(__webpack_exports__);
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_223229__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_223578__) => {
 
 "use strict";
-__nested_webpack_require_223229__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_223229__.d(__webpack_exports__, {
+__nested_webpack_require_223578__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_223578__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_223229__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_223229__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_223229__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_223578__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_223578__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_223578__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
 ;
 
 
@@ -6011,15 +6023,15 @@ class AlpheiosLexiconTransformer {
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_require__.n, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_238055__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_238404__) => {
 
 "use strict";
-__nested_webpack_require_238055__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_238055__.d(__webpack_exports__, {
+__nested_webpack_require_238404__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_238404__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_238055__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_238055__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_238404__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_238404__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -26003,7 +26015,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_2097576__(moduleId) {
+/******/ 	function __nested_webpack_require_2097925__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -26016,7 +26028,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_2097576__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_2097925__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -26029,11 +26041,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_2097576__.n = (module) => {
+/******/ 		__nested_webpack_require_2097925__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_2097576__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_2097925__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -26041,9 +26053,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_2097576__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_2097925__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_2097576__.o(definition, key) && !__nested_webpack_require_2097576__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_2097925__.o(definition, key) && !__nested_webpack_require_2097925__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -26052,13 +26064,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_2097576__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_2097925__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_2097576__.r = (exports) => {
+/******/ 		__nested_webpack_require_2097925__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -26068,7 +26080,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_2097576__.nmd = (module) => {
+/******/ 		__nested_webpack_require_2097925__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -26079,7 +26091,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_2097576__("./index.js");
+/******/ 	return __nested_webpack_require_2097925__("./index.js");
 /******/ })()
 ;
 });
@@ -26088,7 +26100,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /***/ }),
 
 /***/ "../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js":
-/*!***************************************************************************************!*
+/*!***************************************************************************************!*\
   !*** ../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js ***!
   \***************************************************************************************/
 /***/ ((module) => {
@@ -37449,7 +37461,7 @@ class WordList {
 /***/ }),
 
 /***/ "../node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js":
-/*!*************************************************************************!*
+/*!*************************************************************************!*\
   !*** ../node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js ***!
   \*************************************************************************/
 /***/ ((module) => {
@@ -43019,7 +43031,7 @@ class Message {
 /***/ }),
 
 /***/ "../node_modules/alpheios-messaging/dist/prod/alpheios-messaging.min.js":
-/*!******************************************************************************!*
+/*!******************************************************************************!*\
   !*** ../node_modules/alpheios-messaging/dist/prod/alpheios-messaging.min.js ***!
   \******************************************************************************/
 /***/ ((module) => {
@@ -43029,7 +43041,7 @@ class Message {
 /***/ }),
 
 /***/ "../node_modules/emitter-component/index.js":
-/*!**************************************************!*
+/*!**************************************************!*\
   !*** ../node_modules/emitter-component/index.js ***!
   \**************************************************/
 /***/ ((module) => {
@@ -43203,7 +43215,7 @@ Emitter.prototype.hasListeners = function(event){
 /***/ }),
 
 /***/ "../node_modules/fast-memoize/src/index.js":
-/*!*************************************************!*
+/*!*************************************************!*\
   !*** ../node_modules/fast-memoize/src/index.js ***!
   \*************************************************/
 /***/ ((module) => {
@@ -43357,7 +43369,7 @@ module.exports.strategies = {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/index.js":
-/*!**************************************************************!*
+/*!**************************************************************!*\
   !*** ../node_modules/intl-messageformat-parser/lib/index.js ***!
   \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -43406,7 +43418,7 @@ function parse(input, opts) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/normalize.js":
-/*!**********************************************************************!*
+/*!**********************************************************************!*\
   !*** ../node_modules/intl-messageformat-parser/lib/src/normalize.js ***!
   \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -43465,7 +43477,7 @@ function normalizeHashtagInPlural(els) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/parser.js":
-/*!*******************************************************************!*
+/*!*******************************************************************!*\
   !*** ../node_modules/intl-messageformat-parser/lib/src/parser.js ***!
   \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -46595,7 +46607,7 @@ var pegParse = peg$parse;
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/skeleton.js":
-/*!*********************************************************************!*
+/*!*********************************************************************!*\
   !*** ../node_modules/intl-messageformat-parser/lib/src/skeleton.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -46910,7 +46922,7 @@ function parseNumberSkeleton(tokens) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat-parser/lib/src/types.js":
-/*!******************************************************************!*
+/*!******************************************************************!*\
   !*** ../node_modules/intl-messageformat-parser/lib/src/types.js ***!
   \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -47033,7 +47045,7 @@ function createNumberElement(value, style) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/index.js":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/index.js ***!
   \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -47070,7 +47082,7 @@ See the accompanying LICENSE file for terms.
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/src/core.js":
-/*!**********************************************************!*
+/*!**********************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/src/core.js ***!
   \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -47317,7 +47329,7 @@ var IntlMessageFormat = /** @class */ (function () {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/src/error.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/src/error.js ***!
   \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -47385,7 +47397,7 @@ var MissingValueError = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ "../node_modules/intl-messageformat/lib/src/formatters.js":
-/*!****************************************************************!*
+/*!****************************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/src/formatters.js ***!
   \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -47576,7 +47588,7 @@ originalMessage) {
 /***/ }),
 
 /***/ "../node_modules/papaparse/papaparse.js":
-/*!**********************************************!*
+/*!**********************************************!*\
   !*** ../node_modules/papaparse/papaparse.js ***!
   \**********************************************/
 /***/ (function(module, exports, __webpack_require__) {
@@ -49512,7 +49524,7 @@ License: MIT
 /***/ }),
 
 /***/ "../node_modules/stream/index.js":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ../node_modules/stream/index.js ***!
   \***************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -49637,7 +49649,7 @@ Stream.prototype.pipe = function(dest, options) {
 /***/ }),
 
 /***/ "../node_modules/tslib/tslib.es6.js":
-/*!******************************************!*
+/*!******************************************!*\
   !*** ../node_modules/tslib/tslib.es6.js ***!
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -49901,7 +49913,7 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /***/ }),
 
 /***/ "../node_modules/uuid/index.js":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ../node_modules/uuid/index.js ***!
   \*************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -49919,7 +49931,7 @@ module.exports = uuid;
 /***/ }),
 
 /***/ "../node_modules/uuid/lib/bytesToUuid.js":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ../node_modules/uuid/lib/bytesToUuid.js ***!
   \***********************************************/
 /***/ ((module) => {
@@ -49955,7 +49967,7 @@ module.exports = bytesToUuid;
 /***/ }),
 
 /***/ "../node_modules/uuid/lib/rng-browser.js":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ../node_modules/uuid/lib/rng-browser.js ***!
   \***********************************************/
 /***/ ((module) => {
@@ -49999,7 +50011,7 @@ if (getRandomValues) {
 /***/ }),
 
 /***/ "../node_modules/uuid/v1.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ../node_modules/uuid/v1.js ***!
   \**********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -50118,7 +50130,7 @@ module.exports = v1;
 /***/ }),
 
 /***/ "../node_modules/uuid/v4.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ../node_modules/uuid/v4.js ***!
   \**********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -50157,7 +50169,7 @@ module.exports = v4;
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js":
-/*!*********************************************************************!*
+/*!*********************************************************************!*\
   !*** ../node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -50270,7 +50282,7 @@ function normalizeComponent (
 /***/ }),
 
 /***/ "../node_modules/vue/dist/vue.runtime.esm.js":
-/*!***************************************************!*
+/*!***************************************************!*\
   !*** ../node_modules/vue/dist/vue.runtime.esm.js ***!
   \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -58723,7 +58735,7 @@ if (inBrowser) {
 /***/ }),
 
 /***/ "../node_modules/vuex/dist/vuex.common.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ../node_modules/vuex/dist/vuex.common.js ***!
   \************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
@@ -59978,7 +59990,7 @@ module.exports = index_cjs;
 /***/ }),
 
 /***/ "./index.js":
-/*!******************!*
+/*!******************!*\
   !*** ./index.js ***!
   \******************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60001,7 +60013,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./lib/controllers/aligned-controller.js":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ./lib/controllers/aligned-controller.js ***!
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60306,7 +60318,7 @@ class AlignedController {
 /***/ }),
 
 /***/ "./lib/controllers/app-controller.js":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./lib/controllers/app-controller.js ***!
   \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60508,7 +60520,7 @@ class AppController {
 /***/ }),
 
 /***/ "./lib/controllers/download-controller.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ./lib/controllers/download-controller.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60588,7 +60600,7 @@ class DownloadController {
 /***/ }),
 
 /***/ "./lib/controllers/history-controller.js":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ./lib/controllers/history-controller.js ***!
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60701,7 +60713,7 @@ class HistoryController {
 /***/ }),
 
 /***/ "./lib/controllers/settings-controller.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ./lib/controllers/settings-controller.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -60896,7 +60908,7 @@ SettingsController.evt = {
 /***/ }),
 
 /***/ "./lib/controllers/texts-controller.js":
-/*!*********************************************!*
+/*!*********************************************!*\
   !*** ./lib/controllers/texts-controller.js ***!
   \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -61088,7 +61100,7 @@ class TextsController {
 /***/ }),
 
 /***/ "./lib/controllers/tokenize-controller.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ./lib/controllers/tokenize-controller.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -61239,7 +61251,7 @@ class TokenizeController {
 /***/ }),
 
 /***/ "./lib/controllers/upload-controller.js":
-/*!**********************************************!*
+/*!**********************************************!*\
   !*** ./lib/controllers/upload-controller.js ***!
   \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -61336,7 +61348,7 @@ class UploadController {
 /***/ }),
 
 /***/ "./lib/data/aligned-text.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./lib/data/aligned-text.js ***!
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -61409,7 +61421,7 @@ class AlignedText {
 /***/ }),
 
 /***/ "./lib/data/alignment-group.js":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./lib/data/alignment-group.js ***!
   \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -61866,7 +61878,7 @@ class AlignmentGroup {
 /***/ }),
 
 /***/ "./lib/data/alignment-step.js":
-/*!************************************!*
+/*!************************************!*\
   !*** ./lib/data/alignment-step.js ***!
   \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -61931,7 +61943,7 @@ AlignmentStep.types = {
 /***/ }),
 
 /***/ "./lib/data/alignment.js":
-/*!*******************************!*
+/*!*******************************!*\
   !*** ./lib/data/alignment.js ***!
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62553,7 +62565,7 @@ class Alignment {
 /***/ }),
 
 /***/ "./lib/data/langs/langs.js":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./lib/data/langs/langs.js ***!
   \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62585,7 +62597,7 @@ class Langs {
 /***/ }),
 
 /***/ "./lib/data/segment.js":
-/*!*****************************!*
+/*!*****************************!*\
   !*** ./lib/data/segment.js ***!
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62621,7 +62633,7 @@ class Segment {
 /***/ }),
 
 /***/ "./lib/data/source-text.js":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./lib/data/source-text.js ***!
   \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62731,7 +62743,7 @@ class SourceText {
 /***/ }),
 
 /***/ "./lib/data/token.js":
-/*!***************************!*
+/*!***************************!*\
   !*** ./lib/data/token.js ***!
   \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62773,7 +62785,7 @@ class Token {
 /***/ }),
 
 /***/ "./lib/download/download-file-one-column.js":
-/*!**************************************************!*
+/*!**************************************************!*\
   !*** ./lib/download/download-file-one-column.js ***!
   \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62827,7 +62839,7 @@ class DownloadFileOneColumn {
 /***/ }),
 
 /***/ "./lib/l10n/l10n-singleton.js":
-/*!************************************!*
+/*!************************************!*\
   !*** ./lib/l10n/l10n-singleton.js ***!
   \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62867,7 +62879,7 @@ class L10nSingleton extends _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.defau
 /***/ }),
 
 /***/ "./lib/l10n/l10n.js":
-/*!**************************!*
+/*!**************************!*\
   !*** ./lib/l10n/l10n.js ***!
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -62985,7 +62997,7 @@ class L10n {
 /***/ }),
 
 /***/ "./lib/l10n/message-bundle.js":
-/*!************************************!*
+/*!************************************!*\
   !*** ./lib/l10n/message-bundle.js ***!
   \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63177,7 +63189,7 @@ class MessageBundle {
 /***/ }),
 
 /***/ "./lib/l10n/message.js":
-/*!*****************************!*
+/*!*****************************!*\
   !*** ./lib/l10n/message.js ***!
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63270,7 +63282,7 @@ class Message {
 /***/ }),
 
 /***/ "./lib/notifications/notification-singleton.js":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ./lib/notifications/notification-singleton.js ***!
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63330,7 +63342,7 @@ NotificationSingleton.types = {
 /***/ }),
 
 /***/ "./lib/store/store-definition.js":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./lib/store/store-definition.js ***!
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63399,7 +63411,7 @@ class StoreDefinition {
 /***/ }),
 
 /***/ "./lib/tokenizers/alpheios-remote-tokenizer.js":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ./lib/tokenizers/alpheios-remote-tokenizer.js ***!
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63485,7 +63497,7 @@ class AlpheiosRemoteTokenizer {
 /***/ }),
 
 /***/ "./lib/tokenizers/simple-local-tokenizer.js":
-/*!**************************************************!*
+/*!**************************************************!*\
   !*** ./lib/tokenizers/simple-local-tokenizer.js ***!
   \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63658,7 +63670,7 @@ class SimpleLocalTokenizer {
 /***/ }),
 
 /***/ "./locales/locales.js":
-/*!****************************!*
+/*!****************************!*\
   !*** ./locales/locales.js ***!
   \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63734,7 +63746,7 @@ const availableMessages = {
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*
+/*!***********************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63806,7 +63818,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -63954,7 +63966,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*
+/*!******************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64040,7 +64052,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*
+/*!*******************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64234,7 +64246,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*
+/*!*****************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64315,7 +64327,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************!*
+/*!********************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64456,7 +64468,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************!*
+/*!**************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64583,7 +64595,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************!*
+/*!*********************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64643,7 +64655,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************!*
+/*!******************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js& ***!
   \******************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64849,7 +64861,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*
+/*!**************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64909,7 +64921,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -64973,7 +64985,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************!*
+/*!***************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65038,7 +65050,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*
+/*!*****************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65277,7 +65289,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65391,7 +65403,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************!*
+/*!***************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js& ***!
   \***************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65493,7 +65505,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ./vue/align-editor/align-editor-tabs.vue ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65534,7 +65546,7 @@ component.options.__file = "vue/align-editor/align-editor-tabs.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ./vue/align-editor/align-editor-view-mode.vue ***!
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65575,7 +65587,7 @@ component.options.__file = "vue/align-editor/align-editor-view-mode.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor.vue":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./vue/align-editor/align-editor.vue ***!
   \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65614,7 +65626,7 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/segment-block.vue":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ./vue/align-editor/segment-block.vue ***!
   \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65653,7 +65665,7 @@ component.options.__file = "vue/align-editor/segment-block.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue":
-/*!******************************************!*
+/*!******************************************!*\
   !*** ./vue/align-editor/token-block.vue ***!
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65694,7 +65706,7 @@ component.options.__file = "vue/align-editor/token-block.vue"
 /***/ }),
 
 /***/ "./vue/app.vue":
-/*!*********************!*
+/*!*********************!*\
   !*** ./vue/app.vue ***!
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65735,7 +65747,7 @@ component.options.__file = "vue/app.vue"
 /***/ }),
 
 /***/ "./vue/main-menu.vue":
-/*!***************************!*
+/*!***************************!*\
   !*** ./vue/main-menu.vue ***!
   \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65776,7 +65788,7 @@ component.options.__file = "vue/main-menu.vue"
 /***/ }),
 
 /***/ "./vue/notification-bar.vue":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./vue/notification-bar.vue ***!
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65817,7 +65829,7 @@ component.options.__file = "vue/notification-bar.vue"
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./vue/options/option-item-block.vue ***!
   \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65858,7 +65870,7 @@ component.options.__file = "vue/options/option-item-block.vue"
 /***/ }),
 
 /***/ "./vue/options/options-block.vue":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./vue/options/options-block.vue ***!
   \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65899,7 +65911,7 @@ component.options.__file = "vue/options/options-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/direction-options-block.vue":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ./vue/text-editor/direction-options-block.vue ***!
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65938,7 +65950,7 @@ component.options.__file = "vue/text-editor/direction-options-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/language-options-block.vue":
-/*!****************************************************!*
+/*!****************************************************!*\
   !*** ./vue/text-editor/language-options-block.vue ***!
   \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -65977,7 +65989,7 @@ component.options.__file = "vue/text-editor/language-options-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue":
-/*!******************************************************!*
+/*!******************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue ***!
   \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66018,7 +66030,7 @@ component.options.__file = "vue/text-editor/text-editor-single-block.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue":
-/*!*****************************************!*
+/*!*****************************************!*\
   !*** ./vue/text-editor/text-editor.vue ***!
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66059,7 +66071,7 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue":
-/*!****************************************************!*
+/*!****************************************************!*\
   !*** ./vue/text-editor/tokenize-options-block.vue ***!
   \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66100,7 +66112,7 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************!*
+/*!**********************************************************************************!*\
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
   \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66117,7 +66129,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************************!*
+/*!***************************************************************************************!*\
   !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66134,7 +66146,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************!*
+/*!****************************************************************************!*\
   !*** ./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66151,7 +66163,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/app.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
   \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66168,7 +66180,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/main-menu.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ./vue/main-menu.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66185,7 +66197,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/notification-bar.vue?vue&type=style&index=0&lang=scss&":
-/*!********************************************************************!*
+/*!********************************************************************!*\
   !*** ./vue/notification-bar.vue?vue&type=style&index=0&lang=scss& ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66202,7 +66214,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************!*
+/*!*****************************************************************************!*\
   !*** ./vue/options/option-item-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66219,7 +66231,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************!*
+/*!*************************************************************************!*\
   !*** ./vue/options/options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66236,7 +66248,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************!*
+/*!****************************************************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=style&index=0&lang=scss& ***!
   \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66253,7 +66265,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss&":
-/*!***************************************************************************!*
+/*!***************************************************************************!*\
   !*** ./vue/text-editor/text-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66270,7 +66282,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss&":
-/*!**************************************************************************************!*
+/*!**************************************************************************************!*\
   !*** ./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66287,7 +66299,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*
+/*!*************************************************************************!*\
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66303,7 +66315,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*
+/*!******************************************************************************!*\
   !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66319,7 +66331,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*
+/*!********************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66335,7 +66347,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/segment-block.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*
+/*!*********************************************************************!*\
   !*** ./vue/align-editor/segment-block.vue?vue&type=script&lang=js& ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66351,7 +66363,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************!*
+/*!*******************************************************************!*\
   !*** ./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
   \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66367,7 +66379,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/app.vue?vue&type=script&lang=js&":
-/*!**********************************************!*
+/*!**********************************************!*\
   !*** ./vue/app.vue?vue&type=script&lang=js& ***!
   \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66383,7 +66395,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/main-menu.vue?vue&type=script&lang=js&":
-/*!****************************************************!*
+/*!****************************************************!*\
   !*** ./vue/main-menu.vue?vue&type=script&lang=js& ***!
   \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66399,7 +66411,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/notification-bar.vue?vue&type=script&lang=js&":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ./vue/notification-bar.vue?vue&type=script&lang=js& ***!
   \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66415,7 +66427,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue?vue&type=script&lang=js&":
-/*!********************************************************************!*
+/*!********************************************************************!*\
   !*** ./vue/options/option-item-block.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66431,7 +66443,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/options-block.vue?vue&type=script&lang=js&":
-/*!****************************************************************!*
+/*!****************************************************************!*\
   !*** ./vue/options/options-block.vue?vue&type=script&lang=js& ***!
   \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66447,7 +66459,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*
+/*!******************************************************************************!*\
   !*** ./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66463,7 +66475,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*
+/*!*****************************************************************************!*\
   !*** ./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66479,7 +66491,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*
+/*!*******************************************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66495,7 +66507,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue?vue&type=script&lang=js&":
-/*!******************************************************************!*
+/*!******************************************************************!*\
   !*** ./vue/text-editor/text-editor.vue?vue&type=script&lang=js& ***!
   \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66511,7 +66523,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*
+/*!*****************************************************************************!*\
   !*** ./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66527,7 +66539,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
-/*!*******************************************************************************!*
+/*!*******************************************************************************!*\
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
   \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66544,7 +66556,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&":
-/*!************************************************************************************!*
+/*!************************************************************************************!*\
   !*** ./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& ***!
   \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66561,7 +66573,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
-/*!**************************************************************************!*
+/*!**************************************************************************!*\
   !*** ./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66578,7 +66590,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&":
-/*!***************************************************************************!*
+/*!***************************************************************************!*\
   !*** ./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760& ***!
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66595,7 +66607,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
-/*!*************************************************************************!*
+/*!*************************************************************************!*\
   !*** ./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66612,7 +66624,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/app.vue?vue&type=template&id=2307d2fa&":
-/*!****************************************************!*
+/*!****************************************************!*\
   !*** ./vue/app.vue?vue&type=template&id=2307d2fa& ***!
   \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66629,7 +66641,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/main-menu.vue?vue&type=template&id=0482afe8&":
-/*!**********************************************************!*
+/*!**********************************************************!*\
   !*** ./vue/main-menu.vue?vue&type=template&id=0482afe8& ***!
   \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66646,7 +66658,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/notification-bar.vue?vue&type=template&id=0bf96128&":
-/*!*****************************************************************!*
+/*!*****************************************************************!*\
   !*** ./vue/notification-bar.vue?vue&type=template&id=0bf96128& ***!
   \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66663,7 +66675,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/option-item-block.vue?vue&type=template&id=b17943da&":
-/*!**************************************************************************!*
+/*!**************************************************************************!*\
   !*** ./vue/options/option-item-block.vue?vue&type=template&id=b17943da& ***!
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66680,7 +66692,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/options/options-block.vue?vue&type=template&id=7e2b5386&":
-/*!**********************************************************************!*
+/*!**********************************************************************!*\
   !*** ./vue/options/options-block.vue?vue&type=template&id=7e2b5386& ***!
   \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66697,7 +66709,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&":
-/*!************************************************************************************!*
+/*!************************************************************************************!*\
   !*** ./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& ***!
   \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66714,7 +66726,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
-/*!***********************************************************************************!*
+/*!***********************************************************************************!*\
   !*** ./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
   \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66731,7 +66743,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&":
-/*!*************************************************************************************!*
+/*!*************************************************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& ***!
   \*************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66748,7 +66760,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64&":
-/*!************************************************************************!*
+/*!************************************************************************!*\
   !*** ./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64& ***!
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66765,7 +66777,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&":
-/*!***********************************************************************************!*
+/*!***********************************************************************************!*\
   !*** ./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05& ***!
   \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66782,7 +66794,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
-/*!************************************************************************************************************************************************************************************************************************!*
+/*!************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
   \************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66832,7 +66844,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&":
-/*!*****************************************************************************************************************************************************************************************************************************!*
+/*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4& ***!
   \*****************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -66936,7 +66948,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&":
-/*!*******************************************************************************************************************************************************************************************************************!*
+/*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30& ***!
   \*******************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67007,7 +67019,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&":
-/*!********************************************************************************************************************************************************************************************************************!*
+/*!********************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760& ***!
   \********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67074,7 +67086,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
-/*!******************************************************************************************************************************************************************************************************************!*
+/*!******************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
   \******************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67123,7 +67135,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&":
-/*!*********************************************************************************************************************************************************************************************!*
+/*!*********************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& ***!
   \*********************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67192,7 +67204,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8&":
-/*!***************************************************************************************************************************************************************************************************!*
+/*!***************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8& ***!
   \***************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67421,7 +67433,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128&":
-/*!**********************************************************************************************************************************************************************************************************!*
+/*!**********************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128& ***!
   \**********************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67479,7 +67491,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da&":
-/*!*******************************************************************************************************************************************************************************************************************!*
+/*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da& ***!
   \*******************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67824,7 +67836,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386&":
-/*!***************************************************************************************************************************************************************************************************************!*
+/*!***************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386& ***!
   \***************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67880,7 +67892,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&":
-/*!*****************************************************************************************************************************************************************************************************************************!*
+/*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327& ***!
   \*****************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67926,7 +67938,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
-/*!****************************************************************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
   \****************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -67973,7 +67985,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&":
-/*!******************************************************************************************************************************************************************************************************************************!*
+/*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& ***!
   \******************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -68093,7 +68105,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64&":
-/*!*****************************************************************************************************************************************************************************************************************!*
+/*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64& ***!
   \*****************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -68192,7 +68204,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&":
-/*!****************************************************************************************************************************************************************************************************************************!*
+/*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05& ***!
   \****************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -68348,7 +68360,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "./inline-icons/delete.svg":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./inline-icons/delete.svg ***!
   \*********************************/
 /***/ ((module) => {
@@ -68385,7 +68397,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "./inline-icons/x-close.svg":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./inline-icons/x-close.svg ***!
   \**********************************/
 /***/ ((module) => {
@@ -68422,7 +68434,7 @@ render._withStripped = true
 /***/ }),
 
 /***/ "./lib/data/langs/langs-list.json":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ./lib/data/langs/langs-list.json ***!
   \****************************************/
 /***/ ((module) => {
@@ -68433,7 +68445,7 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ }),
 
 /***/ "./locales/en-gb/messages.json":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./locales/en-gb/messages.json ***!
   \*************************************/
 /***/ ((module) => {
@@ -68444,7 +68456,7 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ }),
 
 /***/ "./locales/en-us/messages-align-editor.json":
-/*!**************************************************!*
+/*!**************************************************!*\
   !*** ./locales/en-us/messages-align-editor.json ***!
   \**************************************************/
 /***/ ((module) => {
@@ -68455,7 +68467,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ }),
 
 /***/ "./locales/en-us/messages-common.json":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ./locales/en-us/messages-common.json ***!
   \********************************************/
 /***/ ((module) => {
@@ -68466,7 +68478,7 @@ module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"
 /***/ }),
 
 /***/ "./locales/en-us/messages-languages.json":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ./locales/en-us/messages-languages.json ***!
   \***********************************************/
 /***/ ((module) => {
@@ -68477,7 +68489,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ }),
 
 /***/ "./locales/en-us/messages-main-menu.json":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ./locales/en-us/messages-main-menu.json ***!
   \***********************************************/
 /***/ ((module) => {
@@ -68488,7 +68500,7 @@ module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Downlo
 /***/ }),
 
 /***/ "./locales/en-us/messages-options-block.json":
-/*!***************************************************!*
+/*!***************************************************!*\
   !*** ./locales/en-us/messages-options-block.json ***!
   \***************************************************/
 /***/ ((module) => {
@@ -68499,7 +68511,7 @@ module.exports = JSON.parse("{\"OPTIONS_BLOCK_APPLICATION\":{\"message\":\"Appli
 /***/ }),
 
 /***/ "./locales/en-us/messages-text-editor.json":
-/*!*************************************************!*
+/*!*************************************************!*\
   !*** ./locales/en-us/messages-text-editor.json ***!
   \*************************************************/
 /***/ ((module) => {
@@ -68510,7 +68522,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ }),
 
 /***/ "./settings/default-app-settings.json":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ./settings/default-app-settings.json ***!
   \********************************************/
 /***/ ((module) => {
@@ -68521,7 +68533,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ }),
 
 /***/ "./settings/default-source-text-settings.json":
-/*!****************************************************!*
+/*!****************************************************!*\
   !*** ./settings/default-source-text-settings.json ***!
   \****************************************************/
 /***/ ((module) => {
