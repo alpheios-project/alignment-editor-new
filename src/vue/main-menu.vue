@@ -65,13 +65,13 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
     },
     undoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
@@ -80,7 +80,7 @@ export default {
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
     },
     addTargetAvailable () {
-      return this.docSourceEditAvailable && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     }
   },
   methods: {

@@ -78,23 +78,23 @@ describe('align-editor-view-mode.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 AlignEditorViewMode - allTargetTextsIds returns current list of targets, shownTabs is updated once', () => {
+  it('2 AlignEditorViewMode - allTokenizedTargetTextsIds returns current list of targets, shownTabs is updated once', () => {
     let cmp = shallowMount(AlignEditorViewMode,{
       store: appC.store,
       localVue
     })
     
-    const allTargetTextsIds = cmp.vm.$textC.allTargetTextsIds
+    const allTokenizedTargetTextsIds = cmp.vm.$textC.allTokenizedTargetTextsIds
 
-    expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
+    expect(cmp.vm.allTokenizedTargetTextsIds).toEqual(allTokenizedTargetTextsIds)
     expect(cmp.vm.shownTabsInited).toBeTruthy()
-    expect(cmp.vm.shownTabs).toEqual([ allTargetTextsIds[0] ])
+    expect(cmp.vm.shownTabs).toEqual([ allTokenizedTargetTextsIds[0] ])
     
     cmp.vm.$alignedC.clickToken(cmp.vm.$alignedC.allAlignedTextsSegments[0].origin.tokens[0]) // executes alignmentUpdated in store
 
-    expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
+    expect(cmp.vm.allTokenizedTargetTextsIds).toEqual(allTokenizedTargetTextsIds)
     expect(cmp.vm.shownTabsInited).toBeTruthy()
-    expect(cmp.vm.shownTabs).toEqual([ allTargetTextsIds[0] ])
+    expect(cmp.vm.shownTabs).toEqual([ allTokenizedTargetTextsIds[0] ])
   })
 
   it('3 AlignEditorViewMode - allAlignedTextsSegments returns a formatted segments list', () => {
@@ -189,5 +189,6 @@ describe('align-editor-view-mode.test.js', () => {
     const index2 = cmp.vm.getIndex('target', 1, allTargetTextsIds[0]) // it is the first target segment from the first target
     expect(index2).toEqual(`target-1-${allTargetTextsIds[0]}`)
   })
+
 })
 
