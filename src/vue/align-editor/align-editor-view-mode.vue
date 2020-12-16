@@ -1,8 +1,8 @@
 <template>
   <div class="alpheios-alignment-editor-align-define-container">
     <align-editor-tabs 
-      v-if="allTargetTextsIds.length > 1"
-      :tabs = "allTargetTextsIds" @selectTab = "selectTab"
+      v-if="allTokenizedTargetTextsIds.length > 1"
+      :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
     />
     
     <div class ="alpheios-alignment-editor-align-define-container-view-mode">
@@ -54,14 +54,14 @@ export default {
      * but if we would need it - we would update shownTabsInited with false
      * @returns {Array[String]}
      */
-    allTargetTextsIds () {
-      const allTargetTextsIds = this.$textC.allTargetTextsIds
+    allTokenizedTargetTextsIds () {
+      const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
       if (!this.shownTabsInited) {
-        this.shownTabs = allTargetTextsIds.slice(0, 1)
+        this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTargetTextsIds : []
+      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
     },
 
     /**

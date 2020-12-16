@@ -95,6 +95,7 @@ export default {
      */
     addTarget () {
       this.$textC.updateTargetDocSource()
+      this.showTextEditor++
     },
     /**
      * Show options block

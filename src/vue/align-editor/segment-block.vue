@@ -121,6 +121,9 @@ export default {
     targetId () {
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
+    alignmentGroupsWorkflowAvailable () {
+      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+    }
   },
   methods: {
     /**
@@ -128,7 +131,7 @@ export default {
      * @param {Token}
      */
     clickToken (token) {
-      if (this.currentTargetId) {
+      if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedC.clickToken(token, this.currentTargetId)
       }
     },

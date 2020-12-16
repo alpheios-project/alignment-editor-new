@@ -71,14 +71,21 @@ export default class AlignedController {
    * Check that origin text is already tokenized
    */
   get hasOriginAlignedText () {
-    return this.alignment ? this.alignment.hasOriginAlignedTexts : null
+    return this.alignment ? this.alignment.hasOriginAlignedTexts : false
   }
 
   /**
    * Check that all target texts are already tokenized
    */
   get hasTargetAlignedTexts () {
-    return this.alignment ? this.alignment.hasTargetAlignedTexts : null
+    return this.alignment ? this.alignment.hasTargetAlignedTexts : false
+  }
+
+  /**
+   * @returns {Boolean} - true - if all sourceText are already tokenized
+   */
+  get alignmentGroupsWorkflowAvailable () {
+    return this.alignment ? this.alignment.allSourceTextTokenized : false
   }
 
   /**

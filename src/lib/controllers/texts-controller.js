@@ -169,4 +169,22 @@ export default class TextsController {
   startOver () {
     this.createAlignment()
   }
+
+  /*
+  * Checks if sourceText with this textType and targetId is already tokenized
+  * @param {String} textType - origin/target
+  * @param {String} textId  - targetId
+  * @returns {Boolean}
+  */
+  sourceTextIsAlreadyTokenized (textType, textId) {
+    return this.alignment ? this.alignment.sourceTextIsAlreadyTokenized(textType, textId) : false
+  }
+
+  /**
+   *
+   * @returns {Array[String]} - array of targetId of all tokenized sourceTexts
+   */
+  get allTokenizedTargetTextsIds () {
+    return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
+  }
 }

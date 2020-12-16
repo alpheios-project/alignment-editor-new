@@ -32,7 +32,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get readyForTokenize () {
-    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.allSourceTextTokenized
   }
 
   /**
@@ -156,12 +156,30 @@ export default class Alignment {
       })
       return false
     }
+
+    if (!this.origin.alignedText) {
+      const originResult = await this.createOriginAlignedText()
+      if (!originResult) { return false }
+    }
+
+    for (let i = 0; i < Object.keys(this.targets).length; i++) {
+      const id = Object.keys(this.targets)[i]
+      if (!this.targets[id].alignedText) {
+        const targetResult = await this.createTargetAlignedText(id, i)
+        if (!targetResult) { return false }
+      }
+    }
+
+    return true
+  }
+
+  async createOriginAlignedText () {
     this.origin.alignedText = new AlignedText({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
     })
 
-    let result = await this.origin.alignedText.tokenize(this.origin.docSource)
+    const result = await this.origin.alignedText.tokenize(this.origin.docSource)
 
     if (!result) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
@@ -171,25 +189,24 @@ export default class Alignment {
       })
       return false
     }
+    return true
+  }
 
-    for (let i = 0; i < Object.keys(this.targets).length; i++) {
-      const id = Object.keys(this.targets)[i]
+  async createTargetAlignedText (targetId, index) {
+    this.targets[targetId].alignedText = new AlignedText({
+      docSource: this.targets[targetId].docSource,
+      tokenPrefix: (index + 2)
+    })
 
-      this.targets[id].alignedText = new AlignedText({
-        docSource: this.targets[id].docSource,
-        tokenPrefix: (i + 2)
+    const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource)
+
+    if (!result) {
+      console.error(L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }),
+        type: NotificationSingleton.types.ERROR
       })
-
-      result = await this.targets[id].alignedText.tokenize(this.targets[id].docSource)
-
-      if (!result) {
-        console.error(L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }))
-        NotificationSingleton.addNotification({
-          text: L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }),
-          type: NotificationSingleton.types.ERROR
-        })
-        return false
-      }
+      return false
     }
     return true
   }
@@ -211,11 +228,19 @@ export default class Alignment {
   }
 
   /**
-   * Check that all target texts are already tokenized
+   * Check that some target texts are already tokenized
    * @returns {Boolean}
    */
   get hasTargetAlignedTexts () {
-    return Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
+    return Object.keys(this.targets).length > 0 && Object.values(this.targets).some(targetData => Boolean(targetData.alignedText))
+  }
+
+  /**
+   * Check that origin and all target texts are already tokenized
+   * @returns {Boolean}
+   */
+  get allSourceTextTokenized () {
+    return Boolean(this.origin.alignedText) && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
   }
 
   /**
@@ -246,9 +271,11 @@ export default class Alignment {
     })
 
     Object.keys(this.targets).forEach(targetId => {
-      this.targets[targetId].alignedText.segments.forEach((segment, orderIndex) => {
-        allSegments[orderIndex].targets[targetId] = segment
-      })
+      if (this.targets[targetId].alignedText) {
+        this.targets[targetId].alignedText.segments.forEach((segment, orderIndex) => {
+          allSegments[orderIndex].targets[targetId] = segment
+        })
+      }
     })
 
     return allSegments
@@ -596,5 +623,26 @@ export default class Alignment {
    */
   selectedToken (token) {
     return this.hoveredGroups.some(alGroup => alGroup.includesToken(token))
+  }
+
+  /**
+   * Checks if sourceText with this textType and targetId is already tokenized
+   * @param {String} textType - origin/target
+   * @param {String} textId  - targetId
+   * @returns {Boolean}
+   */
+  sourceTextIsAlreadyTokenized (textType, textId) {
+    if (textType === 'origin') {
+      return this.hasOriginAlignedTexts
+    }
+    return Boolean(this.targets[textId]) && Boolean(this.targets[textId].alignedText)
+  }
+
+  /**
+   *
+   * @returns {Array[String]} - array of targetId of all tokenized sourceTexts
+   */
+  get allTokenizedTargetTextsIds () {
+    return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 }

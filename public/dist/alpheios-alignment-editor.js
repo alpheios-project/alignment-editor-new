@@ -60098,14 +60098,21 @@ class AlignedController {
    * Check that origin text is already tokenized
    */
   get hasOriginAlignedText () {
-    return this.alignment ? this.alignment.hasOriginAlignedTexts : null
+    return this.alignment ? this.alignment.hasOriginAlignedTexts : false
   }
 
   /**
    * Check that all target texts are already tokenized
    */
   get hasTargetAlignedTexts () {
-    return this.alignment ? this.alignment.hasTargetAlignedTexts : null
+    return this.alignment ? this.alignment.hasTargetAlignedTexts : false
+  }
+
+  /**
+   * @returns {Boolean} - true - if all sourceText are already tokenized
+   */
+  get alignmentGroupsWorkflowAvailable () {
+    return this.alignment ? this.alignment.allSourceTextTokenized : false
   }
 
   /**
@@ -61094,6 +61101,24 @@ class TextsController {
   startOver () {
     this.createAlignment()
   }
+
+  /*
+  * Checks if sourceText with this textType and targetId is already tokenized
+  * @param {String} textType - origin/target
+  * @param {String} textId  - targetId
+  * @returns {Boolean}
+  */
+  sourceTextIsAlreadyTokenized (textType, textId) {
+    return this.alignment ? this.alignment.sourceTextIsAlreadyTokenized(textType, textId) : false
+  }
+
+  /**
+   *
+   * @returns {Array[String]} - array of targetId of all tokenized sourceTexts
+   */
+  get allTokenizedTargetTextsIds () {
+    return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
+  }
 }
 
 
@@ -61994,7 +62019,7 @@ class Alignment {
    * @returns {Boolean}
    */
   get readyForTokenize () {
-    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.allSourceTextTokenized
   }
 
   /**
@@ -62118,12 +62143,30 @@ class Alignment {
       })
       return false
     }
+
+    if (!this.origin.alignedText) {
+      const originResult = await this.createOriginAlignedText()
+      if (!originResult) { return false }
+    }
+
+    for (let i = 0; i < Object.keys(this.targets).length; i++) {
+      const id = Object.keys(this.targets)[i]
+      if (!this.targets[id].alignedText) {
+        const targetResult = await this.createTargetAlignedText(id, i)
+        if (!targetResult) { return false }
+      }
+    }
+
+    return true
+  }
+
+  async createOriginAlignedText () {
     this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
     })
 
-    let result = await this.origin.alignedText.tokenize(this.origin.docSource)
+    const result = await this.origin.alignedText.tokenize(this.origin.docSource)
 
     if (!result) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
@@ -62133,25 +62176,24 @@ class Alignment {
       })
       return false
     }
+    return true
+  }
 
-    for (let i = 0; i < Object.keys(this.targets).length; i++) {
-      const id = Object.keys(this.targets)[i]
+  async createTargetAlignedText (targetId, index) {
+    this.targets[targetId].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
+      docSource: this.targets[targetId].docSource,
+      tokenPrefix: (index + 2)
+    })
 
-      this.targets[id].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
-        docSource: this.targets[id].docSource,
-        tokenPrefix: (i + 2)
+    const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource)
+
+    if (!result) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
       })
-
-      result = await this.targets[id].alignedText.tokenize(this.targets[id].docSource)
-
-      if (!result) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }))
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (i + 1) }),
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
-        })
-        return false
-      }
+      return false
     }
     return true
   }
@@ -62173,11 +62215,19 @@ class Alignment {
   }
 
   /**
-   * Check that all target texts are already tokenized
+   * Check that some target texts are already tokenized
    * @returns {Boolean}
    */
   get hasTargetAlignedTexts () {
-    return Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
+    return Object.keys(this.targets).length > 0 && Object.values(this.targets).some(targetData => Boolean(targetData.alignedText))
+  }
+
+  /**
+   * Check that origin and all target texts are already tokenized
+   * @returns {Boolean}
+   */
+  get allSourceTextTokenized () {
+    return Boolean(this.origin.alignedText) && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
   }
 
   /**
@@ -62208,9 +62258,11 @@ class Alignment {
     })
 
     Object.keys(this.targets).forEach(targetId => {
-      this.targets[targetId].alignedText.segments.forEach((segment, orderIndex) => {
-        allSegments[orderIndex].targets[targetId] = segment
-      })
+      if (this.targets[targetId].alignedText) {
+        this.targets[targetId].alignedText.segments.forEach((segment, orderIndex) => {
+          allSegments[orderIndex].targets[targetId] = segment
+        })
+      }
     })
 
     return allSegments
@@ -62558,6 +62610,27 @@ class Alignment {
    */
   selectedToken (token) {
     return this.hoveredGroups.some(alGroup => alGroup.includesToken(token))
+  }
+
+  /**
+   * Checks if sourceText with this textType and targetId is already tokenized
+   * @param {String} textType - origin/target
+   * @param {String} textId  - targetId
+   * @returns {Boolean}
+   */
+  sourceTextIsAlreadyTokenized (textType, textId) {
+    if (textType === 'origin') {
+      return this.hasOriginAlignedTexts
+    }
+    return Boolean(this.targets[textId]) && Boolean(this.targets[textId].alignedText)
+  }
+
+  /**
+   *
+   * @returns {Array[String]} - array of targetId of all tokenized sourceTexts
+   */
+  get allTokenizedTargetTextsIds () {
+    return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 }
 
@@ -63780,13 +63853,16 @@ __webpack_require__.r(__webpack_exports__);
       tabsStates: []
     }
   },
-  /**
-   * Sets default states for tabs - the first tab is default
-   */
-  mounted () {
-    this.tabsStates = this.tabs.map((tab, index) => { 
-      return { active: index === 0 }
-    })
+  computed: {
+    tabsStatesFinal () {
+      if (this.tabs.length > this.tabsStates.length) {
+        const newTabStates = this.tabs.map((tab, index) => { 
+          return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
+        })
+        this.tabsStates = newTabStates
+      }
+      return this.$store.state.alignmentUpdated && this.tabsStates
+    }
   },
   methods: {
     /**
@@ -63886,14 +63962,14 @@ __webpack_require__.r(__webpack_exports__);
      * but if we would need it - we would update shownTabsInited with false
      * @returns {Array[String]}
      */
-    allTargetTextsIds () {
-      const allTargetTextsIds = this.$textC.allTargetTextsIds
+    allTokenizedTargetTextsIds () {
+      const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
       if (!this.shownTabsInited) {
-        this.shownTabs = allTargetTextsIds.slice(0, 1)
+        this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTargetTextsIds : []
+      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
     },
 
     /**
@@ -64186,6 +64262,9 @@ __webpack_require__.r(__webpack_exports__);
     targetId () {
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
+    alignmentGroupsWorkflowAvailable () {
+      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+    }
   },
   methods: {
     /**
@@ -64193,7 +64272,7 @@ __webpack_require__.r(__webpack_exports__);
      * @param {Token}
      */
     clickToken (token) {
-      if (this.currentTargetId) {
+      if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
         this.$alignedC.clickToken(token, this.currentTargetId)
       }
     },
@@ -64440,6 +64519,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     addTarget () {
       this.$textC.updateTargetDocSource()
+      this.showTextEditor++
     },
     /**
      * Show options block
@@ -64546,13 +64626,13 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
     },
     undoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
@@ -64561,7 +64641,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
     },
     addTargetAvailable () {
-      return this.docSourceEditAvailable && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     }
   },
   methods: {
@@ -65228,7 +65308,7 @@ __webpack_require__.r(__webpack_exports__);
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
@@ -66821,7 +66901,8 @@ var render = function() {
               staticClass: "alpheios-alignment-editor-align-target-tab-item",
               class: {
                 "alpheios-alignment-editor-align-target-tab-item-active":
-                  _vm.tabsStates[index] && _vm.tabsStates[index].active
+                  _vm.tabsStatesFinal[index] &&
+                  _vm.tabsStatesFinal[index].active
               },
               on: {
                 click: function($event) {
@@ -66863,9 +66944,9 @@ var render = function() {
     "div",
     { staticClass: "alpheios-alignment-editor-align-define-container" },
     [
-      _vm.allTargetTextsIds.length > 1
+      _vm.allTokenizedTargetTextsIds.length > 1
         ? _c("align-editor-tabs", {
-            attrs: { tabs: _vm.allTargetTextsIds },
+            attrs: { tabs: _vm.allTokenizedTargetTextsIds },
             on: { selectTab: _vm.selectTab }
           })
         : _vm._e(),

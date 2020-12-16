@@ -1,7 +1,7 @@
 <template>
     <div class="alpheios-alignment-editor-align-target-tabs" v-if="tabs.length > 1">
       <span class="alpheios-alignment-editor-align-target-tab-item"
-            :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] && tabsStates[index].active }"
+            :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStatesFinal[index] && tabsStatesFinal[index].active }"
             v-for="(tabData, index) in tabs" :key="index" 
             @click="selectTab(tabData, index)">
         {{ index + 1 }}
@@ -22,13 +22,16 @@ export default {
       tabsStates: []
     }
   },
-  /**
-   * Sets default states for tabs - the first tab is default
-   */
-  mounted () {
-    this.tabsStates = this.tabs.map((tab, index) => { 
-      return { active: index === 0 }
-    })
+  computed: {
+    tabsStatesFinal () {
+      if (this.tabs.length > this.tabsStates.length) {
+        const newTabStates = this.tabs.map((tab, index) => { 
+          return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
+        })
+        this.tabsStates = newTabStates
+      }
+      return this.$store.state.alignmentUpdated && this.tabsStates
+    }
   },
   methods: {
     /**
