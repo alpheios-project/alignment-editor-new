@@ -575,6 +575,11 @@ div.alpheios-alignment-checkbox-block {
   font-size: 90%;
   color: #888;
 }
+.alpheios-alignment-actions__buttons,
+.alpheios-alignment-actions__upload-block {
+  padding: 5px 0 15px;
+  text-align: left;
+}
 p.alpheios-alignment-tokenize-options-details-toggle {
   display: inline-block;
   cursor: pointer;

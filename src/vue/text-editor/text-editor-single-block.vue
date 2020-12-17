@@ -5,7 +5,8 @@
           <delete-icon />
         </span>
       </p>
-
+      <actions-block text-type = "textType" :text-id = "textId" />
+      
       <direction-options-block 
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
@@ -33,6 +34,7 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
+import ActionsBlock from '@/vue/text-editor/actions-block.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
@@ -57,6 +59,7 @@ export default {
   components: {
     deleteIcon: DeleteIcon,
     optionItemBlock: OptionItemBlock,
+    actionsBlock: ActionsBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
     languageOptionsBlock: LanguageOptionsBlock
