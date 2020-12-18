@@ -9,7 +9,8 @@ export default class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownload: this.plainSourceDownload
+      plainSourceDownloadAll: this.plainSourceDownloadAll,
+      plainSourceDownloadSingle: this.plainSourceDownloadSingle
     }
   }
 
@@ -37,7 +38,7 @@ export default class DownloadController {
    * @param {Object} data - all data for download
    * @return {Boolean} - true - download was done, false - not
    */
-  static plainSourceDownload (data) {
+  static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
       console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       NotificationSingleton.addNotification({
@@ -57,6 +58,21 @@ export default class DownloadController {
     })
 
     const fileName = `alignment-${data.originDocSource.lang}-${langs.join('-')}`
+    return DownloadFileOneColumn.download(fields, fileName)
+  }
+
+  static plainSourceDownloadSingle (data) {
+    if (!data.sourceText) {
+      console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
+    let fields = [data.sourceText.text, data.sourceText.direction, data.sourceText.lang, data.sourceText.sourceType] // eslint-disable-line prefer-const
+
+    const fileName = `alignment-${data.sourceText.lang}`
     return DownloadFileOneColumn.download(fields, fileName)
   }
 }

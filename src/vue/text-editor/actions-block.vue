@@ -2,7 +2,7 @@
     <div class="alpheios-alignment-actions">
       <div class="alpheios-alignment-actions__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-download" 
-            @click="$emit('download-single', textType, textId)" :disabled="!docSourceEditAvailable" >
+            @click="downloadSingle" :disabled="!docSourceEditAvailable" >
             {{ l10n.getMsgS('ACTIONS_DOWNLOAD_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-upload" 
@@ -44,6 +44,9 @@ export default {
     }
   },
   methods: {
+    downloadSingle () {
+      this.$textC.downloadSingleSourceText(this.textType, this.textId)
+    },
     /**
      * Shows/Hides block with choose file input
      */
@@ -60,7 +63,7 @@ export default {
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-single", textType, textId, e.target.result)
+        this.$emit("upload-single", e.target.result)
         this.showUploadBlock = false
       }
       reader.readAsText(file)

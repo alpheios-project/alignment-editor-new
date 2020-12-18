@@ -5,7 +5,7 @@
           <delete-icon />
         </span>
       </p>
-      <actions-block text-type = "textType" :text-id = "textId" />
+      <actions-block :text-type = "textType" :text-id = "textId" />
       
       <direction-options-block 
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 

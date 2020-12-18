@@ -60561,7 +60561,8 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownload: this.plainSourceDownload
+      plainSourceDownloadAll: this.plainSourceDownloadAll,
+      plainSourceDownloadSingle: this.plainSourceDownloadSingle
     }
   }
 
@@ -60589,7 +60590,7 @@ class DownloadController {
    * @param {Object} data - all data for download
    * @return {Boolean} - true - download was done, false - not
    */
-  static plainSourceDownload (data) {
+  static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
@@ -60609,6 +60610,21 @@ class DownloadController {
     })
 
     const fileName = `alignment-${data.originDocSource.lang}-${langs.join('-')}`
+    return _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
+  }
+
+  static plainSourceDownloadSingle (data) {
+    if (!data.sourceText) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      })
+      return false
+    }
+    let fields = [data.sourceText.text, data.sourceText.direction, data.sourceText.lang, data.sourceText.sourceType] // eslint-disable-line prefer-const
+
+    const fileName = `alignment-${data.sourceText.lang}`
     return _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
   }
 }
@@ -61097,12 +61113,23 @@ class TextsController {
    * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
-    const downloadType = 'plainSourceDownload'
+    const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
+  }
+
+  downloadSingleSourceText (textType, textId) {
+    const downloadType = 'plainSourceDownloadSingle'
+    const sourceText = this.getDocSource(textType, textId)
+
+    console.info('downloadSingleSourceText - ', downloadType, sourceText, textType, textId)
+    if (sourceText && sourceText.fullyDefined) {
+      return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { sourceText })
+    }
+    return false
   }
 
   /**
@@ -65068,6 +65095,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    downloadSingle () {
+      this.$textC.downloadSingleSourceText(this.textType, this.textId)
+    },
     /**
      * Shows/Hides block with choose file input
      */
@@ -65084,7 +65114,7 @@ __webpack_require__.r(__webpack_exports__);
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-single", textType, textId, e.target.result)
+        this.$emit("upload-single", e.target.result)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -68188,11 +68218,7 @@ var render = function() {
           staticClass:
             "alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-download",
           attrs: { disabled: !_vm.docSourceEditAvailable },
-          on: {
-            click: function($event) {
-              return _vm.$emit("download-single", _vm.textType, _vm.textId)
-            }
-          }
+          on: { click: _vm.downloadSingle }
         },
         [
           _vm._v(
@@ -68398,7 +68424,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("actions-block", {
-        attrs: { "text-type": "textType", "text-id": _vm.textId }
+        attrs: { "text-type": _vm.textType, "text-id": _vm.textId }
       }),
       _vm._v(" "),
       _c("direction-options-block", {

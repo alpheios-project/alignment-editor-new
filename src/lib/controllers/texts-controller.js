@@ -155,12 +155,23 @@ export default class TextsController {
    * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
-    const downloadType = 'plainSourceDownload'
+    const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
     return DownloadController.download(downloadType, data)
+  }
+
+  downloadSingleSourceText (textType, textId) {
+    const downloadType = 'plainSourceDownloadSingle'
+    const sourceText = this.getDocSource(textType, textId)
+
+    console.info('downloadSingleSourceText - ', downloadType, sourceText, textType, textId)
+    if (sourceText && sourceText.fullyDefined) {
+      return DownloadController.download(downloadType, { sourceText })
+    }
+    return false
   }
 
   /**
