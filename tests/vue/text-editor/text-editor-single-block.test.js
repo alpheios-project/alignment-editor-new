@@ -200,11 +200,11 @@ describe('text-editor-single-block.test.js', () => {
       tokenization: {
         tokenizer: 'simpleLocalTokenizer'
       }
-    })
+    }, 'originIdTest')
 
   })
 
-  it('8 TextEditorSingleBlock - uploads data from $textC when it is updated (with alignmentUpdated)', async () => {
+  it('8 TextEditorSingleBlock - uploads data from $textC when it is updated (with uploadCheck)', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
@@ -226,6 +226,7 @@ describe('text-editor-single-block.test.js', () => {
       direction: 'rtl',
       lang: 'grc'
     })
+    appC.store.commit('incrementUploadCheck')
 
     await Vue.nextTick()
 

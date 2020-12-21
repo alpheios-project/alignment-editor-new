@@ -66,7 +66,7 @@ export default {
     * Starts upload workflow
     */
     uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFile(fileData)
+      this.$textC.uploadDocSourceFromFileAll(fileData)
     },
     /**
      * Starts redo action

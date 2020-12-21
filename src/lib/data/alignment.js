@@ -100,7 +100,7 @@ export default class Alignment {
       return false
     }
 
-    if (!docSource || !docSource.id || !this.targets[docSource.id]) {
+    if (!targetId || (docSource && !this.targets[docSource.id])) {
       if (!(docSource instanceof SourceText)) {
         docSource = new SourceText('target', docSource, targetId)
       }

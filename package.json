@@ -9,9 +9,9 @@
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
-    "test-a": "jest tests/lib/controllers/texts-controller.test.js --coverage",
-    "test-b": "jest tests/vue/align-editor/align-editor-view-mode.test.js --coverage",
-    "test-c": "jest tests/lib/data --coverage",
+    "test-a": "jest tests/lib/controllers/upload-controller.test.js --coverage",
+    "test-b": "jest tests/vue/text-editor/text-editor-single-block.test.js --coverage",
+    "test-c": "jest tests/lib/data/source-text.test.js --coverage",
     "test-d": "jest tests/targets-workflow.test.js --coverage"
   },
   "repository": {

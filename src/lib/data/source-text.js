@@ -86,6 +86,10 @@ export default class SourceText {
     const tokenization = jsonData.tokenization
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
+
+    if (jsonData.textId) {
+      sourceText.id = jsonData.textId
+    }
     return sourceText
   }
 }

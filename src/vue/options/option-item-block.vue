@@ -101,18 +101,11 @@ export default {
     }
   },
   mounted () {
-    this.selected = this.optionItem.currentValue
-
-    if (this.optionItem.selectInput) {
-      const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
-
-      if (valueFromSelect) {
-        this.selectedS = this.optionItem.currentValue
-        this.selectedI = null
-      } else {
-        this.selectedI = this.optionItem.currentValue
-        this.selectedS = this.langsList[0].value
-      }
+    this.updateSelectedFromExternal()
+  },
+  watch: {
+    '$store.state.optionsUpdated' () {
+      this.updateSelectedFromExternal()
     }
   },
   computed: {
@@ -171,6 +164,21 @@ export default {
     }
   },
   methods: {
+    updateSelectedFromExternal () {
+      this.selected = this.optionItem.currentValue
+
+      if (this.optionItem.selectInput) {
+        const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
+
+        if (valueFromSelect) {
+          this.selectedS = this.optionItem.currentValue
+          this.selectedI = null
+        } else {
+          this.selectedI = this.optionItem.currentValue
+          this.selectedS = this.optionItem.values[0].value
+        }
+      }
+    },
     changeOption () {
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI

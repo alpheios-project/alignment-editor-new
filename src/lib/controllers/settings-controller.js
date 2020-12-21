@@ -1,11 +1,9 @@
 import { Options, LocalStorageArea, PsEvent } from 'alpheios-data-models'
 
-// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
-// import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import Langs from '@/lib/data/langs/langs.js'
 
@@ -155,14 +153,15 @@ export default class SettingsController {
    */
   updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
     if (sourceTextData.lang) {
-      localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+      localTextEditorOptions.sourceText.items.language.setValue(sourceTextData.lang)
     }
     if (sourceTextData.direction) {
-      localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+      localTextEditorOptions.sourceText.items.direction.setValue(sourceTextData.direction)
     }
     if (sourceTextData.sourceType) {
-      localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+      localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
+    this.store.commit('incrementOptionsUpdated')
   }
 }
 

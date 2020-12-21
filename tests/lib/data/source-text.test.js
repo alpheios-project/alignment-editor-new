@@ -131,6 +131,9 @@ describe('source-text.test.js', () => {
     expect(sourceText).toHaveProperty('direction', 'rtl')
     expect(sourceText).toHaveProperty('lang', 'lat')
     expect(sourceText).toHaveProperty('sourceType', 'text')
+
+
+    
     expect(sourceText).toHaveProperty('tokenization', { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" })
   })
 

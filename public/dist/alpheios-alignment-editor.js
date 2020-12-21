@@ -60764,12 +60764,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 
 
-// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 
 
 
-// import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 
 
@@ -60919,14 +60917,15 @@ class SettingsController {
    */
   updateLocalTextEditorOptions (localTextEditorOptions, sourceTextData) {
     if (sourceTextData.lang) {
-      localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+      localTextEditorOptions.sourceText.items.language.setValue(sourceTextData.lang)
     }
     if (sourceTextData.direction) {
-      localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+      localTextEditorOptions.sourceText.items.direction.setValue(sourceTextData.direction)
     }
     if (sourceTextData.sourceType) {
-      localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+      localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
+    this.store.commit('incrementOptionsUpdated')
   }
 }
 
@@ -60956,8 +60955,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-// import { v4 as uuidv4 } from 'uuid'
-
 
 
 
@@ -61084,13 +61081,14 @@ class TextsController {
     } else if (textType === 'target') {
       return this.targetDocSource(textId)
     }
+    return null
   }
 
   /**
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFile (fileData) {
+  uploadDocSourceFromFileAll (fileData) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -61099,13 +61097,47 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFile'
+    const uploadType = 'plainSourceUploadFromFileAll'
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
+
+      this.store.commit('incrementUploadCheck')
+      return true
     }
+    return false
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenizeOptions }) {
+    if (!fileData) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+    const uploadType = 'plainSourceUploadFromFileSingle'
+
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenizeOptions })
+    if (result) {
+      if (textType === 'origin') {
+        this.updateOriginDocSource(result)
+        this.store.commit('incrementUploadCheck')
+        return true
+      } else {
+        this.updateTargetDocSource(result, textId)
+        this.store.commit('incrementUploadCheck')
+        return true
+      }
+    }
+    return false
   }
 
   /**
@@ -61121,11 +61153,14 @@ class TextsController {
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
   }
 
+  /**
+   * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
+   */
   downloadSingleSourceText (textType, textId) {
     const downloadType = 'plainSourceDownloadSingle'
     const sourceText = this.getDocSource(textType, textId)
 
-    console.info('downloadSingleSourceText - ', downloadType, sourceText, textType, textId)
     if (sourceText && sourceText.fullyDefined) {
       return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { sourceText })
     }
@@ -61337,7 +61372,8 @@ class UploadController {
    */
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFile: this.plainSourceUploadFromFile
+      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
+      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
     }
   }
 
@@ -61365,8 +61401,8 @@ class UploadController {
    * @param {Object} data - all data for download
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFile (fileString) {
-    if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
+  static plainSourceUploadFromFileAll (fileData) {
+    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61374,9 +61410,9 @@ class UploadController {
       })
       return
     }
-    const fileData = fileString.split(/\r\n|\r|\n/)
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
-    if (!Array.isArray(fileData) || fileData.length < 8) {
+    if (!Array.isArray(fileDataArr) || fileDataArr.length < 8) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61385,15 +61421,15 @@ class UploadController {
       return
     }
 
-    const originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2], sourceType: fileData[3] })
+    const originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
     const targetDocSources = []
 
     let i = 4
-    while (i < fileData.length) {
-      const text = fileData[i]
-      const direction = fileData[i + 1]
-      const lang = fileData[i + 2]
-      const sourceType = fileData[i + 3]
+    while (i < fileDataArr.length) {
+      const text = fileDataArr[i]
+      const direction = fileDataArr[i + 1]
+      const lang = fileDataArr[i + 2]
+      const sourceType = fileDataArr[i + 3]
 
       targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { text, direction, lang, sourceType }))
       i = i + 4
@@ -61403,6 +61439,29 @@ class UploadController {
       originDocSource,
       targetDocSources
     }
+  }
+
+  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
+    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      })
+      return
+    }
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
+
+    if (!Array.isArray(fileDataArr) || fileDataArr.length < 4) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      })
+      return
+    }
+
+    return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
   }
 }
 
@@ -62124,7 +62183,7 @@ class Alignment {
       return false
     }
 
-    if (!docSource || !docSource.id || !this.targets[docSource.id]) {
+    if (!targetId || (docSource && !this.targets[docSource.id])) {
       if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
         docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
       }
@@ -62845,6 +62904,10 @@ class SourceText {
     const tokenization = jsonData.tokenization
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
+
+    if (jsonData.textId) {
+      sourceText.id = jsonData.textId
+    }
     return sourceText
   }
 }
@@ -63475,7 +63538,8 @@ class StoreDefinition {
         messages: [],
         optionsUpdated: 1,
         tokenizerUpdated: 1,
-        alignmentRestarted: 1
+        alignmentRestarted: 1,
+        uploadCheck: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -63502,6 +63566,9 @@ class StoreDefinition {
         },
         incrementAlignmentRestarted (state) {
           state.alignmentRestarted++
+        },
+        incrementUploadCheck (state) {
+          state.uploadCheck++
         }
       }
     }
@@ -64527,7 +64594,7 @@ __webpack_require__.r(__webpack_exports__);
     * Starts upload workflow
     */
     uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFile(fileData)
+      this.$textC.uploadDocSourceFromFileAll(fileData)
     },
     /**
      * Starts redo action
@@ -64886,18 +64953,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted () {
-    this.selected = this.optionItem.currentValue
-
-    if (this.optionItem.selectInput) {
-      const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
-
-      if (valueFromSelect) {
-        this.selectedS = this.optionItem.currentValue
-        this.selectedI = null
-      } else {
-        this.selectedI = this.optionItem.currentValue
-        this.selectedS = this.langsList[0].value
-      }
+    this.updateSelectedFromExternal()
+  },
+  watch: {
+    '$store.state.optionsUpdated' () {
+      this.updateSelectedFromExternal()
     }
   },
   computed: {
@@ -64956,6 +65016,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    updateSelectedFromExternal () {
+      this.selected = this.optionItem.currentValue
+
+      if (this.optionItem.selectInput) {
+        const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
+
+        if (valueFromSelect) {
+          this.selectedS = this.optionItem.currentValue
+          this.selectedI = null
+        } else {
+          this.selectedI = this.optionItem.currentValue
+          this.selectedS = this.optionItem.values[0].value
+        }
+      }
+    },
     changeOption () {
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
@@ -65114,7 +65189,7 @@ __webpack_require__.r(__webpack_exports__);
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-single", e.target.result)
+        this.$emit('upload-single', e.target.result)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -65360,46 +65435,43 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    text (val) {
-      if ((!this.prevText && val) || (this.prevText && !val)) {
-        this.updateText()
-      }
-      this.prevText = val
-    },
     async '$store.state.optionsUpdated' () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
       }
     },
-    '$store.state.tokenizerUpdated' () {
-      this.updateText()
+    '$store.state.uploadCheck' () {
+      this.updateFromExternal()
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
     }
   },
   computed: {
+    formattedTextId () {
+      return this.textId ?? 'no-id'
+    },
+
     async dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
       }
-      this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
     containerId () {
-      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.formattedTextId}`
     },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.formattedTextId}`
     },
     removeId () {
-      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.formattedTextId}`
     },
     /**
-     * Defines textType from textId
+     * Formats textType
      */
     textTypeFormatted () {
       return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
@@ -65452,6 +65524,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+    },
+    tokenization () {
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     }
   },
   methods: {
@@ -65479,9 +65554,10 @@ __webpack_require__.r(__webpack_exports__);
           lang: this.language,
           id: this.textId,
           sourceType: this.sourceType,
-          tokenization: _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+          tokenization: this.tokenization
         }
-        this.$textC[this.updateTextMethod](params)  
+
+        this.$textC[this.updateTextMethod](params, this.textId)  
       }
     },
     deleteText () {
@@ -65492,6 +65568,13 @@ __webpack_require__.r(__webpack_exports__);
       this.localTextEditorOptions.ready = true
 
       this.updateText()
+    },
+    uploadSingle (fileData) {
+      this.$textC.uploadDocSourceFromFileSingle(fileData, {
+        textType: this.textType,
+        textId: this.textId,
+        tokenization: this.tokenization
+      })
     }
   }
 });
@@ -65585,10 +65668,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     originId () {
-      return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : 'no-id'
+      return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
     allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ 'no-id' ]
+      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
@@ -68424,7 +68507,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("actions-block", {
-        attrs: { "text-type": _vm.textType, "text-id": _vm.textId }
+        attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
+        on: { "upload-single": _vm.uploadSingle }
       }),
       _vm._v(" "),
       _c("direction-options-block", {

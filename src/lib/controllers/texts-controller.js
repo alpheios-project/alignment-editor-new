@@ -1,5 +1,3 @@
-// import { v4 as uuidv4 } from 'uuid'
-
 import Alignment from '@/lib/data/alignment'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
@@ -126,13 +124,14 @@ export default class TextsController {
     } else if (textType === 'target') {
       return this.targetDocSource(textId)
     }
+    return null
   }
 
   /**
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFile (fileData) {
+  uploadDocSourceFromFileAll (fileData) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -141,13 +140,47 @@ export default class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFile'
+    const uploadType = 'plainSourceUploadFromFileAll'
 
     const result = UploadController.upload(uploadType, fileData)
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
+
+      this.store.commit('incrementUploadCheck')
+      return true
     }
+    return false
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenizeOptions }) {
+    if (!fileData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+    const uploadType = 'plainSourceUploadFromFileSingle'
+
+    const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenizeOptions })
+    if (result) {
+      if (textType === 'origin') {
+        this.updateOriginDocSource(result)
+        this.store.commit('incrementUploadCheck')
+        return true
+      } else {
+        this.updateTargetDocSource(result, textId)
+        this.store.commit('incrementUploadCheck')
+        return true
+      }
+    }
+    return false
   }
 
   /**
@@ -163,11 +196,14 @@ export default class TextsController {
     return DownloadController.download(downloadType, data)
   }
 
+  /**
+   * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
+   */
   downloadSingleSourceText (textType, textId) {
     const downloadType = 'plainSourceDownloadSingle'
     const sourceText = this.getDocSource(textType, textId)
 
-    console.info('downloadSingleSourceText - ', downloadType, sourceText, textType, textId)
     if (sourceText && sourceText.fullyDefined) {
       return DownloadController.download(downloadType, { sourceText })
     }

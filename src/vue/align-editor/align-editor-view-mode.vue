@@ -168,8 +168,6 @@ export default {
       width: 50%;
       float: left;
 
-      // padding: 10px; 
-
       &.alpheios-alignment-editor-align-segment-data-target {
         border-left: 2px solid  #ddd;
       }

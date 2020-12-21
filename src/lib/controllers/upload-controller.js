@@ -9,7 +9,8 @@ export default class UploadController {
    */
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFile: this.plainSourceUploadFromFile
+      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
+      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
     }
   }
 
@@ -37,8 +38,8 @@ export default class UploadController {
    * @param {Object} data - all data for download
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFile (fileString) {
-    if (fileString.length === 0 || fileString.search(/\r\n|\r|\n/) === -1) {
+  static plainSourceUploadFromFileAll (fileData) {
+    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
       console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -46,9 +47,9 @@ export default class UploadController {
       })
       return
     }
-    const fileData = fileString.split(/\r\n|\r|\n/)
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
-    if (!Array.isArray(fileData) || fileData.length < 8) {
+    if (!Array.isArray(fileDataArr) || fileDataArr.length < 8) {
       console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -57,15 +58,15 @@ export default class UploadController {
       return
     }
 
-    const originDocSource = SourceText.convertFromJSON('origin', { text: fileData[0], direction: fileData[1], lang: fileData[2], sourceType: fileData[3] })
+    const originDocSource = SourceText.convertFromJSON('origin', { text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
     const targetDocSources = []
 
     let i = 4
-    while (i < fileData.length) {
-      const text = fileData[i]
-      const direction = fileData[i + 1]
-      const lang = fileData[i + 2]
-      const sourceType = fileData[i + 3]
+    while (i < fileDataArr.length) {
+      const text = fileDataArr[i]
+      const direction = fileDataArr[i + 1]
+      const lang = fileDataArr[i + 2]
+      const sourceType = fileDataArr[i + 3]
 
       targetDocSources.push(SourceText.convertFromJSON('target', { text, direction, lang, sourceType }))
       i = i + 4
@@ -75,5 +76,28 @@ export default class UploadController {
       originDocSource,
       targetDocSources
     }
+  }
+
+  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
+    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
+
+    if (!Array.isArray(fileDataArr) || fileDataArr.length < 4) {
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
   }
 }
