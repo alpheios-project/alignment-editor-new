@@ -53,4 +53,8 @@ export default class AlignedText {
     }
     return false
   }
+
+  get readyForAlignment () {
+    return this.segments.length > 0
+  }
 }
