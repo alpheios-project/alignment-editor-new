@@ -74,13 +74,13 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.downloadData).toHaveBeenCalled()
   })
 
-  it('4 App - uploadData - executes textC.uploadDocSourceFromFile, updateOriginTextEditor, updateTargetTextEditor', () => {
+  it('4 App - uploadData - executes textC.uploadDocSourceFromFileAll, updateOriginTextEditor, updateTargetTextEditor', () => {
     let cmp = shallowMount(App)
 
-    jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFile')
+    jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFileAll')
     
     cmp.vm.uploadData('test data')
-    expect(cmp.vm.$textC.uploadDocSourceFromFile).toHaveBeenCalledWith('test data')
+    expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer')
   })
 
   it('5 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', async () => {

@@ -1,11 +1,10 @@
-// import { v4 as uuidv4 } from 'uuid'
-
 import Alignment from '@/lib/data/alignment'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -74,7 +73,7 @@ export default class TextsController {
       })
     } else {
       this.alignment.deleteText(textType, id)
-      this.store.commit('incrementAlignmentUpdated')
+      this.store.commit('incrementUploadCheck')
     }
   }
 
@@ -126,13 +125,14 @@ export default class TextsController {
     } else if (textType === 'target') {
       return this.targetDocSource(textId)
     }
+    return null
   }
 
   /**
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFile (fileData) {
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -141,13 +141,49 @@ export default class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFile'
+    const uploadType = 'plainSourceUploadFromFileAll'
 
-    const result = UploadController.upload(uploadType, fileData)
+    const tokenization = TokenizeController.defineTextTokenizationOptions(tokenizerOptionValue)
+
+    const result = UploadController.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
+
+      this.store.commit('incrementUploadCheck')
+      return true
     }
+    return false
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
+    if (!fileData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+    const uploadType = 'plainSourceUploadFromFileSingle'
+
+    const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
+    if (result) {
+      if (textType === 'origin') {
+        this.updateOriginDocSource(result)
+        this.store.commit('incrementUploadCheck')
+        return true
+      } else {
+        this.updateTargetDocSource(result, textId)
+        this.store.commit('incrementUploadCheck')
+        return true
+      }
+    }
+    return false
   }
 
   /**
@@ -155,12 +191,26 @@ export default class TextsController {
    * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
-    const downloadType = 'plainSourceDownload'
+    const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
     return DownloadController.download(downloadType, data)
+  }
+
+  /**
+   * Prepares and download source data
+   * @returns {Boolean} - true - download was successful, false - was not
+   */
+  downloadSingleSourceText (textType, textId) {
+    const downloadType = 'plainSourceDownloadSingle'
+    const sourceText = this.getDocSource(textType, textId)
+
+    if (sourceText && sourceText.fullyDefined) {
+      return DownloadController.download(downloadType, { sourceText })
+    }
+    return false
   }
 
   /**

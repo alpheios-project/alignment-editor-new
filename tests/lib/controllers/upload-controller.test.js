@@ -30,59 +30,49 @@ describe('upload-controller.test.js', () => {
   it('1 UploadController - static uploadMethods return an object with registered workflows ', () => {
     const uploadMethods = UploadController.uploadMethods
   
-    expect(Object.keys(uploadMethods).length).toEqual(1)
-    expect(Object.keys(uploadMethods)[0]).toEqual('plainSourceUploadFromFile')
+    expect(Object.keys(uploadMethods).length).toEqual(2)
+    expect(Object.keys(uploadMethods)[0]).toEqual('plainSourceUploadFromFileAll')
+    expect(Object.keys(uploadMethods)[1]).toEqual('plainSourceUploadFromFileSingle')
   })
 
   it('2 UploadController - static upload method prints error if uploadType is not registered ', () => {
     const uploadType = 'fakeMethod'
-    const data = 'originText \n ltr \n lat \n targetText \n ltr \n eng'
+    const fileData = 'originText \n ltr \n lat \n targetText \n ltr \n eng'
   
-    const result = UploadController.upload(uploadType, data)
+    const result = UploadController.upload(uploadType, { fileData })
 
     expect(result).toBeFalsy()
     expect(console.error).toHaveBeenCalled()
   })
 
   it('3 UploadController - static upload method executes defined method by workflow ', () => {
-    const uploadType = 'plainSourceUploadFromFile'
-    const data = 'originText \n ltr \n lat \n targetText \n ltr \n eng'
+    const uploadType = 'plainSourceUploadFromFileAll'
+    const fileData = 'originText \n ltr \n lat \n targetText \n ltr \n eng'
     
-    jest.spyOn(UploadController, 'plainSourceUploadFromFile')
-    UploadController.upload(uploadType, data)
+    jest.spyOn(UploadController, 'plainSourceUploadFromFileAll')
+    UploadController.upload(uploadType, { fileData })
 
-    expect(UploadController.plainSourceUploadFromFile).toHaveBeenCalledWith(data)
+    expect(UploadController.plainSourceUploadFromFileAll).toHaveBeenCalledWith({fileData})
   })
 
-  it('4 UploadController - static plainSourceUploadFromFile method prints error if data is not correctly defined ', () => {
-    let data, result
+  it('4 UploadController - static plainSourceUploadFromFileAll method prints error if data is not correctly defined ', () => {
+    let fileData, result
     
     // no data
-    data = '' 
-    result = UploadController.plainSourceUploadFromFile(data)
-
-    expect(result).toBeFalsy()
-
-    //data could not be split to lines
-    data = 'origin' 
-    result = UploadController.plainSourceUploadFromFile(data)
-
-    expect(result).toBeFalsy()
-
-    //data has less then 6 lines 
-    data = 'originText \n ltr \n lat' 
-    result = UploadController.plainSourceUploadFromFile(data)
+    fileData = '' 
+    result = UploadController.plainSourceUploadFromFileAll({ fileData })
 
     expect(result).toBeFalsy()
   })
 
-  it.skip('5 UploadController - static plainSourceUploadFromFile method return correctly uploaded data if fileData passed properly ', () => {
-    let data, result
+  it('5 UploadController - static plainSourceUploadFromFileAll method return correctly uploaded data if fileData passed properly ', () => {
+    let fileData, result
     
-    data = 'originText \n ltr \n lat \n targetText \n ltr \n eng' 
-    result = UploadController.plainSourceUploadFromFile(data)
+    fileData = 'HEADER:1 \t ltr \t lat \t text \n originText \n ltr \n lat \n targetText \n ltr \n eng' 
+    result = UploadController.plainSourceUploadFromFileAll({ fileData })
 
     expect(result).toHaveProperty('originDocSource', expect.any(SourceText))
     expect(result).toHaveProperty('targetDocSources', expect.any(Array))
   })
+
 })

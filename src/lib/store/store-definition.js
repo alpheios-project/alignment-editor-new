@@ -11,7 +11,8 @@ export default class StoreDefinition {
         messages: [],
         optionsUpdated: 1,
         tokenizerUpdated: 1,
-        alignmentRestarted: 1
+        alignmentRestarted: 1,
+        uploadCheck: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -38,6 +39,9 @@ export default class StoreDefinition {
         },
         incrementAlignmentRestarted (state) {
           state.alignmentRestarted++
+        },
+        incrementUploadCheck (state) {
+          state.uploadCheck++
         }
       }
     }

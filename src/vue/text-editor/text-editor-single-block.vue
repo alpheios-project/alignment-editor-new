@@ -5,7 +5,8 @@
           <delete-icon />
         </span>
       </p>
-
+      <actions-block :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle"/>
+      
       <direction-options-block 
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
@@ -33,6 +34,7 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
+import ActionsBlock from '@/vue/text-editor/actions-block.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
@@ -57,6 +59,7 @@ export default {
   components: {
     deleteIcon: DeleteIcon,
     optionItemBlock: OptionItemBlock,
+    actionsBlock: ActionsBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
     languageOptionsBlock: LanguageOptionsBlock
@@ -76,48 +79,46 @@ export default {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
+    this.updateFromExternal()
   },
   watch: {
-    text (val) {
-      if ((!this.prevText && val) || (this.prevText && !val)) {
-        this.updateText()
-      }
-      this.prevText = val
-    },
     async '$store.state.optionsUpdated' () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
       }
     },
-    '$store.state.tokenizerUpdated' () {
-      this.updateText()
+    '$store.state.uploadCheck' () {
+      this.updateFromExternal()
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
     }
   },
   computed: {
+    formattedTextId () {
+      return this.textId ?? 'no-id'
+    },
+
     async dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
       }
-      this.updateFromExternal()
       return this.$store.state.alignmentUpdated
     },
     containerId () {
-      return `alpheios-alignment-editor-text-block__${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__${this.textType}_${this.formattedTextId}`
     },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.formattedTextId}`
     },
     removeId () {
-      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.textId}`
+      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.formattedTextId}`
     },
     /**
-     * Defines textType from textId
+     * Formats textType
      */
     textTypeFormatted () {
       return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
@@ -170,6 +171,9 @@ export default {
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+    },
+    tokenization () {
+      return TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     }
   },
   methods: {
@@ -197,19 +201,29 @@ export default {
           lang: this.language,
           id: this.textId,
           sourceType: this.sourceType,
-          tokenization: TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+          tokenization: this.tokenization
         }
-        this.$textC[this.updateTextMethod](params)  
+
+        this.$textC[this.updateTextMethod](params, this.textId)  
       }
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
+
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
 
       this.updateText()
+    },
+
+    uploadSingle (fileData) {
+      this.$textC.uploadDocSourceFromFileSingle(fileData, {
+        textType: this.textType,
+        textId: this.textId,
+        tokenization: this.tokenization
+      })
     }
   }
 }

@@ -85,7 +85,7 @@ export default class AlignedController {
    * @returns {Boolean} - true - if all sourceText are already tokenized
    */
   get alignmentGroupsWorkflowAvailable () {
-    return this.alignment ? this.alignment.allSourceTextTokenized : false
+    return this.alignment ? this.alignment.alignmentGroupsWorkflowAvailable : false
   }
 
   /**

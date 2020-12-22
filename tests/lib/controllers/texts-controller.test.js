@@ -219,21 +219,21 @@ describe('texts-controller.test.js', () => {
   })
 
 
-  it('10 TextsController - uploadDocSourceFromFile prints error if fileData is empty', () => {
+  it('10 TextsController - uploadDocSourceFromFileAll prints error if fileData is empty', () => {
     const textsC = new TextsController(appC.store)
 
     UploadController.upload = jest.fn()
     jest.spyOn(textsC, 'updateOriginDocSource')
     jest.spyOn(textsC, 'updateTargetDocSource')
 
-    textsC.uploadDocSourceFromFile()
+    textsC.uploadDocSourceFromFileAll()
     
     expect(UploadController.upload).not.toHaveBeenCalled()
     expect(textsC.updateOriginDocSource).not.toHaveBeenCalled()
     expect(textsC.updateTargetDocSource).not.toHaveBeenCalled()
   })
 
-  it('11 TextsController - uploadDocSourceFromFile executes UploadController.upload and update document source texts from it', () => {
+  it('11 TextsController - uploadDocSourceFromFileAll executes UploadController.upload and update document source texts from it', () => {
     const textsC = new TextsController(appC.store)
 
     UploadController.upload = jest.fn(() => {
@@ -246,14 +246,14 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC, 'updateOriginDocSource')
     jest.spyOn(textsC, 'updateTargetDocSource')
 
-    textsC.uploadDocSourceFromFile('some file document')
+    textsC.uploadDocSourceFromFileAll('some file document')
 
     expect(UploadController.upload).toHaveBeenCalled()
     expect(textsC.updateOriginDocSource).toHaveBeenCalledWith({ text: 'originDocSource', direction: 'ltr', lang: 'lat' })
     expect(textsC.updateTargetDocSource).toHaveBeenCalledWith({ text: 'targetDocSource', direction: 'ltr', lang: 'eng' })
   })
 
-  it('12 TextsController - uploadDocSourceFromFile executes UploadController.upload and does not update document source texts if upload result is false ', () => {
+  it('12 TextsController - uploadDocSourceFromFileAll executes UploadController.upload and does not update document source texts if upload result is false ', () => {
     const textsC = new TextsController(appC.store)
 
     UploadController.upload = jest.fn(() => false)
@@ -261,7 +261,7 @@ describe('texts-controller.test.js', () => {
     jest.spyOn(textsC, 'updateOriginDocSource')
     jest.spyOn(textsC, 'updateTargetDocSource')
 
-    textsC.uploadDocSourceFromFile('some file document')
+    textsC.uploadDocSourceFromFileAll('some file document')
 
     expect(UploadController.upload).toHaveBeenCalled()
     expect(textsC.updateOriginDocSource).not.toHaveBeenCalled()

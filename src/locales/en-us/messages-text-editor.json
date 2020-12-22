@@ -80,5 +80,15 @@
     "message": "TEI",
     "description": "Fieldset inside options",
     "component": "TextEditorSingleBlock"
+  },
+  "ACTIONS_DOWNLOAD_TITLE": {
+    "message": "Download",
+    "description": "Button in main menu",
+    "component": "MainMenu"
+  },
+  "ACTIONS_UPLOAD_TITLE": {
+    "message": "Upload",
+    "description": "Button in main menu",
+    "component": "MainMenu"
   }
 }

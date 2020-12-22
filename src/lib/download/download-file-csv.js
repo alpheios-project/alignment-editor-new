@@ -1,10 +1,10 @@
 const idForButton = 'alpheios-alignment-app-container'
 
-export default class DownloadFileOneColumn {
+export default class DownloadFileCSV {
   static collectionToCSV (delimiter, keys = [], withHeaders = true) {
     return (collection = []) => {
       const headers = withHeaders ? keys.map(key => `${key}`).join(delimiter) : []
-      const extractKeyValues = record => keys.map(key => `${record[key]}`).join(delimiter)
+      const extractKeyValues = record => keys.map(key => record[key] ? `${record[key]}` : '').join(delimiter)
 
       return collection.reduce((csv, record) => {
         return (`${csv}\n${extractKeyValues(record)}`).trim()
@@ -25,14 +25,7 @@ export default class DownloadFileOneColumn {
     return true
   }
 
-  static download (fields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
-    const tabChar = '\u0009'
-    fields = fields.map(item => {
-      return { data: item.replace(/\r\n|\r|\n/gi, tabChar) }
-    })
-
-    const exportFields = ['data']
-
+  static download (fields, exportFields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
     const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
     return this.downloadBlob(result, `${fileName}.${fileExtension}`)
   }

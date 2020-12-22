@@ -100,7 +100,7 @@ export default class Alignment {
       return false
     }
 
-    if (!docSource || !docSource.id || !this.targets[docSource.id]) {
+    if (!targetId || (docSource && !this.targets[docSource.id])) {
       if (!(docSource instanceof SourceText)) {
         docSource = new SourceText('target', docSource, targetId)
       }
@@ -239,8 +239,8 @@ export default class Alignment {
    * Check that origin and all target texts are already tokenized
    * @returns {Boolean}
    */
-  get allSourceTextTokenized () {
-    return Boolean(this.origin.alignedText) && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => Boolean(targetData.alignedText))
+  get alignmentGroupsWorkflowAvailable () {
+    return this.origin.alignedText.readyForAlignment && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => targetData.alignedText.readyForAlignment)
   }
 
   /**

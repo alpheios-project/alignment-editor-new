@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import DownloadController from '@/lib/controllers/download-controller.js'
-import DownloadFileOneColumn from '@/lib/download/download-file-one-column.js'
+import DownloadFileCsv from '@/lib/download/download-file-csv.js'
 import SourceText from '@/lib/data/source-text'
 import AppController from '@/lib/controllers/app-controller.js'
 
@@ -31,8 +31,9 @@ describe('download-controller.test.js', () => {
   it('1 DownloadController - static downloadMethods return an object with registered workflows ', () => {
     const downloadMethods = DownloadController.downloadMethods
   
-    expect(Object.keys(downloadMethods).length).toEqual(1)
-    expect(Object.keys(downloadMethods)[0]).toEqual('plainSourceDownload')
+    expect(Object.keys(downloadMethods).length).toEqual(2)
+    expect(Object.keys(downloadMethods)[0]).toEqual('plainSourceDownloadAll')
+    expect(Object.keys(downloadMethods)[1]).toEqual('plainSourceDownloadSingle')
   })
 
   it('2 DownloadController - static download method prints error if downloadType is not registered ', () => {
@@ -53,7 +54,7 @@ describe('download-controller.test.js', () => {
   })
 
   it('3 DownloadController - static download method executes defined method by workflow ', () => {
-    const downloadType = 'plainSourceDownload'
+    const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: {
         text: 'originText', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
@@ -63,22 +64,22 @@ describe('download-controller.test.js', () => {
       }
     }
     
-    jest.spyOn(DownloadController, 'plainSourceDownload')
+    jest.spyOn(DownloadController, 'plainSourceDownloadAll')
     DownloadController.download(downloadType, data)
 
-    expect(DownloadController.plainSourceDownload).toHaveBeenCalledWith(data)
+    expect(DownloadController.plainSourceDownloadAll).toHaveBeenCalledWith(data)
   })
 
-  it('4 DownloadController - static plainSourceDownload method prints error if data is not correctly defined ', () => {
+  it('4 DownloadController - static plainSourceDownloadAll method prints error if data is not correctly defined ', () => {
     let data, result
-    jest.spyOn(DownloadFileOneColumn, 'download')
+    jest.spyOn(DownloadFileCsv, 'download')
     
     // no data
     data = {} 
-    result = DownloadController.plainSourceDownload(data)
+    result = DownloadController.plainSourceDownloadAll(data)
 
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // no originDocSource data
     data = {
@@ -86,10 +87,10 @@ describe('download-controller.test.js', () => {
         text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })
     } 
-    result = DownloadController.plainSourceDownload(data)
+    result = DownloadController.plainSourceDownloadAll(data)
 
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // no targetDocSource data
     data = {
@@ -98,10 +99,10 @@ describe('download-controller.test.js', () => {
       })
     }
       
-    result = DownloadController.plainSourceDownload({})
+    result = DownloadController.plainSourceDownloadAll({})
   
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // originDocSource data is not correctly defined
     data = {
@@ -113,10 +114,10 @@ describe('download-controller.test.js', () => {
       })
     }
       
-    result = DownloadController.plainSourceDownload({})
+    result = DownloadController.plainSourceDownloadAll({})
   
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // targetDocSource data is not correctly defined
     data = {
@@ -128,15 +129,15 @@ describe('download-controller.test.js', () => {
       })
     }
     
-    result = DownloadController.plainSourceDownload({})
+    result = DownloadController.plainSourceDownloadAll({})
 
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
   })
 
-  it('5 DownloadController - static plainSourceDownload method executes DownloadFileOneColumn.download if data is correctly defined ', () => {
-    DownloadFileOneColumn.download = jest.fn()
+  it('5 DownloadController - static plainSourceDownloadAll method executes DownloadFileCsv.download if data is correctly defined ', () => {
+    DownloadFileCsv.download = jest.fn()
 
     const data = {
       originDocSource: new SourceText('origin', {
@@ -146,8 +147,8 @@ describe('download-controller.test.js', () => {
         text: 'targetText', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
       })]
     } 
-    DownloadController.plainSourceDownload(data)
+    DownloadController.plainSourceDownloadAll(data)
 
-    expect(DownloadFileOneColumn.download).toHaveBeenCalled()
+    expect(DownloadFileCsv.download).toHaveBeenCalled()
   })
 })
