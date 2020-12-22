@@ -70,7 +70,7 @@ export default class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
-    if (!jsonData.text || !jsonData.direction || !jsonData.lang || !jsonData.sourceType) {
+    if (!jsonData.text) {
       console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
@@ -80,9 +80,9 @@ export default class SourceText {
     }
 
     const text = jsonData.text.replace(/\t/g, '\u000A').trim()
-    const direction = jsonData.direction.trim()
-    const lang = jsonData.lang.trim()
-    const sourceType = jsonData.sourceType.trim()
+    const direction = jsonData.direction ? jsonData.direction.trim() : null
+    const lang = jsonData.lang ? jsonData.lang.trim() : null
+    const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })

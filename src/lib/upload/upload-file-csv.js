@@ -4,7 +4,7 @@ export default class UploadFileCSV {
     let textData = {}
 
     for (let i = 0; i < fileDataArr.length; i++) {
-      if (fileDataArr[i].indexOf('HEADER') === 0) {
+      if (fileDataArr[i].indexOf('HEADER:') === 0) {
         if (i > 0) {
           textDataAll.push(textData)
         }

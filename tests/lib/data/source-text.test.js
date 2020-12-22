@@ -106,30 +106,19 @@ describe('source-text.test.js', () => {
     sourceTextJson = { text: 'target text' }
 
     sourceText = SourceText.convertFromJSON('target', sourceTextJson)
-    expect(sourceText).toBeFalsy()
-
-    sourceTextJson = { text: 'target text', direction: 'rtl' }
-
-    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
-    expect(sourceText).toBeFalsy()
-
-    sourceTextJson = { text: 'target text', direction: 'rtl', lang: 'lat' }
-
-    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
-    expect(sourceText).toBeFalsy()
-
-    sourceTextJson = { text: 'target text', direction: 'rtl', lang: 'lat', sourceType: 'text' }
-
-    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
-    expect(sourceText).toBeInstanceOf(SourceText)
-
-    sourceTextJson = { text: 'target text', direction: 'rtl', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" } }
-
-    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
     expect(sourceText).toBeInstanceOf(SourceText)
     expect(sourceText).toHaveProperty('text', 'target text')
+    expect(sourceText).toHaveProperty('direction', 'ltr')
+    expect(sourceText).toHaveProperty('lang', 'eng')
+    expect(sourceText).toHaveProperty('sourceType', 'text')
+
+    sourceTextJson = { text: 'target text2', direction: 'rtl', lang: 'grc', sourceType: 'text', tokenization: { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" } }
+
+    sourceText = SourceText.convertFromJSON('target', sourceTextJson)
+    expect(sourceText).toBeInstanceOf(SourceText)
+    expect(sourceText).toHaveProperty('text', 'target text2')
     expect(sourceText).toHaveProperty('direction', 'rtl')
-    expect(sourceText).toHaveProperty('lang', 'lat')
+    expect(sourceText).toHaveProperty('lang', 'grc')
     expect(sourceText).toHaveProperty('sourceType', 'text')
 
 

@@ -61456,19 +61456,23 @@ class UploadController {
   }
 
   static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
-    if (fileDataArr.length < 2) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-      return
+    if (fileData.indexOf('HEADER:') === 0) {
+      const fileDataArr = fileData.split(/\r\n|\r|\n/)
+      if (fileDataArr.length < 2) {
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+        })
+        return
+      }
+
+      const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileDataArr)
+
+      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+    } else {
+      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileData })
     }
-
-    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileDataArr)
-
-    return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
   }
 }
 
@@ -62899,7 +62903,7 @@ class SourceText {
    * @param {String} jsonData.lang
    */
   static convertFromJSON (textType, jsonData) {
-    if (!jsonData.text || !jsonData.direction || !jsonData.lang || !jsonData.sourceType) {
+    if (!jsonData.text) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
@@ -62909,9 +62913,9 @@ class SourceText {
     }
 
     const text = jsonData.text.replace(/\t/g, '\u000A').trim()
-    const direction = jsonData.direction.trim()
-    const lang = jsonData.lang.trim()
-    const sourceType = jsonData.sourceType.trim()
+    const direction = jsonData.direction ? jsonData.direction.trim() : null
+    const lang = jsonData.lang ? jsonData.lang.trim() : null
+    const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
@@ -63867,7 +63871,7 @@ class UploadFileCSV {
     let textData = {}
 
     for (let i = 0; i < fileDataArr.length; i++) {
-      if (fileDataArr[i].indexOf('HEADER') === 0) {
+      if (fileDataArr[i].indexOf('HEADER:') === 0) {
         if (i > 0) {
           textDataAll.push(textData)
         }

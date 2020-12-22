@@ -69,18 +69,22 @@ export default class UploadController {
   }
 
   static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
-    if (fileDataArr.length < 2) {
-      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: NotificationSingleton.types.ERROR
-      })
-      return
+    if (fileData.indexOf('HEADER:') === 0) {
+      const fileDataArr = fileData.split(/\r\n|\r|\n/)
+      if (fileDataArr.length < 2) {
+        console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+        NotificationSingleton.addNotification({
+          text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+          type: NotificationSingleton.types.ERROR
+        })
+        return
+      }
+
+      const result = UploadFileCSV.upload(fileDataArr)
+
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+    } else {
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData })
     }
-
-    const result = UploadFileCSV.upload(fileDataArr)
-
-    return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
   }
 }

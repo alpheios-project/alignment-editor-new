@@ -63,12 +63,6 @@ describe('upload-controller.test.js', () => {
     result = UploadController.plainSourceUploadFromFileAll({ fileData })
 
     expect(result).toBeFalsy()
-
-    //data could not be split to lines
-    fileData = 'origin' 
-    result = UploadController.plainSourceUploadFromFileAll({ fileData })
-
-    expect(result).toBeFalsy()
   })
 
   it('5 UploadController - static plainSourceUploadFromFileAll method return correctly uploaded data if fileData passed properly ', () => {
