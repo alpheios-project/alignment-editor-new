@@ -79,6 +79,7 @@ export default {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
+    this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
@@ -209,12 +210,14 @@ export default {
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
+    
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
 
       this.updateText()
     },
+
     uploadSingle (fileData) {
       this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,

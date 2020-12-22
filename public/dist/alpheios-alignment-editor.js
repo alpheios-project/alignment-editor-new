@@ -60547,7 +60547,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ DownloadController
 /* harmony export */ });
-/* harmony import */ var _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-one-column.js */ "./lib/download/download-file-one-column.js");
+/* harmony import */ var _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-csv.js */ "./lib/download/download-file-csv.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 
@@ -60585,7 +60585,7 @@ class DownloadController {
   }
 
   /**
-   * Executes download workflow for downloading: one origin, one target text - only source state
+   * Executes download workflow for downloading: one origin, each target text - only source state
    * Data.originDocSource and data.targetDocSource - are obligatory data
    * @param {Object} data - all data for download
    * @return {Boolean} - true - download was done, false - not
@@ -60599,20 +60599,33 @@ class DownloadController {
       })
       return false
     }
-    let fields = [data.originDocSource.text, data.originDocSource.direction, data.originDocSource.lang, data.originDocSource.sourceType] // eslint-disable-line prefer-const
+    const fields = [
+      { header: 'HEADER: 1', direction: data.originDocSource.direction, lang: data.originDocSource.lang, sourceType: data.originDocSource.sourceType },
+      { header: data.originDocSource.text }
+    ] // eslint-disable-line prefer-const
 
     let langs = [] // eslint-disable-line prefer-const
 
-    data.targetDocSources.forEach(targetText => {
-      fields.push(...[targetText.text, targetText.direction, targetText.lang, targetText.sourceType])
-
+    data.targetDocSources.forEach((targetText, index) => {
+      fields.push(
+        { header: `HEADER: ${index + 2}`, direction: targetText.direction, lang: targetText.lang, sourceType: targetText.sourceType }
+      )
+      fields.push(
+        { header: targetText.text }
+      )
       if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
     })
 
     const fileName = `alignment-${data.originDocSource.lang}-${langs.join('-')}`
-    return _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
+    const exportFields = ['header', 'direction', 'lang', 'sourceType']
+    return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
   }
 
+  /**
+   * Executes download workflow for downloading one source text
+   * @param {Object} data - all data for download
+   * @return {Boolean} - true - download was done, false - not
+   */
   static plainSourceDownloadSingle (data) {
     if (!data.sourceText) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
@@ -60622,10 +60635,16 @@ class DownloadController {
       })
       return false
     }
-    let fields = [data.sourceText.text, data.sourceText.direction, data.sourceText.lang, data.sourceText.sourceType] // eslint-disable-line prefer-const
+
+    const fields = [
+      { header: 'HEADER: 1', direction: data.sourceText.direction, lang: data.sourceText.lang, sourceType: data.sourceText.sourceType },
+      { header: data.sourceText.text }
+    ]
+
+    const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
     const fileName = `alignment-${data.sourceText.lang}`
-    return _lib_download_download_file_one_column_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, fileName)
+    return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
   }
 }
 
@@ -60955,6 +60974,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+
 
 
 
@@ -61088,7 +61109,7 @@ class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileAll (fileData) {
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -61099,7 +61120,9 @@ class TextsController {
     }
     const uploadType = 'plainSourceUploadFromFileAll'
 
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+    const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(tokenizerOptionValue)
+
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
@@ -61114,7 +61137,7 @@ class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenizeOptions }) {
+  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -61125,7 +61148,7 @@ class TextsController {
     }
     const uploadType = 'plainSourceUploadFromFileSingle'
 
-    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenizeOptions })
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
       if (textType === 'origin') {
         this.updateOriginDocSource(result)
@@ -61361,6 +61384,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
+
 
 
 
@@ -61401,18 +61426,8 @@ class UploadController {
    * @param {Object} data - all data for download
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll (fileData) {
-    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-      return
-    }
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
-
-    if (!Array.isArray(fileDataArr) || fileDataArr.length < 8) {
+  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+    if (fileData.length < 2) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61421,38 +61436,25 @@ class UploadController {
       return
     }
 
-    const originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
-    const targetDocSources = []
+    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileData)
 
-    let i = 4
-    while (i < fileDataArr.length) {
-      const text = fileDataArr[i]
-      const direction = fileDataArr[i + 1]
-      const lang = fileDataArr[i + 2]
-      const sourceType = fileDataArr[i + 3]
+    if (result && (result.length > 0)) {
+      const finalResult = {}
 
-      targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { text, direction, lang, sourceType }))
-      i = i + 4
+      finalResult.originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+      finalResult.targetDocSources = []
+
+      for (let i = 1; i < result.length; i++) {
+        finalResult.targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
+      }
+
+      return finalResult
     }
-
-    return {
-      originDocSource,
-      targetDocSources
-    }
+    return false
   }
 
   static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-      return
-    }
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
-
-    if (!Array.isArray(fileDataArr) || fileDataArr.length < 4) {
+    if (fileData.length < 2) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61461,7 +61463,9 @@ class UploadController {
       return
     }
 
-    return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
+    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileData)
+
+    return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
   }
 }
 
@@ -62961,24 +62965,24 @@ class Token {
 
 /***/ }),
 
-/***/ "./lib/download/download-file-one-column.js":
-/*!**************************************************!*\
-  !*** ./lib/download/download-file-one-column.js ***!
-  \**************************************************/
+/***/ "./lib/download/download-file-csv.js":
+/*!*******************************************!*\
+  !*** ./lib/download/download-file-csv.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ DownloadFileOneColumn
+/* harmony export */   "default": () => /* binding */ DownloadFileCSV
 /* harmony export */ });
 const idForButton = 'alpheios-alignment-app-container'
 
-class DownloadFileOneColumn {
+class DownloadFileCSV {
   static collectionToCSV (delimiter, keys = [], withHeaders = true) {
     return (collection = []) => {
       const headers = withHeaders ? keys.map(key => `${key}`).join(delimiter) : []
-      const extractKeyValues = record => keys.map(key => `${record[key]}`).join(delimiter)
+      const extractKeyValues = record => keys.map(key => record[key] ? `${record[key]}` : '').join(delimiter)
 
       return collection.reduce((csv, record) => {
         return (`${csv}\n${extractKeyValues(record)}`).trim()
@@ -62999,14 +63003,7 @@ class DownloadFileOneColumn {
     return true
   }
 
-  static download (fields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
-    const tabChar = '\u0009'
-    fields = fields.map(item => {
-      return { data: item.replace(/\r\n|\r|\n/gi, tabChar) }
-    })
-
-    const exportFields = ['data']
-
+  static download (fields, exportFields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
     const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
     return this.downloadBlob(result, `${fileName}.${fileExtension}`)
   }
@@ -63850,6 +63847,50 @@ class SimpleLocalTokenizer {
 
 /***/ }),
 
+/***/ "./lib/upload/upload-file-csv.js":
+/*!***************************************!*\
+  !*** ./lib/upload/upload-file-csv.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ UploadFileCSV
+/* harmony export */ });
+class UploadFileCSV {
+  static upload (fileData, delimiter = '\t') {
+    const textDataAll = []
+    let textData = {}
+
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
+
+    for (let i = 0; i < fileDataArr.length; i++) {
+      if (fileDataArr[i].indexOf('HEADER') === 0) {
+        if (i > 0) {
+          textDataAll.push(textData)
+        }
+
+        const sourceTextProps = fileDataArr[i].split(delimiter)
+
+        textData = {
+          direction: sourceTextProps[1],
+          lang: sourceTextProps[2],
+          sourceType: sourceTextProps[3],
+          text: ''
+        }
+      } else {
+        textData.text = (textData.text ? textData.text + '\r\n' : '') + fileDataArr[i]
+      }
+    }
+    textDataAll.push(textData)
+    return textDataAll
+  }
+}
+
+
+/***/ }),
+
 /***/ "./locales/locales.js":
 /*!****************************!*\
   !*** ./locales/locales.js ***!
@@ -64598,7 +64639,7 @@ __webpack_require__.r(__webpack_exports__);
     * Starts upload workflow
     */
     uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFileAll(fileData)
+      this.$textC.uploadDocSourceFromFileAll(fileData, this.$settingsC.tokenizerOptionValue)
     },
     /**
      * Starts redo action
@@ -65437,6 +65478,7 @@ __webpack_require__.r(__webpack_exports__);
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
+    this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
@@ -65567,12 +65609,14 @@ __webpack_require__.r(__webpack_exports__);
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
+    
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
 
       this.updateText()
     },
+
     uploadSingle (fileData) {
       this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,

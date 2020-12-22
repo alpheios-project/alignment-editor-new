@@ -1,6 +1,7 @@
 import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
 
 export default class UploadController {
   /**
@@ -38,18 +39,8 @@ export default class UploadController {
    * @param {Object} data - all data for download
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll (fileData) {
-    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
-      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: NotificationSingleton.types.ERROR
-      })
-      return
-    }
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
-
-    if (!Array.isArray(fileDataArr) || fileDataArr.length < 8) {
+  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+    if (fileData.length < 2) {
       console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -58,38 +49,25 @@ export default class UploadController {
       return
     }
 
-    const originDocSource = SourceText.convertFromJSON('origin', { text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
-    const targetDocSources = []
+    const result = UploadFileCSV.upload(fileData)
 
-    let i = 4
-    while (i < fileDataArr.length) {
-      const text = fileDataArr[i]
-      const direction = fileDataArr[i + 1]
-      const lang = fileDataArr[i + 2]
-      const sourceType = fileDataArr[i + 3]
+    if (result && (result.length > 0)) {
+      const finalResult = {}
 
-      targetDocSources.push(SourceText.convertFromJSON('target', { text, direction, lang, sourceType }))
-      i = i + 4
+      finalResult.originDocSource = SourceText.convertFromJSON('origin', { tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+      finalResult.targetDocSources = []
+
+      for (let i = 1; i < result.length; i++) {
+        finalResult.targetDocSources.push(SourceText.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
+      }
+
+      return finalResult
     }
-
-    return {
-      originDocSource,
-      targetDocSources
-    }
+    return false
   }
 
   static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.length === 0 || fileData.search(/\r\n|\r|\n/) === -1) {
-      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: NotificationSingleton.types.ERROR
-      })
-      return
-    }
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
-
-    if (!Array.isArray(fileDataArr) || fileDataArr.length < 4) {
+    if (fileData.length < 2) {
       console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -98,6 +76,8 @@ export default class UploadController {
       return
     }
 
-    return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileDataArr[0], direction: fileDataArr[1], lang: fileDataArr[2], sourceType: fileDataArr[3] })
+    const result = UploadFileCSV.upload(fileData)
+
+    return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
   }
 }

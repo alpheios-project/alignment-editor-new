@@ -4,6 +4,7 @@ import UploadController from '@/lib/controllers/upload-controller.js'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -131,7 +132,7 @@ export default class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileAll (fileData) {
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -142,7 +143,9 @@ export default class TextsController {
     }
     const uploadType = 'plainSourceUploadFromFileAll'
 
-    const result = UploadController.upload(uploadType, fileData)
+    const tokenization = TokenizeController.defineTextTokenizationOptions(tokenizerOptionValue)
+
+    const result = UploadController.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
       result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
@@ -157,7 +160,7 @@ export default class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenizeOptions }) {
+  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -168,7 +171,7 @@ export default class TextsController {
     }
     const uploadType = 'plainSourceUploadFromFileSingle'
 
-    const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenizeOptions })
+    const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
       if (textType === 'origin') {
         this.updateOriginDocSource(result)
