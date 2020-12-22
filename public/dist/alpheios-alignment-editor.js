@@ -61050,7 +61050,7 @@ class TextsController {
       })
     } else {
       this.alignment.deleteText(textType, id)
-      this.store.commit('incrementAlignmentUpdated')
+      this.store.commit('incrementUploadCheck')
     }
   }
 
@@ -65609,7 +65609,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
-    
+
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
@@ -65719,7 +65719,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
     allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks

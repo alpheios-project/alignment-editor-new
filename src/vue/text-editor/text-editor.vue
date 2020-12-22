@@ -74,7 +74,7 @@ export default {
       return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
     allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks

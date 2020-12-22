@@ -73,7 +73,7 @@ export default class TextsController {
       })
     } else {
       this.alignment.deleteText(textType, id)
-      this.store.commit('incrementAlignmentUpdated')
+      this.store.commit('incrementUploadCheck')
     }
   }
 

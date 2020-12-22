@@ -210,7 +210,7 @@ export default {
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
-    
+
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
