@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import DownloadController from '@/lib/controllers/download-controller.js'
-import DownloadFileOneColumn from '@/lib/download/download-file-one-column.js'
+import DownloadFileCsv from '@/lib/download/download-file-csv.js'
 import SourceText from '@/lib/data/source-text'
 import AppController from '@/lib/controllers/app-controller.js'
 
@@ -72,14 +72,14 @@ describe('download-controller.test.js', () => {
 
   it('4 DownloadController - static plainSourceDownloadAll method prints error if data is not correctly defined ', () => {
     let data, result
-    jest.spyOn(DownloadFileOneColumn, 'download')
+    jest.spyOn(DownloadFileCsv, 'download')
     
     // no data
     data = {} 
     result = DownloadController.plainSourceDownloadAll(data)
 
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // no originDocSource data
     data = {
@@ -90,7 +90,7 @@ describe('download-controller.test.js', () => {
     result = DownloadController.plainSourceDownloadAll(data)
 
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // no targetDocSource data
     data = {
@@ -102,7 +102,7 @@ describe('download-controller.test.js', () => {
     result = DownloadController.plainSourceDownloadAll({})
   
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // originDocSource data is not correctly defined
     data = {
@@ -117,7 +117,7 @@ describe('download-controller.test.js', () => {
     result = DownloadController.plainSourceDownloadAll({})
   
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
     // targetDocSource data is not correctly defined
     data = {
@@ -132,12 +132,12 @@ describe('download-controller.test.js', () => {
     result = DownloadController.plainSourceDownloadAll({})
 
     expect(result).toBeFalsy()
-    expect(DownloadFileOneColumn.download).not.toHaveBeenCalled()
+    expect(DownloadFileCsv.download).not.toHaveBeenCalled()
 
   })
 
-  it('5 DownloadController - static plainSourceDownloadAll method executes DownloadFileOneColumn.download if data is correctly defined ', () => {
-    DownloadFileOneColumn.download = jest.fn()
+  it('5 DownloadController - static plainSourceDownloadAll method executes DownloadFileCsv.download if data is correctly defined ', () => {
+    DownloadFileCsv.download = jest.fn()
 
     const data = {
       originDocSource: new SourceText('origin', {
@@ -149,6 +149,6 @@ describe('download-controller.test.js', () => {
     } 
     DownloadController.plainSourceDownloadAll(data)
 
-    expect(DownloadFileOneColumn.download).toHaveBeenCalled()
+    expect(DownloadFileCsv.download).toHaveBeenCalled()
   })
 })

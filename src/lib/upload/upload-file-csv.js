@@ -1,9 +1,7 @@
 export default class UploadFileCSV {
-  static upload (fileData, delimiter = '\t') {
+  static upload (fileDataArr, delimiter = '\t') {
     const textDataAll = []
     let textData = {}
-
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     for (let i = 0; i < fileDataArr.length; i++) {
       if (fileDataArr[i].indexOf('HEADER') === 0) {

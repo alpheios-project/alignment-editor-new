@@ -80,7 +80,7 @@ describe('app.test.js', () => {
     jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFileAll')
     
     cmp.vm.uploadData('test data')
-    expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data')
+    expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer')
   })
 
   it('5 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', async () => {

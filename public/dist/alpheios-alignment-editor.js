@@ -61427,7 +61427,9 @@ class UploadController {
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
   static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
-    if (fileData.length < 2) {
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
+
+    if (fileDataArr.length < 2) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61436,7 +61438,7 @@ class UploadController {
       return
     }
 
-    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileData)
+    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileDataArr)
 
     if (result && (result.length > 0)) {
       const finalResult = {}
@@ -61454,7 +61456,8 @@ class UploadController {
   }
 
   static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.length < 2) {
+    const fileDataArr = fileData.split(/\r\n|\r|\n/)
+    if (fileDataArr.length < 2) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
@@ -61463,7 +61466,7 @@ class UploadController {
       return
     }
 
-    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileData)
+    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileDataArr)
 
     return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
   }
@@ -63859,11 +63862,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ UploadFileCSV
 /* harmony export */ });
 class UploadFileCSV {
-  static upload (fileData, delimiter = '\t') {
+  static upload (fileDataArr, delimiter = '\t') {
     const textDataAll = []
     let textData = {}
-
-    const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     for (let i = 0; i < fileDataArr.length; i++) {
       if (fileDataArr[i].indexOf('HEADER') === 0) {
