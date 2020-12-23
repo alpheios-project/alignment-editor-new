@@ -79,7 +79,7 @@ export default {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
-    await this.updateFromExternal()
+    this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
@@ -87,8 +87,8 @@ export default {
         await this.prepareDefaultTextEditorOptions()
       }
     },
-    async '$store.state.uploadCheck' () {
-      await this.updateFromExternal()
+    '$store.state.uploadCheck' () {
+      this.updateFromExternal()
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
@@ -177,7 +177,7 @@ export default {
     }
   },
   methods: {
-    async updateFromExternal () {
+    updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData) {
         this.text = sourceTextData.text
