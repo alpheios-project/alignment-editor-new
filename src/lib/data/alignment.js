@@ -240,7 +240,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get alignmentGroupsWorkflowAvailable () {
-    return this.origin.alignedText.readyForAlignment && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => targetData.alignedText.readyForAlignment)
+    return this.origin.alignedText && this.origin.alignedText.readyForAlignment && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => targetData.alignedText.readyForAlignment)
   }
 
   /**

@@ -79,7 +79,7 @@ export default {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
-    this.updateFromExternal()
+    await this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
@@ -87,8 +87,8 @@ export default {
         await this.prepareDefaultTextEditorOptions()
       }
     },
-    '$store.state.uploadCheck' () {
-      this.updateFromExternal()
+    async '$store.state.uploadCheck' () {
+      await this.updateFromExternal()
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
@@ -177,11 +177,12 @@ export default {
     }
   },
   methods: {
-    updateFromExternal () {
+    async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
+        this.updateText()
       }
     },
 
