@@ -135,16 +135,16 @@ describe('source-text.test.js', () => {
     sourceText.addMetadata(MetadataTerm.property.TITLE, 'Some test title')
 
     expect(sourceText.metadata).toEqual(expect.any(Metadata))
-    expect(sourceText.getMetadata(MetadataTerm.property.TITLE)).toEqual('Some test title')
+    expect(sourceText.getMetadataValue(MetadataTerm.property.TITLE)).toEqual('Some test title')
 
     sourceText.addMetadata(MetadataTerm.property.TITLE, 'Some another title')
-    expect(sourceText.getMetadata(MetadataTerm.property.TITLE)).toEqual('Some another title')
+    expect(sourceText.getMetadataValue(MetadataTerm.property.TITLE)).toEqual('Some another title')
 
     sourceText.addMetadata(MetadataTerm.property.CREATOR, 'The first creator')
     sourceText.addMetadata(MetadataTerm.property.CREATOR, 'The second creator')
 
-    expect(sourceText.getMetadata(MetadataTerm.property.CREATOR)).toEqual(['The first creator', 'The second creator'])
+    expect(sourceText.getMetadataValue(MetadataTerm.property.CREATOR)).toEqual(['The first creator', 'The second creator'])
 
-    // console.info('sourceText - ', sourceText.metadata)
+    // console.info('sourceText - ', sourceText.metadata.allAvailableMetadata)
   })
 })

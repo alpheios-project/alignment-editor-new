@@ -43,8 +43,12 @@ export default class SourceText {
     return this.metadata.addProperty(property, value)
   }
 
-  getMetadata (property) {
-    return this.metadata.getMetadata(property)
+  getMetadataValue (property) {
+    return this.metadata.getPropertyValue(property)
+  }
+
+  get allAvailableMetadata () {
+    return this.metadata.allAvailableMetadata
   }
 
   /**

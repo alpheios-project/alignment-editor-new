@@ -9,6 +9,10 @@
             @click="uploadTexts" :disabled="!docSourceEditAvailable" >
             {{ l10n.getMsgS('ACTIONS_UPLOAD_TITLE') }}
         </button>
+        <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-metadata" 
+            @click="toggleMetadata" :disabled = "!metadataAvailable">
+            {{ l10n.getMsgS('ACTIONS_METADATA_TITLE') }}
+        </button>
       </div>
       <div class="alpheios-alignment-actions__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
         <input type="file" @change="loadTextFromFile" ref="fileupload">
@@ -41,6 +45,9 @@ export default {
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    metadataAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
     }
   },
   methods: {
@@ -52,6 +59,10 @@ export default {
      */
     uploadTexts () {
       this.showUploadBlock = !this.showUploadBlock
+    },
+
+    toggleMetadata () {
+      this.$emit('toggle-metadata')
     },
 
     /**

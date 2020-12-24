@@ -90,5 +90,10 @@
     "message": "Upload",
     "description": "Button in main menu",
     "component": "MainMenu"
+  },
+  "ACTIONS_METADATA_TITLE": {
+    "message": "Metadata",
+    "description": "Button in main menu",
+    "component": "MainMenu"
   }
 }

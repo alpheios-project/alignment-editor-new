@@ -42251,14 +42251,27 @@ class Metadata {
       this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value)
       return true
     }
-    return this.properties[property.label].addValue(value)
+    return this.getProperty(property).addValue(value)
   }
 
-  getMetadata (property) {
+  getProperty (property) {
+    return this.properties[property.label]
+  }
+
+  getPropertyValue (property) {
     if (this.hasProperty(property)) {
-      return this.properties[property.label].getValue()
+      return this.getProperty(property).getValue()
     }
     return null
+  }
+
+  get allAvailableMetadata () {
+    const allMeta = {}
+
+    Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property).forEach(property => {
+      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: null }
+    })
+    return allMeta
   }
 }
 
@@ -42362,8 +42375,12 @@ class SourceText {
     return this.metadata.addProperty(property, value)
   }
 
-  getMetadata (property) {
-    return this.metadata.getMetadata(property)
+  getMetadataValue (property) {
+    return this.metadata.getPropertyValue(property)
+  }
+
+  get allAvailableMetadata () {
+    return this.metadata.allAvailableMetadata
   }
 
   /**
@@ -44688,6 +44705,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -44714,6 +44735,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    metadataAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
     }
   },
   methods: {
@@ -44725,6 +44749,10 @@ __webpack_require__.r(__webpack_exports__);
      */
     uploadTexts () {
       this.showUploadBlock = !this.showUploadBlock
+    },
+
+    toggleMetadata () {
+      this.$emit('toggle-metadata')
     },
 
     /**
@@ -44878,6 +44906,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-block.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'MetadataBlock',
+  props: {
+    textType: {
+      type: String,
+      required: true
+    },
+    textId: {
+      type: String,
+      required: false
+    }
+  },
+  data () {
+    return {
+
+    }
+  },
+  computed: {
+    metadataAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
+    },
+    allMetadata () {
+      console.info('allAvailableMetadata - ', this.$textC.getDocSource(this.textType, this.textId).allAvailableMetadata)
+      return this.$store.state.alignmentUpdated && this.$textC.getDocSource(this.textType, this.textId).allAvailableMetadata
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
@@ -44896,9 +44972,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _vue_text_editor_actions_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/actions-block.vue */ "./vue/text-editor/actions-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
 //
 //
 //
@@ -44925,6 +45002,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
+
 
 
 
@@ -44961,16 +45042,18 @@ __webpack_require__.r(__webpack_exports__);
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__.default,
     actionsBlock: _vue_text_editor_actions_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default
   },
   data () {
     return {
       text: null,
       prevText: null,
 
-      localTextEditorOptions: { ready: false }
+      localTextEditorOptions: { ready: false },
+      showMetadata: false
     }
   },
   /**
@@ -45065,7 +45148,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated &&this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
@@ -45126,6 +45209,10 @@ __webpack_require__.r(__webpack_exports__);
         textId: this.textId,
         tokenization: this.tokenization
       })
+    },
+
+    toggleMetadata () {
+      this.showMetadata = !this.showMetadata
     }
   }
 });
@@ -45874,6 +45961,45 @@ component.options.__file = "vue/text-editor/language-options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/text-editor/metadata-block.vue":
+/*!********************************************!*\
+  !*** ./vue/text-editor/metadata-block.vue ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=template&id=afaf8a30& */ "./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&");
+/* harmony import */ var _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.render,
+  _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/metadata-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/text-editor/text-editor-single-block.vue":
 /*!******************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue ***!
@@ -46409,6 +46535,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./vue/text-editor/metadata-block.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js& ***!
@@ -46674,6 +46816,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./language-options-block.vue?vue&type=template&id=d0c3793c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&":
+/*!***************************************************************************!*\
+  !*** ./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-block.vue?vue&type=template&id=afaf8a30& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&");
 
 
 /***/ }),
@@ -47878,6 +48037,23 @@ var render = function() {
               "\n    "
           )
         ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-metadata",
+          attrs: { disabled: !_vm.metadataAvailable },
+          on: { click: _vm.toggleMetadata }
+        },
+        [
+          _vm._v(
+            "\n        " +
+              _vm._s(_vm.l10n.getMsgS("ACTIONS_METADATA_TITLE")) +
+              "\n    "
+          )
+        ]
       )
     ]),
     _vm._v(" "),
@@ -48004,6 +48180,37 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.metadataAvailable
+    ? _c(
+        "div",
+        { staticClass: "alpheios-alignment-text-editor-single-metadata" },
+        [_vm._v("\n    " + _vm._s(_vm.allMetadata) + "\n")]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&":
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41& ***!
@@ -48059,7 +48266,22 @@ var render = function() {
       _vm._v(" "),
       _c("actions-block", {
         attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
-        on: { "upload-single": _vm.uploadSingle }
+        on: {
+          "upload-single": _vm.uploadSingle,
+          "toggle-metadata": _vm.toggleMetadata
+        }
+      }),
+      _vm._v(" "),
+      _c("metadata-block", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showMetadata,
+            expression: "showMetadata"
+          }
+        ],
+        attrs: { "text-type": _vm.textType, "text-id": _vm.textId }
       }),
       _vm._v(" "),
       _c("direction-options-block", {
@@ -48542,7 +48764,7 @@ module.exports = JSON.parse("{\"OPTIONS_BLOCK_APPLICATION\":{\"message\":\"Appli
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Origin and Target Texts\",\"description\":\"A heading for text editor\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_TEXT_BLOCK_TITLE\":{\"message\":\"Enter Text in { textType } Language:\",\"description\":\"A tytle for text block area\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"RADIO_BLOCK_DIRECTION_LABEL\":{\"message\":\"Text Direction:\",\"description\":\"A label for text direction select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_LTR\":{\"message\":\"Left to Right\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_RTL\":{\"message\":\"Right to Left\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_AVA_LANGUAGE_TITLE\":{\"message\":\"{ textType } Language:\",\"description\":\"A title for available languages select\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"TEXT_EDITOR_LANGUAGE_OTHER_LABEL\":{\"message\":\"Or Other Language:\",\"description\":\"A label for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION\":{\"message\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"description\":\"A description for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_LABEL\":{\"message\":\"Text type:\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEXT\":{\"message\":\"Text\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEI\":{\"message\":\"TEI\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS\":{\"message\":\"Tokenize options for Alpheios Remote Servise\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT\":{\"message\":\"TEXT\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI\":{\"message\":\"TEI\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"ACTIONS_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Origin and Target Texts\",\"description\":\"A heading for text editor\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_TEXT_BLOCK_TITLE\":{\"message\":\"Enter Text in { textType } Language:\",\"description\":\"A tytle for text block area\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"RADIO_BLOCK_DIRECTION_LABEL\":{\"message\":\"Text Direction:\",\"description\":\"A label for text direction select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_LTR\":{\"message\":\"Left to Right\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_RTL\":{\"message\":\"Right to Left\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_AVA_LANGUAGE_TITLE\":{\"message\":\"{ textType } Language:\",\"description\":\"A title for available languages select\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"TEXT_EDITOR_LANGUAGE_OTHER_LABEL\":{\"message\":\"Or Other Language:\",\"description\":\"A label for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION\":{\"message\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"description\":\"A description for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_LABEL\":{\"message\":\"Text type:\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEXT\":{\"message\":\"Text\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEI\":{\"message\":\"TEI\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS\":{\"message\":\"Tokenize options for Alpheios Remote Servise\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT\":{\"message\":\"TEXT\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI\":{\"message\":\"TEI\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"ACTIONS_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_METADATA_TITLE\":{\"message\":\"Metadata\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
 
 /***/ }),
 

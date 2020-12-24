@@ -21,13 +21,26 @@ export default class Metadata {
       this.properties[property.label] = new MetadataTerm(property, value)
       return true
     }
-    return this.properties[property.label].addValue(value)
+    return this.getProperty(property).addValue(value)
   }
 
-  getMetadata (property) {
+  getProperty (property) {
+    return this.properties[property.label]
+  }
+
+  getPropertyValue (property) {
     if (this.hasProperty(property)) {
-      return this.properties[property.label].getValue()
+      return this.getProperty(property).getValue()
     }
     return null
+  }
+
+  get allAvailableMetadata () {
+    const allMeta = {}
+
+    Object.values(MetadataTerm.property).forEach(property => {
+      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: null }
+    })
+    return allMeta
   }
 }
