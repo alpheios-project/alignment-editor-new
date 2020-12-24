@@ -182,6 +182,7 @@ export default {
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
+        this.updateText()
       }
     },
 
