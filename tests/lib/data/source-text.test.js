@@ -3,6 +3,8 @@
 
 import SourceText from '@/lib/data/source-text'
 import AppController from '@/lib/controllers/app-controller.js'
+import Metadata from '@/lib/data/metadata.js'
+import MetadataTerm from '@/lib/data/metadata-term.js'
 
 describe('source-text.test.js', () => {
   console.error = function () {}
@@ -126,4 +128,23 @@ describe('source-text.test.js', () => {
     expect(sourceText).toHaveProperty('tokenization', { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" })
   })
 
+  it('5 SourceText - add metadata - supports adding metadata in DCMI format', () => {
+    const sourceTextJson = { text: 'target text2', direction: 'rtl', lang: 'grc', sourceType: 'text', tokenization: { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" } }
+    let sourceText = SourceText.convertFromJSON('target', sourceTextJson)
+    
+    sourceText.addMetadata(MetadataTerm.property.TITLE, 'Some test title')
+
+    expect(sourceText.metadata).toEqual(expect.any(Metadata))
+    expect(sourceText.getMetadata(MetadataTerm.property.TITLE)).toEqual('Some test title')
+
+    sourceText.addMetadata(MetadataTerm.property.TITLE, 'Some another title')
+    expect(sourceText.getMetadata(MetadataTerm.property.TITLE)).toEqual('Some another title')
+
+    sourceText.addMetadata(MetadataTerm.property.CREATOR, 'The first creator')
+    sourceText.addMetadata(MetadataTerm.property.CREATOR, 'The second creator')
+
+    expect(sourceText.getMetadata(MetadataTerm.property.CREATOR)).toEqual(['The first creator', 'The second creator'])
+
+    // console.info('sourceText - ', sourceText.metadata)
+  })
 })

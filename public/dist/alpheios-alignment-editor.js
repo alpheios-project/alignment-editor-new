@@ -42112,6 +42112,159 @@ class Langs {
 
 /***/ }),
 
+/***/ "./lib/data/metadata-term.js":
+/*!***********************************!*\
+  !*** ./lib/data/metadata-term.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ MetadataTerm
+/* harmony export */ });
+class MetadataTerm {
+  constructor (property, value) {
+    this.property = property
+    if (this.property.multivalued) {
+      this.value = [value]
+    } else {
+      this.value = value
+    }
+  }
+
+  addValue (value) {
+    if (!this.property.multivalued) {
+      this.value = value
+    } else {
+      if (this.value.indexOf(value) > -1) {
+        return false
+      }
+      this.value.push(value)
+      return true
+    }
+  }
+
+  get isMultivalued () {
+    return this.property.multivalued
+  }
+
+  getValue () {
+    return this.value
+  }
+}
+
+MetadataTerm.property = {
+  IDENTIFIER: {
+    label: 'identifier',
+    fieldtype: 'URI',
+    multivalued: false,
+    URI: 'http://purl.org/dc/terms/identifier',
+    description: 'An unambiguous reference to the resource within a given context.'
+  },
+  TITLE: {
+    label: 'title',
+    fieldtype: 'string',
+    multivalued: false,
+    URI: 'http://purl.org/dc/terms/title',
+    description: 'A name given to the resource.'
+  },
+  CREATOR: {
+    label: 'creator',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/creator',
+    description: 'An entity primarily responsible for making the resource.'
+  },
+  CONTRIBUTOR: {
+    label: 'contributor',
+    fieldtype: 'string',
+    multivalued: true,
+    URI: 'http://purl.org/dc/elements/1.1/contributor',
+    description: 'An entity responsible for making contributions to the resource.'
+  },
+  PUBLISHER: {
+    label: 'publisher',
+    fieldtype: 'string',
+    multivalued: false,
+    URI: 'http://purl.org/dc/elements/1.1/publisher',
+    description: 'An entity responsible for making the resource available.'
+  },
+  DATE_COPYRIGHTED: {
+    label: 'date copyrighted',
+    fieldtype: 'date',
+    multivalued: false,
+    URI: 'http://purl.org/dc/terms/dateCopyrighted',
+    description: 'Date of copyright of the resource.'
+  },
+  SOURCE: {
+    label: 'source',
+    fieldtype: 'URI',
+    multivalued: false,
+    URI: 'http://purl.org/dc/terms/source',
+    description: 'A related resource from which the described resource is derived.'
+  },
+  DESCRIPTION: {
+    label: 'description',
+    fieldtype: 'string',
+    multivalued: false,
+    URI: 'http://purl.org/dc/elements/1.1/description',
+    description: 'An account of the resource.'
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/metadata.js":
+/*!******************************!*\
+  !*** ./lib/data/metadata.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ Metadata
+/* harmony export */ });
+/* harmony import */ var _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/metadata-term.js */ "./lib/data/metadata-term.js");
+
+
+class Metadata {
+  constructor (data) {
+    this.properties = {}
+  }
+
+  isSupportedProperty (property) {
+    return Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property).includes(property)
+  }
+
+  hasProperty (property) {
+    return Boolean(this.properties[property.label])
+  }
+
+  addProperty (property, value) {
+    if (!this.isSupportedProperty(property)) {
+      return false
+    }
+    if (!this.hasProperty(property)) {
+      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value)
+      return true
+    }
+    return this.properties[property.label].addValue(value)
+  }
+
+  getMetadata (property) {
+    if (this.hasProperty(property)) {
+      return this.properties[property.label].getValue()
+    }
+    return null
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/data/segment.js":
 /*!*****************************!*\
   !*** ./lib/data/segment.js ***!
@@ -42163,6 +42316,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+
 
 
 
@@ -42187,6 +42342,8 @@ class SourceText {
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
+
+    this.metadata = docSource && docSource.metadata ? new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata) : new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
   }
 
   get defaultDirection () {
@@ -42199,6 +42356,14 @@ class SourceText {
 
   get defaultSourceType () {
     return 'text'
+  }
+
+  addMetadata (property, value) {
+    return this.metadata.addProperty(property, value)
+  }
+
+  getMetadata (property) {
+    return this.metadata.getMetadata(property)
   }
 
   /**

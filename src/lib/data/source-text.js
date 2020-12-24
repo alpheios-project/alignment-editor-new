@@ -2,6 +2,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import { v4 as uuidv4 } from 'uuid'
+import Metadata from '@/lib/data/metadata.js'
 
 export default class SourceText {
   /**
@@ -22,6 +23,8 @@ export default class SourceText {
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
+
+    this.metadata = docSource && docSource.metadata ? new Metadata(docSource.metadata) : new Metadata()
   }
 
   get defaultDirection () {
@@ -34,6 +37,14 @@ export default class SourceText {
 
   get defaultSourceType () {
     return 'text'
+  }
+
+  addMetadata (property, value) {
+    return this.metadata.addProperty(property, value)
+  }
+
+  getMetadata (property) {
+    return this.metadata.getMetadata(property)
   }
 
   /**
