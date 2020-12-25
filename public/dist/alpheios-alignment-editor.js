@@ -40546,6 +40546,10 @@ class TextsController {
   get allTokenizedTargetTextsIds () {
     return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
   }
+
+  changeMetadataTerm (textType, textId, metadataItem) {
+    this.store.commit('incrementAlignmentUpdated')
+  }
 }
 
 
@@ -42151,6 +42155,12 @@ class MetadataTerm {
 
   getValue () {
     return this.value
+  }
+
+  saveValue (value) {
+    if (!this.property.multivalued) {
+      this.value = value
+    }
   }
 }
 
@@ -44922,6 +44932,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MetadataBlock',
@@ -44937,16 +44957,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-
+      value: null
     }
   },
+  mounted () {
+    this.value = this.metadataTerm.value
+  },
   computed: {
+    itemId () {
+      return `${this.textType}-${this.textId}-${this.metadataTerm.label}-id`
+    },
+    docSource () {
+      return this.$textC.getDocSource(this.textType, this.textId)
+    },
     metadataAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.docSource)
     },
     allMetadata () {
-      console.info('allAvailableMetadata - ', this.$textC.getDocSource(this.textType, this.textId).allAvailableMetadata)
-      return this.$store.state.alignmentUpdated && this.$textC.getDocSource(this.textType, this.textId).allAvailableMetadata
+      return this.metadataAvailable && this.docSource.allAvailableMetadata
+    },
+    metadataTerm () {
+      return this.$store.state.alignmentUpdated && this.metadataAvailable && Object.values(this.allMetadata)[1]
+    }
+  },
+  methods: {
+    changeMeatadataItem () {
+      if (this.metadataTerm.template) {
+        this.docSource.addMetadata(this.metadataTerm.property, this.value)
+      } else {
+        this.metadataTerm.saveValue(this.value)
+      }
+      this.$textC.changeMetadataTerm(this.textType, this.textId, this.metadataTerm)
+
+      console.info('allMetadata', this.docSource)
     }
   }
 });
@@ -48200,7 +48243,39 @@ var render = function() {
     ? _c(
         "div",
         { staticClass: "alpheios-alignment-text-editor-single-metadata" },
-        [_vm._v("\n    " + _vm._s(_vm.allMetadata) + "\n")]
+        [
+          _c("div", { staticClass: "alpheios-alignment-option-item" }, [
+            _c(
+              "label",
+              { staticClass: "alpheios-alignment-option-item__label" },
+              [_vm._v(_vm._s(_vm.metadataTerm.property.label))]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.value,
+                  expression: "value"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-input alpheios-alignment-option-item__control",
+              attrs: { type: "text", id: _vm.itemId },
+              domProps: { value: _vm.value },
+              on: {
+                change: _vm.changeMeatadataItem,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.value = $event.target.value
+                }
+              }
+            })
+          ])
+        ]
       )
     : _vm._e()
 }

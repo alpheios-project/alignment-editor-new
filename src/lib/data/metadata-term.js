@@ -27,6 +27,12 @@ export default class MetadataTerm {
   getValue () {
     return this.value
   }
+
+  saveValue (value) {
+    if (!this.property.multivalued) {
+      this.value = value
+    }
+  }
 }
 
 MetadataTerm.property = {
