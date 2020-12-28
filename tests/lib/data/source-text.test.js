@@ -58,7 +58,7 @@ describe('source-text.test.js', () => {
     expect(sourceText).toHaveProperty('tokenization', { tokenizer: "alpheiosRemoteTokenizer", segments: "doubline" })
 
     sourceText.update({
-      tokenization: { segments: "singleline" }
+      tokenization: { tokenizer: "alpheiosRemoteTokenizer", segments: "singleline" }
     })
 
     expect(sourceText).toHaveProperty('text', 'target text')
