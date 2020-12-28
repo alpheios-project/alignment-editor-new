@@ -5,7 +5,6 @@ export default class MetadataTerm {
   }
 
   saveValue (value) {
-    console.info('saveValue', value)
     if (!this.property.multivalued) {
       this.value = value
     } else {

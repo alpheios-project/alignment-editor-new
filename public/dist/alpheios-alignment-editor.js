@@ -4128,7 +4128,7 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
       let wasFirst = false
 
       Object.keys(this.fetchOptions).forEach(option => {
-        if (exclude.indexOf(option) === -1) {
+        if ((exclude.indexOf(option) === -1) && (this.fetchOptions[option] !== undefined)) {
           let sign = '&'
           if (!wasFirst) {
             sign = '?'
@@ -4171,17 +4171,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*!******************************************!*
   !*** ./adapters/translations/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_149159__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_149206__) => {
 
 "use strict";
-__nested_webpack_require_149159__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_149159__.d(__webpack_exports__, {
+__nested_webpack_require_149206__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_149206__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149159__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149159__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_149159__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149159__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149206__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149206__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_149206__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149206__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -4310,19 +4310,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*!***********************************!*
   !*** ./adapters/tufts/adapter.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_154736__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_154783__) => {
 
 "use strict";
-__nested_webpack_require_154736__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_154736__.d(__webpack_exports__, {
+__nested_webpack_require_154783__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_154783__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_154736__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_154736__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_154736__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_154736__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_154736__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_154736__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_154783__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_154783__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_154783__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_154783__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_154783__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_154783__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 
 
 
@@ -4442,16 +4442,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*!*******************************************!*
   !*** ./adapters/tufts/engine/aramorph.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_160737__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_160784__) => {
 
 "use strict";
-__nested_webpack_require_160737__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_160737__.d(__webpack_exports__, {
+__nested_webpack_require_160784__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_160784__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_160737__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_160737__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_160737__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_160784__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_160784__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_160784__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4466,16 +4466,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!***************************************!*
   !*** ./adapters/tufts/engine/hazm.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162023__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162070__) => {
 
 "use strict";
-__nested_webpack_require_162023__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_162023__.d(__webpack_exports__, {
+__nested_webpack_require_162070__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_162070__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162023__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162023__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_162023__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162070__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162070__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_162070__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4493,16 +4493,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*!**********************************************!*
   !*** ./adapters/tufts/engine/morpheusgrc.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163539__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163586__) => {
 
 "use strict";
-__nested_webpack_require_163539__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_163539__.d(__webpack_exports__, {
+__nested_webpack_require_163586__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_163586__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163539__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163539__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_163539__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163586__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163586__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_163586__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4551,16 +4551,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!****************************************!*
   !*** ./adapters/tufts/engine/sedra.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166906__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166953__) => {
 
 "use strict";
-__nested_webpack_require_166906__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_166906__.d(__webpack_exports__, {
+__nested_webpack_require_166953__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_166953__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166906__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166906__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_166906__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166953__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166953__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_166953__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4603,16 +4603,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!*****************************************!*
   !*** ./adapters/tufts/engine/traces.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169385__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169432__) => {
 
 "use strict";
-__nested_webpack_require_169385__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_169385__.d(__webpack_exports__, {
+__nested_webpack_require_169432__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_169432__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169385__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169385__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_169385__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169432__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169432__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_169432__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4627,16 +4627,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!********************************************!*
   !*** ./adapters/tufts/engine/whitakers.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170687__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170734__) => {
 
 "use strict";
-__nested_webpack_require_170687__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_170687__.d(__webpack_exports__, {
+__nested_webpack_require_170734__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_170734__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170687__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170687__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170687__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170734__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170734__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170734__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4753,21 +4753,21 @@ data.setLemmaParser(function (lemma) {
 /*!***************************************!*
   !*** ./adapters/tufts/engines-set.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176850__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176897__) => {
 
 "use strict";
-__nested_webpack_require_176850__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_176850__.d(__webpack_exports__, {
+__nested_webpack_require_176897__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_176897__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176850__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176850__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_176850__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_176850__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_176850__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_176850__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_176850__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_176850__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176897__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176897__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_176897__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_176897__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_176897__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_176897__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_176897__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_176897__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -4818,25 +4818,25 @@ class EnginesSet {
 /*!****************************!*
   !*** ./client-adapters.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180401__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180448__) => {
 
 "use strict";
-__nested_webpack_require_180401__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180401__.d(__webpack_exports__, {
+__nested_webpack_require_180448__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180448__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_180401__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_180401__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_180401__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_180448__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_180448__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_180448__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
 
 
 
@@ -5273,11 +5273,11 @@ class ClientAdapters {
 /*!*********************************!*
   !*** ./errors/adapter-error.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_200791__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_200838__) => {
 
 "use strict";
-__nested_webpack_require_200791__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_200791__.d(__webpack_exports__, {
+__nested_webpack_require_200838__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_200838__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class AdapterError extends Error {
@@ -5319,11 +5319,11 @@ class AdapterError extends Error {
 /*!***********************************!*
   !*** ./errors/adapter-warning.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_202262__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_202309__) => {
 
 "use strict";
-__nested_webpack_require_202262__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_202262__.d(__webpack_exports__, {
+__nested_webpack_require_202309__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_202309__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ AdapterWarning
 /* harmony export */ });
 /**
@@ -5356,11 +5356,11 @@ class AdapterWarning extends Error {
 /*!*******************************************!*
   !*** ./errors/no-required-param-error.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_203776__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_203823__) => {
 
 "use strict";
-__nested_webpack_require_203776__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_203776__.d(__webpack_exports__, {
+__nested_webpack_require_203823__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_203823__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -5383,11 +5383,11 @@ class NoRequiredParamError extends Error {
 /*!********************************!*
   !*** ./errors/remote-error.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_204747__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_204794__) => {
 
 "use strict";
-__nested_webpack_require_204747__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_204747__.d(__webpack_exports__, {
+__nested_webpack_require_204794__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_204794__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteError
 /* harmony export */ });
 class RemoteError extends Error {
@@ -5414,11 +5414,11 @@ class RemoteError extends Error {
 /*!*********************************!*
   !*** ./errors/warning-codes.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_205692__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_205739__) => {
 
 "use strict";
-__nested_webpack_require_205692__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_205692__.d(__webpack_exports__, {
+__nested_webpack_require_205739__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_205739__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /** @enum {string} */
@@ -5437,11 +5437,11 @@ const WarningCodes = {
 /*!**************************************!*
   !*** ./errors/wrong-method-error.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_206441__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_206488__) => {
 
 "use strict";
-__nested_webpack_require_206441__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_206441__.d(__webpack_exports__, {
+__nested_webpack_require_206488__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_206488__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -5463,18 +5463,18 @@ class WrongMethodError extends Error {
 /*!******************!*
   !*** ./index.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_207264__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_207311__) => {
 
 "use strict";
-__nested_webpack_require_207264__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_207264__.d(__webpack_exports__, {
+__nested_webpack_require_207311__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_207311__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => /* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default,
 /* harmony export */   "AdapterError": () => /* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default,
 /* harmony export */   "RemoteError": () => /* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_207264__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_207264__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_207264__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_207311__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_207311__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_207311__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 
 
 
@@ -5488,15 +5488,15 @@ __nested_webpack_require_207264__.r(__webpack_exports__);
 /*!****************************!*
   !*** ./locales/locales.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_208595__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_208642__) => {
 
 "use strict";
-__nested_webpack_require_208595__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_208595__.d(__webpack_exports__, {
+__nested_webpack_require_208642__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_208642__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_208595__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_208595__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_208642__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_208642__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -5516,16 +5516,16 @@ __nested_webpack_require_208595__.r(__webpack_exports__);
 /*!******************************************************!*
   !*** ./transformers/alpheios-lexicon-transformer.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_209721__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_209768__) => {
 
 "use strict";
-__nested_webpack_require_209721__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_209721__.d(__webpack_exports__, {
+__nested_webpack_require_209768__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_209768__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_209721__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_209721__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_209721__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_209768__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_209768__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_209768__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
 
 
 
@@ -5843,15 +5843,15 @@ class AlpheiosLexiconTransformer {
 /*!*******************************************!*
   !*** ./transformers/import-morph-data.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224218__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224265__) => {
 
 "use strict";
-__nested_webpack_require_224218__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_224218__.d(__webpack_exports__, {
+__nested_webpack_require_224265__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_224265__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224218__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_224218__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224265__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_224265__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -6295,7 +6295,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_466559__(moduleId) {
+/******/ 	function __nested_webpack_require_466606__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -6308,7 +6308,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_466559__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_466606__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -6321,11 +6321,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_466559__.n = (module) => {
+/******/ 		__nested_webpack_require_466606__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_466559__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_466606__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -6333,9 +6333,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_466559__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_466606__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_466559__.o(definition, key) && !__nested_webpack_require_466559__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_466606__.o(definition, key) && !__nested_webpack_require_466606__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -6344,13 +6344,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_466559__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_466606__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_466559__.r = (exports) => {
+/******/ 		__nested_webpack_require_466606__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -6360,7 +6360,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_466559__.nmd = (module) => {
+/******/ 		__nested_webpack_require_466606__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -6371,7 +6371,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_466559__("./index.js");
+/******/ 	return __nested_webpack_require_466606__("./index.js");
 /******/ })()
 ;
 });
@@ -14727,7 +14727,9 @@ class Options {
   get formatLabelValueList () {
     let result = {} // eslint-disable-line prefer-const
     Object.keys(this.items).forEach(nameItem => {
-      result[nameItem] = this.items[nameItem].currentValue
+      if (this.items[nameItem].currentValue !== undefined) {
+        result[nameItem] = this.items[nameItem].currentValue
+      }
     })
     return result
   }
@@ -14774,16 +14776,16 @@ class Options {
 /*!***********************************!*
   !*** ./persian_language_model.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_304876__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_304947__) => {
 
 "use strict";
-__nested_webpack_require_304876__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_304876__.d(__webpack_exports__, {
+__nested_webpack_require_304947__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_304947__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PersianLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_304876__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_304876__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_304876__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_304947__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_304947__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_304947__(/*! ./constants.js */ "./constants.js");
 
 
 
@@ -14849,11 +14851,11 @@ class PersianLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0
 /*!************************************!*
   !*** ./ps-events/ps-event-data.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_307720__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_307791__) => {
 
 "use strict";
-__nested_webpack_require_307720__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_307720__.d(__webpack_exports__, {
+__nested_webpack_require_307791__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_307791__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEventData
 /* harmony export */ });
 /**
@@ -14900,16 +14902,16 @@ class PsEventData {
 /*!*******************************!*
   !*** ./ps-events/ps-event.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_309874__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_309945__) => {
 
 "use strict";
-__nested_webpack_require_309874__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_309874__.d(__webpack_exports__, {
+__nested_webpack_require_309945__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_309945__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ PsEvent
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_309874__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_309874__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_309874__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_309945__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_309945__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_309945__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
 
 
 
@@ -15005,11 +15007,11 @@ class PsEvent {
 /*!******************************!*
   !*** ./resource_provider.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_313281__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_313352__) => {
 
 "use strict";
-__nested_webpack_require_313281__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_313281__.d(__webpack_exports__, {
+__nested_webpack_require_313352__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_313352__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /**
@@ -15088,11 +15090,11 @@ class ResourceProvider {
 /*!*****************!*
   !*** ./sha1.js ***!
   \*****************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_315649__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_315720__) => {
 
 "use strict";
-__nested_webpack_require_315649__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_315649__.d(__webpack_exports__, {
+__nested_webpack_require_315720__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_315720__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* eslint-disable */
@@ -15272,14 +15274,14 @@ class Sha1 {
 /*!*************************************!*
   !*** ./storages/defaults-loader.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_322930__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_323001__) => {
 
 "use strict";
-__nested_webpack_require_322930__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_322930__.d(__webpack_exports__, {
+__nested_webpack_require_323001__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_323001__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ DefaultsLoader
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_322930__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323001__(/*! ../logging/logger.js */ "./logging/logger.js");
 
 
 class DefaultsLoader {
@@ -15300,14 +15302,14 @@ class DefaultsLoader {
 /*!********************************************!*
   !*** ./storages/extension-sync-storage.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_323871__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_323942__) => {
 
 "use strict";
-__nested_webpack_require_323871__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_323871__.d(__webpack_exports__, {
+__nested_webpack_require_323942__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_323942__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ ExtensionSyncStorage
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323871__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323942__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 /* global browser */
 
 
@@ -15355,14 +15357,14 @@ class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_
 /*!****************************************!*
   !*** ./storages/local-storage-area.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_326236__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_326307__) => {
 
 "use strict";
-__nested_webpack_require_326236__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_326236__.d(__webpack_exports__, {
+__nested_webpack_require_326307__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_326307__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ LocalStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_326236__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_326307__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 
 
 /**
@@ -15517,16 +15519,16 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.
 /*!**********************************************!*
   !*** ./storages/remote-auth-storage-area.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_331947__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_332018__) => {
 
 "use strict";
-__nested_webpack_require_331947__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_331947__.d(__webpack_exports__, {
+__nested_webpack_require_332018__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_332018__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ RemoteAuthStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_331947__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_331947__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_331947__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_332018__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_332018__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_332018__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -15621,11 +15623,11 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
 /*!*************************************!*
   !*** ./storages/storage-adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_336173__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_336244__) => {
 
 "use strict";
-__nested_webpack_require_336173__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_336173__.d(__webpack_exports__, {
+__nested_webpack_require_336244__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_336244__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ StorageAdapter
 /* harmony export */ });
 /**
@@ -15699,14 +15701,14 @@ class StorageAdapter {
 /*!***************************************!*
   !*** ./storages/temp-storage-area.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_339781__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_339852__) => {
 
 "use strict";
-__nested_webpack_require_339781__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_339781__.d(__webpack_exports__, {
+__nested_webpack_require_339852__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_339852__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TempStorageArea
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_339781__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_339852__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 
 
 /**
@@ -15749,19 +15751,19 @@ class TempStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.d
 /*!**********************************!*
   !*** ./syriac_language_model.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_342109__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_342180__) => {
 
 "use strict";
-__nested_webpack_require_342109__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_342109__.d(__webpack_exports__, {
+__nested_webpack_require_342180__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_342180__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ SyriacLanguageModel
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_342109__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_342109__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_342109__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_342109__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_342109__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
-/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_342109__(/*! ./inflection_group */ "./inflection_group.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_342180__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_342180__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_342180__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_342180__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_342180__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
+/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_342180__(/*! ./inflection_group */ "./inflection_group.js");
 
 
 
@@ -15997,11 +15999,11 @@ for the current node
 /*!*************************!*
   !*** ./texts/author.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_353960__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_354031__) => {
 
 "use strict";
-__nested_webpack_require_353960__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_353960__.d(__webpack_exports__, {
+__nested_webpack_require_354031__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_354031__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class Author {
@@ -16072,11 +16074,11 @@ class Author {
 /*!****************************!*
   !*** ./texts/text-work.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_356254__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_356325__) => {
 
 "use strict";
-__nested_webpack_require_356254__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_356254__.d(__webpack_exports__, {
+__nested_webpack_require_356325__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_356325__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 class TextWork {
@@ -16158,15 +16160,15 @@ class TextWork {
 /*!*************************************!*
   !*** ./texts/word-usage-example.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_358838__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_358909__) => {
 
 "use strict";
-__nested_webpack_require_358838__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_358838__.d(__webpack_exports__, {
+__nested_webpack_require_358909__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_358909__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordUsageExample
 /* harmony export */ });
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_358838__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_358838__(/*! ../language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_358909__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_358909__(/*! ../language_model_factory.js */ "./language_model_factory.js");
 
 
 
@@ -16264,14 +16266,14 @@ class WordUsageExample extends _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MOD
 /*!************************!*
   !*** ./translation.js ***!
   \************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_362212__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_362283__) => {
 
 "use strict";
-__nested_webpack_require_362212__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_362212__.d(__webpack_exports__, {
+__nested_webpack_require_362283__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_362283__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_362212__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_362283__(/*! ./resource_provider.js */ "./resource_provider.js");
 
 /**
  * stores a scope of lemma translations from python service
@@ -16343,11 +16345,11 @@ class Translation {
 /*!*******************************!*
   !*** ./treebank_data_item.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_364935__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_365006__) => {
 
 "use strict";
-__nested_webpack_require_364935__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_364935__.d(__webpack_exports__, {
+__nested_webpack_require_365006__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_365006__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TreebankDataItem
 /* harmony export */ });
 class TreebankDataItem {
@@ -16539,15 +16541,15 @@ class TreebankDataItem {
 /*!************************************!*
   !*** ./w3c/text-quote-selector.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_373544__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_373615__) => {
 
 "use strict";
-__nested_webpack_require_373544__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_373544__.d(__webpack_exports__, {
+__nested_webpack_require_373615__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_373615__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TextQuoteSelector
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_373544__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_373544__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_373615__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_373615__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
  */
@@ -16606,15 +16608,15 @@ class TextQuoteSelector {
 /*!**********************!*
   !*** ./word-item.js ***!
   \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_376004__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_376075__) => {
 
 "use strict";
-__nested_webpack_require_376004__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_376004__.d(__webpack_exports__, {
+__nested_webpack_require_376075__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_376075__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordItem
 /* harmony export */ });
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_376004__(/*! ./homonym.js */ "./homonym.js");
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_376004__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_376075__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_376075__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
 
 
 
@@ -16767,14 +16769,14 @@ class WordItem {
 /*!**********************!*
   !*** ./word-list.js ***!
   \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_380548__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_380619__) => {
 
 "use strict";
-__nested_webpack_require_380548__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_380548__.d(__webpack_exports__, {
+__nested_webpack_require_380619__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_380619__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ WordList
 /* harmony export */ });
-/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_380548__(/*! ./word-item */ "./word-item.js");
+/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_380619__(/*! ./word-item */ "./word-item.js");
 
 
 class WordList {
@@ -16888,7 +16890,7 @@ class WordList {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_383802__(moduleId) {
+/******/ 	function __nested_webpack_require_383873__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -16901,7 +16903,7 @@ class WordList {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_383802__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_383873__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -16911,11 +16913,11 @@ class WordList {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_383802__.n = (module) => {
+/******/ 		__nested_webpack_require_383873__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => module['default'] :
 /******/ 				() => module;
-/******/ 			__nested_webpack_require_383802__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_383873__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -16923,9 +16925,9 @@ class WordList {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_383802__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_383873__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_383802__.o(definition, key) && !__nested_webpack_require_383802__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_383873__.o(definition, key) && !__nested_webpack_require_383873__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -16934,13 +16936,13 @@ class WordList {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_383802__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_383873__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_383802__.r = (exports) => {
+/******/ 		__nested_webpack_require_383873__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -16952,7 +16954,7 @@ class WordList {
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_383802__("./driver.js");
+/******/ 	return __nested_webpack_require_383873__("./driver.js");
 /******/ })()
 ;
 });
@@ -42144,7 +42146,6 @@ class MetadataTerm {
   }
 
   saveValue (value) {
-    console.info('saveValue', value)
     if (!this.property.multivalued) {
       this.value = value
     } else {
@@ -42416,8 +42417,7 @@ class SourceText {
     this.lang = docSource.lang ? docSource.lang : this.lang
 
     this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
-
-    this.tokenization = Object.assign(this.tokenization, docSource.tokenization)
+    this.tokenization = Object.assign({}, docSource.tokenization)
   }
 
   /**
@@ -45088,8 +45088,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.changeMetadataTerm(this.textType, this.textId, this.metadataTerm)
 
       if (this.metadataTerm.property.multivalued) { this.value = null }
-
-      console.info('metadataTerm - ', this.metadataTerm)
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
@@ -45338,8 +45336,6 @@ __webpack_require__.r(__webpack_exports__);
           sourceType: this.sourceType,
           tokenization: this.tokenization
         }
-
-        console.info('updateText - ', params)
 
         this.$textC[this.updateTextMethod](params, this.textId)  
       }

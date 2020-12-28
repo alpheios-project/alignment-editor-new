@@ -85,8 +85,6 @@ export default {
       this.$textC.changeMetadataTerm(this.textType, this.textId, this.metadataTerm)
 
       if (this.metadataTerm.property.multivalued) { this.value = null }
-
-      console.info('metadataTerm - ', this.metadataTerm)
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]

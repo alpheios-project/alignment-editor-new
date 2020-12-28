@@ -64,8 +64,7 @@ export default class SourceText {
     this.lang = docSource.lang ? docSource.lang : this.lang
 
     this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
-
-    this.tokenization = Object.assign(this.tokenization, docSource.tokenization)
+    this.tokenization = Object.assign({}, docSource.tokenization)
   }
 
   /**
