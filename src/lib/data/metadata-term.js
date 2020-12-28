@@ -1,22 +1,22 @@
 export default class MetadataTerm {
   constructor (property, value) {
     this.property = property
-    if (this.property.multivalued) {
-      this.value = [value]
-    } else {
-      this.value = value
-    }
+    this.saveValue(value)
   }
 
-  addValue (value) {
+  saveValue (value) {
+    console.info('saveValue', value)
     if (!this.property.multivalued) {
       this.value = value
     } else {
-      if (this.value.indexOf(value) > -1) {
-        return false
-      }
-      this.value.push(value)
-      return true
+      if (!this.value) { this.value = [] }
+
+      if (!Array.isArray(value)) { value = [value] }
+      value.forEach(val => {
+        if (this.value.indexOf(val) === -1) {
+          this.value.push(val)
+        }
+      })
     }
   }
 
@@ -28,9 +28,9 @@ export default class MetadataTerm {
     return this.value
   }
 
-  saveValue (value) {
-    if (!this.property.multivalued) {
-      this.value = value
+  deleteValueByIndex (valueIndex) {
+    if (this.isMultivalued && valueIndex < this.value.length) {
+      this.value.splice(valueIndex, 1)
     }
   }
 }

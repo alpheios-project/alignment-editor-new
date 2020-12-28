@@ -211,6 +211,8 @@ export default {
           tokenization: this.tokenization
         }
 
+        console.info('updateText - ', params)
+
         this.$textC[this.updateTextMethod](params, this.textId)  
       }
     },

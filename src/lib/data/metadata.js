@@ -21,7 +21,7 @@ export default class Metadata {
       this.properties[property.label] = new MetadataTerm(property, value)
       return true
     }
-    return this.getProperty(property).addValue(value)
+    return this.getProperty(property).saveValue(value)
   }
 
   getProperty (property) {
@@ -39,7 +39,7 @@ export default class Metadata {
     const allMeta = {}
 
     Object.values(MetadataTerm.property).forEach(property => {
-      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: null }
+      allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) }
     })
     return allMeta
   }
