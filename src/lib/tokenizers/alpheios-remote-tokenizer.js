@@ -25,8 +25,11 @@ export default class AlpheiosRemoteTokenizer {
       }
     })
 
+    console.info('adapterTokenizerRes - ', adapterTokenizerRes)
     if (adapterTokenizerRes.errors.length > 0) {
       adapterTokenizerRes.errors.forEach(error => {
+        console.info('error.message - ', error.message)
+
         console.log(error)
         NotificationSingleton.addNotification({
           text: error.message,
