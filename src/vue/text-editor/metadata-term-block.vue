@@ -1,7 +1,12 @@
 <template>
     <div class="alpheios-alignment-metadata-item alpheios-meta-single-item">
       <p class="alpheios-alignment-metadata-item__input-value">
-        <label class="alpheios-alignment-metadata-item__label">{{ metadataTermLabel }}</label>
+          <label class="alpheios-alignment-metadata-item__label">{{ metadataTermLabel }}
+            <tooltip :tooltipText="metadataTermDescription" tooltipDirection="right">
+              <span class="alpheios-alignment-metadata-item__label-help">?</span>
+            </tooltip>
+          </label>
+
           <input
               class="alpheios-alignment-input alpheios-alignment-metadata-item__control  alpheios-meta-single-item-value"
               type="text"
@@ -26,11 +31,12 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
-
+import Tooltip from '@/vue/tooltip.vue'
 export default {
   name: 'MetadataTermBlock',
   components: {
-    deleteIcon: DeleteIcon
+    deleteIcon: DeleteIcon,
+    tooltip: Tooltip
   },
   props: {
     metadataTerm: {
@@ -78,6 +84,9 @@ export default {
     },
     metadataTermLabel () {
       return this.metadataTerm.property.labell10n ? this.l10n.getMsgS(this.metadataTerm.property.labell10n) : this.metadataTerm.property.label
+    },
+    metadataTermDescription () {
+      return this.metadataTerm.property.descriptionl10n ? this.l10n.getMsgS(this.metadataTerm.property.descriptionl10n) : this.metadataTerm.property.description
     }
   },
   methods: {
@@ -108,15 +117,29 @@ export default {
     margin-bottom: 10px;
 
     p > label {
-      width: 28%;
+      width: 38%;
       display: inline-block;
       vertical-align: top;
       text-transform: capitalize;
+
+     .alpheios-alignment-metadata-item__label-help {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        background: #185F6D;
+        color: #fff;
+        border: 1px solid #185F6D;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 20px;
+        margin-left: 5px;
+      }
     }
 
     p > input.alpheios-alignment-metadata-item__control {
       display: inline-block;
-      width: 70%;
+      width: 60%;
       vertical-align: top;
     }
 
