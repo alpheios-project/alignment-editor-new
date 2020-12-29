@@ -1,7 +1,7 @@
 <template>
     <div class="alpheios-alignment-metadata-item alpheios-meta-single-item">
       <p class="alpheios-alignment-metadata-item__input-value">
-        <label class="alpheios-alignment-metadata-item__label">{{ metadataTerm.property.label }}</label>
+        <label class="alpheios-alignment-metadata-item__label">{{ metadataTermLabel }}</label>
           <input
               class="alpheios-alignment-input alpheios-alignment-metadata-item__control  alpheios-meta-single-item-value"
               type="text"
@@ -24,6 +24,7 @@
     </div>
 </template>
 <script>
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
 
 export default {
@@ -54,6 +55,9 @@ export default {
     this.value = !this.metadataTerm.property.multivalued ? this.metadataTerm.value : null
   },
   computed: {
+    l10n () {
+      return L10nSingleton
+    },
     itemId () {
       return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
     },
@@ -71,6 +75,9 @@ export default {
     },
     showllValuesData () {
       return this.sourceMetaValues.filter(val => Boolean(val)).length > 0
+    },
+    metadataTermLabel () {
+      return this.metadataTerm.property.labell10n ? this.l10n.getMsgS(this.metadataTerm.property.labell10n) : this.metadataTerm.property.label
     }
   },
   methods: {

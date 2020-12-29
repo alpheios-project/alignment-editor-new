@@ -42178,6 +42178,7 @@ class MetadataTerm {
 MetadataTerm.property = {
   IDENTIFIER: {
     label: 'identifier',
+    labell10n: 'METADATA_TERM_LABEL_IDENTIFIER',
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/identifier',
@@ -42185,6 +42186,7 @@ MetadataTerm.property = {
   },
   TITLE: {
     label: 'title',
+    labell10n: 'METADATA_TERM_LABEL_TITLE',
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/title',
@@ -42192,6 +42194,7 @@ MetadataTerm.property = {
   },
   CREATOR: {
     label: 'creator',
+    labell10n: 'METADATA_TERM_LABEL_CREATOR',
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/creator',
@@ -42199,6 +42202,7 @@ MetadataTerm.property = {
   },
   CONTRIBUTOR: {
     label: 'contributor',
+    labell10n: 'METADATA_TERM_LABEL_CONTRIBUTOR',
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/contributor',
@@ -42206,6 +42210,7 @@ MetadataTerm.property = {
   },
   PUBLISHER: {
     label: 'publisher',
+    labell10n: 'METADATA_TERM_LABEL_PUBLISHER',
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/publisher',
@@ -42213,6 +42218,7 @@ MetadataTerm.property = {
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
+    labell10n: 'METADATA_TERM_LABEL_DATE_COPYRIGHTED',
     fieldtype: 'date',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
@@ -42220,6 +42226,7 @@ MetadataTerm.property = {
   },
   SOURCE: {
     label: 'source',
+    labell10n: 'METADATA_TERM_LABEL_SOURCE',
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/source',
@@ -42227,6 +42234,7 @@ MetadataTerm.property = {
   },
   DESCRIPTION: {
     label: 'description',
+    labell10n: 'METADATA_TERM_LABEL_DESCRIPTION',
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/description',
@@ -43447,8 +43455,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
 /* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
 /* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+/* harmony import */ var _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-metadata-terms.json */ "./locales/en-us/messages-metadata-terms.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+
 
 
 
@@ -43463,8 +43473,8 @@ __webpack_require__.r(__webpack_exports__);
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__],
-  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_6__]
+  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_6__],
+  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__]
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -43478,7 +43488,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_7__.default(messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -43488,7 +43498,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_7__.default(...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -43497,7 +43507,7 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = [] // eslint-disable-line prefer-const
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_7__.default(m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(m, locale)))
     }
     return msgArray
   }
@@ -45004,8 +45014,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -45031,13 +45042,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MetadataTermBlock',
   components: {
-    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_0___default())
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default())
   },
   props: {
     metadataTerm: {
@@ -45062,6 +45074,9 @@ __webpack_require__.r(__webpack_exports__);
     this.value = !this.metadataTerm.property.multivalued ? this.metadataTerm.value : null
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
     itemId () {
       return `alpheios-meta-${this.textType}-${this.textId}-${this.metadataTerm.property.label}-id`
     },
@@ -45079,6 +45094,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showllValuesData () {
       return this.sourceMetaValues.filter(val => Boolean(val)).length > 0
+    },
+    metadataTermLabel () {
+      return this.metadataTerm.property.labell10n ? this.l10n.getMsgS(this.metadataTerm.property.labell10n) : this.metadataTerm.property.label
     }
   },
   methods: {
@@ -48488,7 +48506,7 @@ var render = function() {
           _c(
             "label",
             { staticClass: "alpheios-alignment-metadata-item__label" },
-            [_vm._v(_vm._s(_vm.metadataTerm.property.label))]
+            [_vm._v(_vm._s(_vm.metadataTermLabel))]
           ),
           _vm._v(" "),
           _c("input", {
@@ -49120,6 +49138,17 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 
 "use strict";
 module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_SHOW_OPTIONS_TITLE\":{\"message\":\"Show options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_HIDE_OPTIONS_TITLE\":{\"message\":\"Hide options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_CLEAR_TEXT\":{\"message\":\"Clear text\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-metadata-terms.json":
+/*!****************************************************!*\
+  !*** ./locales/en-us/messages-metadata-terms.json ***!
+  \****************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"Identifier\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_TITLE\":{\"message\":\"Title\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CREATOR\":{\"message\":\"Creator\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CONTRIBUTOR\":{\"message\":\"Contributor\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_PUBLISHER\":{\"message\":\"Publisher\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DATE_COPYRIGHTED\":{\"message\":\"Date copyrighted\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_SOURCE\":{\"message\":\"Source\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DESCRIPTION\":{\"message\":\"Description\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"}}");
 
 /***/ }),
 

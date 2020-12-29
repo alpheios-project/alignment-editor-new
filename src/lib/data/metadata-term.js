@@ -85,6 +85,7 @@ MetadataTerm.property = {
   },
   SOURCE: {
     label: 'source',
+    labell10n: 'METADATA_TERM_LABEL_SOURCE',
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/source',
@@ -92,6 +93,7 @@ MetadataTerm.property = {
   },
   DESCRIPTION: {
     label: 'description',
+    labell10n: 'METADATA_TERM_LABEL_DESCRIPTION',
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/description',
