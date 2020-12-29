@@ -43207,11 +43207,8 @@ class AlpheiosRemoteTokenizer {
       }
     })
 
-    console.info('adapterTokenizerRes - ', adapterTokenizerRes)
     if (adapterTokenizerRes.errors.length > 0) {
       adapterTokenizerRes.errors.forEach(error => {
-        console.info('error.message - ', error.message)
-
         console.log(error)
         _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
           text: error.message,
