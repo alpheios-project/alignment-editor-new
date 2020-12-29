@@ -1,0 +1,42 @@
+{
+    "METADATA_TERM_LABEL_IDENTIFIER": {
+      "message": "Identifier",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_TITLE": {
+      "message": "Title",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_CREATOR": {
+      "message": "Creator",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_CONTRIBUTOR": {
+      "message": "Contributor",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_PUBLISHER": {
+      "message": "Publisher",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DATE_COPYRIGHTED": {
+      "message": "Date copyrighted",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_SOURCE": {
+      "message": "Source",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_LABEL_DESCRIPTION": {
+      "message": "Description",
+      "description": "Metadata term label",
+      "component": "MetadataTerm"
+    }
+}

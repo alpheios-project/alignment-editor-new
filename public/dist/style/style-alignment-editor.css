@@ -375,6 +375,12 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-standard-theme .alpheios-alignment-options__group {
   border-color: #8bafb6;
 }
+.alpheios-standard-theme .alpheios-alignment-metadata-item__allvalues-item {
+  color: #185F6D;
+}
+.alpheios-standard-theme .alpheios-alignment-metadata-item__allvalues-item:hover {
+  color: #10424c;
+}
 
 .alpheios-v1-theme {
   background-color: #e0e0e0;
@@ -465,6 +471,12 @@ div.alpheios-alignment-checkbox-block {
 }
 .alpheios-v1-theme .alpheios-alignment-options__group {
   border-color: #f8f8f8;
+}
+.alpheios-v1-theme .alpheios-alignment-metadata-item__allvalues-item {
+  color: #46788d;
+}
+.alpheios-v1-theme .alpheios-alignment-metadata-item__allvalues-item:hover {
+  color: #6a9fb5;
 }
 
 .alpheios-alignment-app-container {
@@ -579,6 +591,49 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-alignment-actions__upload-block {
   padding: 5px 0 15px;
   text-align: left;
+}
+.alpheios-alignment-metadata-item {
+  margin-bottom: 10px;
+}
+.alpheios-alignment-metadata-item p > label {
+  width: 28%;
+  display: inline-block;
+  vertical-align: top;
+  text-transform: capitalize;
+}
+.alpheios-alignment-metadata-item p > input.alpheios-alignment-metadata-item__control {
+  display: inline-block;
+  width: 70%;
+  vertical-align: top;
+}
+.alpheios-alignment-metadata-item .alpheios-alignment-metadata-item__allvalues {
+  padding-left: 30%;
+}
+.alpheios-alignment-metadata-item .alpheios-alignment-metadata-item__allvalues-item {
+  display: inline-block;
+  vertical-align: baseline;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0 7px 0 0;
+}
+.alpheios-alignment-metadata-item .alpheios-alignment-metadata-item__input-value {
+  position: relative;
+  padding-right: 30px;
+}
+.alpheios-alignment-metadata-item .alpheios-alignment-editor-metadata-item__remove {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  right: 0;
+  top: 50%;
+  top: 0;
+  position: absolute;
+  cursor: pointer;
+}
+.alpheios-alignment-metadata-item .alpheios-alignment-editor-metadata-item__remove svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
 }
 p.alpheios-alignment-tokenize-options-details-toggle {
   display: inline-block;

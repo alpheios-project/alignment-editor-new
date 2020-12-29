@@ -90,5 +90,15 @@
     "message": "Upload",
     "description": "Button in main menu",
     "component": "MainMenu"
+  },
+  "ACTIONS_METADATA_HIDE_TITLE": {
+    "message": "Hide metadata",
+    "description": "Button in main menu",
+    "component": "MainMenu"
+  },
+  "ACTIONS_METADATA_SHOW_TITLE": {
+    "message": "Show metadata",
+    "description": "Button in main menu",
+    "component": "MainMenu"
   }
 }

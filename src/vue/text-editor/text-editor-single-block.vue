@@ -5,8 +5,10 @@
           <delete-icon />
         </span>
       </p>
-      <actions-block :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle"/>
+      <actions-block :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata"/>
       
+      <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
+
       <direction-options-block 
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
@@ -35,6 +37,8 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
 import ActionsBlock from '@/vue/text-editor/actions-block.vue'
+import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
+
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
@@ -60,6 +64,7 @@ export default {
     deleteIcon: DeleteIcon,
     optionItemBlock: OptionItemBlock,
     actionsBlock: ActionsBlock,
+    metadataBlock: MetadataBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
     languageOptionsBlock: LanguageOptionsBlock
@@ -69,7 +74,8 @@ export default {
       text: null,
       prevText: null,
 
-      localTextEditorOptions: { ready: false }
+      localTextEditorOptions: { ready: false },
+      showMetadata: false
     }
   },
   /**
@@ -164,7 +170,7 @@ export default {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated &&this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
@@ -225,6 +231,10 @@ export default {
         textId: this.textId,
         tokenization: this.tokenization
       })
+    },
+
+    toggleMetadata () {
+      this.showMetadata = !this.showMetadata
     }
   }
 }

@@ -113,4 +113,11 @@
     .alpheios-alignment-options__group {
         border-color: map.get($theme, 'settings-fieldset-border-color');
     }
+
+    .alpheios-alignment-metadata-item__allvalues-item {
+        color: map.get($theme, 'text-link-color');
+        &:hover {
+            color: map.get($theme, 'text-link-color-hover');
+        }
+    }
 }
