@@ -599,6 +599,7 @@ div.alpheios-alignment-checkbox-block {
   width: 28%;
   display: inline-block;
   vertical-align: top;
+  text-transform: capitalize;
 }
 .alpheios-alignment-metadata-item p > input.alpheios-alignment-metadata-item__control {
   display: inline-block;

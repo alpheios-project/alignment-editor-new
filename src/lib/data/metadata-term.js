@@ -37,6 +37,7 @@ export default class MetadataTerm {
 MetadataTerm.property = {
   IDENTIFIER: {
     label: 'identifier',
+    labell10n: 'METADATA_TERM_LABEL_IDENTIFIER',
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/identifier',
@@ -44,6 +45,7 @@ MetadataTerm.property = {
   },
   TITLE: {
     label: 'title',
+    labell10n: 'METADATA_TERM_LABEL_TITLE',
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/title',
@@ -51,6 +53,7 @@ MetadataTerm.property = {
   },
   CREATOR: {
     label: 'creator',
+    labell10n: 'METADATA_TERM_LABEL_CREATOR',
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/creator',
@@ -58,6 +61,7 @@ MetadataTerm.property = {
   },
   CONTRIBUTOR: {
     label: 'contributor',
+    labell10n: 'METADATA_TERM_LABEL_CONTRIBUTOR',
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/contributor',
@@ -65,6 +69,7 @@ MetadataTerm.property = {
   },
   PUBLISHER: {
     label: 'publisher',
+    labell10n: 'METADATA_TERM_LABEL_PUBLISHER',
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/publisher',
@@ -72,6 +77,7 @@ MetadataTerm.property = {
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
+    labell10n: 'METADATA_TERM_LABEL_DATE_COPYRIGHTED',
     fieldtype: 'date',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/dateCopyrighted',

@@ -104,6 +104,7 @@ export default {
       width: 28%;
       display: inline-block;
       vertical-align: top;
+      text-transform: capitalize;
     }
 
     p > input.alpheios-alignment-metadata-item__control {
