@@ -11,7 +11,7 @@
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-metadata" 
             @click="toggleMetadata" :disabled = "!metadataAvailable">
-            {{ l10n.getMsgS('ACTIONS_METADATA_TITLE') }}
+            {{ toggleMetadataTitle }}
         </button>
       </div>
       <div class="alpheios-alignment-actions__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
@@ -37,6 +37,7 @@ export default {
   data () {
     return {
       showUploadBlock: false,
+      shownMetadataBlock: false
     }
   },
   computed: {
@@ -48,6 +49,9 @@ export default {
     },
     metadataAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
+    },
+    toggleMetadataTitle () {
+      return this.shownMetadataBlock ? this.l10n.getMsgS('ACTIONS_METADATA_HIDE_TITLE') : this.l10n.getMsgS('ACTIONS_METADATA_SHOW_TITLE')
     }
   },
   methods: {
@@ -62,6 +66,7 @@ export default {
     },
 
     toggleMetadata () {
+      this.shownMetadataBlock = !this.shownMetadataBlock
       this.$emit('toggle-metadata')
     },
 
