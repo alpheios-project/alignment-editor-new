@@ -38,5 +38,46 @@
       "message": "Description",
       "description": "Metadata term label",
       "component": "MetadataTerm"
+    },
+
+    "METADATA_TERM_DESCRIPTION_IDENTIFIER": {
+      "message": "An unambiguous reference to the resource within a given context.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_TITLE": {
+      "message": "A name given to the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_CREATOR": {
+      "message": "An entity primarily responsible for making the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_CONTRIBUTOR": {
+      "message": "An entity responsible for making contributions to the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_PUBLISHER": {
+      "message": "An entity responsible for making the resource available.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED": {
+      "message": "Date of copyright of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_SOURCE": {
+      "message": "A related resource from which the described resource is derived.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
+    },
+    "METADATA_TERM_DESCRIPTION_DESCRIPTION": {
+      "message": "An account of the resource.",
+      "description": "Metadata term description",
+      "component": "MetadataTerm"
     }
 }

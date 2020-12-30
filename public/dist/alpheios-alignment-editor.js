@@ -142,6 +142,16 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js":
 /*!***********************************************************************************************!*\
   !*** ../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js ***!
@@ -42182,7 +42192,8 @@ MetadataTerm.property = {
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/identifier',
-    description: 'An unambiguous reference to the resource within a given context.'
+    description: 'An unambiguous reference to the resource within a given context.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER'
   },
   TITLE: {
     label: 'title',
@@ -42190,7 +42201,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/title',
-    description: 'A name given to the resource.'
+    description: 'A name given to the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE'
   },
   CREATOR: {
     label: 'creator',
@@ -42198,7 +42210,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/creator',
-    description: 'An entity primarily responsible for making the resource.'
+    description: 'An entity primarily responsible for making the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR'
   },
   CONTRIBUTOR: {
     label: 'contributor',
@@ -42206,7 +42219,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/contributor',
-    description: 'An entity responsible for making contributions to the resource.'
+    description: 'An entity responsible for making contributions to the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR'
   },
   PUBLISHER: {
     label: 'publisher',
@@ -42214,7 +42228,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/publisher',
-    description: 'An entity responsible for making the resource available.'
+    description: 'An entity responsible for making the resource available.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER'
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
@@ -42222,7 +42237,8 @@ MetadataTerm.property = {
     fieldtype: 'date',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
-    description: 'Date of copyright of the resource.'
+    description: 'Date of copyright of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED'
   },
   SOURCE: {
     label: 'source',
@@ -42230,7 +42246,8 @@ MetadataTerm.property = {
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/source',
-    description: 'A related resource from which the described resource is derived.'
+    description: 'A related resource from which the described resource is derived.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE'
   },
   DESCRIPTION: {
     label: 'description',
@@ -42238,7 +42255,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/description',
-    description: 'An account of the resource.'
+    description: 'An account of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION'
   }
 }
 
@@ -45017,6 +45035,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/tooltip.vue */ "./vue/tooltip.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45049,7 +45073,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MetadataTermBlock',
   components: {
-    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default())
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    tooltip: _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
     metadataTerm: {
@@ -45097,6 +45122,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     metadataTermLabel () {
       return this.metadataTerm.property.labell10n ? this.l10n.getMsgS(this.metadataTerm.property.labell10n) : this.metadataTerm.property.label
+    },
+    metadataTermDescription () {
+      return this.metadataTerm.property.descriptionl10n ? this.l10n.getMsgS(this.metadataTerm.property.descriptionl10n) : this.metadataTerm.property.description
     }
   },
   methods: {
@@ -45603,6 +45631,84 @@ __webpack_require__.r(__webpack_exports__);
   }
 });
 
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tooltip.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tooltip.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'tooltip',
+  props: {
+    tooltipDirection: {
+      type: String,
+      required: false,
+      default: 'bottom'
+    },
+    tooltipText: {
+      type: String,
+      required: true
+    },
+    additionalStyles: {
+      type: Object,
+      required: false
+    }
+  },
+  computed: {
+    directionClass () {
+      const tooltipDirection = this.tooltipDirection.toLowerCase()
+
+      switch (tooltipDirection) {
+        case 'top':
+          return { 'alpheios-tooltip-top': true }
+        case 'bottom':
+          return { 'alpheios-tooltip-bottom': true }
+        case 'bottom-wide':
+          return { 'alpheios-tooltip-bottom-wide': true }
+        case 'bottom-narrow':
+          return { 'alpheios-tooltip-bottom-narrow': true }
+        case 'bottom-narrow2':
+          return { 'alpheios-tooltip-bottom-narrow2': true }
+        case 'left':
+          return { 'alpheios-tooltip-left': true }
+        case 'right':
+          return { 'alpheios-tooltip-right': true }
+        case 'bottom-right':
+          return { 'alpheios-tooltip-bottom-right': true }
+        case 'bottom-left':
+          return { 'alpheios-tooltip-bottom-left': true }
+        case 'top-right':
+          return { 'alpheios-tooltip-top-right': true }
+        case 'top-left':
+          return { 'alpheios-tooltip-top-left': true }
+        default:
+          return { 'alpheios-tooltip-bottom': true }
+      }
+    }
+  }
+});
 
 
 /***/ }),
@@ -46335,6 +46441,47 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/tooltip.vue":
+/*!*************************!*\
+  !*** ./vue/tooltip.vue ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltip.vue?vue&type=template&id=13f11f5c& */ "./vue/tooltip.vue?vue&type=template&id=13f11f5c&");
+/* harmony import */ var _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip.vue?vue&type=script&lang=js& */ "./vue/tooltip.vue?vue&type=script&lang=js&");
+/* harmony import */ var _tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip.vue?vue&type=style&index=0&lang=scss& */ "./vue/tooltip.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tooltip.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
 /*!**********************************************************************************!*\
   !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
@@ -46551,6 +46698,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/tooltip.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************!*\
+  !*** ./vue/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -46841,6 +47005,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokenize-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/tooltip.vue?vue&type=script&lang=js&":
+/*!**************************************************!*\
+  !*** ./vue/tooltip.vue?vue&type=script&lang=js& ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./tooltip.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tooltip.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -47146,6 +47326,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokenize-options-block.vue?vue&type=template&id=40c7ae05& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&");
+
+
+/***/ }),
+
+/***/ "./vue/tooltip.vue?vue&type=template&id=13f11f5c&":
+/*!********************************************************!*\
+  !*** ./vue/tooltip.vue?vue&type=template&id=13f11f5c& ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=template&id=13f11f5c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=template&id=13f11f5c&");
 
 
 /***/ }),
@@ -48506,7 +48703,29 @@ var render = function() {
           _c(
             "label",
             { staticClass: "alpheios-alignment-metadata-item__label" },
-            [_vm._v(_vm._s(_vm.metadataTermLabel))]
+            [
+              _vm._v(_vm._s(_vm.metadataTermLabel) + "\n        "),
+              _c(
+                "tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.metadataTermDescription,
+                    tooltipDirection: "right"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-metadata-item__label-help"
+                    },
+                    [_vm._v("?")]
+                  )
+                ]
+              )
+            ],
+            1
           ),
           _vm._v(" "),
           _c("input", {
@@ -49001,6 +49220,57 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=template&id=13f11f5c&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=template&id=13f11f5c& ***!
+  \*************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alpheios-tooltip" },
+    [
+      _vm._t("default"),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.tooltipText,
+              expression: "tooltipText"
+            }
+          ],
+          staticClass:
+            "alpheios-tooltiptext alpheios-tooltiptext-span alpheios-text__smaller",
+          class: _vm.directionClass,
+          style: _vm.additionalStyles
+        },
+        [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
+      )
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./inline-icons/delete.svg":
 /*!*********************************!*\
   !*** ./inline-icons/delete.svg ***!
@@ -49148,7 +49418,7 @@ module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Downlo
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"Identifier\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_TITLE\":{\"message\":\"Title\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CREATOR\":{\"message\":\"Creator\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CONTRIBUTOR\":{\"message\":\"Contributor\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_PUBLISHER\":{\"message\":\"Publisher\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DATE_COPYRIGHTED\":{\"message\":\"Date copyrighted\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_SOURCE\":{\"message\":\"Source\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DESCRIPTION\":{\"message\":\"Description\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"}}");
+module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"Identifier\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_TITLE\":{\"message\":\"Title\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CREATOR\":{\"message\":\"Creator\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CONTRIBUTOR\":{\"message\":\"Contributor\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_PUBLISHER\":{\"message\":\"Publisher\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DATE_COPYRIGHTED\":{\"message\":\"Date copyrighted\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_SOURCE\":{\"message\":\"Source\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DESCRIPTION\":{\"message\":\"Description\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_IDENTIFIER\":{\"message\":\"An unambiguous reference to the resource within a given context.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_TITLE\":{\"message\":\"A name given to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CREATOR\":{\"message\":\"An entity primarily responsible for making the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CONTRIBUTOR\":{\"message\":\"An entity responsible for making contributions to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_PUBLISHER\":{\"message\":\"An entity responsible for making the resource available.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED\":{\"message\":\"Date of copyright of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_SOURCE\":{\"message\":\"A related resource from which the described resource is derived.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DESCRIPTION\":{\"message\":\"An account of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"}}");
 
 /***/ }),
 

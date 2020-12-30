@@ -41,7 +41,8 @@ MetadataTerm.property = {
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/identifier',
-    description: 'An unambiguous reference to the resource within a given context.'
+    description: 'An unambiguous reference to the resource within a given context.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER'
   },
   TITLE: {
     label: 'title',
@@ -49,7 +50,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/title',
-    description: 'A name given to the resource.'
+    description: 'A name given to the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE'
   },
   CREATOR: {
     label: 'creator',
@@ -57,7 +59,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/creator',
-    description: 'An entity primarily responsible for making the resource.'
+    description: 'An entity primarily responsible for making the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR'
   },
   CONTRIBUTOR: {
     label: 'contributor',
@@ -65,7 +68,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/contributor',
-    description: 'An entity responsible for making contributions to the resource.'
+    description: 'An entity responsible for making contributions to the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR'
   },
   PUBLISHER: {
     label: 'publisher',
@@ -73,7 +77,8 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/publisher',
-    description: 'An entity responsible for making the resource available.'
+    description: 'An entity responsible for making the resource available.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER'
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
@@ -81,7 +86,8 @@ MetadataTerm.property = {
     fieldtype: 'date',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
-    description: 'Date of copyright of the resource.'
+    description: 'Date of copyright of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED'
   },
   SOURCE: {
     label: 'source',
@@ -89,7 +95,8 @@ MetadataTerm.property = {
     fieldtype: 'URI',
     multivalued: false,
     URI: 'http://purl.org/dc/terms/source',
-    description: 'A related resource from which the described resource is derived.'
+    description: 'A related resource from which the described resource is derived.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE'
   },
   DESCRIPTION: {
     label: 'description',
@@ -97,6 +104,7 @@ MetadataTerm.property = {
     fieldtype: 'string',
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/description',
-    description: 'An account of the resource.'
+    description: 'An account of the resource.',
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION'
   }
 }
