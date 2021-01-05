@@ -40268,8 +40268,11 @@ class SettingsController {
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * @returns {Boolean} - true if tokenizer options for the current tokenizer is already defined
+   */
   get hasTokenizerOptions () {
-    return this.options.tokenize && this.options.tokenize[this.tokenizerOptionValue]
+    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
   /**
@@ -40295,8 +40298,9 @@ class SettingsController {
   }
 
   /**
-   *
-   * @param {Options} localTextEditorOptions
+   * Updates current values of local sourceText options
+   * @param {Object} localTextEditorOptions
+   *        {Options} localTextEditorOptions.sourceText
    * @param {Object} sourceTextData - currentValues for options
    *        {String} sourceTextData.lang
    *        {String} sourceTextData.direction
@@ -40315,6 +40319,11 @@ class SettingsController {
     this.store.commit('incrementOptionsUpdated')
   }
 
+  /**
+   * Resets local options
+   * @param {Object} localTextEditorOptions
+   *        {Options} localTextEditorOptions.sourceText
+   */
   async resetLocalTextEditorOptions (localTextEditorOptions) {
     await localTextEditorOptions.sourceText.reset()
     localTextEditorOptions.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
@@ -40325,15 +40334,15 @@ class SettingsController {
       await localTextEditorOptions.tei.reset()
     }
     this.store.commit('incrementOptionsUpdated')
-    return localTextEditorOptions
   }
 
+  /**
+   * Resets global options
+   */
   async resetAllOptions () {
-    // reset app options - theme, tokenizer
     await this.options.app.reset()
     Object.values(this.options.app.items).forEach(optionItem => this.changeOption(optionItem))
 
-    // reset sourceText options - language, direction, sourceType
     await this.options.sourceText.reset()
     this.options.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
     Object.values(this.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
@@ -45333,15 +45342,22 @@ __webpack_require__.r(__webpack_exports__);
       await this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
+      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
       this.updateText()
     }
   },
   computed: {
+    /**
+     * Used for css id definition
+     */
     formattedTextId () {
       return this.textId ?? 'no-id'
     },
 
+    /**
+     * It is executed after each alignment update, 
+     * checks if  localOptions is not yet uploaded
+     */
     async dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
@@ -45420,6 +45436,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Updates sourceText properties from textController
+     */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData) {
@@ -45429,6 +45448,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
+    /**
+     * Clears text and reloads local options
+     */
     async restartTextEditor () {
         this.text = ''
         await this.prepareDefaultTextEditorOptions()
@@ -45455,6 +45477,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.deleteText(this.textType, this.textId)
     },
 
+    /**
+     * Reloads local options
+     */
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
@@ -45462,6 +45487,9 @@ __webpack_require__.r(__webpack_exports__);
       this.updateText()
     },
 
+    /**
+     * Uploads a single instance of text
+     */
     uploadSingle (fileData) {
       this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,

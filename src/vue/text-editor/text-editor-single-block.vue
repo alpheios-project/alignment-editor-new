@@ -100,15 +100,22 @@ export default {
       await this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      this.localTextEditorOptions = await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
+      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
       this.updateText()
     }
   },
   computed: {
+    /**
+     * Used for css id definition
+     */
     formattedTextId () {
       return this.textId ?? 'no-id'
     },
 
+    /**
+     * It is executed after each alignment update, 
+     * checks if  localOptions is not yet uploaded
+     */
     async dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         await this.prepareDefaultTextEditorOptions()
@@ -187,6 +194,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * Updates sourceText properties from textController
+     */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData) {
@@ -196,6 +206,9 @@ export default {
       }
     },
 
+    /**
+     * Clears text and reloads local options
+     */
     async restartTextEditor () {
         this.text = ''
         await this.prepareDefaultTextEditorOptions()
@@ -222,6 +235,9 @@ export default {
       this.$textC.deleteText(this.textType, this.textId)
     },
 
+    /**
+     * Reloads local options
+     */
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
@@ -229,6 +245,9 @@ export default {
       this.updateText()
     },
 
+    /**
+     * Uploads a single instance of text
+     */
     uploadSingle (fileData) {
       this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,
