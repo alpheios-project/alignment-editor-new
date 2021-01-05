@@ -249,7 +249,7 @@ describe('option-item-block.test.js', () => {
     expect(cmp.vm.optionType).toEqual('radio')
     expect(cmp.vm.itemId).toEqual('alpheios-alignment-editor-source-text__1__direction-id')
 
-    expect(cmp.find(`#${cmp.vm.itemId}`).isVisible()).toBeTruthy()
+    expect(cmp.find(`#${cmp.vm.itemIdWithValue('ltr')}`).isVisible()).toBeTruthy()
 
     expect(cmp.vm.labelText).toEqual(cmp.vm.optionItem.labelText)
 

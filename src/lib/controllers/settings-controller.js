@@ -111,6 +111,7 @@ export default class SettingsController {
    */
   changeOption (optionItem) {
     const optionNameParts = optionItem.name.split('__')
+
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     }
@@ -119,6 +120,13 @@ export default class SettingsController {
     }
 
     this.store.commit('incrementOptionsUpdated')
+  }
+
+  /**
+   * @returns {Boolean} - true if tokenizer options for the current tokenizer is already defined
+   */
+  get hasTokenizerOptions () {
+    return Boolean(this.options.tokenize) && Boolean(this.options.tokenize[this.tokenizerOptionValue])
   }
 
   /**
@@ -132,7 +140,7 @@ export default class SettingsController {
       sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
     }
 
-    if (this.options.tokenize && this.options.tokenize[this.tokenizerOptionValue]) {
+    if (this.hasTokenizerOptions) {
       Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
         clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.storageAdapter)
       })
@@ -144,8 +152,9 @@ export default class SettingsController {
   }
 
   /**
-   *
-   * @param {Options} localTextEditorOptions
+   * Updates current values of local sourceText options
+   * @param {Object} localTextEditorOptions
+   *        {Options} localTextEditorOptions.sourceText
    * @param {Object} sourceTextData - currentValues for options
    *        {String} sourceTextData.lang
    *        {String} sourceTextData.direction
@@ -162,6 +171,37 @@ export default class SettingsController {
       localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
     this.store.commit('incrementOptionsUpdated')
+  }
+
+  /**
+   * Resets local options
+   * @param {Object} localTextEditorOptions
+   *        {Options} localTextEditorOptions.sourceText
+   */
+  async resetLocalTextEditorOptions (localTextEditorOptions) {
+    await localTextEditorOptions.sourceText.reset()
+    localTextEditorOptions.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
+    if (localTextEditorOptions.text) {
+      await localTextEditorOptions.text.reset()
+    }
+    if (localTextEditorOptions.tei) {
+      await localTextEditorOptions.tei.reset()
+    }
+    this.store.commit('incrementOptionsUpdated')
+  }
+
+  /**
+   * Resets global options
+   */
+  async resetAllOptions () {
+    await this.options.app.reset()
+    Object.values(this.options.app.items).forEach(optionItem => this.changeOption(optionItem))
+
+    await this.options.sourceText.reset()
+    this.options.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
+    Object.values(this.options.sourceText.items).forEach(optionItem => this.changeOption(optionItem))
+
+    this.store.commit('incrementResetOptions')
   }
 }
 

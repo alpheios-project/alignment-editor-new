@@ -79,7 +79,7 @@ export default {
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', e.target.result)
+        this.$emit('upload-single', { filetext: e.target.result, filename: file.name })
         this.showUploadBlock = false
       }
       reader.readAsText(file)

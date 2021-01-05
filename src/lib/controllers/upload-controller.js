@@ -34,9 +34,11 @@ export default class UploadController {
   }
 
   /**
-   * Executes upload workflow: one origin, one target text - only source state
-   * fileData should contain 6 rows: origin.text, origin.direction, origin.lang, target.text, target.direction, target.lang
-   * @param {Object} data - all data for download
+   * Executes upload workflow: one origin, one/several targets
+   * fileData should contain mimimum 2 rows: Header, text
+   * Several texts (origin, target) are divided by Headers line
+   * @param {String} fileData - file text
+   *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
   static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
@@ -68,9 +70,19 @@ export default class UploadController {
     return false
   }
 
+  /**
+   * Executes upload workflow: one text (it could be origin/target)
+   * It could have the first line with HEADER (text parameters) or not
+   * @param {String} fileData.filetext - file text
+   *        {String} fileData.filename - file name (for getting extension)
+   *        {String} textId - source text ID for updating sourceText instance
+   *        {String} textType - origin/target
+   *        {String} tokenization - tokenizer name (used for creating sourceText)
+    * @return {SourceText}
+   */
   static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.indexOf('HEADER:') === 0) {
-      const fileDataArr = fileData.split(/\r\n|\r|\n/)
+    if (fileData.filetext.indexOf('HEADER:') === 0) {
+      const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
         console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
         NotificationSingleton.addNotification({
@@ -84,7 +96,9 @@ export default class UploadController {
 
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
-      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData })
+      const fileExtension = fileData.filename.split('.').pop()
+      const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
   }
 }
