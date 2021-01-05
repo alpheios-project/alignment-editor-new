@@ -1015,6 +1015,10 @@ fieldset.alpheios-alignment-slim-fieldset legend {
   font-size: 110%;
   font-weight: bold;
 }
+.alpheios-alignment-options__buttons {
+  padding: 5px 0 15px;
+  text-align: left;
+}
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;
 }

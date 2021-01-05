@@ -20,7 +20,7 @@
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
 
-      <tokenize-options-block :localOptions = "localTextEditorOptions" 
+      <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
 
@@ -98,6 +98,10 @@ export default {
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
+    },
+    async '$store.state.resetOptions' () {
+      this.localTextEditorOptions = await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
+      this.updateText()
     }
   },
   computed: {

@@ -3,5 +3,10 @@
       "message": "Application options",
       "description": "Fieldset inside options",
       "component": "OptionsBlock"
+    },
+    "OPTIONS_BLOCK_RESET_ALL": {
+      "message": "Reset all",
+      "description": "Button inside options",
+      "component": "OptionsBlock"
     }
 }

@@ -11,6 +11,12 @@
             :optionItem = "appOptionItems.tokenizer"
           />
       </fieldset>
+      <p class="alpheios-alignment-options__buttons">
+        <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
+            @click="resetOptions" >
+            {{ l10n.getMsgS('OPTIONS_BLOCK_RESET_ALL') }}
+        </button>
+      </p>
     </div>
   </div>
 </template>
@@ -35,10 +41,13 @@ export default {
       return L10nSingleton
     },
     appOptionItems () {
-      return this.$settingsC.options.app.items
+      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items
     }
   },
   methods: {
+    async resetOptions () {
+      await this.$settingsC.resetAllOptions()
+    }
   }
 }
 </script>
@@ -63,4 +72,8 @@ export default {
     font-weight: bold;
   }
 }
+  .alpheios-alignment-options__buttons {
+    padding: 5px 0 15px;
+    text-align: left;
+  }
 </style>

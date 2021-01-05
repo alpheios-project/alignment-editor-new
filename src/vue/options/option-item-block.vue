@@ -29,9 +29,9 @@
 
     <p class = "alpheios-alignment-radio-block alpheios-alignment-option-item__control" v-if="optionType === 'radio'">
         <span v-for="item in values" :key="item.value">
-            <input type="radio" :id="itemId" :value="item.value" v-model="selected"
+            <input type="radio" :id="itemIdWithValue(item.value)" :value="item.value" v-model="selected"
                    @change="changeOption" :disabled="disabled" >
-            <label :for="itemId">{{ item.text }}</label>
+            <label :for="itemIdWithValue(item.value)">{{ item.text }}</label>
         </span>
     </p>
 
@@ -116,7 +116,7 @@ export default {
       return `${this.optionItem.name.replace(/\./g, '_')}-id`
     },
     values () {
-      return (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput) ? this.optionItem.values : null
+      return (this.$store.state.optionsUpdated && (this.optionItem.select || this.optionItem.radio || this.optionItem.selectInput)) ? this.optionItem.values : null
     },
     labelText () {
       if (this.optionItem.labelL10n) {
@@ -125,7 +125,7 @@ export default {
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.optionItem && this.optionItem.boolean && this.optionItem.values) ? this.optionItem.textValues()[0].text : null
+      return (this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && this.optionItem.values)) ? this.optionItem.textValues()[0].text : null
     },
     optionType () {
       if (this.optionItem.boolean) { return 'boolean' }
@@ -166,8 +166,8 @@ export default {
   methods: {
     updateSelectedFromExternal () {
       this.selected = this.optionItem.currentValue
-
-      if (this.optionItem.selectInput) {
+      
+      if (this.optionItem.selectInput && this.values) {
         const valueFromSelect = this.values.find(valueObj => valueObj.value === this.optionItem.currentValue)
 
         if (valueFromSelect) {
@@ -193,6 +193,9 @@ export default {
     updateSelectSI () {
       this.selectedI = null
       this.changeOption()
+    },
+    itemIdWithValue (value) {
+      return `${this.itemId}_${value}`
     }
   }
 }
