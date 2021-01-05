@@ -40,6 +40,8 @@ export default class NotificationSingleton {
 NotificationSingleton.types = {
   // Notification type for errors
   ERROR: 'error',
+  // Notification type for system error
+  SYSTEM_ERROR: 'system_error',
   // Notification type for info
   INFO: 'info'
 }

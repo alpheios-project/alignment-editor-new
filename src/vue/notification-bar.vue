@@ -67,6 +67,28 @@ export default {
                 }
             }
 
+            &.alpheios-alignment-notification-bar-message___system_error {
+                background:rgba(198, 6, 35, 0.31);
+                color: #c60623;
+                border-color: #c60623;
+
+                .alpheios-alignment-notification-bar__close-btn {
+                    fill: #c60623;
+                    stroke: #c60623;
+
+                    &:hover,
+                    &:focus {
+                        fill: #d1374e;
+                        stroke:  #d1374e;
+                    }
+
+                    &:active {
+                        fill:  #d1374e;
+                        stroke:  #d1374e;
+                    }
+                }
+            }
+
             &.alpheios-alignment-notification-bar-message___error {
                 background:rgba(198, 73, 6, 0.31);
                 color: #C64906;
