@@ -13,5 +13,20 @@
       "message": "show",
       "description": "A label for hide/show links",
       "component": "AlignEditor"
+    },
+    "TOKENS_EDITOR_HEADING": {
+      "message": "Edit tokens in Origin and Target texts",
+      "description": "A heading for text editor",
+      "component": "AlignEditor"
+    },
+    "TOKENS_EDITOR_HIDE": {
+      "message": "hide",
+      "description": "A label for hide/show links",
+      "component": "AlignEditor"
+    },
+    "TOKENS_EDITOR_SHOW": {
+      "message": "show",
+      "description": "A label for hide/show links",
+      "component": "AlignEditor"
     }
 }

@@ -67,7 +67,7 @@ export default {
 </script>
 <style lang="scss">
     .alpheios-alignment-editor-align-text-segment {
-        span {
+        span.alpheios-token {
             cursor: pointer;
             padding: 4px;
             border: 1px solid transparent;
