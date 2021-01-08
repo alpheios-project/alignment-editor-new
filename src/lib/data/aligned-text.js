@@ -57,4 +57,9 @@ export default class AlignedText {
   get readyForAlignment () {
     return this.segments.length > 0
   }
+
+  getNewIdWord (segment) {
+    const getNextIdWordMethod = TokenizeController.getNextTokenIdWordMethod(this.tokenization.tokenizer)
+    return getNextIdWordMethod(segment.lastTokenWordId)
+  }
 }

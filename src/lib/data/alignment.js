@@ -645,4 +645,81 @@ export default class Alignment {
   get allTokenizedTargetTextsIds () {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
+
+  updateTokenWord (token, word) {
+    return this.tokenIsGrouped(token) ? false : token.updateWord(word)
+  }
+
+  mergeToken (token, direction) {
+    const { segment, tokenIndex, tokenMergeTo, mergePosition } = (direction === 'left') ? this.getLeftToken(token) : this.getRightToken(token)
+
+    if (!tokenMergeTo || this.tokenIsGrouped(token) || this.tokenIsGrouped(tokenMergeTo)) { return false }
+
+    tokenMergeTo.merge(token, mergePosition)
+    segment.deleteToken(tokenIndex)
+    return true
+  }
+
+  getAlignedTextByToken (token) {
+    let alignedText
+    if (token.textType === 'origin') {
+      alignedText = this[token.textType].alignedText
+    } else {
+      alignedText = this[token.textType][token.docSourceId].alignedText
+    }
+    return alignedText
+  }
+
+  getSegmentByToken (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return alignedText.segments[token.segmentIndex - 1]
+  }
+
+  getLeftToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+
+    if (!segment.isFirstTokenInSegment(tokenIndex)) {
+      return {
+        segment,
+        tokenIndex,
+        mergePosition: 'right',
+        tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
+      }
+    }
+    return false
+  }
+
+  getRightToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+
+    if (!segment.isLastTokenInSegment(tokenIndex)) {
+      return {
+        segment,
+        tokenIndex,
+        mergePosition: 'left',
+        tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
+      }
+    }
+    return false
+  }
+
+  splitToken (token, tokenWord) {
+    if (this.tokenIsGrouped(token)) { return false }
+
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord(segment)
+
+    const tokenWordParts = tokenWord.split(' ')
+    // console.info('newIdWord - ', newIdWord)
+    token.updateWord(tokenWordParts[0])
+
+    segment.addNewToken(tokenIndex, newIdWord, tokenWordParts[1])
+    console.info('alignment', this)
+    return true
+  }
 }

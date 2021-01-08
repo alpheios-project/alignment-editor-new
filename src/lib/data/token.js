@@ -24,4 +24,18 @@ export default class Token {
   isTheSameTargetId (limitByTargetId = null) {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
+
+  updateWord (word) {
+    this.word = word
+    return true
+  }
+
+  merge (token, position) {
+    if (position === 'left') {
+      this.word = `${token.word} ${this.word}`
+    } else if (position === 'right') {
+      this.word = `${this.word} ${token.word}`
+    }
+    return true
+  }
 }

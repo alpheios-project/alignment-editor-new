@@ -39734,6 +39734,30 @@ class AlignedController {
   startOver () {
     this.alignment = null
   }
+
+  updateTokenWord (token, word) {
+    if (this.alignment.updateTokenWord(token, word)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  mergeToken (token, direction = 'left') {
+    if (this.alignment.mergeToken(token, direction)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  splitToken (token, tokenWord) {
+    if (this.alignment.splitToken(token, tokenWord)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
 }
 
 
@@ -40702,13 +40726,15 @@ class TokenizeController {
     return {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
-        hasOptions: false
+        hasOptions: false,
+        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
-        checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this)
+        checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
+        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
       }
     }
   }
@@ -40813,6 +40839,22 @@ class TokenizeController {
     }
 
     return false
+  }
+
+  static getNextTokenIdWordMethod (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer].getNextTokenIdWord
+    }
+  }
+
+  static getSimpleNextTokenIdWord (currentIdWord) {
+    const idWordParts = currentIdWord.split('-')
+    const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
+
+    const nextIdWordParts = [...idWordParts]
+    nextIdWordParts[nextIdWordParts.length - 1] = numTokenInId + 1
+
+    return nextIdWordParts.join('-')
   }
 }
 
@@ -41013,6 +41055,11 @@ class AlignedText {
 
   get readyForAlignment () {
     return this.segments.length > 0
+  }
+
+  getNewIdWord (segment) {
+    const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getNextTokenIdWordMethod(this.tokenization.tokenizer)
+    return getNextIdWordMethod(segment.lastTokenWordId)
   }
 }
 
@@ -42206,6 +42253,83 @@ class Alignment {
   get allTokenizedTargetTextsIds () {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
+
+  updateTokenWord (token, word) {
+    return this.tokenIsGrouped(token) ? false : token.updateWord(word)
+  }
+
+  mergeToken (token, direction) {
+    const { segment, tokenIndex, tokenMergeTo, mergePosition } = (direction === 'left') ? this.getLeftToken(token) : this.getRightToken(token)
+
+    if (!tokenMergeTo || this.tokenIsGrouped(token) || this.tokenIsGrouped(tokenMergeTo)) { return false }
+
+    tokenMergeTo.merge(token, mergePosition)
+    segment.deleteToken(tokenIndex)
+    return true
+  }
+
+  getAlignedTextByToken (token) {
+    let alignedText
+    if (token.textType === 'origin') {
+      alignedText = this[token.textType].alignedText
+    } else {
+      alignedText = this[token.textType][token.docSourceId].alignedText
+    }
+    return alignedText
+  }
+
+  getSegmentByToken (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return alignedText.segments[token.segmentIndex - 1]
+  }
+
+  getLeftToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+
+    if (!segment.isFirstTokenInSegment(tokenIndex)) {
+      return {
+        segment,
+        tokenIndex,
+        mergePosition: 'right',
+        tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
+      }
+    }
+    return false
+  }
+
+  getRightToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+
+    if (!segment.isLastTokenInSegment(tokenIndex)) {
+      return {
+        segment,
+        tokenIndex,
+        mergePosition: 'left',
+        tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
+      }
+    }
+    return false
+  }
+
+  splitToken (token, tokenWord) {
+    if (this.tokenIsGrouped(token)) { return false }
+
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord(segment)
+
+    const tokenWordParts = tokenWord.split(' ')
+    // console.info('newIdWord - ', newIdWord)
+    token.updateWord(tokenWordParts[0])
+
+    segment.addNewToken(tokenIndex, newIdWord, tokenWordParts[1])
+    console.info('alignment', this)
+    return true
+  }
 }
 
 
@@ -42460,6 +42584,50 @@ class Segment {
    */
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
+
+    this.lastTokenWordId = this.tokens[this.tokens.length - 1].idWord
+  }
+
+  getTokenIndex (token) {
+    return this.tokens.findIndex(tokenCurrent => tokenCurrent.idWord === token.idWord)
+  }
+
+  isFirstTokenInSegment (tokenIndex) {
+    return (tokenIndex === 0)
+  }
+
+  isLastTokenInSegment (tokenIndex) {
+    return (tokenIndex === (this.tokens.length - 1))
+  }
+
+  getTokenByIndex (tokenIndex) {
+    return this.tokens[tokenIndex]
+  }
+
+  deleteToken (tokenIndex) {
+    return this.tokens.splice(tokenIndex, 1)
+  }
+
+  get freeIdWord () {
+    const idWordParts = this.lastTokenWordId.split('-')
+    const lastIdToken = parseInt(idWordParts[idWordParts.length - 1])
+
+    const freeIdWord = [...idWordParts]
+    freeIdWord[freeIdWord.length - 1] = lastIdToken + 1
+
+    return freeIdWord.join('-')
+  }
+
+  addNewToken (tokenIndex, newIdWord, word) {
+    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default({
+      textType: this.textType,
+      idWord: newIdWord,
+      word: word
+    }, this.index, this.docSourceId)
+
+    this.lastTokenWordId = newIdWord
+
+    return this.tokens.splice(tokenIndex + 1, 0, newToken)
   }
 }
 
@@ -42631,6 +42799,20 @@ class Token {
    */
   isTheSameTargetId (limitByTargetId = null) {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
+  }
+
+  updateWord (word) {
+    this.word = word
+    return true
+  }
+
+  merge (token, position) {
+    if (position === 'left') {
+      this.word = `${token.word} ${this.word}`
+    } else if (position === 'right') {
+      this.word = `${this.word} ${token.word}`
+    }
+    return true
   }
 }
 
@@ -43215,7 +43397,8 @@ class StoreDefinition {
         tokenizerUpdated: 1,
         alignmentRestarted: 1,
         uploadCheck: 1,
-        resetOptions: 1
+        resetOptions: 1,
+        tokenUpdated: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -43248,6 +43431,9 @@ class StoreDefinition {
         },
         incrementResetOptions (state) {
           state.resetOptions++
+        },
+        incrementTokenUpdated (state) {
+          state.tokenUpdated++
         }
       }
     }
@@ -43806,7 +43992,7 @@ __webpack_require__.r(__webpack_exports__);
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedC.allAlignedTextsSegments : []
     },
 
     /**
@@ -43954,7 +44140,7 @@ __webpack_require__.r(__webpack_exports__);
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedC.allAlignedTextsSegments : []
     },
 
     /**
@@ -44257,6 +44443,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+    },
+    allTokens () {
+      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
     }
   },
   methods: {
@@ -44447,6 +44636,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+    },
+    allTokens () {
+      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
     }
   },
   methods: {
@@ -44520,6 +44712,15 @@ __webpack_require__.r(__webpack_exports__);
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup
       }
+    }, 
+    tokenWord () {
+      return this.$store.state.tokenUpdated && this.token.word
+    }, 
+    tokenBeforeWord () {
+      return this.$store.state.tokenUpdated && this.token.beforeWord
+    }, 
+    tokenAfterWord () {
+      return this.$store.state.tokenUpdated && this.token.afterWord
     }
   },
   methods: {
@@ -44566,6 +44767,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokenEditBlock',
@@ -44580,23 +44782,30 @@ __webpack_require__.r(__webpack_exports__);
       tokenWord: null
     }
   },
+  watch: {
+    '$store.state.tokenUpdated' () {
+      this.tokenWord = this.token.word
+    }
+  },
   mounted () {
     this.tokenWord = this.token.word
   },
   computed: {
     itemId () {
       return `${this.token.idWord}-input-id`
-    },
-    tokenClasses () {
-      return { 
-      }
     }
   },
   methods: {
-    updateToken () {
-      console.info('Update ', this.tokenWord, this.token.word, this.token.idWord)
-    }
-  }
+    updateTokenWord () {
+      this.$alignedC.updateTokenWord(this.token, this.tokenWord)
+    },
+    mergeToken (direction) {
+      this.$alignedC.mergeToken(this.token, direction)
+    },
+    split ()  {
+      this.$alignedC.splitToken(this.token, this.tokenWord)
+    },
+  } 
 });
 
 
@@ -48521,7 +48730,7 @@ var render = function() {
       attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
     },
     [
-      _vm._l(_vm.segment.tokens, function(token) {
+      _vm._l(_vm.allTokens, function(token) {
         return [
           token.word
             ? _c("token", {
@@ -48588,7 +48797,7 @@ var render = function() {
       attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
     },
     [
-      _vm._l(_vm.segment.tokens, function(token) {
+      _vm._l(_vm.allTokens, function(token) {
         return [
           token.word
             ? _c("token-edit-block", {
@@ -48645,9 +48854,9 @@ var render = function() {
     [
       _vm._v(
         "\n    " +
-          _vm._s(_vm.token.beforeWord) +
-          _vm._s(_vm.token.word) +
-          _vm._s(_vm.token.afterWord) +
+          _vm._s(_vm.tokenBeforeWord) +
+          _vm._s(_vm.tokenWord) +
+          _vm._s(_vm.tokenAfterWord) +
           "\n"
       )
     ]
@@ -48705,7 +48914,20 @@ var render = function() {
           attrs: { type: "text", id: _vm.itemId },
           domProps: { value: _vm.tokenWord },
           on: {
-            change: _vm.updateToken,
+            change: _vm.updateTokenWord,
+            keyup: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "space", 32, $event.key, [
+                  " ",
+                  "Spacebar"
+                ])
+              ) {
+                return null
+              }
+              $event.stopPropagation()
+              return _vm.split($event)
+            },
             input: function($event) {
               if ($event.target.composing) {
                 return

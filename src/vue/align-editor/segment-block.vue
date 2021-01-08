@@ -3,7 +3,7 @@
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
-        <template v-for = "token in segment.tokens">
+        <template v-for = "token in allTokens">
           <token
             v-if ="token.word"
             :token = "token" :key = "token.idWord"
@@ -123,6 +123,9 @@ export default {
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+    },
+    allTokens () {
+      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
     }
   },
   methods: {

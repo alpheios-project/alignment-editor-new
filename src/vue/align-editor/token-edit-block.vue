@@ -8,7 +8,8 @@
             type="text"
             v-model="tokenWord"
             :id="itemId"
-            @change = "updateToken"
+            @change = "updateTokenWord"
+            @keyup.space.stop = "split"
         >
       </span>
 
@@ -29,23 +30,30 @@ export default {
       tokenWord: null
     }
   },
+  watch: {
+    '$store.state.tokenUpdated' () {
+      this.tokenWord = this.token.word
+    }
+  },
   mounted () {
     this.tokenWord = this.token.word
   },
   computed: {
     itemId () {
       return `${this.token.idWord}-input-id`
-    },
-    tokenClasses () {
-      return { 
-      }
     }
   },
   methods: {
-    updateToken () {
-      console.info('Update ', this.tokenWord, this.token.word, this.token.idWord)
-    }
-  }
+    updateTokenWord () {
+      this.$alignedC.updateTokenWord(this.token, this.tokenWord)
+    },
+    mergeToken (direction) {
+      this.$alignedC.mergeToken(this.token, direction)
+    },
+    split ()  {
+      this.$alignedC.splitToken(this.token, this.tokenWord)
+    },
+  } 
 }
 </script>
 <style lang="scss">

@@ -71,7 +71,7 @@ export default {
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedC.allAlignedTextsSegments : []
     },
 
     /**

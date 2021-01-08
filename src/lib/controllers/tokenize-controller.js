@@ -15,13 +15,15 @@ export default class TokenizeController {
     return {
       simpleLocalTokenizer: {
         method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
-        hasOptions: false
+        hasOptions: false,
+        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
-        checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this)
+        checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
+        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
       }
     }
   }
@@ -126,5 +128,21 @@ export default class TokenizeController {
     }
 
     return false
+  }
+
+  static getNextTokenIdWordMethod (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer].getNextTokenIdWord
+    }
+  }
+
+  static getSimpleNextTokenIdWord (currentIdWord) {
+    const idWordParts = currentIdWord.split('-')
+    const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
+
+    const nextIdWordParts = [...idWordParts]
+    nextIdWordParts[nextIdWordParts.length - 1] = numTokenInId + 1
+
+    return nextIdWordParts.join('-')
   }
 }
