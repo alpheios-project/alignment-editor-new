@@ -28,7 +28,8 @@
     }
 
     .alpheios-menu-button,
-    .alpheios-actions-button {
+    .alpheios-actions-button,
+    .alpheios-options-button {
         color: map.get($theme, 'main-menu-text-color');
         background: map.get($theme, 'main-menu-background-color');
         border-color: map.get($theme, 'main-menu-border-color');

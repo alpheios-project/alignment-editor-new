@@ -40056,6 +40056,7 @@ class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownloadSingle (data) {
+    console.info('plainSourceDownloadSingle - ', data)
     if (!data.sourceText) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
@@ -40653,10 +40654,7 @@ class TextsController {
     const downloadType = 'plainSourceDownloadSingle'
     const sourceText = this.getDocSource(textType, textId)
 
-    if (sourceText && sourceText.fullyDefined) {
-      return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { sourceText })
-    }
-    return false
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { sourceText })
   }
 
   /**
