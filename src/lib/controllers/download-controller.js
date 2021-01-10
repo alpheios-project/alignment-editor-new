@@ -75,7 +75,6 @@ export default class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownloadSingle (data) {
-    console.info('plainSourceDownloadSingle - ', data)
     if (!data.sourceText) {
       console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       NotificationSingleton.addNotification({

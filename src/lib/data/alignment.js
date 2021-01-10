@@ -715,11 +715,9 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord(segment)
 
     const tokenWordParts = tokenWord.split(' ')
-    // console.info('newIdWord - ', newIdWord)
     token.updateWord(tokenWordParts[0])
 
     segment.addNewToken(tokenIndex, newIdWord, tokenWordParts[1])
-    console.info('alignment', this)
     return true
   }
 }

@@ -5,18 +5,18 @@
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
     />
     
-    <div class ="alpheios-alignment-editor-align-define-container-view-mode">
+    <div class ="alpheios-alignment-editor-align-define-container-edit-mode">
       <div class="alpheios-alignment-editor-align-segment-data"
            v-for="segmentData in allAlignedTextsSegments" :key="getIndex('origin', segmentData.index)"
            :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segmentData.index === allAlignedTextsSegments.length }"
       >
-        <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin">
+        <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-edit-block 
                   :segment = "segmentData.origin" :currentTargetId = "currentTargetId"
           />
         </div>
 
-        <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
+        <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-edit-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
                   :segment = "segmentTarget" 
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
@@ -131,7 +131,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-align-define-container-view-mode {
+  .alpheios-alignment-editor-align-define-container-edit-mode {
     margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
@@ -154,7 +154,7 @@ export default {
       }
     }    
 
-    .alpheios-alignment-editor-align-text-segment {
+    .alpheios-alignment-editor-align-text-segment-edit {
       border-bottom: 2px solid  #e3e3e3;
       padding: 10px; 
 
@@ -164,7 +164,7 @@ export default {
       }
     }
 
-    .alpheios-alignment-editor-align-segment-data-item {
+    .alpheios-alignment-editor-align-segment-edit-data-item {
       width: 50%;
       float: left;
 

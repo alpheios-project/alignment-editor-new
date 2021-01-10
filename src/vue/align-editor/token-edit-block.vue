@@ -1,6 +1,6 @@
 <template>
-    <span class="alpheios-alignment-token-edit-span">{{ token.beforeWord }}
-
+    <span class="alpheios-token-edit alpheios-alignment-token-edit-span" :class="additionalClasses">
+      {{ token.beforeWord }}
       <span class="alpheios-alignment-token-edit-input-container">
         <span class="alpheios-alignment-token-edit-input-width-machine" aria-hidden="true">{{ tokenWord }}</span>
         <input
@@ -8,31 +8,40 @@
             type="text"
             v-model="tokenWord"
             :id="itemId"
-            @change = "updateTokenWord"
-            @keyup.space.stop = "split"
+            @focus = "showActionsMenu"
         >
       </span>
-
       {{ token.afterWord }}
     </span>
 </template>
 <script>
+import Vue from '@vue-runtime'
+
 export default {
   name: 'TokenEditBlock',
   props: {
     token: {
       type: Object,
       required: true
+    },
+    deactivated : {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data () {
     return {
-      tokenWord: null
+      tokenWord: null,
+      activated: false
     }
   },
   watch: {
     '$store.state.tokenUpdated' () {
       this.tokenWord = this.token.word
+    },
+    deactivated () {
+      this.activated = false
     }
   },
   mounted () {
@@ -41,6 +50,11 @@ export default {
   computed: {
     itemId () {
       return `${this.token.idWord}-input-id`
+    },
+    additionalClasses () {
+      return {
+        'alpheios-alignment-token-edit-span__activated' : this.activated
+      }
     }
   },
   methods: {
@@ -53,6 +67,22 @@ export default {
     split ()  {
       this.$alignedC.splitToken(this.token, this.tokenWord)
     },
+    hideActionsMenu () {
+      this.activated = false
+      this.$emit('hideActionsMenu')
+    },
+    async showActionsMenu () {
+      this.$emit('removeAllActivated')
+
+      await Vue.nextTick()
+
+      this.activated = true
+      this.$emit('showActionsMenu', {
+        token: this.token,
+        leftPos: this.$el.offsetLeft,
+        topPos: this.$el.offsetTop
+      })
+    }
   } 
 }
 </script>
@@ -61,6 +91,7 @@ export default {
     display: inline-block;
     vertical-align: baseline;
     padding: 4px;
+    position: relative;
   }
 
   .alpheios-alignment-token-edit-input-width-machine {
@@ -81,5 +112,8 @@ export default {
     left: 0;
   }
 
+  .alpheios-alignment-token-edit-span__activated {
+    margin-top: 30px;
+  }
 
 </style>

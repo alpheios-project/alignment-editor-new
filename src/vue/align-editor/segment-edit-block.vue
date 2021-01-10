@@ -1,12 +1,19 @@
 <template>
-    <div class="alpheios-alignment-editor-align-text-segment" 
+    <div class="alpheios-alignment-editor-align-text-segment-edit" 
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
+        <actions-menu-token-edit 
+            :token = "actionsToken" v-show="showActionsMenuFlag"
+            :leftPos = "actionsMenuLeft" :topPos = "actionsMenuTop"
+            :containerWidth = "containerWidth"
+        />
         <template v-for = "token in allTokens">
           <token-edit-block
             v-if ="token.word"
-            :token = "token" :key = "token.idWord"
+            :token = "token" :key = "token.idWord" :deactivated = "deactivated"
+            @hideActionsMenu = "hideActionsMenu" @showActionsMenu = "showActionsMenu"
+            @removeAllActivated = "removeAllActivated"
           />
           <br v-if="token.hasLineBreak" />
         </template>
@@ -14,11 +21,13 @@
 </template>
 <script>
 import TokenEditBlock from '@/vue/align-editor/token-edit-block.vue'
+import ActionsMenuTokenEdit from '@/vue/align-editor/actions-menu-token-edit.vue'
 
 export default {
   name: 'SegmentEditBlock',
   components: {
-    tokenEditBlock: TokenEditBlock
+    tokenEditBlock: TokenEditBlock,
+    actionsMenuTokenEdit: ActionsMenuTokenEdit
   },
   props: {
     currentTargetId: {
@@ -41,7 +50,13 @@ export default {
     return {
       updated: 1,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      showActionsMenuFlag: false,
+      actionsToken: null,
+      actionsMenuLeft: 0,
+      actionsMenuTop: 0,
+      deactivated: 1,
+      containerWidth: 0
     }
   },
   watch: {
@@ -122,9 +137,28 @@ export default {
     }
   },
   methods: {
+    hideActionsMenu () {
+      this.showActionsMenuFlag = false
+    },
+    showActionsMenu (data) {
+      
+      this.actionsToken = data.token
+      this.actionsMenuLeft = data.leftPos
+      this.actionsMenuTop = data.topPos
+      this.containerWidth = this.$el.offsetWidth
+
+      this.showActionsMenuFlag = true
+    },
+    removeAllActivated () {
+      this.showActionsMenuFlag = false
+      this.deactivated++
+    }
   }
 
 }
 </script>
 <style lang="scss">
+  .alpheios-alignment-editor-align-text-segment-edit {
+    position: relative;
+  }
 </style>
