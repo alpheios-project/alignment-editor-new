@@ -34,7 +34,7 @@ import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
 
 export default {
-  name: 'AlignEditorEditMode',
+  name: 'AlignEditorViewMode',
   components: {
     segmentBlock: SegmentBlock,
     alignEditorTabs: AlignEditorTabs
