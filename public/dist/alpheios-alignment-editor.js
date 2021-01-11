@@ -43857,6 +43857,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/ok.svg */ "./inline-icons/ok.svg");
+/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/split.svg */ "./inline-icons/split.svg");
+/* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/merge-left.svg */ "./inline-icons/merge-left.svg");
+/* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/merge-right.svg */ "./inline-icons/merge-right.svg");
+/* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/tooltip.vue */ "./vue/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43870,8 +43896,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
+
+
+
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActionsMenuTokenEdit',
+  components: {
+    okIcon: (_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default()),
+    splitIcon: (_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    tooltip: _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__.default
+  },
   props: {
     token: {
       type: Object,
@@ -43898,6 +43940,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default
+    },
     cssStyles () {
       const  top = this.topPos + 'px'
       const menuWidth = this.$refs.actionsInner ? this.$refs.actionsInner.offsetWidth : 0
@@ -44629,6 +44674,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -44666,7 +44721,11 @@ __webpack_require__.r(__webpack_exports__);
       actionsMenuLeft: 0,
       actionsMenuTop: 0,
       deactivated: 1,
-      containerWidth: 0
+      containerWidth: 0,
+      updateTokenIdWord: null,
+      mergeTokenLeftIdWord: null,
+      mergeTokenRightIdWord: null,
+      splitTokenIdWord: null
     }
   },
   watch: {
@@ -44762,6 +44821,20 @@ __webpack_require__.r(__webpack_exports__);
     removeAllActivated () {
       this.showActionsMenuFlag = false
       this.deactivated++
+    },
+    updateTokenWord (token) {
+      this.updateTokenIdWord = token.idWord
+    },
+    mergeToken (token, direction) {
+      if (direction === 'left') {
+        this.mergeTokenLeftIdWord = token.idWord
+      }
+      if (direction === 'right') {
+        this.mergeTokenRightIdWord = token.idWord
+      }
+    },
+    splitToken (token) {
+      this.splitTokenIdWord = token.idWord
     }
   }
 
@@ -44902,6 +44975,26 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 0
+    },
+    updateTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    mergeTokenLeftIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    mergeTokenRightIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    splitTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {
@@ -44916,7 +45009,27 @@ __webpack_require__.r(__webpack_exports__);
     },
     deactivated () {
       this.activated = false
-    }
+    },
+    updateTokenIdWord () {
+      if (this.activated && (this.updateTokenIdWord === this.token.idWord)) {
+        this.updateTokenWord()
+      }
+    },
+    mergeTokenLeftIdWord () {
+      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
+        this.mergeToken('left')
+      }
+    },
+    mergeTokenRightIdWord () {
+      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
+        this.mergeToken('right')
+      }
+    },
+    splitTokenIdWord () {
+      if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
+        this.splitToken()
+      }
+    } 
   },
   mounted () {
     this.tokenWord = this.token.word
@@ -44937,8 +45050,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     mergeToken (direction) {
       this.$alignedC.mergeToken(this.token, direction)
+      this.hideActionsMenu()
     },
-    split ()  {
+    splitToken ()  {
       this.$alignedC.splitToken(this.token, this.tokenWord)
     },
     hideActionsMenu () {
@@ -48645,41 +48759,116 @@ var render = function() {
         },
         [
           _c(
-            "span",
+            "tooltip",
             {
-              staticClass: "alpheios-token-edit-actions-button",
-              attrs: { id: "alpheios-token-edit-actions-button__update-token" }
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_UPDATE_TOKEN"),
+                tooltipDirection: "top"
+              }
             },
-            [_vm._v("A")]
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__update-token"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("updateTokenWord", _vm.token)
+                    }
+                  }
+                },
+                [_c("ok-icon")],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
-            "span",
+            "tooltip",
             {
-              staticClass: "alpheios-token-edit-actions-button",
-              attrs: { id: "alpheios-token-edit-actions-button__merge-left" }
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_LEFT"),
+                tooltipDirection: "top"
+              }
             },
-            [_vm._v("B")]
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__merge-left"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("mergeToken", _vm.token, "left")
+                    }
+                  }
+                },
+                [_c("merge-left-icon")],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
-            "span",
+            "tooltip",
             {
-              staticClass: "alpheios-token-edit-actions-button",
-              attrs: { id: "alpheios-token-edit-actions-button__merge-right" }
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_RIGHT"),
+                tooltipDirection: "top"
+              }
             },
-            [_vm._v("C")]
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__merge-right"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("mergeToken", _vm.token, "right")
+                    }
+                  }
+                },
+                [_c("merge-right-icon")],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
-            "span",
+            "tooltip",
             {
-              staticClass: "alpheios-token-edit-actions-button",
-              attrs: { id: "alpheios-token-edit-actions-button__split" }
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_SPLIT_TOKEN"),
+                tooltipDirection: "top"
+              }
             },
-            [_vm._v("D")]
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: { id: "alpheios-token-edit-actions-button__split" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("splitToken", _vm.token)
+                    }
+                  }
+                },
+                [_c("split-icon")],
+                1
+              )
+            ]
           )
-        ]
+        ],
+        1
       )
     ]
   )
@@ -49158,6 +49347,11 @@ var render = function() {
           leftPos: _vm.actionsMenuLeft,
           topPos: _vm.actionsMenuTop,
           containerWidth: _vm.containerWidth
+        },
+        on: {
+          updateTokenWord: _vm.updateTokenWord,
+          mergeToken: _vm.mergeToken,
+          splitToken: _vm.splitToken
         }
       }),
       _vm._v(" "),
@@ -49166,7 +49360,26 @@ var render = function() {
           token.word
             ? _c("token-edit-block", {
                 key: token.idWord,
-                attrs: { token: token, deactivated: _vm.deactivated },
+                attrs: {
+                  token: token,
+                  deactivated: _vm.deactivated,
+                  updateTokenIdWord:
+                    _vm.updateTokenIdWord === token.idWord
+                      ? _vm.updateTokenIdWord
+                      : null,
+                  mergeTokenLeftIdWord:
+                    _vm.mergeTokenLeftIdWord === token.idWord
+                      ? _vm.mergeTokenLeftIdWord
+                      : null,
+                  mergeTokenRightIdWord:
+                    _vm.mergeTokenRightIdWord === token.idWord
+                      ? _vm.mergeTokenRightIdWord
+                      : null,
+                  splitTokenIdWord:
+                    _vm.splitTokenIdWord === token.idWord
+                      ? _vm.splitTokenIdWord
+                      : null
+                },
                 on: {
                   hideActionsMenu: _vm.hideActionsMenu,
                   showActionsMenu: _vm.showActionsMenu,
@@ -50952,6 +51165,154 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/merge-left.svg":
+/*!*************************************!*\
+  !*** ./inline-icons/merge-left.svg ***!
+  \*************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 286.22 531.43","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M30.225 0L22.16 4.373C13.202 9.231 9.344 13.218 4.235 22.902l-3.45 6.54-.392 46.397L0 122.24h41.105V40.32h204.8v450.56h-204.8v-81.92H0l.393 46.4.392 46.398 3.45 6.54c1.896 3.595 4.872 8.23 6.613 10.298 3.484 4.141 14.448 10.566 20.578 12.061 2.155.526 53.743.862 114.64.748l110.72-.205 6.537-3.449c9.685-5.11 13.672-8.967 18.529-17.926l4.373-8.066V29.438l-3.45-6.54c-5.109-9.684-8.964-13.672-17.923-18.529l-8.067-4.373h-113.28zm80.119 163.22c-2.167-.084-4.348.638-6.555 2.164C99.1 168.626 5.983 254.68 2.84 258.675c-3.432 4.364-3.432 9.478 0 13.842 3.144 3.996 96.26 90.05 100.95 93.291 5.045 3.488 9.945 2.776 14.885-2.164l4.352-4.352v-73.217h32.766c36.649 0 38.72-.399 45.066-8.718 2.804-3.677 3.447-5.872 3.447-11.76 0-6.006-.627-8.065-3.687-12.076-6.107-8.007-8.236-8.405-44.91-8.405h-32.682V171.9l-4.352-4.351c-2.778-2.779-5.544-4.22-8.33-4.328z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/merge-right.svg":
+/*!**************************************!*\
+  !*** ./inline-icons/merge-right.svg ***!
+  \**************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 286.22 531.43","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M256 0l8.065 4.373c8.958 4.858 12.816 8.845 17.926 18.529l3.449 6.54.392 46.397.393 46.4H245.12V40.32H40.32v450.56h204.8v-81.92h41.105l-.393 46.4-.392 46.398-3.45 6.54c-1.897 3.595-4.872 8.23-6.613 10.298-3.484 4.141-14.448 10.566-20.578 12.061-2.155.526-53.743.862-114.64.748L29.44 531.2l-6.537-3.449c-9.684-5.11-13.672-8.967-18.529-17.926L0 501.758V29.438l3.45-6.54C8.558 13.214 12.413 9.226 21.372 4.37L29.44-.004h113.28zm-80.119 163.22c2.167-.084 4.348.638 6.555 2.164 4.689 3.242 97.806 89.295 100.95 93.291 3.432 4.364 3.432 9.478 0 13.842-3.144 3.996-96.26 90.05-100.95 93.291-5.045 3.488-9.945 2.776-14.885-2.164l-4.352-4.352v-73.217h-32.766c-36.649 0-38.72-.399-45.066-8.718-2.804-3.677-3.447-5.872-3.447-11.76 0-6.006.627-8.065 3.687-12.076 6.107-8.007 8.236-8.405 44.91-8.405H163.2V171.9l4.352-4.351c2.779-2.779 5.544-4.22 8.33-4.328z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/ok.svg":
+/*!*****************************!*\
+  !*** ./inline-icons/ok.svg ***!
+  \*****************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 458.73 356.52","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M0 203.11l51.12-51.09L153.34 254.3l-51.12 51.091L0 203.111zM153.36 254.25L407.61 0l51.12 51.12-254.25 254.25z"}}),_c('path',{attrs:{"d":"M153.37 356.52l-51.141-51.141 51.12-51.12L204.49 305.4l-51.119 51.12z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/split.svg":
+/*!********************************!*\
+  !*** ./inline-icons/split.svg ***!
+  \********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 998.05 998.05","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M632.22 539.98a54.952 54.952 0 01-16.1-38.9c0-30.4 24.6-55 55-55h139.2l-74.7-74.7c-21.5-21.5-21.5-56.3 0-77.8s56.3-21.5 77.8 0l168.7 168.7c6.399 6.399 11.2 14.399 13.7 23.1v.101c3.199 10.8 2.899 22.5-.601 33.1-2.7 8-7.3 15.4-13.2 21.4l-168.8 168.6c-21.5 21.5-56.3 21.5-77.8 0s-21.5-56.3 0-77.8l74.7-74.7h-139.1c-15.099-.003-28.899-6.203-38.799-16.102zM365.62 539.98c9.899-9.9 16.1-23.7 16.1-38.9 0-30.4-24.6-55-55-55h-139.1l74.7-74.7c21.5-21.5 21.5-56.3 0-77.8s-56.3-21.5-77.8 0l-168.5 168.6-.1.101c-6.4 6.399-11.2 14.399-13.7 23.1v.101c-3.2 10.8-2.9 22.5.6 33.1 2.7 8 7.3 15.4 13.2 21.4l168.6 168.6c21.5 21.5 56.3 21.5 77.8 0s21.5-56.3 0-77.8l-74.8-74.7h139.2c15.1-.003 28.9-6.203 38.8-16.102zM568.92 924.77V73.37c0-38.7-31.3-70-70-70s-70 31.3-70 70v851.3c0 38.7 31.3 70 70 70s70-31.3 70-69.9z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/x-close.svg":
 /*!**********************************!*\
   !*** ./inline-icons/x-close.svg ***!
@@ -51018,7 +51379,7 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"}}");
+module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"}}");
 
 /***/ }),
 

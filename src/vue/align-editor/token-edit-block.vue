@@ -28,6 +28,26 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    updateTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    mergeTokenLeftIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    mergeTokenRightIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    splitTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {
@@ -42,7 +62,27 @@ export default {
     },
     deactivated () {
       this.activated = false
-    }
+    },
+    updateTokenIdWord () {
+      if (this.activated && (this.updateTokenIdWord === this.token.idWord)) {
+        this.updateTokenWord()
+      }
+    },
+    mergeTokenLeftIdWord () {
+      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
+        this.mergeToken('left')
+      }
+    },
+    mergeTokenRightIdWord () {
+      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
+        this.mergeToken('right')
+      }
+    },
+    splitTokenIdWord () {
+      if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
+        this.splitToken()
+      }
+    } 
   },
   mounted () {
     this.tokenWord = this.token.word
@@ -63,8 +103,9 @@ export default {
     },
     mergeToken (direction) {
       this.$alignedC.mergeToken(this.token, direction)
+      this.hideActionsMenu()
     },
-    split ()  {
+    splitToken ()  {
       this.$alignedC.splitToken(this.token, this.tokenWord)
     },
     hideActionsMenu () {

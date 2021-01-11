@@ -48,6 +48,30 @@
         }
     }
 
+    .alpheios-token-edit-actions-button {
+        border-color: map.get($theme, 'main-menu-border-color');
+        background: map.get($theme, 'main-menu-background-color');
+        svg {
+          fill: map.get($theme, 'main-menu-text-color');
+        }
+
+        &:hover {
+            border-color: map.get($theme, 'main-menu-border-color-hover');
+            background: map.get($theme, 'main-menu-background-color-hover');
+            svg {
+              fill: map.get($theme, 'main-menu-text-color-hover');
+            }
+        }
+
+        &:disabled {
+            border-color: map.get($theme, 'main-menu-border-color-disabled');
+            background: map.get($theme, 'main-menu-background-color-disabled');
+            svg {
+              fill: map.get($theme, 'main-menu-text-color-disabled');
+            }
+        }
+    }
+
     .alpheios-alignment-editor-text-define-container__show-label,
     .alpheios-alignment-tokenize-options-details-toggle {
         color: map.get($theme, 'text-link-color');
@@ -131,6 +155,10 @@
             &:hover {
                 background: map.get($theme, 'align-editor-text-border-color-hover');
             }
+        }
+
+        span.alpheios-token-edit.alpheios-alignment-token-edit-span__activated {
+            background: map.get($theme, 'align-editor-text-border-color-hover');
         }
     }
 

@@ -7,12 +7,22 @@
             :token = "actionsToken" v-show="showActionsMenuFlag"
             :leftPos = "actionsMenuLeft" :topPos = "actionsMenuTop"
             :containerWidth = "containerWidth"
+
+            @updateTokenWord = "updateTokenWord"
+            @mergeToken = "mergeToken"
+            @splitToken = "splitToken"
         />
         <template v-for = "token in allTokens">
           <token-edit-block
             v-if ="token.word"
             :token = "token" :key = "token.idWord" :deactivated = "deactivated"
-            @hideActionsMenu = "hideActionsMenu" @showActionsMenu = "showActionsMenu"
+            :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
+            :mergeTokenLeftIdWord = "mergeTokenLeftIdWord === token.idWord ? mergeTokenLeftIdWord : null"
+            :mergeTokenRightIdWord = "mergeTokenRightIdWord === token.idWord ? mergeTokenRightIdWord : null"
+            :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
+
+            @hideActionsMenu = "hideActionsMenu" 
+            @showActionsMenu = "showActionsMenu"
             @removeAllActivated = "removeAllActivated"
           />
           <br v-if="token.hasLineBreak" />
@@ -56,7 +66,11 @@ export default {
       actionsMenuLeft: 0,
       actionsMenuTop: 0,
       deactivated: 1,
-      containerWidth: 0
+      containerWidth: 0,
+      updateTokenIdWord: null,
+      mergeTokenLeftIdWord: null,
+      mergeTokenRightIdWord: null,
+      splitTokenIdWord: null
     }
   },
   watch: {
@@ -152,6 +166,20 @@ export default {
     removeAllActivated () {
       this.showActionsMenuFlag = false
       this.deactivated++
+    },
+    updateTokenWord (token) {
+      this.updateTokenIdWord = token.idWord
+    },
+    mergeToken (token, direction) {
+      if (direction === 'left') {
+        this.mergeTokenLeftIdWord = token.idWord
+      }
+      if (direction === 'right') {
+        this.mergeTokenRightIdWord = token.idWord
+      }
+    },
+    splitToken (token) {
+      this.splitTokenIdWord = token.idWord
     }
   }
 
