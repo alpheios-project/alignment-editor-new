@@ -2,7 +2,7 @@
   <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
     <div class="alpheios-alignment-editor-header">
       <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
+        (<span class="alpheios-alignment-editor-header__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
       </h2>
     </div>
     

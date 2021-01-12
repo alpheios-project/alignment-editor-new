@@ -1,18 +1,20 @@
 <template>
   <div class="alpheios-alignment-editor-container">
       <h2>{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowTextsBlocks">{{ showTextsBlocksLabel }}</span>)
+        (<span class="alpheios-alignment-editor-header__show-label" @click="toggleShowTextsBlocks">{{ showTextsBlocksLabel }}</span>)
       </h2>
-      <div class="alpheios-alignment-editor-text-define-container" id="alpheios-text-editor-blocks-container" v-show="showTextsBlocks">
-        <div class="alpheios-alignment-editor-text-define-container-inner">
-          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container">
+
+      <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" v-show="showTextsBlocks">
+        <div class="alpheios-alignment-editor-text-blocks-container-inner">
+
+          <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-origin-container">
             <text-editor-single-block 
                 text-type="origin" 
                 :text-id = "originId"
             />
           </div>
 
-          <div class="alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container" v-if="allTargetTextsIds">
+          <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container" v-if="allTargetTextsIds">
             <text-editor-single-block 
                 v-for="(targetTextId, indexT) in allTargetTextsIds" :key="indexT"
                 text-type = "target" 
@@ -20,6 +22,7 @@
                 :index = "indexT"
             />
           </div>
+
         </div>
       </div>
   </div>
@@ -96,7 +99,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-text-define-container-inner {
+    .alpheios-alignment-editor-text-blocks-container-inner {
       &:before,
       &:after {
         content: '';
@@ -105,18 +108,18 @@ export default {
       }
     }
 
-    .alpheios-alignment-editor-text-define-container {
-        .alpheios-alignment-editor-text-container {
+    .alpheios-alignment-editor-text-blocks-container {
+        .alpheios-alignment-editor-text-blocks-single-container {
           width: 50%;
           float: left;
         }
     }
 
-    .alpheios-alignment-editor-origin-text-container {
+    .alpheios-alignment-editor-text-blocks-origin-container {
       padding-right: 10px;
     }
 
-    .alpheios-alignment-editor-target-text-container {
+    .alpheios-alignment-editor-text-blocks-target-container {
       padding-left: 10px;
     }
 
@@ -126,7 +129,7 @@ export default {
       padding-top: 15px;
     }
 
-    .alpheios-alignment-editor-text-define-container__show-label {
+    .alpheios-alignment-editor-header__show-label {
       cursor: pointer;
       font-size: 90%;
       text-decoration: underline;

@@ -1,14 +1,14 @@
 <template>
-    <div class="alpheios-alignment-metadata-item alpheios-meta-single-item">
-      <p class="alpheios-alignment-metadata-item__input-value">
-          <label class="alpheios-alignment-metadata-item__label">{{ metadataTermLabel }}
+    <div class="alpheios-alignment-editor-metadata-item  alpheios-meta-single-item">
+      <p class="alpheios-alignment-editor-metadata-item__input-value">
+          <label class="alpheios-alignment-editor-metadata-item__label">{{ metadataTermLabel }}
             <tooltip :tooltipText="metadataTermDescription" tooltipDirection="right">
-              <span class="alpheios-alignment-metadata-item__label-help">?</span>
+              <span class="alpheios-alignment-editor-metadata-item__label-help">?</span>
             </tooltip>
           </label>
 
           <input
-              class="alpheios-alignment-input alpheios-alignment-metadata-item__control  alpheios-meta-single-item-value"
+              class="alpheios-alignment-input alpheios-alignment-editor-metadata-item__control  alpheios-meta-single-item-value"
               type="text"
               v-model="value"
               :id="itemId"
@@ -20,8 +20,8 @@
           </span>
         </p>
 
-        <p class="alpheios-alignment-metadata-item__allvalues" v-show="showllValuesData" v-if="metadataTerm.property.multivalued">
-          <span class = "alpheios-alignment-metadata-item__allvalues-item"
+        <p class="alpheios-alignment-editor-metadata-item__allvalues" v-show="showllValuesData" v-if="metadataTerm.property.multivalued">
+          <span class = "alpheios-alignment-editor-metadata-item__allvalues-item"
                 v-for = "(termVal, termValIndex) in sourceMetaValues" :key="termValIndex"
                 @click = "activateValue(termValIndex)"
           >{{ termVal }}</span>
@@ -113,7 +113,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-metadata-item {
+  .alpheios-alignment-editor-metadata-item {
     margin-bottom: 10px;
 
     p > label {
@@ -122,7 +122,7 @@ export default {
       vertical-align: top;
       text-transform: capitalize;
 
-     .alpheios-alignment-metadata-item__label-help {
+     .alpheios-alignment-editor-metadata-item__label-help {
         display: inline-block;
         vertical-align: middle;
         width: 20px;
@@ -137,17 +137,17 @@ export default {
       }
     }
 
-    p > input.alpheios-alignment-metadata-item__control {
+    p > input.alpheios-alignment-editor-metadata-item__control {
       display: inline-block;
       width: 60%;
       vertical-align: top;
     }
 
-    .alpheios-alignment-metadata-item__allvalues {
+    .alpheios-alignment-editor-metadata-item__allvalues {
       padding-left: 30%;
     }
 
-    .alpheios-alignment-metadata-item__allvalues-item {
+    .alpheios-alignment-editor-metadata-item__allvalues-item {
       display: inline-block;
       vertical-align: baseline;
       cursor: pointer;
@@ -155,7 +155,7 @@ export default {
       padding: 0 7px 0 0;
     }
 
-    .alpheios-alignment-metadata-item__input-value {
+    .alpheios-alignment-editor-metadata-item__input-value {
       position: relative;
       padding-right: 30px;
     }

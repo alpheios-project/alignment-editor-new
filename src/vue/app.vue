@@ -1,5 +1,5 @@
 <template>
-  <div id="alpheios-alignment-app-container" class="alpheios-alignment-app-container">
+  <div id="alpheios-alignment-editor-app-container" class="alpheios-alignment-editor-app-container">
       <main-menu 
         @download-data = "downloadData"
         @upload-data = "uploadData"

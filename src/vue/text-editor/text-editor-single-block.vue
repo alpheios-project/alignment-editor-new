@@ -1,7 +1,7 @@
 <template>
-  <div class="alpheios-alignment-editor-text-block" v-show="dataUpdated" :id="containerId">
-      <p class="alpheios-alignment-editor-text-block__title">{{ indexData }}{{ textBlockTitle }}
-        <span :id="removeId" class="alpheios-alignment-editor-text-block__remove" v-show="showDeleteIcon" @click="deleteText">
+  <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
+      <p class="alpheios-alignment-editor-text-blocks-single__title">{{ indexData }}{{ textBlockTitle }}
+        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
           <delete-icon />
         </span>
       </p>
@@ -123,16 +123,16 @@ export default {
       return this.$store.state.alignmentUpdated
     },
     containerId () {
-      return `alpheios-alignment-editor-text-block__${this.textType}_${this.formattedTextId}`
+      return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
     },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.formattedTextId}`
+      return `alpheios-alignment-editor-text-blocks-single__textarea_${this.textType}_${this.formattedTextId}`
     },
     removeId () {
-      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.formattedTextId}`
+      return `alpheios-alignment-editor-text-blocks-single__remove_${this.textType}_${this.formattedTextId}`
     },
     /**
      * Formats textType
@@ -263,7 +263,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-text-block {
+    .alpheios-alignment-editor-text-blocks-single {
         textarea {
             width:100%;
             min-height: 300px;
@@ -274,10 +274,10 @@ export default {
         }
     }
 
-    .alpheios-alignment-editor-text-block__title {
+    .alpheios-alignment-editor-text-blocks-single__title {
       position: relative;
     }
-    .alpheios-alignment-editor-text-block__remove {
+    .alpheios-alignment-editor-text-blocks-single__remove {
       display: inline-block;
       width: 25px;
       height: 25px;
@@ -295,7 +295,7 @@ export default {
       }
     }
 
-    .alpheios-alignment-options-fieldset {
+    .alpheios-alignment-editor-options-fieldset {
       padding: 10px;
       border: 2px groove #f8f8f8;
       margin-bottom: 30px;
@@ -311,7 +311,7 @@ export default {
       }
     }
 
-    fieldset.alpheios-alignment-slim-fieldset {
+    .alpheios-alignment-editor-options-fieldset-slim {
       padding: 0;
       margin-bottom: 0;
       border: 0;
@@ -321,7 +321,7 @@ export default {
       }
     }
 
-    .alpheios-alignment-fieldset-label-auto {
+    .alpheios-alignment-editor-options-fieldset-label-auto {
       .alpheios-alignment-option-item__label {
         width: auto;
         margin-right: 20px;

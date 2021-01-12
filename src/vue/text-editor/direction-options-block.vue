@@ -1,6 +1,6 @@
 <template>
-    <div class="alpheios-alignment-direction-options" v-if="showOptions">
-        <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
+    <div class="alpheios-alignment-editor-text-blocks-single-direction-options" v-if="showOptions">
+        <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto">
             <option-item-block
               :optionItem = "localOptions.sourceText.items.direction"
               :emitUpdateData = "true"

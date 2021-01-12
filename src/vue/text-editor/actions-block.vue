@@ -1,20 +1,20 @@
 <template>
-    <div class="alpheios-alignment-actions">
-      <div class="alpheios-alignment-actions__buttons">
-        <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-download" 
+    <div class="alpheios-alignment-editor-actions-menu">
+      <div class="alpheios-alignment-editor-actions-menu__buttons">
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__download"
             @click="downloadSingle" :disabled="!docSourceEditAvailable" >
             {{ l10n.getMsgS('ACTIONS_DOWNLOAD_TITLE') }}
         </button>
-        <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-upload" 
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__upload"
             @click="uploadTexts" :disabled="!docSourceEditAvailable" >
             {{ l10n.getMsgS('ACTIONS_UPLOAD_TITLE') }}
         </button>
-        <button class="alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-metadata" 
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
             @click="toggleMetadata" :disabled = "!metadataAvailable">
             {{ toggleMetadataTitle }}
         </button>
       </div>
-      <div class="alpheios-alignment-actions__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
+      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
         <input type="file" @change="loadTextFromFile" ref="fileupload">
       </div>
     </div>
@@ -90,8 +90,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-actions__buttons,
-  .alpheios-alignment-actions__upload-block {
+  .alpheios-alignment-editor-actions-menu__buttons,
+  .alpheios-alignment-editor-actions-menu__upload-block {
     padding: 5px 0 15px;
     text-align: left;
   }
