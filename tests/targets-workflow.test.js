@@ -21,6 +21,7 @@ describe('target-texts.test.js', () => {
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
+    appC.defineTokensEditController(appC.store)
     appC.defineHistoryController(appC.store)
   })
   
