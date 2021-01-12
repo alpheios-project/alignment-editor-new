@@ -45,8 +45,7 @@ export default {
   },
   data () {
     return {
-      showTextsBlocks: true,
-      disableTargetTextBlock: true
+      showTextsBlocks: true
     }
   },
   watch: {

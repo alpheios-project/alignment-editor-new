@@ -16,5 +16,49 @@ export default class Segment {
    */
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
+
+    this.lastTokenWordId = this.tokens[this.tokens.length - 1].idWord
+  }
+
+  getTokenIndex (token) {
+    return this.tokens.findIndex(tokenCurrent => tokenCurrent.idWord === token.idWord)
+  }
+
+  isFirstTokenInSegment (tokenIndex) {
+    return (tokenIndex === 0)
+  }
+
+  isLastTokenInSegment (tokenIndex) {
+    return (tokenIndex === (this.tokens.length - 1))
+  }
+
+  getTokenByIndex (tokenIndex) {
+    return this.tokens[tokenIndex]
+  }
+
+  deleteToken (tokenIndex) {
+    return this.tokens.splice(tokenIndex, 1)
+  }
+
+  get freeIdWord () {
+    const idWordParts = this.lastTokenWordId.split('-')
+    const lastIdToken = parseInt(idWordParts[idWordParts.length - 1])
+
+    const freeIdWord = [...idWordParts]
+    freeIdWord[freeIdWord.length - 1] = lastIdToken + 1
+
+    return freeIdWord.join('-')
+  }
+
+  addNewToken (tokenIndex, newIdWord, word) {
+    const newToken = new Token({
+      textType: this.textType,
+      idWord: newIdWord,
+      word: word
+    }, this.index, this.docSourceId)
+
+    this.lastTokenWordId = newIdWord
+
+    return this.tokens.splice(tokenIndex + 1, 0, newToken)
   }
 }

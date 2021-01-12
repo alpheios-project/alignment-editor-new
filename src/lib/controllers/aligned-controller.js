@@ -292,4 +292,28 @@ export default class AlignedController {
   startOver () {
     this.alignment = null
   }
+
+  updateTokenWord (token, word) {
+    if (this.alignment.updateTokenWord(token, word)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  mergeToken (token, direction = 'left') {
+    if (this.alignment.mergeToken(token, direction)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  splitToken (token, tokenWord) {
+    if (this.alignment.splitToken(token, tokenWord)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
 }

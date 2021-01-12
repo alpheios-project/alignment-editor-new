@@ -207,10 +207,7 @@ export default class TextsController {
     const downloadType = 'plainSourceDownloadSingle'
     const sourceText = this.getDocSource(textType, textId)
 
-    if (sourceText && sourceText.fullyDefined) {
-      return DownloadController.download(downloadType, { sourceText })
-    }
-    return false
+    return DownloadController.download(downloadType, { sourceText })
   }
 
   /**

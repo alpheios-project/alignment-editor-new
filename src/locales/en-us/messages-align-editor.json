@@ -13,5 +13,40 @@
       "message": "show",
       "description": "A label for hide/show links",
       "component": "AlignEditor"
+    },
+    "TOKENS_EDITOR_HEADING": {
+      "message": "Edit tokens in Origin and Target texts",
+      "description": "A heading for text editor",
+      "component": "AlignEditor"
+    },
+    "TOKENS_EDITOR_HIDE": {
+      "message": "hide",
+      "description": "A label for hide/show links",
+      "component": "AlignEditor"
+    },
+    "TOKENS_EDITOR_SHOW": {
+      "message": "show",
+      "description": "A label for hide/show links",
+      "component": "AlignEditor"
+    },
+    "ACTION_BUTTON_UPDATE_TOKEN": {
+      "message": "Update a token",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
+    "ACTION_BUTTON_MERGE_LEFT": {
+      "message": "Merge with a left token",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
+    "ACTION_BUTTON_MERGE_RIGHT": {
+      "message": "Merge with a right token",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
+    "ACTION_BUTTON_SPLIT_TOKEN": {
+      "message": "Split a token to 2 tokens by space",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
     }
 }

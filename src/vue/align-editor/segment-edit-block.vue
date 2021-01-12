@@ -1,31 +1,43 @@
 <template>
-    <div class="alpheios-alignment-editor-align-text-segment" 
+    <div class="alpheios-alignment-editor-align-text-segment-edit" 
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
+        <actions-menu-token-edit 
+            :token = "actionsToken" v-show="showActionsMenuFlag"
+            :leftPos = "actionsMenuLeft" :topPos = "actionsMenuTop"
+            :containerWidth = "containerWidth"
+
+            @updateTokenWord = "updateTokenWord"
+            @mergeToken = "mergeToken"
+            @splitToken = "splitToken"
+        />
         <template v-for = "token in allTokens">
-          <token
+          <token-edit-block
             v-if ="token.word"
-            :token = "token" :key = "token.idWord"
-            @click-token = "clickToken"
-            @add-hover-token = "addHoverToken"
-            @remove-hover-token = "removeHoverToken"
-            :selected = "$store.state.alignmentUpdated && selectedToken(token)"
-            :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
-            :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
-            :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+            :token = "token" :key = "token.idWord" :deactivated = "deactivated"
+            :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
+            :mergeTokenLeftIdWord = "mergeTokenLeftIdWord === token.idWord ? mergeTokenLeftIdWord : null"
+            :mergeTokenRightIdWord = "mergeTokenRightIdWord === token.idWord ? mergeTokenRightIdWord : null"
+            :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
+
+            @hideActionsMenu = "hideActionsMenu" 
+            @showActionsMenu = "showActionsMenu"
+            @removeAllActivated = "removeAllActivated"
           />
           <br v-if="token.hasLineBreak" />
         </template>
     </div>
 </template>
 <script>
-import TokenBlock from '@/vue/align-editor/token-block.vue'
+import TokenEditBlock from '@/vue/align-editor/token-edit-block.vue'
+import ActionsMenuTokenEdit from '@/vue/align-editor/actions-menu-token-edit.vue'
 
 export default {
-  name: 'SegmentBlock',
+  name: 'SegmentEditBlock',
   components: {
-    token: TokenBlock
+    tokenEditBlock: TokenEditBlock,
+    actionsMenuTokenEdit: ActionsMenuTokenEdit
   },
   props: {
     currentTargetId: {
@@ -48,7 +60,17 @@ export default {
     return {
       updated: 1,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      showActionsMenuFlag: false,
+      actionsToken: null,
+      actionsMenuLeft: 0,
+      actionsMenuTop: 0,
+      deactivated: 1,
+      containerWidth: 0,
+      updateTokenIdWord: null,
+      mergeTokenLeftIdWord: null,
+      mergeTokenRightIdWord: null,
+      splitTokenIdWord: null
     }
   },
   watch: {
@@ -129,59 +151,42 @@ export default {
     }
   },
   methods: {
-    /**
-     * Starts click token workflow
-     * @param {Token}
-     */
-    clickToken (token) {
-      if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
-        this.$alignedC.clickToken(token, this.currentTargetId)
+    hideActionsMenu () {
+      this.showActionsMenuFlag = false
+    },
+    showActionsMenu (data) {
+      
+      this.actionsToken = data.token
+      this.actionsMenuLeft = data.leftPos
+      this.actionsMenuTop = data.topPos
+      this.containerWidth = this.$el.offsetWidth
+
+      this.showActionsMenuFlag = true
+    },
+    removeAllActivated () {
+      this.showActionsMenuFlag = false
+      this.deactivated++
+    },
+    updateTokenWord (token) {
+      this.updateTokenIdWord = token.idWord
+    },
+    mergeToken (token, direction) {
+      if (direction === 'left') {
+        this.mergeTokenLeftIdWord = token.idWord
+      }
+      if (direction === 'right') {
+        this.mergeTokenRightIdWord = token.idWord
       }
     },
-    /**
-     * Starts hover token workflow
-     * @param {Token}
-     */
-    addHoverToken (token) {
-      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
-    },
-    /**
-     * Ends hover token workflow
-     */
-    removeHoverToken () {
-      this.$alignedC.clearHoverOnAlignmentGroups()
-    },
-    /**
-     * Used for defining that token is in hovered saved alignmentGroup
-     * @param {Token}
-     */
-    selectedToken (token) {
-      return this.$alignedC.selectedToken(token, this.currentTargetId)
-    },
-    /**
-     * Used for defining that token is in some saved alignmentGroup
-     * @param {Token}
-     */
-    groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
-    },
-    /**
-     * Used for defining that token is in active alignmentGroup
-     * @param {Token}
-     */
-    inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
-    },
-    /**
-     * Used for defining that token is in active alignmentGroup
-     * @param {Token}
-     */
-    isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
+    splitToken (token) {
+      this.splitTokenIdWord = token.idWord
     }
   }
 
 }
 </script>
 <style lang="scss">
+  .alpheios-alignment-editor-align-text-segment-edit {
+    position: relative;
+  }
 </style>

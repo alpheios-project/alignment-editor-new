@@ -6,7 +6,7 @@
           class = "alpheios-token"
           :class="tokenClasses"
     >
-        {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
+        {{ tokenBeforeWord }}{{ tokenWord }}{{ tokenAfterWord }}
     </span>
 </template>
 <script>
@@ -50,6 +50,15 @@ export default {
         'alpheios-token-clicked': this.inActiveGroup,
         'alpheios-token-clicked-first': this.firstInActiveGroup
       }
+    }, 
+    tokenWord () {
+      return this.$store.state.tokenUpdated && this.token.word
+    }, 
+    tokenBeforeWord () {
+      return this.$store.state.tokenUpdated && this.token.beforeWord
+    }, 
+    tokenAfterWord () {
+      return this.$store.state.tokenUpdated && this.token.afterWord
     }
   },
   methods: {
@@ -67,7 +76,7 @@ export default {
 </script>
 <style lang="scss">
     .alpheios-alignment-editor-align-text-segment {
-        span {
+        span.alpheios-token {
             cursor: pointer;
             padding: 4px;
             border: 1px solid transparent;

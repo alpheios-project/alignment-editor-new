@@ -13,7 +13,8 @@ export default class StoreDefinition {
         tokenizerUpdated: 1,
         alignmentRestarted: 1,
         uploadCheck: 1,
-        resetOptions: 1
+        resetOptions: 1,
+        tokenUpdated: 1
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -46,6 +47,9 @@ export default class StoreDefinition {
         },
         incrementResetOptions (state) {
           state.resetOptions++
+        },
+        incrementTokenUpdated (state) {
+          state.tokenUpdated++
         }
       }
     }
