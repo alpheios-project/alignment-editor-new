@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: 'AlignEditorTabs',
+  name: 'EditorTabs',
   props: {
     tabs: {
       type: Array,

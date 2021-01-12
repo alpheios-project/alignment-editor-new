@@ -31,7 +31,7 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
-import Tooltip from '@/vue/tooltip.vue'
+import Tooltip from '@/vue/common/tooltip.vue'
 export default {
   name: 'MetadataTermBlock',
   components: {

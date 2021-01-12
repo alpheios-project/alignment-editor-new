@@ -20,6 +20,8 @@
       <align-editor 
         :show-editor = "showAlignEditor"
       />
+      <tokens-editor 
+      />
   </div>
 </template>
 <script>
@@ -29,6 +31,7 @@ import MainMenu from '@/vue/main-menu.vue'
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
+import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 
 import OptionsBlock from '@/vue/options/options-block.vue'
 
@@ -38,6 +41,7 @@ export default {
     mainMenu: MainMenu,
     textEditor: TextEditor,
     alignEditor: AlignEditor,
+    tokensEditor: TokensEditor,
     notificationBar: NotificationBar,
     optionsBlock: OptionsBlock
   },

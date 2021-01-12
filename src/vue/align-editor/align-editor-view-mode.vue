@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-align-define-container">
-    <align-editor-tabs 
+    <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
     />
@@ -31,13 +31,13 @@
 <script>
 import Vue from '@vue-runtime'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
-import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
+import EditorTabs from '@/vue/common/editor-tabs.vue'
 
 export default {
   name: 'AlignEditorViewMode',
   components: {
     segmentBlock: SegmentBlock,
-    alignEditorTabs: AlignEditorTabs
+    editorTabs: EditorTabs
   },
   props: {
   },

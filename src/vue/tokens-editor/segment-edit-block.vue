@@ -30,8 +30,8 @@
     </div>
 </template>
 <script>
-import TokenEditBlock from '@/vue/align-editor/token-edit-block.vue'
-import ActionsMenuTokenEdit from '@/vue/align-editor/actions-menu-token-edit.vue'
+import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
+import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
 
 export default {
   name: 'SegmentEditBlock',

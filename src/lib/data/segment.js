@@ -40,16 +40,6 @@ export default class Segment {
     return this.tokens.splice(tokenIndex, 1)
   }
 
-  get freeIdWord () {
-    const idWordParts = this.lastTokenWordId.split('-')
-    const lastIdToken = parseInt(idWordParts[idWordParts.length - 1])
-
-    const freeIdWord = [...idWordParts]
-    freeIdWord[freeIdWord.length - 1] = lastIdToken + 1
-
-    return freeIdWord.join('-')
-  }
-
   addNewToken (tokenIndex, newIdWord, word) {
     const newToken = new Token({
       textType: this.textType,

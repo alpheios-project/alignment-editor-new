@@ -6,7 +6,6 @@ import AlignEditor from '@/vue/align-editor/align-editor.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
-import AlignEditorEditMode from '@/vue/align-editor/align-editor-tokens-edit-mode.vue'
 import Token from '@/lib/data/token'
 import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
@@ -86,7 +85,6 @@ describe('align-editor.test.js', () => {
     })
 
     
-    expect(cmp.findAllComponents(AlignEditorEditMode)).toHaveLength(1)
     expect(cmp.findAllComponents(AlignEditorViewMode)).toHaveLength(1)
   })
 

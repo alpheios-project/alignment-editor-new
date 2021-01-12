@@ -1097,6 +1097,9 @@ fieldset.alpheios-alignment-slim-fieldset legend {
 .alpheios-alignment-editor-align-define-container-view-mode .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
 }
+.alpheios-alignment-editor-header {
+  margin: 15px 0;
+}
 .alpheios-alignment-token-edit-span {
   display: inline-block;
   vertical-align: baseline;

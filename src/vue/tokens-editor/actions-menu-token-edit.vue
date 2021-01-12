@@ -32,7 +32,7 @@ import SplitIcon from '@/inline-icons/split.svg'
 import MergeLeftIcon from '@/inline-icons/merge-left.svg'
 import MergeRightIcon from '@/inline-icons/merge-right.svg'
 
-import Tooltip from '@/vue/tooltip.vue'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 

@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
+import EditorTabs from '@/vue/common/editor-tabs.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
