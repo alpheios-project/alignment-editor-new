@@ -39457,23 +39457,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./lib/controllers/aligned-controller.js":
-/*!***********************************************!*\
-  !*** ./lib/controllers/aligned-controller.js ***!
-  \***********************************************/
+/***/ "./lib/controllers/aligned-groups-controller.js":
+/*!******************************************************!*\
+  !*** ./lib/controllers/aligned-groups-controller.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignedController
+/* harmony export */   "default": () => /* binding */ AlignedGroupsController
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 
 
 
-class AlignedController {
+class AlignedGroupsController {
   /**
    * @param {Vuex Store} store
    */
@@ -39764,30 +39764,6 @@ class AlignedController {
   startOver () {
     this.alignment = null
   }
-
-  updateTokenWord (token, word) {
-    if (this.alignment.updateTokenWord(token, word)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
-
-  mergeToken (token, direction = 'left') {
-    if (this.alignment.mergeToken(token, direction)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
-
-  splitToken (token, tokenWord) {
-    if (this.alignment.splitToken(token, tokenWord)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
 }
 
 
@@ -39805,28 +39781,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ AppController
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.common.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.common.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
-/* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
-/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
-/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-
-
-
-
-
+/* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 
 
 
@@ -39895,15 +39861,16 @@ class AppController {
    */
   attachVueComponents () {
     this.defineTextController()
-    this.defineAlignedController()
+    this.defineAlignedGroupsController()
+    this.defineTokensEditController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -39915,24 +39882,24 @@ class AppController {
   }
 
   defineEvents () {
-    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
   }
 
   /**
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.use((vuex__WEBPACK_IMPORTED_MODULE_16___default()))
-    this.store = new (vuex__WEBPACK_IMPORTED_MODULE_16___default().Store)(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_5__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use((vuex__WEBPACK_IMPORTED_MODULE_11___default()))
+    this.store = new (vuex__WEBPACK_IMPORTED_MODULE_11___default().Store)(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
   }
 
   /**
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
+    this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
     await this.settingsC.init()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$settingsC = this.settingsC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$settingsC = this.settingsC
 
     this.settingsC.uploadRemoteSettings()
   }
@@ -39942,23 +39909,28 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
   }
 
   /**
-   * Creates AlignedController and attaches to Vue components
+   * Creates AlignedGroupsController and attaches to Vue components
    */
-  defineAlignedController () {
-    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$alignedC = this.alignedC
+  defineAlignedGroupsController () {
+    this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$alignedGC = this.alignedGC
+  }
+
+  defineTokensEditController () {
+    this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
    * Creates HistoryController and attaches to Vue components
    */
   defineHistoryController () {
-    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$historyC = this.historyC
+    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -39966,18 +39938,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.bundleArr([
-        [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_13__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_12__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_14__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_GB]
-      ])
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_7__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39987,7 +39952,7 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
     return notificationSingleton
   }
 }
@@ -40882,6 +40847,83 @@ class TokenizeController {
     nextIdWordParts[nextIdWordParts.length - 1] = numTokenInId + 1
 
     return nextIdWordParts.join('-')
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/controllers/tokens-edit-controller.js":
+/*!***************************************************!*\
+  !*** ./lib/controllers/tokens-edit-controller.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ TokensEditController
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
+
+class TokensEditController {
+  /**
+   * @param {Vuex Store} store
+   */
+  constructor (store) {
+    this.store = store
+  }
+
+  uploadAlignment (alignment) {
+    this.alignment = alignment
+  }
+
+  updateTokenWord (token, word) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.updateTokenWord(token, word)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  mergeToken (token, direction = 'left') {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.mergeToken(token, direction)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  splitToken (token, tokenWord) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.splitToken(token, tokenWord)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  checkEditable (token) {
+    if (!this.isEditableToken(token)) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return false
+    }
+    return true
+  }
+
+  isEditableToken (token) {
+    return !this.alignment.tokenIsGrouped(token) && !this.alignment.tokenInActiveGroup(token)
   }
 }
 
@@ -43780,14 +43822,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
-/* harmony import */ var _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-metadata-terms.json */ "./locales/en-us/messages-metadata-terms.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+/* harmony import */ var _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-controllers.json */ "./locales/en-us/messages-controllers.json");
+/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
+/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
+/* harmony import */ var _locales_en_us_messages_aligned_groups_editor_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-aligned-groups-editor.json */ "./locales/en-us/messages-aligned-groups-editor.json");
+/* harmony import */ var _locales_en_us_messages_tokens_edit_editor_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-tokens-edit-editor.json */ "./locales/en-us/messages-tokens-edit-editor.json");
+/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
+/* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
+/* harmony import */ var _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-metadata-terms.json */ "./locales/en-us/messages-metadata-terms.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+
+
+
 
 
 
@@ -43803,14 +43850,24 @@ __webpack_require__.r(__webpack_exports__);
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_6__],
-  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__]
+  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_6__, _locales_en_us_messages_aligned_groups_editor_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_tokens_edit_editor_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__],
+  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__]
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   en_US: localeEnUs,
   en_GB: localeEnGb,
   availableMessages: availableMessages,
+
+  predefinedLocales: () => {
+    const finalLocales = []
+    Object.keys(availableMessages).forEach(localeItem => {
+      availableMessages[localeItem].forEach(messageItem => finalLocales.push([messageItem, localeItem]))
+    })
+
+    return finalLocales
+  },
+
   /**
    * A helper function that creates a message bundle out of a messages JSON and a locale.
    * @param {string | object} messagesJSONorObj - Messages for a locale as a JSON string or as an object.
@@ -43818,7 +43875,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__.default(messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -43828,7 +43885,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__.default(...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -43837,7 +43894,7 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = [] // eslint-disable-line prefer-const
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__.default(m, locale)))
     }
     return msgArray
   }
@@ -43932,7 +43989,7 @@ __webpack_require__.r(__webpack_exports__);
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
     /**
@@ -44063,7 +44120,7 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -44215,7 +44272,7 @@ __webpack_require__.r(__webpack_exports__);
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
     alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
@@ -44228,7 +44285,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     clickToken (token) {
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
-        this.$alignedC.clickToken(token, this.currentTargetId)
+        this.$alignedGC.clickToken(token, this.currentTargetId)
       }
     },
     /**
@@ -44236,41 +44293,41 @@ __webpack_require__.r(__webpack_exports__);
      * @param {Token}
      */
     addHoverToken (token) {
-      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
+      this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
     /**
      * Ends hover token workflow
      */
     removeHoverToken () {
-      this.$alignedC.clearHoverOnAlignmentGroups()
+      this.$alignedGC.clearHoverOnAlignmentGroups()
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
      * @param {Token}
      */
     selectedToken (token) {
-      return this.$alignedC.selectedToken(token, this.currentTargetId)
+      return this.$alignedGC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
      * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
+      return this.$alignedGC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      * @param {Token}
      */
     inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
+      return this.$alignedGC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      * @param {Token}
      */
     isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
+      return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     }
   }
 
@@ -44444,7 +44501,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -44477,7 +44534,7 @@ __webpack_require__.r(__webpack_exports__);
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       if (result) {
         this.hideTextEditor++
         this.showAlignEditor++
@@ -44502,7 +44559,7 @@ __webpack_require__.r(__webpack_exports__);
     startOver () {
       this.$textC.startOver()
       this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedC.startOver()
+      this.$alignedGC.startOver()
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
       this.$textC.store.commit('incrementAlignmentRestarted')
@@ -44751,13 +44808,13 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
     },
     undoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     toggleOptionsTitle () {
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
@@ -45943,6 +46000,7 @@ __webpack_require__.r(__webpack_exports__);
   created () {
     this.$textC.createAlignment()
     this.$historyC.startTracking(this.$textC.alignment)
+    this.$tokensEC.uploadAlignment(this.$textC.alignment)
   },
   computed: {
     originId () {
@@ -46281,7 +46339,7 @@ __webpack_require__.r(__webpack_exports__);
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
     /**
@@ -46502,7 +46560,7 @@ __webpack_require__.r(__webpack_exports__);
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
     alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
@@ -46557,7 +46615,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -46574,11 +46634,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TokenEditBlock',
+  components: {
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   props: {
     token: {
       type: Object,
@@ -46648,25 +46723,32 @@ __webpack_require__.r(__webpack_exports__);
     this.tokenWord = this.token.word
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
     itemId () {
       return `${this.token.idWord}-input-id`
     },
     additionalClasses () {
       return {
-        'alpheios-alignment-token-edit-span__activated' : this.activated
+        'alpheios-alignment-editor-token-edit-span__activated' : this.activated,
+        'alpheios-alignment-editor-token-edit-not-editable': !this.isEditableToken
       }
+    },
+    isEditableToken () {
+      return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
     }
   },
   methods: {
     updateTokenWord () {
-      this.$alignedC.updateTokenWord(this.token, this.tokenWord)
+      this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
     },
     mergeToken (direction) {
-      this.$alignedC.mergeToken(this.token, direction)
+      this.$tokensEC.mergeToken(this.token, direction)
       this.hideActionsMenu()
     },
     splitToken ()  {
-      this.$alignedC.splitToken(this.token, this.tokenWord)
+      this.$tokensEC.splitToken(this.token, this.tokenWord)
     },
     hideActionsMenu () {
       this.activated = false
@@ -46675,7 +46757,7 @@ __webpack_require__.r(__webpack_exports__);
     async showActionsMenu () {
       this.$emit('removeAllActivated')
 
-      await _vue_runtime__WEBPACK_IMPORTED_MODULE_0__.default.nextTick()
+      await _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default.nextTick()
 
       this.activated = true
       this.$emit('showActionsMenu', {
@@ -46744,7 +46826,7 @@ __webpack_require__.r(__webpack_exports__);
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     showTokenEditBlocksLabel () {
       return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')
@@ -48886,7 +48968,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alpheios-alignment-editor-align-define-container" },
+    { staticClass: "alpheios-alignment-editor-align-groups-editor-container" },
     [
       _vm.allTokenizedTargetTextsIds.length > 1
         ? _c("editor-tabs", {
@@ -48898,8 +48980,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass:
-            "alpheios-alignment-editor-align-define-container-view-mode"
+          staticClass: "alpheios-alignment-editor-align-define-container-inner"
         },
         _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
           return _c(
@@ -51036,7 +51117,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alpheios-alignment-editor-align-define-container" },
+    { staticClass: "alpheios-alignment-editor-tokens-edit-editor-container" },
     [
       _vm.allTokenizedTargetTextsIds.length > 1
         ? _c("editor-tabs", {
@@ -51049,7 +51130,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "alpheios-alignment-editor-align-define-container-edit-mode"
+            "alpheios-alignment-editor-tokens-edit-editor-container-inner"
         },
         _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
           return _c(
@@ -51235,51 +51316,97 @@ var render = function() {
   return _c(
     "span",
     {
-      staticClass: "alpheios-token-edit alpheios-alignment-token-edit-span",
+      staticClass:
+        "alpheios-alignment-editor-token-edit alpheios-alignment-editor-token-edit-span",
       class: _vm.additionalClasses
     },
     [
-      _vm._v("\n  " + _vm._s(_vm.token.beforeWord) + "\n  "),
-      _c(
-        "span",
-        { staticClass: "alpheios-alignment-token-edit-input-container" },
-        [
-          _c(
+      _vm._v("\n    " + _vm._s(_vm.token.beforeWord) + "\n\n    "),
+      !_vm.isEditableToken
+        ? _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS(
+                  "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP"
+                ),
+                tooltipDirection: "top"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-token-edit-input-container"
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-token-edit__input-width-machine",
+                      attrs: { "aria-hidden": "true" }
+                    },
+                    [_vm._v(_vm._s(_vm.tokenWord))]
+                  )
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isEditableToken
+        ? _c(
             "span",
             {
-              staticClass: "alpheios-alignment-token-edit-input-width-machine",
-              attrs: { "aria-hidden": "true" }
+              staticClass:
+                "alpheios-alignment-editor-token-edit-input-container"
             },
-            [_vm._v(_vm._s(_vm.tokenWord))]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.tokenWord,
-                expression: "tokenWord"
-              }
-            ],
-            staticClass:
-              "alpheios-alignment-input alpheios-alignment-token-edit-input",
-            attrs: { type: "text", id: _vm.itemId },
-            domProps: { value: _vm.tokenWord },
-            on: {
-              focus: _vm.showActionsMenu,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-token-edit__input-width-machine",
+                  attrs: { "aria-hidden": "true" }
+                },
+                [_vm._v(_vm._s(_vm.tokenWord))]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tokenWord,
+                    expression: "tokenWord"
+                  }
+                ],
+                staticClass:
+                  "alpheios-alignment-input alpheios-alignment-editor-token-edit-input",
+                attrs: {
+                  type: "text",
+                  id: _vm.itemId,
+                  disabled: !_vm.isEditableToken
+                },
+                domProps: { value: _vm.tokenWord },
+                on: {
+                  focus: _vm.showActionsMenu,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.tokenWord = $event.target.value
+                  }
                 }
-                _vm.tokenWord = $event.target.value
-              }
-            }
-          })
-        ]
-      ),
-      _vm._v("\n  " + _vm._s(_vm.token.afterWord) + "\n")
-    ]
+              })
+            ]
+          )
+        : _vm._e(),
+      _vm._v("\n    " + _vm._s(_vm.token.afterWord) + "\n  ")
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -51603,14 +51730,14 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 
 /***/ }),
 
-/***/ "./locales/en-us/messages-align-editor.json":
-/*!**************************************************!*\
-  !*** ./locales/en-us/messages-align-editor.json ***!
-  \**************************************************/
+/***/ "./locales/en-us/messages-aligned-groups-editor.json":
+/*!***********************************************************!*\
+  !*** ./locales/en-us/messages-aligned-groups-editor.json ***!
+  \***********************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"}}");
+module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"}}");
 
 /***/ }),
 
@@ -51621,7 +51748,18 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]}}");
+module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-controllers.json":
+/*!*************************************************!*\
+  !*** ./locales/en-us/messages-controllers.json ***!
+  \*************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"}}");
 
 /***/ }),
 
@@ -51677,6 +51815,17 @@ module.exports = JSON.parse("{\"OPTIONS_BLOCK_APPLICATION\":{\"message\":\"Appli
 
 "use strict";
 module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Origin and Target Texts\",\"description\":\"A heading for text editor\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_TEXT_BLOCK_TITLE\":{\"message\":\"Enter Text in { textType } Language:\",\"description\":\"A tytle for text block area\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"RADIO_BLOCK_DIRECTION_LABEL\":{\"message\":\"Text Direction:\",\"description\":\"A label for text direction select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_LTR\":{\"message\":\"Left to Right\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_RTL\":{\"message\":\"Right to Left\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_AVA_LANGUAGE_TITLE\":{\"message\":\"{ textType } Language:\",\"description\":\"A title for available languages select\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"TEXT_EDITOR_LANGUAGE_OTHER_LABEL\":{\"message\":\"Or Other Language:\",\"description\":\"A label for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION\":{\"message\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"description\":\"A description for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_LABEL\":{\"message\":\"Text type:\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEXT\":{\"message\":\"Text\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEI\":{\"message\":\"TEI\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS\":{\"message\":\"Tokenize options for Alpheios Remote Servise\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT\":{\"message\":\"TEXT\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI\":{\"message\":\"TEI\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"ACTIONS_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_METADATA_HIDE_TITLE\":{\"message\":\"Hide metadata\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_METADATA_SHOW_TITLE\":{\"message\":\"Show metadata\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-tokens-edit-editor.json":
+/*!********************************************************!*\
+  !*** ./locales/en-us/messages-tokens-edit-editor.json ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditBlock\"}}");
 
 /***/ }),
 

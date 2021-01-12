@@ -70,6 +70,7 @@ export default {
   created () {
     this.$textC.createAlignment()
     this.$historyC.startTracking(this.$textC.alignment)
+    this.$tokensEC.uploadAlignment(this.$textC.alignment)
   },
   computed: {
     originId () {

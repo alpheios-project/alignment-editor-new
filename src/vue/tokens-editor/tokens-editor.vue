@@ -39,7 +39,7 @@ export default {
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     showTokenEditBlocksLabel () {
       return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')

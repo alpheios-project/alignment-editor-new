@@ -144,7 +144,7 @@ export default {
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
     alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []

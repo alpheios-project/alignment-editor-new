@@ -37,7 +37,7 @@ describe('token-block.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
@@ -64,9 +64,9 @@ describe('token-block.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedGC.createAlignedTexts(appC.textC.alignment)
 
-    token = appC.alignedC.allAlignedTextsSegments[0].origin.tokens[0]
+    token = appC.alignedGC.allAlignedTextsSegments[0].origin.tokens[0]
   })
 
   it('1 TokenBlock - renders a vue instance (min requirements)', () => {

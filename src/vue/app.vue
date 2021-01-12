@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -88,7 +88,7 @@ export default {
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       if (result) {
         this.hideTextEditor++
         this.showAlignEditor++
@@ -113,7 +113,7 @@ export default {
     startOver () {
       this.$textC.startOver()
       this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedC.startOver()
+      this.$alignedGC.startOver()
       
       NotificationSingleton.clearNotifications()
       this.$textC.store.commit('incrementAlignmentRestarted')

@@ -9,7 +9,7 @@ import AlignEditor from '@/vue/align-editor/align-editor.vue'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AppController from '@/lib/controllers/app-controller.js'
-import AlignedController from '@/lib/controllers/aligned-controller.js'
+import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -47,7 +47,7 @@ describe('app.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
     appC.defineHistoryController(appC.store)
   })
 
@@ -83,32 +83,32 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer')
   })
 
-  it('5 App - alignTexts - executes $alignedC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', async () => {
+  it('5 App - alignTexts - executes $alignedGC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', async () => {
     let cmp = shallowMount(App)
-    expect(cmp.vm.$alignedC).toEqual(expect.any(AlignedController))
+    expect(cmp.vm.$alignedGC).toEqual(expect.any(AlignedGroupsController))
 
-    cmp.vm.$alignedC.createAlignedTexts = jest.fn(() => true)
+    cmp.vm.$alignedGC.createAlignedTexts = jest.fn(() => true)
     
     expect(cmp.vm.hideTextEditor).toEqual(1)
     expect(cmp.vm.showAlignEditor).toEqual(1)
 
     await cmp.vm.alignTexts()
-    expect(cmp.vm.$alignedC.createAlignedTexts).toHaveBeenCalled()
+    expect(cmp.vm.$alignedGC.createAlignedTexts).toHaveBeenCalled()
     expect(cmp.vm.hideTextEditor).toEqual(2)
     expect(cmp.vm.showAlignEditor).toEqual(2)
   })
 
-  it('6 App - alignTexts - alignTexts - executes $alignedC.createAlignedTexts, and if failed - no other methods', () => {
+  it('6 App - alignTexts - alignTexts - executes $alignedGC.createAlignedTexts, and if failed - no other methods', () => {
     let cmp = shallowMount(App)
-    expect(cmp.vm.$alignedC).toEqual(expect.any(AlignedController))
+    expect(cmp.vm.$alignedGC).toEqual(expect.any(AlignedGroupsController))
 
-    cmp.vm.$alignedC.createAlignedTexts = jest.fn(() => false)
+    cmp.vm.$alignedGC.createAlignedTexts = jest.fn(() => false)
     
     expect(cmp.vm.hideTextEditor).toEqual(1)
     expect(cmp.vm.showAlignEditor).toEqual(1)
 
     cmp.vm.alignTexts()
-    expect(cmp.vm.$alignedC.createAlignedTexts).toHaveBeenCalled()
+    expect(cmp.vm.$alignedGC.createAlignedTexts).toHaveBeenCalled()
     expect(cmp.vm.hideTextEditor).toEqual(1)
     expect(cmp.vm.showAlignEditor).toEqual(1)
   })
@@ -151,7 +151,7 @@ describe('app.test.js', () => {
     })
     
     expect(cmp.vm.$store.state.alignmentUpdated).toEqual(1)
-    expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeFalsy()
+    expect(cmp.vm.$alignedGC.alignmentGroupsWorkflowStarted).toBeFalsy()
     expect(cmp.vm.alignEditorAvailable).toBeFalsy() // alignment workflow didn't start
 
     const originDocSource = new SourceText('origin', {
@@ -168,11 +168,11 @@ describe('app.test.js', () => {
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
-    await cmp.vm.$alignedC.createAlignedTexts(alignment)
+    await cmp.vm.$alignedGC.createAlignedTexts(alignment)
     
     expect(cmp.vm.$store.state.alignmentUpdated).toEqual(2)
 
-    expect(cmp.vm.$alignedC.alignmentGroupsWorkflowStarted).toBeTruthy()
+    expect(cmp.vm.$alignedGC.alignmentGroupsWorkflowStarted).toBeTruthy()
     expect(cmp.vm.alignEditorAvailable).toBeTruthy() // alignment workflow started
     
   })
@@ -214,18 +214,18 @@ describe('app.test.js', () => {
 
     let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
-    await cmp.vm.$alignedC.createAlignedTexts(alignment)
+    await cmp.vm.$alignedGC.createAlignedTexts(alignment)
 
     // decided to start over
     jest.spyOn(cmp.vm.$textC, 'startOver')
-    jest.spyOn(cmp.vm.$alignedC, 'startOver')
+    jest.spyOn(cmp.vm.$alignedGC, 'startOver')
     jest.spyOn(cmp.vm.$historyC, 'startOver')
     jest.spyOn(NotificationSingleton, 'clearNotifications')
 
     cmp.vm.startOver()
 
     expect(cmp.vm.$textC.startOver).toHaveBeenCalled()
-    expect(cmp.vm.$alignedC.startOver).toHaveBeenCalled()
+    expect(cmp.vm.$alignedGC.startOver).toHaveBeenCalled()
     expect(cmp.vm.$historyC.startOver).toHaveBeenCalled()
     expect(NotificationSingleton.clearNotifications).toHaveBeenCalled()
 

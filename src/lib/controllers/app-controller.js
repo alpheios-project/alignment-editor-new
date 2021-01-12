@@ -3,7 +3,8 @@ import Vue from '@vue-runtime'
 import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
-import AlignedController from '@/lib/controllers/aligned-controller.js'
+import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
 
@@ -12,12 +13,6 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
-import EnUsCommon from '@/locales/en-us/messages-common.json'
-import EnUsLanguages from '@/locales/en-us/messages-languages.json'
-import EnUsTextEditor from '@/locales/en-us/messages-text-editor.json'
-import EnUsAlignEditor from '@/locales/en-us/messages-align-editor.json'
-import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
-import enGB from '@/locales/en-gb/messages.json'
 
 export default class AppController {
   /**
@@ -71,7 +66,8 @@ export default class AppController {
    */
   attachVueComponents () {
     this.defineTextController()
-    this.defineAlignedController()
+    this.defineAlignedGroupsController()
+    this.defineTokensEditController()
     this.defineHistoryController()
 
     const rootVi = new Vue({ store: this.store })
@@ -122,11 +118,16 @@ export default class AppController {
   }
 
   /**
-   * Creates AlignedController and attaches to Vue components
+   * Creates AlignedGroupsController and attaches to Vue components
    */
-  defineAlignedController () {
-    this.alignedC = new AlignedController(this.store)
-    Vue.prototype.$alignedC = this.alignedC
+  defineAlignedGroupsController () {
+    this.alignedGC = new AlignedGroupsController(this.store)
+    Vue.prototype.$alignedGC = this.alignedGC
+  }
+
+  defineTokensEditController () {
+    this.tokensEC = new TokensEditController(this.store)
+    Vue.prototype.$tokensEC = this.tokensEC
   }
 
   /**
@@ -143,14 +144,7 @@ export default class AppController {
   defineL10Support () {
     const config = {
       defaultLocale: Locales.en_US,
-      messageBundles: Locales.bundleArr([
-        [EnUsCommon, Locales.en_US],
-        [EnUsLanguages, Locales.en_US],
-        [EnUsTextEditor, Locales.en_US],
-        [EnUsMainMenu, Locales.en_US],
-        [EnUsAlignEditor, Locales.en_US],
-        [enGB, Locales.en_GB]
-      ])
+      messageBundles: Locales.bundleArr(Locales.predefinedLocales())
     }
 
     const l10n = new L10nSingleton()

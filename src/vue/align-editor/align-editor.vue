@@ -54,7 +54,7 @@ export default {
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {

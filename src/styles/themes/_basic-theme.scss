@@ -80,8 +80,9 @@
         }
     }
 
-    .alpheios-alignment-editor-align-define-container-view-mode {
+    .alpheios-alignment-editor-align-define-container-inner {
         color: map.get($theme, 'align-editor-text-color');
+        background: map.get($theme, 'editors-text-blocks-background');
 
         .alpheios-alignment-editor-align-segment-data {
             border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
@@ -138,9 +139,10 @@
         }
     }
 
-    .alpheios-alignment-editor-align-define-container-edit-mode {
+    .alpheios-alignment-editor-tokens-edit-editor-container-inner {
         color: map.get($theme, 'align-editor-text-color');
-        
+        background: map.get($theme, 'editors-text-blocks-background');
+
         .alpheios-alignment-editor-align-segment-data {
             border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
         }
@@ -151,13 +153,18 @@
             }
         }
 
-        .alpheios-alignment-editor-align-text-segment-edit span.alpheios-token-edit {
+        .alpheios-alignment-editor-align-text-segment-edit span.alpheios-alignment-editor-token-edit {
             &:hover {
                 background: map.get($theme, 'align-editor-text-border-color-hover');
             }
+            &.alpheios-alignment-editor-token-edit-not-editable  {
+                &:hover {
+                    background: map.get($theme, 'editors-text-blocks-background');
+                }
+            }
         }
 
-        span.alpheios-token-edit.alpheios-alignment-token-edit-span__activated {
+        span.alpheios-alignment-editor-token-edit.alpheios-alignment-editor-token-edit-span__activated {
             background: map.get($theme, 'align-editor-text-border-color-hover');
         }
     }
@@ -175,5 +182,9 @@
         &:hover {
             color: map.get($theme, 'text-link-color-hover');
         }
+    }
+
+    .alpheios-alignment-editor-options-fieldset {
+        border-color: map.get($theme, 'editors-text-blocks-background');
     }
 }

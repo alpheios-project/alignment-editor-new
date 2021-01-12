@@ -1,24 +1,39 @@
 <template>
-    <span class="alpheios-token-edit alpheios-alignment-token-edit-span" :class="additionalClasses">
+    <span class="alpheios-alignment-editor-token-edit alpheios-alignment-editor-token-edit-span" :class="additionalClasses">
       {{ token.beforeWord }}
-      <span class="alpheios-alignment-token-edit-input-container">
-        <span class="alpheios-alignment-token-edit-input-width-machine" aria-hidden="true">{{ tokenWord }}</span>
-        <input
-            class="alpheios-alignment-input alpheios-alignment-token-edit-input"
-            type="text"
-            v-model="tokenWord"
-            :id="itemId"
-            @focus = "showActionsMenu"
-        >
-      </span>
+
+      <tooltip :tooltipText="l10n.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP')" tooltipDirection="top" v-if="!isEditableToken">
+        <span class="alpheios-alignment-editor-token-edit-input-container">
+          <span class="alpheios-alignment-editor-token-edit__input-width-machine" aria-hidden="true">{{ tokenWord }}</span>
+        </span>
+      </tooltip>
+
+        <span class="alpheios-alignment-editor-token-edit-input-container" v-if="isEditableToken">
+          <span class="alpheios-alignment-editor-token-edit__input-width-machine" aria-hidden="true">{{ tokenWord }}</span>
+          <input
+              class="alpheios-alignment-input alpheios-alignment-editor-token-edit-input"
+              type="text"
+              v-model="tokenWord"
+              :id="itemId"
+              @focus = "showActionsMenu"
+              :disabled = "!isEditableToken"
+          >
+        </span>
       {{ token.afterWord }}
     </span>
+  </tooltip>
 </template>
 <script>
 import Vue from '@vue-runtime'
+import Tooltip from '@/vue/common/tooltip.vue'
+
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'TokenEditBlock',
+  components: {
+    tooltip: Tooltip
+  },
   props: {
     token: {
       type: Object,
@@ -88,25 +103,32 @@ export default {
     this.tokenWord = this.token.word
   },
   computed: {
+    l10n () {
+      return L10nSingleton
+    },
     itemId () {
       return `${this.token.idWord}-input-id`
     },
     additionalClasses () {
       return {
-        'alpheios-alignment-token-edit-span__activated' : this.activated
+        'alpheios-alignment-editor-token-edit-span__activated' : this.activated,
+        'alpheios-alignment-editor-token-edit-not-editable': !this.isEditableToken
       }
+    },
+    isEditableToken () {
+      return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
     }
   },
   methods: {
     updateTokenWord () {
-      this.$alignedC.updateTokenWord(this.token, this.tokenWord)
+      this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
     },
     mergeToken (direction) {
-      this.$alignedC.mergeToken(this.token, direction)
+      this.$tokensEC.mergeToken(this.token, direction)
       this.hideActionsMenu()
     },
     splitToken ()  {
-      this.$alignedC.splitToken(this.token, this.tokenWord)
+      this.$tokensEC.splitToken(this.token, this.tokenWord)
     },
     hideActionsMenu () {
       this.activated = false
@@ -128,33 +150,42 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-token-edit-span {
+  .alpheios-alignment-editor-token-edit-span {
     display: inline-block;
     vertical-align: baseline;
     padding: 4px;
     position: relative;
   }
 
-  .alpheios-alignment-token-edit-input-width-machine {
+  .alpheios-alignment-editor-token-edit__input-width-machine {
     display: inline-block;
     vertical-align: baseline;
     padding: 8px;
+    visibility: hidden;
   }
  
-  .alpheios-alignment-token-edit-input-container {
+  .alpheios-alignment-editor-token-edit-input-container {
     display: inline-block;
     position: relative;
     padding: 4px;
   }
 
-  .alpheios-alignment-token-edit-input {
+  .alpheios-alignment-editor-token-edit-input {
     position: absolute;
     width: 100%;
     left: 0;
+    z-index: 10;
   }
 
-  .alpheios-alignment-token-edit-span__activated {
+  .alpheios-alignment-editor-token-edit-span__activated {
     margin-top: 30px;
   }
+
+  .alpheios-alignment-editor-token-edit-not-editable 
+  .alpheios-alignment-editor-token-edit__input-width-machine {
+    visibility: initial;
+  }
+
+
 
 </style>

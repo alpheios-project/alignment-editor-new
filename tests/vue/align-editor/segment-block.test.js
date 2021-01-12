@@ -36,7 +36,7 @@ describe('segment-block.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
@@ -63,23 +63,23 @@ describe('segment-block.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedGC.createAlignedTexts(appC.textC.alignment)
 
     allTargetTextsIds = appC.textC.allTargetTextsIds
 
-    originSegment = appC.alignedC.allAlignedTextsSegments[0].origin
-    targetSegment = appC.alignedC.allAlignedTextsSegments[1].targets[allTargetTextsIds[1]]
+    originSegment = appC.alignedGC.allAlignedTextsSegments[0].origin
+    targetSegment = appC.alignedGC.allAlignedTextsSegments[1].targets[allTargetTextsIds[1]]
 
-    targetSegment1 = appC.alignedC.allAlignedTextsSegments[0].targets[allTargetTextsIds[1]]
+    targetSegment1 = appC.alignedGC.allAlignedTextsSegments[0].targets[allTargetTextsIds[1]]
 
     createAlignmentGroup = (finished) => {
-      appC.alignedC.clickToken(originSegment.tokens[0], allTargetTextsIds[1]) // starts a group - an origin token
-      appC.alignedC.clickToken(targetSegment1.tokens[0], allTargetTextsIds[1]) // adds a target token
+      appC.alignedGC.clickToken(originSegment.tokens[0], allTargetTextsIds[1]) // starts a group - an origin token
+      appC.alignedGC.clickToken(targetSegment1.tokens[0], allTargetTextsIds[1]) // adds a target token
 
-      const activeAlignmentGroup = appC.alignedC.alignment.activeAlignmentGroup
+      const activeAlignmentGroup = appC.alignedGC.alignment.activeAlignmentGroup
 
       if (finished) {
-        appC.alignedC.clickToken(originSegment.tokens[0], allTargetTextsIds[1]) // finishes a group
+        appC.alignedGC.clickToken(originSegment.tokens[0], allTargetTextsIds[1]) // finishes a group
       }
 
       return activeAlignmentGroup
@@ -211,14 +211,14 @@ describe('segment-block.test.js', () => {
       }
     })
 
-    jest.spyOn(cmp.vm.$alignedC, 'clickToken')
+    jest.spyOn(cmp.vm.$alignedGC, 'clickToken')
 
     const originToken = originSegment.tokens[0]
 
     // we have the first tab activated - we could create groups, click is active
     cmp.vm.clickToken(originToken)
 
-    expect(cmp.vm.$alignedC.clickToken).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
+    expect(cmp.vm.$alignedGC.clickToken).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
 
     cmp.setProps({
       currentTargetId: null
@@ -226,7 +226,7 @@ describe('segment-block.test.js', () => {
 
     // we have both tabs activated - click should not be active
     cmp.vm.clickToken(originToken)
-    expect(cmp.vm.$alignedC.clickToken).not.toHaveBeenLastCalledWith(originToken, null)
+    expect(cmp.vm.$alignedGC.clickToken).not.toHaveBeenLastCalledWith(originToken, null)
 
     cmp.setProps({
       segment: targetSegment,
@@ -238,7 +238,7 @@ describe('segment-block.test.js', () => {
 
     cmp.vm.clickToken(targetToken)
 
-    expect(cmp.vm.$alignedC.clickToken).toHaveBeenLastCalledWith(targetToken, allTargetTextsIds[1])
+    expect(cmp.vm.$alignedGC.clickToken).toHaveBeenLastCalledWith(targetToken, allTargetTextsIds[1])
   })
 
 
@@ -253,12 +253,12 @@ describe('segment-block.test.js', () => {
     })
 
     // the firt tab activated
-    jest.spyOn(cmp.vm.$alignedC, 'activateHoverOnAlignmentGroups')
+    jest.spyOn(cmp.vm.$alignedGC, 'activateHoverOnAlignmentGroups')
 
     const originToken = originSegment.tokens[0]
     cmp.vm.addHoverToken(originToken)
 
-    expect(cmp.vm.$alignedC.activateHoverOnAlignmentGroups).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
+    expect(cmp.vm.$alignedGC.activateHoverOnAlignmentGroups).toHaveBeenLastCalledWith(originToken, allTargetTextsIds[0])
 
     cmp.setProps({
       currentTargetId: null
@@ -268,7 +268,7 @@ describe('segment-block.test.js', () => {
 
     cmp.vm.addHoverToken(originToken)
 
-    expect(cmp.vm.$alignedC.activateHoverOnAlignmentGroups).toHaveBeenLastCalledWith(originToken, null)
+    expect(cmp.vm.$alignedGC.activateHoverOnAlignmentGroups).toHaveBeenLastCalledWith(originToken, null)
 
   })
 
@@ -283,11 +283,11 @@ describe('segment-block.test.js', () => {
     })
 
     // the firt tab activated
-    jest.spyOn(cmp.vm.$alignedC, 'clearHoverOnAlignmentGroups')
+    jest.spyOn(cmp.vm.$alignedGC, 'clearHoverOnAlignmentGroups')
 
     cmp.vm.removeHoverToken()
 
-    expect(cmp.vm.$alignedC.clearHoverOnAlignmentGroups).toHaveBeenCalled()
+    expect(cmp.vm.$alignedGC.clearHoverOnAlignmentGroups).toHaveBeenCalled()
   })
 
   it('12 SegmentBlock - selectedToken - defines if token is hovered', async () => {

@@ -68,13 +68,13 @@ export default {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
     },
     undoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     toggleOptionsTitle () {
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')

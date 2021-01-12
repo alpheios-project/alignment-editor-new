@@ -1,19 +1,4 @@
 {
-    "ALIGN_EDITOR_HEADING": {
-      "message": "Define Alignment Groups",
-      "description": "A heading for align editor",
-      "component": "AlignEditor"
-    },
-    "ALIGN_EDITOR_HIDE": {
-      "message": "hide",
-      "description": "A label for hide/show links",
-      "component": "AlignEditor"
-    },
-    "ALIGN_EDITOR_SHOW": {
-      "message": "show",
-      "description": "A label for hide/show links",
-      "component": "AlignEditor"
-    },
     "TOKENS_EDITOR_HEADING": {
       "message": "Edit tokens in Origin and Target texts",
       "description": "A heading for text editor",
@@ -48,5 +33,10 @@
       "message": "Split a token to 2 tokens by space",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
-    }
+    },
+    "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
+      "message": "This token is inside created alignment group, you should ungroup it first.",
+      "description": "An error message for token edit workflow",
+      "component": "TokenEditBlock"
+  }
 }

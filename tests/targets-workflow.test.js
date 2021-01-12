@@ -20,7 +20,7 @@ describe('target-texts.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
     appC.defineHistoryController(appC.store)
   })
   
@@ -65,7 +65,7 @@ describe('target-texts.test.js', () => {
     })
 
     // create aligned texts
-    await cmp.vm.$alignedC.createAlignedTexts(alignment)
+    await cmp.vm.$alignedGC.createAlignedTexts(alignment)
 
   }
 
@@ -79,7 +79,7 @@ describe('target-texts.test.js', () => {
       testToken = alignment.targets[allTargetsId[targetId]].alignedText.segments[segmentIndex].tokens[tokenIndex]
     }
 
-    cmp.vm.$alignedC.clickToken(testToken)
+    cmp.vm.$alignedGC.clickToken(testToken)
     return testToken
   }
   
@@ -99,70 +99,70 @@ describe('target-texts.test.js', () => {
     // console.info('activeAlignmentGroup - ', alignment.activeAlignmentGroup)
 
     // check status of tokens in active group
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testOriginToken1)).toBeTruthy() // we see both tabs on the screen
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testTargetToken1)).toBeTruthy() 
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testOriginToken1)).toBeTruthy() // we see both tabs on the screen
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testTargetToken1)).toBeTruthy() 
 
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testOriginToken1, allTargetsId[0])).toBeTruthy() // we see the tab, where we start to create a group 
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testTargetToken1, allTargetsId[0])).toBeTruthy() 
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testOriginToken1, allTargetsId[0])).toBeTruthy() // we see the tab, where we start to create a group 
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testTargetToken1, allTargetsId[0])).toBeTruthy() 
 
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testOriginToken1, allTargetsId[1])).toBeFalsy() // we see the other tab, where we didn't start to create a group 
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testTargetToken1, allTargetsId[1])).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testOriginToken1, allTargetsId[1])).toBeFalsy() // we see the other tab, where we didn't start to create a group 
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testTargetToken1, allTargetsId[1])).toBeFalsy() 
 
-    expect(cmp.vm.$alignedC.isFirstInActiveGroup(testOriginToken1)).toBeTruthy() // we see both tabs on the screen
-    expect(cmp.vm.$alignedC.isFirstInActiveGroup(testTargetToken1)).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.isFirstInActiveGroup(testOriginToken1)).toBeTruthy() // we see both tabs on the screen
+    expect(cmp.vm.$alignedGC.isFirstInActiveGroup(testTargetToken1)).toBeFalsy() 
 
-    expect(cmp.vm.$alignedC.isFirstInActiveGroup(testOriginToken1, allTargetsId[0])).toBeTruthy() // we see the tab, where we start to create a group 
-    expect(cmp.vm.$alignedC.isFirstInActiveGroup(testTargetToken1, allTargetsId[0])).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.isFirstInActiveGroup(testOriginToken1, allTargetsId[0])).toBeTruthy() // we see the tab, where we start to create a group 
+    expect(cmp.vm.$alignedGC.isFirstInActiveGroup(testTargetToken1, allTargetsId[0])).toBeFalsy() 
 
-    expect(cmp.vm.$alignedC.isFirstInActiveGroup(testOriginToken1, allTargetsId[1])).toBeFalsy() // we see the other tab, where we didn't start to create a group 
-    expect(cmp.vm.$alignedC.isFirstInActiveGroup(testTargetToken1, allTargetsId[1])).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.isFirstInActiveGroup(testOriginToken1, allTargetsId[1])).toBeFalsy() // we see the other tab, where we didn't start to create a group 
+    expect(cmp.vm.$alignedGC.isFirstInActiveGroup(testTargetToken1, allTargetsId[1])).toBeFalsy() 
 
     // click the same token from origin to finish the group
-    cmp.vm.$alignedC.clickToken(testOriginToken1)
+    cmp.vm.$alignedGC.clickToken(testOriginToken1)
 
     expect(alignment.activeAlignmentGroup).toBeNull()
     expect(alignment.alignmentGroups.length).toEqual(1)
     expect(alignment.alignmentGroups[0].allIds).toEqual([testOriginToken1.idWord, testTargetToken1.idWord])
 
     // now we have saved aligned group, let's check status of tokens
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.tokenInActiveGroup(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenInActiveGroup(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1)).toBeTruthy()  // we see both tabs on the screen
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1)).toBeTruthy()  // we see both tabs on the screen
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()   // we see the tab, where we created a group 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()   // we see the tab, where we created a group 
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeFalsy()   // we see the other tab, where we didn't start to create a group 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeFalsy()   // we see the other tab, where we didn't start to create a group 
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
 
 
     // let's check hover
 
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1) // we see both tabs on the screen
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1) // we see both tabs on the screen
     expect(alignment.hoveredGroups.length).toEqual(1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
     
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1) // we see both tabs on the screen
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1) // we see both tabs on the screen
     expect(alignment.hoveredGroups.length).toEqual(1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
 
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[0]) // we see the tab, where we created a group 
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[0]) // we see the tab, where we created a group 
     expect(alignment.hoveredGroups.length).toEqual(1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[1]) // we see the other tab, where we didn't start to create a group 
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[1]) // we see the other tab, where we didn't start to create a group 
     expect(alignment.hoveredGroups.length).toEqual(0)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
     // console.info('hoveredGroups - ', alignment.hoveredGroups)
   })
@@ -177,126 +177,126 @@ describe('target-texts.test.js', () => {
     // created the first group
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0, 0)
     const testTargetToken1 = clickToken(cmp, alignment, 'target', 0, 0, 0)
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[0])
 
     // created the second group
     const testOriginToken2 = clickToken(cmp, alignment, 'origin', 0, 1, 1)
     const testTargetToken2 = clickToken(cmp, alignment, 'target', 0, 0, 1)
-    cmp.vm.$alignedC.clickToken(testOriginToken2, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[1])
 
     /********************************************************************* */
     // we see the first tab with the first group, no active groups
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken2, allTargetsId[0])).toBeFalsy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2, allTargetsId[0])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken2, allTargetsId[0])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2, allTargetsId[0])).toBeFalsy()
 
     // hover on the origin token from the first group - the first group is highlighted, the second is not
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[0])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[0])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     // hover on the target token from the first group - the first group is highlighted, the second is not
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[0])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[0])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     // hover on the origin token from the second group - noone hovered
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[0])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[0])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
 
     /********************************************************************* */
     // we see the second tab with the second group, no active groups
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeFalsy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken2, allTargetsId[1])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken2, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2, allTargetsId[1])).toBeTruthy()
 
     // hover on the origin token from the second group - the second group is highlighted, the first is not
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[1])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[1])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
     // hover on the target token from the second group - the second group is highlighted, the first is not
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken2, allTargetsId[1])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken2, allTargetsId[1])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
     // hover on the origin token from the first group - noone is hovered
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[1])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[1])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     /********************************************************************* */
     // we see both tabs - and see all grouped tokens
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2)).toBeTruthy()
 
     // hover on the origin token from the first group - the first group is highlighted
 
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     // hover on the target token from the first group - the first group is highlighted
 
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     // hover on the origin token from the second group - the second group is highlighted
 
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken2)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken2)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
     // hover on the target token from the second group - the second group is highlighted
 
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken2)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken2)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
   })
 
   it('3 Multiple targets - create two aligned groups in different target texts with the same origin word', async () => {
@@ -309,79 +309,79 @@ describe('target-texts.test.js', () => {
     // created the first group
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0)
     const testTargetToken1 = clickToken(cmp, alignment, 'target', 0, 0, 0)
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[0])
 
     // created the second group with the same origin
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[1])
     const testTargetToken2 = clickToken(cmp, alignment, 'target', 0, 0, 1)
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[1])
 
     //********************************************************************* 
     // we see the first tab with the first group, no active groups
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2, allTargetsId[0])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2, allTargetsId[0])).toBeFalsy()
 
     // hover on the origin token from the first group - the first group is highlighted, the second is not
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[0])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[0])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     // hover on the target token from the first group - the first group is highlighted, the second is not
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[0])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1, allTargetsId[0])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     //********************************************************************* 
     // we see the second tab with the second group, no active groups
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2, allTargetsId[1])).toBeTruthy()
 
     // hover on the origin token from the second group - the second group is highlighted, the first is not
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[1])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[1])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
     // hover on the target token from the second group - the second group is highlighted, the first is not
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken2, allTargetsId[1])
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken2, allTargetsId[1])
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
     //********************************************************************* 
     // we see both tabs - and see all grouped tokens
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2)).toBeTruthy()
 
     // hover on the origin token from the first group - the both group is highlighted
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
     // hover on the target token from the first group - the first group is highlighted
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken1)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken1)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
     // hover on the target token from the second group - the second group is highlighted
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken2)
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken2)
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
   })
 
@@ -396,32 +396,32 @@ describe('target-texts.test.js', () => {
     const testOriginToken1 = clickToken(cmp, alignment, 'origin', 0, 0)
     const testTargetToken1 = clickToken(cmp, alignment, 'target', 0, 0, 0)
     
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[0])
 
     // created the second group
     const testOriginToken2 = clickToken(cmp, alignment, 'origin', 0, 1, 1)
     const testTargetToken2 = clickToken(cmp, alignment, 'target', 0, 1, 1)
     
-    cmp.vm.$alignedC.clickToken(testOriginToken2, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[1])
 
     // created the third group
     const testOriginToken3 = clickToken(cmp, alignment, 'origin', 0, 2, 1)
     const testTargetToken3 = clickToken(cmp, alignment, 'target', 0, 2, 1)
     // console.info(alignment.activeAlignmentGroup)
-    cmp.vm.$alignedC.clickToken(testOriginToken3, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken3, allTargetsId[1])
 
     //********************************************************************* 
     // activate the first group
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[0])
     // click on the origin from the second group, that belongs to the another target - should only add this origin
-    cmp.vm.$alignedC.clickToken(testOriginToken2, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[0])
 
     expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2' ])
     expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1' ])
 
    
     // click on the origin from the third group, that belongs to the another target - should only add this origin
-    cmp.vm.$alignedC.clickToken(testOriginToken3, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken3, allTargetsId[0])
     expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2', 'L1:1-3' ])
     expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1' ])
 
@@ -432,25 +432,25 @@ describe('target-texts.test.js', () => {
     expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1', 'L2:1-4' ])
 
     //let's remove testTargetToken4
-    cmp.vm.$alignedC.clickToken(testTargetToken4, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testTargetToken4, allTargetsId[0])
     expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2', 'L1:1-3' ])
     expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1' ])
 
     //finish the first group again
-    cmp.vm.$alignedC.clickToken(testOriginToken1, allTargetsId[0])
+    cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[0])
   
     //********************************************************************* 
     // activate the second group on the second target
-    cmp.vm.$alignedC.clickToken(testOriginToken2, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[1])
 
     //merge with the third group on the same target
-    cmp.vm.$alignedC.clickToken(testTargetToken3, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testTargetToken3, allTargetsId[1])
 
     expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-2', 'L1:1-3' ]) //merged results
     expect(alignment.activeAlignmentGroup.target).toEqual([ 'L3:1-2', 'L3:1-3' ])
   
     // finish the group
-    cmp.vm.$alignedC.clickToken(testOriginToken2, allTargetsId[1])
+    cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[1])
 
     expect(alignment.alignmentGroups.length).toEqual(2)
 
@@ -458,169 +458,169 @@ describe('target-texts.test.js', () => {
     //let's check grouped
     // both tabs are activated
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1)).toBeTruthy()
     
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken3)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken4)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken4)).toBeFalsy()
 
     // the first tab is activated
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[0])).toBeTruthy()
     
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken2, allTargetsId[0])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2, allTargetsId[0])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken2, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2, allTargetsId[0])).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken3, allTargetsId[0])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken3, allTargetsId[0])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken3, allTargetsId[0])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken3, allTargetsId[0])).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken4, allTargetsId[0])).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken4, allTargetsId[0])).toBeFalsy() 
 
     // console.info(alignment.alignmentGroups)
     // console.info(alignment.activeAlignmentGroup)
 
     // the second tab is activated
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeFalsy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken1, allTargetsId[1])).toBeFalsy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken1, allTargetsId[1])).toBeFalsy()
     
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken2, allTargetsId[1])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken2, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken2, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken2, allTargetsId[1])).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testOriginToken3, allTargetsId[1])).toBeTruthy()
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken3, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testOriginToken3, allTargetsId[1])).toBeTruthy()
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken3, allTargetsId[1])).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.tokenIsGrouped(testTargetToken4, allTargetsId[1])).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.tokenIsGrouped(testTargetToken4, allTargetsId[1])).toBeFalsy() 
     
 
     //********************************************************************* 
     //let's check hover
     // both tabs are 
     
-    // cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1) // hover the token from the only first group
+    // cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1) // hover the token from the only first group
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy()
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken2) // hover the token from the only second group
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken2) // hover the token from the only second group
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy() 
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken2) // hover the token from the both groups
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken2) // hover the token from the both groups
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy() 
 
     //********************************************************************* 
     // the first tab is activated
     
-    // cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[0]) // hover the token from the only first group
+    // cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[0]) // hover the token from the only first group
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy()
 
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[0]) // hover the token from the both groups, shows only one group
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[0]) // hover the token from the both groups, shows only one group
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeTruthy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy()
 
     //********************************************************************* 
     // the second tab is activated
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[1]) // hover the token from the only first group - no hovered group
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken1, allTargetsId[1]) // hover the token from the only first group - no hovered group
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeFalsy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy()
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testTargetToken2, allTargetsId[1]) // hover the token from the only second group
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testTargetToken2, allTargetsId[1]) // hover the token from the only second group
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy() 
 
-    cmp.vm.$alignedC.clearHoverOnAlignmentGroups()
-    cmp.vm.$alignedC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[1]) // hover the token from the both groups, but show only one
+    cmp.vm.$alignedGC.clearHoverOnAlignmentGroups()
+    cmp.vm.$alignedGC.activateHoverOnAlignmentGroups(testOriginToken2, allTargetsId[1]) // hover the token from the both groups, but show only one
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken1)).toBeFalsy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken1)).toBeFalsy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken1)).toBeFalsy()
     
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken2)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken2)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken2)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testOriginToken3)).toBeTruthy()
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testOriginToken3)).toBeTruthy()
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken3)).toBeTruthy()
 
-    expect(cmp.vm.$alignedC.selectedToken(testTargetToken4)).toBeFalsy() 
+    expect(cmp.vm.$alignedGC.selectedToken(testTargetToken4)).toBeFalsy() 
   })
 
 })
