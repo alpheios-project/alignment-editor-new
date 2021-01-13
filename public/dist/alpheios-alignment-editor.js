@@ -40250,6 +40250,10 @@ class SettingsController {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
   }
 
+  get allowUpdateTokenWordOptionValue () {
+    return this.options.app && this.options.app.items.allowUpdateTokenWord ? this.options.app.items.allowUpdateTokenWord.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - true - if tokenize options are already defined
    */
@@ -46183,6 +46187,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -46246,6 +46259,9 @@ __webpack_require__.r(__webpack_exports__);
           top
         }
       }
+    }, 
+    allowedUpdateTokenWord () {
+      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
     }
   }
 });
@@ -46643,6 +46659,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -46688,7 +46705,8 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       tokenWord: null,
-      activated: false
+      activated: false,
+      allowedKeyCodes: [32, 37, 39]
     }
   },
   watch: {
@@ -46698,6 +46716,7 @@ __webpack_require__.r(__webpack_exports__);
     deactivated () {
       this.activated = false
     },
+
     updateTokenIdWord () {
       if (this.activated && (this.updateTokenIdWord === this.token.idWord)) {
         this.updateTokenWord()
@@ -46737,11 +46756,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     isEditableToken () {
       return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
+    }, 
+    allowedUpdateTokenWord () {
+      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
     }
   },
   methods: {
     updateTokenWord () {
-      this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+      if (this.allowedUpdateTokenWord) {
+        this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+      }
     },
     mergeToken (direction) {
       this.$tokensEC.mergeToken(this.token, direction)
@@ -46765,6 +46789,12 @@ __webpack_require__.r(__webpack_exports__);
         leftPos: this.$el.offsetLeft,
         topPos: this.$el.offsetTop
       })
+    },
+    
+    checkKeyPres (event) {
+      if (!this.allowedUpdateTokenWord && this.allowedKeyCodes.indexOf(event.keyCode) === -1) {
+        event.preventDefault()
+      }
     }
   } 
 });
@@ -50977,33 +51007,50 @@ var render = function() {
           staticClass: "alpheios-token-edit-actions-inner"
         },
         [
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_UPDATE_TOKEN"),
-                tooltipDirection: "top"
-              }
-            },
-            [
-              _c(
+          _vm.allowedUpdateTokenWord
+            ? _c(
+                "tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_UPDATE_TOKEN"),
+                    tooltipDirection: "top"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-token-edit-actions-button",
+                      attrs: {
+                        id: "alpheios-token-edit-actions-button__update-token"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("updateTokenWord", _vm.token)
+                        }
+                      }
+                    },
+                    [_c("ok-icon")],
+                    1
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.allowedUpdateTokenWord
+            ? _c(
                 "span",
                 {
-                  staticClass: "alpheios-token-edit-actions-button",
+                  staticClass:
+                    "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled",
                   attrs: {
                     id: "alpheios-token-edit-actions-button__update-token"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("updateTokenWord", _vm.token)
-                    }
                   }
                 },
                 [_c("ok-icon")],
                 1
               )
-            ]
-          ),
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "tooltip",
@@ -51393,6 +51440,7 @@ var render = function() {
                 domProps: { value: _vm.tokenWord },
                 on: {
                   focus: _vm.showActionsMenu,
+                  keydown: _vm.checkKeyPres,
                   input: function($event) {
                     if ($event.target.composing) {
                       return

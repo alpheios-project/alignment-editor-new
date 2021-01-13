@@ -63,7 +63,7 @@
             }
         }
 
-        &:disabled {
+        &.alpheios-token-edit-actions-button__disabled {
             border-color: map.get($theme, 'main-menu-border-color-disabled');
             background: map.get($theme, 'main-menu-background-color-disabled');
             svg {

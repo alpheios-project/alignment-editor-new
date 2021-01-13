@@ -11,12 +11,13 @@
         <span class="alpheios-alignment-editor-token-edit-input-container" v-if="isEditableToken">
           <span class="alpheios-alignment-editor-token-edit__input-width-machine" aria-hidden="true">{{ tokenWord }}</span>
           <input
-              class="alpheios-alignment-input alpheios-alignment-editor-token-edit-input"
-              type="text"
-              v-model="tokenWord"
-              :id="itemId"
+              class = "alpheios-alignment-input alpheios-alignment-editor-token-edit-input"
+              type = "text"
+              v-model = "tokenWord"
+              :id = "itemId"
               @focus = "showActionsMenu"
               :disabled = "!isEditableToken"
+              @keydown="checkKeyPres"
           >
         </span>
       {{ token.afterWord }}
@@ -68,7 +69,8 @@ export default {
   data () {
     return {
       tokenWord: null,
-      activated: false
+      activated: false,
+      allowedKeyCodes: [32, 37, 39]
     }
   },
   watch: {
@@ -78,6 +80,7 @@ export default {
     deactivated () {
       this.activated = false
     },
+
     updateTokenIdWord () {
       if (this.activated && (this.updateTokenIdWord === this.token.idWord)) {
         this.updateTokenWord()
@@ -117,11 +120,16 @@ export default {
     },
     isEditableToken () {
       return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
+    }, 
+    allowedUpdateTokenWord () {
+      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
     }
   },
   methods: {
     updateTokenWord () {
-      this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+      if (this.allowedUpdateTokenWord) {
+        this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+      }
     },
     mergeToken (direction) {
       this.$tokensEC.mergeToken(this.token, direction)
@@ -145,6 +153,12 @@ export default {
         leftPos: this.$el.offsetLeft,
         topPos: this.$el.offsetTop
       })
+    },
+    
+    checkKeyPres (event) {
+      if (!this.allowedUpdateTokenWord && this.allowedKeyCodes.indexOf(event.keyCode) === -1) {
+        event.preventDefault()
+      }
     }
   } 
 }

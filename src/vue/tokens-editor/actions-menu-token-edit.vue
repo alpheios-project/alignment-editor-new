@@ -3,11 +3,20 @@
          :style = "cssStyles"
     >
       <div class="alpheios-token-edit-actions-inner" ref="actionsInner">
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_UPDATE_TOKEN')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__update-token" @click="$emit('updateTokenWord', token)">
+        <tooltip :tooltipText = "l10n.getMsgS('ACTION_BUTTON_UPDATE_TOKEN')" tooltipDirection = "top" v-if="allowedUpdateTokenWord">
+          <span class = "alpheios-token-edit-actions-button" 
+                id = "alpheios-token-edit-actions-button__update-token" 
+                @click = "$emit('updateTokenWord', token)"
+          >
             <ok-icon />
           </span>
         </tooltip>
+        <span class = "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled" v-if="!allowedUpdateTokenWord"
+                id = "alpheios-token-edit-actions-button__update-token" 
+          >
+            <ok-icon />
+        </span>
+
         <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_LEFT')" tooltipDirection="top">
           <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-left" @click="$emit('mergeToken', token, 'left')">
               <merge-left-icon />
@@ -89,6 +98,9 @@ export default {
           top
         }
       }
+    }, 
+    allowedUpdateTokenWord () {
+      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
     }
   }
 }
