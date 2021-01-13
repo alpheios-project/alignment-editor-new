@@ -42382,7 +42382,6 @@ class Alignment {
   }
 
   mergeToken (token, direction) {
-    console.info('mergeToken - start', direction)
     const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
 
     const alignedText = this.getAlignedTextByToken(token)
@@ -42393,7 +42392,6 @@ class Alignment {
       indexWord: 1
     })
 
-    console.info('mergeToken - ', token, position, newIdWord)
     tokenMergeTo.merge({ token, position, newIdWord })
     segment.deleteToken(tokenIndex)
     return true
@@ -46866,7 +46864,6 @@ __webpack_require__.r(__webpack_exports__);
     updateTokenWord () {
       if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
         this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
-        console.info('token is updated', this.token.word)
       }
     },
     mergeToken (direction) {

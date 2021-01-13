@@ -130,7 +130,6 @@ export default {
     updateTokenWord () {
       if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
         this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
-        console.info('token is updated', this.token.word)
       }
     },
     mergeToken (direction) {

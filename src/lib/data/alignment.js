@@ -662,7 +662,6 @@ export default class Alignment {
   }
 
   mergeToken (token, direction) {
-    console.info('mergeToken - start', direction)
     const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditController.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
 
     const alignedText = this.getAlignedTextByToken(token)
@@ -673,7 +672,6 @@ export default class Alignment {
       indexWord: 1
     })
 
-    console.info('mergeToken - ', token, position, newIdWord)
     tokenMergeTo.merge({ token, position, newIdWord })
     segment.deleteToken(tokenIndex)
     return true
