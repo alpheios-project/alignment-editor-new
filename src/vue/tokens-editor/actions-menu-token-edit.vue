@@ -18,12 +18,12 @@
         </span>
 
         <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_LEFT')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-left" @click="$emit('mergeToken', token, 'left')">
+          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-left" @click="mergeToLeft">
               <merge-left-icon />
           </span>
         </tooltip>
         <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_RIGHT')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-right" @click="$emit('mergeToken', token, 'right')">
+          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-right" @click="mergeToRight">
             <merge-right-icon />
           </span>
         </tooltip>
@@ -44,6 +44,8 @@ import MergeRightIcon from '@/inline-icons/merge-right.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 
 export default {
   name: 'ActionsMenuTokenEdit',
@@ -101,6 +103,14 @@ export default {
     }, 
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    }
+  },
+  methods: {
+    mergeToLeft () {
+      this.$emit('mergeToken', this.token, TokensEditController.direction.LEFT)
+    },
+    mergeToRight () {
+      this.$emit('mergeToken', this.token, TokensEditController.direction.RIGHT)
     }
   }
 }

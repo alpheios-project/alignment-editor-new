@@ -3,10 +3,10 @@
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
-        <template v-for = "token in allTokens">
+        <template v-for = "(token, tokenIndex) in allTokens">
           <token
             v-if ="token.word"
-            :token = "token" :key = "token.idWord"
+            :token = "token" :key = "tokenIndex"
             @click-token = "clickToken"
             @add-hover-token = "addHoverToken"
             @remove-hover-token = "removeHoverToken"

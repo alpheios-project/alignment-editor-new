@@ -29,6 +29,7 @@ import Vue from '@vue-runtime'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 
 export default {
   name: 'TokenEditBlock',
@@ -88,12 +89,12 @@ export default {
     },
     mergeTokenLeftIdWord () {
       if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
-        this.mergeToken('left')
+        this.mergeToken(TokensEditController.direction.LEFT)
       }
     },
     mergeTokenRightIdWord () {
       if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
-        this.mergeToken('right')
+        this.mergeToken(TokensEditController.direction.RIGHT)
       }
     },
     splitTokenIdWord () {
@@ -110,7 +111,7 @@ export default {
       return L10nSingleton
     },
     itemId () {
-      return `${this.token.idWord}-input-id`
+      return this.$store.state.tokenUpdated && `${this.token.idWord}-input-id`
     },
     additionalClasses () {
       return {
@@ -127,8 +128,9 @@ export default {
   },
   methods: {
     updateTokenWord () {
-      if (this.allowedUpdateTokenWord) {
+      if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
         this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+        console.info('token is updated', this.token.word)
       }
     },
     mergeToken (direction) {

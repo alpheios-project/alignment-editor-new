@@ -40705,6 +40705,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+
+
 
 
 
@@ -40723,14 +40726,14 @@ class TokenizeController {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
         hasOptions: false,
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       }
     }
   }
@@ -40843,7 +40846,7 @@ class TokenizeController {
     }
   }
 
-  static getSimpleNextTokenIdWord (currentIdWord) {
+  static getNextTokenIdWordSimple (currentIdWord) {
     const idWordParts = currentIdWord.split('-')
     const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
 
@@ -40851,6 +40854,19 @@ class TokenizeController {
     nextIdWordParts[nextIdWordParts.length - 1] = numTokenInId + 1
 
     return nextIdWordParts.join('-')
+  }
+
+  static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
+    if (changeType === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.SPLIT) {
+      return `${tokenIdWord}-s${indexWord}`
+    }
+    if (changeType === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.MERGE) {
+      return `${tokenIdWord}-m${indexWord}`
+    }
+    if (changeType === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.UPDATE) {
+      return `${tokenIdWord}-e`
+    }
+    return this.getNextTokenIdWordSimple(lastTokenWordId)
   }
 }
 
@@ -40895,7 +40911,7 @@ class TokensEditController {
     return false
   }
 
-  mergeToken (token, direction = 'left') {
+  mergeToken (token, direction = TokensEditController.direction.LEFT) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
@@ -40929,6 +40945,22 @@ class TokensEditController {
   isEditableToken (token) {
     return !this.alignment.tokenIsGrouped(token) && !this.alignment.tokenInActiveGroup(token)
   }
+}
+
+TokensEditController.changeType = {
+  //
+  UPDATE: 'update',
+  //
+  MERGE: 'merge',
+  //
+  SPLIT: 'split'
+}
+
+TokensEditController.direction = {
+  //
+  LEFT: 'left',
+  //
+  RIGHT: 'right'
 }
 
 
@@ -41130,9 +41162,15 @@ class AlignedText {
     return this.segments.length > 0
   }
 
-  getNewIdWord (segment) {
+  getNewIdWord ({ segment, token, changeType, indexWord }) {
     const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getNextTokenIdWordMethod(this.tokenization.tokenizer)
-    return getNextIdWordMethod(segment.lastTokenWordId)
+
+    return getNextIdWordMethod({
+      tokenIdWord: token.idWord,
+      lastTokenWordId: segment.lastTokenWordId,
+      changeType,
+      indexWord
+    })
   }
 }
 
@@ -41679,6 +41717,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+
+
 
 
 
@@ -42328,15 +42369,32 @@ class Alignment {
   }
 
   updateTokenWord (token, word) {
-    return this.tokenIsGrouped(token) ? false : token.updateWord(word)
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.UPDATE
+    })
+
+    return token.updateWord({ word, idWord: newIdWord })
   }
 
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, mergePosition } = (direction === 'left') ? this.getLeftToken(token) : this.getRightToken(token)
+    console.info('mergeToken - start', direction)
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
 
-    if (!tokenMergeTo || this.tokenIsGrouped(token) || this.tokenIsGrouped(tokenMergeTo)) { return false }
+    const alignedText = this.getAlignedTextByToken(token)
+    const newIdWord = alignedText.getNewIdWord({
+      token: tokenMergeTo,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.MERGE,
+      indexWord: 1
+    })
 
-    tokenMergeTo.merge(token, mergePosition)
+    console.info('mergeToken - ', token, position, newIdWord)
+    tokenMergeTo.merge({ token, position, newIdWord })
     segment.deleteToken(tokenIndex)
     return true
   }
@@ -42364,7 +42422,7 @@ class Alignment {
       return {
         segment,
         tokenIndex,
-        mergePosition: 'right',
+        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.RIGHT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
@@ -42379,7 +42437,7 @@ class Alignment {
       return {
         segment,
         tokenIndex,
-        mergePosition: 'left',
+        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
@@ -42387,18 +42445,32 @@ class Alignment {
   }
 
   splitToken (token, tokenWord) {
-    if (this.tokenIsGrouped(token)) { return false }
-
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     const alignedText = this.getAlignedTextByToken(token)
 
-    const newIdWord = alignedText.getNewIdWord(segment)
+    const newIdWord1 = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.SPLIT,
+      indexWord: 1
+    })
+
+    const newIdWord2 = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.SPLIT,
+      indexWord: 2
+    })
 
     const tokenWordParts = tokenWord.split(' ')
-    token.updateWord(tokenWordParts[0])
 
-    segment.addNewToken(tokenIndex, newIdWord, tokenWordParts[1])
+    token.updateWord({
+      word: tokenWordParts[0],
+      idWord: newIdWord1
+    })
+
+    segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
   }
 }
@@ -42835,6 +42907,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ Token
 /* harmony export */ });
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+
+
 class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
     this.textType = textType
@@ -42862,16 +42937,26 @@ class Token {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 
-  updateWord (word) {
+  updateWord ({ word, idWord }) {
     this.word = word
+
+    if (idWord) {
+      this.idWord = idWord
+    }
     return true
   }
 
-  merge (token, position) {
-    if (position === 'left') {
-      this.word = `${token.word} ${this.word}`
-    } else if (position === 'right') {
-      this.word = `${this.word} ${token.word}`
+  merge ({ token, position, newIdWord }) {
+    if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.LEFT) {
+      this.updateWord({
+        word: `${token.word}${this.word}`,
+        idWord: newIdWord
+      })
+    } else if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.RIGHT) {
+      this.updateWord({
+        word: `${this.word}${token.word}`,
+        idWord: newIdWord
+      })
     }
     return true
   }
@@ -46159,6 +46244,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
 //
 //
 //
@@ -46196,6 +46282,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -46262,6 +46350,14 @@ __webpack_require__.r(__webpack_exports__);
     }, 
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    }
+  },
+  methods: {
+    mergeToLeft () {
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT)
+    },
+    mergeToRight () {
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.RIGHT)
     }
   }
 });
@@ -46430,6 +46526,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/token-edit-block.vue */ "./vue/tokens-editor/token-edit-block.vue");
 /* harmony import */ var _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-token-edit.vue */ "./vue/tokens-editor/actions-menu-token-edit.vue");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
 //
 //
 //
@@ -46461,6 +46558,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -46603,10 +46702,10 @@ __webpack_require__.r(__webpack_exports__);
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === 'left') {
+      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.LEFT) {
         this.mergeTokenLeftIdWord = token.idWord
       }
-      if (direction === 'right') {
+      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.RIGHT) {
         this.mergeTokenRightIdWord = token.idWord
       }
     },
@@ -46631,9 +46730,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
 //
 //
 //
@@ -46660,6 +46760,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -46724,12 +46825,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     mergeTokenLeftIdWord () {
       if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
-        this.mergeToken('left')
+        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.LEFT)
       }
     },
     mergeTokenRightIdWord () {
       if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
-        this.mergeToken('right')
+        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.RIGHT)
       }
     },
     splitTokenIdWord () {
@@ -46746,7 +46847,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     itemId () {
-      return `${this.token.idWord}-input-id`
+      return this.$store.state.tokenUpdated && `${this.token.idWord}-input-id`
     },
     additionalClasses () {
       return {
@@ -46763,8 +46864,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateTokenWord () {
-      if (this.allowedUpdateTokenWord) {
+      if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
         this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+        console.info('token is updated', this.token.word)
       }
     },
     mergeToken (direction) {
@@ -46781,7 +46883,7 @@ __webpack_require__.r(__webpack_exports__);
     async showActionsMenu () {
       this.$emit('removeAllActivated')
 
-      await _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default.nextTick()
+      await _vue_runtime__WEBPACK_IMPORTED_MODULE_3__.default.nextTick()
 
       this.activated = true
       this.$emit('showActionsMenu', {
@@ -49178,11 +49280,11 @@ var render = function() {
       attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
     },
     [
-      _vm._l(_vm.allTokens, function(token) {
+      _vm._l(_vm.allTokens, function(token, tokenIndex) {
         return [
           token.word
             ? _c("token", {
-                key: token.idWord,
+                key: tokenIndex,
                 attrs: {
                   token: token,
                   selected:
@@ -51068,11 +51170,7 @@ var render = function() {
                   attrs: {
                     id: "alpheios-token-edit-actions-button__merge-left"
                   },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("mergeToken", _vm.token, "left")
-                    }
-                  }
+                  on: { click: _vm.mergeToLeft }
                 },
                 [_c("merge-left-icon")],
                 1
@@ -51096,11 +51194,7 @@ var render = function() {
                   attrs: {
                     id: "alpheios-token-edit-actions-button__merge-right"
                   },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("mergeToken", _vm.token, "right")
-                    }
-                  }
+                  on: { click: _vm.mergeToRight }
                 },
                 [_c("merge-right-icon")],
                 1
@@ -51297,11 +51391,11 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm._l(_vm.allTokens, function(token) {
+      _vm._l(_vm.allTokens, function(token, tokenIndex) {
         return [
           token.word
             ? _c("token-edit-block", {
-                key: token.idWord,
+                key: tokenIndex,
                 attrs: {
                   token: token,
                   deactivated: _vm.deactivated,

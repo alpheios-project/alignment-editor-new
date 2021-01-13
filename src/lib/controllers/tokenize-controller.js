@@ -6,6 +6,8 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import { ClientAdapters } from 'alpheios-client-adapters'
 
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+
 export default class TokenizeController {
   /**
    * The list with registered variants of upload workflows
@@ -16,14 +18,14 @@ export default class TokenizeController {
       simpleLocalTokenizer: {
         method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
         hasOptions: false,
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       }
     }
   }
@@ -136,7 +138,7 @@ export default class TokenizeController {
     }
   }
 
-  static getSimpleNextTokenIdWord (currentIdWord) {
+  static getNextTokenIdWordSimple (currentIdWord) {
     const idWordParts = currentIdWord.split('-')
     const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
 
@@ -144,5 +146,18 @@ export default class TokenizeController {
     nextIdWordParts[nextIdWordParts.length - 1] = numTokenInId + 1
 
     return nextIdWordParts.join('-')
+  }
+
+  static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
+    if (changeType === TokensEditController.changeType.SPLIT) {
+      return `${tokenIdWord}-s${indexWord}`
+    }
+    if (changeType === TokensEditController.changeType.MERGE) {
+      return `${tokenIdWord}-m${indexWord}`
+    }
+    if (changeType === TokensEditController.changeType.UPDATE) {
+      return `${tokenIdWord}-e`
+    }
+    return this.getNextTokenIdWordSimple(lastTokenWordId)
   }
 }

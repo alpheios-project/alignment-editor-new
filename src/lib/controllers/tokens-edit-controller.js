@@ -23,7 +23,7 @@ export default class TokensEditController {
     return false
   }
 
-  mergeToken (token, direction = 'left') {
+  mergeToken (token, direction = TokensEditController.direction.LEFT) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
@@ -57,4 +57,20 @@ export default class TokensEditController {
   isEditableToken (token) {
     return !this.alignment.tokenIsGrouped(token) && !this.alignment.tokenInActiveGroup(token)
   }
+}
+
+TokensEditController.changeType = {
+  //
+  UPDATE: 'update',
+  //
+  MERGE: 'merge',
+  //
+  SPLIT: 'split'
+}
+
+TokensEditController.direction = {
+  //
+  LEFT: 'left',
+  //
+  RIGHT: 'right'
 }

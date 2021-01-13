@@ -12,10 +12,10 @@
             @mergeToken = "mergeToken"
             @splitToken = "splitToken"
         />
-        <template v-for = "token in allTokens">
+        <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
             v-if ="token.word"
-            :token = "token" :key = "token.idWord" :deactivated = "deactivated"
+            :token = "token" :key = "tokenIndex" :deactivated = "deactivated"
             :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
             :mergeTokenLeftIdWord = "mergeTokenLeftIdWord === token.idWord ? mergeTokenLeftIdWord : null"
             :mergeTokenRightIdWord = "mergeTokenRightIdWord === token.idWord ? mergeTokenRightIdWord : null"
@@ -32,6 +32,8 @@
 <script>
 import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
 import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
+
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 
 export default {
   name: 'SegmentEditBlock',
@@ -171,10 +173,10 @@ export default {
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === 'left') {
+      if (direction === TokensEditController.direction.LEFT) {
         this.mergeTokenLeftIdWord = token.idWord
       }
-      if (direction === 'right') {
+      if (direction === TokensEditController.direction.RIGHT) {
         this.mergeTokenRightIdWord = token.idWord
       }
     },
