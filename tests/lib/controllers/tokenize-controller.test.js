@@ -90,7 +90,7 @@ describe('tokenize-controller.test.js', () => {
     expect(resultOptions.tei).toEqual(expect.any(Options))
   })
 
-  it('7 TokenizeController - getNextTokenIdWordChangesType - check idWords by workflow for the same token with different changes', async () => {
+  it('7 TokenizeController - getNextTokenIdWordChangesType - gets idWords by workflow for the same token with different changes', async () => {
     // update token's word - the first time
     const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: '1-0-0',
@@ -158,5 +158,18 @@ describe('tokenize-controller.test.js', () => {
     })
     expect(newWordId9).toEqual('1-0-0-e-2-m-2-s1-2-s2-1-m-1-e-1')
 
+  })
+
+  it('8 TokenizeController - getNextTokenIdWordSimple - gets idWords by a simple increment', async () => {
+    const newWordId1 = TokenizeController.getNextTokenIdWordSimple('1-0-0')
+    expect(newWordId1).toEqual('1-0-1')
+  })
+
+  it('9 TokenizeController - getNextTokenIdWordMethod returns method if tokenizer is defined correctly', async () => {
+    
+    expect(TokenizeController.getNextTokenIdWordMethod('simpleLocalTokenizer')).toEqual(expect.any(Function))
+    expect(TokenizeController.getNextTokenIdWordMethod('alpheiosRemoteTokenizer')).toEqual(expect.any(Function))
+    
+    expect(TokenizeController.getNextTokenIdWordMethod('fakeTokenizer')).toBeFalsy()
   })
 })

@@ -39920,6 +39920,9 @@ class AppController {
     _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$alignedGC = this.alignedGC
   }
 
+  /**
+   * Creates TokensEditController and attaches to Vue components
+   */
   defineTokensEditController () {
     this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
     _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$tokensEC = this.tokensEC
@@ -40250,6 +40253,9 @@ class SettingsController {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
   }
 
+  /**
+   * @returns {Boolean} - allowUpdateTokenWord optin value
+   */
   get allowUpdateTokenWordOptionValue () {
     return this.options.app && this.options.app.items.allowUpdateTokenWord ? this.options.app.items.allowUpdateTokenWord.currentValue : false
   }
@@ -40680,7 +40686,10 @@ class TextsController {
     return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
   }
 
-  changeMetadataTerm (textType, textId, metadataItem) {
+  /**
+   * A simple event for any change in metadata
+   */
+  changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
 }
@@ -40840,12 +40849,22 @@ class TokenizeController {
     return false
   }
 
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {Function} - get nextId method for the given tokeizer
+   */
   static getNextTokenIdWordMethod (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer].getNextTokenIdWord
     }
   }
 
+  /**
+   * Calculates next id word by a simple formula - increments the last number
+   * Now no tokenizer uses it
+   * @param {String} currentIdWord  idWord
+   * @returns {String} idWord
+   */
   static getNextTokenIdWordSimple (currentIdWord) {
     const idWordParts = currentIdWord.split('-')
     const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
@@ -40856,6 +40875,17 @@ class TokenizeController {
     return nextIdWordParts.join('-')
   }
 
+  /**
+   * Calculates next id word by the following formulas
+   * tokens which are merged get new Ids in the format <segment-id>-<original-token-id>-m-<increment>
+   * tokens which are split each get new ids in the format <segment-id>-<original-token-id>-s<part number>-<increment>
+   * tokens which are edited each get new ids in the format <segment-id>-<original-token-id>-e-<increment>
+   *
+   * @param {String} tokenIdWord - idWord of the token to be updated
+   * @param {String} lastTokenWordId - idWord of the last (max idWord) token in the segment
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used for split change to define the number of final tokens - 1/2
+   */
   static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
     const divider = '-'
     const changeLibrary = {
@@ -40874,8 +40904,6 @@ class TokenizeController {
 
     const reDigits = /[0-9]/g
     const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
-
-    // const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2].replace(/[0-9]/g, '')
 
     const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
 
@@ -40914,10 +40942,20 @@ class TokensEditController {
     this.store = store
   }
 
+  /**
+   *
+   * @param {Alignment} alignment
+   */
   loadAlignment (alignment) {
     this.alignment = alignment
   }
 
+  /**
+   * Updates word of the given token
+   * @param {Token} token
+   * @param {String} word
+   * @returns {Boolean}
+   */
   updateTokenWord (token, word) {
     if (!this.checkEditable(token)) { return false }
 
@@ -40928,6 +40966,12 @@ class TokensEditController {
     return false
   }
 
+  /**
+   * Merges token with another token placed in the direction
+   * @param {Token} token
+   * @param {String} direction
+   * @returns {Boolean}
+   */
   mergeToken (token, direction = TokensEditController.direction.LEFT) {
     if (!this.checkEditable(token)) { return false }
 
@@ -40938,8 +40982,30 @@ class TokensEditController {
     return false
   }
 
+  /**
+   * Splits the token to two tokens
+   * @param {Token} token
+   * @param {String} tokenWord - token's word with space to be splitted
+   * @returns {Boolean}
+   */
   splitToken (token, tokenWord) {
     if (!this.checkEditable(token)) { return false }
+
+    if (!tokenWord.includes(' ')) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_SPLIT_NO_SPACES'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return false
+    }
+
+    if (tokenWord.split(' ').length > 2) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_SPLIT_SEVERAL_SPACES'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return false
+    }
 
     if (this.alignment.splitToken(token, tokenWord)) {
       this.store.commit('incrementTokenUpdated')
@@ -40948,6 +41014,11 @@ class TokensEditController {
     return false
   }
 
+  /**
+   * Checks if a token could be edited with notification
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   checkEditable (token) {
     if (!this.isEditableToken(token)) {
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
@@ -40959,8 +41030,13 @@ class TokensEditController {
     return true
   }
 
+  /**
+   * Clear check
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   isEditableToken (token) {
-    return !this.alignment.tokenIsGrouped(token) && !this.alignment.tokenInActiveGroup(token)
+    return this.alignment.isEditableToken(token)
   }
 }
 
@@ -41175,10 +41251,22 @@ class AlignedText {
     return false
   }
 
+  /**
+   * Used for calculation of alignmentGroupsWorkflowAvailable
+   * @returns {Boolean} true - if tokenized
+   */
   get readyForAlignment () {
     return this.segments.length > 0
   }
 
+  /**
+   * Calculates new idWord for changed token in tokensEditor
+   * @param {Segment} segment
+   * @param {Token} token
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used only for split = the order number of result tokens
+   * @returns {String} - idWord
+   */
   getNewIdWord ({ segment, token, changeType, indexWord }) {
     const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
@@ -42385,6 +42473,11 @@ class Alignment {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} word - new word
+   * @returns {Boolean}
+   */
   updateTokenWord (token, word) {
     const segment = this.getSegmentByToken(token)
     const alignedText = this.getAlignedTextByToken(token)
@@ -42398,15 +42491,27 @@ class Alignment {
     return token.updateWord({ word, idWord: newIdWord })
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} direction - left/right
+   * @returns {Boolean}
+   */
   mergeToken (token, direction) {
     const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
+
+    if (!this.isEditableToken(tokenMergeTo)) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      })
+      return false
+    }
 
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
       token: tokenMergeTo,
       segment,
-      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.MERGE,
-      indexWord: 1
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.MERGE
     })
 
     tokenMergeTo.merge({ token, position, newIdWord })
@@ -42414,6 +42519,10 @@ class Alignment {
     return true
   }
 
+  /**
+   * @param {Token} token
+   * @returns {AlignedText}
+   */
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
@@ -42424,11 +42533,19 @@ class Alignment {
     return alignedText
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Segment}
+   */
   getSegmentByToken (token) {
     const alignedText = this.getAlignedTextByToken(token)
     return alignedText.segments[token.segmentIndex - 1]
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the left hand in the segment
+   */
   getLeftToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -42444,6 +42561,10 @@ class Alignment {
     return false
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the right hand in the segment
+   */
   getRightToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -42459,6 +42580,11 @@ class Alignment {
     return false
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} tokenWord - token's word with space
+   * @returns {Boolean}
+   */
   splitToken (token, tokenWord) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -42487,6 +42613,14 @@ class Alignment {
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
+  }
+
+  /**
+   * Checks if token could be updated
+   * @param {Token} token
+   */
+  isEditableToken (token) {
+    return !this.tokenIsGrouped(token) && !this.tokenInActiveGroup(token)
   }
 }
 
@@ -42952,6 +43086,11 @@ class Token {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 
+  /**
+   *
+   * @param {String} word - new word
+   * @param {String} idWord - new idWord
+   */
   updateWord ({ word, idWord }) {
     this.word = word
 
@@ -42961,6 +43100,12 @@ class Token {
     return true
   }
 
+  /**
+   * Merges the current token's word with the woed of the token in the parameters
+   * @param {Token} token - token to be merged
+   * @param {String} position - left/right - used for concating words
+   * @param {String} newIdWord
+   */
   merge ({ token, position, newIdWord }) {
     if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.LEFT) {
       this.updateWord({
@@ -43744,7 +43889,7 @@ class SimpleLocalTokenizer {
     const finalText = { segments: [] }
     let mainIndex = 0
     textLines.forEach((textLine, index) => {
-      const prefix = `L${idPrefix}:${index + 1}`
+      const prefix = `${idPrefix}-${index}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, docSource.textType)
 
       if (finalTextLine.length > 0) {
@@ -43821,8 +43966,8 @@ class SimpleLocalTokenizer {
 
         wordEnded = true
         if (word) {
-          indexWord = indexWord + 1
           const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+          indexWord = indexWord + 1
 
           beforeWord = beforeNextWord
           afterWord = ''
@@ -43834,8 +43979,8 @@ class SimpleLocalTokenizer {
     }
 
     if (!wordEnded || word) {
-      indexWord = indexWord + 1
       const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+      indexWord = indexWord + 1
       formattedText.push(resultWord)
     }
 
@@ -45713,7 +45858,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.metadataTerm.saveValue(this.value)
       }
-      this.$textC.changeMetadataTerm(this.textType, this.textId, this.metadataTerm)
+      this.$textC.changeMetadataTerm()
 
       if (this.metadataTerm.property.multivalued) { this.value = null }
     },
@@ -51981,7 +52126,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditBlock\"}}");
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
 
 /***/ }),
 

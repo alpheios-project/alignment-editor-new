@@ -95,9 +95,10 @@ describe('target-texts.test.js', () => {
     expect(alignment.activeAlignmentGroup.origin).toEqual([testOriginToken1.idWord])
 
     const testTargetToken1 = clickToken(cmp, alignment, 'target', 0, 0, 0)
+
     expect(alignment.activeAlignmentGroup.target).toEqual([testTargetToken1.idWord])
 
-    // console.info('activeAlignmentGroup - ', alignment.activeAlignmentGroup)
+    
 
     // check status of tokens in active group
     expect(cmp.vm.$alignedGC.tokenInActiveGroup(testOriginToken1)).toBeTruthy() // we see both tabs on the screen
@@ -417,25 +418,25 @@ describe('target-texts.test.js', () => {
     // click on the origin from the second group, that belongs to the another target - should only add this origin
     cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[0])
 
-    expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2' ])
-    expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1' ])
+    expect(alignment.activeAlignmentGroup.origin).toEqual([ '1-0-0', '1-0-1' ])
+    expect(alignment.activeAlignmentGroup.target).toEqual([ '2-0-0' ])
 
    
     // click on the origin from the third group, that belongs to the another target - should only add this origin
     cmp.vm.$alignedGC.clickToken(testOriginToken3, allTargetsId[0])
-    expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2', 'L1:1-3' ])
-    expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1' ])
+    expect(alignment.activeAlignmentGroup.origin).toEqual([ '1-0-0', '1-0-1', '1-0-2' ])
+    expect(alignment.activeAlignmentGroup.target).toEqual([ '2-0-0' ])
 
     //let's add testTargetToken4
     const testTargetToken4 = clickToken(cmp, alignment, 'target', 0, 3, 0)
 
-    expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2', 'L1:1-3' ])
-    expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1', 'L2:1-4' ])
+    expect(alignment.activeAlignmentGroup.origin).toEqual([ '1-0-0', '1-0-1', '1-0-2' ])
+    expect(alignment.activeAlignmentGroup.target).toEqual([ '2-0-0', '2-0-3' ])
 
     //let's remove testTargetToken4
     cmp.vm.$alignedGC.clickToken(testTargetToken4, allTargetsId[0])
-    expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-1', 'L1:1-2', 'L1:1-3' ])
-    expect(alignment.activeAlignmentGroup.target).toEqual([ 'L2:1-1' ])
+    expect(alignment.activeAlignmentGroup.origin).toEqual([ '1-0-0', '1-0-1', '1-0-2' ])
+    expect(alignment.activeAlignmentGroup.target).toEqual([ '2-0-0' ])
 
     //finish the first group again
     cmp.vm.$alignedGC.clickToken(testOriginToken1, allTargetsId[0])
@@ -447,8 +448,8 @@ describe('target-texts.test.js', () => {
     //merge with the third group on the same target
     cmp.vm.$alignedGC.clickToken(testTargetToken3, allTargetsId[1])
 
-    expect(alignment.activeAlignmentGroup.origin).toEqual([ 'L1:1-2', 'L1:1-3' ]) //merged results
-    expect(alignment.activeAlignmentGroup.target).toEqual([ 'L3:1-2', 'L3:1-3' ])
+    expect(alignment.activeAlignmentGroup.origin).toEqual([ '1-0-1', '1-0-2' ]) //merged results
+    expect(alignment.activeAlignmentGroup.target).toEqual([ '3-0-1', '3-0-2' ])
   
     // finish the group
     cmp.vm.$alignedGC.clickToken(testOriginToken2, allTargetsId[1])

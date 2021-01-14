@@ -35,8 +35,24 @@
       "component": "ActionsMenuTokenEdit"
     },
     "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
-      "message": "This token is inside created alignment group, you should ungroup it first.",
+      "message": "This token is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",
-      "component": "TokenEditBlock"
-  }
+      "component": "TokensEditController"
+    },
+    "TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP": {
+      "message": "The token that is the target of merging is inside a created alignment group, you should ungroup it first.",
+      "description": "An error message for token edit workflow",
+      "component": "Alignment"
+    },
+    "TOKENS_EDIT_SPLIT_NO_SPACES": {
+      "message": "The token word should have one space for split workflow.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
+    },
+    "TOKENS_EDIT_SPLIT_SEVERAL_SPACES": {
+      "message": "The token word should have only one space for split workflow.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
+    }
+
 }

@@ -6,6 +6,8 @@ import AppController from '@/lib/controllers/app-controller.js'
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+
 import Vue from '@vue-runtime'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -32,6 +34,7 @@ describe('app-controller.test.js', () => {
 
     Vue.prototype.$textC = undefined
     Vue.prototype.$alignedGC = undefined
+    Vue.prototype.$tokensEC = undefined
     Vue.prototype.$historyC = undefined
   })
 
@@ -234,6 +237,23 @@ describe('app-controller.test.js', () => {
     const result = appC.defineNotificationSupport()
 
     expect(result).toBeInstanceOf(NotificationSingleton)
+  })
+
+  it('14 AppController - defineTokensEditController creates TokensEditController and attaches it to Vue component ', async () => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+
+    appC.attachVueComponents = jest.fn()
+    await appC.init()
+
+    expect(appC.tokensEC).not.toBeDefined()
+    expect(Vue.prototype.$tokensEC).not.toBeDefined()
+
+    appC.defineTokensEditController()
+
+    expect(appC.tokensEC).toBeInstanceOf(TokensEditController)
+    expect(Vue.prototype.$tokensEC).toBeInstanceOf(TokensEditController)
   })
 
 })

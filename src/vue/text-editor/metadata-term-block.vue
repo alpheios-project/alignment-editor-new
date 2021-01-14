@@ -98,7 +98,7 @@ export default {
       } else {
         this.metadataTerm.saveValue(this.value)
       }
-      this.$textC.changeMetadataTerm(this.textType, this.textId, this.metadataTerm)
+      this.$textC.changeMetadataTerm()
 
       if (this.metadataTerm.property.multivalued) { this.value = null }
     },

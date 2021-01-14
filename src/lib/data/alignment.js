@@ -648,6 +648,11 @@ export default class Alignment {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} word - new word
+   * @returns {Boolean}
+   */
   updateTokenWord (token, word) {
     const segment = this.getSegmentByToken(token)
     const alignedText = this.getAlignedTextByToken(token)
@@ -661,15 +666,27 @@ export default class Alignment {
     return token.updateWord({ word, idWord: newIdWord })
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} direction - left/right
+   * @returns {Boolean}
+   */
   mergeToken (token, direction) {
     const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditController.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
+
+    if (!this.isEditableToken(tokenMergeTo)) {
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
 
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
       token: tokenMergeTo,
       segment,
-      changeType: TokensEditController.changeType.MERGE,
-      indexWord: 1
+      changeType: TokensEditController.changeType.MERGE
     })
 
     tokenMergeTo.merge({ token, position, newIdWord })
@@ -677,6 +694,10 @@ export default class Alignment {
     return true
   }
 
+  /**
+   * @param {Token} token
+   * @returns {AlignedText}
+   */
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
@@ -687,11 +708,19 @@ export default class Alignment {
     return alignedText
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Segment}
+   */
   getSegmentByToken (token) {
     const alignedText = this.getAlignedTextByToken(token)
     return alignedText.segments[token.segmentIndex - 1]
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the left hand in the segment
+   */
   getLeftToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -707,6 +736,10 @@ export default class Alignment {
     return false
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the right hand in the segment
+   */
   getRightToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -722,6 +755,11 @@ export default class Alignment {
     return false
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} tokenWord - token's word with space
+   * @returns {Boolean}
+   */
   splitToken (token, tokenWord) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -750,5 +788,13 @@ export default class Alignment {
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
+  }
+
+  /**
+   * Checks if token could be updated
+   * @param {Token} token
+   */
+  isEditableToken (token) {
+    return !this.tokenIsGrouped(token) && !this.tokenInActiveGroup(token)
   }
 }

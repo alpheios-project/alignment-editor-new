@@ -132,12 +132,22 @@ export default class TokenizeController {
     return false
   }
 
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {Function} - get nextId method for the given tokeizer
+   */
   static getNextTokenIdWordMethod (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer].getNextTokenIdWord
     }
   }
 
+  /**
+   * Calculates next id word by a simple formula - increments the last number
+   * Now no tokenizer uses it
+   * @param {String} currentIdWord  idWord
+   * @returns {String} idWord
+   */
   static getNextTokenIdWordSimple (currentIdWord) {
     const idWordParts = currentIdWord.split('-')
     const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
@@ -148,6 +158,17 @@ export default class TokenizeController {
     return nextIdWordParts.join('-')
   }
 
+  /**
+   * Calculates next id word by the following formulas
+   * tokens which are merged get new Ids in the format <segment-id>-<original-token-id>-m-<increment>
+   * tokens which are split each get new ids in the format <segment-id>-<original-token-id>-s<part number>-<increment>
+   * tokens which are edited each get new ids in the format <segment-id>-<original-token-id>-e-<increment>
+   *
+   * @param {String} tokenIdWord - idWord of the token to be updated
+   * @param {String} lastTokenWordId - idWord of the last (max idWord) token in the segment
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used for split change to define the number of final tokens - 1/2
+   */
   static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
     const divider = '-'
     const changeLibrary = {
@@ -166,8 +187,6 @@ export default class TokenizeController {
 
     const reDigits = /[0-9]/g
     const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
-
-    // const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2].replace(/[0-9]/g, '')
 
     const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
 

@@ -27,6 +27,11 @@ export default class Token {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 
+  /**
+   *
+   * @param {String} word - new word
+   * @param {String} idWord - new idWord
+   */
   updateWord ({ word, idWord }) {
     this.word = word
 
@@ -36,6 +41,12 @@ export default class Token {
     return true
   }
 
+  /**
+   * Merges the current token's word with the woed of the token in the parameters
+   * @param {Token} token - token to be merged
+   * @param {String} position - left/right - used for concating words
+   * @param {String} newIdWord
+   */
   merge ({ token, position, newIdWord }) {
     if (position === TokensEditController.direction.LEFT) {
       this.updateWord({

@@ -43,6 +43,9 @@ export default class SettingsController {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
   }
 
+  /**
+   * @returns {Boolean} - allowUpdateTokenWord optin value
+   */
   get allowUpdateTokenWordOptionValue () {
     return this.options.app && this.options.app.items.allowUpdateTokenWord ? this.options.app.items.allowUpdateTokenWord.currentValue : false
   }

@@ -125,6 +125,9 @@ export default class AppController {
     Vue.prototype.$alignedGC = this.alignedGC
   }
 
+  /**
+   * Creates TokensEditController and attaches to Vue components
+   */
   defineTokensEditController () {
     this.tokensEC = new TokensEditController(this.store)
     Vue.prototype.$tokensEC = this.tokensEC

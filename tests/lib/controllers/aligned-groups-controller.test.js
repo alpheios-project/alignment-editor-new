@@ -9,7 +9,7 @@ import Segment from '@/lib/data/segment'
 import Token from '@/lib/data/token'
 import AppController from '@/lib/controllers/app-controller.js'
 
-describe('aligned-controller.test.js', () => {
+describe('aligned-groups-controller.test.js', () => {
 
   console.error = function () {}
   console.log = function () {}

@@ -259,4 +259,76 @@ describe('settings-controller.test.js', () => {
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('rtl')
     expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('tei')
   })
+
+  it('11 SettingsController - allowUpdateTokenWordOptionValue returns current allowUpdateTokenWord option value', () => {
+    const settingsC = new SettingsController(appC.store)
+
+    expect(settingsC.options.app.items.allowUpdateTokenWord.currentValue).toBeFalsy()
+    expect(settingsC.allowUpdateTokenWordOptionValue).toBeFalsy()
+  })
+
+  it('12 SettingsController - resetLocalTextEditorOptions - reset local options to initial', async () => {
+    const settingsC = new SettingsController(appC.store)
+    await settingsC.init()
+
+    settingsC.options.tokenize = fixtureForRemoteSettings()
+
+    const resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
+
+    await resultOptions.sourceText.reset()
+
+    expect(resultOptions.sourceText.items.language.currentValue).toEqual('eng')
+    expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
+    expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('text')
+
+    settingsC.updateLocalTextEditorOptions(resultOptions, {
+      lang: 'ara',
+      direction: 'rtl',
+      sourceType: 'tei'
+    })
+
+    expect(resultOptions.sourceText.items.language.currentValue).toEqual('ara')
+    expect(resultOptions.sourceText.items.direction.currentValue).toEqual('rtl')
+    expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('tei')
+
+    await settingsC.resetLocalTextEditorOptions(resultOptions)
+
+    expect(resultOptions.sourceText.items.language.currentValue).toEqual('eng')
+    expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
+    expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('text')
+  })
+
+  it('13 SettingsController - resetAllOptions - reset global options to initial', async () => {
+    const settingsC = new SettingsController(appC.store)
+    await settingsC.init()
+
+    await settingsC.options.app.reset()
+    await settingsC.options.sourceText.reset()
+
+    settingsC.options.app.items.theme.setValue('standard-theme')
+    settingsC.options.app.items.tokenizer.setValue('simpleLocalTokenizer')
+    settingsC.options.app.items.allowUpdateTokenWord.setValue(true)
+
+    settingsC.options.sourceText.items.language.setValue('ara')
+    settingsC.options.sourceText.items.direction.setValue('rtl')
+    settingsC.options.sourceText.items.sourceType.setValue('tei')
+
+    expect(settingsC.options.app.items.theme.currentValue).toEqual('standard-theme')
+    expect(settingsC.options.app.items.tokenizer.currentValue).toEqual('simpleLocalTokenizer')
+    expect(settingsC.options.app.items.allowUpdateTokenWord.currentValue).toEqual(true)
+
+    expect(settingsC.options.sourceText.items.language.currentValue).toEqual('ara')
+    expect(settingsC.options.sourceText.items.direction.currentValue).toEqual('rtl')
+    expect(settingsC.options.sourceText.items.sourceType.currentValue).toEqual('tei')
+
+    await settingsC.resetAllOptions()
+
+    expect(settingsC.options.app.items.theme.currentValue).toEqual('v1-theme')
+    expect(settingsC.options.app.items.tokenizer.currentValue).toEqual('alpheiosRemoteTokenizer')
+    expect(settingsC.options.app.items.allowUpdateTokenWord.currentValue).toEqual(false)
+
+    expect(settingsC.options.sourceText.items.language.currentValue).toEqual('eng')
+    expect(settingsC.options.sourceText.items.direction.currentValue).toEqual('ltr')
+    expect(settingsC.options.sourceText.items.sourceType.currentValue).toEqual('text')
+  })
 })
