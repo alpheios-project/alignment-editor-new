@@ -6,6 +6,8 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import { ClientAdapters } from 'alpheios-client-adapters'
 
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+
 export default class TokenizeController {
   /**
    * The list with registered variants of upload workflows
@@ -16,14 +18,14 @@ export default class TokenizeController {
       simpleLocalTokenizer: {
         method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
         hasOptions: false,
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       }
     }
   }
@@ -130,13 +132,23 @@ export default class TokenizeController {
     return false
   }
 
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {Function} - get nextId method for the given tokeizer
+   */
   static getNextTokenIdWordMethod (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer].getNextTokenIdWord
     }
   }
 
-  static getSimpleNextTokenIdWord (currentIdWord) {
+  /**
+   * Calculates next id word by a simple formula - increments the last number
+   * Now no tokenizer uses it
+   * @param {String} currentIdWord  idWord
+   * @returns {String} idWord
+   */
+  static getNextTokenIdWordSimple (currentIdWord) {
     const idWordParts = currentIdWord.split('-')
     const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
 
@@ -144,5 +156,44 @@ export default class TokenizeController {
     nextIdWordParts[nextIdWordParts.length - 1] = numTokenInId + 1
 
     return nextIdWordParts.join('-')
+  }
+
+  /**
+   * Calculates next id word by the following formulas
+   * tokens which are merged get new Ids in the format <segment-id>-<original-token-id>-m-<increment>
+   * tokens which are split each get new ids in the format <segment-id>-<original-token-id>-s<part number>-<increment>
+   * tokens which are edited each get new ids in the format <segment-id>-<original-token-id>-e-<increment>
+   *
+   * @param {String} tokenIdWord - idWord of the token to be updated
+   * @param {String} lastTokenWordId - idWord of the last (max idWord) token in the segment
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used for split change to define the number of final tokens - 1/2
+   */
+  static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
+    const divider = '-'
+    const changeLibrary = {
+      [TokensEditController.changeType.SPLIT]: 's',
+      [TokensEditController.changeType.MERGE]: 'm',
+      [TokensEditController.changeType.UPDATE]: 'e'
+    }
+
+    if (!Object.keys(changeLibrary).includes(changeType)) {
+      return this.getNextTokenIdWordSimple(lastTokenWordId)
+    }
+
+    const tokenIdWordParts = tokenIdWord.split(divider)
+    const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2]
+    const lastIndex = parseInt(tokenIdWordParts[tokenIdWordParts.length - 1])
+
+    const reDigits = /[0-9]/g
+    const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
+
+    const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
+
+    if (lastChangeTypeNoDigits === changeLibrary[changeType] && checkByIndex) {
+      return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${lastIndex + 1}`
+    } else {
+      return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
+    }
   }
 }

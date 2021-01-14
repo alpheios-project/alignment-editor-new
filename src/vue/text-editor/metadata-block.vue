@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-alignment-text-editor-metadata" v-if="metadataAvailable">
+    <div class="alpheios-alignment-editor-metadata" v-if="metadataAvailable">
       <metadata-term-block 
         v-for="(metadataTerm, termIndex) in allMetadata" :key="termIndex"
         :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />

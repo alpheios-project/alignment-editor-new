@@ -1,17 +1,17 @@
 <template>
-    <div class="alpheios-alignment-tokenize-options" v-if="showOptions">
-        <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto">
+    <div class="alpheios-alignment-editor-text-blocks-single-tokenize-options" v-if="showOptions">
+        <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto">
             <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS') }}</legend>
             <option-item-block
               :optionItem = "localOptions.sourceText.items.sourceType"
               :emitUpdateData = "true"
               @updateData = "updateData" :disabled="disabled"
             />
-            <p class="alpheios-alignment-tokenize-options-details-toggle" @click="toggleShowTokenizeDetails">{{ toggleTokenizeDetailsLabel }}</p>
+            <p class="alpheios-alignment-editor-tokenize-options__details-toggle" @click="toggleShowTokenizeDetails">{{ toggleTokenizeDetailsLabel }}</p>
         </fieldset>
 
-      <div class="alpheios-alignment-tokenize-options-details-container" v-show="showTokenizeDetails">
-        <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-options-fieldset__text" v-show="sourceType === 'text'">
+      <div class="alpheios-alignment-editor-tokenize-options__details-container" v-show="showTokenizeDetails">
+        <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__text" v-show="sourceType === 'text'">
             <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT') }}</legend>
             <option-item-block
                 v-for="textOptItem in localOptions.text.items" :key="textOptItem.domain"
@@ -20,7 +20,7 @@
             />
         </fieldset>
 
-        <fieldset class="alpheios-alignment-options-fieldset alpheios-alignment-options-fieldset__tei" v-show="sourceType === 'tei'">
+        <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__tei" v-show="sourceType === 'tei'">
             <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI') }}</legend>
             <option-item-block
                 v-for="textOptItem in localOptions.tei.items" :key="textOptItem.domain"
@@ -85,7 +85,7 @@ export default {
 
 </script>
 <style lang="scss">
-p.alpheios-alignment-tokenize-options-details-toggle {
+p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
   cursor: pointer;
   font-size: 90%;
@@ -93,11 +93,11 @@ p.alpheios-alignment-tokenize-options-details-toggle {
   color: #185F6D;
   margin: 0;
 }
-.alpheios-alignment-tokenize-options  {
+.alpheios-alignment-editor-text-blocks-single-tokenize-options  {
   .alpheios-alignment-option-item {
     margin-bottom: 5px;
   }
-  p.alpheios-alignment-tokenize-options-details-toggle {
+  p.alpheios-alignment-editor-tokenize-options__details-toggle {
     display: inline-block;
     cursor: pointer;
     font-size: 90%;

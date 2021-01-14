@@ -21,14 +21,14 @@
         }
     }
 
-    .alpheios-alignment-metadata-item span.alpheios-alignment-metadata-item__label-help {
+    .alpheios-alignment-editor-metadata-item span.alpheios-alignment-editor-metadata-item__label-help {
         color: map.get($theme, 'main-menu-text-color-hover');
         background: map.get($theme, 'main-menu-background-color-hover');
         border-color: map.get($theme, 'main-menu-border-color-hover');
     }
 
     .alpheios-menu-button,
-    .alpheios-actions-button,
+    .alpheios-actions-menu-button,
     .alpheios-options-button {
         color: map.get($theme, 'main-menu-text-color');
         background: map.get($theme, 'main-menu-background-color');
@@ -63,7 +63,7 @@
             }
         }
 
-        &:disabled {
+        &.alpheios-token-edit-actions-button__disabled {
             border-color: map.get($theme, 'main-menu-border-color-disabled');
             background: map.get($theme, 'main-menu-background-color-disabled');
             svg {
@@ -72,16 +72,17 @@
         }
     }
 
-    .alpheios-alignment-editor-text-define-container__show-label,
-    .alpheios-alignment-tokenize-options-details-toggle {
+    .alpheios-alignment-editor-header__show-label,
+    .alpheios-alignment-editor-tokenize-options__details-toggle {
         color: map.get($theme, 'text-link-color');
         &:hover {
             color: map.get($theme, 'text-link-color-hover');
         }
     }
 
-    .alpheios-alignment-editor-align-define-container-view-mode {
+    .alpheios-alignment-editor-align-define-container-inner {
         color: map.get($theme, 'align-editor-text-color');
+        background: map.get($theme, 'editors-text-blocks-background');
 
         .alpheios-alignment-editor-align-segment-data {
             border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
@@ -138,9 +139,10 @@
         }
     }
 
-    .alpheios-alignment-editor-align-define-container-edit-mode {
+    .alpheios-alignment-editor-tokens-edit-editor-container-inner {
         color: map.get($theme, 'align-editor-text-color');
-        
+        background: map.get($theme, 'editors-text-blocks-background');
+
         .alpheios-alignment-editor-align-segment-data {
             border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
         }
@@ -151,13 +153,18 @@
             }
         }
 
-        .alpheios-alignment-editor-align-text-segment-edit span.alpheios-token-edit {
+        .alpheios-alignment-editor-align-text-segment-edit span.alpheios-alignment-editor-token-edit {
             &:hover {
                 background: map.get($theme, 'align-editor-text-border-color-hover');
             }
+            &.alpheios-alignment-editor-token-edit-not-editable  {
+                &:hover {
+                    background: map.get($theme, 'editors-text-blocks-background');
+                }
+            }
         }
 
-        span.alpheios-token-edit.alpheios-alignment-token-edit-span__activated {
+        span.alpheios-alignment-editor-token-edit.alpheios-alignment-editor-token-edit-span__activated {
             background: map.get($theme, 'align-editor-text-border-color-hover');
         }
     }
@@ -170,10 +177,14 @@
         border-color: map.get($theme, 'settings-fieldset-border-color');
     }
 
-    .alpheios-alignment-metadata-item__allvalues-item {
+    .alpheios-alignment-editor-metadata-item__allvalues-item {
         color: map.get($theme, 'text-link-color');
         &:hover {
             color: map.get($theme, 'text-link-color-hover');
         }
+    }
+
+    .alpheios-alignment-editor-options-fieldset {
+        border-color: map.get($theme, 'editors-text-blocks-background');
     }
 }

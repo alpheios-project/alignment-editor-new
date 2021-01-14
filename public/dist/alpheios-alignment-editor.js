@@ -12,36 +12,6 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=style&index=0&lang=scss& ***!
@@ -62,16 +32,6 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ (() => {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -82,20 +42,30 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -192,10 +162,50 @@ window.AlignmentEditor =
 
 /***/ }),
 
-/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -39447,23 +39457,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./lib/controllers/aligned-controller.js":
-/*!***********************************************!*\
-  !*** ./lib/controllers/aligned-controller.js ***!
-  \***********************************************/
+/***/ "./lib/controllers/aligned-groups-controller.js":
+/*!******************************************************!*\
+  !*** ./lib/controllers/aligned-groups-controller.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignedController
+/* harmony export */   "default": () => /* binding */ AlignedGroupsController
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 
 
 
-class AlignedController {
+class AlignedGroupsController {
   /**
    * @param {Vuex Store} store
    */
@@ -39754,30 +39764,6 @@ class AlignedController {
   startOver () {
     this.alignment = null
   }
-
-  updateTokenWord (token, word) {
-    if (this.alignment.updateTokenWord(token, word)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
-
-  mergeToken (token, direction = 'left') {
-    if (this.alignment.mergeToken(token, direction)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
-
-  splitToken (token, tokenWord) {
-    if (this.alignment.splitToken(token, tokenWord)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
 }
 
 
@@ -39795,28 +39781,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ AppController
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.common.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.common.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
-/* harmony import */ var _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-controller.js */ "./lib/controllers/aligned-controller.js");
-/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
-/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-
-
-
-
-
+/* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
 
 
 
@@ -39885,15 +39861,16 @@ class AppController {
    */
   attachVueComponents () {
     this.defineTextController()
-    this.defineAlignedController()
+    this.defineAlignedGroupsController()
+    this.defineTokensEditController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -39905,24 +39882,24 @@ class AppController {
   }
 
   defineEvents () {
-    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
   }
 
   /**
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.use((vuex__WEBPACK_IMPORTED_MODULE_16___default()))
-    this.store = new (vuex__WEBPACK_IMPORTED_MODULE_16___default().Store)(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_5__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use((vuex__WEBPACK_IMPORTED_MODULE_11___default()))
+    this.store = new (vuex__WEBPACK_IMPORTED_MODULE_11___default().Store)(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
   }
 
   /**
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
+    this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
     await this.settingsC.init()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$settingsC = this.settingsC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$settingsC = this.settingsC
 
     this.settingsC.uploadRemoteSettings()
   }
@@ -39932,23 +39909,31 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
   }
 
   /**
-   * Creates AlignedController and attaches to Vue components
+   * Creates AlignedGroupsController and attaches to Vue components
    */
-  defineAlignedController () {
-    this.alignedC = new _lib_controllers_aligned_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$alignedC = this.alignedC
+  defineAlignedGroupsController () {
+    this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$alignedGC = this.alignedGC
+  }
+
+  /**
+   * Creates TokensEditController and attaches to Vue components
+   */
+  defineTokensEditController () {
+    this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
    * Creates HistoryController and attaches to Vue components
    */
   defineHistoryController () {
-    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_15__.default.prototype.$historyC = this.historyC
+    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -39956,18 +39941,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.bundleArr([
-        [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_9__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_10__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_11__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_13__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_12__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_US],
-        [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_14__, _locales_locales_js__WEBPACK_IMPORTED_MODULE_8__.default.en_GB]
-      ])
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_7__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39977,7 +39955,7 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_6__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
     return notificationSingleton
   }
 }
@@ -40273,6 +40251,13 @@ class SettingsController {
    */
   get tokenizerOptionValue () {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
+  }
+
+  /**
+   * @returns {Boolean} - allowUpdateTokenWord optin value
+   */
+  get allowUpdateTokenWordOptionValue () {
+    return this.options.app && this.options.app.items.allowUpdateTokenWord ? this.options.app.items.allowUpdateTokenWord.currentValue : false
   }
 
   /**
@@ -40701,7 +40686,10 @@ class TextsController {
     return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
   }
 
-  changeMetadataTerm (textType, textId, metadataItem) {
+  /**
+   * A simple event for any change in metadata
+   */
+  changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
 }
@@ -40726,6 +40714,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+
+
 
 
 
@@ -40744,14 +40735,14 @@ class TokenizeController {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
         hasOptions: false,
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getSimpleNextTokenIdWord.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
       }
     }
   }
@@ -40858,13 +40849,23 @@ class TokenizeController {
     return false
   }
 
+  /**
+   * @param {String} tokenizer - tokenizer name
+   * @returns {Function} - get nextId method for the given tokeizer
+   */
   static getNextTokenIdWordMethod (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer].getNextTokenIdWord
     }
   }
 
-  static getSimpleNextTokenIdWord (currentIdWord) {
+  /**
+   * Calculates next id word by a simple formula - increments the last number
+   * Now no tokenizer uses it
+   * @param {String} currentIdWord  idWord
+   * @returns {String} idWord
+   */
+  static getNextTokenIdWordSimple (currentIdWord) {
     const idWordParts = currentIdWord.split('-')
     const numTokenInId = parseInt(idWordParts[idWordParts.length - 1])
 
@@ -40873,6 +40874,186 @@ class TokenizeController {
 
     return nextIdWordParts.join('-')
   }
+
+  /**
+   * Calculates next id word by the following formulas
+   * tokens which are merged get new Ids in the format <segment-id>-<original-token-id>-m-<increment>
+   * tokens which are split each get new ids in the format <segment-id>-<original-token-id>-s<part number>-<increment>
+   * tokens which are edited each get new ids in the format <segment-id>-<original-token-id>-e-<increment>
+   *
+   * @param {String} tokenIdWord - idWord of the token to be updated
+   * @param {String} lastTokenWordId - idWord of the last (max idWord) token in the segment
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used for split change to define the number of final tokens - 1/2
+   */
+  static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
+    const divider = '-'
+    const changeLibrary = {
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.SPLIT]: 's',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.MERGE]: 'm',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.UPDATE]: 'e'
+    }
+
+    if (!Object.keys(changeLibrary).includes(changeType)) {
+      return this.getNextTokenIdWordSimple(lastTokenWordId)
+    }
+
+    const tokenIdWordParts = tokenIdWord.split(divider)
+    const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2]
+    const lastIndex = parseInt(tokenIdWordParts[tokenIdWordParts.length - 1])
+
+    const reDigits = /[0-9]/g
+    const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
+
+    const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
+
+    if (lastChangeTypeNoDigits === changeLibrary[changeType] && checkByIndex) {
+      return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${lastIndex + 1}`
+    } else {
+      return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/controllers/tokens-edit-controller.js":
+/*!***************************************************!*\
+  !*** ./lib/controllers/tokens-edit-controller.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ TokensEditController
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
+
+class TokensEditController {
+  /**
+   * @param {Vuex Store} store
+   */
+  constructor (store) {
+    this.store = store
+  }
+
+  /**
+   *
+   * @param {Alignment} alignment
+   */
+  loadAlignment (alignment) {
+    this.alignment = alignment
+  }
+
+  /**
+   * Updates word of the given token
+   * @param {Token} token
+   * @param {String} word
+   * @returns {Boolean}
+   */
+  updateTokenWord (token, word) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.updateTokenWord(token, word)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Merges token with another token placed in the direction
+   * @param {Token} token
+   * @param {String} direction
+   * @returns {Boolean}
+   */
+  mergeToken (token, direction = TokensEditController.direction.LEFT) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.mergeToken(token, direction)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Splits the token to two tokens
+   * @param {Token} token
+   * @param {String} tokenWord - token's word with space to be splitted
+   * @returns {Boolean}
+   */
+  splitToken (token, tokenWord) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (!tokenWord.includes(' ')) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_SPLIT_NO_SPACES'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return false
+    }
+
+    if (tokenWord.split(' ').length > 2) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_SPLIT_SEVERAL_SPACES'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return false
+    }
+
+    if (this.alignment.splitToken(token, tokenWord)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Checks if a token could be edited with notification
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  checkEditable (token) {
+    if (!this.isEditableToken(token)) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return false
+    }
+    return true
+  }
+
+  /**
+   * Clear check
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  isEditableToken (token) {
+    return this.alignment.isEditableToken(token)
+  }
+}
+
+TokensEditController.changeType = {
+  //
+  UPDATE: 'update',
+  //
+  MERGE: 'merge',
+  //
+  SPLIT: 'split'
+}
+
+TokensEditController.direction = {
+  //
+  LEFT: 'left',
+  //
+  RIGHT: 'right'
 }
 
 
@@ -41070,13 +41251,31 @@ class AlignedText {
     return false
   }
 
+  /**
+   * Used for calculation of alignmentGroupsWorkflowAvailable
+   * @returns {Boolean} true - if tokenized
+   */
   get readyForAlignment () {
     return this.segments.length > 0
   }
 
-  getNewIdWord (segment) {
+  /**
+   * Calculates new idWord for changed token in tokensEditor
+   * @param {Segment} segment
+   * @param {Token} token
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used only for split = the order number of result tokens
+   * @returns {String} - idWord
+   */
+  getNewIdWord ({ segment, token, changeType, indexWord }) {
     const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getNextTokenIdWordMethod(this.tokenization.tokenizer)
-    return getNextIdWordMethod(segment.lastTokenWordId)
+
+    return getNextIdWordMethod({
+      tokenIdWord: token.idWord,
+      lastTokenWordId: segment.lastTokenWordId,
+      changeType,
+      indexWord
+    })
   }
 }
 
@@ -41623,6 +41822,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+
+
 
 
 
@@ -42271,20 +42473,56 @@ class Alignment {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} word - new word
+   * @returns {Boolean}
+   */
   updateTokenWord (token, word) {
-    return this.tokenIsGrouped(token) ? false : token.updateWord(word)
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.UPDATE
+    })
+
+    return token.updateWord({ word, idWord: newIdWord })
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} direction - left/right
+   * @returns {Boolean}
+   */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, mergePosition } = (direction === 'left') ? this.getLeftToken(token) : this.getRightToken(token)
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
 
-    if (!tokenMergeTo || this.tokenIsGrouped(token) || this.tokenIsGrouped(tokenMergeTo)) { return false }
+    if (!this.isEditableToken(tokenMergeTo)) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      })
+      return false
+    }
 
-    tokenMergeTo.merge(token, mergePosition)
+    const alignedText = this.getAlignedTextByToken(token)
+    const newIdWord = alignedText.getNewIdWord({
+      token: tokenMergeTo,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.MERGE
+    })
+
+    tokenMergeTo.merge({ token, position, newIdWord })
     segment.deleteToken(tokenIndex)
     return true
   }
 
+  /**
+   * @param {Token} token
+   * @returns {AlignedText}
+   */
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
@@ -42295,11 +42533,19 @@ class Alignment {
     return alignedText
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Segment}
+   */
   getSegmentByToken (token) {
     const alignedText = this.getAlignedTextByToken(token)
     return alignedText.segments[token.segmentIndex - 1]
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the left hand in the segment
+   */
   getLeftToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -42308,13 +42554,17 @@ class Alignment {
       return {
         segment,
         tokenIndex,
-        mergePosition: 'right',
+        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.RIGHT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
     return false
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the right hand in the segment
+   */
   getRightToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -42323,27 +42573,54 @@ class Alignment {
       return {
         segment,
         tokenIndex,
-        mergePosition: 'left',
+        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
     return false
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} tokenWord - token's word with space
+   * @returns {Boolean}
+   */
   splitToken (token, tokenWord) {
-    if (this.tokenIsGrouped(token)) { return false }
-
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     const alignedText = this.getAlignedTextByToken(token)
 
-    const newIdWord = alignedText.getNewIdWord(segment)
+    const newIdWord1 = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.SPLIT,
+      indexWord: 1
+    })
+
+    const newIdWord2 = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.SPLIT,
+      indexWord: 2
+    })
 
     const tokenWordParts = tokenWord.split(' ')
-    token.updateWord(tokenWordParts[0])
 
-    segment.addNewToken(tokenIndex, newIdWord, tokenWordParts[1])
+    token.updateWord({
+      word: tokenWordParts[0],
+      idWord: newIdWord1
+    })
+
+    segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
+  }
+
+  /**
+   * Checks if token could be updated
+   * @param {Token} token
+   */
+  isEditableToken (token) {
+    return !this.tokenIsGrouped(token) && !this.tokenInActiveGroup(token)
   }
 }
 
@@ -42623,16 +42900,6 @@ class Segment {
     return this.tokens.splice(tokenIndex, 1)
   }
 
-  get freeIdWord () {
-    const idWordParts = this.lastTokenWordId.split('-')
-    const lastIdToken = parseInt(idWordParts[idWordParts.length - 1])
-
-    const freeIdWord = [...idWordParts]
-    freeIdWord[freeIdWord.length - 1] = lastIdToken + 1
-
-    return freeIdWord.join('-')
-  }
-
   addNewToken (tokenIndex, newIdWord, word) {
     const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default({
       textType: this.textType,
@@ -42789,6 +43056,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ Token
 /* harmony export */ });
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+
+
 class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
     this.textType = textType
@@ -42816,16 +43086,37 @@ class Token {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 
-  updateWord (word) {
+  /**
+   *
+   * @param {String} word - new word
+   * @param {String} idWord - new idWord
+   */
+  updateWord ({ word, idWord }) {
     this.word = word
+
+    if (idWord) {
+      this.idWord = idWord
+    }
     return true
   }
 
-  merge (token, position) {
-    if (position === 'left') {
-      this.word = `${token.word} ${this.word}`
-    } else if (position === 'right') {
-      this.word = `${this.word} ${token.word}`
+  /**
+   * Merges the current token's word with the woed of the token in the parameters
+   * @param {Token} token - token to be merged
+   * @param {String} position - left/right - used for concating words
+   * @param {String} newIdWord
+   */
+  merge ({ token, position, newIdWord }) {
+    if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.LEFT) {
+      this.updateWord({
+        word: `${token.word}${this.word}`,
+        idWord: newIdWord
+      })
+    } else if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.RIGHT) {
+      this.updateWord({
+        word: `${this.word}${token.word}`,
+        idWord: newIdWord
+      })
     }
     return true
   }
@@ -43598,7 +43889,7 @@ class SimpleLocalTokenizer {
     const finalText = { segments: [] }
     let mainIndex = 0
     textLines.forEach((textLine, index) => {
-      const prefix = `L${idPrefix}:${index + 1}`
+      const prefix = `${idPrefix}-${index}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, docSource.textType)
 
       if (finalTextLine.length > 0) {
@@ -43675,8 +43966,8 @@ class SimpleLocalTokenizer {
 
         wordEnded = true
         if (word) {
-          indexWord = indexWord + 1
           const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+          indexWord = indexWord + 1
 
           beforeWord = beforeNextWord
           afterWord = ''
@@ -43688,8 +43979,8 @@ class SimpleLocalTokenizer {
     }
 
     if (!wordEnded || word) {
-      indexWord = indexWord + 1
       const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+      indexWord = indexWord + 1
       formattedText.push(resultWord)
     }
 
@@ -43780,14 +44071,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
-/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
-/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
-/* harmony import */ var _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-align-editor.json */ "./locales/en-us/messages-align-editor.json");
-/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
-/* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
-/* harmony import */ var _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-metadata-terms.json */ "./locales/en-us/messages-metadata-terms.json");
-/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
-/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+/* harmony import */ var _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-controllers.json */ "./locales/en-us/messages-controllers.json");
+/* harmony import */ var _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/locales/en-us/messages-languages.json */ "./locales/en-us/messages-languages.json");
+/* harmony import */ var _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/locales/en-us/messages-text-editor.json */ "./locales/en-us/messages-text-editor.json");
+/* harmony import */ var _locales_en_us_messages_aligned_groups_editor_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/locales/en-us/messages-aligned-groups-editor.json */ "./locales/en-us/messages-aligned-groups-editor.json");
+/* harmony import */ var _locales_en_us_messages_tokens_edit_editor_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/locales/en-us/messages-tokens-edit-editor.json */ "./locales/en-us/messages-tokens-edit-editor.json");
+/* harmony import */ var _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/locales/en-us/messages-main-menu.json */ "./locales/en-us/messages-main-menu.json");
+/* harmony import */ var _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/locales/en-us/messages-options-block.json */ "./locales/en-us/messages-options-block.json");
+/* harmony import */ var _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/locales/en-us/messages-metadata-terms.json */ "./locales/en-us/messages-metadata-terms.json");
+/* harmony import */ var _locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
+
+
+
 
 
 
@@ -43803,14 +44099,24 @@ __webpack_require__.r(__webpack_exports__);
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_align_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_6__],
-  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_7__]
+  [localeEnUs]: [_locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__, _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__, _locales_en_us_messages_text_editor_json__WEBPACK_IMPORTED_MODULE_3__, _locales_en_us_messages_main_menu_json__WEBPACK_IMPORTED_MODULE_6__, _locales_en_us_messages_aligned_groups_editor_json__WEBPACK_IMPORTED_MODULE_4__, _locales_en_us_messages_tokens_edit_editor_json__WEBPACK_IMPORTED_MODULE_5__, _locales_en_us_messages_languages_json__WEBPACK_IMPORTED_MODULE_2__, _locales_en_us_messages_options_block_json__WEBPACK_IMPORTED_MODULE_7__, _locales_en_us_messages_metadata_terms_json__WEBPACK_IMPORTED_MODULE_8__],
+  [localeEnGb]: [_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_9__]
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   en_US: localeEnUs,
   en_GB: localeEnGb,
   availableMessages: availableMessages,
+
+  predefinedLocales: () => {
+    const finalLocales = []
+    Object.keys(availableMessages).forEach(localeItem => {
+      availableMessages[localeItem].forEach(messageItem => finalLocales.push([messageItem, localeItem]))
+    })
+
+    return finalLocales
+  },
+
   /**
    * A helper function that creates a message bundle out of a messages JSON and a locale.
    * @param {string | object} messagesJSONorObj - Messages for a locale as a JSON string or as an object.
@@ -43818,7 +44124,7 @@ const availableMessages = {
    * @return {MessageBundle} A message bundle with messages from JSON.
    */
   createBundle: (messagesJSONorObj, locale) => {
-    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(messagesJSONorObj, locale)
+    return new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__.default(messagesJSONorObj, locale)
   },
   /**
    * Same as above, but creates an array of message bundles out of an array of messages JSONs and a locales.
@@ -43828,7 +44134,7 @@ const availableMessages = {
    * @return {MessageBundle[]} An array of message bundles.
    */
   createBundleArr: (msgArr) => {
-    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(...m))
+    return msgArr.map((m) => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__.default(...m))
   },
   /**
    * Creates an array of message bundles out of all availableMessages.
@@ -43837,352 +44143,10 @@ const availableMessages = {
   bundleArr: () => {
     let msgArray = [] // eslint-disable-line prefer-const
     for (const [locale, messages] of Object.entries(availableMessages)) {
-      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_8__.default(m, locale)))
+      msgArray.push(...messages.map(m => new _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_10__.default(m, locale)))
     }
     return msgArray
   }
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/actions-menu-token-edit.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/ok.svg */ "./inline-icons/ok.svg");
-/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/split.svg */ "./inline-icons/split.svg");
-/* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/merge-left.svg */ "./inline-icons/merge-left.svg");
-/* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/merge-right.svg */ "./inline-icons/merge-right.svg");
-/* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/tooltip.vue */ "./vue/tooltip.vue");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'ActionsMenuTokenEdit',
-  components: {
-    okIcon: (_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default()),
-    splitIcon: (_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default()),
-    mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
-    tooltip: _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__.default
-  },
-  props: {
-    token: {
-      type: Object,
-      required: false
-    },
-    leftPos: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    topPos: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    containerWidth: {
-      type: Number,
-      required: false,
-      default: 0
-    }
-  },
-  data () {
-    return {
-    }
-  },
-  computed: {
-    l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default
-    },
-    cssStyles () {
-      const  top = this.topPos + 'px'
-      const menuWidth = this.$refs.actionsInner ? this.$refs.actionsInner.offsetWidth : 0
-
-      if ((this.leftPos + menuWidth + 20) > this.containerWidth) {
-        return { 
-          right: '0px',
-          top
-        }
-      } else {
-        return { 
-          left: (this.leftPos - 10) + 'px',
-          top
-        }
-      }
-    }
-  }
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignEditorTabs',
-  props: {
-    tabs: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {
-      tabsStates: []
-    }
-  },
-  computed: {
-    tabsStatesFinal () {
-      if (this.tabs.length > this.tabsStates.length) {
-        const newTabStates = this.tabs.map((tab, index) => { 
-          return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
-        })
-        this.tabsStates = newTabStates
-      }
-      return this.$store.state.alignmentUpdated && this.tabsStates
-    }
-  },
-  methods: {
-    /**
-     * It checks if the tab could be selected (for now we couldn't have no selected tabs)
-     * @param {Number} - index order of targetId
-     */
-    couldBeSelected (index) {
-      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
-    },
-
-    /**
-     * First it checks if the tab could be selected (for example we couldn't have no selected tabs)
-     * Then it changes selected tab state to oposite and emits event
-     * @param {String} - targetId
-     * @param {Number} - index order of targetId
-     */
-    selectTab (tabData, index) {
-      if (!this.couldBeSelected(index)) {
-        return
-      }
-      
-      this.tabsStates[index].active = !this.tabsStates[index].active
-      this.$emit('selectTab', tabData)
-    }
-  }
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _vue_align_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/segment-edit-block.vue */ "./vue/align-editor/segment-edit-block.vue");
-/* harmony import */ var _vue_align_editor_align_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/align-editor-tabs.vue */ "./vue/align-editor/align-editor-tabs.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignEditorEditMode',
-  components: {
-    segmentEditBlock: _vue_align_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    alignEditorTabs: _vue_align_editor_align_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default
-  },
-  props: {
-  },
-  data () {
-    return {
-      shownTabs: [],
-      shownTabsInited: false
-    }
-  },
-  computed: {
-    /**
-     * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
-     * for now we don't have a case when we need to re-define tabs, 
-     * but if we would need it - we would update shownTabsInited with false
-     * @returns {Array[String]}
-     */
-    allTokenizedTargetTextsIds () {
-      const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-      if (!this.shownTabsInited) {
-        this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
-        this.shownTabsInited = true
-        this.$historyC.updateMode(this.shownTabs) 
-      }
-      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
-    },
-
-    /**
-     * @returns {Array[Object]}
-     *          {Number} index - segment's order index
-     *          {Segment} origin - origin segment by index
-     *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
-     */
-    allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedC.allAlignedTextsSegments : []
-    },
-
-    /**
-     * @returns {String} - targetId of the target segment, that is rendered the last to control css borders
-     */
-    lastTargetId () {
-      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
-    },
-
-    /**
-     * @returns {Array[String]} - shown targetIds based on shownTabs with saved order
-     */
-    orderedTargetsId () {
-      return Object.keys(this.allAlignedTextsSegments[0].targets).filter(targetId => this.shownTabs.includes(targetId))
-    },
-
-    /**
-     * @returns {String|Null} - targetId if it only one tab is active and we could work with groups
-     */
-    currentTargetId () {
-      return this.shownTabs.length === 1 ? this.shownTabs[0] : null
-    }
-
-  },
-  methods: {
-    /**
-     * @param {String}
-     * @returns {Boolean} - true - targetId is visible, false - not
-     */
-    isShownTab (targetId) {
-      return this.shownTabs.includes(targetId)
-    },
-
-    /**
-     * @param {String} - origin/target
-     * @param {Number} - segment order index
-     * @param {String} - targetId for target segment
-     * @returns {String} - unique index for the segment
-     */
-    getIndex (textType, index, additionalIndex = 0) {
-      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
-    },
-
-    /**
-     * Changes active tabs by click
-     * @param {String}
-     */
-    selectTab (targetId) {
-      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
-        this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
-      } else if (!this.shownTabs.includes(targetId)) {
-        this.shownTabs.push(targetId)
-      }  
-      this.$historyC.updateMode(this.shownTabs)    
-    }
-  } 
 });
 
 
@@ -44200,7 +44164,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/segment-block.vue */ "./vue/align-editor/segment-block.vue");
-/* harmony import */ var _vue_align_editor_align_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/align-editor-tabs.vue */ "./vue/align-editor/align-editor-tabs.vue");
+/* harmony import */ var _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/editor-tabs.vue */ "./vue/common/editor-tabs.vue");
 //
 //
 //
@@ -44237,10 +44201,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'AlignEditorEditMode',
+  name: 'AlignEditorViewMode',
   components: {
     segmentBlock: _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    alignEditorTabs: _vue_align_editor_align_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    editorTabs: _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
   },
@@ -44274,7 +44238,7 @@ __webpack_require__.r(__webpack_exports__);
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
     /**
@@ -44348,8 +44312,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-view-mode.vue */ "./vue/align-editor/align-editor-view-mode.vue");
-/* harmony import */ var _vue_align_editor_align_editor_tokens_edit_mode_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/align-editor-tokens-edit-mode.vue */ "./vue/align-editor/align-editor-tokens-edit-mode.vue");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -44361,16 +44324,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
@@ -44381,8 +44334,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlignEditor',
   components: {
-    alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    alignEditorTokensEditMode: _vue_align_editor_align_editor_tokens_edit_mode_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
     showEditor: {
@@ -44392,8 +44344,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showAlignBlocks: false,
-      showTokensEditBlocks: true
+      showAlignBlocks: false
     }
   },
   watch: {
@@ -44412,16 +44363,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.showAlignBlocks ? this.l10n.getMsgS('ALIGN_EDITOR_HIDE') : this.l10n.getMsgS('ALIGN_EDITOR_SHOW')
     },
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     /**
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
-    },
-    showTokenEditBlocksLabel () {
-      return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -44430,9 +44378,6 @@ __webpack_require__.r(__webpack_exports__);
      */
     toggleShowAlignBlocks () {
       this.showAlignBlocks = !this.showAlignBlocks
-    },
-    toggleShowTokensEditBlocks () {
-      this.showTokensEditBlocks = !this.showTokensEditBlocks
     }
   }
 });
@@ -44576,7 +44521,7 @@ __webpack_require__.r(__webpack_exports__);
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
     alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
@@ -44589,7 +44534,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     clickToken (token) {
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
-        this.$alignedC.clickToken(token, this.currentTargetId)
+        this.$alignedGC.clickToken(token, this.currentTargetId)
       }
     },
     /**
@@ -44597,244 +44542,41 @@ __webpack_require__.r(__webpack_exports__);
      * @param {Token}
      */
     addHoverToken (token) {
-      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
+      this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
     /**
      * Ends hover token workflow
      */
     removeHoverToken () {
-      this.$alignedC.clearHoverOnAlignmentGroups()
+      this.$alignedGC.clearHoverOnAlignmentGroups()
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
      * @param {Token}
      */
     selectedToken (token) {
-      return this.$alignedC.selectedToken(token, this.currentTargetId)
+      return this.$alignedGC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
      * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
+      return this.$alignedGC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      * @param {Token}
      */
     inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
+      return this.$alignedGC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      * @param {Token}
      */
     isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
-    }
-  }
-
-});
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-edit-block.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-edit-block.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _vue_align_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token-edit-block.vue */ "./vue/align-editor/token-edit-block.vue");
-/* harmony import */ var _vue_align_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/actions-menu-token-edit.vue */ "./vue/align-editor/actions-menu-token-edit.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'SegmentEditBlock',
-  components: {
-    tokenEditBlock: _vue_align_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    actionsMenuTokenEdit: _vue_align_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__.default
-  },
-  props: {
-    currentTargetId: {
-      type: String,
-      required: false
-    },
-
-    segment: {
-      type: Object,
-      required: true
-    },
-
-    isLast : {
-      type: Boolean,
-      required: false,
-      default: false
-    }
-  },
-  data () {
-    return {
-      updated: 1,
-      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8',
-      showActionsMenuFlag: false,
-      actionsToken: null,
-      actionsMenuLeft: 0,
-      actionsMenuTop: 0,
-      deactivated: 1,
-      containerWidth: 0,
-      updateTokenIdWord: null,
-      mergeTokenLeftIdWord: null,
-      mergeTokenRightIdWord: null,
-      splitTokenIdWord: null
-    }
-  },
-  watch: {
-  },
-  computed: {
-    /**
-     * @returns {String} - origin/target
-     */
-    textType () {
-      return this.segment.textType
-    },
-    /**
-     * @returns {String} - ltr/rtl
-     */
-    direction () {
-      return this.segment.direction
-    },
-    /**
-     * @returns {String} - lang code
-     */
-    lang () {
-      return this.segment.lang
-    },
-    /**
-     * @returns {String} css id for html layout
-     */
-    cssId () {
-      if (this.textType === 'target') {
-        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
-      } else {
-        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
-      }
-    },
-    /**
-     * Styles for creating a html table layout with different background-colors for different targetIds
-     * @returns {String}
-     */
-    cssStyle () {
-      if (this.textType === 'target') {
-        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
-      } else {
-        return `order: ${this.segment.index}; background: ${this.originColor};`
-      }
-    },
-    /**
-     * Defines classes by textType and isLast flag
-     * @returns {Object}
-     */
-    cssClass () {
-      let classes = {}
-      classes[`alpheios-align-text-segment-${this.textType}`] = true
-      classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
-      return classes
-    },
-    /**
-     * @returns {Array[String]} - array of all targetIds
-     */
-    allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
-    },
-    /**
-     * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
-     */
-    targetIdIndex () {
-      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    },
-    /**
-     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
-     */
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
-    },
-    alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
-    },
-    allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
-    }
-  },
-  methods: {
-    hideActionsMenu () {
-      this.showActionsMenuFlag = false
-    },
-    showActionsMenu (data) {
-      
-      this.actionsToken = data.token
-      this.actionsMenuLeft = data.leftPos
-      this.actionsMenuTop = data.topPos
-      this.containerWidth = this.$el.offsetWidth
-
-      this.showActionsMenuFlag = true
-    },
-    removeAllActivated () {
-      this.showActionsMenuFlag = false
-      this.deactivated++
-    },
-    updateTokenWord (token) {
-      this.updateTokenIdWord = token.idWord
-    },
-    mergeToken (token, direction) {
-      if (direction === 'left') {
-        this.mergeTokenLeftIdWord = token.idWord
-      }
-      if (direction === 'right') {
-        this.mergeTokenRightIdWord = token.idWord
-      }
-    },
-    splitToken (token) {
-      this.splitTokenIdWord = token.idWord
+      return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     }
   }
 
@@ -44933,150 +44675,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-edit-block.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-edit-block.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'TokenEditBlock',
-  props: {
-    token: {
-      type: Object,
-      required: true
-    },
-    deactivated : {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    updateTokenIdWord : {
-      type: String,
-      required: false,
-      default: null
-    },
-    mergeTokenLeftIdWord : {
-      type: String,
-      required: false,
-      default: null
-    },
-    mergeTokenRightIdWord : {
-      type: String,
-      required: false,
-      default: null
-    },
-    splitTokenIdWord : {
-      type: String,
-      required: false,
-      default: null
-    }
-  },
-  data () {
-    return {
-      tokenWord: null,
-      activated: false
-    }
-  },
-  watch: {
-    '$store.state.tokenUpdated' () {
-      this.tokenWord = this.token.word
-    },
-    deactivated () {
-      this.activated = false
-    },
-    updateTokenIdWord () {
-      if (this.activated && (this.updateTokenIdWord === this.token.idWord)) {
-        this.updateTokenWord()
-      }
-    },
-    mergeTokenLeftIdWord () {
-      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
-        this.mergeToken('left')
-      }
-    },
-    mergeTokenRightIdWord () {
-      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
-        this.mergeToken('right')
-      }
-    },
-    splitTokenIdWord () {
-      if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
-        this.splitToken()
-      }
-    } 
-  },
-  mounted () {
-    this.tokenWord = this.token.word
-  },
-  computed: {
-    itemId () {
-      return `${this.token.idWord}-input-id`
-    },
-    additionalClasses () {
-      return {
-        'alpheios-alignment-token-edit-span__activated' : this.activated
-      }
-    }
-  },
-  methods: {
-    updateTokenWord () {
-      this.$alignedC.updateTokenWord(this.token, this.tokenWord)
-    },
-    mergeToken (direction) {
-      this.$alignedC.mergeToken(this.token, direction)
-      this.hideActionsMenu()
-    },
-    splitToken ()  {
-      this.$alignedC.splitToken(this.token, this.tokenWord)
-    },
-    hideActionsMenu () {
-      this.activated = false
-      this.$emit('hideActionsMenu')
-    },
-    async showActionsMenu () {
-      this.$emit('removeAllActivated')
-
-      await _vue_runtime__WEBPACK_IMPORTED_MODULE_0__.default.nextTick()
-
-      this.activated = true
-      this.$emit('showActionsMenu', {
-        token: this.token,
-        leftPos: this.$el.offsetLeft,
-        topPos: this.$el.offsetTop
-      })
-    }
-  } 
-});
-
-
-/***/ }),
-
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js& ***!
@@ -45093,7 +44691,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
 /* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
 /* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
-/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
+/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 //
 //
 //
@@ -45118,6 +44717,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -45134,8 +44736,9 @@ __webpack_require__.r(__webpack_exports__);
     mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__.default,
     alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
     notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default
   },
   data () {
     return {
@@ -45147,7 +44750,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -45180,7 +44783,7 @@ __webpack_require__.r(__webpack_exports__);
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       if (result) {
         this.hideTextEditor++
         this.showAlignEditor++
@@ -45205,13 +44808,166 @@ __webpack_require__.r(__webpack_exports__);
     startOver () {
       this.$textC.startOver()
       this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedC.startOver()
+      this.$alignedGC.startOver()
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
       this.$textC.store.commit('incrementAlignmentRestarted')
       this.$textC.store.commit('incrementAlignmentUpdated')
 
       this.showTextEditor++
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/editor-tabs.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/editor-tabs.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'EditorTabs',
+  props: {
+    tabs: {
+      type: Array,
+      required: true
+    }
+  },
+  data () {
+    return {
+      tabsStates: []
+    }
+  },
+  computed: {
+    tabsStatesFinal () {
+      if (this.tabs.length > this.tabsStates.length) {
+        const newTabStates = this.tabs.map((tab, index) => { 
+          return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
+        })
+        this.tabsStates = newTabStates
+      }
+      return this.$store.state.alignmentUpdated && this.tabsStates
+    }
+  },
+  methods: {
+    /**
+     * It checks if the tab could be selected (for now we couldn't have no selected tabs)
+     * @param {Number} - index order of targetId
+     */
+    couldBeSelected (index) {
+      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
+    },
+
+    /**
+     * First it checks if the tab could be selected (for example we couldn't have no selected tabs)
+     * Then it changes selected tab state to oposite and emits event
+     * @param {String} - targetId
+     * @param {Number} - index order of targetId
+     */
+    selectTab (tabData, index) {
+      if (!this.couldBeSelected(index)) {
+        return
+      }
+      
+      this.tabsStates[index].active = !this.tabsStates[index].active
+      this.$emit('selectTab', tabData)
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'tooltip',
+  props: {
+    tooltipDirection: {
+      type: String,
+      required: false,
+      default: 'bottom'
+    },
+    tooltipText: {
+      type: String,
+      required: true
+    },
+    additionalStyles: {
+      type: Object,
+      required: false
+    }
+  },
+  computed: {
+    directionClass () {
+      const tooltipDirection = this.tooltipDirection.toLowerCase()
+
+      switch (tooltipDirection) {
+        case 'top':
+          return { 'alpheios-tooltip-top': true }
+        case 'bottom':
+          return { 'alpheios-tooltip-bottom': true }
+        case 'bottom-wide':
+          return { 'alpheios-tooltip-bottom-wide': true }
+        case 'bottom-narrow':
+          return { 'alpheios-tooltip-bottom-narrow': true }
+        case 'bottom-narrow2':
+          return { 'alpheios-tooltip-bottom-narrow2': true }
+        case 'left':
+          return { 'alpheios-tooltip-left': true }
+        case 'right':
+          return { 'alpheios-tooltip-right': true }
+        case 'bottom-right':
+          return { 'alpheios-tooltip-bottom-right': true }
+        case 'bottom-left':
+          return { 'alpheios-tooltip-bottom-left': true }
+        case 'top-right':
+          return { 'alpheios-tooltip-top-right': true }
+        case 'top-left':
+          return { 'alpheios-tooltip-top-left': true }
+        default:
+          return { 'alpheios-tooltip-bottom': true }
+      }
     }
   }
 });
@@ -45301,13 +45057,13 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
     },
     undoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
+      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedC.alignmentGroupsWorkflowStarted
+      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     toggleOptionsTitle () {
       return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
@@ -45636,8 +45392,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-//
-//
 //
 //
 //
@@ -46003,7 +45757,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/tooltip.vue */ "./vue/tooltip.vue");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -46042,7 +45796,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MetadataTermBlock',
   components: {
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
-    tooltip: _vue_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
     metadataTerm: {
@@ -46104,7 +45858,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.metadataTerm.saveValue(this.value)
       }
-      this.$textC.changeMetadataTerm(this.textType, this.textId, this.metadataTerm)
+      this.$textC.changeMetadataTerm()
 
       if (this.metadataTerm.property.multivalued) { this.value = null }
     },
@@ -46268,16 +46022,16 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated
     },
     containerId () {
-      return `alpheios-alignment-editor-text-block__${this.textType}_${this.formattedTextId}`
+      return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
     },
     /**
      * Defines unique id for textArea for tracking changes
      */
     textareaId () {
-      return `alpheios-alignment-editor-text-block__textarea_${this.textType}_${this.formattedTextId}`
+      return `alpheios-alignment-editor-text-blocks-single__textarea_${this.textType}_${this.formattedTextId}`
     },
     removeId () {
-      return `alpheios-alignment-editor-text-block__remove_${this.textType}_${this.formattedTextId}`
+      return `alpheios-alignment-editor-text-blocks-single__remove_${this.textType}_${this.formattedTextId}`
     },
     /**
      * Formats textType
@@ -46449,6 +46203,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -46492,6 +46249,7 @@ __webpack_require__.r(__webpack_exports__);
   created () {
     this.$textC.createAlignment()
     this.$historyC.startTracking(this.$textC.alignment)
+    this.$tokensEC.loadAlignment(this.$textC.alignment)
   },
   computed: {
     originId () {
@@ -46625,10 +46383,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tooltip.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tooltip.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46636,6 +46394,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/ok.svg */ "./inline-icons/ok.svg");
+/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/split.svg */ "./inline-icons/split.svg");
+/* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/merge-left.svg */ "./inline-icons/merge-left.svg");
+/* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/merge-right.svg */ "./inline-icons/merge-right.svg");
+/* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46649,53 +46443,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
+
+
+
+
+
+
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'tooltip',
+  name: 'ActionsMenuTokenEdit',
+  components: {
+    okIcon: (_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default()),
+    splitIcon: (_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_4__.default
+  },
   props: {
-    tooltipDirection: {
-      type: String,
-      required: false,
-      default: 'bottom'
-    },
-    tooltipText: {
-      type: String,
-      required: true
-    },
-    additionalStyles: {
+    token: {
       type: Object,
       required: false
+    },
+    leftPos: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    topPos: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    containerWidth: {
+      type: Number,
+      required: false,
+      default: 0
+    }
+  },
+  data () {
+    return {
     }
   },
   computed: {
-    directionClass () {
-      const tooltipDirection = this.tooltipDirection.toLowerCase()
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_5__.default
+    },
+    cssStyles () {
+      const  top = this.topPos + 'px'
+      const menuWidth = this.$refs.actionsInner ? this.$refs.actionsInner.offsetWidth : 0
 
-      switch (tooltipDirection) {
-        case 'top':
-          return { 'alpheios-tooltip-top': true }
-        case 'bottom':
-          return { 'alpheios-tooltip-bottom': true }
-        case 'bottom-wide':
-          return { 'alpheios-tooltip-bottom-wide': true }
-        case 'bottom-narrow':
-          return { 'alpheios-tooltip-bottom-narrow': true }
-        case 'bottom-narrow2':
-          return { 'alpheios-tooltip-bottom-narrow2': true }
-        case 'left':
-          return { 'alpheios-tooltip-left': true }
-        case 'right':
-          return { 'alpheios-tooltip-right': true }
-        case 'bottom-right':
-          return { 'alpheios-tooltip-bottom-right': true }
-        case 'bottom-left':
-          return { 'alpheios-tooltip-bottom-left': true }
-        case 'top-right':
-          return { 'alpheios-tooltip-top-right': true }
-        case 'top-left':
-          return { 'alpheios-tooltip-top-left': true }
-        default:
-          return { 'alpheios-tooltip-bottom': true }
+      if ((this.leftPos + menuWidth + 20) > this.containerWidth) {
+        return { 
+          right: '0px',
+          top
+        }
+      } else {
+        return { 
+          left: (this.leftPos - 10) + 'px',
+          top
+        }
       }
+    }, 
+    allowedUpdateTokenWord () {
+      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    }
+  },
+  methods: {
+    mergeToLeft () {
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT)
+    },
+    mergeToRight () {
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.RIGHT)
     }
   }
 });
@@ -46703,10 +46525,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/actions-menu-token-edit.vue":
-/*!******************************************************!*\
-  !*** ./vue/align-editor/actions-menu-token-edit.vue ***!
-  \******************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46714,40 +46536,147 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _actions_menu_token_edit_vue_vue_type_template_id_d064044e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=template&id=d064044e& */ "./vue/align-editor/actions-menu-token-edit.vue?vue&type=template&id=d064044e&");
-/* harmony import */ var _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "./vue/align-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
-/* harmony import */ var _actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _vue_tokens_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/segment-edit-block.vue */ "./vue/tokens-editor/segment-edit-block.vue");
+/* harmony import */ var _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/editor-tabs.vue */ "./vue/common/editor-tabs.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-;
 
 
-/* normalize component */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignEditorEditMode',
+  components: {
+    segmentEditBlock: _vue_tokens_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    editorTabs: _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  props: {
+  },
+  data () {
+    return {
+      shownTabs: [],
+      shownTabsInited: false
+    }
+  },
+  computed: {
+    /**
+     * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
+     * for now we don't have a case when we need to re-define tabs, 
+     * but if we would need it - we would update shownTabsInited with false
+     * @returns {Array[String]}
+     */
+    allTokenizedTargetTextsIds () {
+      const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
+      if (!this.shownTabsInited) {
+        this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
+        this.shownTabsInited = true
+        this.$historyC.updateMode(this.shownTabs) 
+      }
+      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+    },
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _actions_menu_token_edit_vue_vue_type_template_id_d064044e___WEBPACK_IMPORTED_MODULE_0__.render,
-  _actions_menu_token_edit_vue_vue_type_template_id_d064044e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+    /**
+     * @returns {Array[Object]}
+     *          {Number} index - segment's order index
+     *          {Segment} origin - origin segment by index
+     *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
+     */
+    allAlignedTextsSegments () {
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedGC.allAlignedTextsSegments : []
+    },
 
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/align-editor/actions-menu-token-edit.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+    /**
+     * @returns {String} - targetId of the target segment, that is rendered the last to control css borders
+     */
+    lastTargetId () {
+      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
+    },
+
+    /**
+     * @returns {Array[String]} - shown targetIds based on shownTabs with saved order
+     */
+    orderedTargetsId () {
+      return Object.keys(this.allAlignedTextsSegments[0].targets).filter(targetId => this.shownTabs.includes(targetId))
+    },
+
+    /**
+     * @returns {String|Null} - targetId if it only one tab is active and we could work with groups
+     */
+    currentTargetId () {
+      return this.shownTabs.length === 1 ? this.shownTabs[0] : null
+    }
+
+  },
+  methods: {
+    /**
+     * @param {String}
+     * @returns {Boolean} - true - targetId is visible, false - not
+     */
+    isShownTab (targetId) {
+      return this.shownTabs.includes(targetId)
+    },
+
+    /**
+     * @param {String} - origin/target
+     * @param {Number} - segment order index
+     * @param {String} - targetId for target segment
+     * @returns {String} - unique index for the segment
+     */
+    getIndex (textType, index, additionalIndex = 0) {
+      return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
+    },
+
+    /**
+     * Changes active tabs by click
+     * @param {String}
+     */
+    selectTab (targetId) {
+      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
+        this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
+      } else if (!this.shownTabs.includes(targetId)) {
+        this.shownTabs.push(targetId)
+      }  
+      this.$historyC.updateMode(this.shownTabs)    
+    }
+  } 
+});
+
 
 /***/ }),
 
-/***/ "./vue/align-editor/align-editor-tabs.vue":
-/*!************************************************!*\
-  !*** ./vue/align-editor/align-editor-tabs.vue ***!
-  \************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46755,40 +46684,205 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=template&id=b482181a& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&");
-/* harmony import */ var _align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&");
-/* harmony import */ var _align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/token-edit-block.vue */ "./vue/tokens-editor/token-edit-block.vue");
+/* harmony import */ var _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-token-edit.vue */ "./vue/tokens-editor/actions-menu-token-edit.vue");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-;
 
 
-/* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.render,
-  _align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'SegmentEditBlock',
+  components: {
+    tokenEditBlock: _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    actionsMenuTokenEdit: _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  props: {
+    currentTargetId: {
+      type: String,
+      required: false
+    },
 
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/align-editor/align-editor-tabs.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+    segment: {
+      type: Object,
+      required: true
+    },
+
+    isLast : {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  data () {
+    return {
+      updated: 1,
+      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      originColor: '#F8F8F8',
+      showActionsMenuFlag: false,
+      actionsToken: null,
+      actionsMenuLeft: 0,
+      actionsMenuTop: 0,
+      deactivated: 1,
+      containerWidth: 0,
+      updateTokenIdWord: null,
+      mergeTokenLeftIdWord: null,
+      mergeTokenRightIdWord: null,
+      splitTokenIdWord: null
+    }
+  },
+  watch: {
+  },
+  computed: {
+    /**
+     * @returns {String} - origin/target
+     */
+    textType () {
+      return this.segment.textType
+    },
+    /**
+     * @returns {String} - ltr/rtl
+     */
+    direction () {
+      return this.segment.direction
+    },
+    /**
+     * @returns {String} - lang code
+     */
+    lang () {
+      return this.segment.lang
+    },
+    /**
+     * @returns {String} css id for html layout
+     */
+    cssId () {
+      if (this.textType === 'target') {
+        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
+      } else {
+        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
+      }
+    },
+    /**
+     * Styles for creating a html table layout with different background-colors for different targetIds
+     * @returns {String}
+     */
+    cssStyle () {
+      if (this.textType === 'target') {
+        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `order: ${this.segment.index}; background: ${this.originColor};`
+      }
+    },
+    /**
+     * Defines classes by textType and isLast flag
+     * @returns {Object}
+     */
+    cssClass () {
+      let classes = {}
+      classes[`alpheios-align-text-segment-${this.textType}`] = true
+      classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
+      return classes
+    },
+    /**
+     * @returns {Array[String]} - array of all targetIds
+     */
+    allTargetTextsIds () {
+      return this.$store.state.alignmentUpdated ? this.$textC.allTargetTextsIds : []
+    },
+    /**
+     * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
+     */
+    targetIdIndex () {
+      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
+    },
+    /**
+     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
+     */
+    targetId () {
+      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+    },
+    alignmentGroupsWorkflowAvailable () {
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
+    },
+    allTokens () {
+      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+    }
+  },
+  methods: {
+    hideActionsMenu () {
+      this.showActionsMenuFlag = false
+    },
+    showActionsMenu (data) {
+      
+      this.actionsToken = data.token
+      this.actionsMenuLeft = data.leftPos
+      this.actionsMenuTop = data.topPos
+      this.containerWidth = this.$el.offsetWidth
+
+      this.showActionsMenuFlag = true
+    },
+    removeAllActivated () {
+      this.showActionsMenuFlag = false
+      this.deactivated++
+    },
+    updateTokenWord (token) {
+      this.updateTokenIdWord = token.idWord
+    },
+    mergeToken (token, direction) {
+      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.LEFT) {
+        this.mergeTokenLeftIdWord = token.idWord
+      }
+      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.RIGHT) {
+        this.mergeTokenRightIdWord = token.idWord
+      }
+    },
+    splitToken (token) {
+      this.splitTokenIdWord = token.idWord
+    }
+  }
+
+});
+
 
 /***/ }),
 
-/***/ "./vue/align-editor/align-editor-tokens-edit-mode.vue":
-/*!************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tokens-edit-mode.vue ***!
-  \************************************************************/
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -46796,33 +46890,246 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _align_editor_tokens_edit_mode_vue_vue_type_template_id_051544f0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0& */ "./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0&");
-/* harmony import */ var _align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&");
-/* harmony import */ var _align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
-;
 
 
-/* normalize component */
 
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _align_editor_tokens_edit_mode_vue_vue_type_template_id_051544f0___WEBPACK_IMPORTED_MODULE_0__.render,
-  _align_editor_tokens_edit_mode_vue_vue_type_template_id_051544f0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
 
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/align-editor/align-editor-tokens-edit-mode.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'TokenEditBlock',
+  components: {
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    token: {
+      type: Object,
+      required: true
+    },
+    deactivated : {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    updateTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    mergeTokenLeftIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    mergeTokenRightIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    splitTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
+    }
+  },
+  data () {
+    return {
+      tokenWord: null,
+      activated: false,
+      allowedKeyCodes: [32, 37, 39]
+    }
+  },
+  watch: {
+    '$store.state.tokenUpdated' () {
+      this.tokenWord = this.token.word
+    },
+    deactivated () {
+      this.activated = false
+    },
+
+    updateTokenIdWord () {
+      if (this.activated && (this.updateTokenIdWord === this.token.idWord)) {
+        this.updateTokenWord()
+      }
+    },
+    mergeTokenLeftIdWord () {
+      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
+        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.LEFT)
+      }
+    },
+    mergeTokenRightIdWord () {
+      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
+        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.RIGHT)
+      }
+    },
+    splitTokenIdWord () {
+      if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
+        this.splitToken()
+      }
+    } 
+  },
+  mounted () {
+    this.tokenWord = this.token.word
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    itemId () {
+      return this.$store.state.tokenUpdated && `${this.token.idWord}-input-id`
+    },
+    additionalClasses () {
+      return {
+        'alpheios-alignment-editor-token-edit-span__activated' : this.activated,
+        'alpheios-alignment-editor-token-edit-not-editable': !this.isEditableToken
+      }
+    },
+    isEditableToken () {
+      return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
+    }, 
+    allowedUpdateTokenWord () {
+      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    }
+  },
+  methods: {
+    updateTokenWord () {
+      if (this.allowedUpdateTokenWord && (this.token.word !== this.tokenWord)) {
+        this.$tokensEC.updateTokenWord(this.token, this.tokenWord)
+      }
+    },
+    mergeToken (direction) {
+      this.$tokensEC.mergeToken(this.token, direction)
+      this.hideActionsMenu()
+    },
+    splitToken ()  {
+      this.$tokensEC.splitToken(this.token, this.tokenWord)
+    },
+    hideActionsMenu () {
+      this.activated = false
+      this.$emit('hideActionsMenu')
+    },
+    async showActionsMenu () {
+      this.$emit('removeAllActivated')
+
+      await _vue_runtime__WEBPACK_IMPORTED_MODULE_3__.default.nextTick()
+
+      this.activated = true
+      this.$emit('showActionsMenu', {
+        token: this.token,
+        leftPos: this.$el.offsetLeft,
+        topPos: this.$el.offsetTop
+      })
+    },
+    
+    checkKeyPres (event) {
+      if (!this.allowedUpdateTokenWord && this.allowedKeyCodes.indexOf(event.keyCode) === -1) {
+        event.preventDefault()
+      }
+    }
+  } 
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _vue_tokens_editor_align_editor_tokens_edit_mode_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/align-editor-tokens-edit-mode.vue */ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignEditor',
+  components: {
+    alignEditorTokensEditMode: _vue_tokens_editor_align_editor_tokens_edit_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+  },
+  data () {
+    return {
+      showTokensEditBlocks: true
+    }
+  },
+  watch: {
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    /**
+     * Checks if there are enough data for rendering editors
+     */
+    showAlignEditor () {
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+    },
+    showTokenEditBlocksLabel () {
+      return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')
+    }
+  },
+  methods: {
+    toggleShowTokensEditBlocks () {
+      this.showTokensEditBlocks = !this.showTokensEditBlocks
+    }
+  }
+});
+
 
 /***/ }),
 
@@ -46947,47 +47254,6 @@ component.options.__file = "vue/align-editor/segment-block.vue"
 
 /***/ }),
 
-/***/ "./vue/align-editor/segment-edit-block.vue":
-/*!*************************************************!*\
-  !*** ./vue/align-editor/segment-edit-block.vue ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _segment_edit_block_vue_vue_type_template_id_4a22c852___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=template&id=4a22c852& */ "./vue/align-editor/segment-edit-block.vue?vue&type=template&id=4a22c852&");
-/* harmony import */ var _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/segment-edit-block.vue?vue&type=script&lang=js&");
-/* harmony import */ var _segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _segment_edit_block_vue_vue_type_template_id_4a22c852___WEBPACK_IMPORTED_MODULE_0__.render,
-  _segment_edit_block_vue_vue_type_template_id_4a22c852___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/align-editor/segment-edit-block.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
 /***/ "./vue/align-editor/token-block.vue":
 /*!******************************************!*\
   !*** ./vue/align-editor/token-block.vue ***!
@@ -47029,47 +47295,6 @@ component.options.__file = "vue/align-editor/token-block.vue"
 
 /***/ }),
 
-/***/ "./vue/align-editor/token-edit-block.vue":
-/*!***********************************************!*\
-  !*** ./vue/align-editor/token-edit-block.vue ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _token_edit_block_vue_vue_type_template_id_263e7711___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=template&id=263e7711& */ "./vue/align-editor/token-edit-block.vue?vue&type=template&id=263e7711&");
-/* harmony import */ var _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/token-edit-block.vue?vue&type=script&lang=js&");
-/* harmony import */ var _token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-;
-
-
-/* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _token_edit_block_vue_vue_type_template_id_263e7711___WEBPACK_IMPORTED_MODULE_0__.render,
-  _token_edit_block_vue_vue_type_template_id_263e7711___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vue/align-editor/token-edit-block.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
 /***/ "./vue/app.vue":
 /*!*********************!*\
   !*** ./vue/app.vue ***!
@@ -47107,6 +47332,88 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "vue/app.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/common/editor-tabs.vue":
+/*!************************************!*\
+  !*** ./vue/common/editor-tabs.vue ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-tabs.vue?vue&type=template&id=6ce13a71& */ "./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71&");
+/* harmony import */ var _editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor-tabs.vue?vue&type=script&lang=js& */ "./vue/common/editor-tabs.vue?vue&type=script&lang=js&");
+/* harmony import */ var _editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "./vue/common/editor-tabs.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.render,
+  _editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/common/editor-tabs.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/common/tooltip.vue":
+/*!********************************!*\
+  !*** ./vue/common/tooltip.vue ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltip.vue?vue&type=template&id=50461596& */ "./vue/common/tooltip.vue?vue&type=template&id=50461596&");
+/* harmony import */ var _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip.vue?vue&type=script&lang=js& */ "./vue/common/tooltip.vue?vue&type=script&lang=js&");
+/* harmony import */ var _tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip.vue?vue&type=style&index=0&lang=scss& */ "./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.render,
+  _tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/common/tooltip.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -47597,10 +47904,10 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 
 /***/ }),
 
-/***/ "./vue/tooltip.vue":
-/*!*************************!*\
-  !*** ./vue/tooltip.vue ***!
-  \*************************/
+/***/ "./vue/tokens-editor/actions-menu-token-edit.vue":
+/*!*******************************************************!*\
+  !*** ./vue/tokens-editor/actions-menu-token-edit.vue ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -47608,10 +47915,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltip.vue?vue&type=template&id=13f11f5c& */ "./vue/tooltip.vue?vue&type=template&id=13f11f5c&");
-/* harmony import */ var _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip.vue?vue&type=script&lang=js& */ "./vue/tooltip.vue?vue&type=script&lang=js&");
-/* harmony import */ var _tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip.vue?vue&type=style&index=0&lang=scss& */ "./vue/tooltip.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=template&id=4505d046& */ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&");
+/* harmony import */ var _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -47621,9 +47928,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.render,
-  _tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.render,
+  _actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -47633,59 +47940,172 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vue/tooltip.vue"
+component.options.__file = "vue/tokens-editor/actions-menu-token-edit.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./vue/align-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&":
-/*!****************************************************************************************!*\
-  !*** ./vue/align-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************/
+/***/ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue":
+/*!*************************************************************!*\
+  !*** ./vue/tokens-editor/align-editor-tokens-edit-mode.vue ***!
+  \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _align_editor_tokens_edit_mode_vue_vue_type_template_id_080eea35___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35& */ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35&");
+/* harmony import */ var _align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&");
+/* harmony import */ var _align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _align_editor_tokens_edit_mode_vue_vue_type_template_id_080eea35___WEBPACK_IMPORTED_MODULE_0__.render,
+  _align_editor_tokens_edit_mode_vue_vue_type_template_id_080eea35___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tokens-editor/align-editor-tokens-edit-mode.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************/
+/***/ "./vue/tokens-editor/segment-edit-block.vue":
+/*!**************************************************!*\
+  !*** ./vue/tokens-editor/segment-edit-block.vue ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=template&id=eba38d6c& */ "./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&");
+/* harmony import */ var _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tokens-editor/segment-edit-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&":
-/*!**********************************************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************************/
+/***/ "./vue/tokens-editor/token-edit-block.vue":
+/*!************************************************!*\
+  !*** ./vue/tokens-editor/token-edit-block.vue ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=template&id=98c65578& */ "./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578&");
+/* harmony import */ var _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.render,
+  _token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tokens-editor/token-edit-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/tokens-editor.vue":
+/*!*********************************************!*\
+  !*** ./vue/tokens-editor/tokens-editor.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tokens-editor.vue?vue&type=template&id=393827ec& */ "./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec&");
+/* harmony import */ var _tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tokens-editor.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&");
+/* harmony import */ var _tokens_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tokens-editor.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/tokens-editor.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.render,
+  _tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tokens-editor/tokens-editor.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
@@ -47723,23 +48143,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************!*\
-  !*** ./vue/align-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-edit-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-
-
-/***/ }),
-
 /***/ "./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************!*\
   !*** ./vue/align-editor/token-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -47757,23 +48160,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&":
-/*!*********************************************************************************!*\
-  !*** ./vue/align-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-edit-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-
-
-/***/ }),
-
 /***/ "./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************!*\
   !*** ./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -47786,6 +48172,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/common/editor-tabs.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************!*\
+  !*** ./vue/common/editor-tabs.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./editor-tabs.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************!*\
+  !*** ./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -47944,68 +48364,88 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/tooltip.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************!*\
-  !*** ./vue/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************/
+/***/ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************!*\
+  !*** ./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
 /***/ }),
 
-/***/ "./vue/align-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&":
+/***/ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************!*\
+  !*** ./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&":
+/*!************************************************************************************!*\
+  !*** ./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-edit-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************!*\
+  !*** ./vue/tokens-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-edit-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/tokens-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************************************!*\
-  !*** ./vue/align-editor/actions-menu-token-edit.vue?vue&type=script&lang=js& ***!
+  !*** ./vue/tokens-editor/tokens-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokens-editor.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
-/***/ }),
-
-/***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&":
-/*!*************************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-tabs.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tabs.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
-/***/ "./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -48057,22 +48497,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/segment-edit-block.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./vue/align-editor/segment-edit-block.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-edit-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
 /***/ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&":
 /*!*******************************************************************!*\
   !*** ./vue/align-editor/token-block.vue?vue&type=script&lang=js& ***!
@@ -48089,22 +48513,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/token-edit-block.vue?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./vue/align-editor/token-edit-block.vue?vue&type=script&lang=js& ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-edit-block.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
 /***/ "./vue/app.vue?vue&type=script&lang=js&":
 /*!**********************************************!*\
   !*** ./vue/app.vue?vue&type=script&lang=js& ***!
@@ -48118,6 +48526,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./app.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/common/editor-tabs.vue?vue&type=script&lang=js&":
+/*!*************************************************************!*\
+  !*** ./vue/common/editor-tabs.vue?vue&type=script&lang=js& ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./editor-tabs.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/editor-tabs.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/common/tooltip.vue?vue&type=script&lang=js&":
+/*!*********************************************************!*\
+  !*** ./vue/common/tooltip.vue?vue&type=script&lang=js& ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tooltip.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -48313,10 +48753,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/tooltip.vue?vue&type=script&lang=js&":
-/*!**************************************************!*\
-  !*** ./vue/tooltip.vue?vue&type=script&lang=js& ***!
-  \**************************************************/
+/***/ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -48324,59 +48764,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./tooltip.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tooltip.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
-/***/ "./vue/align-editor/actions-menu-token-edit.vue?vue&type=template&id=d064044e&":
-/*!*************************************************************************************!*\
-  !*** ./vue/align-editor/actions-menu-token-edit.vue?vue&type=template&id=d064044e& ***!
-  \*************************************************************************************/
+/***/ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_d064044e___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_d064044e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_d064044e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-token-edit.vue?vue&type=template&id=d064044e& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/actions-menu-token-edit.vue?vue&type=template&id=d064044e&");
-
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-tokens-edit-mode.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_tokens_edit_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
-/***/ "./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
-/*!*******************************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
-  \*******************************************************************************/
+/***/ "./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tabs_vue_vue_type_template_id_b482181a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tabs.vue?vue&type=template&id=b482181a& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&");
-
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
-/***/ "./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0&":
-/*!*******************************************************************************************!*\
-  !*** ./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0& ***!
-  \*******************************************************************************************/
+/***/ "./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_template_id_051544f0___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_template_id_051544f0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_template_id_051544f0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0&");
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
+/***/ }),
+
+/***/ "./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokens-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -48431,23 +48884,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/segment-edit-block.vue?vue&type=template&id=4a22c852&":
-/*!********************************************************************************!*\
-  !*** ./vue/align-editor/segment-edit-block.vue?vue&type=template&id=4a22c852& ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_4a22c852___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_4a22c852___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_4a22c852___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-edit-block.vue?vue&type=template&id=4a22c852& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-edit-block.vue?vue&type=template&id=4a22c852&");
-
-
-/***/ }),
-
 /***/ "./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&":
 /*!*************************************************************************!*\
   !*** ./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654& ***!
@@ -48465,23 +48901,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/align-editor/token-edit-block.vue?vue&type=template&id=263e7711&":
-/*!******************************************************************************!*\
-  !*** ./vue/align-editor/token-edit-block.vue?vue&type=template&id=263e7711& ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_263e7711___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_263e7711___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_263e7711___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-edit-block.vue?vue&type=template&id=263e7711& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-edit-block.vue?vue&type=template&id=263e7711&");
-
-
-/***/ }),
-
 /***/ "./vue/app.vue?vue&type=template&id=2307d2fa&":
 /*!****************************************************!*\
   !*** ./vue/app.vue?vue&type=template&id=2307d2fa& ***!
@@ -48495,6 +48914,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./app.vue?vue&type=template&id=2307d2fa& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&");
+
+
+/***/ }),
+
+/***/ "./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71&":
+/*!*******************************************************************!*\
+  !*** ./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71& ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./editor-tabs.vue?vue&type=template&id=6ce13a71& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71&");
+
+
+/***/ }),
+
+/***/ "./vue/common/tooltip.vue?vue&type=template&id=50461596&":
+/*!***************************************************************!*\
+  !*** ./vue/common/tooltip.vue?vue&type=template&id=50461596& ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=template&id=50461596& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=template&id=50461596&");
 
 
 /***/ }),
@@ -48703,334 +49156,87 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./vue/tooltip.vue?vue&type=template&id=13f11f5c&":
-/*!********************************************************!*\
-  !*** ./vue/tooltip.vue?vue&type=template&id=13f11f5c& ***!
-  \********************************************************/
+/***/ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&":
+/*!**************************************************************************************!*\
+  !*** ./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046& ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_13f11f5c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=template&id=13f11f5c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=template&id=13f11f5c&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-token-edit.vue?vue&type=template&id=4505d046& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&");
 
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/actions-menu-token-edit.vue?vue&type=template&id=d064044e&":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/actions-menu-token-edit.vue?vue&type=template&id=d064044e& ***!
-  \******************************************************************************************************************************************************************************************************************************/
+/***/ "./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35&":
+/*!********************************************************************************************!*\
+  !*** ./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35& ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_template_id_080eea35___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_template_id_080eea35___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.token,
-          expression: "token"
-        }
-      ],
-      staticClass: "alpheios-token-edit-actions",
-      style: _vm.cssStyles
-    },
-    [
-      _c(
-        "div",
-        {
-          ref: "actionsInner",
-          staticClass: "alpheios-token-edit-actions-inner"
-        },
-        [
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_UPDATE_TOKEN"),
-                tooltipDirection: "top"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__update-token"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("updateTokenWord", _vm.token)
-                    }
-                  }
-                },
-                [_c("ok-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_LEFT"),
-                tooltipDirection: "top"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__merge-left"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("mergeToken", _vm.token, "left")
-                    }
-                  }
-                },
-                [_c("merge-left-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_RIGHT"),
-                tooltipDirection: "top"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__merge-right"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("mergeToken", _vm.token, "right")
-                    }
-                  }
-                },
-                [_c("merge-right-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_SPLIT_TOKEN"),
-                tooltipDirection: "top"
-              }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: { id: "alpheios-token-edit-actions-button__split" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("splitToken", _vm.token)
-                    }
-                  }
-                },
-                [_c("split-icon")],
-                1
-              )
-            ]
-          )
-        ],
-        1
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_tokens_edit_mode_vue_vue_type_template_id_080eea35___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35&");
 
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tabs.vue?vue&type=template&id=b482181a& ***!
-  \************************************************************************************************************************************************************************************************************************/
+/***/ "./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&":
+/*!*********************************************************************************!*\
+  !*** ./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c& ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.tabs.length > 1
-    ? _c(
-        "div",
-        { staticClass: "alpheios-alignment-editor-align-target-tabs" },
-        _vm._l(_vm.tabs, function(tabData, index) {
-          return _c(
-            "span",
-            {
-              key: index,
-              staticClass: "alpheios-alignment-editor-align-target-tab-item",
-              class: {
-                "alpheios-alignment-editor-align-target-tab-item-active":
-                  _vm.tabsStatesFinal[index] &&
-                  _vm.tabsStatesFinal[index].active
-              },
-              on: {
-                click: function($event) {
-                  return _vm.selectTab(tabData, index)
-                }
-              }
-            },
-            [_vm._v("\n    " + _vm._s(index + 1) + "\n  ")]
-          )
-        }),
-        0
-      )
-    : _vm._e()
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-edit-block.vue?vue&type=template&id=eba38d6c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&");
 
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0&":
-/*!************************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=051544f0& ***!
-  \************************************************************************************************************************************************************************************************************************************/
+/***/ "./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578&":
+/*!*******************************************************************************!*\
+  !*** ./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578& ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "alpheios-alignment-editor-align-define-container" },
-    [
-      _vm.allTokenizedTargetTextsIds.length > 1
-        ? _c("align-editor-tabs", {
-            attrs: { tabs: _vm.allTokenizedTargetTextsIds },
-            on: { selectTab: _vm.selectTab }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "alpheios-alignment-editor-align-define-container-edit-mode"
-        },
-        _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
-          return _c(
-            "div",
-            {
-              key: _vm.getIndex("origin", segmentData.index),
-              staticClass: "alpheios-alignment-editor-align-segment-data",
-              class: {
-                "alpheios-alignment-editor-align-segment-data-last":
-                  segmentData.index === _vm.allAlignedTextsSegments.length
-              }
-            },
-            [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin"
-                },
-                [
-                  _c("segment-edit-block", {
-                    attrs: {
-                      segment: segmentData.origin,
-                      currentTargetId: _vm.currentTargetId
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-target"
-                },
-                _vm._l(segmentData.targets, function(segmentTarget, targetId) {
-                  return _c("segment-edit-block", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.isShownTab(targetId),
-                        expression: "isShownTab(targetId)"
-                      }
-                    ],
-                    key: _vm.getIndex("target", segmentData.index, targetId),
-                    attrs: {
-                      segment: segmentTarget,
-                      isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
-                      currentTargetId: _vm.currentTargetId
-                    }
-                  })
-                }),
-                1
-              )
-            ]
-          )
-        }),
-        0
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-edit-block.vue?vue&type=template&id=98c65578& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578&");
 
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec&":
+/*!****************************************************************************!*\
+  !*** ./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokens-editor.vue?vue&type=template&id=393827ec& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec&");
 
 
 /***/ }),
@@ -49053,10 +49259,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alpheios-alignment-editor-align-define-container" },
+    { staticClass: "alpheios-alignment-editor-align-groups-editor-container" },
     [
       _vm.allTokenizedTargetTextsIds.length > 1
-        ? _c("align-editor-tabs", {
+        ? _c("editor-tabs", {
             attrs: { tabs: _vm.allTokenizedTargetTextsIds },
             on: { selectTab: _vm.selectTab }
           })
@@ -49065,8 +49271,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass:
-            "alpheios-alignment-editor-align-define-container-view-mode"
+          staticClass: "alpheios-alignment-editor-align-define-container-inner"
         },
         _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
           return _c(
@@ -49177,8 +49382,7 @@ var render = function() {
           _c(
             "span",
             {
-              staticClass:
-                "alpheios-alignment-editor-text-define-container__show-label",
+              staticClass: "alpheios-alignment-editor-header__show-label",
               on: { click: _vm.toggleShowAlignBlocks }
             },
             [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
@@ -49195,37 +49399,6 @@ var render = function() {
                 rawName: "v-show",
                 value: _vm.showAlignBlocks,
                 expression: "showAlignBlocks"
-              }
-            ]
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
-        _c("h2", [
-          _vm._v(
-            _vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_HEADING")) + " \n      ("
-          ),
-          _c(
-            "span",
-            {
-              staticClass:
-                "alpheios-alignment-editor-text-define-container__show-label",
-              on: { click: _vm.toggleShowTokensEditBlocks }
-            },
-            [_vm._v(_vm._s(_vm.showTokenEditBlocksLabel))]
-          ),
-          _vm._v(")\n    ")
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.showAlignEditor
-        ? _c("align-editor-tokens-edit-mode", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showTokensEditBlocks,
-                expression: "showTokensEditBlocks"
               }
             ]
           })
@@ -49266,11 +49439,11 @@ var render = function() {
       attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
     },
     [
-      _vm._l(_vm.allTokens, function(token) {
+      _vm._l(_vm.allTokens, function(token, tokenIndex) {
         return [
           token.word
             ? _c("token", {
-                key: token.idWord,
+                key: tokenIndex,
                 attrs: {
                   token: token,
                   selected:
@@ -49290,100 +49463,6 @@ var render = function() {
                   "click-token": _vm.clickToken,
                   "add-hover-token": _vm.addHoverToken,
                   "remove-hover-token": _vm.removeHoverToken
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          token.hasLineBreak ? _c("br") : _vm._e()
-        ]
-      })
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-edit-block.vue?vue&type=template&id=4a22c852&":
-/*!*************************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-edit-block.vue?vue&type=template&id=4a22c852& ***!
-  \*************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "alpheios-alignment-editor-align-text-segment-edit",
-      class: _vm.cssClass,
-      style: _vm.cssStyle,
-      attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
-    },
-    [
-      _c("actions-menu-token-edit", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showActionsMenuFlag,
-            expression: "showActionsMenuFlag"
-          }
-        ],
-        attrs: {
-          token: _vm.actionsToken,
-          leftPos: _vm.actionsMenuLeft,
-          topPos: _vm.actionsMenuTop,
-          containerWidth: _vm.containerWidth
-        },
-        on: {
-          updateTokenWord: _vm.updateTokenWord,
-          mergeToken: _vm.mergeToken,
-          splitToken: _vm.splitToken
-        }
-      }),
-      _vm._v(" "),
-      _vm._l(_vm.allTokens, function(token) {
-        return [
-          token.word
-            ? _c("token-edit-block", {
-                key: token.idWord,
-                attrs: {
-                  token: token,
-                  deactivated: _vm.deactivated,
-                  updateTokenIdWord:
-                    _vm.updateTokenIdWord === token.idWord
-                      ? _vm.updateTokenIdWord
-                      : null,
-                  mergeTokenLeftIdWord:
-                    _vm.mergeTokenLeftIdWord === token.idWord
-                      ? _vm.mergeTokenLeftIdWord
-                      : null,
-                  mergeTokenRightIdWord:
-                    _vm.mergeTokenRightIdWord === token.idWord
-                      ? _vm.mergeTokenRightIdWord
-                      : null,
-                  splitTokenIdWord:
-                    _vm.splitTokenIdWord === token.idWord
-                      ? _vm.splitTokenIdWord
-                      : null
-                },
-                on: {
-                  hideActionsMenu: _vm.hideActionsMenu,
-                  showActionsMenu: _vm.showActionsMenu,
-                  removeAllActivated: _vm.removeAllActivated
                 }
               })
             : _vm._e(),
@@ -49451,79 +49530,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-edit-block.vue?vue&type=template&id=263e7711&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-edit-block.vue?vue&type=template&id=263e7711& ***!
-  \***********************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "span",
-    {
-      staticClass: "alpheios-token-edit alpheios-alignment-token-edit-span",
-      class: _vm.additionalClasses
-    },
-    [
-      _vm._v("\n  " + _vm._s(_vm.token.beforeWord) + "\n  "),
-      _c(
-        "span",
-        { staticClass: "alpheios-alignment-token-edit-input-container" },
-        [
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-alignment-token-edit-input-width-machine",
-              attrs: { "aria-hidden": "true" }
-            },
-            [_vm._v(_vm._s(_vm.tokenWord))]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.tokenWord,
-                expression: "tokenWord"
-              }
-            ],
-            staticClass:
-              "alpheios-alignment-input alpheios-alignment-token-edit-input",
-            attrs: { type: "text", id: _vm.itemId },
-            domProps: { value: _vm.tokenWord },
-            on: {
-              focus: _vm.showActionsMenu,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.tokenWord = $event.target.value
-              }
-            }
-          })
-        ]
-      ),
-      _vm._v("\n  " + _vm._s(_vm.token.afterWord) + "\n")
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& ***!
@@ -49543,8 +49549,8 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "alpheios-alignment-app-container",
-      attrs: { id: "alpheios-alignment-app-container" }
+      staticClass: "alpheios-alignment-editor-app-container",
+      attrs: { id: "alpheios-alignment-editor-app-container" }
     },
     [
       _c("main-menu", {
@@ -49581,9 +49587,113 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } })
+      _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } }),
+      _vm._v(" "),
+      _c("tokens-editor")
     ],
     1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.tabs.length > 1
+    ? _c(
+        "div",
+        { staticClass: "alpheios-alignment-editor-align-target-tabs" },
+        _vm._l(_vm.tabs, function(tabData, index) {
+          return _c(
+            "span",
+            {
+              key: index,
+              staticClass: "alpheios-alignment-editor-align-target-tab-item",
+              class: {
+                "alpheios-alignment-editor-align-target-tab-item-active":
+                  _vm.tabsStatesFinal[index] &&
+                  _vm.tabsStatesFinal[index].active
+              },
+              on: {
+                click: function($event) {
+                  return _vm.selectTab(tabData, index)
+                }
+              }
+            },
+            [_vm._v("\n    " + _vm._s(index + 1) + "\n  ")]
+          )
+        }),
+        0
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=template&id=50461596&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=template&id=50461596& ***!
+  \********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alpheios-tooltip" },
+    [
+      _vm._t("default"),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.tooltipText,
+              expression: "tooltipText"
+            }
+          ],
+          staticClass:
+            "alpheios-tooltiptext alpheios-tooltiptext-span alpheios-text__smaller",
+          class: _vm.directionClass,
+          style: _vm.additionalStyles
+        },
+        [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
+      )
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -50262,15 +50372,14 @@ var render = function() {
               _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_APPLICATION")))
             ]),
             _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.appOptionItems.theme }
-            }),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: { optionItem: _vm.appOptionItems.tokenizer }
+            _vm._l(_vm.appOptionItems, function(appOptItem, indexOptItem) {
+              return _c("option-item-block", {
+                key: indexOptItem,
+                attrs: { optionItem: appOptItem }
+              })
             })
           ],
-          1
+          2
         ),
         _vm._v(" "),
         _c("p", { staticClass: "alpheios-alignment-options__buttons" }, [
@@ -50317,53 +50426,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-alignment-actions" }, [
-    _c("div", { staticClass: "alpheios-alignment-actions__buttons" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-download",
-          attrs: { disabled: !_vm.docSourceEditAvailable },
-          on: { click: _vm.downloadSingle }
-        },
-        [
-          _vm._v(
-            "\n        " +
-              _vm._s(_vm.l10n.getMsgS("ACTIONS_DOWNLOAD_TITLE")) +
-              "\n    "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-upload",
-          attrs: { disabled: !_vm.docSourceEditAvailable },
-          on: { click: _vm.uploadTexts }
-        },
-        [
-          _vm._v(
-            "\n        " +
-              _vm._s(_vm.l10n.getMsgS("ACTIONS_UPLOAD_TITLE")) +
-              "\n    "
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "alpheios-editor-button-tertiary alpheios-actions-button alpheios-actions-metadata",
-          attrs: { disabled: !_vm.metadataAvailable },
-          on: { click: _vm.toggleMetadata }
-        },
-        [_vm._v("\n        " + _vm._s(_vm.toggleMetadataTitle) + "\n    ")]
-      )
-    ]),
+  return _c("div", { staticClass: "alpheios-alignment-editor-actions-menu" }, [
+    _c(
+      "div",
+      { staticClass: "alpheios-alignment-editor-actions-menu__buttons" },
+      [
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: {
+              id: "alpheios-actions-menu-button__download",
+              disabled: !_vm.docSourceEditAvailable
+            },
+            on: { click: _vm.downloadSingle }
+          },
+          [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.l10n.getMsgS("ACTIONS_DOWNLOAD_TITLE")) +
+                "\n    "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: {
+              id: "alpheios-actions-menu-button__upload",
+              disabled: !_vm.docSourceEditAvailable
+            },
+            on: { click: _vm.uploadTexts }
+          },
+          [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.l10n.getMsgS("ACTIONS_UPLOAD_TITLE")) +
+                "\n    "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: {
+              id: "alpheios-actions-menu-button__metadata",
+              disabled: !_vm.metadataAvailable
+            },
+            on: { click: _vm.toggleMetadata }
+          },
+          [_vm._v("\n        " + _vm._s(_vm.toggleMetadataTitle) + "\n    ")]
+        )
+      ]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -50376,7 +50498,7 @@ var render = function() {
             expression: "showUploadBlock && docSourceEditAvailable"
           }
         ],
-        staticClass: "alpheios-alignment-actions__upload-block"
+        staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
       },
       [
         _c("input", {
@@ -50412,26 +50534,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.showOptions
-    ? _c("div", { staticClass: "alpheios-alignment-direction-options" }, [
-        _c(
-          "fieldset",
-          {
-            staticClass:
-              "alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto"
-          },
-          [
-            _c("option-item-block", {
-              attrs: {
-                optionItem: _vm.localOptions.sourceText.items.direction,
-                emitUpdateData: true,
-                disabled: _vm.disabled
-              },
-              on: { updateData: _vm.updateData }
-            })
-          ],
-          1
-        )
-      ])
+    ? _c(
+        "div",
+        {
+          staticClass:
+            "alpheios-alignment-editor-text-blocks-single-direction-options"
+        },
+        [
+          _c(
+            "fieldset",
+            {
+              staticClass:
+                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
+            },
+            [
+              _c("option-item-block", {
+                attrs: {
+                  optionItem: _vm.localOptions.sourceText.items.direction,
+                  emitUpdateData: true,
+                  disabled: _vm.disabled
+                },
+                on: { updateData: _vm.updateData }
+              })
+            ],
+            1
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = []
@@ -50458,27 +50587,34 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.showOptions
-    ? _c("div", { staticClass: "alpheios-alignment-language-options" }, [
-        _c(
-          "fieldset",
-          {
-            staticClass:
-              "alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto"
-          },
-          [
-            _c("option-item-block", {
-              attrs: {
-                optionItem: _vm.localOptions.sourceText.items.language,
-                emitUpdateData: true,
-                disabled: _vm.disabled,
-                labelsListType: _vm.textType
-              },
-              on: { updateData: _vm.updateData }
-            })
-          ],
-          1
-        )
-      ])
+    ? _c(
+        "div",
+        {
+          staticClass:
+            "alpheios-alignment-editor-text-blocks-single-language-options"
+        },
+        [
+          _c(
+            "fieldset",
+            {
+              staticClass:
+                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
+            },
+            [
+              _c("option-item-block", {
+                attrs: {
+                  optionItem: _vm.localOptions.sourceText.items.language,
+                  emitUpdateData: true,
+                  disabled: _vm.disabled,
+                  labelsListType: _vm.textType
+                },
+                on: { updateData: _vm.updateData }
+              })
+            ],
+            1
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = []
@@ -50507,7 +50643,7 @@ var render = function() {
   return _vm.metadataAvailable
     ? _c(
         "div",
-        { staticClass: "alpheios-alignment-text-editor-metadata" },
+        { staticClass: "alpheios-alignment-editor-metadata" },
         _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
           return _c("metadata-term-block", {
             key: termIndex,
@@ -50548,16 +50684,17 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "alpheios-alignment-metadata-item alpheios-meta-single-item"
+      staticClass:
+        "alpheios-alignment-editor-metadata-item  alpheios-meta-single-item"
     },
     [
       _c(
         "p",
-        { staticClass: "alpheios-alignment-metadata-item__input-value" },
+        { staticClass: "alpheios-alignment-editor-metadata-item__input-value" },
         [
           _c(
             "label",
-            { staticClass: "alpheios-alignment-metadata-item__label" },
+            { staticClass: "alpheios-alignment-editor-metadata-item__label" },
             [
               _vm._v(_vm._s(_vm.metadataTermLabel) + "\n        "),
               _c(
@@ -50573,7 +50710,7 @@ var render = function() {
                     "span",
                     {
                       staticClass:
-                        "alpheios-alignment-metadata-item__label-help"
+                        "alpheios-alignment-editor-metadata-item__label-help"
                     },
                     [_vm._v("?")]
                   )
@@ -50593,7 +50730,7 @@ var render = function() {
               }
             ],
             staticClass:
-              "alpheios-alignment-input alpheios-alignment-metadata-item__control  alpheios-meta-single-item-value",
+              "alpheios-alignment-input alpheios-alignment-editor-metadata-item__control  alpheios-meta-single-item-value",
             attrs: { type: "text", id: _vm.itemId },
             domProps: { value: _vm.value },
             on: {
@@ -50649,7 +50786,7 @@ var render = function() {
                   expression: "showllValuesData"
                 }
               ],
-              staticClass: "alpheios-alignment-metadata-item__allvalues"
+              staticClass: "alpheios-alignment-editor-metadata-item__allvalues"
             },
             _vm._l(_vm.sourceMetaValues, function(termVal, termValIndex) {
               return _c(
@@ -50657,7 +50794,7 @@ var render = function() {
                 {
                   key: termValIndex,
                   staticClass:
-                    "alpheios-alignment-metadata-item__allvalues-item",
+                    "alpheios-alignment-editor-metadata-item__allvalues-item",
                   on: {
                     click: function($event) {
                       return _vm.activateValue(termValIndex)
@@ -50707,31 +50844,38 @@ var render = function() {
           expression: "dataUpdated"
         }
       ],
-      staticClass: "alpheios-alignment-editor-text-block",
+      staticClass: "alpheios-alignment-editor-text-blocks-single",
       attrs: { id: _vm.containerId }
     },
     [
-      _c("p", { staticClass: "alpheios-alignment-editor-text-block__title" }, [
-        _vm._v(_vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle) + "\n      "),
-        _c(
-          "span",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showDeleteIcon,
-                expression: "showDeleteIcon"
-              }
-            ],
-            staticClass: "alpheios-alignment-editor-text-block__remove",
-            attrs: { id: _vm.removeId },
-            on: { click: _vm.deleteText }
-          },
-          [_c("delete-icon")],
-          1
-        )
-      ]),
+      _c(
+        "p",
+        { staticClass: "alpheios-alignment-editor-text-blocks-single__title" },
+        [
+          _vm._v(
+            _vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle) + "\n      "
+          ),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showDeleteIcon,
+                  expression: "showDeleteIcon"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__remove",
+              attrs: { id: _vm.removeId },
+              on: { click: _vm.deleteText }
+            },
+            [_c("delete-icon")],
+            1
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("actions-block", {
         attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
@@ -50844,8 +50988,7 @@ var render = function() {
       _c(
         "span",
         {
-          staticClass:
-            "alpheios-alignment-editor-text-define-container__show-label",
+          staticClass: "alpheios-alignment-editor-header__show-label",
           on: { click: _vm.toggleShowTextsBlocks }
         },
         [_vm._v(_vm._s(_vm.showTextsBlocksLabel))]
@@ -50864,21 +51007,21 @@ var render = function() {
             expression: "showTextsBlocks"
           }
         ],
-        staticClass: "alpheios-alignment-editor-text-define-container",
+        staticClass: "alpheios-alignment-editor-text-blocks-container",
         attrs: { id: "alpheios-text-editor-blocks-container" }
       },
       [
         _c(
           "div",
           {
-            staticClass: "alpheios-alignment-editor-text-define-container-inner"
+            staticClass: "alpheios-alignment-editor-text-blocks-container-inner"
           },
           [
             _c(
               "div",
               {
                 staticClass:
-                  "alpheios-alignment-editor-text-container alpheios-alignment-editor-origin-text-container"
+                  "alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-origin-container"
               },
               [
                 _c("text-editor-single-block", {
@@ -50893,7 +51036,7 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "alpheios-alignment-editor-text-container alpheios-alignment-editor-target-text-container"
+                      "alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container"
                   },
                   _vm._l(_vm.allTargetTextsIds, function(targetTextId, indexT) {
                     return _c("text-editor-single-block", {
@@ -50938,136 +51081,146 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.showOptions
-    ? _c("div", { staticClass: "alpheios-alignment-tokenize-options" }, [
-        _c(
-          "fieldset",
-          {
-            staticClass:
-              "alpheios-alignment-options-fieldset alpheios-alignment-slim-fieldset alpheios-alignment-fieldset-label-auto"
-          },
-          [
-            _c("legend", [
-              _vm._v(
-                _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS"))
+    ? _c(
+        "div",
+        {
+          staticClass:
+            "alpheios-alignment-editor-text-blocks-single-tokenize-options"
+        },
+        [
+          _c(
+            "fieldset",
+            {
+              staticClass:
+                "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto"
+            },
+            [
+              _c("legend", [
+                _vm._v(
+                  _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS"))
+                )
+              ]),
+              _vm._v(" "),
+              _c("option-item-block", {
+                attrs: {
+                  optionItem: _vm.localOptions.sourceText.items.sourceType,
+                  emitUpdateData: true,
+                  disabled: _vm.disabled
+                },
+                on: { updateData: _vm.updateData }
+              }),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-tokenize-options__details-toggle",
+                  on: { click: _vm.toggleShowTokenizeDetails }
+                },
+                [_vm._v(_vm._s(_vm.toggleTokenizeDetailsLabel))]
               )
-            ]),
-            _vm._v(" "),
-            _c("option-item-block", {
-              attrs: {
-                optionItem: _vm.localOptions.sourceText.items.sourceType,
-                emitUpdateData: true,
-                disabled: _vm.disabled
-              },
-              on: { updateData: _vm.updateData }
-            }),
-            _vm._v(" "),
-            _c(
-              "p",
-              {
-                staticClass:
-                  "alpheios-alignment-tokenize-options-details-toggle",
-                on: { click: _vm.toggleShowTokenizeDetails }
-              },
-              [_vm._v(_vm._s(_vm.toggleTokenizeDetailsLabel))]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showTokenizeDetails,
-                expression: "showTokenizeDetails"
-              }
             ],
-            staticClass: "alpheios-alignment-tokenize-options-details-container"
-          },
-          [
-            _c(
-              "fieldset",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.sourceType === "text",
-                    expression: "sourceType === 'text'"
-                  }
-                ],
-                staticClass:
-                  "alpheios-alignment-options-fieldset alpheios-alignment-options-fieldset__text"
-              },
-              [
-                _c("legend", [
-                  _vm._v(
-                    _vm._s(
-                      _vm.l10n.getMsgS(
-                        "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT"
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showTokenizeDetails,
+                  expression: "showTokenizeDetails"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-editor-tokenize-options__details-container"
+            },
+            [
+              _c(
+                "fieldset",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.sourceType === "text",
+                      expression: "sourceType === 'text'"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__text"
+                },
+                [
+                  _c("legend", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.l10n.getMsgS(
+                          "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT"
+                        )
                       )
                     )
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.localOptions.text.items, function(textOptItem) {
-                  return _c("option-item-block", {
-                    key: textOptItem.domain,
-                    attrs: {
-                      optionItem: textOptItem,
-                      emitUpdateData: true,
-                      disabled: _vm.disabled
-                    },
-                    on: { updateData: _vm.updateData }
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.localOptions.text.items, function(textOptItem) {
+                    return _c("option-item-block", {
+                      key: textOptItem.domain,
+                      attrs: {
+                        optionItem: textOptItem,
+                        emitUpdateData: true,
+                        disabled: _vm.disabled
+                      },
+                      on: { updateData: _vm.updateData }
+                    })
                   })
-                })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c(
-              "fieldset",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.sourceType === "tei",
-                    expression: "sourceType === 'tei'"
-                  }
                 ],
-                staticClass:
-                  "alpheios-alignment-options-fieldset alpheios-alignment-options-fieldset__tei"
-              },
-              [
-                _c("legend", [
-                  _vm._v(
-                    _vm._s(
-                      _vm.l10n.getMsgS("TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI")
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "fieldset",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.sourceType === "tei",
+                      expression: "sourceType === 'tei'"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__tei"
+                },
+                [
+                  _c("legend", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.l10n.getMsgS(
+                          "TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI"
+                        )
+                      )
                     )
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.localOptions.tei.items, function(textOptItem) {
-                  return _c("option-item-block", {
-                    key: textOptItem.domain,
-                    attrs: {
-                      optionItem: textOptItem,
-                      emitUpdateData: true,
-                      disabled: _vm.disabled
-                    },
-                    on: { updateData: _vm.updateData }
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.localOptions.tei.items, function(textOptItem) {
+                    return _c("option-item-block", {
+                      key: textOptItem.domain,
+                      attrs: {
+                        optionItem: textOptItem,
+                        emitUpdateData: true,
+                        disabled: _vm.disabled
+                      },
+                      on: { updateData: _vm.updateData }
+                    })
                   })
-                })
-              ],
-              2
-            )
-          ]
-        )
-      ])
+                ],
+                2
+              )
+            ]
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = []
@@ -51077,10 +51230,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=template&id=13f11f5c&":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tooltip.vue?vue&type=template&id=13f11f5c& ***!
-  \*************************************************************************************************************************************************************************************************/
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -51095,30 +51248,536 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "alpheios-tooltip" },
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.token,
+          expression: "token"
+        }
+      ],
+      staticClass: "alpheios-token-edit-actions",
+      style: _vm.cssStyles
+    },
     [
-      _vm._t("default"),
+      _c(
+        "div",
+        {
+          ref: "actionsInner",
+          staticClass: "alpheios-token-edit-actions-inner"
+        },
+        [
+          _vm.allowedUpdateTokenWord
+            ? _c(
+                "tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_UPDATE_TOKEN"),
+                    tooltipDirection: "top"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "alpheios-token-edit-actions-button",
+                      attrs: {
+                        id: "alpheios-token-edit-actions-button__update-token"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("updateTokenWord", _vm.token)
+                        }
+                      }
+                    },
+                    [_c("ok-icon")],
+                    1
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.allowedUpdateTokenWord
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__update-token"
+                  }
+                },
+                [_c("ok-icon")],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_LEFT"),
+                tooltipDirection: "top"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__merge-left"
+                  },
+                  on: { click: _vm.mergeToLeft }
+                },
+                [_c("merge-left-icon")],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_RIGHT"),
+                tooltipDirection: "top"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__merge-right"
+                  },
+                  on: { click: _vm.mergeToRight }
+                },
+                [_c("merge-right-icon")],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_SPLIT_TOKEN"),
+                tooltipDirection: "top"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: { id: "alpheios-token-edit-actions-button__split" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("splitToken", _vm.token)
+                    }
+                  }
+                },
+                [_c("split-icon")],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/align-editor-tokens-edit-mode.vue?vue&type=template&id=080eea35& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alpheios-alignment-editor-tokens-edit-editor-container" },
+    [
+      _vm.allTokenizedTargetTextsIds.length > 1
+        ? _c("editor-tabs", {
+            attrs: { tabs: _vm.allTokenizedTargetTextsIds },
+            on: { selectTab: _vm.selectTab }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c(
-        "span",
+        "div",
         {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.tooltipText,
-              expression: "tooltipText"
-            }
-          ],
           staticClass:
-            "alpheios-tooltiptext alpheios-tooltiptext-span alpheios-text__smaller",
-          class: _vm.directionClass,
-          style: _vm.additionalStyles
+            "alpheios-alignment-editor-tokens-edit-editor-container-inner"
         },
-        [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
+        _vm._l(_vm.allAlignedTextsSegments, function(segmentData) {
+          return _c(
+            "div",
+            {
+              key: _vm.getIndex("origin", segmentData.index),
+              staticClass: "alpheios-alignment-editor-align-segment-data",
+              class: {
+                "alpheios-alignment-editor-align-segment-data-last":
+                  segmentData.index === _vm.allAlignedTextsSegments.length
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin"
+                },
+                [
+                  _c("segment-edit-block", {
+                    attrs: {
+                      segment: segmentData.origin,
+                      currentTargetId: _vm.currentTargetId
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-target"
+                },
+                _vm._l(segmentData.targets, function(segmentTarget, targetId) {
+                  return _c("segment-edit-block", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.isShownTab(targetId),
+                        expression: "isShownTab(targetId)"
+                      }
+                    ],
+                    key: _vm.getIndex("target", segmentData.index, targetId),
+                    attrs: {
+                      segment: segmentTarget,
+                      isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
+                      currentTargetId: _vm.currentTargetId
+                    }
+                  })
+                }),
+                1
+              )
+            ]
+          )
+        }),
+        0
       )
     ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "alpheios-alignment-editor-align-text-segment-edit",
+      class: _vm.cssClass,
+      style: _vm.cssStyle,
+      attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+    },
+    [
+      _c("actions-menu-token-edit", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showActionsMenuFlag,
+            expression: "showActionsMenuFlag"
+          }
+        ],
+        attrs: {
+          token: _vm.actionsToken,
+          leftPos: _vm.actionsMenuLeft,
+          topPos: _vm.actionsMenuTop,
+          containerWidth: _vm.containerWidth
+        },
+        on: {
+          updateTokenWord: _vm.updateTokenWord,
+          mergeToken: _vm.mergeToken,
+          splitToken: _vm.splitToken
+        }
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.allTokens, function(token, tokenIndex) {
+        return [
+          token.word
+            ? _c("token-edit-block", {
+                key: tokenIndex,
+                attrs: {
+                  token: token,
+                  deactivated: _vm.deactivated,
+                  updateTokenIdWord:
+                    _vm.updateTokenIdWord === token.idWord
+                      ? _vm.updateTokenIdWord
+                      : null,
+                  mergeTokenLeftIdWord:
+                    _vm.mergeTokenLeftIdWord === token.idWord
+                      ? _vm.mergeTokenLeftIdWord
+                      : null,
+                  mergeTokenRightIdWord:
+                    _vm.mergeTokenRightIdWord === token.idWord
+                      ? _vm.mergeTokenRightIdWord
+                      : null,
+                  splitTokenIdWord:
+                    _vm.splitTokenIdWord === token.idWord
+                      ? _vm.splitTokenIdWord
+                      : null
+                },
+                on: {
+                  hideActionsMenu: _vm.hideActionsMenu,
+                  showActionsMenu: _vm.showActionsMenu,
+                  removeAllActivated: _vm.removeAllActivated
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          token.hasLineBreak ? _c("br") : _vm._e()
+        ]
+      })
+    ],
     2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    {
+      staticClass:
+        "alpheios-alignment-editor-token-edit alpheios-alignment-editor-token-edit-span",
+      class: _vm.additionalClasses
+    },
+    [
+      _vm._v("\n    " + _vm._s(_vm.token.beforeWord) + "\n\n    "),
+      !_vm.isEditableToken
+        ? _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS(
+                  "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP"
+                ),
+                tooltipDirection: "top"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-token-edit-input-container"
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-token-edit__input-width-machine",
+                      attrs: { "aria-hidden": "true" }
+                    },
+                    [_vm._v(_vm._s(_vm.tokenWord))]
+                  )
+                ]
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isEditableToken
+        ? _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-alignment-editor-token-edit-input-container"
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-token-edit__input-width-machine",
+                  attrs: { "aria-hidden": "true" }
+                },
+                [_vm._v(_vm._s(_vm.tokenWord))]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tokenWord,
+                    expression: "tokenWord"
+                  }
+                ],
+                staticClass:
+                  "alpheios-alignment-input alpheios-alignment-editor-token-edit-input",
+                attrs: {
+                  type: "text",
+                  id: _vm.itemId,
+                  disabled: !_vm.isEditableToken
+                },
+                domProps: { value: _vm.tokenWord },
+                on: {
+                  focus: _vm.showActionsMenu,
+                  keydown: _vm.checkKeyPres,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.tokenWord = $event.target.value
+                  }
+                }
+              })
+            ]
+          )
+        : _vm._e(),
+      _vm._v("\n    " + _vm._s(_vm.token.afterWord) + "\n  ")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.showAlignEditor,
+          expression: "showAlignEditor"
+        }
+      ],
+      staticClass: "alpheios-alignment-editor-container"
+    },
+    [
+      _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
+        _c("h2", [
+          _vm._v(
+            _vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_HEADING")) + " \n      ("
+          ),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-editor-header__show-label",
+              on: { click: _vm.toggleShowTokensEditBlocks }
+            },
+            [_vm._v(_vm._s(_vm.showTokenEditBlocksLabel))]
+          ),
+          _vm._v(")\n    ")
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.showAlignEditor
+        ? _c("align-editor-tokens-edit-mode", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showTokensEditBlocks,
+                expression: "showTokensEditBlocks"
+              }
+            ]
+          })
+        : _vm._e()
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -51372,14 +52031,14 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 
 /***/ }),
 
-/***/ "./locales/en-us/messages-align-editor.json":
-/*!**************************************************!*\
-  !*** ./locales/en-us/messages-align-editor.json ***!
-  \**************************************************/
+/***/ "./locales/en-us/messages-aligned-groups-editor.json":
+/*!***********************************************************!*\
+  !*** ./locales/en-us/messages-aligned-groups-editor.json ***!
+  \***********************************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"}}");
+module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"}}");
 
 /***/ }),
 
@@ -51390,7 +52049,18 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedController\"},\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]}}");
+module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+
+/***/ }),
+
+/***/ "./locales/en-us/messages-controllers.json":
+/*!*************************************************!*\
+  !*** ./locales/en-us/messages-controllers.json ***!
+  \*************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"}}");
 
 /***/ }),
 
@@ -51449,6 +52119,17 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 
 /***/ }),
 
+/***/ "./locales/en-us/messages-tokens-edit-editor.json":
+/*!********************************************************!*\
+  !*** ./locales/en-us/messages-tokens-edit-editor.json ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
+
+/***/ }),
+
 /***/ "./settings/default-app-settings.json":
 /*!********************************************!*\
   !*** ./settings/default-app-settings.json ***!
@@ -51456,7 +52137,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":\"1\",\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"select\":true,\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]},\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"select\":true,\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]}}}");
+module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":\"1\",\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"select\":true,\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]},\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"select\":true,\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]},\"allowUpdateTokenWord\":{\"defaultValue\":false,\"labelText\":\"Allow update token word\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]}}}");
 
 /***/ }),
 

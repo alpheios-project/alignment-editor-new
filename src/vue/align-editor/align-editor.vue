@@ -2,35 +2,24 @@
   <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
     <div class="alpheios-alignment-editor-header">
       <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
+        (<span class="alpheios-alignment-editor-header__show-label" @click="toggleShowAlignBlocks">{{ showAlignBlocksLabel }}</span>)
       </h2>
     </div>
     
-    <align-editor-view-mode v-show="showAlignBlocks" v-if="showAlignEditor"/>
-
-    <div class="alpheios-alignment-editor-header">
-      <h2>{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-text-define-container__show-label" @click="toggleShowTokensEditBlocks">{{ showTokenEditBlocksLabel }}</span>)
-      </h2>
-    </div>
-
-    <align-editor-tokens-edit-mode v-show="showTokensEditBlocks" v-if="showAlignEditor"/>
-    
+    <align-editor-view-mode v-show="showAlignBlocks" v-if="showAlignEditor"/>   
   </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
 
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
-import AlignEditorTokensEditMode from '@/vue/align-editor/align-editor-tokens-edit-mode.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'AlignEditor',
   components: {
-    alignEditorViewMode: AlignEditorViewMode,
-    alignEditorTokensEditMode: AlignEditorTokensEditMode
+    alignEditorViewMode: AlignEditorViewMode
   },
   props: {
     showEditor: {
@@ -40,8 +29,7 @@ export default {
   },
   data () {
     return {
-      showAlignBlocks: false,
-      showTokensEditBlocks: true
+      showAlignBlocks: false
     }
   },
   watch: {
@@ -66,10 +54,7 @@ export default {
      * Checks if there are enough data for rendering editors
      */
     showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
-    },
-    showTokenEditBlocksLabel () {
-      return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')
+      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -78,9 +63,6 @@ export default {
      */
     toggleShowAlignBlocks () {
       this.showAlignBlocks = !this.showAlignBlocks
-    },
-    toggleShowTokensEditBlocks () {
-      this.showTokensEditBlocks = !this.showTokensEditBlocks
     }
   }
 }

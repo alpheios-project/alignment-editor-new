@@ -1,11 +1,11 @@
 <template>
-  <div class="alpheios-alignment-editor-align-define-container">
-    <align-editor-tabs 
+  <div class="alpheios-alignment-editor-tokens-edit-editor-container">
+    <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
     />
     
-    <div class ="alpheios-alignment-editor-align-define-container-edit-mode">
+    <div class ="alpheios-alignment-editor-tokens-edit-editor-container-inner">
       <div class="alpheios-alignment-editor-align-segment-data"
            v-for="segmentData in allAlignedTextsSegments" :key="getIndex('origin', segmentData.index)"
            :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segmentData.index === allAlignedTextsSegments.length }"
@@ -30,14 +30,14 @@
 </template>
 <script>
 import Vue from '@vue-runtime'
-import SegmentEditBlock from '@/vue/align-editor/segment-edit-block.vue'
-import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
+import SegmentEditBlock from '@/vue/tokens-editor/segment-edit-block.vue'
+import EditorTabs from '@/vue/common/editor-tabs.vue'
 
 export default {
   name: 'AlignEditorEditMode',
   components: {
     segmentEditBlock: SegmentEditBlock,
-    alignEditorTabs: AlignEditorTabs
+    editorTabs: EditorTabs
   },
   props: {
   },
@@ -71,7 +71,7 @@ export default {
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedC.allAlignedTextsSegments : []
+      return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
     /**
@@ -131,7 +131,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-align-define-container-edit-mode {
+  .alpheios-alignment-editor-tokens-edit-editor-container-inner {
     margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;

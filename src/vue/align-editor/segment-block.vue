@@ -3,10 +3,10 @@
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
-        <template v-for = "token in allTokens">
+        <template v-for = "(token, tokenIndex) in allTokens">
           <token
             v-if ="token.word"
-            :token = "token" :key = "token.idWord"
+            :token = "token" :key = "tokenIndex"
             @click-token = "clickToken"
             @add-hover-token = "addHoverToken"
             @remove-hover-token = "removeHoverToken"
@@ -122,7 +122,7 @@ export default {
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
     alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
@@ -135,7 +135,7 @@ export default {
      */
     clickToken (token) {
       if (this.alignmentGroupsWorkflowAvailable && this.currentTargetId) {
-        this.$alignedC.clickToken(token, this.currentTargetId)
+        this.$alignedGC.clickToken(token, this.currentTargetId)
       }
     },
     /**
@@ -143,41 +143,41 @@ export default {
      * @param {Token}
      */
     addHoverToken (token) {
-      this.$alignedC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
+      this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
     },
     /**
      * Ends hover token workflow
      */
     removeHoverToken () {
-      this.$alignedC.clearHoverOnAlignmentGroups()
+      this.$alignedGC.clearHoverOnAlignmentGroups()
     },
     /**
      * Used for defining that token is in hovered saved alignmentGroup
      * @param {Token}
      */
     selectedToken (token) {
-      return this.$alignedC.selectedToken(token, this.currentTargetId)
+      return this.$alignedGC.selectedToken(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in some saved alignmentGroup
      * @param {Token}
      */
     groupedToken (token) {
-      return this.$alignedC.tokenIsGrouped(token, this.currentTargetId)
+      return this.$alignedGC.tokenIsGrouped(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      * @param {Token}
      */
     inActiveGroup (token) {
-      return this.$alignedC.tokenInActiveGroup(token, this.currentTargetId)
+      return this.$alignedGC.tokenInActiveGroup(token, this.currentTargetId)
     },
     /**
      * Used for defining that token is in active alignmentGroup
      * @param {Token}
      */
     isFirstInActiveGroup (token) {
-      return this.$alignedC.isFirstInActiveGroup(token, this.currentTargetId)
+      return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="alpheios-alignment-app-container" class="alpheios-alignment-app-container">
+  <div id="alpheios-alignment-editor-app-container" class="alpheios-alignment-editor-app-container">
       <main-menu 
         @download-data = "downloadData"
         @upload-data = "uploadData"
@@ -20,6 +20,8 @@
       <align-editor 
         :show-editor = "showAlignEditor"
       />
+      <tokens-editor 
+      />
   </div>
 </template>
 <script>
@@ -29,6 +31,7 @@ import MainMenu from '@/vue/main-menu.vue'
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
+import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 
 import OptionsBlock from '@/vue/options/options-block.vue'
 
@@ -38,6 +41,7 @@ export default {
     mainMenu: MainMenu,
     textEditor: TextEditor,
     alignEditor: AlignEditor,
+    tokensEditor: TokensEditor,
     notificationBar: NotificationBar,
     optionsBlock: OptionsBlock
   },
@@ -51,7 +55,7 @@ export default {
   },
   computed: {
     alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -84,7 +88,7 @@ export default {
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedC.createAlignedTexts(this.$textC.alignment)
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       if (result) {
         this.hideTextEditor++
         this.showAlignEditor++
@@ -109,7 +113,7 @@ export default {
     startOver () {
       this.$textC.startOver()
       this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedC.startOver()
+      this.$alignedGC.startOver()
       
       NotificationSingleton.clearNotifications()
       this.$textC.store.commit('incrementAlignmentRestarted')

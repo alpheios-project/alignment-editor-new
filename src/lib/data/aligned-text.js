@@ -54,12 +54,30 @@ export default class AlignedText {
     return false
   }
 
+  /**
+   * Used for calculation of alignmentGroupsWorkflowAvailable
+   * @returns {Boolean} true - if tokenized
+   */
   get readyForAlignment () {
     return this.segments.length > 0
   }
 
-  getNewIdWord (segment) {
+  /**
+   * Calculates new idWord for changed token in tokensEditor
+   * @param {Segment} segment
+   * @param {Token} token
+   * @param {String} changeType - split/merge/update
+   * @param {Number} indexWord - used only for split = the order number of result tokens
+   * @returns {String} - idWord
+   */
+  getNewIdWord ({ segment, token, changeType, indexWord }) {
     const getNextIdWordMethod = TokenizeController.getNextTokenIdWordMethod(this.tokenization.tokenizer)
-    return getNextIdWordMethod(segment.lastTokenWordId)
+
+    return getNextIdWordMethod({
+      tokenIdWord: token.idWord,
+      lastTokenWordId: segment.lastTokenWordId,
+      changeType,
+      indexWord
+    })
   }
 }

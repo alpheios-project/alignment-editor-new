@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
+import EditorTabs from '@/vue/common/editor-tabs.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
@@ -37,7 +37,8 @@ describe('token-block.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
+    appC.defineTokensEditController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
@@ -64,9 +65,9 @@ describe('token-block.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedGC.createAlignedTexts(appC.textC.alignment)
 
-    token = appC.alignedC.allAlignedTextsSegments[0].origin.tokens[0]
+    token = appC.alignedGC.allAlignedTextsSegments[0].origin.tokens[0]
   })
 
   it('1 TokenBlock - renders a vue instance (min requirements)', () => {

@@ -37,7 +37,8 @@ describe('align-editor-view-mode.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
+    appC.defineTokensEditController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
@@ -67,7 +68,7 @@ describe('align-editor-view-mode.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedGC.createAlignedTexts(appC.textC.alignment)
   })
 
   it('1 AlignEditorViewMode - renders a vue instance (min requirements)', () => {
@@ -90,7 +91,7 @@ describe('align-editor-view-mode.test.js', () => {
     expect(cmp.vm.shownTabsInited).toBeTruthy()
     expect(cmp.vm.shownTabs).toEqual([ allTokenizedTargetTextsIds[0] ])
     
-    cmp.vm.$alignedC.clickToken(cmp.vm.$alignedC.allAlignedTextsSegments[0].origin.tokens[0]) // executes alignmentUpdated in store
+    cmp.vm.$alignedGC.clickToken(cmp.vm.$alignedGC.allAlignedTextsSegments[0].origin.tokens[0]) // executes alignmentUpdated in store
 
     expect(cmp.vm.allTokenizedTargetTextsIds).toEqual(allTokenizedTargetTextsIds)
     expect(cmp.vm.shownTabsInited).toBeTruthy()
@@ -103,7 +104,7 @@ describe('align-editor-view-mode.test.js', () => {
       localVue
     })
     
-    const allAlignedTextsSegments = cmp.vm.$alignedC.allAlignedTextsSegments
+    const allAlignedTextsSegments = cmp.vm.$alignedGC.allAlignedTextsSegments
 
     expect(allAlignedTextsSegments.length).toEqual(2) // we have two segments
   })

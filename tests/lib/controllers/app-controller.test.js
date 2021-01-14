@@ -4,8 +4,10 @@
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import AppController from '@/lib/controllers/app-controller.js'
 import TextsController from '@/lib/controllers/texts-controller.js'
-import AlignedController from '@/lib/controllers/aligned-controller.js'
+import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+
 import Vue from '@vue-runtime'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -31,7 +33,8 @@ describe('app-controller.test.js', () => {
     jest.spyOn(console, 'warn')
 
     Vue.prototype.$textC = undefined
-    Vue.prototype.$alignedC = undefined
+    Vue.prototype.$alignedGC = undefined
+    Vue.prototype.$tokensEC = undefined
     Vue.prototype.$historyC = undefined
   })
 
@@ -112,19 +115,19 @@ describe('app-controller.test.js', () => {
     })
   })
 
-  it('6 AppController - attachVueComponents executes defineTextController, defineAlignedController, defineHistoryController and attaches App Vue component ', async () => {
+  it('6 AppController - attachVueComponents executes defineTextController, defineAlignedGroupsController, defineHistoryController and attaches App Vue component ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
 
     jest.spyOn(appC, 'defineTextController')
-    jest.spyOn(appC, 'defineAlignedController')
+    jest.spyOn(appC, 'defineAlignedGroupsController')
     jest.spyOn(appC, 'defineHistoryController')
 
     await appC.init()
 
     expect(appC.defineTextController).toHaveBeenCalled()
-    expect(appC.defineAlignedController).toHaveBeenCalled()
+    expect(appC.defineAlignedGroupsController).toHaveBeenCalled()
     expect(appC.defineHistoryController).toHaveBeenCalled()
 
     const divAppVue = document.getElementById('alpheios-alignment-app-container')   
@@ -170,7 +173,7 @@ describe('app-controller.test.js', () => {
     expect(Vue.prototype.$textC).toBeInstanceOf(TextsController)
   })
 
-  it('9 AppController - defineAlignedController creates AlignedController and attaches it to Vue component ', async () => {
+  it('9 AppController - defineAlignedGroupsController creates AlignedGroupsController and attaches it to Vue component ', async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
@@ -178,13 +181,13 @@ describe('app-controller.test.js', () => {
     appC.attachVueComponents = jest.fn()
     await appC.init()
 
-    expect(appC.alignedC).not.toBeDefined()
-    expect(Vue.prototype.$alignedC).not.toBeDefined()
+    expect(appC.alignedGC).not.toBeDefined()
+    expect(Vue.prototype.$alignedGC).not.toBeDefined()
 
-    appC.defineAlignedController()
+    appC.defineAlignedGroupsController()
 
-    expect(appC.alignedC).toBeInstanceOf(AlignedController)
-    expect(Vue.prototype.$alignedC).toBeInstanceOf(AlignedController)
+    expect(appC.alignedGC).toBeInstanceOf(AlignedGroupsController)
+    expect(Vue.prototype.$alignedGC).toBeInstanceOf(AlignedGroupsController)
   })
 
   it('10 AppController - defineL10Support creates L10nSingleton ', async () => {
@@ -234,6 +237,23 @@ describe('app-controller.test.js', () => {
     const result = appC.defineNotificationSupport()
 
     expect(result).toBeInstanceOf(NotificationSingleton)
+  })
+
+  it('14 AppController - defineTokensEditController creates TokensEditController and attaches it to Vue component ', async () => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+
+    appC.attachVueComponents = jest.fn()
+    await appC.init()
+
+    expect(appC.tokensEC).not.toBeDefined()
+    expect(Vue.prototype.$tokensEC).not.toBeDefined()
+
+    appC.defineTokensEditController()
+
+    expect(appC.tokensEC).toBeInstanceOf(TokensEditController)
+    expect(Vue.prototype.$tokensEC).toBeInstanceOf(TokensEditController)
   })
 
 })

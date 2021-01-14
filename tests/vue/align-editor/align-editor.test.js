@@ -6,7 +6,6 @@ import AlignEditor from '@/vue/align-editor/align-editor.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
-import AlignEditorEditMode from '@/vue/align-editor/align-editor-tokens-edit-mode.vue'
 import Token from '@/lib/data/token'
 import SourceText from '@/lib/data/source-text'
 import Alignment from '@/lib/data/alignment'
@@ -38,7 +37,8 @@ describe('align-editor.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
+    appC.defineTokensEditController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
@@ -68,7 +68,7 @@ describe('align-editor.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedGC.createAlignedTexts(appC.textC.alignment)
   })
 
   it('1 AlignEditor - renders a vue instance (min requirements)', () => {
@@ -86,7 +86,6 @@ describe('align-editor.test.js', () => {
     })
 
     
-    expect(cmp.findAllComponents(AlignEditorEditMode)).toHaveLength(1)
     expect(cmp.findAllComponents(AlignEditorViewMode)).toHaveLength(1)
   })
 

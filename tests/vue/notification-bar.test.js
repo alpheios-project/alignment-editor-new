@@ -34,7 +34,8 @@ describe('notification-bar.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
+    appC.defineTokensEditController(appC.store)
     appC.defineHistoryController(appC.store)
   })
 

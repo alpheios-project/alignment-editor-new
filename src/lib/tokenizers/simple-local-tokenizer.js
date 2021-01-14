@@ -32,7 +32,7 @@ export default class SimpleLocalTokenizer {
     const finalText = { segments: [] }
     let mainIndex = 0
     textLines.forEach((textLine, index) => {
-      const prefix = `L${idPrefix}:${index + 1}`
+      const prefix = `${idPrefix}-${index}`
       const finalTextLine = this.simpleWordTokenization(textLine, prefix, docSource.textType)
 
       if (finalTextLine.length > 0) {
@@ -109,8 +109,8 @@ export default class SimpleLocalTokenizer {
 
         wordEnded = true
         if (word) {
-          indexWord = indexWord + 1
           const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+          indexWord = indexWord + 1
 
           beforeWord = beforeNextWord
           afterWord = ''
@@ -122,8 +122,8 @@ export default class SimpleLocalTokenizer {
     }
 
     if (!wordEnded || word) {
-      indexWord = indexWord + 1
       const resultWord = this.fillWordObject(indexWord, prefix, textType, word, beforeWord, afterWord)
+      indexWord = indexWord + 1
       formattedText.push(resultWord)
     }
 

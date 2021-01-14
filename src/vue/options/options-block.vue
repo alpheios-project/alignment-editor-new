@@ -5,10 +5,8 @@
       <fieldset class="alpheios-alignment-options__group alpheios-alignment-options__app-group">
         <legend>{{ l10n.getMsgS('OPTIONS_BLOCK_APPLICATION') }}</legend>
           <option-item-block
-            :optionItem = "appOptionItems.theme"
-          />
-          <option-item-block
-            :optionItem = "appOptionItems.tokenizer"
+            v-for = "(appOptItem, indexOptItem) in appOptionItems" :key = "indexOptItem"
+            :optionItem = "appOptItem"
           />
       </fieldset>
       <p class="alpheios-alignment-options__buttons">

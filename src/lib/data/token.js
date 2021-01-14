@@ -1,3 +1,5 @@
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+
 export default class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
     this.textType = textType
@@ -25,16 +27,37 @@ export default class Token {
     return (this.textType === 'origin') || (this.docSourceId === limitByTargetId)
   }
 
-  updateWord (word) {
+  /**
+   *
+   * @param {String} word - new word
+   * @param {String} idWord - new idWord
+   */
+  updateWord ({ word, idWord }) {
     this.word = word
+
+    if (idWord) {
+      this.idWord = idWord
+    }
     return true
   }
 
-  merge (token, position) {
-    if (position === 'left') {
-      this.word = `${token.word} ${this.word}`
-    } else if (position === 'right') {
-      this.word = `${this.word} ${token.word}`
+  /**
+   * Merges the current token's word with the woed of the token in the parameters
+   * @param {Token} token - token to be merged
+   * @param {String} position - left/right - used for concating words
+   * @param {String} newIdWord
+   */
+  merge ({ token, position, newIdWord }) {
+    if (position === TokensEditController.direction.LEFT) {
+      this.updateWord({
+        word: `${token.word}${this.word}`,
+        idWord: newIdWord
+      })
+    } else if (position === TokensEditController.direction.RIGHT) {
+      this.updateWord({
+        word: `${this.word}${token.word}`,
+        idWord: newIdWord
+      })
     }
     return true
   }

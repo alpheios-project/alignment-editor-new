@@ -6,6 +6,8 @@ import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+
 export default class Alignment {
   /**
    * We could create an empty alignment
@@ -646,20 +648,56 @@ export default class Alignment {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} word - new word
+   * @returns {Boolean}
+   */
   updateTokenWord (token, word) {
-    return this.tokenIsGrouped(token) ? false : token.updateWord(word)
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.UPDATE
+    })
+
+    return token.updateWord({ word, idWord: newIdWord })
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} direction - left/right
+   * @returns {Boolean}
+   */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, mergePosition } = (direction === 'left') ? this.getLeftToken(token) : this.getRightToken(token)
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditController.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
 
-    if (!tokenMergeTo || this.tokenIsGrouped(token) || this.tokenIsGrouped(tokenMergeTo)) { return false }
+    if (!this.isEditableToken(tokenMergeTo)) {
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
 
-    tokenMergeTo.merge(token, mergePosition)
+    const alignedText = this.getAlignedTextByToken(token)
+    const newIdWord = alignedText.getNewIdWord({
+      token: tokenMergeTo,
+      segment,
+      changeType: TokensEditController.changeType.MERGE
+    })
+
+    tokenMergeTo.merge({ token, position, newIdWord })
     segment.deleteToken(tokenIndex)
     return true
   }
 
+  /**
+   * @param {Token} token
+   * @returns {AlignedText}
+   */
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
@@ -670,11 +708,19 @@ export default class Alignment {
     return alignedText
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Segment}
+   */
   getSegmentByToken (token) {
     const alignedText = this.getAlignedTextByToken(token)
     return alignedText.segments[token.segmentIndex - 1]
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the left hand in the segment
+   */
   getLeftToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -683,13 +729,17 @@ export default class Alignment {
       return {
         segment,
         tokenIndex,
-        mergePosition: 'right',
+        position: TokensEditController.direction.RIGHT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
     return false
   }
 
+  /**
+   * @param {Token} token
+   * @returns {Token} - token on the right hand in the segment
+   */
   getRightToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
@@ -698,26 +748,53 @@ export default class Alignment {
       return {
         segment,
         tokenIndex,
-        mergePosition: 'left',
+        position: TokensEditController.direction.LEFT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
     return false
   }
 
+  /**
+   * @param {Token} token - token for update
+   * @param {String} tokenWord - token's word with space
+   * @returns {Boolean}
+   */
   splitToken (token, tokenWord) {
-    if (this.tokenIsGrouped(token)) { return false }
-
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     const alignedText = this.getAlignedTextByToken(token)
 
-    const newIdWord = alignedText.getNewIdWord(segment)
+    const newIdWord1 = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.SPLIT,
+      indexWord: 1
+    })
+
+    const newIdWord2 = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.SPLIT,
+      indexWord: 2
+    })
 
     const tokenWordParts = tokenWord.split(' ')
-    token.updateWord(tokenWordParts[0])
 
-    segment.addNewToken(tokenIndex, newIdWord, tokenWordParts[1])
+    token.updateWord({
+      word: tokenWordParts[0],
+      idWord: newIdWord1
+    })
+
+    segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
+  }
+
+  /**
+   * Checks if token could be updated
+   * @param {Token} token
+   */
+  isEditableToken (token) {
+    return !this.tokenIsGrouped(token) && !this.tokenInActiveGroup(token)
   }
 }

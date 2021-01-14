@@ -235,7 +235,10 @@ export default class TextsController {
     return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
   }
 
-  changeMetadataTerm (textType, textId, metadataItem) {
+  /**
+   * A simple event for any change in metadata
+   */
+  changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
 }

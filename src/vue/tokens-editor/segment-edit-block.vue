@@ -12,10 +12,10 @@
             @mergeToken = "mergeToken"
             @splitToken = "splitToken"
         />
-        <template v-for = "token in allTokens">
+        <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
             v-if ="token.word"
-            :token = "token" :key = "token.idWord" :deactivated = "deactivated"
+            :token = "token" :key = "tokenIndex" :deactivated = "deactivated"
             :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
             :mergeTokenLeftIdWord = "mergeTokenLeftIdWord === token.idWord ? mergeTokenLeftIdWord : null"
             :mergeTokenRightIdWord = "mergeTokenRightIdWord === token.idWord ? mergeTokenRightIdWord : null"
@@ -30,8 +30,10 @@
     </div>
 </template>
 <script>
-import TokenEditBlock from '@/vue/align-editor/token-edit-block.vue'
-import ActionsMenuTokenEdit from '@/vue/align-editor/actions-menu-token-edit.vue'
+import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
+import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
+
+import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 
 export default {
   name: 'SegmentEditBlock',
@@ -144,7 +146,7 @@ export default {
       return (this.segment.textType === 'target') ? this.segment.docSourceId : null
     },
     alignmentGroupsWorkflowAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedC.alignmentGroupsWorkflowAvailable
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
@@ -171,10 +173,10 @@ export default {
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === 'left') {
+      if (direction === TokensEditController.direction.LEFT) {
         this.mergeTokenLeftIdWord = token.idWord
       }
-      if (direction === 'right') {
+      if (direction === TokensEditController.direction.RIGHT) {
         this.mergeTokenRightIdWord = token.idWord
       }
     },

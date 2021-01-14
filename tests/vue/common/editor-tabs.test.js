@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
-import AlignEditorTabs from '@/vue/align-editor/align-editor-tabs.vue'
+import EditorTabs from '@/vue/common/editor-tabs.vue'
 import AppController from '@/lib/controllers/app-controller.js'
 import Vue from '@vue-runtime'
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
@@ -41,7 +41,8 @@ describe('align-editor-tabs.test.js', () => {
 
     await appC.defineSettingsController()
     appC.defineTextController(appC.store)
-    appC.defineAlignedController(appC.store)
+    appC.defineAlignedGroupsController(appC.store)
+    appC.defineTokensEditController(appC.store)
     appC.defineHistoryController(appC.store)
 
     appC.textC.createAlignment()
@@ -71,11 +72,11 @@ describe('align-editor-tabs.test.js', () => {
     appC.textC.alignment.updateOriginDocSource(originDocSource)
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
-    await appC.alignedC.createAlignedTexts(appC.textC.alignment)
+    await appC.alignedGC.createAlignedTexts(appC.textC.alignment)
   })
 
-  it('1 AlignEditorTabs - renders a vue instance (min requirements)', () => {
-    let cmp = shallowMount(AlignEditorTabs,{
+  it('1 EditorTabs - renders a vue instance (min requirements)', () => {
+    let cmp = shallowMount(EditorTabs,{
       store: appC.store,
       localVue,
       propsData: {
@@ -85,8 +86,8 @@ describe('align-editor-tabs.test.js', () => {
     expect(cmp.isVueInstance()).toBeTruthy()
   })
 
-  it('2 AlignEditorTabs - tabsStates are defined on mounted step - set active for the first tab as default', () => {
-    let cmp = shallowMount(AlignEditorTabs,{
+  it('2 EditorTabs - tabsStates are defined on mounted step - set active for the first tab as default', () => {
+    let cmp = shallowMount(EditorTabs,{
       store: appC.store,
       localVue,
       propsData: {
@@ -96,8 +97,8 @@ describe('align-editor-tabs.test.js', () => {
     expect(cmp.vm.tabsStates).toEqual([ { active: true }, { active: false } ])
   })
 
-  it('3 AlignEditorTabs - couldBeSelected checks we would have at least one tab active', () => {
-    let cmp = shallowMount(AlignEditorTabs,{
+  it('3 EditorTabs - couldBeSelected checks we would have at least one tab active', () => {
+    let cmp = shallowMount(EditorTabs,{
       store: appC.store,
       localVue,
       propsData: {
@@ -114,8 +115,8 @@ describe('align-editor-tabs.test.js', () => {
     expect(cmp.vm.couldBeSelected(0)).toBeFalsy()
   })
 
-  it('4 AlignEditorTabs - selectTab if couldBeSelected, changes active state and emitts event', () => {
-    let cmp = shallowMount(AlignEditorTabs,{
+  it('4 EditorTabs - selectTab if couldBeSelected, changes active state and emitts event', () => {
+    let cmp = shallowMount(EditorTabs,{
       store: appC.store,
       localVue,
       propsData: {

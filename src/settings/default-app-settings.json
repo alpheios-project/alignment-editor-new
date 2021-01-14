@@ -31,6 +31,21 @@
           "text": "Offline tokenizer"
         }
       ]
+    },
+    "allowUpdateTokenWord": {
+      "defaultValue": false,
+      "labelText": "Allow update token word",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }

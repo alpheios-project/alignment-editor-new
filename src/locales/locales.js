@@ -1,7 +1,10 @@
 import EnUsCommon from '@/locales/en-us/messages-common.json'
+import EnUsControllers from '@/locales/en-us/messages-controllers.json'
+
 import EnUsLanguages from '@/locales/en-us/messages-languages.json'
 import EnUsTextEditor from '@/locales/en-us/messages-text-editor.json'
-import EnUsAlignEditor from '@/locales/en-us/messages-align-editor.json'
+import EnUsAlignedGroupsEditor from '@/locales/en-us/messages-aligned-groups-editor.json'
+import EnUsTokensEditEditor from '@/locales/en-us/messages-tokens-edit-editor.json'
 import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
 import EnUsOptionsBlock from '@/locales/en-us/messages-options-block.json'
 import EnUsMetadataTerm from '@/locales/en-us/messages-metadata-terms.json'
@@ -13,7 +16,7 @@ import MessageBundle from '@/lib/l10n/message-bundle'
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [EnUsCommon, EnUsTextEditor, EnUsMainMenu, EnUsAlignEditor, EnUsLanguages, EnUsOptionsBlock, EnUsMetadataTerm],
+  [localeEnUs]: [EnUsCommon, EnUsControllers, EnUsTextEditor, EnUsMainMenu, EnUsAlignedGroupsEditor, EnUsTokensEditEditor, EnUsLanguages, EnUsOptionsBlock, EnUsMetadataTerm],
   [localeEnGb]: [EnGb]
 }
 
@@ -21,6 +24,16 @@ export default {
   en_US: localeEnUs,
   en_GB: localeEnGb,
   availableMessages: availableMessages,
+
+  predefinedLocales: () => {
+    const finalLocales = []
+    Object.keys(availableMessages).forEach(localeItem => {
+      availableMessages[localeItem].forEach(messageItem => finalLocales.push([messageItem, localeItem]))
+    })
+
+    return finalLocales
+  },
+
   /**
    * A helper function that creates a message bundle out of a messages JSON and a locale.
    * @param {string | object} messagesJSONorObj - Messages for a locale as a JSON string or as an object.
