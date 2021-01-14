@@ -2,7 +2,8 @@ name: Build Dev
 
 on:
   push: 
-    branches-ignore: master
+    branches: 
+      - 'master'
 
 jobs:
   deploy:
@@ -21,9 +22,8 @@ jobs:
       with:
         args: --acl public-read --delete
       env: 
-        AWS_S3_BUCKET: 'alpheios-misc-dev'
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_S3_BUCKET: 'alpheios-alignment'
+        AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_ACCESS_SECRET_KEY }}
         AWS_REGION: 'us-east-2'
         SOURCE_DIR: 'public'
-        DEST_DIR: 'alignment-editor'
