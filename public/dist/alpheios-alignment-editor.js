@@ -40857,16 +40857,33 @@ class TokenizeController {
   }
 
   static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
-    if (changeType === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.SPLIT) {
-      return `${tokenIdWord}-s${indexWord}`
+    const divider = '-'
+    const changeLibrary = {
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.SPLIT]: 's',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.MERGE]: 'm',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.UPDATE]: 'e'
     }
-    if (changeType === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.MERGE) {
-      return `${tokenIdWord}-m${indexWord}`
+
+    if (!Object.keys(changeLibrary).includes(changeType)) {
+      return this.getNextTokenIdWordSimple(lastTokenWordId)
     }
-    if (changeType === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.UPDATE) {
-      return `${tokenIdWord}-e`
+
+    const tokenIdWordParts = tokenIdWord.split(divider)
+    const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2]
+    const lastIndex = parseInt(tokenIdWordParts[tokenIdWordParts.length - 1])
+
+    const reDigits = /[0-9]/g
+    const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
+
+    // const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2].replace(/[0-9]/g, '')
+
+    const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
+
+    if (lastChangeTypeNoDigits === changeLibrary[changeType] && checkByIndex) {
+      return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${lastIndex + 1}`
+    } else {
+      return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
     }
-    return this.getNextTokenIdWordSimple(lastTokenWordId)
   }
 }
 
@@ -40897,7 +40914,7 @@ class TokensEditController {
     this.store = store
   }
 
-  uploadAlignment (alignment) {
+  loadAlignment (alignment) {
     this.alignment = alignment
   }
 
@@ -46087,7 +46104,7 @@ __webpack_require__.r(__webpack_exports__);
   created () {
     this.$textC.createAlignment()
     this.$historyC.startTracking(this.$textC.alignment)
-    this.$tokensEC.uploadAlignment(this.$textC.alignment)
+    this.$tokensEC.loadAlignment(this.$textC.alignment)
   },
   computed: {
     originId () {

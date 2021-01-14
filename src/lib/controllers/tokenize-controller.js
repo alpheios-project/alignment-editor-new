@@ -149,15 +149,32 @@ export default class TokenizeController {
   }
 
   static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
-    if (changeType === TokensEditController.changeType.SPLIT) {
-      return `${tokenIdWord}-s${indexWord}`
+    const divider = '-'
+    const changeLibrary = {
+      [TokensEditController.changeType.SPLIT]: 's',
+      [TokensEditController.changeType.MERGE]: 'm',
+      [TokensEditController.changeType.UPDATE]: 'e'
     }
-    if (changeType === TokensEditController.changeType.MERGE) {
-      return `${tokenIdWord}-m${indexWord}`
+
+    if (!Object.keys(changeLibrary).includes(changeType)) {
+      return this.getNextTokenIdWordSimple(lastTokenWordId)
     }
-    if (changeType === TokensEditController.changeType.UPDATE) {
-      return `${tokenIdWord}-e`
+
+    const tokenIdWordParts = tokenIdWord.split(divider)
+    const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2]
+    const lastIndex = parseInt(tokenIdWordParts[tokenIdWordParts.length - 1])
+
+    const reDigits = /[0-9]/g
+    const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
+
+    // const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2].replace(/[0-9]/g, '')
+
+    const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
+
+    if (lastChangeTypeNoDigits === changeLibrary[changeType] && checkByIndex) {
+      return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${lastIndex + 1}`
+    } else {
+      return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
     }
-    return this.getNextTokenIdWordSimple(lastTokenWordId)
   }
 }

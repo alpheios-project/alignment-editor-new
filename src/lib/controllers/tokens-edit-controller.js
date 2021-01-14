@@ -9,7 +9,7 @@ export default class TokensEditController {
     this.store = store
   }
 
-  uploadAlignment (alignment) {
+  loadAlignment (alignment) {
     this.alignment = alignment
   }
 
