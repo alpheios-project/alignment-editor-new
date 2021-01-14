@@ -1,7 +1,8 @@
-name: Build and Upload
+name: Build Dev
 
 on:
   push: 
+    branches-ignore: master
 
 jobs:
   deploy:
@@ -26,32 +27,3 @@ jobs:
         AWS_REGION: 'us-east-2'
         SOURCE_DIR: 'public'
         DEST_DIR: 'alignment-editor'
-on:
-  push:
-    branches: [ master ]
-  
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2-beta
-      with:
-        node-version: '14'
-
-    - name: build
-      run: npm install && npm update && npm run build
-
-    - name: test
-      run: npm run test
-
-    - name: s3
-      uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --acl public-read --delete
-      env: 
-        AWS_S3_BUCKET: 'alpheios-alignment'
-        AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_ACCESS_SECRET_KEY }}
-        AWS_REGION: 'us-east-2'
-        SOURCE_DIR: 'public'
-    
