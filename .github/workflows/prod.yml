@@ -17,6 +17,9 @@ jobs:
     - name: build
       run: npm install && npm update && npm run build
 
+    - name: test
+      run: npm test
+
     - name: s3
       uses: jakejarvis/s3-sync-action@master
       with:
