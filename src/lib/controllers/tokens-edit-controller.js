@@ -39,7 +39,7 @@ export default class TokensEditController {
    * @param {String} direction
    * @returns {Boolean}
    */
-  mergeToken (token, direction = TokensEditController.direction.LEFT) {
+  mergeToken (token, direction = TokensEditController.direction.PREV) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
@@ -84,15 +84,27 @@ export default class TokensEditController {
   addLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
-    if (token.hasLineBreak) {
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('TOKENS_EDIT_ALREADY_HAS_LINE_BREAK'),
-        type: NotificationSingleton.types.ERROR
-      })
-      return false
-    }
-
     if (this.alignment.addLineBreakAfterToken(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  moveToNextSegment (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.moveToNextSegment(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  moveToPrevSegment (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.moveToPrevSegment(token)) {
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -124,12 +136,12 @@ export default class TokensEditController {
     return this.alignment.isEditableToken(token)
   }
 
-  allowedMergeLeft (token) {
-    return Boolean(token) && this.alignment.allowedMergeLeft(token)
+  allowedMergePrev (token) {
+    return Boolean(token) && this.alignment.allowedMergePrev(token)
   }
 
-  allowedMergeRight (token) {
-    return Boolean(token) && this.alignment.allowedMergeRight(token)
+  allowedMergeNext (token) {
+    return Boolean(token) && this.alignment.allowedMergeNext(token)
   }
 
   allowedSplit (token) {
@@ -138,6 +150,14 @@ export default class TokensEditController {
 
   allowedAddLineBreak (token) {
     return Boolean(token) && this.alignment.allowedAddLineBreak(token)
+  }
+
+  allowedToNextSegment (token) {
+    return Boolean(token) && this.alignment.allowedToNextSegment(token)
+  }
+
+  allowedToPrevSegment (token) {
+    return Boolean(token) && this.alignment.allowedToPrevSegment(token)
   }
 }
 
@@ -149,12 +169,16 @@ TokensEditController.changeType = {
   //
   SPLIT: 'split',
   //
-  LINE_BREAK: 'line break'
+  LINE_BREAK: 'line break',
+  //
+  TO_NEXT_SEGMENT: 'to next segment',
+  //
+  TO_PREV_SEGMENT: 'to prev segment'
 }
 
 TokensEditController.direction = {
   //
-  LEFT: 'left',
+  PREV: 'prev',
   //
-  RIGHT: 'right'
+  NEXT: 'next'
 }

@@ -175,7 +175,10 @@ export default class TokenizeController {
       [TokensEditController.changeType.SPLIT]: 's',
       [TokensEditController.changeType.MERGE]: 'm',
       [TokensEditController.changeType.UPDATE]: 'e',
-      [TokensEditController.changeType.LINE_BREAK]: 'l'
+      [TokensEditController.changeType.LINE_BREAK]: 'l',
+      [TokensEditController.changeType.TO_NEXT_SEGMENT]: 'n',
+      [TokensEditController.changeType.TO_PREV_SEGMENT]: 'p'
+
     }
 
     if (!Object.keys(changeLibrary).includes(changeType)) {

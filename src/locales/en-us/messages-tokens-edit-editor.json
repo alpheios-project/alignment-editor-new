@@ -63,6 +63,16 @@
       "message": "The token already has a line break.",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
+    },
+    "ACTION_BUTTON_TO_NEXT_SEGMENT": {
+      "message": "Move the token to the next segment.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
+    },
+    "ACTION_BUTTON_TO_PREV_SEGMENT": {
+      "message": "Move the token to the previous segment.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
     }
 
 }

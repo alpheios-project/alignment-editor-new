@@ -12,20 +12,23 @@
             @mergeToken = "mergeToken"
             @splitToken = "splitToken"
             @addLineBreak = "addLineBreak"
+            @moveToNextSegment = "moveToNextSegment"
+            @moveToPrevSegment = "moveToPrevSegment"
         />
         <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
             v-if ="token.word"
             :token = "token" :key = "tokenIndex" :deactivated = "deactivated"
             :updateTokenIdWord = "updateTokenIdWord === token.idWord ? updateTokenIdWord : null"
-            :mergeTokenLeftIdWord = "mergeTokenLeftIdWord === token.idWord ? mergeTokenLeftIdWord : null"
-            :mergeTokenRightIdWord = "mergeTokenRightIdWord === token.idWord ? mergeTokenRightIdWord : null"
+            :mergeTokenPrevIdWord = "mergeTokenPrevIdWord === token.idWord ? mergeTokenPrevIdWord : null"
+            :mergeTokenNextIdWord = "mergeTokenNextIdWord === token.idWord ? mergeTokenNextIdWord : null"
             :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
             :addLineBreakIdWord = "addLineBreakIdWord === token.idWord ? addLineBreakIdWord : null"
 
             @hideActionsMenu = "hideActionsMenu" 
             @showActionsMenu = "showActionsMenu"
             @removeAllActivated = "removeAllActivated"
+
           />
           <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
         </template>
@@ -72,8 +75,8 @@ export default {
       deactivated: 1,
       containerWidth: 0,
       updateTokenIdWord: null,
-      mergeTokenLeftIdWord: null,
-      mergeTokenRightIdWord: null,
+      mergeTokenPrevIdWord: null,
+      mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null
     }
@@ -176,11 +179,11 @@ export default {
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === TokensEditController.direction.LEFT) {
-        this.mergeTokenLeftIdWord = token.idWord
+      if (direction === TokensEditController.direction.PREV) {
+        this.mergeTokenPrevIdWord = token.idWord
       }
-      if (direction === TokensEditController.direction.RIGHT) {
-        this.mergeTokenRightIdWord = token.idWord
+      if (direction === TokensEditController.direction.NEXT) {
+        this.mergeTokenNextIdWord = token.idWord
       }
     },
     splitToken (token) {
@@ -188,6 +191,14 @@ export default {
     },
     addLineBreak (token) {
       this.addLineBreakIdWord = token.idWord
+    },
+    moveToNextSegment (token) {
+      this.$tokensEC.moveToNextSegment(token)
+      this.removeAllActivated()
+    },
+    moveToPrevSegment (token) {
+      this.$tokensEC.moveToPrevSegment(token)
+      this.removeAllActivated()
     }
   }
 

@@ -51,4 +51,8 @@ export default class Segment {
 
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
   }
+
+  insertToken (token, index) {
+    return this.tokens.splice(index, 0, token)
+  }
 }

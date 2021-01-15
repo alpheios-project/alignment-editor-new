@@ -40902,7 +40902,10 @@ class TokenizeController {
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.SPLIT]: 's',
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.MERGE]: 'm',
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.UPDATE]: 'e',
-      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.LINE_BREAK]: 'l'
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.LINE_BREAK]: 'l',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.TO_NEXT_SEGMENT]: 'n',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.TO_PREV_SEGMENT]: 'p'
+
     }
 
     if (!Object.keys(changeLibrary).includes(changeType)) {
@@ -40983,7 +40986,7 @@ class TokensEditController {
    * @param {String} direction
    * @returns {Boolean}
    */
-  mergeToken (token, direction = TokensEditController.direction.LEFT) {
+  mergeToken (token, direction = TokensEditController.direction.PREV) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
@@ -41028,15 +41031,27 @@ class TokensEditController {
   addLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
-    if (token.hasLineBreak) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_ALREADY_HAS_LINE_BREAK'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
-      })
-      return false
-    }
-
     if (this.alignment.addLineBreakAfterToken(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  moveToNextSegment (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.moveToNextSegment(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  moveToPrevSegment (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.moveToPrevSegment(token)) {
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -41068,12 +41083,12 @@ class TokensEditController {
     return this.alignment.isEditableToken(token)
   }
 
-  allowedMergeLeft (token) {
-    return Boolean(token) && this.alignment.allowedMergeLeft(token)
+  allowedMergePrev (token) {
+    return Boolean(token) && this.alignment.allowedMergePrev(token)
   }
 
-  allowedMergeRight (token) {
-    return Boolean(token) && this.alignment.allowedMergeRight(token)
+  allowedMergeNext (token) {
+    return Boolean(token) && this.alignment.allowedMergeNext(token)
   }
 
   allowedSplit (token) {
@@ -41082,6 +41097,14 @@ class TokensEditController {
 
   allowedAddLineBreak (token) {
     return Boolean(token) && this.alignment.allowedAddLineBreak(token)
+  }
+
+  allowedToNextSegment (token) {
+    return Boolean(token) && this.alignment.allowedToNextSegment(token)
+  }
+
+  allowedToPrevSegment (token) {
+    return Boolean(token) && this.alignment.allowedToPrevSegment(token)
   }
 }
 
@@ -41093,14 +41116,18 @@ TokensEditController.changeType = {
   //
   SPLIT: 'split',
   //
-  LINE_BREAK: 'line break'
+  LINE_BREAK: 'line break',
+  //
+  TO_NEXT_SEGMENT: 'to next segment',
+  //
+  TO_PREV_SEGMENT: 'to prev segment'
 }
 
 TokensEditController.direction = {
   //
-  LEFT: 'left',
+  PREV: 'prev',
   //
-  RIGHT: 'right'
+  NEXT: 'next'
 }
 
 
@@ -42535,7 +42562,7 @@ class Alignment {
       changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.UPDATE
     })
 
-    return token.updateWord({ word, idWord: newIdWord })
+    return token.update({ word, idWord: newIdWord })
   }
 
   /**
@@ -42544,7 +42571,7 @@ class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.PREV) ? this.getPrevToken(token) : this.getNextToken(token)
 
     if (!this.isEditableToken(tokenMergeTo)) {
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
@@ -42589,11 +42616,21 @@ class Alignment {
     return alignedText.segments[token.segmentIndex - 1]
   }
 
+  getNextSegmentByToken (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : false
+  }
+
+  getPrevSegmentByToken (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : false
+  }
+
   /**
    * @param {Token} token
    * @returns {Token} - token on the left hand in the segment
    */
-  getLeftToken (token) {
+  getPrevToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
@@ -42601,7 +42638,7 @@ class Alignment {
       return {
         segment,
         tokenIndex,
-        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.RIGHT,
+        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.NEXT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
@@ -42612,7 +42649,7 @@ class Alignment {
    * @param {Token} token
    * @returns {Token} - token on the right hand in the segment
    */
-  getRightToken (token) {
+  getNextToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
@@ -42620,7 +42657,7 @@ class Alignment {
       return {
         segment,
         tokenIndex,
-        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.LEFT,
+        position: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.PREV,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
@@ -42653,7 +42690,7 @@ class Alignment {
 
     const tokenWordParts = tokenWord.split(' ')
 
-    token.updateWord({
+    token.update({
       word: tokenWordParts[0],
       idWord: newIdWord1
     })
@@ -42673,18 +42710,62 @@ class Alignment {
     })
 
     token.addLineBreakAfter()
-    token.updateWord({
+    token.update({
       idWord: newIdWord
     })
     return true
   }
 
-  allowedMergeLeft (token) {
-    return Boolean(this.getLeftToken(token))
+  moveToNextSegment (token) {
+    const segment = this.getSegmentByToken(token)
+    const nextSegment = this.getNextSegmentByToken(token)
+
+    const tokenIndex = segment.getTokenIndex(token)
+    segment.deleteToken(tokenIndex)
+
+    const alignedText = this.getAlignedTextByToken(token)
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment: nextSegment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.TO_NEXT_SEGMENT
+    })
+
+    token.update({
+      idWord: newIdWord,
+      segmentIndex: nextSegment.index
+    })
+    nextSegment.insertToken(token, 0)
+    return true
   }
 
-  allowedMergeRight (token) {
-    return Boolean(this.getRightToken(token))
+  moveToPrevSegment (token) {
+    const segment = this.getSegmentByToken(token)
+    const prevSegment = this.getPrevSegmentByToken(token)
+
+    const tokenIndex = segment.getTokenIndex(token)
+    segment.deleteToken(tokenIndex)
+
+    const alignedText = this.getAlignedTextByToken(token)
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment: prevSegment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.TO_PREV_SEGMENT
+    })
+
+    token.update({
+      idWord: newIdWord,
+      segmentIndex: prevSegment.index
+    })
+    prevSegment.insertToken(token, prevSegment.tokens.length)
+    return true
+  }
+
+  allowedMergePrev (token) {
+    return Boolean(this.getPrevToken(token))
+  }
+
+  allowedMergeNext (token) {
+    return Boolean(this.getNextToken(token))
   }
 
   allowedSplit (token) {
@@ -42693,6 +42774,14 @@ class Alignment {
 
   allowedAddLineBreak (token) {
     return !token.hasLineBreak
+  }
+
+  allowedToNextSegment (token) {
+    return !this.getNextToken(token) && Boolean(this.getNextSegmentByToken(token))
+  }
+
+  allowedToPrevSegment (token) {
+    return !this.getPrevToken(token) && Boolean(this.getPrevSegmentByToken(token))
   }
 
   /**
@@ -42991,6 +43080,10 @@ class Segment {
 
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
   }
+
+  insertToken (token, index) {
+    return this.tokens.splice(index, 0, token)
+  }
 }
 
 
@@ -43171,14 +43264,23 @@ class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  updateWord ({ word, idWord }) {
-    if (word) {
+  update ({ word, idWord, segmentIndex, hasLineBreak }) {
+    if (word !== undefined) {
       this.word = word
     }
 
-    if (idWord) {
+    if (idWord !== undefined) {
       this.idWord = idWord
     }
+
+    if (segmentIndex !== undefined) {
+      this.segmentIndex = segmentIndex
+    }
+
+    if (hasLineBreak !== undefined) {
+      this.hasLineBreak = hasLineBreak
+    }
+
     return true
   }
 
@@ -43189,13 +43291,13 @@ class Token {
    * @param {String} newIdWord
    */
   merge ({ token, position, newIdWord }) {
-    if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.LEFT) {
-      this.updateWord({
+    if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.PREV) {
+      this.update({
         word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
-    } else if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.RIGHT) {
-      this.updateWord({
+    } else if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.NEXT) {
+      this.update({
         word: `${this.word} ${token.word}`,
         idWord: newIdWord
       })
@@ -43204,8 +43306,7 @@ class Token {
   }
 
   addLineBreakAfter () {
-    this.hasLineBreak = true
-    return true
+    return this.update({ hasLineBreak: true })
   }
 }
 
@@ -43223,7 +43324,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ DownloadFileCSV
 /* harmony export */ });
-const idForButton = 'alpheios-alignment-app-container'
+const idForButton = 'alpheios-alignment-editor-app-container'
 
 class DownloadFileCSV {
   static collectionToCSV (delimiter, keys = [], withHeaders = true) {
@@ -46563,10 +46664,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/enter.svg */ "./inline-icons/enter.svg");
 /* harmony import */ var _inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
-/* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
+/* harmony import */ var _inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/next.svg */ "./inline-icons/next.svg");
+/* harmony import */ var _inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/inline-icons/prev.svg */ "./inline-icons/prev.svg");
+/* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+/* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 //
 //
 //
@@ -46604,6 +46709,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -46626,7 +46746,9 @@ __webpack_require__.r(__webpack_exports__);
     mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     enterIcon: (_inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_8__.default
+    nextIcon: (_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5___default()),
+    prevIcon: (_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6___default()),
+    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_10__.default
   },
   props: {
     token: {
@@ -46655,7 +46777,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_6__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__.default
     },
     cssStyles () {
       const  top = this.topPos + 'px'
@@ -46676,25 +46798,31 @@ __webpack_require__.r(__webpack_exports__);
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
     },
-    allowedMergeLeft () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeLeft(this.token)
+    allowedMergePrev () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
     },
-    allowedMergeRight () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeRight(this.token)
+    allowedMergeNext () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeNext(this.token)
     },
     allowedSplit () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
     },
     allowedAddLineBreak () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
+    },
+    allowedToNextSegment () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedToNextSegment(this.token)
+    },
+    allowedToPrevSegment () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedToPrevSegment(this.token)
     }
   },
   methods: {
-    mergeToLeft () {
-      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.direction.LEFT)
+    mergeToPrev () {
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_9__.default.direction.PREV)
     },
-    mergeToRight () {
-      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.direction.RIGHT)
+    mergeToNext () {
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_9__.default.direction.NEXT)
     }
   }
 });
@@ -46897,6 +47025,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -46938,8 +47069,8 @@ __webpack_require__.r(__webpack_exports__);
       deactivated: 1,
       containerWidth: 0,
       updateTokenIdWord: null,
-      mergeTokenLeftIdWord: null,
-      mergeTokenRightIdWord: null,
+      mergeTokenPrevIdWord: null,
+      mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null
     }
@@ -47042,11 +47173,11 @@ __webpack_require__.r(__webpack_exports__);
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.LEFT) {
-        this.mergeTokenLeftIdWord = token.idWord
+      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.PREV) {
+        this.mergeTokenPrevIdWord = token.idWord
       }
-      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.RIGHT) {
-        this.mergeTokenRightIdWord = token.idWord
+      if (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.NEXT) {
+        this.mergeTokenNextIdWord = token.idWord
       }
     },
     splitToken (token) {
@@ -47054,6 +47185,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     addLineBreak (token) {
       this.addLineBreakIdWord = token.idWord
+    },
+    moveToNextSegment (token) {
+      this.$tokensEC.moveToNextSegment(token)
+      this.removeAllActivated()
+    },
+    moveToPrevSegment (token) {
+      this.$tokensEC.moveToPrevSegment(token)
+      this.removeAllActivated()
     }
   }
 
@@ -47130,12 +47269,12 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: null
     },
-    mergeTokenLeftIdWord : {
+    mergeTokenPrevIdWord : {
       type: String,
       required: false,
       default: null
     },
-    mergeTokenRightIdWord : {
+    mergeTokenNextIdWord : {
       type: String,
       required: false,
       default: null
@@ -47171,14 +47310,14 @@ __webpack_require__.r(__webpack_exports__);
         this.updateTokenWord()
       }
     },
-    mergeTokenLeftIdWord () {
-      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
-        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.LEFT)
+    mergeTokenPrevIdWord () {
+      if (this.activated && (this.mergeTokenPrevIdWord === this.token.idWord)) {
+        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.PREV)
       }
     },
-    mergeTokenRightIdWord () {
-      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
-        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.RIGHT)
+    mergeTokenNextIdWord () {
+      if (this.activated && (this.mergeTokenNextIdWord === this.token.idWord)) {
+        this.mergeToken(_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.NEXT)
       }
     },
     splitTokenIdWord () {
@@ -51657,10 +51796,10 @@ var render = function() {
           _c("actions-button", {
             attrs: {
               tooltipMess: "ACTION_BUTTON_MERGE_LEFT",
-              allowedCondition: _vm.allowedMergeLeft,
+              allowedCondition: _vm.allowedMergePrev,
               actionName: "merge_left"
             },
-            on: { click: _vm.mergeToLeft },
+            on: { click: _vm.mergeToPrev },
             scopedSlots: _vm._u([
               {
                 key: "enabled",
@@ -51682,10 +51821,10 @@ var render = function() {
           _c("actions-button", {
             attrs: {
               tooltipMess: "ACTION_BUTTON_MERGE_RIGHT",
-              allowedCondition: _vm.allowedMergeRight,
+              allowedCondition: _vm.allowedMergeNext,
               actionName: "merge_right"
             },
-            on: { click: _vm.mergeToRight },
+            on: { click: _vm.mergeToNext },
             scopedSlots: _vm._u([
               {
                 key: "enabled",
@@ -51756,6 +51895,64 @@ var render = function() {
                 key: "disabled",
                 fn: function() {
                   return [_c("enter-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_TO_PREV_SEGMENT",
+              allowedCondition: _vm.allowedToPrevSegment,
+              actionName: "move_to_prev_segment"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("moveToPrevSegment", _vm.token)
+              }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("prev-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("prev-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_TO_NEXT_SEGMENT",
+              allowedCondition: _vm.allowedToNextSegment,
+              actionName: "move_to_next_segment"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("moveToNextSegment", _vm.token)
+              }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("next-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("next-icon")]
                 },
                 proxy: true
               }
@@ -51922,7 +52119,9 @@ var render = function() {
           updateTokenWord: _vm.updateTokenWord,
           mergeToken: _vm.mergeToken,
           splitToken: _vm.splitToken,
-          addLineBreak: _vm.addLineBreak
+          addLineBreak: _vm.addLineBreak,
+          moveToNextSegment: _vm.moveToNextSegment,
+          moveToPrevSegment: _vm.moveToPrevSegment
         }
       }),
       _vm._v(" "),
@@ -51938,13 +52137,13 @@ var render = function() {
                     _vm.updateTokenIdWord === token.idWord
                       ? _vm.updateTokenIdWord
                       : null,
-                  mergeTokenLeftIdWord:
-                    _vm.mergeTokenLeftIdWord === token.idWord
-                      ? _vm.mergeTokenLeftIdWord
+                  mergeTokenPrevIdWord:
+                    _vm.mergeTokenPrevIdWord === token.idWord
+                      ? _vm.mergeTokenPrevIdWord
                       : null,
-                  mergeTokenRightIdWord:
-                    _vm.mergeTokenRightIdWord === token.idWord
-                      ? _vm.mergeTokenRightIdWord
+                  mergeTokenNextIdWord:
+                    _vm.mergeTokenNextIdWord === token.idWord
+                      ? _vm.mergeTokenNextIdWord
                       : null,
                   splitTokenIdWord:
                     _vm.splitTokenIdWord === token.idWord
@@ -52317,6 +52516,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/next.svg":
+/*!*******************************!*\
+  !*** ./inline-icons/next.svg ***!
+  \*******************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"799","height":"828","viewBox":"0 0 211.4 219.08","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M90.156 207.366c-6.439-6.44-11.707-11.777-11.707-11.86 0-.144 54.344-54.423 75.835-75.744l10.351-10.269-18.024-17.897a33438.47 33438.47 0 01-43.159-42.97L78.317 23.552l23.55-23.553 109.54 109.54-109.54 109.54zm-78.383-.332L0 195.258l42.73-42.72c23.502-23.496 42.73-42.848 42.73-43.003 0-.156-19.229-19.505-42.73-43L0 23.818 23.724.132 57.19 33.734c58.01 58.244 74.837 75.289 74.837 75.8 0 .286-3.987 4.513-9.654 10.234-23.492 23.714-98.543 99.043-98.678 99.043-.082 0-5.447-5.3-11.922-11.776z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/ok.svg":
 /*!*****************************!*\
   !*** ./inline-icons/ok.svg ***!
@@ -52347,6 +52583,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M0 203.11l51.12-51.09L153.34 254.3l-51.12 51.091L0 203.111zM153.36 254.25L407.61 0l51.12 51.12-254.25 254.25z"}}),_c('path',{attrs:{"d":"M153.37 356.52l-51.141-51.141 51.12-51.12L204.49 305.4l-51.119 51.12z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/prev.svg":
+/*!*******************************!*\
+  !*** ./inline-icons/prev.svg ***!
+  \*******************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"799","height":"828","viewBox":"0 0 211.4 219.08","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M121.247 207.366c6.44-6.44 11.707-11.777 11.707-11.86 0-.144-54.344-54.423-75.835-75.744l-10.35-10.269 18.023-17.897a33438.47 33438.47 0 0043.16-42.97l25.134-25.074L109.537-.001-.003 109.539l109.54 109.54zm78.383-.332l11.773-11.776-42.73-42.72c-23.502-23.496-42.73-42.848-42.73-43.003 0-.156 19.23-19.505 42.73-43l42.73-42.717L187.68.132l-33.466 33.602c-58.009 58.244-74.837 75.289-74.837 75.8 0 .286 3.988 4.513 9.655 10.234 23.492 23.714 98.543 99.043 98.678 99.043.082 0 5.447-5.3 11.922-11.776z"}})])
           )
         }
       }
@@ -52545,7 +52818,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
 
 /***/ }),
 

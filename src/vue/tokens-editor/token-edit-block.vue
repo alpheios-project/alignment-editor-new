@@ -51,12 +51,12 @@ export default {
       required: false,
       default: null
     },
-    mergeTokenLeftIdWord : {
+    mergeTokenPrevIdWord : {
       type: String,
       required: false,
       default: null
     },
-    mergeTokenRightIdWord : {
+    mergeTokenNextIdWord : {
       type: String,
       required: false,
       default: null
@@ -92,14 +92,14 @@ export default {
         this.updateTokenWord()
       }
     },
-    mergeTokenLeftIdWord () {
-      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
-        this.mergeToken(TokensEditController.direction.LEFT)
+    mergeTokenPrevIdWord () {
+      if (this.activated && (this.mergeTokenPrevIdWord === this.token.idWord)) {
+        this.mergeToken(TokensEditController.direction.PREV)
       }
     },
-    mergeTokenRightIdWord () {
-      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
-        this.mergeToken(TokensEditController.direction.RIGHT)
+    mergeTokenNextIdWord () {
+      if (this.activated && (this.mergeTokenNextIdWord === this.token.idWord)) {
+        this.mergeToken(TokensEditController.direction.NEXT)
       }
     },
     splitTokenIdWord () {

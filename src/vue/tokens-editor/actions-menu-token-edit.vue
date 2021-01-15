@@ -9,14 +9,14 @@
           <template v-slot:disabled><ok-icon /></template>
         </actions-button>
 
-        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_LEFT" :allowedCondition = "allowedMergeLeft"
-                        actionName = "merge_left" @click = "mergeToLeft">
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_LEFT" :allowedCondition = "allowedMergePrev"
+                        actionName = "merge_left" @click = "mergeToPrev">
           <template v-slot:enabled><merge-left-icon /></template>
           <template v-slot:disabled><merge-left-icon /></template>
         </actions-button>
 
-        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_RIGHT" :allowedCondition = "allowedMergeRight"
-                        actionName = "merge_right" @click = "mergeToRight">
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_RIGHT" :allowedCondition = "allowedMergeNext"
+                        actionName = "merge_right" @click = "mergeToNext">
           <template v-slot:enabled><merge-right-icon /></template>
           <template v-slot:disabled><merge-right-icon /></template>
         </actions-button>
@@ -32,6 +32,18 @@
           <template v-slot:enabled><enter-icon /></template>
           <template v-slot:disabled><enter-icon /></template>
         </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_TO_PREV_SEGMENT" :allowedCondition = "allowedToPrevSegment"
+                        actionName = "move_to_prev_segment" @click = "$emit('moveToPrevSegment', token)">
+          <template v-slot:enabled><prev-icon /></template>
+          <template v-slot:disabled><prev-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_TO_NEXT_SEGMENT" :allowedCondition = "allowedToNextSegment"
+                        actionName = "move_to_next_segment" @click = "$emit('moveToNextSegment', token)">
+          <template v-slot:enabled><next-icon /></template>
+          <template v-slot:disabled><next-icon /></template>
+        </actions-button>
       </div>
     </div>
 </template>
@@ -41,6 +53,9 @@ import SplitIcon from '@/inline-icons/split.svg'
 import MergeLeftIcon from '@/inline-icons/merge-left.svg'
 import MergeRightIcon from '@/inline-icons/merge-right.svg'
 import EnterIcon from '@/inline-icons/enter.svg'
+
+import NextIcon from '@/inline-icons/next.svg'
+import PrevIcon from '@/inline-icons/prev.svg'
 
 import Tooltip from '@/vue/common/tooltip.vue'
 
@@ -57,6 +72,8 @@ export default {
     mergeLeftIcon: MergeLeftIcon,
     mergeRightIcon: MergeRightIcon,
     enterIcon: EnterIcon,
+    nextIcon: NextIcon,
+    prevIcon: PrevIcon,
     actionsButton: ActionsButtonTokenEdit
   },
   props: {
@@ -107,25 +124,31 @@ export default {
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
     },
-    allowedMergeLeft () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeLeft(this.token)
+    allowedMergePrev () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
     },
-    allowedMergeRight () {
-      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeRight(this.token)
+    allowedMergeNext () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeNext(this.token)
     },
     allowedSplit () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
     },
     allowedAddLineBreak () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
+    },
+    allowedToNextSegment () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedToNextSegment(this.token)
+    },
+    allowedToPrevSegment () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedToPrevSegment(this.token)
     }
   },
   methods: {
-    mergeToLeft () {
-      this.$emit('mergeToken', this.token, TokensEditController.direction.LEFT)
+    mergeToPrev () {
+      this.$emit('mergeToken', this.token, TokensEditController.direction.PREV)
     },
-    mergeToRight () {
-      this.$emit('mergeToken', this.token, TokensEditController.direction.RIGHT)
+    mergeToNext () {
+      this.$emit('mergeToken', this.token, TokensEditController.direction.NEXT)
     }
   }
 }
