@@ -193,11 +193,11 @@ export default {
       this.addLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
-      this.$tokensEC.moveToNextSegment(token)
+      this.$tokensEC.moveToSegment(token, TokensEditController.direction.NEXT)
       this.removeAllActivated()
     },
     moveToPrevSegment (token) {
-      this.$tokensEC.moveToPrevSegment(token)
+      this.$tokensEC.moveToSegment(token, TokensEditController.direction.PREV)
       this.removeAllActivated()
     }
   }

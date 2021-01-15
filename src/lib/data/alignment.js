@@ -701,9 +701,9 @@ export default class Alignment {
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
-      alignedText = this[token.textType].alignedText
+      alignedText = this.origin.alignedText
     } else {
-      alignedText = this[token.textType][token.docSourceId].alignedText
+      alignedText = this.targets[token.docSourceId].alignedText
     }
     return alignedText
   }
@@ -817,9 +817,9 @@ export default class Alignment {
     return true
   }
 
-  moveToNextSegment (token) {
+  moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
-    const nextSegment = this.getNextSegmentByToken(token)
+    const newSegment = (direction === TokensEditController.direction.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
 
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
@@ -827,41 +827,22 @@ export default class Alignment {
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
       token,
-      segment: nextSegment,
-      changeType: TokensEditController.changeType.TO_NEXT_SEGMENT
+      segment: newSegment,
+      changeType: (direction === TokensEditController.direction.PREV) ? TokensEditController.changeType.TO_PREV_SEGMENT : TokensEditController.changeType.TO_NEXT_SEGMENT
     })
 
     token.update({
       idWord: newIdWord,
-      segmentIndex: nextSegment.index
-    })
-    nextSegment.insertToken(token, 0)
-    return true
-  }
-
-  moveToPrevSegment (token) {
-    const segment = this.getSegmentByToken(token)
-    const prevSegment = this.getPrevSegmentByToken(token)
-
-    const tokenIndex = segment.getTokenIndex(token)
-    segment.deleteToken(tokenIndex)
-
-    const alignedText = this.getAlignedTextByToken(token)
-    const newIdWord = alignedText.getNewIdWord({
-      token,
-      segment: prevSegment,
-      changeType: TokensEditController.changeType.TO_PREV_SEGMENT
+      segmentIndex: newSegment.index
     })
 
-    token.update({
-      idWord: newIdWord,
-      segmentIndex: prevSegment.index
-    })
-    prevSegment.insertToken(token, prevSegment.tokens.length)
+    const insertPosition = (direction === TokensEditController.direction.PREV) ? newSegment.tokens.length : 0
+    newSegment.insertToken(token, insertPosition)
     return true
   }
 
   allowedMergePrev (token) {
+    console.info('allowedMergePrev - ', token)
     return Boolean(this.getPrevToken(token))
   }
 

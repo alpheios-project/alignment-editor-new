@@ -41038,20 +41038,10 @@ class TokensEditController {
     return false
   }
 
-  moveToNextSegment (token) {
+  moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
-    if (this.alignment.moveToNextSegment(token)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
-
-  moveToPrevSegment (token) {
-    if (!this.checkEditable(token)) { return false }
-
-    if (this.alignment.moveToPrevSegment(token)) {
+    if (this.alignment.moveToSegment(token, direction)) {
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -42600,9 +42590,9 @@ class Alignment {
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
-      alignedText = this[token.textType].alignedText
+      alignedText = this.origin.alignedText
     } else {
-      alignedText = this[token.textType][token.docSourceId].alignedText
+      alignedText = this.targets[token.docSourceId].alignedText
     }
     return alignedText
   }
@@ -42716,9 +42706,9 @@ class Alignment {
     return true
   }
 
-  moveToNextSegment (token) {
+  moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
-    const nextSegment = this.getNextSegmentByToken(token)
+    const newSegment = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
 
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
@@ -42726,41 +42716,22 @@ class Alignment {
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
       token,
-      segment: nextSegment,
-      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.TO_NEXT_SEGMENT
+      segment: newSegment,
+      changeType: (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.PREV) ? _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.TO_PREV_SEGMENT : _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.TO_NEXT_SEGMENT
     })
 
     token.update({
       idWord: newIdWord,
-      segmentIndex: nextSegment.index
-    })
-    nextSegment.insertToken(token, 0)
-    return true
-  }
-
-  moveToPrevSegment (token) {
-    const segment = this.getSegmentByToken(token)
-    const prevSegment = this.getPrevSegmentByToken(token)
-
-    const tokenIndex = segment.getTokenIndex(token)
-    segment.deleteToken(tokenIndex)
-
-    const alignedText = this.getAlignedTextByToken(token)
-    const newIdWord = alignedText.getNewIdWord({
-      token,
-      segment: prevSegment,
-      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.TO_PREV_SEGMENT
+      segmentIndex: newSegment.index
     })
 
-    token.update({
-      idWord: newIdWord,
-      segmentIndex: prevSegment.index
-    })
-    prevSegment.insertToken(token, prevSegment.tokens.length)
+    const insertPosition = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.PREV) ? newSegment.tokens.length : 0
+    newSegment.insertToken(token, insertPosition)
     return true
   }
 
   allowedMergePrev (token) {
+    console.info('allowedMergePrev - ', token)
     return Boolean(this.getPrevToken(token))
   }
 
@@ -47187,11 +47158,11 @@ __webpack_require__.r(__webpack_exports__);
       this.addLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
-      this.$tokensEC.moveToNextSegment(token)
+      this.$tokensEC.moveToSegment(token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.NEXT)
       this.removeAllActivated()
     },
     moveToPrevSegment (token) {
-      this.$tokensEC.moveToPrevSegment(token)
+      this.$tokensEC.moveToSegment(token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.PREV)
       this.removeAllActivated()
     }
   }

@@ -91,20 +91,10 @@ export default class TokensEditController {
     return false
   }
 
-  moveToNextSegment (token) {
+  moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
-    if (this.alignment.moveToNextSegment(token)) {
-      this.store.commit('incrementTokenUpdated')
-      return true
-    }
-    return false
-  }
-
-  moveToPrevSegment (token) {
-    if (!this.checkEditable(token)) { return false }
-
-    if (this.alignment.moveToPrevSegment(token)) {
+    if (this.alignment.moveToSegment(token, direction)) {
       this.store.commit('incrementTokenUpdated')
       return true
     }
