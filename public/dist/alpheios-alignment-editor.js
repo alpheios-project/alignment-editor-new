@@ -162,6 +162,16 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
@@ -41057,6 +41067,22 @@ class TokensEditController {
   isEditableToken (token) {
     return this.alignment.isEditableToken(token)
   }
+
+  allowedMergeLeft (token) {
+    return Boolean(token) && this.alignment.allowedMergeLeft(token)
+  }
+
+  allowedMergeRight (token) {
+    return Boolean(token) && this.alignment.allowedMergeRight(token)
+  }
+
+  allowedSplit (token) {
+    return Boolean(token) && this.alignment.allowedSplit(token)
+  }
+
+  allowedAddLineBreak (token) {
+    return Boolean(token) && this.alignment.allowedAddLineBreak(token)
+  }
 }
 
 TokensEditController.changeType = {
@@ -42653,6 +42679,22 @@ class Alignment {
     return true
   }
 
+  allowedMergeLeft (token) {
+    return Boolean(this.getLeftToken(token))
+  }
+
+  allowedMergeRight (token) {
+    return Boolean(this.getRightToken(token))
+  }
+
+  allowedSplit (token) {
+    return true
+  }
+
+  allowedAddLineBreak (token) {
+    return !token.hasLineBreak
+  }
+
   /**
    * Checks if token could be updated
    * @param {Token} token
@@ -43149,12 +43191,12 @@ class Token {
   merge ({ token, position, newIdWord }) {
     if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.LEFT) {
       this.updateWord({
-        word: `${token.word}${this.word}`,
+        word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
     } else if (position === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.direction.RIGHT) {
       this.updateWord({
-        word: `${this.word}${token.word}`,
+        word: `${this.word} ${token.word}`,
         idWord: newIdWord
       })
     }
@@ -46428,6 +46470,78 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'ActionsButtonTokenEdit',
+  components: {
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    tooltipMess: {
+      type: String,
+      required: true
+    },
+    allowedCondition: {
+      type: Boolean,
+      required: true
+    },
+    actionName: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+
+    tooltipText () {
+      return this.l10n.getMsgS(this.tooltipMess)
+    },
+
+    spanId () {
+      return `alpheios-token-edit-actions-button__${this.actionName.replace(' ', '_')}`
+    }
+  }
+});
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js& ***!
@@ -46452,6 +46566,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+/* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 //
 //
 //
@@ -46489,12 +46604,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -46516,7 +46626,7 @@ __webpack_require__.r(__webpack_exports__);
     mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     enterIcon: (_inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_8__.default
   },
   props: {
     token: {
@@ -46565,6 +46675,18 @@ __webpack_require__.r(__webpack_exports__);
     }, 
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    },
+    allowedMergeLeft () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeLeft(this.token)
+    },
+    allowedMergeRight () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeRight(this.token)
+    },
+    allowedSplit () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
+    },
+    allowedAddLineBreak () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
     }
   },
   methods: {
@@ -47978,6 +48100,47 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/tokens-editor/actions-button-token-edit.vue":
+/*!*********************************************************!*\
+  !*** ./vue/tokens-editor/actions-button-token-edit.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-button-token-edit.vue?vue&type=template&id=5edfbd93& */ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&");
+/* harmony import */ var _actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-button-token-edit.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _actions_button_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions-button-token-edit.vue?vue&type=style&index=0&lang=scss& */ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.render,
+  _actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/tokens-editor/actions-button-token-edit.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/tokens-editor/actions-menu-token-edit.vue":
 /*!*******************************************************!*\
   !*** ./vue/tokens-editor/actions-menu-token-edit.vue ***!
@@ -48438,6 +48601,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************!*\
+  !*** ./vue/tokens-editor/actions-button-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-button-token-edit.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************!*\
   !*** ./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=style&index=0&lang=scss& ***!
@@ -48824,6 +49004,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokenize-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-button-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -49226,6 +49422,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokenize-options-block.vue?vue&type=template&id=40c7ae05& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&");
+
+
+/***/ }),
+
+/***/ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&":
+/*!****************************************************************************************!*\
+  !*** ./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-button-token-edit.vue?vue&type=template&id=5edfbd93& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&");
 
 
 /***/ }),
@@ -51306,6 +51519,74 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    { staticClass: "alpheios-token-edit-actions-button-container" },
+    [
+      _vm.allowedCondition
+        ? _c(
+            "tooltip",
+            {
+              attrs: { tooltipText: _vm.tooltipText, tooltipDirection: "top" }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: { id: _vm.spanId },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("click")
+                    }
+                  }
+                },
+                [_vm._t("enabled")],
+                2
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.allowedCondition
+        ? _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled",
+              attrs: { id: _vm.spanId }
+            },
+            [_vm._t("disabled")],
+            2
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046& ***!
@@ -51344,152 +51625,142 @@ var render = function() {
           staticClass: "alpheios-token-edit-actions-inner"
         },
         [
-          _vm.allowedUpdateTokenWord
-            ? _c(
-                "tooltip",
-                {
-                  attrs: {
-                    tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_UPDATE_TOKEN"),
-                    tooltipDirection: "top"
-                  }
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "alpheios-token-edit-actions-button",
-                      attrs: {
-                        id: "alpheios-token-edit-actions-button__update-token"
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.$emit("updateTokenWord", _vm.token)
-                        }
-                      }
-                    },
-                    [_c("ok-icon")],
-                    1
-                  )
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.allowedUpdateTokenWord
-            ? _c(
-                "span",
-                {
-                  staticClass:
-                    "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__update-token"
-                  }
-                },
-                [_c("ok-icon")],
-                1
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_LEFT"),
-                tooltipDirection: "top"
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_UPDATE_TOKEN",
+              allowedCondition: _vm.allowedUpdateTokenWord,
+              actionName: "update_token"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("updateTokenWord", _vm.token)
               }
             },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__merge-left"
-                  },
-                  on: { click: _vm.mergeToLeft }
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("ok-icon")]
                 },
-                [_c("merge-left-icon")],
-                1
-              )
-            ]
-          ),
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("ok-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
           _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_MERGE_RIGHT"),
-                tooltipDirection: "top"
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_MERGE_LEFT",
+              allowedCondition: _vm.allowedMergeLeft,
+              actionName: "merge_left"
+            },
+            on: { click: _vm.mergeToLeft },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("merge-left-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("merge-left-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_MERGE_RIGHT",
+              allowedCondition: _vm.allowedMergeRight,
+              actionName: "merge_right"
+            },
+            on: { click: _vm.mergeToRight },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("merge-right-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("merge-right-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_SPLIT_TOKEN",
+              allowedCondition: _vm.allowedSplit,
+              actionName: "split"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("splitToken", _vm.token)
               }
             },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__merge-right"
-                  },
-                  on: { click: _vm.mergeToRight }
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("split-icon")]
                 },
-                [_c("merge-right-icon")],
-                1
-              )
-            ]
-          ),
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("split-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
           _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_SPLIT_TOKEN"),
-                tooltipDirection: "top"
+          _c("actions-button", {
+            attrs: {
+              tooltipMess: "ACTION_BUTTON_ADD_LINEBREAK",
+              allowedCondition: _vm.allowedAddLineBreak,
+              actionName: "enter"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("addLineBreak", _vm.token)
               }
             },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: { id: "alpheios-token-edit-actions-button__split" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("splitToken", _vm.token)
-                    }
-                  }
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("enter-icon")]
                 },
-                [_c("split-icon")],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_ADD_LINEBREAK"),
-                tooltipDirection: "top"
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("enter-icon")]
+                },
+                proxy: true
               }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass: "alpheios-token-edit-actions-button",
-                  attrs: {
-                    id: "alpheios-token-edit-actions-button__add_linebreak"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("addLineBreak", _vm.token)
-                    }
-                  }
-                },
-                [_c("enter-icon")],
-                1
-              )
-            ]
-          )
+            ])
+          })
         ],
         1
       )

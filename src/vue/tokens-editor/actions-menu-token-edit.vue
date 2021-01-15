@@ -3,41 +3,35 @@
          :style = "cssStyles"
     >
       <div class="alpheios-token-edit-actions-inner" ref="actionsInner">
-        <tooltip :tooltipText = "l10n.getMsgS('ACTION_BUTTON_UPDATE_TOKEN')" tooltipDirection = "top" v-if="allowedUpdateTokenWord">
-          <span class = "alpheios-token-edit-actions-button" 
-                id = "alpheios-token-edit-actions-button__update-token" 
-                @click = "$emit('updateTokenWord', token)"
-          >
-            <ok-icon />
-          </span>
-        </tooltip>
-        <span class = "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled" v-if="!allowedUpdateTokenWord"
-                id = "alpheios-token-edit-actions-button__update-token" 
-          >
-            <ok-icon />
-        </span>
+        <actions-button tooltipMess = "ACTION_BUTTON_UPDATE_TOKEN" :allowedCondition = "allowedUpdateTokenWord"
+                        actionName = "update_token" @click = "$emit('updateTokenWord', token)">
+          <template v-slot:enabled><ok-icon /></template>
+          <template v-slot:disabled><ok-icon /></template>
+        </actions-button>
 
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_LEFT')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-left" @click="mergeToLeft">
-              <merge-left-icon />
-          </span>
-        </tooltip>
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_RIGHT')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-right" @click="mergeToRight">
-            <merge-right-icon />
-          </span>
-        </tooltip>
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_SPLIT_TOKEN')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__split" @click="$emit('splitToken', token)">
-            <split-icon />
-          </span>
-        </tooltip>
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_LEFT" :allowedCondition = "allowedMergeLeft"
+                        actionName = "merge_left" @click = "mergeToLeft">
+          <template v-slot:enabled><merge-left-icon /></template>
+          <template v-slot:disabled><merge-left-icon /></template>
+        </actions-button>
 
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_ADD_LINEBREAK')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__add_linebreak" @click="$emit('addLineBreak', token)">
-            <enter-icon />
-          </span>
-        </tooltip>
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_RIGHT" :allowedCondition = "allowedMergeRight"
+                        actionName = "merge_right" @click = "mergeToRight">
+          <template v-slot:enabled><merge-right-icon /></template>
+          <template v-slot:disabled><merge-right-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_SPLIT_TOKEN" :allowedCondition = "allowedSplit"
+                        actionName = "split" @click = "$emit('splitToken', token)">
+          <template v-slot:enabled><split-icon /></template>
+          <template v-slot:disabled><split-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_ADD_LINEBREAK" :allowedCondition = "allowedAddLineBreak"
+                        actionName = "enter" @click = "$emit('addLineBreak', token)">
+          <template v-slot:enabled><enter-icon /></template>
+          <template v-slot:disabled><enter-icon /></template>
+        </actions-button>
       </div>
     </div>
 </template>
@@ -53,6 +47,7 @@ import Tooltip from '@/vue/common/tooltip.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import ActionsButtonTokenEdit from '@/vue/tokens-editor/actions-button-token-edit.vue'
 
 export default {
   name: 'ActionsMenuTokenEdit',
@@ -62,7 +57,7 @@ export default {
     mergeLeftIcon: MergeLeftIcon,
     mergeRightIcon: MergeRightIcon,
     enterIcon: EnterIcon,
-    tooltip: Tooltip
+    actionsButton: ActionsButtonTokenEdit
   },
   props: {
     token: {
@@ -111,6 +106,18 @@ export default {
     }, 
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    },
+    allowedMergeLeft () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeLeft(this.token)
+    },
+    allowedMergeRight () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeRight(this.token)
+    },
+    allowedSplit () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
+    },
+    allowedAddLineBreak () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
     }
   },
   methods: {
@@ -131,26 +138,5 @@ export default {
     position: absolute;
     top: -10px;
     z-index: 1000;
-  }
-
-  .alpheios-token-edit-actions-button {
-    display: inline-block;
-    margin: 0 2px;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    border: 1px solid;
-    border-radius: 20px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 20px;
-
-    padding: 3px;
-    svg {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      vertical-align: top;
-    }
   }
 </style>

@@ -807,6 +807,22 @@ export default class Alignment {
     return true
   }
 
+  allowedMergeLeft (token) {
+    return Boolean(this.getLeftToken(token))
+  }
+
+  allowedMergeRight (token) {
+    return Boolean(this.getRightToken(token))
+  }
+
+  allowedSplit (token) {
+    return true
+  }
+
+  allowedAddLineBreak (token) {
+    return !token.hasLineBreak
+  }
+
   /**
    * Checks if token could be updated
    * @param {Token} token

@@ -52,12 +52,12 @@ export default class Token {
   merge ({ token, position, newIdWord }) {
     if (position === TokensEditController.direction.LEFT) {
       this.updateWord({
-        word: `${token.word}${this.word}`,
+        word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
     } else if (position === TokensEditController.direction.RIGHT) {
       this.updateWord({
-        word: `${this.word}${token.word}`,
+        word: `${this.word} ${token.word}`,
         idWord: newIdWord
       })
     }

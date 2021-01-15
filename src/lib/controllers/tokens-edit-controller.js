@@ -123,6 +123,22 @@ export default class TokensEditController {
   isEditableToken (token) {
     return this.alignment.isEditableToken(token)
   }
+
+  allowedMergeLeft (token) {
+    return Boolean(token) && this.alignment.allowedMergeLeft(token)
+  }
+
+  allowedMergeRight (token) {
+    return Boolean(token) && this.alignment.allowedMergeRight(token)
+  }
+
+  allowedSplit (token) {
+    return Boolean(token) && this.alignment.allowedSplit(token)
+  }
+
+  allowedAddLineBreak (token) {
+    return Boolean(token) && this.alignment.allowedAddLineBreak(token)
+  }
 }
 
 TokensEditController.changeType = {

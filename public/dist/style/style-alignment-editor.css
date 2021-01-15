@@ -1145,12 +1145,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-token-edit-not-editable .alpheios-alignment-editor-token-edit__input-width-machine {
   visibility: initial;
 }
-.alpheios-token-edit-actions {
+.alpheios-token-edit-actions-button-container {
   display: inline-block;
-  padding: 0 10px;
-  position: absolute;
-  top: -10px;
-  z-index: 1000;
+  vertical-align: middle;
 }
 .alpheios-token-edit-actions-button {
   display: inline-block;
@@ -1170,6 +1167,13 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   width: 100%;
   height: 100%;
   vertical-align: top;
+}
+.alpheios-token-edit-actions {
+  display: inline-block;
+  padding: 0 10px;
+  position: absolute;
+  top: -10px;
+  z-index: 1000;
 }
 .alpheios-alignment-editor-align-text-segment-edit {
   position: relative;

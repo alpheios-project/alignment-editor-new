@@ -133,7 +133,7 @@ describe('tokens-edit-controller.test.js', () => {
     const result = tokensEC.mergeToken(tokenForMerge1, 'right') // merge first token with the second
 
     expect(result).toBeTruthy()
-    expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.word)).toEqual(['origintext', 'here'])
+    expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.word)).toEqual(['origin text', 'here'])
     expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-1-m-1')
   })
 
