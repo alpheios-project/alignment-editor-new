@@ -81,6 +81,11 @@ export default class TokensEditController {
     return false
   }
 
+  /**
+   * Adds a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   addLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
@@ -91,6 +96,12 @@ export default class TokensEditController {
     return false
   }
 
+  /**
+   * Moves the token to the next/previous segment
+   * @param {Token} token
+   * @param {TokensEditController.direction} direction
+   * @returns {Boolean}
+   */
   moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
@@ -126,26 +137,56 @@ export default class TokensEditController {
     return this.alignment.isEditableToken(token)
   }
 
+  /**
+   * Check if the token could be merged with the previous
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergePrev (token) {
     return Boolean(token) && this.alignment.allowedMergePrev(token)
   }
 
+  /**
+   * Check if the token could be merged with the next
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergeNext (token) {
     return Boolean(token) && this.alignment.allowedMergeNext(token)
   }
 
+  /**
+   * Check if the token could be splitted (for now it is always true)
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedSplit (token) {
     return Boolean(token) && this.alignment.allowedSplit(token)
   }
 
+  /**
+   * Check if a line break could be added after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedAddLineBreak (token) {
     return Boolean(token) && this.alignment.allowedAddLineBreak(token)
   }
 
+  /**
+   * Check if the token could be moved to the next segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToNextSegment (token) {
     return Boolean(token) && this.alignment.allowedToNextSegment(token)
   }
 
+  /**
+   * Check if the token could be moved to the previous segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToPrevSegment (token) {
     return Boolean(token) && this.alignment.allowedToPrevSegment(token)
   }

@@ -41028,6 +41028,11 @@ class TokensEditController {
     return false
   }
 
+  /**
+   * Adds a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   addLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
@@ -41038,6 +41043,12 @@ class TokensEditController {
     return false
   }
 
+  /**
+   * Moves the token to the next/previous segment
+   * @param {Token} token
+   * @param {TokensEditController.direction} direction
+   * @returns {Boolean}
+   */
   moveToSegment (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
@@ -41073,26 +41084,56 @@ class TokensEditController {
     return this.alignment.isEditableToken(token)
   }
 
+  /**
+   * Check if the token could be merged with the previous
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergePrev (token) {
     return Boolean(token) && this.alignment.allowedMergePrev(token)
   }
 
+  /**
+   * Check if the token could be merged with the next
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergeNext (token) {
     return Boolean(token) && this.alignment.allowedMergeNext(token)
   }
 
+  /**
+   * Check if the token could be splitted (for now it is always true)
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedSplit (token) {
     return Boolean(token) && this.alignment.allowedSplit(token)
   }
 
+  /**
+   * Check if a line break could be added after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedAddLineBreak (token) {
     return Boolean(token) && this.alignment.allowedAddLineBreak(token)
   }
 
+  /**
+   * Check if the token could be moved to the next segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToNextSegment (token) {
     return Boolean(token) && this.alignment.allowedToNextSegment(token)
   }
 
+  /**
+   * Check if the token could be moved to the previous segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToPrevSegment (token) {
     return Boolean(token) && this.alignment.allowedToPrevSegment(token)
   }
@@ -42689,6 +42730,11 @@ class Alignment {
     return true
   }
 
+  /**
+   * Adds a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   addLineBreakAfterToken (token) {
     const segment = this.getSegmentByToken(token)
     const alignedText = this.getAlignedTextByToken(token)
@@ -42706,6 +42752,12 @@ class Alignment {
     return true
   }
 
+  /**
+   * Moves the token to the next/previous segment
+   * @param {Token} token
+   * @param {TokensEditController.direction} direction
+   * @returns {Boolean}
+   */
   moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
     const newSegment = (direction === _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.direction.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
@@ -42730,27 +42782,56 @@ class Alignment {
     return true
   }
 
+  /**
+   * Check if the token could be merged with the previous
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergePrev (token) {
-    console.info('allowedMergePrev - ', token)
     return Boolean(this.getPrevToken(token))
   }
 
+  /**
+   * Check if the token could be merged with the next
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergeNext (token) {
     return Boolean(this.getNextToken(token))
   }
 
+  /**
+   * Check if the token could be splitted (for now it is always true)
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedSplit (token) {
     return true
   }
 
+  /**
+   * Check if a line break could be added after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedAddLineBreak (token) {
     return !token.hasLineBreak
   }
 
+  /**
+   * Check if the token could be moved to the next segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToNextSegment (token) {
     return !this.getNextToken(token) && Boolean(this.getNextSegmentByToken(token))
   }
 
+  /**
+   * Check if the token could be moved to the previous segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToPrevSegment (token) {
     return !this.getPrevToken(token) && Boolean(this.getPrevSegmentByToken(token))
   }
@@ -42816,6 +42897,10 @@ class MetadataTerm {
     this.saveValue(value)
   }
 
+  /**
+   * Saves new value to MetadataTerm
+   * @param {String|Array[String]} value - value for metadataItem - single/multivalued
+   */
   saveValue (value) {
     if (!this.property.multivalued) {
       this.value = value
@@ -42831,14 +42916,24 @@ class MetadataTerm {
     }
   }
 
+  /**
+   * @returns {Boolean} - true - is Multivalued, false - otherwise
+   */
   get isMultivalued () {
     return this.property.multivalued
   }
 
+  /**
+   * @returns {String|Array[String]} value - value for metadataItem - single/multivalued
+   */
   getValue () {
     return this.value
   }
 
+  /**
+   * Delete value from the index
+   * @param {Number} valueIndex
+   */
   deleteValueByIndex (valueIndex) {
     if (this.isMultivalued && valueIndex < this.value.length) {
       this.value.splice(valueIndex, 1)
@@ -43020,26 +43115,54 @@ class Segment {
     this.lastTokenWordId = this.tokens[this.tokens.length - 1].idWord
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Number}
+   */
   getTokenIndex (token) {
     return this.tokens.findIndex(tokenCurrent => tokenCurrent.idWord === token.idWord)
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   isFirstTokenInSegment (tokenIndex) {
     return (tokenIndex === 0)
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   isLastTokenInSegment (tokenIndex) {
     return (tokenIndex === (this.tokens.length - 1))
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   getTokenByIndex (tokenIndex) {
     return this.tokens[tokenIndex]
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   deleteToken (tokenIndex) {
     return this.tokens.splice(tokenIndex, 1)
   }
 
+  /**
+     * Creates a new token, inserts token to the index
+   * @param {Number} tokenIndex
+   * @param {String} newIdWord
+   * @param {String} word
+   * @returns {Boolean}
+   */
   addNewToken (tokenIndex, newIdWord, word) {
     const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default({
       textType: this.textType,
@@ -43052,6 +43175,11 @@ class Segment {
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @param {Number} index
+   */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
   }

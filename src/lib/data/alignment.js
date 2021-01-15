@@ -800,6 +800,11 @@ export default class Alignment {
     return true
   }
 
+  /**
+   * Adds a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   addLineBreakAfterToken (token) {
     const segment = this.getSegmentByToken(token)
     const alignedText = this.getAlignedTextByToken(token)
@@ -817,6 +822,12 @@ export default class Alignment {
     return true
   }
 
+  /**
+   * Moves the token to the next/previous segment
+   * @param {Token} token
+   * @param {TokensEditController.direction} direction
+   * @returns {Boolean}
+   */
   moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
     const newSegment = (direction === TokensEditController.direction.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
@@ -841,27 +852,56 @@ export default class Alignment {
     return true
   }
 
+  /**
+   * Check if the token could be merged with the previous
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergePrev (token) {
-    console.info('allowedMergePrev - ', token)
     return Boolean(this.getPrevToken(token))
   }
 
+  /**
+   * Check if the token could be merged with the next
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedMergeNext (token) {
     return Boolean(this.getNextToken(token))
   }
 
+  /**
+   * Check if the token could be splitted (for now it is always true)
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedSplit (token) {
     return true
   }
 
+  /**
+   * Check if a line break could be added after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedAddLineBreak (token) {
     return !token.hasLineBreak
   }
 
+  /**
+   * Check if the token could be moved to the next segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToNextSegment (token) {
     return !this.getNextToken(token) && Boolean(this.getNextSegmentByToken(token))
   }
 
+  /**
+   * Check if the token could be moved to the previous segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
   allowedToPrevSegment (token) {
     return !this.getPrevToken(token) && Boolean(this.getPrevSegmentByToken(token))
   }
