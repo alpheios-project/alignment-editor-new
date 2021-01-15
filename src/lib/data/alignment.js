@@ -791,7 +791,20 @@ export default class Alignment {
   }
 
   addLineBreakAfterToken (token) {
-    return token.addLineBreakAfter()
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.LINE_BREAK
+    })
+
+    token.addLineBreakAfter()
+    token.updateWord({
+      idWord: newIdWord
+    })
+    return true
   }
 
   /**

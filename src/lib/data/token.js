@@ -33,7 +33,9 @@ export default class Token {
    * @param {String} idWord - new idWord
    */
   updateWord ({ word, idWord }) {
-    this.word = word
+    if (word) {
+      this.word = word
+    }
 
     if (idWord) {
       this.idWord = idWord

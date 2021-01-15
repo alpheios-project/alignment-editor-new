@@ -58,6 +58,11 @@
       "message": "The token word should have only one space for split workflow.",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
+    },
+    "TOKENS_EDIT_ALREADY_HAS_LINE_BREAK": {
+      "message": "The token already has a line break.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
     }
 
 }

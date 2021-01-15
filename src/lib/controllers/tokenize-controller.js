@@ -174,7 +174,8 @@ export default class TokenizeController {
     const changeLibrary = {
       [TokensEditController.changeType.SPLIT]: 's',
       [TokensEditController.changeType.MERGE]: 'm',
-      [TokensEditController.changeType.UPDATE]: 'e'
+      [TokensEditController.changeType.UPDATE]: 'e',
+      [TokensEditController.changeType.LINE_BREAK]: 'l'
     }
 
     if (!Object.keys(changeLibrary).includes(changeType)) {

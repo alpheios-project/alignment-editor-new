@@ -84,6 +84,14 @@ export default class TokensEditController {
   addLineBreakAfterToken (token) {
     if (!this.checkEditable(token)) { return false }
 
+    if (token.hasLineBreak) {
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TOKENS_EDIT_ALREADY_HAS_LINE_BREAK'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
+
     if (this.alignment.addLineBreakAfterToken(token)) {
       this.store.commit('incrementTokenUpdated')
       return true
@@ -123,7 +131,9 @@ TokensEditController.changeType = {
   //
   MERGE: 'merge',
   //
-  SPLIT: 'split'
+  SPLIT: 'split',
+  //
+  LINE_BREAK: 'line break'
 }
 
 TokensEditController.direction = {

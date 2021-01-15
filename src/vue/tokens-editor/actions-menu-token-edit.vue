@@ -35,7 +35,7 @@
 
         <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_ADD_LINEBREAK')" tooltipDirection="top">
           <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__add_linebreak" @click="$emit('addLineBreak', token)">
-            <split-icon />
+            <enter-icon />
           </span>
         </tooltip>
       </div>
@@ -46,6 +46,7 @@ import OkIcon from '@/inline-icons/ok.svg'
 import SplitIcon from '@/inline-icons/split.svg'
 import MergeLeftIcon from '@/inline-icons/merge-left.svg'
 import MergeRightIcon from '@/inline-icons/merge-right.svg'
+import EnterIcon from '@/inline-icons/enter.svg'
 
 import Tooltip from '@/vue/common/tooltip.vue'
 
@@ -60,6 +61,7 @@ export default {
     splitIcon: SplitIcon,
     mergeLeftIcon: MergeLeftIcon,
     mergeRightIcon: MergeRightIcon,
+    enterIcon: EnterIcon,
     tooltip: Tooltip
   },
   props: {
