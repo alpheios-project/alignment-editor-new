@@ -61,4 +61,9 @@ export default class Token {
     }
     return true
   }
+
+  addLineBreakAfter () {
+    this.hasLineBreak = true
+    return true
+  }
 }

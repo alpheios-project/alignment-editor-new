@@ -790,6 +790,10 @@ export default class Alignment {
     return true
   }
 
+  addLineBreakAfterToken (token) {
+    return token.addLineBreakAfter()
+  }
+
   /**
    * Checks if token could be updated
    * @param {Token} token

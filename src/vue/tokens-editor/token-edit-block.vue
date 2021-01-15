@@ -65,6 +65,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    addLineBreakIdWord : {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {
@@ -101,7 +106,12 @@ export default {
       if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
         this.splitToken()
       }
-    } 
+    },
+    addLineBreakIdWord () {
+      if (this.activated && (this.addLineBreakIdWord === this.token.idWord)) {
+        this.addLineBreakAfterToken()
+      }
+    }
   },
   mounted () {
     this.tokenWord = this.token.word
@@ -138,6 +148,9 @@ export default {
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+    },
+    addLineBreakAfterToken () {
+      this.$tokensEC.addLineBreakAfterToken(this.token)
     },
     hideActionsMenu () {
       this.activated = false

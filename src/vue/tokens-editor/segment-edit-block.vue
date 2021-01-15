@@ -11,6 +11,7 @@
             @updateTokenWord = "updateTokenWord"
             @mergeToken = "mergeToken"
             @splitToken = "splitToken"
+            @addLineBreak = "addLineBreak"
         />
         <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
@@ -20,12 +21,13 @@
             :mergeTokenLeftIdWord = "mergeTokenLeftIdWord === token.idWord ? mergeTokenLeftIdWord : null"
             :mergeTokenRightIdWord = "mergeTokenRightIdWord === token.idWord ? mergeTokenRightIdWord : null"
             :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
+            :addLineBreakIdWord = "addLineBreakIdWord === token.idWord ? addLineBreakIdWord : null"
 
             @hideActionsMenu = "hideActionsMenu" 
             @showActionsMenu = "showActionsMenu"
             @removeAllActivated = "removeAllActivated"
           />
-          <br v-if="token.hasLineBreak" />
+          <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
         </template>
     </div>
 </template>
@@ -72,7 +74,8 @@ export default {
       updateTokenIdWord: null,
       mergeTokenLeftIdWord: null,
       mergeTokenRightIdWord: null,
-      splitTokenIdWord: null
+      splitTokenIdWord: null,
+      addLineBreakIdWord: null
     }
   },
   watch: {
@@ -182,6 +185,9 @@ export default {
     },
     splitToken (token) {
       this.splitTokenIdWord = token.idWord
+    },
+    addLineBreak (token) {
+      this.addLineBreakIdWord = token.idWord
     }
   }
 

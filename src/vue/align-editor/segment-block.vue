@@ -15,7 +15,7 @@
             :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
             :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
           />
-          <br v-if="token.hasLineBreak" />
+          <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
         </template>
     </div>
 </template>

@@ -34,6 +34,11 @@
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
+    "ACTION_BUTTON_ADD_LINEBREAK": {
+      "message": "Add line break after the token.",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
     "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
       "message": "This token is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",

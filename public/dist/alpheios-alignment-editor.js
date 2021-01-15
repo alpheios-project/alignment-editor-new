@@ -41014,6 +41014,16 @@ class TokensEditController {
     return false
   }
 
+  addLineBreakAfterToken (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.addLineBreakAfterToken(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
   /**
    * Checks if a token could be edited with notification
    * @param {Token} token
@@ -42615,6 +42625,10 @@ class Alignment {
     return true
   }
 
+  addLineBreakAfterToken (token) {
+    return token.addLineBreakAfter()
+  }
+
   /**
    * Checks if token could be updated
    * @param {Token} token
@@ -43118,6 +43132,11 @@ class Token {
         idWord: newIdWord
       })
     }
+    return true
+  }
+
+  addLineBreakAfter () {
+    this.hasLineBreak = true
     return true
   }
 }
@@ -46442,6 +46461,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -46718,6 +46743,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -46761,7 +46788,8 @@ __webpack_require__.r(__webpack_exports__);
       updateTokenIdWord: null,
       mergeTokenLeftIdWord: null,
       mergeTokenRightIdWord: null,
-      splitTokenIdWord: null
+      splitTokenIdWord: null,
+      addLineBreakIdWord: null
     }
   },
   watch: {
@@ -46871,6 +46899,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     splitToken (token) {
       this.splitTokenIdWord = token.idWord
+    },
+    addLineBreak (token) {
+      this.addLineBreakIdWord = token.idWord
     }
   }
 
@@ -46961,6 +46992,11 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: false,
       default: null
+    },
+    addLineBreakIdWord : {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {
@@ -46997,7 +47033,12 @@ __webpack_require__.r(__webpack_exports__);
       if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
         this.splitToken()
       }
-    } 
+    },
+    addLineBreakIdWord () {
+      if (this.activated && (this.addLineBreakIdWord === this.token.idWord)) {
+        this.addLineBreakAfterToken()
+      }
+    }
   },
   mounted () {
     this.tokenWord = this.token.word
@@ -47034,6 +47075,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+    },
+    addLineBreakAfterToken () {
+      this.$tokensEC.addLineBreakAfterToken(this.token)
     },
     hideActionsMenu () {
       this.activated = false
@@ -49467,7 +49511,9 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          token.hasLineBreak ? _c("br") : _vm._e()
+          _vm.$store.state.tokenUpdated && token.hasLineBreak
+            ? _c("br")
+            : _vm._e()
         ]
       })
     ],
@@ -51385,6 +51431,34 @@ var render = function() {
                 1
               )
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ACTION_BUTTON_ADD_LINEBREAK"),
+                tooltipDirection: "top"
+              }
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-token-edit-actions-button",
+                  attrs: {
+                    id: "alpheios-token-edit-actions-button__add_linebreak"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("addLineBreak", _vm.token)
+                    }
+                  }
+                },
+                [_c("split-icon")],
+                1
+              )
+            ]
           )
         ],
         1
@@ -51546,7 +51620,8 @@ var render = function() {
         on: {
           updateTokenWord: _vm.updateTokenWord,
           mergeToken: _vm.mergeToken,
-          splitToken: _vm.splitToken
+          splitToken: _vm.splitToken,
+          addLineBreak: _vm.addLineBreak
         }
       }),
       _vm._v(" "),
@@ -51573,6 +51648,10 @@ var render = function() {
                   splitTokenIdWord:
                     _vm.splitTokenIdWord === token.idWord
                       ? _vm.splitTokenIdWord
+                      : null,
+                  addLineBreakIdWord:
+                    _vm.addLineBreakIdWord === token.idWord
+                      ? _vm.addLineBreakIdWord
                       : null
                 },
                 on: {
@@ -51583,7 +51662,9 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          token.hasLineBreak ? _c("br") : _vm._e()
+          _vm.$store.state.tokenUpdated && token.hasLineBreak
+            ? _c("br")
+            : _vm._e()
         ]
       })
     ],
@@ -52126,7 +52207,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
 
 /***/ }),
 

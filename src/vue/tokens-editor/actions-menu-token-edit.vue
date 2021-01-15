@@ -32,6 +32,12 @@
             <split-icon />
           </span>
         </tooltip>
+
+        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_ADD_LINEBREAK')" tooltipDirection="top">
+          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__add_linebreak" @click="$emit('addLineBreak', token)">
+            <split-icon />
+          </span>
+        </tooltip>
       </div>
     </div>
 </template>

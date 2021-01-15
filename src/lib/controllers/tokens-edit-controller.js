@@ -81,6 +81,16 @@ export default class TokensEditController {
     return false
   }
 
+  addLineBreakAfterToken (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.addLineBreakAfterToken(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
   /**
    * Checks if a token could be edited with notification
    * @param {Token} token
