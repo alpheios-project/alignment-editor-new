@@ -20,26 +20,54 @@ export default class Segment {
     this.lastTokenWordId = this.tokens[this.tokens.length - 1].idWord
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @returns {Number}
+   */
   getTokenIndex (token) {
     return this.tokens.findIndex(tokenCurrent => tokenCurrent.idWord === token.idWord)
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   isFirstTokenInSegment (tokenIndex) {
     return (tokenIndex === 0)
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   isLastTokenInSegment (tokenIndex) {
     return (tokenIndex === (this.tokens.length - 1))
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   getTokenByIndex (tokenIndex) {
     return this.tokens[tokenIndex]
   }
 
+  /**
+   * @param {Number} tokenIndex
+   * @returns {Boolean}
+   */
   deleteToken (tokenIndex) {
     return this.tokens.splice(tokenIndex, 1)
   }
 
+  /**
+     * Creates a new token, inserts token to the index
+   * @param {Number} tokenIndex
+   * @param {String} newIdWord
+   * @param {String} word
+   * @returns {Boolean}
+   */
   addNewToken (tokenIndex, newIdWord, word) {
     const newToken = new Token({
       textType: this.textType,
@@ -50,5 +78,14 @@ export default class Segment {
     this.lastTokenWordId = newIdWord
 
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
+  }
+
+  /**
+   *
+   * @param {Token} token
+   * @param {Number} index
+   */
+  insertToken (token, index) {
+    return this.tokens.splice(index, 0, token)
   }
 }

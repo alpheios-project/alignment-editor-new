@@ -34,7 +34,7 @@ import SegmentEditBlock from '@/vue/tokens-editor/segment-edit-block.vue'
 import EditorTabs from '@/vue/common/editor-tabs.vue'
 
 export default {
-  name: 'AlignEditorEditMode',
+  name: 'TokensEditorInnerBlock',
   components: {
     segmentEditBlock: SegmentEditBlock,
     editorTabs: EditorTabs

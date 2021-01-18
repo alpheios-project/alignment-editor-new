@@ -663,7 +663,7 @@ export default class Alignment {
       changeType: TokensEditController.changeType.UPDATE
     })
 
-    return token.updateWord({ word, idWord: newIdWord })
+    return token.update({ word, idWord: newIdWord })
   }
 
   /**
@@ -672,7 +672,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditController.direction.LEFT) ? this.getLeftToken(token) : this.getRightToken(token)
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditController.direction.PREV) ? this.getPrevToken(token) : this.getNextToken(token)
 
     if (!this.isEditableToken(tokenMergeTo)) {
       NotificationSingleton.addNotification({
@@ -701,9 +701,9 @@ export default class Alignment {
   getAlignedTextByToken (token) {
     let alignedText
     if (token.textType === 'origin') {
-      alignedText = this[token.textType].alignedText
+      alignedText = this.origin.alignedText
     } else {
-      alignedText = this[token.textType][token.docSourceId].alignedText
+      alignedText = this.targets[token.docSourceId].alignedText
     }
     return alignedText
   }
@@ -717,11 +717,21 @@ export default class Alignment {
     return alignedText.segments[token.segmentIndex - 1]
   }
 
+  getNextSegmentByToken (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : null
+  }
+
+  getPrevSegmentByToken (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : null
+  }
+
   /**
    * @param {Token} token
    * @returns {Token} - token on the left hand in the segment
    */
-  getLeftToken (token) {
+  getPrevToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
@@ -729,18 +739,18 @@ export default class Alignment {
       return {
         segment,
         tokenIndex,
-        position: TokensEditController.direction.RIGHT,
+        position: TokensEditController.direction.NEXT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
-    return false
+    return null
   }
 
   /**
    * @param {Token} token
    * @returns {Token} - token on the right hand in the segment
    */
-  getRightToken (token) {
+  getNextToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
@@ -748,11 +758,11 @@ export default class Alignment {
       return {
         segment,
         tokenIndex,
-        position: TokensEditController.direction.LEFT,
+        position: TokensEditController.direction.PREV,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
-    return false
+    return null
   }
 
   /**
@@ -781,13 +791,151 @@ export default class Alignment {
 
     const tokenWordParts = tokenWord.split(' ')
 
-    token.updateWord({
+    token.update({
       word: tokenWordParts[0],
       idWord: newIdWord1
     })
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
+  }
+
+  /**
+   * Adds a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  addLineBreakAfterToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.ADD_LINE_BREAK
+    })
+
+    token.addLineBreakAfter()
+    token.update({
+      idWord: newIdWord
+    })
+    return true
+  }
+
+  /**
+   * Removes a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  removeLineBreakAfterToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.REMOVE_LINE_BREAK
+    })
+
+    token.removeLineBreakAfter()
+    token.update({
+      idWord: newIdWord
+    })
+
+    return true
+  }
+
+  /**
+   * Moves the token to the next/previous segment
+   * @param {Token} token
+   * @param {TokensEditController.direction} direction
+   * @returns {Boolean}
+   */
+  moveToSegment (token, direction) {
+    const segment = this.getSegmentByToken(token)
+    const newSegment = (direction === TokensEditController.direction.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
+
+    const tokenIndex = segment.getTokenIndex(token)
+    segment.deleteToken(tokenIndex)
+
+    const alignedText = this.getAlignedTextByToken(token)
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment: newSegment,
+      changeType: (direction === TokensEditController.direction.PREV) ? TokensEditController.changeType.TO_PREV_SEGMENT : TokensEditController.changeType.TO_NEXT_SEGMENT
+    })
+
+    token.update({
+      idWord: newIdWord,
+      segmentIndex: newSegment.index
+    })
+
+    const insertPosition = (direction === TokensEditController.direction.PREV) ? newSegment.tokens.length : 0
+    newSegment.insertToken(token, insertPosition)
+    return true
+  }
+
+  /**
+   * Check if the token could be merged with the previous
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedMergePrev (token) {
+    return Boolean(this.getPrevToken(token))
+  }
+
+  /**
+   * Check if the token could be merged with the next
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedMergeNext (token) {
+    return Boolean(this.getNextToken(token))
+  }
+
+  /**
+   * Check if the token could be splitted (for now it is always true)
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedSplit (token) {
+    return token.word.length > 1
+  }
+
+  /**
+   * Check if a line break could be added after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedAddLineBreak (token) {
+    return !token.hasLineBreak
+  }
+
+  /**
+   * Check if a line break could be removed after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedRemoveLineBreak (token) {
+    return Boolean(token.hasLineBreak)
+  }
+
+  /**
+   * Check if the token could be moved to the next segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedToNextSegment (token) {
+    return !this.getNextToken(token) && Boolean(this.getNextSegmentByToken(token))
+  }
+
+  /**
+   * Check if the token could be moved to the previous segment
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedToPrevSegment (token) {
+    return !this.getPrevToken(token) && Boolean(this.getPrevSegmentByToken(token))
   }
 
   /**

@@ -4,6 +4,10 @@ export default class MetadataTerm {
     this.saveValue(value)
   }
 
+  /**
+   * Saves new value to MetadataTerm
+   * @param {String|Array[String]} value - value for metadataItem - single/multivalued
+   */
   saveValue (value) {
     if (!this.property.multivalued) {
       this.value = value
@@ -19,14 +23,24 @@ export default class MetadataTerm {
     }
   }
 
+  /**
+   * @returns {Boolean} - true - is Multivalued, false - otherwise
+   */
   get isMultivalued () {
     return this.property.multivalued
   }
 
+  /**
+   * @returns {String|Array[String]} value - value for metadataItem - single/multivalued
+   */
   getValue () {
     return this.value
   }
 
+  /**
+   * Delete value from the index
+   * @param {Number} valueIndex
+   */
   deleteValueByIndex (valueIndex) {
     if (this.isMultivalued && valueIndex < this.value.length) {
       this.value.splice(valueIndex, 1)

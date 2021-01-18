@@ -51,17 +51,27 @@ export default {
       required: false,
       default: null
     },
-    mergeTokenLeftIdWord : {
+    mergeTokenPrevIdWord : {
       type: String,
       required: false,
       default: null
     },
-    mergeTokenRightIdWord : {
+    mergeTokenNextIdWord : {
       type: String,
       required: false,
       default: null
     },
     splitTokenIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    addLineBreakIdWord : {
+      type: String,
+      required: false,
+      default: null
+    },
+    removeLineBreakIdWord : {
       type: String,
       required: false,
       default: null
@@ -87,21 +97,31 @@ export default {
         this.updateTokenWord()
       }
     },
-    mergeTokenLeftIdWord () {
-      if (this.activated && (this.mergeTokenLeftIdWord === this.token.idWord)) {
-        this.mergeToken(TokensEditController.direction.LEFT)
+    mergeTokenPrevIdWord () {
+      if (this.activated && (this.mergeTokenPrevIdWord === this.token.idWord)) {
+        this.mergeToken(TokensEditController.direction.PREV)
       }
     },
-    mergeTokenRightIdWord () {
-      if (this.activated && (this.mergeTokenRightIdWord === this.token.idWord)) {
-        this.mergeToken(TokensEditController.direction.RIGHT)
+    mergeTokenNextIdWord () {
+      if (this.activated && (this.mergeTokenNextIdWord === this.token.idWord)) {
+        this.mergeToken(TokensEditController.direction.NEXT)
       }
     },
     splitTokenIdWord () {
       if (this.activated && (this.splitTokenIdWord === this.token.idWord)) {
         this.splitToken()
       }
-    } 
+    },
+    addLineBreakIdWord () {
+      if (this.activated && (this.addLineBreakIdWord === this.token.idWord)) {
+        this.addLineBreakAfterToken()
+      }
+    },
+    removeLineBreakIdWord () {
+      if (this.activated && (this.removeLineBreakIdWord === this.token.idWord)) {
+        this.removeLineBreakAfterToken()
+      }
+    }
   },
   mounted () {
     this.tokenWord = this.token.word
@@ -138,6 +158,12 @@ export default {
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+    },
+    addLineBreakAfterToken () {
+      this.$tokensEC.addLineBreakAfterToken(this.token)
+    },
+    removeLineBreakAfterToken () {
+      this.$tokensEC.removeLineBreakAfterToken(this.token)
     },
     hideActionsMenu () {
       this.activated = false

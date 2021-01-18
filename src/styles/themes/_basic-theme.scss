@@ -53,6 +53,7 @@
         background: map.get($theme, 'main-menu-background-color');
         svg {
           fill: map.get($theme, 'main-menu-text-color');
+          stroke: map.get($theme, 'main-menu-text-color');
         }
 
         &:hover {
@@ -60,6 +61,7 @@
             background: map.get($theme, 'main-menu-background-color-hover');
             svg {
               fill: map.get($theme, 'main-menu-text-color-hover');
+              stroke: map.get($theme, 'main-menu-text-color-hover');
             }
         }
 
@@ -68,6 +70,7 @@
             background: map.get($theme, 'main-menu-background-color-disabled');
             svg {
               fill: map.get($theme, 'main-menu-text-color-disabled');
+              stroke: map.get($theme, 'main-menu-text-color-disabled');
             }
         }
     }

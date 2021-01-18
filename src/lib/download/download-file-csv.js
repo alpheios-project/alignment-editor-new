@@ -1,4 +1,4 @@
-const idForButton = 'alpheios-alignment-app-container'
+const idForButton = 'alpheios-alignment-editor-app-container'
 
 export default class DownloadFileCSV {
   static collectionToCSV (delimiter, keys = [], withHeaders = true) {

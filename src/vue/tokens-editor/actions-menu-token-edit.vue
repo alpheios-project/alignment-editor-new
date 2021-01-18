@@ -3,58 +3,87 @@
          :style = "cssStyles"
     >
       <div class="alpheios-token-edit-actions-inner" ref="actionsInner">
-        <tooltip :tooltipText = "l10n.getMsgS('ACTION_BUTTON_UPDATE_TOKEN')" tooltipDirection = "top" v-if="allowedUpdateTokenWord">
-          <span class = "alpheios-token-edit-actions-button" 
-                id = "alpheios-token-edit-actions-button__update-token" 
-                @click = "$emit('updateTokenWord', token)"
-          >
-            <ok-icon />
-          </span>
-        </tooltip>
-        <span class = "alpheios-token-edit-actions-button alpheios-token-edit-actions-button__disabled" v-if="!allowedUpdateTokenWord"
-                id = "alpheios-token-edit-actions-button__update-token" 
-          >
-            <ok-icon />
-        </span>
+        <actions-button tooltipMess = "ACTION_BUTTON_UPDATE_TOKEN" :allowedCondition = "allowedUpdateTokenWord"
+                        actionName = "update_token" @click = "$emit('updateTokenWord', token)">
+          <template v-slot:enabled><pen-icon /></template>
+          <template v-slot:disabled><pen-icon /></template>
+        </actions-button>
 
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_LEFT')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-left" @click="mergeToLeft">
-              <merge-left-icon />
-          </span>
-        </tooltip>
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_MERGE_RIGHT')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__merge-right" @click="mergeToRight">
-            <merge-right-icon />
-          </span>
-        </tooltip>
-        <tooltip :tooltipText="l10n.getMsgS('ACTION_BUTTON_SPLIT_TOKEN')" tooltipDirection="top">
-          <span class="alpheios-token-edit-actions-button" id="alpheios-token-edit-actions-button__split" @click="$emit('splitToken', token)">
-            <split-icon />
-          </span>
-        </tooltip>
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_LEFT" :allowedCondition = "allowedMergePrev"
+                        actionName = "merge_left" @click = "mergeToPrev">
+          <template v-slot:enabled><merge-left-icon /></template>
+          <template v-slot:disabled><merge-left-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_MERGE_RIGHT" :allowedCondition = "allowedMergeNext"
+                        actionName = "merge_right" @click = "mergeToNext">
+          <template v-slot:enabled><merge-right-icon /></template>
+          <template v-slot:disabled><merge-right-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_SPLIT_TOKEN" :allowedCondition = "allowedSplit"
+                        actionName = "split" @click = "$emit('splitToken', token)">
+          <template v-slot:enabled><split-icon /></template>
+          <template v-slot:disabled><split-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_ADD_LINEBREAK" :allowedCondition = "allowedAddLineBreak"
+                        actionName = "enter" @click = "$emit('addLineBreak', token)">
+          <template v-slot:enabled><enter-icon /></template>
+          <template v-slot:disabled><enter-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_REMOVE_LINEBREAK" :allowedCondition = "allowedRemoveLineBreak"
+                        actionName = "remove_enter" @click = "$emit('removeLineBreak', token)">
+          <template v-slot:enabled><remove-enter-icon /></template>
+          <template v-slot:disabled><remove-enter-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_TO_PREV_SEGMENT" :allowedCondition = "allowedToPrevSegment"
+                        actionName = "move_to_prev_segment" @click = "$emit('moveToPrevSegment', token)">
+          <template v-slot:enabled><prev-icon /></template>
+          <template v-slot:disabled><prev-icon /></template>
+        </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_TO_NEXT_SEGMENT" :allowedCondition = "allowedToNextSegment"
+                        actionName = "move_to_next_segment" @click = "$emit('moveToNextSegment', token)">
+          <template v-slot:enabled><next-icon /></template>
+          <template v-slot:disabled><next-icon /></template>
+        </actions-button>
       </div>
     </div>
 </template>
 <script>
-import OkIcon from '@/inline-icons/ok.svg'
+import PenIcon from '@/inline-icons/pen.svg'
 import SplitIcon from '@/inline-icons/split.svg'
 import MergeLeftIcon from '@/inline-icons/merge-left.svg'
 import MergeRightIcon from '@/inline-icons/merge-right.svg'
+
+import EnterIcon from '@/inline-icons/enter.svg'
+import RemoveEnterIcon from '@/inline-icons/remove-enter.svg'
+
+import NextIcon from '@/inline-icons/next.svg'
+import PrevIcon from '@/inline-icons/prev.svg'
 
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import ActionsButtonTokenEdit from '@/vue/tokens-editor/actions-button-token-edit.vue'
 
 export default {
   name: 'ActionsMenuTokenEdit',
   components: {
-    okIcon: OkIcon,
+    penIcon: PenIcon,
     splitIcon: SplitIcon,
     mergeLeftIcon: MergeLeftIcon,
     mergeRightIcon: MergeRightIcon,
-    tooltip: Tooltip
+    enterIcon: EnterIcon,
+    removeEnterIcon: RemoveEnterIcon,
+    nextIcon: NextIcon,
+    prevIcon: PrevIcon,
+    actionsButton: ActionsButtonTokenEdit
   },
   props: {
     token: {
@@ -103,14 +132,35 @@ export default {
     }, 
     allowedUpdateTokenWord () {
       return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+    },
+    allowedMergePrev () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergePrev(this.token)
+    },
+    allowedMergeNext () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedMergeNext(this.token)
+    },
+    allowedSplit () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedSplit(this.token)
+    },
+    allowedAddLineBreak () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
+    },
+    allowedRemoveLineBreak () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedRemoveLineBreak(this.token)
+    },
+    allowedToNextSegment () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedToNextSegment(this.token)
+    },
+    allowedToPrevSegment () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedToPrevSegment(this.token)
     }
   },
   methods: {
-    mergeToLeft () {
-      this.$emit('mergeToken', this.token, TokensEditController.direction.LEFT)
+    mergeToPrev () {
+      this.$emit('mergeToken', this.token, TokensEditController.direction.PREV)
     },
-    mergeToRight () {
-      this.$emit('mergeToken', this.token, TokensEditController.direction.RIGHT)
+    mergeToNext () {
+      this.$emit('mergeToken', this.token, TokensEditController.direction.NEXT)
     }
   }
 }
@@ -123,26 +173,5 @@ export default {
     position: absolute;
     top: -10px;
     z-index: 1000;
-  }
-
-  .alpheios-token-edit-actions-button {
-    display: inline-block;
-    margin: 0 2px;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    border: 1px solid;
-    border-radius: 20px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 20px;
-
-    padding: 3px;
-    svg {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      vertical-align: top;
-    }
   }
 </style>

@@ -32,12 +32,23 @@ export default class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  updateWord ({ word, idWord }) {
-    this.word = word
+  update ({ word, idWord, segmentIndex, hasLineBreak }) {
+    if (word !== undefined) {
+      this.word = word
+    }
 
-    if (idWord) {
+    if (idWord !== undefined) {
       this.idWord = idWord
     }
+
+    if (segmentIndex !== undefined) {
+      this.segmentIndex = segmentIndex
+    }
+
+    if (hasLineBreak !== undefined) {
+      this.hasLineBreak = hasLineBreak
+    }
+
     return true
   }
 
@@ -48,17 +59,25 @@ export default class Token {
    * @param {String} newIdWord
    */
   merge ({ token, position, newIdWord }) {
-    if (position === TokensEditController.direction.LEFT) {
-      this.updateWord({
-        word: `${token.word}${this.word}`,
+    if (position === TokensEditController.direction.PREV) {
+      this.update({
+        word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
-    } else if (position === TokensEditController.direction.RIGHT) {
-      this.updateWord({
-        word: `${this.word}${token.word}`,
+    } else if (position === TokensEditController.direction.NEXT) {
+      this.update({
+        word: `${this.word} ${token.word}`,
         idWord: newIdWord
       })
     }
     return true
+  }
+
+  addLineBreakAfter () {
+    return this.update({ hasLineBreak: true })
+  }
+
+  removeLineBreakAfter () {
+    return this.update({ hasLineBreak: false })
   }
 }

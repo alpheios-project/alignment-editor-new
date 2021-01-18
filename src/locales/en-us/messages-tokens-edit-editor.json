@@ -34,6 +34,16 @@
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
+    "ACTION_BUTTON_ADD_LINEBREAK": {
+      "message": "Add line break after the token.",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
+    "ACTION_BUTTON_REMOVE_LINEBREAK": {
+      "message": "Remove line break after the token.",
+      "description": "A label for action menu buttons",
+      "component": "ActionsMenuTokenEdit"
+    },
     "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
       "message": "This token is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",
@@ -51,6 +61,21 @@
     },
     "TOKENS_EDIT_SPLIT_SEVERAL_SPACES": {
       "message": "The token word should have only one space for split workflow.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
+    },
+    "TOKENS_EDIT_ALREADY_HAS_LINE_BREAK": {
+      "message": "The token already has a line break.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
+    },
+    "ACTION_BUTTON_TO_NEXT_SEGMENT": {
+      "message": "Move the token to the next segment.",
+      "description": "An error message for token edit workflow",
+      "component": "TokensEditController"
+    },
+    "ACTION_BUTTON_TO_PREV_SEGMENT": {
+      "message": "Move the token to the previous segment.",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
     }

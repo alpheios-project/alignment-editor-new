@@ -6,21 +6,21 @@
       </h2>
     </div>
 
-    <align-editor-tokens-edit-mode v-show="showTokensEditBlocks" v-if="showAlignEditor"/>
+    <tokens-editor-inner-block v-show="showTokensEditBlocks" v-if="showAlignEditor"/>
     
   </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
 
-import AlignEditorTokensEditMode from '@/vue/tokens-editor/align-editor-tokens-edit-mode.vue'
+import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
-  name: 'AlignEditor',
+  name: 'TokensEditor',
   components: {
-    alignEditorTokensEditMode: AlignEditorTokensEditMode
+    TokensEditorInnerBlock: TokensEditInnerBlock
   },
   props: {
   },
