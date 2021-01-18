@@ -33,6 +33,12 @@
           <template v-slot:disabled><enter-icon /></template>
         </actions-button>
 
+        <actions-button tooltipMess = "ACTION_BUTTON_REMOVE_LINEBREAK" :allowedCondition = "allowedRemoveLineBreak"
+                        actionName = "remove_enter" @click = "$emit('removeLineBreak', token)">
+          <template v-slot:enabled><remove-enter-icon /></template>
+          <template v-slot:disabled><remove-enter-icon /></template>
+        </actions-button>
+
         <actions-button tooltipMess = "ACTION_BUTTON_TO_PREV_SEGMENT" :allowedCondition = "allowedToPrevSegment"
                         actionName = "move_to_prev_segment" @click = "$emit('moveToPrevSegment', token)">
           <template v-slot:enabled><prev-icon /></template>
@@ -52,7 +58,9 @@ import PenIcon from '@/inline-icons/pen.svg'
 import SplitIcon from '@/inline-icons/split.svg'
 import MergeLeftIcon from '@/inline-icons/merge-left.svg'
 import MergeRightIcon from '@/inline-icons/merge-right.svg'
+
 import EnterIcon from '@/inline-icons/enter.svg'
+import RemoveEnterIcon from '@/inline-icons/remove-enter.svg'
 
 import NextIcon from '@/inline-icons/next.svg'
 import PrevIcon from '@/inline-icons/prev.svg'
@@ -72,6 +80,7 @@ export default {
     mergeLeftIcon: MergeLeftIcon,
     mergeRightIcon: MergeRightIcon,
     enterIcon: EnterIcon,
+    removeEnterIcon: RemoveEnterIcon,
     nextIcon: NextIcon,
     prevIcon: PrevIcon,
     actionsButton: ActionsButtonTokenEdit
@@ -135,6 +144,9 @@ export default {
     },
     allowedAddLineBreak () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
+    },
+    allowedRemoveLineBreak () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedRemoveLineBreak(this.token)
     },
     allowedToNextSegment () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedToNextSegment(this.token)

@@ -70,6 +70,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    removeLineBreakIdWord : {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {
@@ -111,6 +116,11 @@ export default {
       if (this.activated && (this.addLineBreakIdWord === this.token.idWord)) {
         this.addLineBreakAfterToken()
       }
+    },
+    removeLineBreakIdWord () {
+      if (this.activated && (this.removeLineBreakIdWord === this.token.idWord)) {
+        this.removeLineBreakAfterToken()
+      }
     }
   },
   mounted () {
@@ -151,6 +161,9 @@ export default {
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)
+    },
+    removeLineBreakAfterToken () {
+      this.$tokensEC.removeLineBreakAfterToken(this.token)
     },
     hideActionsMenu () {
       this.activated = false

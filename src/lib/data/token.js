@@ -76,4 +76,8 @@ export default class Token {
   addLineBreakAfter () {
     return this.update({ hasLineBreak: true })
   }
+
+  removeLineBreakAfter () {
+    return this.update({ hasLineBreak: false })
+  }
 }

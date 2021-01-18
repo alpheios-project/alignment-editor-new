@@ -175,7 +175,8 @@ export default class TokenizeController {
       [TokensEditController.changeType.SPLIT]: 's',
       [TokensEditController.changeType.MERGE]: 'm',
       [TokensEditController.changeType.UPDATE]: 'e',
-      [TokensEditController.changeType.LINE_BREAK]: 'l',
+      [TokensEditController.changeType.ADD_LINE_BREAK]: 'a',
+      [TokensEditController.changeType.REMOVE_LINE_BREAK]: 'r',
       [TokensEditController.changeType.TO_NEXT_SEGMENT]: 'n',
       [TokensEditController.changeType.TO_PREV_SEGMENT]: 'p'
 

@@ -812,13 +812,36 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditController.changeType.LINE_BREAK
+      changeType: TokensEditController.changeType.ADD_LINE_BREAK
     })
 
     token.addLineBreakAfter()
     token.update({
       idWord: newIdWord
     })
+    return true
+  }
+
+  /**
+   * Removes a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  removeLineBreakAfterToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: TokensEditController.changeType.REMOVE_LINE_BREAK
+    })
+
+    token.removeLineBreakAfter()
+    token.update({
+      idWord: newIdWord
+    })
+
     return true
   }
 
@@ -876,7 +899,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   allowedSplit (token) {
-    return true
+    return token.word.length > 1
   }
 
   /**
@@ -886,6 +909,15 @@ export default class Alignment {
    */
   allowedAddLineBreak (token) {
     return !token.hasLineBreak
+  }
+
+  /**
+   * Check if a line break could be removed after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedRemoveLineBreak (token) {
+    return Boolean(token.hasLineBreak)
   }
 
   /**

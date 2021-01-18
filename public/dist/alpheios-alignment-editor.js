@@ -40902,7 +40902,8 @@ class TokenizeController {
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.SPLIT]: 's',
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.MERGE]: 'm',
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.UPDATE]: 'e',
-      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.LINE_BREAK]: 'l',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.ADD_LINE_BREAK]: 'a',
+      [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.REMOVE_LINE_BREAK]: 'r',
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.TO_NEXT_SEGMENT]: 'n',
       [_lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.changeType.TO_PREV_SEGMENT]: 'p'
 
@@ -41044,6 +41045,21 @@ class TokensEditController {
   }
 
   /**
+   * Removes a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  removeLineBreakAfterToken (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.removeLineBreakAfterToken(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  /**
    * Moves the token to the next/previous segment
    * @param {Token} token
    * @param {TokensEditController.direction} direction
@@ -41121,6 +41137,15 @@ class TokensEditController {
   }
 
   /**
+   * Check if a line break could be removed after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedRemoveLineBreak (token) {
+    return Boolean(token) && this.alignment.allowedRemoveLineBreak(token)
+  }
+
+  /**
    * Check if the token could be moved to the next segment
    * @param {Token} token
    * @returns {Boolean}
@@ -41147,7 +41172,9 @@ TokensEditController.changeType = {
   //
   SPLIT: 'split',
   //
-  LINE_BREAK: 'line break',
+  ADD_LINE_BREAK: 'add line break',
+  //
+  REMOVE_LINE_BREAK: 'remove line break',
   //
   TO_NEXT_SEGMENT: 'to next segment',
   //
@@ -42742,13 +42769,36 @@ class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.LINE_BREAK
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.ADD_LINE_BREAK
     })
 
     token.addLineBreakAfter()
     token.update({
       idWord: newIdWord
     })
+    return true
+  }
+
+  /**
+   * Removes a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  removeLineBreakAfterToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const alignedText = this.getAlignedTextByToken(token)
+
+    const newIdWord = alignedText.getNewIdWord({
+      token,
+      segment,
+      changeType: _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.changeType.REMOVE_LINE_BREAK
+    })
+
+    token.removeLineBreakAfter()
+    token.update({
+      idWord: newIdWord
+    })
+
     return true
   }
 
@@ -42806,7 +42856,7 @@ class Alignment {
    * @returns {Boolean}
    */
   allowedSplit (token) {
-    return true
+    return token.word.length > 1
   }
 
   /**
@@ -42816,6 +42866,15 @@ class Alignment {
    */
   allowedAddLineBreak (token) {
     return !token.hasLineBreak
+  }
+
+  /**
+   * Check if a line break could be removed after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedRemoveLineBreak (token) {
+    return Boolean(token.hasLineBreak)
   }
 
   /**
@@ -43406,6 +43465,10 @@ class Token {
 
   addLineBreakAfter () {
     return this.update({ hasLineBreak: true })
+  }
+
+  removeLineBreakAfter () {
+    return this.update({ hasLineBreak: false })
   }
 }
 
@@ -46763,14 +46826,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/enter.svg */ "./inline-icons/enter.svg");
 /* harmony import */ var _inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/next.svg */ "./inline-icons/next.svg");
-/* harmony import */ var _inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/inline-icons/prev.svg */ "./inline-icons/prev.svg");
-/* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
-/* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
+/* harmony import */ var _inline_icons_remove_enter_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/remove-enter.svg */ "./inline-icons/remove-enter.svg");
+/* harmony import */ var _inline_icons_remove_enter_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_remove_enter_svg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/inline-icons/next.svg */ "./inline-icons/next.svg");
+/* harmony import */ var _inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/inline-icons/prev.svg */ "./inline-icons/prev.svg");
+/* harmony import */ var _inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+/* harmony import */ var _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/tokens-editor/actions-button-token-edit.vue */ "./vue/tokens-editor/actions-button-token-edit.vue");
 //
 //
 //
@@ -46820,6 +46885,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -46845,9 +46918,10 @@ __webpack_require__.r(__webpack_exports__);
     mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     enterIcon: (_inline_icons_enter_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    nextIcon: (_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_5___default()),
-    prevIcon: (_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_6___default()),
-    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_10__.default
+    removeEnterIcon: (_inline_icons_remove_enter_svg__WEBPACK_IMPORTED_MODULE_5___default()),
+    nextIcon: (_inline_icons_next_svg__WEBPACK_IMPORTED_MODULE_6___default()),
+    prevIcon: (_inline_icons_prev_svg__WEBPACK_IMPORTED_MODULE_7___default()),
+    actionsButton: _vue_tokens_editor_actions_button_token_edit_vue__WEBPACK_IMPORTED_MODULE_11__.default
   },
   props: {
     token: {
@@ -46876,7 +46950,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__.default
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__.default
     },
     cssStyles () {
       const  top = this.topPos + 'px'
@@ -46909,6 +46983,9 @@ __webpack_require__.r(__webpack_exports__);
     allowedAddLineBreak () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedAddLineBreak(this.token)
     },
+    allowedRemoveLineBreak () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedRemoveLineBreak(this.token)
+    },
     allowedToNextSegment () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedToNextSegment(this.token)
     },
@@ -46918,10 +46995,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     mergeToPrev () {
-      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_9__.default.direction.PREV)
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.direction.PREV)
     },
     mergeToNext () {
-      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_9__.default.direction.NEXT)
+      this.$emit('mergeToken', this.token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_10__.default.direction.NEXT)
     }
   }
 });
@@ -46943,6 +47020,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/token-edit-block.vue */ "./vue/tokens-editor/token-edit-block.vue");
 /* harmony import */ var _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-token-edit.vue */ "./vue/tokens-editor/actions-menu-token-edit.vue");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+//
+//
 //
 //
 //
@@ -47019,11 +47098,13 @@ __webpack_require__.r(__webpack_exports__);
       actionsMenuTop: 0,
       deactivated: 1,
       containerWidth: 0,
+
       updateTokenIdWord: null,
       mergeTokenPrevIdWord: null,
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
-      addLineBreakIdWord: null
+      addLineBreakIdWord: null,
+      removeLineBreakIdWord: null
     }
   },
   watch: {
@@ -47137,6 +47218,9 @@ __webpack_require__.r(__webpack_exports__);
     addLineBreak (token) {
       this.addLineBreakIdWord = token.idWord
     },
+    removeLineBreak (token) {
+      this.removeLineBreakIdWord = token.idWord
+    },
     moveToNextSegment (token) {
       this.$tokensEC.moveToSegment(token, _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.direction.NEXT)
       this.removeAllActivated()
@@ -47239,6 +47323,11 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: false,
       default: null
+    },
+    removeLineBreakIdWord : {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data () {
@@ -47280,6 +47369,11 @@ __webpack_require__.r(__webpack_exports__);
       if (this.activated && (this.addLineBreakIdWord === this.token.idWord)) {
         this.addLineBreakAfterToken()
       }
+    },
+    removeLineBreakIdWord () {
+      if (this.activated && (this.removeLineBreakIdWord === this.token.idWord)) {
+        this.removeLineBreakAfterToken()
+      }
     }
   },
   mounted () {
@@ -47320,6 +47414,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)
+    },
+    removeLineBreakAfterToken () {
+      this.$tokensEC.removeLineBreakAfterToken(this.token)
     },
     hideActionsMenu () {
       this.activated = false
@@ -52002,6 +52099,35 @@ var render = function() {
           _vm._v(" "),
           _c("actions-button", {
             attrs: {
+              tooltipMess: "ACTION_BUTTON_REMOVE_LINEBREAK",
+              allowedCondition: _vm.allowedRemoveLineBreak,
+              actionName: "remove_enter"
+            },
+            on: {
+              click: function($event) {
+                return _vm.$emit("removeLineBreak", _vm.token)
+              }
+            },
+            scopedSlots: _vm._u([
+              {
+                key: "enabled",
+                fn: function() {
+                  return [_c("remove-enter-icon")]
+                },
+                proxy: true
+              },
+              {
+                key: "disabled",
+                fn: function() {
+                  return [_c("remove-enter-icon")]
+                },
+                proxy: true
+              }
+            ])
+          }),
+          _vm._v(" "),
+          _c("actions-button", {
+            attrs: {
               tooltipMess: "ACTION_BUTTON_TO_PREV_SEGMENT",
               allowedCondition: _vm.allowedToPrevSegment,
               actionName: "move_to_prev_segment"
@@ -52115,6 +52241,7 @@ var render = function() {
           mergeToken: _vm.mergeToken,
           splitToken: _vm.splitToken,
           addLineBreak: _vm.addLineBreak,
+          removeLineBreak: _vm.removeLineBreak,
           moveToNextSegment: _vm.moveToNextSegment,
           moveToPrevSegment: _vm.moveToPrevSegment
         }
@@ -52147,6 +52274,10 @@ var render = function() {
                   addLineBreakIdWord:
                     _vm.addLineBreakIdWord === token.idWord
                       ? _vm.addLineBreakIdWord
+                      : null,
+                  removeLineBreakIdWord:
+                    _vm.removeLineBreakIdWord === token.idWord
+                      ? _vm.removeLineBreakIdWord
                       : null
                 },
                 on: {
@@ -52726,6 +52857,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/remove-enter.svg":
+/*!***************************************!*\
+  !*** ./inline-icons/remove-enter.svg ***!
+  \***************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"340.61","height":"234.35","viewBox":"0 0 90.119 62.006","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M20.68 61.725c-1.002-.324-2.543-1.744-10.403-9.587C5.173 47.045.814 42.476.521 41.913c-.653-1.254-.698-3.4-.102-4.832.298-.718 3.16-3.766 9.461-10.08C19.931 16.931 20.268 16.673 23 16.954c3.667.379 5.97 4.085 4.672 7.52-.37.977-1.369 2.165-4.455 5.298l-3.98 4.04 55.84-.142 1.102-.73c.607-.4 1.431-1.225 1.833-1.832l.73-1.102.132-12.984c.148-14.493.102-14.142 2.047-15.745 2.735-2.255 6.917-1.421 8.522 1.698l.676 1.314v13.236c0 13.12-.005 13.253-.617 15.22-.903 2.905-2.272 5.18-4.389 7.298-2.053 2.053-4.31 3.434-7.165 4.384l-1.852.617-56.83.157 4.113 4.164c3.477 3.52 4.163 4.347 4.432 5.345 1.193 4.43-2.845 8.401-7.131 7.016z"}}),_c('path',{attrs:{"d":"M28.924.367a3.497 3.497 0 00-2.537 1.047 3.497 3.497 0 00.047 4.945l55.043 54.016a3.497 3.497 0 004.945-.045 3.497 3.497 0 00-.047-4.945L31.332 1.37A3.497 3.497 0 0028.924.367z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/split.svg":
 /*!********************************!*\
   !*** ./inline-icons/split.svg ***!
@@ -52917,7 +53085,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_REMOVE_LINEBREAK\":{\"message\":\"Remove line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"}}");
 
 /***/ }),
 

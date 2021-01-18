@@ -12,6 +12,7 @@
             @mergeToken = "mergeToken"
             @splitToken = "splitToken"
             @addLineBreak = "addLineBreak"
+            @removeLineBreak = "removeLineBreak"
             @moveToNextSegment = "moveToNextSegment"
             @moveToPrevSegment = "moveToPrevSegment"
         />
@@ -24,6 +25,7 @@
             :mergeTokenNextIdWord = "mergeTokenNextIdWord === token.idWord ? mergeTokenNextIdWord : null"
             :splitTokenIdWord = "splitTokenIdWord === token.idWord ? splitTokenIdWord : null"
             :addLineBreakIdWord = "addLineBreakIdWord === token.idWord ? addLineBreakIdWord : null"
+            :removeLineBreakIdWord = "removeLineBreakIdWord === token.idWord ? removeLineBreakIdWord : null"
 
             @hideActionsMenu = "hideActionsMenu" 
             @showActionsMenu = "showActionsMenu"
@@ -74,11 +76,13 @@ export default {
       actionsMenuTop: 0,
       deactivated: 1,
       containerWidth: 0,
+
       updateTokenIdWord: null,
       mergeTokenPrevIdWord: null,
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
-      addLineBreakIdWord: null
+      addLineBreakIdWord: null,
+      removeLineBreakIdWord: null
     }
   },
   watch: {
@@ -191,6 +195,9 @@ export default {
     },
     addLineBreak (token) {
       this.addLineBreakIdWord = token.idWord
+    },
+    removeLineBreak (token) {
+      this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
       this.$tokensEC.moveToSegment(token, TokensEditController.direction.NEXT)

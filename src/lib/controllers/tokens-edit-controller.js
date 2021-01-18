@@ -97,6 +97,21 @@ export default class TokensEditController {
   }
 
   /**
+   * Removes a line break after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  removeLineBreakAfterToken (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.removeLineBreakAfterToken(token)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  /**
    * Moves the token to the next/previous segment
    * @param {Token} token
    * @param {TokensEditController.direction} direction
@@ -174,6 +189,15 @@ export default class TokensEditController {
   }
 
   /**
+   * Check if a line break could be removed after the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedRemoveLineBreak (token) {
+    return Boolean(token) && this.alignment.allowedRemoveLineBreak(token)
+  }
+
+  /**
    * Check if the token could be moved to the next segment
    * @param {Token} token
    * @returns {Boolean}
@@ -200,7 +224,9 @@ TokensEditController.changeType = {
   //
   SPLIT: 'split',
   //
-  LINE_BREAK: 'line break',
+  ADD_LINE_BREAK: 'add line break',
+  //
+  REMOVE_LINE_BREAK: 'remove line break',
   //
   TO_NEXT_SEGMENT: 'to next segment',
   //
