@@ -41431,11 +41431,11 @@ class AlignedText {
    * @param {Number} indexWord - used only for split = the order number of result tokens
    * @returns {String} - idWord
    */
-  getNewIdWord ({ segment, token, changeType, indexWord, insertType }) {
+  getNewIdWord ({ segment, token, changeType, indexWord }) {
     const getNextIdWordMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getNextTokenIdWordMethod(this.tokenization.tokenizer)
 
     return getNextIdWordMethod({
-      tokenIdWord: token ? token.idWord : segment.idWordTemplate(insertType),
+      tokenIdWord: token.idWord,
       lastTokenIdWord: segment.lastTokenIdWord,
       changeType,
       indexWord
@@ -42959,8 +42959,6 @@ class Alignment {
     const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
     const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
 
-    // console.info('tokensText - ', tokensText)
-
     let words = tokensText.split(' ')
     if (insertType === 'start') { words = words.reverse() }
 
@@ -42978,7 +42976,6 @@ class Alignment {
       segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
     })
 
-    // console.info(segmentToInsert)
     return true
   }
 }
@@ -43251,7 +43248,6 @@ class Segment {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
 
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1].idWord
-    this.firstTokenId = this.tokens[0].idWord
   }
 
   /**
@@ -43309,7 +43305,6 @@ class Segment {
       word: word
     }, this.index, this.docSourceId)
 
-    // console.info('addNewToken - ', newToken)
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
@@ -43322,10 +43317,6 @@ class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
-  }
-
-  idWordTemplate (insertType) {
-    return (insertType === 'start') ? this.firstTokenId : this.lastTokenIdWord
   }
 }
 

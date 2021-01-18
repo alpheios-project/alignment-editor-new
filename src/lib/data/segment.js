@@ -18,7 +18,6 @@ export default class Segment {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
 
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1].idWord
-    this.firstTokenId = this.tokens[0].idWord
   }
 
   /**
