@@ -17,7 +17,8 @@ export default class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
 
-    this.lastTokenWordId = this.tokens[this.tokens.length - 1].idWord
+    this.lastTokenIdWord = this.tokens[this.tokens.length - 1].idWord
+    this.firstTokenId = this.tokens[0].idWord
   }
 
   /**
@@ -68,14 +69,15 @@ export default class Segment {
    * @param {String} word
    * @returns {Boolean}
    */
-  addNewToken (tokenIndex, newIdWord, word) {
+  addNewToken (tokenIndex, newIdWord, word, updateLastToken = true) {
     const newToken = new Token({
       textType: this.textType,
       idWord: newIdWord,
       word: word
     }, this.index, this.docSourceId)
 
-    this.lastTokenWordId = newIdWord
+    // console.info('addNewToken - ', newToken)
+    if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
   }
@@ -87,5 +89,9 @@ export default class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
+  }
+
+  idWordTemplate (insertType) {
+    return (insertType === 'start') ? this.firstTokenId : this.lastTokenIdWord
   }
 }

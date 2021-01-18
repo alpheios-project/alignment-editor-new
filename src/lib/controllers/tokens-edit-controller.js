@@ -214,6 +214,21 @@ export default class TokensEditController {
   allowedToPrevSegment (token) {
     return Boolean(token) && this.alignment.allowedToPrevSegment(token)
   }
+
+  /**
+   *
+   * @param {String} tokensText - string that would be converted to tokens
+   * @param {String} textType - origin/target
+   * @param {String} textId - docSourceId
+   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
+   */
+  insertTokens (tokensText, textType, textId, insertType) {
+    if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
 }
 
 TokensEditController.changeType = {
@@ -230,7 +245,9 @@ TokensEditController.changeType = {
   //
   TO_NEXT_SEGMENT: 'to next segment',
   //
-  TO_PREV_SEGMENT: 'to prev segment'
+  TO_PREV_SEGMENT: 'to prev segment',
+  //
+  NEW: 'new'
 }
 
 TokensEditController.direction = {

@@ -242,7 +242,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get alignmentGroupsWorkflowAvailable () {
-    return this.origin.alignedText && this.origin.alignedText.readyForAlignment && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => targetData.alignedText.readyForAlignment)
+    return this.origin.alignedText && this.origin.alignedText.readyForAlignment && Object.keys(this.targets).length > 0 && Object.values(this.targets).every(targetData => targetData.alignedText && targetData.alignedText.readyForAlignment)
   }
 
   /**
@@ -944,5 +944,52 @@ export default class Alignment {
    */
   isEditableToken (token) {
     return !this.tokenIsGrouped(token) && !this.tokenInActiveGroup(token)
+  }
+
+  /**
+   *
+   * @param {Segment} segment
+   */
+  getAmountOfSegments (segment) {
+    if (segment.textType === 'origin') {
+      return Object.values(this.origin.alignedText.segments).length
+    }
+    if (segment.textType === 'target') {
+      return Object.values(this.targets[segment.docSourceId].alignedText.segments).length
+    }
+  }
+
+  /**
+   *
+   * @param {String} tokensText - string that would be converted to tokens
+   * @param {String} textType - origin/target
+   * @param {String} textId - docSourceId
+   * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
+   */
+  insertTokens (tokensText, textType, textId, insertType) {
+    const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
+    const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
+
+    // console.info('tokensText - ', tokensText)
+
+    let words = tokensText.split(' ')
+    if (insertType === 'start') { words = words.reverse() }
+
+    words.forEach(word => {
+      const baseToken = (insertType === 'start') ? segmentToInsert.tokens[0] : segmentToInsert.tokens[segmentToInsert.tokens.length - 1]
+
+      const newIdWord = alignedText.getNewIdWord({
+        token: baseToken,
+        segment: segmentToInsert,
+        changeType: TokensEditController.changeType.NEW,
+        insertType
+      })
+
+      const insertPosition = (insertType === 'start') ? -1 : segmentToInsert.tokens.length - 1
+      segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
+    })
+
+    // console.info(segmentToInsert)
+    return true
   }
 }

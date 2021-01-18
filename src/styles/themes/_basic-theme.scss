@@ -190,4 +190,8 @@
     .alpheios-alignment-editor-options-fieldset {
         border-color: map.get($theme, 'editors-text-blocks-background');
     }
+
+    .alpheios-alignment-editor-token-edit-empty-input-description {
+        color:map.get($theme, 'tokens-edit-description-text-color');
+    }
 }
