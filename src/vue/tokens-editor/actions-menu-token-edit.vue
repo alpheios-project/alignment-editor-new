@@ -5,8 +5,8 @@
       <div class="alpheios-token-edit-actions-inner" ref="actionsInner">
         <actions-button tooltipMess = "ACTION_BUTTON_UPDATE_TOKEN" :allowedCondition = "allowedUpdateTokenWord"
                         actionName = "update_token" @click = "$emit('updateTokenWord', token)">
-          <template v-slot:enabled><ok-icon /></template>
-          <template v-slot:disabled><ok-icon /></template>
+          <template v-slot:enabled><pen-icon /></template>
+          <template v-slot:disabled><pen-icon /></template>
         </actions-button>
 
         <actions-button tooltipMess = "ACTION_BUTTON_MERGE_LEFT" :allowedCondition = "allowedMergePrev"
@@ -48,7 +48,7 @@
     </div>
 </template>
 <script>
-import OkIcon from '@/inline-icons/ok.svg'
+import PenIcon from '@/inline-icons/pen.svg'
 import SplitIcon from '@/inline-icons/split.svg'
 import MergeLeftIcon from '@/inline-icons/merge-left.svg'
 import MergeRightIcon from '@/inline-icons/merge-right.svg'
@@ -67,7 +67,7 @@ import ActionsButtonTokenEdit from '@/vue/tokens-editor/actions-button-token-edi
 export default {
   name: 'ActionsMenuTokenEdit',
   components: {
-    okIcon: OkIcon,
+    penIcon: PenIcon,
     splitIcon: SplitIcon,
     mergeLeftIcon: MergeLeftIcon,
     mergeRightIcon: MergeRightIcon,

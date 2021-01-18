@@ -46753,8 +46753,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/ok.svg */ "./inline-icons/ok.svg");
-/* harmony import */ var _inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/pen.svg */ "./inline-icons/pen.svg");
+/* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/split.svg */ "./inline-icons/split.svg");
 /* harmony import */ var _inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/merge-left.svg */ "./inline-icons/merge-left.svg");
@@ -46840,7 +46840,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActionsMenuTokenEdit',
   components: {
-    okIcon: (_inline_icons_ok_svg__WEBPACK_IMPORTED_MODULE_0___default()),
+    penIcon: (_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0___default()),
     splitIcon: (_inline_icons_split_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     mergeLeftIcon: (_inline_icons_merge_left_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     mergeRightIcon: (_inline_icons_merge_right_svg__WEBPACK_IMPORTED_MODULE_3___default()),
@@ -51878,14 +51878,14 @@ var render = function() {
               {
                 key: "enabled",
                 fn: function() {
-                  return [_c("ok-icon")]
+                  return [_c("pen-icon")]
                 },
                 proxy: true
               },
               {
                 key: "disabled",
                 fn: function() {
-                  return [_c("ok-icon")]
+                  return [_c("pen-icon")]
                 },
                 proxy: true
               }
@@ -52652,10 +52652,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./inline-icons/ok.svg":
-/*!*****************************!*\
-  !*** ./inline-icons/ok.svg ***!
-  \*****************************/
+/***/ "./inline-icons/pen.svg":
+/*!******************************!*\
+  !*** ./inline-icons/pen.svg ***!
+  \******************************/
 /***/ ((module) => {
 
 
@@ -52678,10 +52678,10 @@ render._withStripped = true
             {
               class: [classNames,staticClass],
               style: [style,staticStyle],
-              attrs: Object.assign({"viewBox":"0 0 458.73 356.52","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              attrs: Object.assign({"width":"224.76","height":"224.77","viewBox":"0 0 59.467 59.47","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M0 203.11l51.12-51.09L153.34 254.3l-51.12 51.091L0 203.111zM153.36 254.25L407.61 0l51.12 51.12-254.25 254.25z"}}),_c('path',{attrs:{"d":"M153.37 356.52l-51.141-51.141 51.12-51.12L204.49 305.4l-51.119 51.12z"}})])
+            children.concat([_c('path',{attrs:{"d":"M3.145 50.041l3.144-9.43L46.903 0l12.564 12.572L18.855 53.18 0 59.47zm8.514 1.873l2.816-1.003-5.96-5.943-2.068 6.356.763.797c.42.438.96.797 1.198.797.24 0 1.702-.452 3.251-1.004zm28.955-28.03l-1.256-1.256L15.29 46.69l2.495 2.534L41.87 25.14zm-5.027-5.027l-1.256-1.256-24.067 24.062 2.495 2.534 24.084-24.084zm10.128 2.439l1.173-1.196-7.526-7.526-2.509 2.51 3.697 3.703c2.034 2.038 3.764 3.704 3.845 3.704.08 0 .674-.538 1.32-1.195zm6.283-6.283l2.442-2.452-7.548-7.534-5.01 5.03 3.696 3.704c2.033 2.037 3.76 3.703 3.838 3.703.077 0 1.24-1.103 2.582-2.451z"}})])
           )
         }
       }
