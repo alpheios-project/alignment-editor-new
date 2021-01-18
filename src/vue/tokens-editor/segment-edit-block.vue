@@ -15,6 +15,7 @@
             @removeLineBreak = "removeLineBreak"
             @moveToNextSegment = "moveToNextSegment"
             @moveToPrevSegment = "moveToPrevSegment"
+            @deleteToken = "deleteToken"
         />
         <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" :show-description = "showDescription" v-if="segment.index === 1"/>
 
@@ -216,6 +217,10 @@ export default {
     },
     moveToPrevSegment (token) {
       this.$tokensEC.moveToSegment(token, TokensEditController.direction.PREV)
+      this.removeAllActivated()
+    },
+    deleteToken (token) {
+      this.$tokensEC.deleteToken(token)
       this.removeAllActivated()
     }
   }

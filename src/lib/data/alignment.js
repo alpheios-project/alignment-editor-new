@@ -939,6 +939,17 @@ export default class Alignment {
   }
 
   /**
+   * Check if the token could be deleted
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedDelete (token) {
+    const alignedText = this.getAlignedTextByToken(token)
+    return (!this.getPrevToken(token) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextToken(token) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+  }
+
+  /**
    * Checks if token could be updated
    * @param {Token} token
    */
@@ -988,5 +999,16 @@ export default class Alignment {
     })
 
     return true
+  }
+
+  /**
+   * Delete token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  deleteToken (token) {
+    const segment = this.getSegmentByToken(token)
+    const tokenIndex = segment.getTokenIndex(token)
+    return segment.deleteToken(tokenIndex)
   }
 }

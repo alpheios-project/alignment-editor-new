@@ -50,6 +50,12 @@
           <template v-slot:enabled><next-icon /></template>
           <template v-slot:disabled><next-icon /></template>
         </actions-button>
+
+        <actions-button tooltipMess = "ACTION_BUTTON_DELETE" :allowedCondition = "allowedDelete"
+                        actionName = "delete" @click = "$emit('deleteToken', token)">
+          <template v-slot:enabled><delete-icon /></template>
+          <template v-slot:disabled><delete-icon /></template>
+        </actions-button>
       </div>
     </div>
 </template>
@@ -64,6 +70,8 @@ import RemoveEnterIcon from '@/inline-icons/remove-enter.svg'
 
 import NextIcon from '@/inline-icons/next.svg'
 import PrevIcon from '@/inline-icons/prev.svg'
+
+import DeleteIcon from '@/inline-icons/delete.svg'
 
 import Tooltip from '@/vue/common/tooltip.vue'
 
@@ -83,6 +91,7 @@ export default {
     removeEnterIcon: RemoveEnterIcon,
     nextIcon: NextIcon,
     prevIcon: PrevIcon,
+    deleteIcon: DeleteIcon,
     actionsButton: ActionsButtonTokenEdit
   },
   props: {
@@ -153,6 +162,9 @@ export default {
     },
     allowedToPrevSegment () {
       return this.$store.state.optionsUpdated && this.$tokensEC.allowedToPrevSegment(this.token)
+    },
+    allowedDelete () {
+      return this.$store.state.optionsUpdated && this.$tokensEC.allowedDelete(this.token)
     }
   },
   methods: {

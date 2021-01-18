@@ -216,6 +216,15 @@ export default class TokensEditController {
   }
 
   /**
+   * Check if the token could be deleted
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  allowedDelete (token) {
+    return Boolean(token) && this.alignment.allowedDelete(token)
+  }
+
+  /**
    *
    * @param {String} tokensText - string that would be converted to tokens
    * @param {String} textType - origin/target
@@ -224,6 +233,21 @@ export default class TokensEditController {
    */
   insertTokens (tokensText, textType, textId, insertType) {
     if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Delete the token
+   * @param {Token} token
+   * @returns {Boolean}
+   */
+  deleteToken (token) {
+    if (!this.checkEditable(token)) { return false }
+
+    if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -247,7 +271,9 @@ TokensEditController.changeType = {
   //
   TO_PREV_SEGMENT: 'to prev segment',
   //
-  NEW: 'new'
+  NEW: 'new',
+  //
+  DELETE: 'delete'
 }
 
 TokensEditController.direction = {
