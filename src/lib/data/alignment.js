@@ -970,8 +970,6 @@ export default class Alignment {
     const alignedText = (textType === 'origin') ? this.origin.alignedText : this.targets[textId].alignedText
     const segmentToInsert = (insertType === 'start') ? alignedText.segments[0] : alignedText.segments[alignedText.segments.length - 1]
 
-    // console.info('tokensText - ', tokensText)
-
     let words = tokensText.split(' ')
     if (insertType === 'start') { words = words.reverse() }
 
@@ -989,7 +987,6 @@ export default class Alignment {
       segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
     })
 
-    // console.info(segmentToInsert)
     return true
   }
 }

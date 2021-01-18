@@ -76,7 +76,6 @@ export default class Segment {
       word: word
     }, this.index, this.docSourceId)
 
-    // console.info('addNewToken - ', newToken)
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     return this.tokens.splice(tokenIndex + 1, 0, newToken)
@@ -89,9 +88,5 @@ export default class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
-  }
-
-  idWordTemplate (insertType) {
-    return (insertType === 'start') ? this.firstTokenId : this.lastTokenIdWord
   }
 }
