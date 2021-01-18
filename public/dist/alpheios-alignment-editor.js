@@ -42649,12 +42649,12 @@ class Alignment {
 
   getNextSegmentByToken (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : false
+    return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : null
   }
 
   getPrevSegmentByToken (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : false
+    return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : null
   }
 
   /**
@@ -42673,7 +42673,7 @@ class Alignment {
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
-    return false
+    return null
   }
 
   /**
@@ -42692,7 +42692,7 @@ class Alignment {
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
-    return false
+    return null
   }
 
   /**
