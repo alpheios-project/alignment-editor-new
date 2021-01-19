@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
-import AlignmentStep from '@/lib/data/alignment-step'
-import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import AlignmentGroupStep from '@/lib/data/history/alignment-group-step'
+import AlignmentGroupHistory from '@/lib/data/history/alignment-group-history'
+// import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 export default class AlignmentGroup {
   /**
@@ -13,14 +14,20 @@ export default class AlignmentGroup {
     this.id = uuidv4()
     this.origin = []
     this.target = []
-    this.steps = []
+
+    this.alignmentGroupHistory = new AlignmentGroupHistory(this.allStepActions)
+    // this.steps = []
     this.firstStepToken = null
-    this.currentStepIndex = null
-    this.unmergedGroupData = null
+    // this.currentStepIndex = null
+    // this.unmergedGroupData = null
 
     this.targetId = targetId
 
     if (token) { this.add(token) }
+  }
+
+  get currentStepOnLast () {
+    return this.alignmentGroupHistory.currentStepOnLast
   }
 
   /**
@@ -28,22 +35,6 @@ export default class AlignmentGroup {
    */
   get groupLen () {
     return this.origin.length + this.target.length
-  }
-
-  /**
-   * @returns {Boolean} true - there are no undone steps inside the group, false - there are steps that could be redo
-   */
-  get currentStepOnLast () {
-    return (this.currentStepIndex !== null) && (this.currentStepIndex === this.steps.length - 1)
-  }
-
-  /**
-   * Truncates steps to the currentStepIndex
-   */
-  truncateSteps () {
-    if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
   }
 
   /**
@@ -91,13 +82,13 @@ export default class AlignmentGroup {
       this.targetId = token.docSourceId
     }
 
-    this.truncateSteps()
-
     this[token.textType].push(token.idWord)
-    this.steps.push(new AlignmentStep(token, AlignmentStep.types.ADD))
+
+    this.alignmentGroupHistory.truncateSteps()
+    this.alignmentGroupHistory.addStep(token, AlignmentGroupStep.types.ADD)
 
     this.defineFirstStepToken()
-    this.defineCurrentStepIndex()
+    this.alignmentGroupHistory.defineCurrentStepIndex()
     return true
   }
 
@@ -111,15 +102,16 @@ export default class AlignmentGroup {
       return false
     }
 
-    this.truncateSteps()
+    this.alignmentGroupHistory.truncateSteps()
 
     const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
-      this.steps.push(new AlignmentStep(token, AlignmentStep.types.REMOVE))
+
+      this.alignmentGroupHistory.addStep(token, AlignmentGroupStep.types.REMOVE)
       this.defineFirstStepToken()
-      this.defineCurrentStepIndex()
+      this.alignmentGroupHistory.defineCurrentStepIndex()
       return true
     }
     return false
@@ -139,22 +131,15 @@ export default class AlignmentGroup {
   defineFirstStepToken () {
     if (this.firstStepNeedToBeUpdated) {
       let firstStepToken = null
-      for (let i = 0; i < this.steps.length; i++) {
-        if (this.includesToken(this.steps[i].token)) {
-          firstStepToken = this.steps[i].token
+      for (let i = 0; i < this.alignmentGroupHistory.steps.length; i++) {
+        if (this.includesToken(this.alignmentGroupHistory.steps[i].token)) {
+          firstStepToken = this.alignmentGroupHistory.steps[i].token
           break
         }
       }
 
       this.updateFirstStepToken(firstStepToken)
     }
-  }
-
-  /**
-   * Redefines currentStepIndex as the last one (no redo steps)
-   */
-  defineCurrentStepIndex () {
-    this.currentStepIndex = this.steps.length - 1
   }
 
   /**
@@ -215,7 +200,7 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   /**
@@ -239,19 +224,19 @@ export default class AlignmentGroup {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
 
-    this.steps.push(new AlignmentStep(tokensGroup, AlignmentStep.types.MERGE, { indexDeleted }))
-    this.defineCurrentStepIndex()
+    this.alignmentGroupHistory.addStep(tokensGroup, AlignmentGroupStep.types.MERGE, { indexDeleted })
+    this.alignmentGroupHistory.defineCurrentStepIndex()
   }
 
   /**
    * Reverts merge action
-   * @param {AlignmentStep} step
+   * @param {AlignmentGroupStep} step
    * @returns { Object }
    *          { AlignmentGroup } tokensGroup - group that was merged
    *          { Number } indexDeleted - place in group list
    */
   unmerge (step) {
-    const tokensGroup = step.type === AlignmentStep.types.MERGE ? step.token : []
+    const tokensGroup = step.type === AlignmentGroupStep.types.MERGE ? step.token : []
 
     for (let i = 0; i < tokensGroup.origin.length; i++) {
       const tokenIdWord = tokensGroup.origin[i]
@@ -269,7 +254,7 @@ export default class AlignmentGroup {
       }
     }
 
-    this.defineFirstStepToken()
+    this.alignmentGroupHistory.defineFirstStepToken()
 
     return {
       tokensGroup,
@@ -277,80 +262,12 @@ export default class AlignmentGroup {
     }
   }
 
-  /**
-   * Finds token with the given idWord using steps
-   * @param {String} idWord
-   * @retuns { Token|null }
-   */
-  findTokenByIdWord (idWord) {
-    const step = this.steps.find(step => step.idWord === idWord)
-    return step ? step.token : null
-  }
-
-  /**
-   * Step back
-   * @retuns { Object }
-   *         { Boolean } result - true - action was successful, false - was not
-   *         { Array } data - additional data, for merge { tokensGroup, indexDeleted }
-   */
   undo () {
-    if (this.steps.length > 1 && this.currentStepIndex > 0) {
-      return this.alignToStep(this.currentStepIndex - 1)
-    } else {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'),
-        type: NotificationSingleton.types.ERROR
-      })
-    }
+    return this.alignmentGroupHistory.undo()
   }
 
-  /**
-   * Step forward
-   */
   redo () {
-    if (this.currentStepIndex < (this.steps.length - 1)) {
-      return this.alignToStep(this.currentStepIndex + 1)
-    } else {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'),
-        type: NotificationSingleton.types.ERROR
-      })
-    }
-  }
-
-  /**
-   * Defines current position in the step tracker and apply/remove step actions according to the position
-   * @param {Number} stepIndex
-   * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
-   */
-  alignToStep (stepIndex) {
-    if (this.currentStepIndex === stepIndex) {
-      return
-    }
-
-    let data = [] // eslint-disable-line prefer-const
-    let result = true
-
-    if (this.currentStepIndex > stepIndex) {
-      for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const dataResult = this.doStepAction(i, 'remove')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    } else if (this.currentStepIndex < stepIndex) {
-      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const dataResult = this.doStepAction(i, 'apply')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    }
-
-    this.currentStepIndex = stepIndex
-    return {
-      result, data
-    }
+    return this.alignmentGroupHistory.redo()
   }
 
   /**
@@ -359,20 +276,20 @@ export default class AlignmentGroup {
    */
   get allStepActions () {
     const actions = { remove: {}, apply: {} }
-    actions.remove[AlignmentStep.types.ADD] = (step) => {
+    actions.remove[AlignmentGroupStep.types.ADD] = (step) => {
       const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
       this[step.token.textType].splice(tokenIndex, 1)
       return {
         result: true
       }
     }
-    actions.remove[AlignmentStep.types.REMOVE] = (step) => {
+    actions.remove[AlignmentGroupStep.types.REMOVE] = (step) => {
       this[step.token.textType].push(step.token.idWord)
       return {
         result: true
       }
     }
-    actions.remove[AlignmentStep.types.MERGE] = (step) => {
+    actions.remove[AlignmentGroupStep.types.MERGE] = (step) => {
       const data = this.unmerge(step)
       return {
         result: true,
@@ -380,20 +297,20 @@ export default class AlignmentGroup {
       }
     }
 
-    actions.apply[AlignmentStep.types.ADD] = (step) => {
+    actions.apply[AlignmentGroupStep.types.ADD] = (step) => {
       this[step.token.textType].push(step.token.idWord)
       return {
         result: true
       }
     }
-    actions.apply[AlignmentStep.types.REMOVE] = (step) => {
+    actions.apply[AlignmentGroupStep.types.REMOVE] = (step) => {
       const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
       this[step.token.textType].splice(tokenIndex, 1)
       return {
         result: true
       }
     }
-    actions.apply[AlignmentStep.types.MERGE] = (step) => {
+    actions.apply[AlignmentGroupStep.types.MERGE] = (step) => {
       this.origin.push(...step.token.origin)
       this.target.push(...step.token.target)
       return {
@@ -402,36 +319,5 @@ export default class AlignmentGroup {
     }
 
     return actions
-  }
-
-  /**
-   * Remove/apply step action according to typeAction
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @param {String} typeAction - remove/apply
-   */
-  doStepAction (stepIndex, typeAction) {
-    const step = this.steps[stepIndex]
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
-        type: NotificationSingleton.types.ERROR
-      })
-      return
-    }
-
-    const actions = this.allStepActions
-    let finalResult
-    try {
-      finalResult = actions[typeAction][step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
   }
 }

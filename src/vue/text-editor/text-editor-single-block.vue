@@ -5,7 +5,7 @@
           <delete-icon />
         </span>
       </p>
-      <actions-block :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata"/>
+      <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata"/>
       
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
@@ -36,7 +36,7 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
-import ActionsBlock from '@/vue/text-editor/actions-block.vue'
+import ActionsMenu from '@/vue/text-editor/actions-menu-text-editor.vue'
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
@@ -63,7 +63,7 @@ export default {
   components: {
     deleteIcon: DeleteIcon,
     optionItemBlock: OptionItemBlock,
-    actionsBlock: ActionsBlock,
+    actionsMenu: ActionsMenu,
     metadataBlock: MetadataBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,

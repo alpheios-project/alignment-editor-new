@@ -69,6 +69,6 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-editor-header {
-    margin: 15px 0;
+    margin: 0 0 10px;
   }
 </style>

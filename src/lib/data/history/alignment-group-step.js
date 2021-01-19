@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import Token from '@/lib/data/token'
 
-export default class AlignmentStep {
+export default class AlignmentGroupStep {
   /**
    *
    * @param {Token | AlignmentGroup} token
@@ -33,11 +33,11 @@ export default class AlignmentStep {
    * @returns {Boolean} - true - step type is correctly defined, false - if not
    */
   get hasValidType () {
-    return Object.values(AlignmentStep.types).includes(this.type)
+    return Object.values(AlignmentGroupStep.types).includes(this.type)
   }
 }
 
-AlignmentStep.types = {
+AlignmentGroupStep.types = {
   // Step type for adding token
   ADD: 'add',
   // Step type for removing token

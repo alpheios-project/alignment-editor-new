@@ -23,7 +23,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
-  name: 'ActionsBlock',
+  name: 'ActionsMenuTextEditor',
   props: {
     textType: {
       type: String,

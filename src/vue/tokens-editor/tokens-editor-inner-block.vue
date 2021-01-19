@@ -1,5 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-tokens-edit-editor-container">
+    <actions-menu-tokens-editor />
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
@@ -31,6 +32,7 @@
 <script>
 import Vue from '@vue-runtime'
 import SegmentEditBlock from '@/vue/tokens-editor/segment-edit-block.vue'
+import ActionsMenuTokensEditor from '@/vue/tokens-editor/actions-menu-tokens-editor.vue'
 
 import EditorTabs from '@/vue/common/editor-tabs.vue'
 
@@ -38,7 +40,8 @@ export default {
   name: 'TokensEditorInnerBlock',
   components: {
     segmentEditBlock: SegmentEditBlock,
-    editorTabs: EditorTabs
+    editorTabs: EditorTabs,
+    actionsMenuTokensEditor: ActionsMenuTokensEditor
   },
   props: {
   },

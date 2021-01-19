@@ -1,4 +1,4 @@
-import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
 
 export default class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
@@ -59,12 +59,12 @@ export default class Token {
    * @param {String} newIdWord
    */
   merge ({ token, position, newIdWord }) {
-    if (position === TokensEditController.direction.PREV) {
+    if (position === TokensEditStep.directions.PREV) {
       this.update({
         word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
-    } else if (position === TokensEditController.direction.NEXT) {
+    } else if (position === TokensEditStep.directions.NEXT) {
       this.update({
         word: `${this.word} ${token.word}`,
         idWord: newIdWord

@@ -11,6 +11,7 @@ import Segment from '@/lib/data/segment'
 import Token from '@/lib/data/token'
 import AppController from '@/lib/controllers/app-controller.js'
 
+
 import Vuex from 'vuex'
 
 describe('tokens-edit-controller.test.js', () => {

@@ -3,7 +3,7 @@
 import AlignmentGroup from '@/lib/data/alignment-group'
 import AppController from '@/lib/controllers/app-controller.js'
 import Token from '@/lib/data/token'
-import AlignmentStep from '@/lib/data/alignment-step'
+import AlignmentGroupStep from '@/lib/data/history/alignment-group-step'
 
 describe('alignment-group.test.js', () => {
   console.error = function () { }
@@ -309,10 +309,10 @@ describe('alignment-group.test.js', () => {
     }, 1, 'targetId1')
 
     alGroup[token.textType].push(token.idWord)
-    alGroup.steps.push(new AlignmentStep(token, 'add'))
+    alGroup.steps.push(new AlignmentGroupStep(token, 'add'))
 
     alGroup[token2.textType].push(token2.idWord)
-    alGroup.steps.push(new AlignmentStep(token2, 'add'))
+    alGroup.steps.push(new AlignmentGroupStep(token2, 'add'))
 
 
     expect(alGroup.firstStepNeedToBeUpdated).toBeTruthy()
@@ -334,13 +334,13 @@ describe('alignment-group.test.js', () => {
     }, 1, 'targetId1')
 
     alGroup[token.textType].push(token.idWord)
-    alGroup.steps.push(new AlignmentStep(token, 'add'))
+    alGroup.steps.push(new AlignmentGroupStep(token, 'add'))
 
     alGroup[token2.textType].push(token2.idWord)
-    alGroup.steps.push(new AlignmentStep(token2, 'add'))
+    alGroup.steps.push(new AlignmentGroupStep(token2, 'add'))
 
     alGroup[token.textType].splice(0, 1)
-    alGroup.steps.push(new AlignmentStep(token, 'remove'))
+    alGroup.steps.push(new AlignmentGroupStep(token, 'remove'))
 
     alGroup.firstStepToken = token
 

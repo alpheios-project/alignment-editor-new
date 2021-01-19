@@ -6,7 +6,8 @@ import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
-import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
+import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 export default class Alignment {
   /**
@@ -27,6 +28,8 @@ export default class Alignment {
 
     this.hoveredGroups = []
     this.undoneGroups = []
+
+    this.historyTokensEdit = new TokensEditHistory()
   }
 
   /**
@@ -586,6 +589,7 @@ export default class Alignment {
    * Extracts alignment group from the list and saves it to active
    */
   redoActiveGroup () {
+    console.info('redoActiveGroup - ', this.undoneGroups)
     if (!this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup = this.undoneGroups.pop()
       return true
@@ -660,9 +664,10 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditController.changeType.UPDATE
+      changeType: TokensEditStep.types.UPDATE
     })
 
+    this.historyTokensEdit.addStep(token, TokensEditStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
     return token.update({ word, idWord: newIdWord })
   }
 
@@ -672,7 +677,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditController.direction.PREV) ? this.getPrevToken(token) : this.getNextToken(token)
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditStep.directions.PREV) ? this.getPrevToken(token) : this.getNextToken(token)
 
     if (!this.isEditableToken(tokenMergeTo)) {
       NotificationSingleton.addNotification({
@@ -686,7 +691,7 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token: tokenMergeTo,
       segment,
-      changeType: TokensEditController.changeType.MERGE
+      changeType: TokensEditStep.types.MERGE
     })
 
     tokenMergeTo.merge({ token, position, newIdWord })
@@ -739,7 +744,7 @@ export default class Alignment {
       return {
         segment,
         tokenIndex,
-        position: TokensEditController.direction.NEXT,
+        position: TokensEditStep.directions.NEXT,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
       }
     }
@@ -758,7 +763,7 @@ export default class Alignment {
       return {
         segment,
         tokenIndex,
-        position: TokensEditController.direction.PREV,
+        position: TokensEditStep.directions.PREV,
         tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
       }
     }
@@ -778,14 +783,14 @@ export default class Alignment {
     const newIdWord1 = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditController.changeType.SPLIT,
+      changeType: TokensEditStep.types.SPLIT,
       indexWord: 1
     })
 
     const newIdWord2 = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditController.changeType.SPLIT,
+      changeType: TokensEditStep.types.SPLIT,
       indexWord: 2
     })
 
@@ -812,7 +817,7 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditController.changeType.ADD_LINE_BREAK
+      changeType: TokensEditStep.types.ADD_LINE_BREAK
     })
 
     token.addLineBreakAfter()
@@ -834,7 +839,7 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditController.changeType.REMOVE_LINE_BREAK
+      changeType: TokensEditStep.types.REMOVE_LINE_BREAK
     })
 
     token.removeLineBreakAfter()
@@ -848,12 +853,12 @@ export default class Alignment {
   /**
    * Moves the token to the next/previous segment
    * @param {Token} token
-   * @param {TokensEditController.direction} direction
+   * @param {TokensEditStep.directions} direction
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
-    const newSegment = (direction === TokensEditController.direction.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
+    const newSegment = (direction === TokensEditStep.directions.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
 
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
@@ -862,7 +867,7 @@ export default class Alignment {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment: newSegment,
-      changeType: (direction === TokensEditController.direction.PREV) ? TokensEditController.changeType.TO_PREV_SEGMENT : TokensEditController.changeType.TO_NEXT_SEGMENT
+      changeType: (direction === TokensEditStep.directions.PREV) ? TokensEditStep.types.TO_PREV_SEGMENT : TokensEditStep.types.TO_NEXT_SEGMENT
     })
 
     token.update({
@@ -870,7 +875,7 @@ export default class Alignment {
       segmentIndex: newSegment.index
     })
 
-    const insertPosition = (direction === TokensEditController.direction.PREV) ? newSegment.tokens.length : 0
+    const insertPosition = (direction === TokensEditStep.directions.PREV) ? newSegment.tokens.length : 0
     newSegment.insertToken(token, insertPosition)
     return true
   }
@@ -990,7 +995,7 @@ export default class Alignment {
       const newIdWord = alignedText.getNewIdWord({
         token: baseToken,
         segment: segmentToInsert,
-        changeType: TokensEditController.changeType.NEW,
+        changeType: TokensEditStep.types.NEW,
         insertType
       })
 
@@ -1010,5 +1015,23 @@ export default class Alignment {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     return segment.deleteToken(tokenIndex)
+  }
+
+  /** ** History */
+
+  get undoTokensEditAvailable () {
+    return this.historyTokensEdit.undoAvailable
+  }
+
+  get redoTokensEditAvailable () {
+    return this.historyTokensEdit.redoAvailable
+  }
+
+  undoTokensEditStep () {
+    return this.historyTokensEdit.undo()
+  }
+
+  redoTokensEditStep () {
+    return this.historyTokensEdit.redo()
   }
 }

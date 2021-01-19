@@ -45,7 +45,7 @@
 import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
 import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
 
-import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
 import EmptyTokensInput from '@/vue/tokens-editor/empty-tokens-input.vue'
 
 export default {
@@ -195,10 +195,10 @@ export default {
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === TokensEditController.direction.PREV) {
+      if (direction === TokensEditStep.directions.PREV) {
         this.mergeTokenPrevIdWord = token.idWord
       }
-      if (direction === TokensEditController.direction.NEXT) {
+      if (direction === TokensEditStep.directions.NEXT) {
         this.mergeTokenNextIdWord = token.idWord
       }
     },
@@ -212,11 +212,11 @@ export default {
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
-      this.$tokensEC.moveToSegment(token, TokensEditController.direction.NEXT)
+      this.$tokensEC.moveToSegment(token, TokensEditStep.directions.NEXT)
       this.removeAllActivated()
     },
     moveToPrevSegment (token) {
-      this.$tokensEC.moveToSegment(token, TokensEditController.direction.PREV)
+      this.$tokensEC.moveToSegment(token, TokensEditStep.directions.PREV)
       this.removeAllActivated()
     },
     deleteToken (token) {
