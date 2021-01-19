@@ -439,6 +439,9 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-standard-theme .alpheios-alignment-editor-options-fieldset {
   border-color: #F8F8F8;
 }
+.alpheios-standard-theme .alpheios-alignment-editor-token-edit-empty-input-description {
+  color: #909294;
+}
 
 .alpheios-v1-theme {
   background-color: #e0e0e0;
@@ -593,6 +596,9 @@ div.alpheios-alignment-checkbox-block {
 }
 .alpheios-v1-theme .alpheios-alignment-editor-options-fieldset {
   border-color: #F8F8F8;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-token-edit-empty-input-description {
+  color: #909294;
 }
 
 .alpheios-alignment-editor-app-container {
@@ -1180,6 +1186,14 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   position: absolute;
   top: -10px;
   z-index: 1000;
+}
+.alpheios-alignment-editor-token-edit-empty-input-container {
+  padding: 5px 15px;
+}
+.alpheios-alignment-editor-token-edit-empty-input-description {
+  color: #909294;
+  padding: 5px 10px 0;
+  margin: 0;
 }
 .alpheios-alignment-editor-align-text-segment-edit {
   position: relative;

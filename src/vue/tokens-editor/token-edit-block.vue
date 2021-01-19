@@ -22,7 +22,6 @@
         </span>
       {{ token.afterWord }}
     </span>
-  </tooltip>
 </template>
 <script>
 import Vue from '@vue-runtime'

@@ -15,7 +15,10 @@
             @removeLineBreak = "removeLineBreak"
             @moveToNextSegment = "moveToNextSegment"
             @moveToPrevSegment = "moveToPrevSegment"
+            @deleteToken = "deleteToken"
         />
+        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" :show-description = "showDescription" v-if="segment.index === 1"/>
+
         <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
             v-if ="token.word"
@@ -34,6 +37,8 @@
           />
           <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
         </template>
+
+        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="end" v-if="segment.index === amountOfSegments"/>
     </div>
 </template>
 <script>
@@ -41,12 +46,14 @@ import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
 import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
 
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import EmptyTokensInput from '@/vue/tokens-editor/empty-tokens-input.vue'
 
 export default {
   name: 'SegmentEditBlock',
   components: {
     tokenEditBlock: TokenEditBlock,
-    actionsMenuTokenEdit: ActionsMenuTokenEdit
+    actionsMenuTokenEdit: ActionsMenuTokenEdit,
+    emptyTokensInput: EmptyTokensInput
   },
   props: {
     currentTargetId: {
@@ -82,7 +89,9 @@ export default {
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null,
-      removeLineBreakIdWord: null
+      removeLineBreakIdWord: null,
+      
+      showDescription: true
     }
   },
   watch: {
@@ -160,6 +169,9 @@ export default {
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+    },
+    amountOfSegments () {
+      return this.$alignedGC.getAmountOfSegments(this.segment)
     }
   },
   methods: {
@@ -205,6 +217,10 @@ export default {
     },
     moveToPrevSegment (token) {
       this.$tokensEC.moveToSegment(token, TokensEditController.direction.PREV)
+      this.removeAllActivated()
+    },
+    deleteToken (token) {
+      this.$tokensEC.deleteToken(token)
       this.removeAllActivated()
     }
   }

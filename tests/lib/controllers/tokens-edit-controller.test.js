@@ -224,6 +224,36 @@ describe('tokens-edit-controller.test.js', () => {
     expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.word)).toEqual(['origin', 'text', 'here'])
     expect(alignment.origin.alignedText.segments[0].tokens[0].idWord).toEqual('1-0-0')
   })
+
+  it('8 TokensEditController - addLineBreakAfterToken - sets hasLineBreak to true, removeLineBreakAfterToken - sets hasLineBreak to false', async () => {
+    // preparations
+    const tokensEC = new TokensEditController(appC.store)
+
+    const originDocSource = new SourceText('origin', {
+      text: 'origin text here', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+    const targetDocSource = new SourceText('target', {
+      text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+    })
+
+    const alignment = new Alignment(originDocSource, targetDocSource)
+    const targetIds = alignment.allTargetTextsIds
+    tokensEC.loadAlignment(alignment)
+
+    const alignedGC = new AlignedGroupsController(appC.store)
+    await alignedGC.createAlignedTexts(alignment)
+
+    // test case
+    const tokenForBreak = alignment.origin.alignedText.segments[0].tokens[0]
+
+    const result1 = tokensEC.addLineBreakAfterToken(tokenForBreak)
+    expect(result1).toBeTruthy()
+    expect(tokenForBreak.hasLineBreak).toBeTruthy()
+
+    const result2 = tokensEC.removeLineBreakAfterToken(tokenForBreak)
+    expect(result2).toBeTruthy()
+    expect(tokenForBreak.hasLineBreak).toBeFalsy()
+  })
 })
 
 

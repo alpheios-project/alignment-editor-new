@@ -75,7 +75,7 @@ export default class AlignedText {
 
     return getNextIdWordMethod({
       tokenIdWord: token.idWord,
-      lastTokenWordId: segment.lastTokenWordId,
+      lastTokenIdWord: segment.lastTokenIdWord,
       changeType,
       indexWord
     })

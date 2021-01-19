@@ -172,4 +172,64 @@ describe('tokenize-controller.test.js', () => {
     
     expect(TokenizeController.getNextTokenIdWordMethod('fakeTokenizer')).toBeFalsy()
   })
+
+  it('10 TokenizeController - getNextTokenIdWordChangesType - adding new tokens to the start', async () => {
+    // to the start
+    const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: '1-0-0',
+      changeType: TokensEditController.changeType.NEW
+    })
+    expect(newWordId1).toEqual('1-0-0-n-1')
+
+    const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: newWordId1,
+      changeType: TokensEditController.changeType.NEW
+    })
+    expect(newWordId2).toEqual('1-0-0-n-2')
+
+    // to the end
+    const newWordId3 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: '1-0-21',
+      changeType: TokensEditController.changeType.NEW
+    })
+    expect(newWordId3).toEqual('1-0-21-n-1')
+
+    const newWordId4 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: newWordId3,
+      changeType: TokensEditController.changeType.NEW
+    })
+    expect(newWordId4).toEqual('1-0-21-n-2')
+  })
+
+  it('11 TokenizeController - getNextTokenIdWordChangesType - add/remove line break', async () => {
+    // add line break
+    const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: '1-0-0',
+      changeType: TokensEditController.changeType.ADD_LINE_BREAK
+    })
+    expect(newWordId1).toEqual('1-0-0-al-1')
+
+    // remove line break
+    const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: newWordId1,
+      changeType: TokensEditController.changeType.REMOVE_LINE_BREAK
+    })
+    expect(newWordId2).toEqual('1-0-0-al-1-rl-1')
+  })
+
+  it('12 TokenizeController - getNextTokenIdWordChangesType - move to prev/next segment', async () => {
+    // to next segment
+    const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: '1-0-0',
+      changeType: TokensEditController.changeType.TO_NEXT_SEGMENT
+    })
+    expect(newWordId1).toEqual('1-0-0-ns-1')
+
+    // to prev segment
+    const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
+      tokenIdWord: newWordId1,
+      changeType: TokensEditController.changeType.TO_PREV_SEGMENT
+    })
+    expect(newWordId2).toEqual('1-0-0-ns-1-ps-1')
+  })
 })

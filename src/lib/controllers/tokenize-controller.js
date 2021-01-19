@@ -165,30 +165,30 @@ export default class TokenizeController {
    * tokens which are edited each get new ids in the format <segment-id>-<original-token-id>-e-<increment>
    *
    * @param {String} tokenIdWord - idWord of the token to be updated
-   * @param {String} lastTokenWordId - idWord of the last (max idWord) token in the segment
+   * @param {String} lastTokenIdWord - idWord of the last (max idWord) token in the segment
    * @param {String} changeType - split/merge/update
    * @param {Number} indexWord - used for split change to define the number of final tokens - 1/2
    */
-  static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenWordId, changeType, indexWord }) {
+  static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenIdWord, changeType, indexWord, increment }) {
     const divider = '-'
     const changeLibrary = {
       [TokensEditController.changeType.SPLIT]: 's',
       [TokensEditController.changeType.MERGE]: 'm',
       [TokensEditController.changeType.UPDATE]: 'e',
-      [TokensEditController.changeType.ADD_LINE_BREAK]: 'a',
-      [TokensEditController.changeType.REMOVE_LINE_BREAK]: 'r',
-      [TokensEditController.changeType.TO_NEXT_SEGMENT]: 'n',
-      [TokensEditController.changeType.TO_PREV_SEGMENT]: 'p'
+      [TokensEditController.changeType.ADD_LINE_BREAK]: 'al',
+      [TokensEditController.changeType.REMOVE_LINE_BREAK]: 'rl',
+      [TokensEditController.changeType.TO_NEXT_SEGMENT]: 'ns',
+      [TokensEditController.changeType.TO_PREV_SEGMENT]: 'ps',
+      [TokensEditController.changeType.NEW]: 'n'
 
     }
 
     if (!Object.keys(changeLibrary).includes(changeType)) {
-      return this.getNextTokenIdWordSimple(lastTokenWordId)
+      return this.getNextTokenIdWordSimple(lastTokenIdWord)
     }
 
     const tokenIdWordParts = tokenIdWord.split(divider)
     const lastChangeType = tokenIdWordParts[tokenIdWordParts.length - 2]
-    const lastIndex = parseInt(tokenIdWordParts[tokenIdWordParts.length - 1])
 
     const reDigits = /[0-9]/g
     const lastChangeTypeNoDigits = tokenIdWordParts[tokenIdWordParts.length - 2].replace(reDigits, '')
@@ -196,7 +196,8 @@ export default class TokenizeController {
     const checkByIndex = reDigits.test(lastChangeType) ? (lastChangeType === `${lastChangeTypeNoDigits}${indexWord}`) : true
 
     if (lastChangeTypeNoDigits === changeLibrary[changeType] && checkByIndex) {
-      return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${lastIndex + 1}`
+      const finalIncrement = parseInt(tokenIdWordParts[tokenIdWordParts.length - 1]) + 1
+      return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${finalIncrement}`
     } else {
       return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
     }

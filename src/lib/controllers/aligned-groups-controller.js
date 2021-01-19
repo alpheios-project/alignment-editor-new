@@ -292,4 +292,8 @@ export default class AlignedGroupsController {
   startOver () {
     this.alignment = null
   }
+
+  getAmountOfSegments (segment) {
+    return this.alignment.getAmountOfSegments(segment)
+  }
 }
