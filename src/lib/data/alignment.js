@@ -9,6 +9,8 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
+import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
+
 export default class Alignment {
   /**
    * We could create an empty alignment
@@ -29,7 +31,10 @@ export default class Alignment {
     this.hoveredGroups = []
     this.undoneGroups = []
 
-    this.historyTokensEdit = new TokensEditHistory(this.allStepActionsTokensEditor)
+    this.tokensEditHistory = new TokensEditHistory(this.allStepActionsTokensEditor)
+    this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+
+    this.tokensEditActions = new TokensEditActions()
   }
 
   /**
@@ -589,7 +594,6 @@ export default class Alignment {
    * Extracts alignment group from the list and saves it to active
    */
   redoActiveGroup () {
-    console.info('redoActiveGroup - ', this.undoneGroups)
     if (!this.hasActiveAlignmentGroup) {
       this.activeAlignmentGroup = this.undoneGroups.pop()
       return true
@@ -667,7 +671,7 @@ export default class Alignment {
       changeType: TokensEditStep.types.UPDATE
     })
 
-    this.historyTokensEdit.addStep(token, TokensEditStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
+    this.tokensEditHistory.addStep(token, TokensEditStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
     return token.update({ word, idWord: newIdWord })
   }
 
@@ -1020,19 +1024,19 @@ export default class Alignment {
   /** ** History */
 
   get undoTokensEditAvailable () {
-    return this.historyTokensEdit.undoAvailable
+    return this.tokensEditHistory.undoAvailable
   }
 
   get redoTokensEditAvailable () {
-    return this.historyTokensEdit.redoAvailable
+    return this.tokensEditHistory.redoAvailable
   }
 
   undoTokensEditStep () {
-    return this.historyTokensEdit.undo()
+    return this.tokensEditHistory.undo()
   }
 
   redoTokensEditStep () {
-    return this.historyTokensEdit.redo()
+    return this.tokensEditHistory.redo()
   }
 
   /**
