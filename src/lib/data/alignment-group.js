@@ -16,11 +16,7 @@ export default class AlignmentGroup {
     this.target = []
 
     this.alignmentGroupHistory = new AlignmentGroupHistory(this.allStepActions)
-    // this.steps = []
     this.firstStepToken = null
-    // this.currentStepIndex = null
-    // this.unmergedGroupData = null
-
     this.targetId = targetId
 
     if (token) { this.add(token) }
@@ -88,7 +84,6 @@ export default class AlignmentGroup {
     this.alignmentGroupHistory.addStep(token, AlignmentGroupStep.types.ADD)
 
     this.defineFirstStepToken()
-    this.alignmentGroupHistory.defineCurrentStepIndex()
     return true
   }
 
@@ -111,7 +106,6 @@ export default class AlignmentGroup {
 
       this.alignmentGroupHistory.addStep(token, AlignmentGroupStep.types.REMOVE)
       this.defineFirstStepToken()
-      this.alignmentGroupHistory.defineCurrentStepIndex()
       return true
     }
     return false
@@ -225,7 +219,6 @@ export default class AlignmentGroup {
     this.target.push(...tokensGroup.target)
 
     this.alignmentGroupHistory.addStep(tokensGroup, AlignmentGroupStep.types.MERGE, { indexDeleted })
-    this.alignmentGroupHistory.defineCurrentStepIndex()
   }
 
   /**

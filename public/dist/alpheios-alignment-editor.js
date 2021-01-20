@@ -41583,7 +41583,6 @@ class AlignmentGroup {
     this.alignmentGroupHistory.addStep(token, _lib_data_history_alignment_group_step__WEBPACK_IMPORTED_MODULE_1__.default.types.ADD)
 
     this.defineFirstStepToken()
-    this.alignmentGroupHistory.defineCurrentStepIndex()
     return true
   }
 
@@ -41606,7 +41605,6 @@ class AlignmentGroup {
 
       this.alignmentGroupHistory.addStep(token, _lib_data_history_alignment_group_step__WEBPACK_IMPORTED_MODULE_1__.default.types.REMOVE)
       this.defineFirstStepToken()
-      this.alignmentGroupHistory.defineCurrentStepIndex()
       return true
     }
     return false
@@ -41720,7 +41718,6 @@ class AlignmentGroup {
     this.target.push(...tokensGroup.target)
 
     this.alignmentGroupHistory.addStep(tokensGroup, _lib_data_history_alignment_group_step__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE, { indexDeleted })
-    this.alignmentGroupHistory.defineCurrentStepIndex()
   }
 
   /**
@@ -42914,144 +42911,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ AlignmentGroupHistory
 /* harmony export */ });
-/* harmony import */ var _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/alignment-group-step.js */ "./lib/data/history/alignment-group-step.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
+/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
+/* harmony import */ var _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/alignment-group-step.js */ "./lib/data/history/alignment-group-step.js");
 
 
 
 
-
-
-class AlignmentGroupHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__.default {
+class AlignmentGroupHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__.default {
   constructor (allStepActions) {
     super(allStepActions)
     this.firstStepToken = null
   }
 
-  /**
-   * @returns {Boolean} true - there are no undone steps inside the group, false - there are steps that could be redo
-   */
-  get currentStepOnLast () {
-    return (this.currentStepIndex !== null) && (this.currentStepIndex === this.steps.length - 1)
+  get stepClass () {
+    return _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_1__.default
   }
 
-  /**
-   * Truncates steps to the currentStepIndex
-   */
-  truncateSteps () {
-    if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
-  }
-
-  addStep (token, stepType, params) {
-    this.steps.push(new _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_0__.default(token, stepType, params))
-  }
-
-  /**
-   * Redefines currentStepIndex as the last one (no redo steps)
-   */
-  defineCurrentStepIndex () {
-    this.currentStepIndex = this.steps.length - 1
-  }
-
-  /**
-   * Step back
-   * @retuns { Object }
-   *         { Boolean } result - true - action was successful, false - was not
-   *         { Array } data - additional data, for merge { tokensGroup, indexDeleted }
-   */
-  undo () {
-    if (this.steps.length > 1 && this.currentStepIndex > 0) {
-      return this.alignToStep(this.currentStepIndex - 1)
-    } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-    }
-  }
-
-  /**
-   * Step forward
-   */
-  redo () {
-    if (this.currentStepIndex < (this.steps.length - 1)) {
-      return this.alignToStep(this.currentStepIndex + 1)
-    } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-    }
-  }
-
-  /**
-   * Defines current position in the step tracker and apply/remove step actions according to the position
-   * @param {Number} stepIndex
-   * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
-   */
-  alignToStep (stepIndex) {
-    if (this.currentStepIndex === stepIndex) {
-      return
-    }
-
-    let data = [] // eslint-disable-line prefer-const
-    let result = true
-
-    if (this.currentStepIndex > stepIndex) {
-      for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const dataResult = this.doStepAction(i, 'remove')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    } else if (this.currentStepIndex < stepIndex) {
-      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const dataResult = this.doStepAction(i, 'apply')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    }
-
-    this.currentStepIndex = stepIndex
-    return {
-      result, data
-    }
-  }
-
-  /**
-   * Remove/apply step action according to typeAction
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @param {String} typeAction - remove/apply
-   */
-  doStepAction (stepIndex, typeAction) {
-    const step = this.steps[stepIndex]
-    if (!step.hasValidType) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-      return
-    }
-
-    const actions = this.allStepActions
-    let finalResult
-    try {
-      finalResult = actions[typeAction][step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
+  get undoAvailable () {
+    return (this.steps.length > 1 && this.currentStepIndex > 0)
   }
 }
 
@@ -43108,11 +42985,135 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ EditorHistory
 /* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
+
 class EditorHistory {
   constructor (allStepActions) {
     this.steps = []
     this.currentStepIndex = null
     this.allStepActions = allStepActions
+  }
+
+  /**
+   * @returns {Boolean} true - there are no undone steps inside the group, false - there are steps that could be redo
+   */
+  get currentStepOnLast () {
+    return (this.currentStepIndex !== null) && (this.currentStepIndex === this.steps.length - 1)
+  }
+
+  /**
+   * Truncates steps to the currentStepIndex
+   */
+  truncateSteps () {
+    if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
+      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
+    }
+  }
+
+  /**
+   * Redefines currentStepIndex as the last one (no redo steps)
+   */
+  defineCurrentStepIndex () {
+    this.currentStepIndex = this.steps.length - 1
+  }
+
+  addStep (token, stepType, params) {
+    this.steps.push(new this.stepClass(token, stepType, params)) // eslint-disable-line new-cap
+    this.defineCurrentStepIndex()
+  }
+
+  get undoAvailable () {
+    return (this.steps.length > 0 && this.currentStepIndex > -1)
+  }
+
+  get redoAvailable () {
+    return (this.steps.length > 0 && this.currentStepIndex < (this.steps.length - 1))
+  }
+
+  undo () {
+    if (this.undoAvailable) {
+      return this.alignToStep(this.currentStepIndex - 1)
+    } else {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+    }
+  }
+
+  redo () {
+    if (this.redoAvailable) {
+      return this.alignToStep(this.currentStepIndex + 1)
+    } else {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+    }
+  }
+
+  alignToStep (stepIndex) {
+    if (this.currentStepIndex === stepIndex) {
+      return
+    }
+
+    let data = [] // eslint-disable-line prefer-const
+    let result = true
+
+    if (this.currentStepIndex > stepIndex) {
+      for (let i = this.currentStepIndex; i > stepIndex; i--) {
+        const dataResult = this.doStepAction(i, 'remove')
+        result = result && dataResult.result
+        if (dataResult.data) { data.push(dataResult.data) }
+      }
+    } else if (this.currentStepIndex < stepIndex) {
+      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
+        const dataResult = this.doStepAction(i, 'apply')
+        result = result && dataResult.result
+        if (dataResult.data) { data.push(dataResult.data) }
+      }
+    }
+
+    this.currentStepIndex = stepIndex
+    return {
+      result, data
+    }
+  }
+
+  /**
+   * Remove/apply step action according to typeAction
+   * the following actions are defined - add, remove, merge
+   * @param {Number} stepIndex
+   * @param {String} typeAction - remove/apply
+   */
+  doStepAction (stepIndex, typeAction) {
+    const step = this.steps[stepIndex]
+    if (!step.hasValidType) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+      })
+      return
+    }
+
+    const actions = this.allStepActions
+    let finalResult
+    try {
+      finalResult = actions[typeAction][step.type](step)
+    } catch (e) {
+      console.error(e)
+      finalResult = {
+        result: false
+      }
+    }
+
+    return finalResult
   }
 }
 
@@ -43180,114 +43181,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ TokensEditHistory
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-step.js */ "./lib/data/history/tokens-edit-step.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
+/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
 
 
 
 
-
-
-class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__.default {
-  addStep (token, stepType, params) {
-    this.steps.push(new _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__.default(token, stepType, params))
-    this.defineCurrentStepIndex()
-  }
-
-  defineCurrentStepIndex () {
-    this.currentStepIndex = this.steps.length - 1
-  }
-
-  get undoAvailable () {
-    return (this.steps.length > 0 && this.currentStepIndex > -1)
-  }
-
-  get redoAvailable () {
-    return (this.steps.length > 0 && this.currentStepIndex < (this.steps.length - 1))
-  }
-
-  undo () {
-    if (this.undoAvailable) {
-      return this.alignToStep(this.currentStepIndex - 1)
-    } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENS_EDIT_UNDO_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-    }
-  }
-
-  redo () {
-    if (this.redoAvailable) {
-      return this.alignToStep(this.currentStepIndex + 1)
-    } else {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENS_EDIT_REDO_ERROR'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-    }
-  }
-
-  alignToStep (stepIndex) {
-    if (this.currentStepIndex === stepIndex) {
-      return
-    }
-
-    let data = [] // eslint-disable-line prefer-const
-    let result = true
-
-    if (this.currentStepIndex > stepIndex) {
-      for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const dataResult = this.doStepAction(i, 'remove')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    } else if (this.currentStepIndex < stepIndex) {
-      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const dataResult = this.doStepAction(i, 'apply')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    }
-
-    this.currentStepIndex = stepIndex
-    return {
-      result, data
-    }
-  }
-
-  /**
-   * Remove/apply step action according to typeAction
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @param {String} typeAction - remove/apply
-   */
-  doStepAction (stepIndex, typeAction) {
-    const step = this.steps[stepIndex]
-    if (!step.hasValidType) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-      return
-    }
-
-    const actions = this.allStepActions
-    let finalResult
-    try {
-      finalResult = actions[typeAction][step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
+class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_1__.default {
+  get stepClass () {
+    return _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__.default
   }
 }
 
