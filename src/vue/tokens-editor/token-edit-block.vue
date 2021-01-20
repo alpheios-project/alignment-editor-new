@@ -157,6 +157,7 @@ export default {
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+      this.hideActionsMenu()
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)

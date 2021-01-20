@@ -9,11 +9,8 @@ export default class TokensEditStep extends HistoryStep {
    */
   constructor (token, type, params = {}) {
     super(token, type)
-    this.wasIdWord = params.wasIdWord
-    this.wasWord = params.wasWord
 
-    this.newIdWord = params.newIdWord
-    this.newWord = params.newWord
+    this.params = params
   }
 }
 

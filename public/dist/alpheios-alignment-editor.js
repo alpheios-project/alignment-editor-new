@@ -41029,6 +41029,7 @@ class TokensEditController {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
+    console.info('splitToken started')
     if (!this.checkEditable(token)) { return false }
 
     if (!tokenWord.includes(' ')) {
@@ -41647,11 +41648,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ TokensEditActions
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-step */ "./lib/data/history/tokens-edit-step.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 
-
-
+// import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+// import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 class TokensEditActions {
   constructor ({ origin, target, tokensEditHistory }) {
@@ -41674,60 +41673,33 @@ class TokensEditActions {
     return alignedText
   }
 
-  /**
-   * @param {Token} token
-   * @returns {Segment}
-   */
-  getSegmentByToken (token) {
+  getSegmentByToken (token, segmentType = 'current') {
     const alignedText = this.getAlignedTextByToken(token)
-    return alignedText.segments[token.segmentIndex - 1]
-  }
-
-  getNextSegmentByToken (token) {
-    const alignedText = this.getAlignedTextByToken(token)
-    return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : null
-  }
-
-  getPrevSegmentByToken (token) {
-    const alignedText = this.getAlignedTextByToken(token)
-    return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : null
-  }
-
-  /**
-   * @param {Token} token
-   * @returns {Token} - token on the left hand in the segment
-   */
-  getPrevToken (token) {
-    const segment = this.getSegmentByToken(token)
-    const tokenIndex = segment.getTokenIndex(token)
-
-    if (!segment.isFirstTokenInSegment(tokenIndex)) {
-      return {
-        segment,
-        tokenIndex,
-        position: _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT,
-        tokenMergeTo: segment.getTokenByIndex(tokenIndex - 1)
-      }
+    switch (segmentType) {
+      case 'current' :
+        return alignedText.segments[token.segmentIndex - 1]
+      case 'next' :
+        return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : null
+      case 'prev' :
+        return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : null
     }
     return null
   }
 
-  /**
-   * @param {Token} token
-   * @returns {Token} - token on the right hand in the segment
-   */
-  getNextToken (token) {
+  getToken (token, tokenType) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
-    if (!segment.isLastTokenInSegment(tokenIndex)) {
+    const check = (tokenType === 'prev') ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
+    if (check) {
       return {
         segment,
         tokenIndex,
-        position: _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV,
-        tokenMergeTo: segment.getTokenByIndex(tokenIndex + 1)
+        position: (tokenType === 'prev') ? _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT : _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV,
+        tokenMergeTo: segment.getTokenByIndex((tokenType === 'prev') ? (tokenIndex - 1) : (tokenIndex + 1))
       }
     }
+
     return null
   }
 
@@ -41756,16 +41728,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? this.getPrevToken(token) : this.getNextToken(token)
-
-    if (!this.isEditableToken(tokenMergeTo)) {
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
-      })
-      return false
-    }
-
+    const { segment, tokenIndex, tokenMergeTo, position } = (direction === _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? this.getToken(token, 'prev') : this.getToken(token, 'next')
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
       token: tokenMergeTo,
@@ -41773,7 +41736,19 @@ class TokensEditActions {
       changeType: _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE
     })
 
+    const stepParams = {
+      wasIdWord: tokenMergeTo.idWord,
+      wasWord: tokenMergeTo.word,
+      mergedToken: token,
+      position,
+      newIdWord
+    }
+
     tokenMergeTo.merge({ token, position, newIdWord })
+
+    stepParams.newWord = tokenMergeTo.word
+
+    this.tokensEditHistory.addStep(tokenMergeTo, _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
     return true
   }
@@ -41802,12 +41777,24 @@ class TokensEditActions {
       indexWord: 2
     })
 
+    const stepParams = {
+      wasIdWord: token.idWord,
+      wasWord: token.word,
+      newIdWord1,
+      newIdWord2
+    }
+
     const tokenWordParts = tokenWord.split(' ')
 
     token.update({
       word: tokenWordParts[0],
       idWord: newIdWord1
     })
+
+    stepParams.newWord1 = tokenWordParts[0]
+    stepParams.newWord2 = tokenWordParts[1]
+
+    this.tokensEditHistory.addStep(token, _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.SPLIT, stepParams)
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
@@ -41866,7 +41853,7 @@ class TokensEditActions {
    */
   moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
-    const newSegment = (direction === _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? this.getPrevSegmentByToken(token) : this.getNextSegmentByToken(token)
+    const newSegment = (direction === _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? this.getSegmentByToken(token, 'prev') : this.getSegmentByToken(token, 'next')
 
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
@@ -41894,7 +41881,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    return Boolean(this.getPrevToken(token))
+    return Boolean(this.getToken(token, 'prev'))
   }
 
   /**
@@ -41903,7 +41890,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    return Boolean(this.getNextToken(token))
+    return Boolean(this.getToken(token, 'next'))
   }
 
   /**
@@ -41939,7 +41926,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToNextSegment (token) {
-    return !this.getNextToken(token) && Boolean(this.getNextSegmentByToken(token))
+    return !this.getToken(token, 'next') && Boolean(this.getSegmentByToken(token, 'next'))
   }
 
   /**
@@ -41948,7 +41935,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToPrevSegment (token) {
-    return !this.getPrevToken(token) && Boolean(this.getPrevSegmentByToken(token))
+    return !this.getToken(token, 'prev') && Boolean(this.getSegmentByToken(token, 'prev'))
   }
 
   /**
@@ -41958,8 +41945,8 @@ class TokensEditActions {
    */
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return (!this.getPrevToken(token) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextToken(token) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+    return (!this.getToken(token, 'prev') && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getToken(token, 'next') && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
   }
 
   /**
@@ -42002,6 +41989,72 @@ class TokensEditActions {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
     return segment.deleteToken(tokenIndex)
+  }
+
+  // history actions
+
+  removeStepUpdate (step) {
+    step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
+    return {
+      result: true
+    }
+  }
+
+  applyStepUpdate (step) {
+    step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    return {
+      result: true
+    }
+  }
+
+  removeStepMerge (step) {
+    const segment = this.getSegmentByToken(step.token)
+    const tokenIndex = segment.getTokenIndex(step.token)
+
+    step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
+
+    const insertPosition = (step.params.position === _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex : tokenIndex + 1
+
+    segment.insertToken(step.params.mergedToken, insertPosition)
+    return {
+      result: true
+    }
+  }
+
+  applyStepMerge (step) {
+    const segment = this.getSegmentByToken(step.token)
+    step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+
+    const tokenIndex = segment.getTokenIndex(step.token)
+    const deleteIndex = (step.params.position === _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
+    segment.deleteToken(deleteIndex)
+
+    return {
+      result: true
+    }
+  }
+
+  removeStepSplit (step) {
+    const segment = this.getSegmentByToken(step.token)
+    const tokenIndex = segment.getTokenIndex(step.token)
+
+    step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
+    segment.deleteToken(tokenIndex + 1)
+
+    return {
+      result: true
+    }
+  }
+
+  applyStepSplit (step) {
+    const segment = this.getSegmentByToken(step.token)
+    const tokenIndex = segment.getTokenIndex(step.token)
+
+    step.token.update({ word: step.params.newWord1, idWord: step.params.newIdWord1 })
+    segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
+    return {
+      result: true
+    }
   }
 }
 
@@ -42374,10 +42427,9 @@ class Alignment {
     this.hoveredGroups = []
     this.undoneGroups = []
 
-    this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default(this.allStepActionsTokensEditor)
-    this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
-
+    this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
     this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__.default({ origin: this.origin, target: this.target, tokensEditHistory: this.tokensEditHistory })
+    this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
 
   /**
@@ -43037,6 +43089,15 @@ class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
+    const { tokenMergeTo } = (direction === _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.directions.PREV) ? this.tokensEditActions.getToken(token, 'prev') : this.tokensEditActions.getToken(token, 'next')
+    if (!this.isEditableToken(tokenMergeTo)) {
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
+      })
+      return false
+    }
+
     return this.tokensEditActions.mergeToken(token, direction)
   }
 
@@ -43180,6 +43241,7 @@ class Alignment {
   }
 
   undoTokensEditStep () {
+    console.info('undoTokensEditStep started')
     return this.tokensEditHistory.undo()
   }
 
@@ -43192,21 +43254,18 @@ class Alignment {
    * used in doStepAction
    */
   get allStepActionsTokensEditor () {
-    const actions = { remove: {}, apply: {} }
-    actions.remove[_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE] = (step) => {
-      step.token.update({ word: step.wasWord, idWord: step.wasIdWord })
-      return {
-        result: true
+    return {
+      remove: {
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.removeStepUpdate,
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions)
+      },
+      apply: {
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate,
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions)
       }
     }
-
-    actions.apply[_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE] = (step) => {
-      step.token.update({ word: step.newWord, idWord: step.newIdWord })
-      return {
-        result: true
-      }
-    }
-    return actions
   }
 }
 
@@ -43371,6 +43430,7 @@ class EditorHistory {
   }
 
   alignToStep (stepIndex) {
+    console.info('alignToStep - stepIndex', stepIndex)
     if (this.currentStepIndex === stepIndex) {
       return
     }
@@ -43418,6 +43478,7 @@ class EditorHistory {
     const actions = this.allStepActions
     let finalResult
     try {
+      console.info('doStepAction', typeAction, step.type, step)
       finalResult = actions[typeAction][step.type](step)
     } catch (e) {
       console.error(e)
@@ -43531,11 +43592,8 @@ class TokensEditStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MO
    */
   constructor (token, type, params = {}) {
     super(token, type)
-    this.wasIdWord = params.wasIdWord
-    this.wasWord = params.wasWord
 
-    this.newIdWord = params.newIdWord
-    this.newWord = params.newWord
+    this.params = params
   }
 }
 
@@ -44051,10 +44109,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ Token
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-step.js */ "./lib/data/history/tokens-edit-step.js");
+// import { v4 as uuidv4 } from 'uuid'
 
 
 class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
+    // this.id = uuidv4()
+
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -48245,6 +48306,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
+      this.hideActionsMenu()
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)

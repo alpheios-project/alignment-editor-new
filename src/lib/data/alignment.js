@@ -31,10 +31,9 @@ export default class Alignment {
     this.hoveredGroups = []
     this.undoneGroups = []
 
-    this.tokensEditHistory = new TokensEditHistory(this.allStepActionsTokensEditor)
-    this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
-
+    this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, target: this.target, tokensEditHistory: this.tokensEditHistory })
+    this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
 
   /**
@@ -694,6 +693,15 @@ export default class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
+    const { tokenMergeTo } = (direction === TokensEditStep.directions.PREV) ? this.tokensEditActions.getToken(token, 'prev') : this.tokensEditActions.getToken(token, 'next')
+    if (!this.isEditableToken(tokenMergeTo)) {
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return false
+    }
+
     return this.tokensEditActions.mergeToken(token, direction)
   }
 
@@ -837,6 +845,7 @@ export default class Alignment {
   }
 
   undoTokensEditStep () {
+    console.info('undoTokensEditStep started')
     return this.tokensEditHistory.undo()
   }
 
@@ -849,20 +858,17 @@ export default class Alignment {
    * used in doStepAction
    */
   get allStepActionsTokensEditor () {
-    const actions = { remove: {}, apply: {} }
-    actions.remove[TokensEditStep.types.UPDATE] = (step) => {
-      step.token.update({ word: step.wasWord, idWord: step.wasIdWord })
-      return {
-        result: true
+    return {
+      remove: {
+        [TokensEditStep.types.UPDATE]: this.tokensEditActions.removeStepUpdate,
+        [TokensEditStep.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
+        [TokensEditStep.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions)
+      },
+      apply: {
+        [TokensEditStep.types.UPDATE]: this.tokensEditActions.applyStepUpdate,
+        [TokensEditStep.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
+        [TokensEditStep.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions)
       }
     }
-
-    actions.apply[TokensEditStep.types.UPDATE] = (step) => {
-      step.token.update({ word: step.newWord, idWord: step.newIdWord })
-      return {
-        result: true
-      }
-    }
-    return actions
   }
 }

@@ -1,7 +1,10 @@
+// import { v4 as uuidv4 } from 'uuid'
 import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
 
 export default class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
+    // this.id = uuidv4()
+
     this.textType = textType
     this.idWord = idWord
     this.word = word
