@@ -41871,7 +41871,7 @@ class Alignment {
     this.hoveredGroups = []
     this.undoneGroups = []
 
-    this.historyTokensEdit = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
+    this.historyTokensEdit = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default(this.allStepActionsTokensEditor)
   }
 
   /**
@@ -42876,6 +42876,28 @@ class Alignment {
   redoTokensEditStep () {
     return this.historyTokensEdit.redo()
   }
+
+  /**
+   * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
+   * used in doStepAction
+   */
+  get allStepActionsTokensEditor () {
+    const actions = { remove: {}, apply: {} }
+    actions.remove[_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE] = (step) => {
+      step.token.update({ word: step.wasWord, idWord: step.wasIdWord })
+      return {
+        result: true
+      }
+    }
+
+    actions.apply[_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE] = (step) => {
+      step.token.update({ word: step.newWord, idWord: step.newIdWord })
+      return {
+        result: true
+      }
+    }
+    return actions
+  }
 }
 
 
@@ -42895,18 +42917,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/alignment-group-step.js */ "./lib/data/history/alignment-group-step.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
 
 
 
 
 
-class AlignmentGroupHistory {
+
+class AlignmentGroupHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__.default {
   constructor (allStepActions) {
-    this.steps = []
-    this.currentStepIndex = null
+    super(allStepActions)
     this.firstStepToken = null
-    // this.unmergedGroupData = null
-    this.allStepActions = allStepActions
   }
 
   /**
@@ -43048,13 +43069,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ AlignmentGroupStep
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+/* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
 
 
-
-class AlignmentGroupStep {
+class AlignmentGroupStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__.default {
   /**
    *
    * @param {Token | AlignmentGroup} token
@@ -43062,10 +43080,67 @@ class AlignmentGroupStep {
    * @param {Object} params - for now it is used only for indexDeleted (merge action)
    */
   constructor (token, type, params = {}) {
+    super(token, type)
+    this.indexDeleted = params.indexDeleted
+  }
+}
+
+AlignmentGroupStep.types = {
+  // Step type for adding token
+  ADD: 'add',
+  // Step type for removing token
+  REMOVE: 'remove',
+  // Step type for merging with another alignment group
+  MERGE: 'merge'
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/history/editor-history.js":
+/*!********************************************!*\
+  !*** ./lib/data/history/editor-history.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ EditorHistory
+/* harmony export */ });
+class EditorHistory {
+  constructor (allStepActions) {
+    this.steps = []
+    this.currentStepIndex = null
+    this.allStepActions = allStepActions
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/data/history/history-step.js":
+/*!******************************************!*\
+  !*** ./lib/data/history/history-step.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ HistoryStep
+/* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+
+
+
+class HistoryStep {
+  constructor (token, type) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.token = token
     this.type = type
-    this.indexDeleted = params.indexDeleted
   }
 
   /**
@@ -43086,17 +43161,8 @@ class AlignmentGroupStep {
    * @returns {Boolean} - true - step type is correctly defined, false - if not
    */
   get hasValidType () {
-    return Object.values(AlignmentGroupStep.types).includes(this.type)
+    return Object.values(this.constructor.types).includes(this.type)
   }
-}
-
-AlignmentGroupStep.types = {
-  // Step type for adding token
-  ADD: 'add',
-  // Step type for removing token
-  REMOVE: 'remove',
-  // Step type for merging with another alignment group
-  MERGE: 'merge'
 }
 
 
@@ -43116,17 +43182,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-step.js */ "./lib/data/history/tokens-edit-step.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
 
 
 
 
 
-class TokensEditHistory {
-  constructor () {
-    this.steps = []
-    this.currentStepIndex = null
-  }
 
+class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_3__.default {
   addStep (token, stepType, params) {
     this.steps.push(new _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__.default(token, stepType, params))
     this.defineCurrentStepIndex()
@@ -43197,28 +43260,6 @@ class TokensEditHistory {
   }
 
   /**
-   * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
-   * used in doStepAction
-   */
-  get allStepActions () {
-    const actions = { remove: {}, apply: {} }
-    actions.remove[_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE] = (step) => {
-      step.token.update({ word: step.wasWord, idWord: step.wasIdWord })
-      return {
-        result: true
-      }
-    }
-
-    actions.apply[_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE] = (step) => {
-      step.token.update({ word: step.newWord, idWord: step.newIdWord })
-      return {
-        result: true
-      }
-    }
-    return actions
-  }
-
-  /**
    * Remove/apply step action according to typeAction
    * the following actions are defined - add, remove, merge
    * @param {Number} stepIndex
@@ -43264,13 +43305,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => /* binding */ TokensEditStep
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+/* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
 
 
-
-class TokensEditStep {
+class TokensEditStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__.default {
   /**
    *
    * @param {Token} token
@@ -43278,36 +43316,12 @@ class TokensEditStep {
    * @param {Object} params - for now it is used only for indexDeleted (merge action)
    */
   constructor (token, type, params = {}) {
-    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-    this.token = token
-    this.type = type
-
+    super(token, type)
     this.wasIdWord = params.wasIdWord
     this.wasWord = params.wasWord
 
     this.newIdWord = params.newIdWord
     this.newWord = params.newWord
-  }
-
-  /**
-   * @returns {String} - origin/target
-   */
-  get textType () {
-    return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.textType : null
-  }
-
-  /**
-   * @returns {String}
-   */
-  get idWord () {
-    return this.token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default ? this.token.idWord : null
-  }
-
-  /**
-   * @returns {Boolean} - true - step type is correctly defined, false - if not
-   */
-  get hasValidType () {
-    return Object.values(TokensEditStep.types).includes(this.type)
   }
 }
 

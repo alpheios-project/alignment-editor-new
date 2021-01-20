@@ -2,14 +2,12 @@ import AlignmentGroupStep from '@/lib/data/history/alignment-group-step.js'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import EditorHistory from '@/lib/data/history/editor-history'
 
-export default class AlignmentGroupHistory {
+export default class AlignmentGroupHistory extends EditorHistory {
   constructor (allStepActions) {
-    this.steps = []
-    this.currentStepIndex = null
+    super(allStepActions)
     this.firstStepToken = null
-    // this.unmergedGroupData = null
-    this.allStepActions = allStepActions
   }
 
   /**

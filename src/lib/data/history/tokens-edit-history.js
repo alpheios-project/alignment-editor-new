@@ -2,13 +2,9 @@ import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import EditorHistory from '@/lib/data/history/editor-history'
 
-export default class TokensEditHistory {
-  constructor () {
-    this.steps = []
-    this.currentStepIndex = null
-  }
-
+export default class TokensEditHistory extends EditorHistory {
   addStep (token, stepType, params) {
     this.steps.push(new TokensEditStep(token, stepType, params))
     this.defineCurrentStepIndex()
@@ -76,28 +72,6 @@ export default class TokensEditHistory {
     return {
       result, data
     }
-  }
-
-  /**
-   * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
-   * used in doStepAction
-   */
-  get allStepActions () {
-    const actions = { remove: {}, apply: {} }
-    actions.remove[TokensEditStep.types.UPDATE] = (step) => {
-      step.token.update({ word: step.wasWord, idWord: step.wasIdWord })
-      return {
-        result: true
-      }
-    }
-
-    actions.apply[TokensEditStep.types.UPDATE] = (step) => {
-      step.token.update({ word: step.newWord, idWord: step.newIdWord })
-      return {
-        result: true
-      }
-    }
-    return actions
   }
 
   /**

@@ -1,7 +1,6 @@
-import { v4 as uuidv4 } from 'uuid'
-import Token from '@/lib/data/token'
+import HistoryStep from '@/lib/data/history/history-step'
 
-export default class AlignmentGroupStep {
+export default class AlignmentGroupStep extends HistoryStep {
   /**
    *
    * @param {Token | AlignmentGroup} token
@@ -9,31 +8,8 @@ export default class AlignmentGroupStep {
    * @param {Object} params - for now it is used only for indexDeleted (merge action)
    */
   constructor (token, type, params = {}) {
-    this.id = uuidv4()
-    this.token = token
-    this.type = type
+    super(token, type)
     this.indexDeleted = params.indexDeleted
-  }
-
-  /**
-   * @returns {String} - origin/target
-   */
-  get textType () {
-    return this.token instanceof Token ? this.token.textType : null
-  }
-
-  /**
-   * @returns {String}
-   */
-  get idWord () {
-    return this.token instanceof Token ? this.token.idWord : null
-  }
-
-  /**
-   * @returns {Boolean} - true - step type is correctly defined, false - if not
-   */
-  get hasValidType () {
-    return Object.values(AlignmentGroupStep.types).includes(this.type)
   }
 }
 

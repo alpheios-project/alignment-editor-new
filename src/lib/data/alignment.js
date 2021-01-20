@@ -29,7 +29,7 @@ export default class Alignment {
     this.hoveredGroups = []
     this.undoneGroups = []
 
-    this.historyTokensEdit = new TokensEditHistory()
+    this.historyTokensEdit = new TokensEditHistory(this.allStepActionsTokensEditor)
   }
 
   /**
@@ -1033,5 +1033,27 @@ export default class Alignment {
 
   redoTokensEditStep () {
     return this.historyTokensEdit.redo()
+  }
+
+  /**
+   * The full list with undo/redo actions - removeStepAction, applyStepAction for all step types
+   * used in doStepAction
+   */
+  get allStepActionsTokensEditor () {
+    const actions = { remove: {}, apply: {} }
+    actions.remove[TokensEditStep.types.UPDATE] = (step) => {
+      step.token.update({ word: step.wasWord, idWord: step.wasIdWord })
+      return {
+        result: true
+      }
+    }
+
+    actions.apply[TokensEditStep.types.UPDATE] = (step) => {
+      step.token.update({ word: step.newWord, idWord: step.newIdWord })
+      return {
+        result: true
+      }
+    }
+    return actions
   }
 }
