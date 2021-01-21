@@ -28,19 +28,19 @@ export default {
       return L10nSingleton
     },
     undoTokensEditAvailable () {
-      // return true
       return this.$store.state.tokenUpdated && this.$tokensEC.undoTokensEditAvailable
     },
     redoTokensEditAvailable () {
-      // return true
       return this.$store.state.tokenUpdated && this.$tokensEC.redoTokensEditAvailable
     }
   },
   methods: {
     undoTokensEditStep () {
+      this.$emit('blockTokensActions')
       this.$tokensEC.undoTokensEditStep()
     },
     redoTokensEditStep () {
+      this.$emit('blockTokensActions')
       this.$tokensEC.redoTokensEditStep()
     }
   }

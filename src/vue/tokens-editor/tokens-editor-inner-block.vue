@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-tokens-edit-editor-container">
-    <actions-menu-tokens-editor />
+    <actions-menu-tokens-editor @blockTokensActions = "blockTokensActions" />
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
@@ -13,7 +13,7 @@
       >
         <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-edit-block 
-                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId"
+                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "blockTokensActionsFlag"
           />
         </div>
 
@@ -22,6 +22,7 @@
                   :segment = "segmentTarget" 
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
                   v-show="isShownTab(targetId)"
+                  :blockTokensActionsFlag = "blockTokensActionsFlag"
           />
         </div>
 
@@ -48,7 +49,8 @@ export default {
   data () {
     return {
       shownTabs: [],
-      shownTabsInited: false
+      shownTabsInited: false,
+      blockTokensActionsFlag: 1
     }
   },
   computed: {
@@ -130,6 +132,10 @@ export default {
         this.shownTabs.push(targetId)
       }  
       this.$historyC.updateMode(this.shownTabs)    
+    },
+
+    blockTokensActions () {
+      this.blockTokensActionsFlag = this.blockTokensActionsFlag + 1
     }
   } 
 }

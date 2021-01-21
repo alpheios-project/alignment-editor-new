@@ -69,7 +69,6 @@ export default class EditorHistory {
   }
 
   alignToStep (stepIndex) {
-    console.info('alignToStep - stepIndex', stepIndex)
     if (this.currentStepIndex === stepIndex) {
       return
     }
@@ -117,7 +116,6 @@ export default class EditorHistory {
     const actions = this.allStepActions
     let finalResult
     try {
-      console.info('doStepAction', typeAction, step.type, step)
       finalResult = actions[typeAction][step.type](step)
     } catch (e) {
       console.error(e)

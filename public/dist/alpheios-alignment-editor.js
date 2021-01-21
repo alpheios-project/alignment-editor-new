@@ -41029,7 +41029,6 @@ class TokensEditController {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    console.info('splitToken started')
     if (!this.checkEditable(token)) { return false }
 
     if (!tokenWord.includes(' ')) {
@@ -43241,7 +43240,6 @@ class Alignment {
   }
 
   undoTokensEditStep () {
-    console.info('undoTokensEditStep started')
     return this.tokensEditHistory.undo()
   }
 
@@ -43430,7 +43428,6 @@ class EditorHistory {
   }
 
   alignToStep (stepIndex) {
-    console.info('alignToStep - stepIndex', stepIndex)
     if (this.currentStepIndex === stepIndex) {
       return
     }
@@ -43478,7 +43475,6 @@ class EditorHistory {
     const actions = this.allStepActions
     let finalResult
     try {
-      console.info('doStepAction', typeAction, step.type, step)
       finalResult = actions[typeAction][step.type](step)
     } catch (e) {
       console.error(e)
@@ -47786,19 +47782,19 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     undoTokensEditAvailable () {
-      // return true
       return this.$store.state.tokenUpdated && this.$tokensEC.undoTokensEditAvailable
     },
     redoTokensEditAvailable () {
-      // return true
       return this.$store.state.tokenUpdated && this.$tokensEC.redoTokensEditAvailable
     }
   },
   methods: {
     undoTokensEditStep () {
+      this.$emit('blockTokensActions')
       this.$tokensEC.undoTokensEditStep()
     },
     redoTokensEditStep () {
+      this.$emit('blockTokensActions')
       this.$tokensEC.redoTokensEditStep()
     }
   }
@@ -47896,6 +47892,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/token-edit-block.vue */ "./vue/tokens-editor/token-edit-block.vue");
 /* harmony import */ var _vue_tokens_editor_actions_menu_token_edit_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-token-edit.vue */ "./vue/tokens-editor/actions-menu-token-edit.vue");
 /* harmony import */ var _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-step.js */ "./lib/data/history/tokens-edit-step.js");
@@ -47950,6 +47947,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentEditBlock',
   components: {
@@ -47968,10 +47966,16 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     },
 
-    isLast : {
+    isLast: {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    blockTokensActionsFlag: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
@@ -47997,6 +48001,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
+    blockTokensActionsFlag () {
+      this.removeAllActivated()
+    }
   },
   computed: {
     /**
@@ -48104,7 +48111,11 @@ __webpack_require__.r(__webpack_exports__);
         this.mergeTokenNextIdWord = token.idWord
       }
     },
-    splitToken (token) {
+    async splitToken (token) {
+      if (token.idWord === this.splitTokenIdWord) {
+        this.splitTokenIdWord = null
+        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+      }
       this.splitTokenIdWord = token.idWord
     },
     addLineBreak (token) {
@@ -48306,7 +48317,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     splitToken ()  {
       this.$tokensEC.splitToken(this.token, this.tokenWord)
-      this.hideActionsMenu()
     },
     addLineBreakAfterToken () {
       this.$tokensEC.addLineBreakAfterToken(this.token)
@@ -48387,6 +48397,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -48406,7 +48417,8 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       shownTabs: [],
-      shownTabsInited: false
+      shownTabsInited: false,
+      blockTokensActionsFlag: 1
     }
   },
   computed: {
@@ -48488,6 +48500,10 @@ __webpack_require__.r(__webpack_exports__);
         this.shownTabs.push(targetId)
       }  
       this.$historyC.updateMode(this.shownTabs)    
+    },
+
+    blockTokensActions () {
+      this.blockTokensActionsFlag = this.blockTokensActionsFlag + 1
     }
   } 
 });
@@ -53733,7 +53749,9 @@ var render = function() {
     "div",
     { staticClass: "alpheios-alignment-editor-tokens-edit-editor-container" },
     [
-      _c("actions-menu-tokens-editor"),
+      _c("actions-menu-tokens-editor", {
+        on: { blockTokensActions: _vm.blockTokensActions }
+      }),
       _vm._v(" "),
       _vm.allTokenizedTargetTextsIds.length > 1
         ? _c("editor-tabs", {
@@ -53770,7 +53788,8 @@ var render = function() {
                   _c("segment-edit-block", {
                     attrs: {
                       segment: segmentData.origin,
-                      currentTargetId: _vm.currentTargetId
+                      currentTargetId: _vm.currentTargetId,
+                      blockTokensActionsFlag: _vm.blockTokensActionsFlag
                     }
                   })
                 ],
@@ -53797,7 +53816,8 @@ var render = function() {
                     attrs: {
                       segment: segmentTarget,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
-                      currentTargetId: _vm.currentTargetId
+                      currentTargetId: _vm.currentTargetId,
+                      blockTokensActionsFlag: _vm.blockTokensActionsFlag
                     }
                   })
                 }),

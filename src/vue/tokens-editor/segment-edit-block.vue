@@ -42,6 +42,7 @@
     </div>
 </template>
 <script>
+import Vue from '@vue-runtime'
 import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
 import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
 
@@ -66,10 +67,16 @@ export default {
       required: true
     },
 
-    isLast : {
+    isLast: {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    blockTokensActionsFlag: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
@@ -95,6 +102,9 @@ export default {
     }
   },
   watch: {
+    blockTokensActionsFlag () {
+      this.removeAllActivated()
+    }
   },
   computed: {
     /**
@@ -202,7 +212,11 @@ export default {
         this.mergeTokenNextIdWord = token.idWord
       }
     },
-    splitToken (token) {
+    async splitToken (token) {
+      if (token.idWord === this.splitTokenIdWord) {
+        this.splitTokenIdWord = null
+        await Vue.nextTick()
+      }
       this.splitTokenIdWord = token.idWord
     },
     addLineBreak (token) {

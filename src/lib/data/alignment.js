@@ -845,7 +845,6 @@ export default class Alignment {
   }
 
   undoTokensEditStep () {
-    console.info('undoTokensEditStep started')
     return this.tokensEditHistory.undo()
   }
 

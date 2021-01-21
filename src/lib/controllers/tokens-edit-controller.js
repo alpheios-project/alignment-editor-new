@@ -56,7 +56,6 @@ export default class TokensEditController {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    console.info('splitToken started')
     if (!this.checkEditable(token)) { return false }
 
     if (!tokenWord.includes(' ')) {
