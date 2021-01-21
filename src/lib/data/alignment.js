@@ -861,12 +861,16 @@ export default class Alignment {
       remove: {
         [TokensEditStep.types.UPDATE]: this.tokensEditActions.removeStepUpdate,
         [TokensEditStep.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
-        [TokensEditStep.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions)
+        [TokensEditStep.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
+        [TokensEditStep.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
+        [TokensEditStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions)
       },
       apply: {
         [TokensEditStep.types.UPDATE]: this.tokensEditActions.applyStepUpdate,
         [TokensEditStep.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
-        [TokensEditStep.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions)
+        [TokensEditStep.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
+        [TokensEditStep.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
+        [TokensEditStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions)
       }
     }
   }

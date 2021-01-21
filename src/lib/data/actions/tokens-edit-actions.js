@@ -165,6 +165,8 @@ export default class TokensEditActions {
       changeType: TokensEditStep.types.ADD_LINE_BREAK
     })
 
+    this.tokensEditHistory.addStep(token, TokensEditStep.types.ADD_LINE_BREAK, { wasIdWord: token.idWord, newIdWord })
+
     token.addLineBreakAfter()
     token.update({
       idWord: newIdWord
@@ -186,6 +188,8 @@ export default class TokensEditActions {
       segment,
       changeType: TokensEditStep.types.REMOVE_LINE_BREAK
     })
+
+    this.tokensEditHistory.addStep(token, TokensEditStep.types.REMOVE_LINE_BREAK, { wasIdWord: token.idWord, newIdWord })
 
     token.removeLineBreakAfter()
     token.update({
@@ -402,6 +406,34 @@ export default class TokensEditActions {
 
     step.token.update({ word: step.params.newWord1, idWord: step.params.newIdWord1 })
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
+    return {
+      result: true
+    }
+  }
+
+  removeStepAddLineBreak (step) {
+    step.token.update({ hasLineBreak: false, idWord: step.params.wasIdWord })
+    return {
+      result: true
+    }
+  }
+
+  applyStepAddLineBreak (step) {
+    step.token.update({ hasLineBreak: true, idWord: step.params.newIdWord })
+    return {
+      result: true
+    }
+  }
+
+  removeStepRemoveLineBreak (step) {
+    step.token.update({ hasLineBreak: true, idWord: step.params.wasIdWord })
+    return {
+      result: true
+    }
+  }
+
+  applyStepRemoveLineBreak (step) {
+    step.token.update({ hasLineBreak: false, idWord: step.params.newIdWord })
     return {
       result: true
     }

@@ -41814,6 +41814,8 @@ class TokensEditActions {
       changeType: _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD_LINE_BREAK
     })
 
+    this.tokensEditHistory.addStep(token, _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD_LINE_BREAK, { wasIdWord: token.idWord, newIdWord })
+
     token.addLineBreakAfter()
     token.update({
       idWord: newIdWord
@@ -41835,6 +41837,8 @@ class TokensEditActions {
       segment,
       changeType: _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE_LINE_BREAK
     })
+
+    this.tokensEditHistory.addStep(token, _lib_data_history_tokens_edit_step__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE_LINE_BREAK, { wasIdWord: token.idWord, newIdWord })
 
     token.removeLineBreakAfter()
     token.update({
@@ -42051,6 +42055,34 @@ class TokensEditActions {
 
     step.token.update({ word: step.params.newWord1, idWord: step.params.newIdWord1 })
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
+    return {
+      result: true
+    }
+  }
+
+  removeStepAddLineBreak (step) {
+    step.token.update({ hasLineBreak: false, idWord: step.params.wasIdWord })
+    return {
+      result: true
+    }
+  }
+
+  applyStepAddLineBreak (step) {
+    step.token.update({ hasLineBreak: true, idWord: step.params.newIdWord })
+    return {
+      result: true
+    }
+  }
+
+  removeStepRemoveLineBreak (step) {
+    step.token.update({ hasLineBreak: true, idWord: step.params.wasIdWord })
+    return {
+      result: true
+    }
+  }
+
+  applyStepRemoveLineBreak (step) {
+    step.token.update({ hasLineBreak: false, idWord: step.params.newIdWord })
     return {
       result: true
     }
@@ -43256,12 +43288,16 @@ class Alignment {
       remove: {
         [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.removeStepUpdate,
         [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
-        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions)
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions)
       },
       apply: {
         [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate,
         [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
-        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions)
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
+        [_lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions)
       }
     }
   }
