@@ -1,10 +1,7 @@
-// import { v4 as uuidv4 } from 'uuid'
-import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class Token {
   constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
-    // this.id = uuidv4()
-
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -62,25 +59,17 @@ export default class Token {
    * @param {String} newIdWord
    */
   merge ({ token, position, newIdWord }) {
-    if (position === TokensEditStep.directions.PREV) {
+    if (position === HistoryStep.directions.PREV) {
       this.update({
         word: `${token.word} ${this.word}`,
         idWord: newIdWord
       })
-    } else if (position === TokensEditStep.directions.NEXT) {
+    } else if (position === HistoryStep.directions.NEXT) {
       this.update({
         word: `${this.word} ${token.word}`,
         idWord: newIdWord
       })
     }
     return true
-  }
-
-  addLineBreakAfter () {
-    return this.update({ hasLineBreak: true })
-  }
-
-  removeLineBreakAfter () {
-    return this.update({ hasLineBreak: false })
   }
 }

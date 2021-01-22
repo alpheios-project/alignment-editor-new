@@ -77,7 +77,7 @@ import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
-import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 import ActionsButtonTokenEdit from '@/vue/tokens-editor/actions-button-token-edit.vue'
 
 export default {
@@ -169,10 +169,10 @@ export default {
   },
   methods: {
     mergeToPrev () {
-      this.$emit('mergeToken', this.token, TokensEditStep.directions.PREV)
+      this.$emit('mergeToken', this.token, HistoryStep.directions.PREV)
     },
     mergeToNext () {
-      this.$emit('mergeToken', this.token, TokensEditStep.directions.NEXT)
+      this.$emit('mergeToken', this.token, HistoryStep.directions.NEXT)
     }
   }
 }

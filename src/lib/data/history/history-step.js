@@ -29,3 +29,35 @@ export default class HistoryStep {
     return Object.values(this.constructor.types).includes(this.type)
   }
 }
+
+HistoryStep.types = {
+  //
+  ADD: 'add',
+  //
+  REMOVE: 'remove',
+  //
+  UPDATE: 'update',
+  //
+  MERGE: 'merge',
+  //
+  SPLIT: 'split',
+  //
+  ADD_LINE_BREAK: 'add line break',
+  //
+  REMOVE_LINE_BREAK: 'remove line break',
+  //
+  TO_NEXT_SEGMENT: 'to next segment',
+  //
+  TO_PREV_SEGMENT: 'to prev segment',
+  //
+  NEW: 'new',
+  //
+  DELETE: 'delete'
+}
+
+HistoryStep.directions = {
+  //
+  PREV: 'prev',
+  //
+  NEXT: 'next'
+}

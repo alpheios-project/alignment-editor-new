@@ -114,7 +114,7 @@ export default class TokensEditController {
   /**
    * Moves the token to the next/previous segment
    * @param {Token} token
-   * @param {TokensEditStep.directions} direction
+   * @param {HistoryStep.directions} direction
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {

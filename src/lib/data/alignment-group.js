@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import AlignmentGroupStep from '@/lib/data/history/alignment-group-step'
+import HistoryStep from '@/lib/data/history/history-step.js'
 import AlignmentGroupHistory from '@/lib/data/history/alignment-group-history'
 import AlignmentGroupActions from '@/lib/data/actions/alignment-group-actions'
 
@@ -65,6 +65,10 @@ export default class AlignmentGroup {
 
   get currentStepOnLast () {
     return this.alignmentGroupHistory.currentStepOnLast
+  }
+
+  get steps () {
+    return this.alignmentGroupHistory.steps
   }
 
   // checks
@@ -133,6 +137,10 @@ export default class AlignmentGroup {
     return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
+  updateFirstStepToken (token) {
+    return this.alignmentGroupActions.updateFirstStepToken(token)
+  }
+
   // actions
 
   add (token) {
@@ -178,14 +186,14 @@ export default class AlignmentGroup {
   get allStepActions () {
     return {
       remove: {
-        [AlignmentGroupStep.types.ADD]: this.alignmentGroupActions.removeStepAdd,
-        [AlignmentGroupStep.types.REMOVE]: this.alignmentGroupActions.removeStepRemove,
-        [AlignmentGroupStep.types.MERGE]: this.alignmentGroupActions.removeStepMerge
+        [HistoryStep.types.ADD]: this.alignmentGroupActions.removeStepAdd.bind(this.alignmentGroupActions),
+        [HistoryStep.types.REMOVE]: this.alignmentGroupActions.removeStepRemove.bind(this.alignmentGroupActions),
+        [HistoryStep.types.MERGE]: this.alignmentGroupActions.removeStepMerge.bind(this.alignmentGroupActions)
       },
       apply: {
-        [AlignmentGroupStep.types.ADD]: this.alignmentGroupActions.applyStepAdd,
-        [AlignmentGroupStep.types.REMOVE]: this.alignmentGroupActions.applyStepRemove,
-        [AlignmentGroupStep.types.MERGE]: this.alignmentGroupActions.applyStepMerge
+        [HistoryStep.types.ADD]: this.alignmentGroupActions.applyStepAdd.bind(this.alignmentGroupActions),
+        [HistoryStep.types.REMOVE]: this.alignmentGroupActions.applyStepRemove.bind(this.alignmentGroupActions),
+        [HistoryStep.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
   }

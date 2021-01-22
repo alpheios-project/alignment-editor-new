@@ -6,7 +6,7 @@ import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
-import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
@@ -32,7 +32,7 @@ export default class Alignment {
     this.undoneGroups = []
 
     this.tokensEditHistory = new TokensEditHistory()
-    this.tokensEditActions = new TokensEditActions({ origin: this.origin, target: this.target, tokensEditHistory: this.tokensEditHistory })
+    this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
   }
 
@@ -693,8 +693,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { tokenMergeTo } = (direction === TokensEditStep.directions.PREV) ? this.tokensEditActions.getToken(token, 'prev') : this.tokensEditActions.getToken(token, 'next')
-    if (!this.isEditableToken(tokenMergeTo)) {
+    const { tokenResult } = (direction === HistoryStep.directions.PREV) ? this.tokensEditActions.getToken(token, 'prev') : this.tokensEditActions.getToken(token, 'next')
+
+    if (!this.isEditableToken(tokenResult)) {
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP'),
         type: NotificationSingleton.types.ERROR
@@ -720,7 +721,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   addLineBreakAfterToken (token) {
-    return this.tokensEditActions.addLineBreakAfterToken(token)
+    return this.tokensEditActions.changeLineBreak(token, true)
   }
 
   /**
@@ -729,13 +730,13 @@ export default class Alignment {
    * @returns {Boolean}
    */
   removeLineBreakAfterToken (token) {
-    return this.tokensEditActions.removeLineBreakAfterToken(token)
+    return this.tokensEditActions.changeLineBreak(token, false)
   }
 
   /**
    * Moves the token to the next/previous segment
    * @param {Token} token
-   * @param {TokensEditStep.directions} direction
+   * @param {HistoryStep.directions} direction
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
@@ -859,18 +860,24 @@ export default class Alignment {
   get allStepActionsTokensEditor () {
     return {
       remove: {
-        [TokensEditStep.types.UPDATE]: this.tokensEditActions.removeStepUpdate,
-        [TokensEditStep.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
-        [TokensEditStep.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
-        [TokensEditStep.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
-        [TokensEditStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions)
+        [HistoryStep.types.UPDATE]: this.tokensEditActions.removeStepUpdate.bind(this.tokensEditActions),
+        [HistoryStep.types.MERGE]: this.tokensEditActions.removeStepMerge.bind(this.tokensEditActions),
+        [HistoryStep.types.SPLIT]: this.tokensEditActions.removeStepSplit.bind(this.tokensEditActions),
+        [HistoryStep.types.ADD_LINE_BREAK]: this.tokensEditActions.removeStepAddLineBreak.bind(this.tokensEditActions),
+        [HistoryStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
+        [HistoryStep.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
+        [HistoryStep.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
+        [HistoryStep.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions)
       },
       apply: {
-        [TokensEditStep.types.UPDATE]: this.tokensEditActions.applyStepUpdate,
-        [TokensEditStep.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
-        [TokensEditStep.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
-        [TokensEditStep.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
-        [TokensEditStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions)
+        [HistoryStep.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
+        [HistoryStep.types.MERGE]: this.tokensEditActions.applyStepMerge.bind(this.tokensEditActions),
+        [HistoryStep.types.SPLIT]: this.tokensEditActions.applyStepSplit.bind(this.tokensEditActions),
+        [HistoryStep.types.ADD_LINE_BREAK]: this.tokensEditActions.applyStepAddLineBreak.bind(this.tokensEditActions),
+        [HistoryStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
+        [HistoryStep.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
+        [HistoryStep.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
+        [HistoryStep.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions)
       }
     }
   }

@@ -1,11 +1,14 @@
-import TokensEditStep from '@/lib/data/history/tokens-edit-step'
-// import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-// import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class TokensEditActions {
-  constructor ({ origin, target, tokensEditHistory }) {
+  /**
+   * @param {Object {SourceText, AlignedText} } origin - it is a reference from alignment.origin
+   * @param {Object {targetId: {SourceText, AlignedText} } } targets - it is a reference from alignment.targets
+   * @param {TokensEditHistory} tokensEditHistory - it is a reference from alignment.tokensEditHistory
+   */
+  constructor ({ origin, targets, tokensEditHistory }) {
     this.origin = origin
-    this.target = target
+    this.targets = targets
     this.tokensEditHistory = tokensEditHistory
   }
 
@@ -23,6 +26,12 @@ export default class TokensEditActions {
     return alignedText
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @param {String} segmentType - current/next/prev
+   * @returns {Segment}
+   */
   getSegmentByToken (token, segmentType = 'current') {
     const alignedText = this.getAlignedTextByToken(token)
     switch (segmentType) {
@@ -36,17 +45,28 @@ export default class TokensEditActions {
     return null
   }
 
+  /**
+   *
+   * @param {Token} token
+   * @param {String} tokenType - prev/next
+   * @returns {Object}
+   *          {Segment} segment
+   *          {Number} tokenIndex
+   *          {String} position - prev/next
+   *          {Token} tokenResult
+   */
   getToken (token, tokenType) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
     const check = (tokenType === 'prev') ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
+
     if (check) {
       return {
         segment,
         tokenIndex,
-        position: (tokenType === 'prev') ? TokensEditStep.directions.NEXT : TokensEditStep.directions.PREV,
-        tokenMergeTo: segment.getTokenByIndex((tokenType === 'prev') ? (tokenIndex - 1) : (tokenIndex + 1))
+        position: (tokenType === 'prev') ? HistoryStep.directions.NEXT : HistoryStep.directions.PREV,
+        tokenResult: segment.getTokenByIndex((tokenType === 'prev') ? (tokenIndex - 1) : (tokenIndex + 1))
       }
     }
 
@@ -65,10 +85,11 @@ export default class TokensEditActions {
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditStep.types.UPDATE
+      changeType: HistoryStep.types.UPDATE
     })
 
-    this.tokensEditHistory.addStep(token, TokensEditStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
+    this.tokensEditHistory.truncateSteps()
+    this.tokensEditHistory.addStep(token, HistoryStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
     return token.update({ word, idWord: newIdWord })
   }
 
@@ -78,27 +99,29 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenMergeTo, position } = (direction === TokensEditStep.directions.PREV) ? this.getToken(token, 'prev') : this.getToken(token, 'next')
+    const { segment, tokenIndex, tokenResult, position } = (direction === HistoryStep.directions.PREV) ? this.getToken(token, 'prev') : this.getToken(token, 'next')
+
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
-      token: tokenMergeTo,
+      token: tokenResult,
       segment,
-      changeType: TokensEditStep.types.MERGE
+      changeType: HistoryStep.types.MERGE
     })
 
     const stepParams = {
-      wasIdWord: tokenMergeTo.idWord,
-      wasWord: tokenMergeTo.word,
+      wasIdWord: tokenResult.idWord,
+      wasWord: tokenResult.word,
       mergedToken: token,
       position,
       newIdWord
     }
 
-    tokenMergeTo.merge({ token, position, newIdWord })
+    tokenResult.merge({ token, position, newIdWord })
 
-    stepParams.newWord = tokenMergeTo.word
+    stepParams.newWord = tokenResult.word
 
-    this.tokensEditHistory.addStep(tokenMergeTo, TokensEditStep.types.MERGE, stepParams)
+    this.tokensEditHistory.truncateSteps()
+    this.tokensEditHistory.addStep(tokenResult, HistoryStep.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
     return true
   }
@@ -116,14 +139,14 @@ export default class TokensEditActions {
     const newIdWord1 = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditStep.types.SPLIT,
+      changeType: HistoryStep.types.SPLIT,
       indexWord: 1
     })
 
     const newIdWord2 = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditStep.types.SPLIT,
+      changeType: HistoryStep.types.SPLIT,
       indexWord: 2
     })
 
@@ -144,88 +167,76 @@ export default class TokensEditActions {
     stepParams.newWord1 = tokenWordParts[0]
     stepParams.newWord2 = tokenWordParts[1]
 
-    this.tokensEditHistory.addStep(token, TokensEditStep.types.SPLIT, stepParams)
+    this.tokensEditHistory.truncateSteps()
+    this.tokensEditHistory.addStep(token, HistoryStep.types.SPLIT, stepParams)
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
     return true
   }
 
-  /**
-   * Adds a line break after the token
-   * @param {Token} token
-   * @returns {Boolean}
-   */
-  addLineBreakAfterToken (token) {
+  changeLineBreak (token, hasLineBreak) {
     const segment = this.getSegmentByToken(token)
     const alignedText = this.getAlignedTextByToken(token)
 
+    const changeType = hasLineBreak ? HistoryStep.types.ADD_LINE_BREAK : HistoryStep.types.REMOVE_LINE_BREAK
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment,
-      changeType: TokensEditStep.types.ADD_LINE_BREAK
+      changeType
     })
 
-    this.tokensEditHistory.addStep(token, TokensEditStep.types.ADD_LINE_BREAK, { wasIdWord: token.idWord, newIdWord })
+    this.tokensEditHistory.truncateSteps()
+    this.tokensEditHistory.addStep(token, changeType, { wasIdWord: token.idWord, newIdWord })
 
-    token.addLineBreakAfter()
-    token.update({
-      idWord: newIdWord
-    })
-    return true
-  }
-
-  /**
-   * Removes a line break after the token
-   * @param {Token} token
-   * @returns {Boolean}
-   */
-  removeLineBreakAfterToken (token) {
-    const segment = this.getSegmentByToken(token)
-    const alignedText = this.getAlignedTextByToken(token)
-
-    const newIdWord = alignedText.getNewIdWord({
-      token,
-      segment,
-      changeType: TokensEditStep.types.REMOVE_LINE_BREAK
-    })
-
-    this.tokensEditHistory.addStep(token, TokensEditStep.types.REMOVE_LINE_BREAK, { wasIdWord: token.idWord, newIdWord })
-
-    token.removeLineBreakAfter()
-    token.update({
-      idWord: newIdWord
-    })
-
+    token.update({ hasLineBreak, idWord: newIdWord })
     return true
   }
 
   /**
    * Moves the token to the next/previous segment
    * @param {Token} token
-   * @param {TokensEditStep.directions} direction
+   * @param {HistoryStep.directions} direction
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
-    const newSegment = (direction === TokensEditStep.directions.PREV) ? this.getSegmentByToken(token, 'prev') : this.getSegmentByToken(token, 'next')
+    const newSegment = (direction === HistoryStep.directions.PREV) ? this.getSegmentByToken(token, 'prev') : this.getSegmentByToken(token, 'next')
 
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
+
+    const changeType = (direction === HistoryStep.directions.PREV) ? HistoryStep.types.TO_PREV_SEGMENT : HistoryStep.types.TO_NEXT_SEGMENT
 
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
       token,
       segment: newSegment,
-      changeType: (direction === TokensEditStep.directions.PREV) ? TokensEditStep.types.TO_PREV_SEGMENT : TokensEditStep.types.TO_NEXT_SEGMENT
+      changeType
     })
+
+    const stepParams = {
+      token,
+      wasIdWord: token.idWord,
+      wasSegmentIndex: segment.index,
+      newIdWord,
+      newSegmentIndex: newSegment.index,
+      wasTokenIndex: tokenIndex
+    }
 
     token.update({
       idWord: newIdWord,
       segmentIndex: newSegment.index
     })
 
-    const insertPosition = (direction === TokensEditStep.directions.PREV) ? newSegment.tokens.length : 0
+    const insertPosition = (direction === HistoryStep.directions.PREV) ? newSegment.tokens.length : 0
+
+    stepParams.newTokenIndex = insertPosition
+
     newSegment.insertToken(token, insertPosition)
+
+    this.tokensEditHistory.truncateSteps()
+    this.tokensEditHistory.addStep(token, changeType, stepParams)
+
     return true
   }
 
@@ -317,18 +328,26 @@ export default class TokensEditActions {
     let words = tokensText.split(' ')
     if (insertType === 'start') { words = words.reverse() }
 
+    const createdTokens = []
     words.forEach(word => {
       const baseToken = (insertType === 'start') ? segmentToInsert.tokens[0] : segmentToInsert.tokens[segmentToInsert.tokens.length - 1]
 
       const newIdWord = alignedText.getNewIdWord({
         token: baseToken,
         segment: segmentToInsert,
-        changeType: TokensEditStep.types.NEW,
+        changeType: HistoryStep.types.NEW,
         insertType
       })
 
       const insertPosition = (insertType === 'start') ? -1 : segmentToInsert.tokens.length - 1
-      segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
+      const token = segmentToInsert.addNewToken(insertPosition, newIdWord, word, false)
+
+      createdTokens.push(token)
+    })
+
+    this.tokensEditHistory.truncateSteps()
+    this.tokensEditHistory.addStep(null, HistoryStep.types.NEW, {
+      createdTokens, segmentToInsert, insertType
     })
 
     return true
@@ -367,7 +386,7 @@ export default class TokensEditActions {
 
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
 
-    const insertPosition = (step.params.position === TokensEditStep.directions.PREV) ? tokenIndex : tokenIndex + 1
+    const insertPosition = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex : tokenIndex + 1
 
     segment.insertToken(step.params.mergedToken, insertPosition)
     return {
@@ -380,7 +399,7 @@ export default class TokensEditActions {
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
 
     const tokenIndex = segment.getTokenIndex(step.token)
-    const deleteIndex = (step.params.position === TokensEditStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
+    const deleteIndex = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
 
     return {
@@ -434,6 +453,62 @@ export default class TokensEditActions {
 
   applyStepRemoveLineBreak (step) {
     step.token.update({ hasLineBreak: false, idWord: step.params.newIdWord })
+    return {
+      result: true
+    }
+  }
+
+  removeStepToOtherSegment (step) {
+    const alignedText = this.getAlignedTextByToken(step.token)
+    const newSegment = alignedText.segments[step.params.newSegmentIndex - 1]
+    const wasSegment = alignedText.segments[step.params.wasSegmentIndex - 1]
+
+    step.token.update({
+      idWord: step.params.wasIdWord,
+      segmentIndex: step.params.wasSegmentIndex
+    })
+
+    newSegment.deleteToken(step.params.newTokenIndex)
+    wasSegment.insertToken(step.token, step.params.wasTokenIndex)
+
+    return {
+      result: true
+    }
+  }
+
+  applyStepToOtherSegment (step) {
+    const alignedText = this.getAlignedTextByToken(step.token)
+    const newSegment = alignedText.segments[step.params.newSegmentIndex - 1]
+    const wasSegment = alignedText.segments[step.params.wasSegmentIndex - 1]
+
+    step.token.update({
+      idWord: step.params.newIdWord,
+      segmentIndex: step.params.newSegmentIndex
+    })
+
+    wasSegment.deleteToken(step.params.wasTokenIndex)
+    newSegment.insertToken(step.token, step.params.newTokenIndex)
+
+    return {
+      result: true
+    }
+  }
+
+  removeStepInsertTokens (step) {
+    step.params.createdTokens.forEach((token) => {
+      const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
+      step.params.segmentToInsert.deleteToken(tokenIndex)
+    })
+    return {
+      result: true
+    }
+  }
+
+  applyStepInsertTokens (step) {
+    step.params.createdTokens.forEach((token) => {
+      const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
+      step.params.segmentToInsert.insertToken(token, insertPosition)
+    })
     return {
       result: true
     }

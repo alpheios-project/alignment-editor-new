@@ -32,7 +32,7 @@
 
             @hideActionsMenu = "hideActionsMenu" 
             @showActionsMenu = "showActionsMenu"
-            @removeAllActivated = "removeAllActivated"
+            @removeAllActivated = "removeAllActivatedEvent"
 
           />
           <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
@@ -46,7 +46,7 @@ import Vue from '@vue-runtime'
 import TokenEditBlock from '@/vue/tokens-editor/token-edit-block.vue'
 import ActionsMenuTokenEdit from '@/vue/tokens-editor/actions-menu-token-edit.vue'
 
-import TokensEditStep from '@/lib/data/history/tokens-edit-step.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 import EmptyTokensInput from '@/vue/tokens-editor/empty-tokens-input.vue'
 
 export default {
@@ -197,6 +197,9 @@ export default {
 
       this.showActionsMenuFlag = true
     },
+    removeAllActivatedEvent () {
+      this.$emit('removeAllActivated')
+    },
     removeAllActivated () {
       this.showActionsMenuFlag = false
       this.deactivated++
@@ -205,10 +208,10 @@ export default {
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
-      if (direction === TokensEditStep.directions.PREV) {
+      if (direction === HistoryStep.directions.PREV) {
         this.mergeTokenPrevIdWord = token.idWord
       }
-      if (direction === TokensEditStep.directions.NEXT) {
+      if (direction === HistoryStep.directions.NEXT) {
         this.mergeTokenNextIdWord = token.idWord
       }
     },
@@ -226,11 +229,11 @@ export default {
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
-      this.$tokensEC.moveToSegment(token, TokensEditStep.directions.NEXT)
+      this.$tokensEC.moveToSegment(token, HistoryStep.directions.NEXT)
       this.removeAllActivated()
     },
     moveToPrevSegment (token) {
-      this.$tokensEC.moveToSegment(token, TokensEditStep.directions.PREV)
+      this.$tokensEC.moveToSegment(token, HistoryStep.directions.PREV)
       this.removeAllActivated()
     },
     deleteToken (token) {

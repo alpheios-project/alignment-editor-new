@@ -1,4 +1,4 @@
-import AlignmentGroupStep from '@/lib/data/history/alignment-group-step'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class AlignmentGroupActions {
   constructor ({ targetId, alignmentGroupHistory }) {
@@ -118,7 +118,8 @@ export default class AlignmentGroupActions {
     this[token.textType].push(token.idWord)
 
     this.alignmentGroupHistory.truncateSteps()
-    this.alignmentGroupHistory.addStep(token, AlignmentGroupStep.types.ADD)
+    this.alignmentGroupHistory.addStep(token, HistoryStep.types.ADD)
+
     this.defineFirstStepToken()
     return true
   }
@@ -140,7 +141,7 @@ export default class AlignmentGroupActions {
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
 
-      this.alignmentGroupHistory.addStep(token, AlignmentGroupStep.types.REMOVE)
+      this.alignmentGroupHistory.addStep(token, HistoryStep.types.REMOVE)
       this.defineFirstStepToken()
       return true
     }
@@ -156,7 +157,7 @@ export default class AlignmentGroupActions {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
 
-    this.alignmentGroupHistory.addStep(tokensGroup, AlignmentGroupStep.types.MERGE, { indexDeleted })
+    this.alignmentGroupHistory.addStep(tokensGroup, HistoryStep.types.MERGE, { indexDeleted })
   }
 
   /**
@@ -167,7 +168,7 @@ export default class AlignmentGroupActions {
    *          { Number } indexDeleted - place in group list
    */
   unmerge (step) {
-    const tokensGroup = step.type === AlignmentGroupStep.types.MERGE ? step.token : []
+    const tokensGroup = step.type === HistoryStep.types.MERGE ? step.token : []
 
     for (let i = 0; i < tokensGroup.origin.length; i++) {
       const tokenIdWord = tokensGroup.origin[i]

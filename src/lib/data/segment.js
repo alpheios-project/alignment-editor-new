@@ -77,7 +77,10 @@ export default class Segment {
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
-    return this.tokens.splice(tokenIndex + 1, 0, newToken)
+    if (this.tokens.splice(tokenIndex + 1, 0, newToken)) {
+      return newToken
+    }
+    return false
   }
 
   /**

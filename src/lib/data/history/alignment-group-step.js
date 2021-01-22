@@ -12,12 +12,3 @@ export default class AlignmentGroupStep extends HistoryStep {
     this.indexDeleted = params.indexDeleted
   }
 }
-
-AlignmentGroupStep.types = {
-  // Step type for adding token
-  ADD: 'add',
-  // Step type for removing token
-  REMOVE: 'remove',
-  // Step type for merging with another alignment group
-  MERGE: 'merge'
-}

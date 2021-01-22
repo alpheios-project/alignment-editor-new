@@ -14,6 +14,7 @@
         <div class="alpheios-alignment-editor-align-segment-edit-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-edit-block 
                   :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :blockTokensActionsFlag = "blockTokensActionsFlag"
+                   @removeAllActivated = "removeAllActivated"
           />
         </div>
 
@@ -23,6 +24,7 @@
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
                   v-show="isShownTab(targetId)"
                   :blockTokensActionsFlag = "blockTokensActionsFlag"
+                  @removeAllActivated = "removeAllActivated"
           />
         </div>
 
@@ -136,6 +138,10 @@ export default {
 
     blockTokensActions () {
       this.blockTokensActionsFlag = this.blockTokensActionsFlag + 1
+    },
+
+    removeAllActivated () {
+      this.blockTokensActions()
     }
   } 
 }
