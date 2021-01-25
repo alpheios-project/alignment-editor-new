@@ -693,7 +693,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { tokenResult } = (direction === HistoryStep.directions.PREV) ? this.tokensEditActions.getToken(token, 'prev') : this.tokensEditActions.getToken(token, 'next')
+    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, direction)
 
     if (!this.isEditableToken(tokenResult)) {
       NotificationSingleton.addNotification({

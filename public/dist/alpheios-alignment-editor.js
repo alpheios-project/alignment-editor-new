@@ -41687,9 +41687,9 @@ class TokensEditActions {
     switch (segmentType) {
       case 'current' :
         return alignedText.segments[token.segmentIndex - 1]
-      case 'next' :
+      case _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT :
         return alignedText.segments.length > token.segmentIndex ? alignedText.segments[token.segmentIndex] : null
-      case 'prev' :
+      case _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV :
         return token.segmentIndex > 1 ? alignedText.segments[token.segmentIndex - 2] : null
     }
     return null
@@ -41705,18 +41705,18 @@ class TokensEditActions {
    *          {String} position - prev/next
    *          {Token} tokenResult
    */
-  getToken (token, tokenType) {
+  getNextPrevToken (token, direction) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
-    const check = (tokenType === 'prev') ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
+    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
 
     if (check) {
       return {
         segment,
         tokenIndex,
-        position: (tokenType === 'prev') ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV,
-        tokenResult: segment.getTokenByIndex((tokenType === 'prev') ? (tokenIndex - 1) : (tokenIndex + 1))
+        position: (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT : _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV,
+        tokenResult: segment.getTokenByIndex((direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (tokenIndex - 1) : (tokenIndex + 1))
       }
     }
 
@@ -41749,7 +41749,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { segment, tokenIndex, tokenResult, position } = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? this.getToken(token, 'prev') : this.getToken(token, 'next')
+    const { segment, tokenIndex, tokenResult, position } = this.getNextPrevToken(token, direction)
 
     const alignedText = this.getAlignedTextByToken(token)
     const newIdWord = alignedText.getNewIdWord({
@@ -41850,7 +41850,7 @@ class TokensEditActions {
    */
   moveToSegment (token, direction) {
     const segment = this.getSegmentByToken(token)
-    const newSegment = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? this.getSegmentByToken(token, 'prev') : this.getSegmentByToken(token, 'next')
+    const newSegment = this.getSegmentByToken(token, direction)
 
     const tokenIndex = segment.getTokenIndex(token)
     segment.deleteToken(tokenIndex)
@@ -41896,7 +41896,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedMergePrev (token) {
-    return Boolean(this.getToken(token, 'prev'))
+    return Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV))
   }
 
   /**
@@ -41905,7 +41905,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedMergeNext (token) {
-    return Boolean(this.getToken(token, 'next'))
+    return Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -41941,7 +41941,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToNextSegment (token) {
-    return !this.getToken(token, 'next') && Boolean(this.getSegmentByToken(token, 'next'))
+    return !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && Boolean(this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -41950,7 +41950,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToPrevSegment (token) {
-    return !this.getToken(token, 'prev') && Boolean(this.getSegmentByToken(token, 'prev'))
+    return !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && Boolean(this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV))
   }
 
   /**
@@ -41960,8 +41960,8 @@ class TokensEditActions {
    */
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return (!this.getToken(token, 'prev') && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getToken(token, 'next') && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+    return (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getTokgetNextPrevTokenen(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
   }
 
   /**
@@ -43204,7 +43204,7 @@ class Alignment {
    * @returns {Boolean}
    */
   mergeToken (token, direction) {
-    const { tokenResult } = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.directions.PREV) ? this.tokensEditActions.getToken(token, 'prev') : this.tokensEditActions.getToken(token, 'next')
+    const { tokenResult } = this.tokensEditActions.getNextPrevToken(token, direction)
 
     if (!this.isEditableToken(tokenResult)) {
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({

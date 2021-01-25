@@ -125,13 +125,13 @@ describe('tokens-edit-actions.test.js', () => {
     expect(segmentFake).toBeNull()
   })
 
-  it('4 TokensEditActions - getToken returns several results - segment, tokenResult, position, tokenIndex - for merge', async () => {
+  it('4 TokensEditActions - getNextPrevToken returns several results - segment, tokenResult, position, tokenIndex - for merge', async () => {
     const params = await prepareParams()
 
     const tokensEditActions = new TokensEditActions(params)
     const token1 = params.origin.alignedText.segments[0].tokens[1] // femina
 
-    const results1 = tokensEditActions.getToken(token1, 'prev')
+    const results1 = tokensEditActions.getNextPrevToken(token1, 'prev')
 
     expect(results1.segment).toEqual(params.origin.alignedText.segments[0])
     expect(results1.tokenIndex).toEqual(1)
@@ -139,7 +139,7 @@ describe('tokens-edit-actions.test.js', () => {
     expect(results1.tokenResult).toEqual(params.origin.alignedText.segments[0].tokens[0])
 
     const token2 = params.origin.alignedText.segments[0].tokens[0] // vir
-    const results2 = tokensEditActions.getToken(token2, 'next')
+    const results2 = tokensEditActions.getNextPrevToken(token2, 'next')
 
     expect(results2.segment).toEqual(params.origin.alignedText.segments[0])
     expect(results2.tokenIndex).toEqual(0)
