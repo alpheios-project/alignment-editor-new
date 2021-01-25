@@ -6,7 +6,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import { ClientAdapters } from 'alpheios-client-adapters'
 
-import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class TokenizeController {
   /**
@@ -172,14 +172,14 @@ export default class TokenizeController {
   static getNextTokenIdWordChangesType ({ tokenIdWord, lastTokenIdWord, changeType, indexWord, increment }) {
     const divider = '-'
     const changeLibrary = {
-      [TokensEditController.changeType.SPLIT]: 's',
-      [TokensEditController.changeType.MERGE]: 'm',
-      [TokensEditController.changeType.UPDATE]: 'e',
-      [TokensEditController.changeType.ADD_LINE_BREAK]: 'al',
-      [TokensEditController.changeType.REMOVE_LINE_BREAK]: 'rl',
-      [TokensEditController.changeType.TO_NEXT_SEGMENT]: 'ns',
-      [TokensEditController.changeType.TO_PREV_SEGMENT]: 'ps',
-      [TokensEditController.changeType.NEW]: 'n'
+      [HistoryStep.types.SPLIT]: 's',
+      [HistoryStep.types.MERGE]: 'm',
+      [HistoryStep.types.UPDATE]: 'e',
+      [HistoryStep.types.ADD_LINE_BREAK]: 'al',
+      [HistoryStep.types.REMOVE_LINE_BREAK]: 'rl',
+      [HistoryStep.types.TO_NEXT_SEGMENT]: 'ns',
+      [HistoryStep.types.TO_PREV_SEGMENT]: 'ps',
+      [HistoryStep.types.NEW]: 'n'
 
     }
 

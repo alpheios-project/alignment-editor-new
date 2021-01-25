@@ -39,7 +39,7 @@ export default class TokensEditController {
    * @param {String} direction
    * @returns {Boolean}
    */
-  mergeToken (token, direction = TokensEditController.direction.PREV) {
+  mergeToken (token, direction) {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.mergeToken(token, direction)) {
@@ -114,7 +114,7 @@ export default class TokensEditController {
   /**
    * Moves the token to the next/previous segment
    * @param {Token} token
-   * @param {TokensEditController.direction} direction
+   * @param {HistoryStep.directions} direction
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
@@ -253,32 +253,28 @@ export default class TokensEditController {
     }
     return false
   }
-}
 
-TokensEditController.changeType = {
-  //
-  UPDATE: 'update',
-  //
-  MERGE: 'merge',
-  //
-  SPLIT: 'split',
-  //
-  ADD_LINE_BREAK: 'add line break',
-  //
-  REMOVE_LINE_BREAK: 'remove line break',
-  //
-  TO_NEXT_SEGMENT: 'to next segment',
-  //
-  TO_PREV_SEGMENT: 'to prev segment',
-  //
-  NEW: 'new',
-  //
-  DELETE: 'delete'
-}
+  undoTokensEditStep () {
+    if (this.alignment.undoTokensEditStep()) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
 
-TokensEditController.direction = {
-  //
-  PREV: 'prev',
-  //
-  NEXT: 'next'
+  redoTokensEditStep () {
+    if (this.alignment.redoTokensEditStep()) {
+      this.store.commit('incrementTokenUpdated')
+      return true
+    }
+    return false
+  }
+
+  get undoTokensEditAvailable () {
+    return this.alignment.undoTokensEditAvailable
+  }
+
+  get redoTokensEditAvailable () {
+    return this.alignment.redoTokensEditAvailable
+  }
 }

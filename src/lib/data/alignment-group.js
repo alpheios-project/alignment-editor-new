@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
-import AlignmentStep from '@/lib/data/alignment-step'
-import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import HistoryStep from '@/lib/data/history/history-step.js'
+import AlignmentGroupHistory from '@/lib/data/history/alignment-group-history'
+import AlignmentGroupActions from '@/lib/data/actions/alignment-group-actions'
 
 export default class AlignmentGroup {
   /**
@@ -11,16 +11,26 @@ export default class AlignmentGroup {
    */
   constructor (token, targetId) {
     this.id = uuidv4()
-    this.origin = []
-    this.target = []
-    this.steps = []
-    this.firstStepToken = null
-    this.currentStepIndex = null
-    this.unmergedGroupData = null
 
-    this.targetId = targetId
+    this.alignmentGroupHistory = new AlignmentGroupHistory()
+    this.alignmentGroupActions = new AlignmentGroupActions({
+      targetId,
+      alignmentGroupHistory: this.alignmentGroupHistory
+    })
+
+    this.alignmentGroupHistory.allStepActions = this.allStepActions
 
     if (token) { this.add(token) }
+  }
+
+  // calculated props
+
+  get origin () {
+    return this.alignmentGroupActions.origin
+  }
+
+  get target () {
+    return this.alignmentGroupActions.target
   }
 
   /**
@@ -30,20 +40,46 @@ export default class AlignmentGroup {
     return this.origin.length + this.target.length
   }
 
-  /**
-   * @returns {Boolean} true - there are no undone steps inside the group, false - there are steps that could be redo
-   */
-  get currentStepOnLast () {
-    return (this.currentStepIndex !== null) && (this.currentStepIndex === this.steps.length - 1)
+  get firstStepToken () {
+    return this.alignmentGroupHistory.firstStepToken
+  }
+
+  get targetId () {
+    return this.alignmentGroupActions.targetId
+  }
+
+  get segmentIndex () {
+    return this.alignmentGroupActions.segmentIndex
   }
 
   /**
-   * Truncates steps to the currentStepIndex
+   * Return ids from all tokens included to the group
+   * @returns {Array[String]}
    */
-  truncateSteps () {
-    if ((this.currentStepIndex !== null) && !this.currentStepOnLast) {
-      this.steps = this.steps.slice(0, this.currentStepIndex + 1)
-    }
+  get allIds () {
+    const ids = []
+    ids.push(...this.origin)
+    ids.push(...this.target)
+    return ids
+  }
+
+  get currentStepOnLast () {
+    return this.alignmentGroupHistory.currentStepOnLast
+  }
+
+  get steps () {
+    return this.alignmentGroupHistory.steps
+  }
+
+  // checks
+
+  /**
+   *
+   * @param {Token} token
+   * @returns {Boolean} - true - if the token is inside the group, false - if not
+   */
+  includesToken (token) {
+    return this.alignmentGroupActions.includesToken(token)
   }
 
   /**
@@ -75,86 +111,12 @@ export default class AlignmentGroup {
   }
 
   /**
-   * Adds the token to group, adds to step and checks firstStep
+   * Checks if the token is equal saved to the first step by unique idWord
    * @param {Token} token
-   * @returns { Boolean } true - token was added, false - not
+   * @returns {Boolean} true - if this is the first step, false - not
    */
-  add (token) {
-    if (!token || !token.isAlignable || !this.couldBeIncluded(token)) {
-      return false
-    }
-
-    if (!this.segmentIndex) {
-      this.segmentIndex = token.segmentIndex
-    }
-    if (!this.targetId && (token.textType === 'target')) {
-      this.targetId = token.docSourceId
-    }
-
-    this.truncateSteps()
-
-    this[token.textType].push(token.idWord)
-    this.steps.push(new AlignmentStep(token, AlignmentStep.types.ADD))
-
-    this.defineFirstStepToken()
-    this.defineCurrentStepIndex()
-    return true
-  }
-
-  /**
-   * Removes the token from group, adds to step and checks firstStep
-   * @param {Token} token
-   * @returns { Boolean } true - token was removed, false - not
-   */
-  remove (token) {
-    if (!token || !token.isAlignable) {
-      return false
-    }
-
-    this.truncateSteps()
-
-    const tokenIndex = this[token.textType].findIndex(tokenId => tokenId === token.idWord)
-
-    if (tokenIndex >= 0) {
-      this[token.textType].splice(tokenIndex, 1)
-      this.steps.push(new AlignmentStep(token, AlignmentStep.types.REMOVE))
-      this.defineFirstStepToken()
-      this.defineCurrentStepIndex()
-      return true
-    }
-    return false
-  }
-
-  /**
-   * Checks if first step is empty or equals to the token that was already removed
-   * @returns { Boolean } true - first step should be updated, false - first step is correct
-   */
-  get firstStepNeedToBeUpdated () {
-    return !this.firstStepToken || !this.includesToken(this.firstStepToken)
-  }
-
-  /**
-   * Finds the first token in the steps that is yet included in group, and updates firstStep
-   */
-  defineFirstStepToken () {
-    if (this.firstStepNeedToBeUpdated) {
-      let firstStepToken = null
-      for (let i = 0; i < this.steps.length; i++) {
-        if (this.includesToken(this.steps[i].token)) {
-          firstStepToken = this.steps[i].token
-          break
-        }
-      }
-
-      this.updateFirstStepToken(firstStepToken)
-    }
-  }
-
-  /**
-   * Redefines currentStepIndex as the last one (no redo steps)
-   */
-  defineCurrentStepIndex () {
-    this.currentStepIndex = this.steps.length - 1
+  isFirstToken (token, targetId) {
+    return this.alignmentGroupActions.isFirstToken(token, targetId)
   }
 
   /**
@@ -167,67 +129,26 @@ export default class AlignmentGroup {
   }
 
   /**
-   * Return ids from all tokens included to the group
-   * @returns {Array[String]}
-   */
-  get allIds () {
-    const ids = []
-    ids.push(...this.origin)
-    ids.push(...this.target)
-    return ids
-  }
-
-  /**
-   *
-   * @param {Token} token
-   * @returns {Boolean} - true - if the token is inside the group, false - if not
-   */
-  includesToken (token) {
-    return Boolean(token) && (this.origin.includes(token.idWord) || this.target.includes(token.idWord))
-  }
-
-  /**
-   * Checks if the token meets all requirements for including to the group:
-   *  - token should not be in the group
-   *  - segmentIndex should be the same
-   *  - targetId should be the same
-   * @param {Token} token
-   * @returns {Boolean}
-   */
-  couldBeIncluded (token) {
-    return !this.includesToken(token) &&
-           (!this.segmentIndex || (this.segmentIndex === token.segmentIndex)) &&
-           (!this.targetId || (token.textType === 'origin') || ((this.targetId === token.docSourceId)))
-  }
-
-  /**
-   * Checks if the token is equal saved to the first step by unique idWord
-   * @param {Token} token
-   * @returns {Boolean} true - if this is the first step, false - not
-   */
-  isFirstToken (token, targetId) {
-    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
-  }
-
-  /**
    * Checks if the token has the same textType as  saved to the first step
    * @param {Token} token
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
-  /**
-   * Update first step with passed token, it is used when we want to activate previously saved alignment group
-   * @param {Token} token
-   */
   updateFirstStepToken (token) {
-    if (token && this.includesToken(token)) {
-      this.firstStepToken = token
-    } else {
-      this.firstStepToken = null
-    }
+    return this.alignmentGroupActions.updateFirstStepToken(token)
+  }
+
+  // actions
+
+  add (token) {
+    return this.alignmentGroupActions.add(token)
+  }
+
+  remove (token) {
+    return this.alignmentGroupActions.remove(token)
   }
 
   /**
@@ -236,121 +157,26 @@ export default class AlignmentGroup {
    * @param { Number } indexDeleted - the place in group's list where there was the merged group
    */
   merge (tokensGroup, indexDeleted) {
-    this.origin.push(...tokensGroup.origin)
-    this.target.push(...tokensGroup.target)
-
-    this.steps.push(new AlignmentStep(tokensGroup, AlignmentStep.types.MERGE, { indexDeleted }))
-    this.defineCurrentStepIndex()
+    return this.alignmentGroupActions.merge(tokensGroup, indexDeleted)
   }
 
   /**
    * Reverts merge action
-   * @param {AlignmentStep} step
+   * @param {AlignmentGroupStep} step
    * @returns { Object }
    *          { AlignmentGroup } tokensGroup - group that was merged
    *          { Number } indexDeleted - place in group list
    */
   unmerge (step) {
-    const tokensGroup = step.type === AlignmentStep.types.MERGE ? step.token : []
-
-    for (let i = 0; i < tokensGroup.origin.length; i++) {
-      const tokenIdWord = tokensGroup.origin[i]
-      const tokenIndex = this.origin.findIndex(tokenId => tokenId === tokenIdWord)
-      if (tokenIndex >= 0) {
-        this.origin.splice(tokenIndex, 1)
-      }
-    }
-
-    for (let i = 0; i < tokensGroup.target.length; i++) {
-      const tokenIdWord = tokensGroup.target[i]
-      const tokenIndex = this.target.findIndex(tokenId => tokenId === tokenIdWord)
-      if (tokenIndex >= 0) {
-        this.target.splice(tokenIndex, 1)
-      }
-    }
-
-    this.defineFirstStepToken()
-
-    return {
-      tokensGroup,
-      indexDeleted: step.indexDeleted
-    }
+    return this.alignmentGroupActions.unmerge(step)
   }
 
-  /**
-   * Finds token with the given idWord using steps
-   * @param {String} idWord
-   * @retuns { Token|null }
-   */
-  findTokenByIdWord (idWord) {
-    const step = this.steps.find(step => step.idWord === idWord)
-    return step ? step.token : null
-  }
-
-  /**
-   * Step back
-   * @retuns { Object }
-   *         { Boolean } result - true - action was successful, false - was not
-   *         { Array } data - additional data, for merge { tokensGroup, indexDeleted }
-   */
   undo () {
-    if (this.steps.length > 1 && this.currentStepIndex > 0) {
-      return this.alignToStep(this.currentStepIndex - 1)
-    } else {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_UNDO_ERROR'),
-        type: NotificationSingleton.types.ERROR
-      })
-    }
+    return this.alignmentGroupHistory.undo()
   }
 
-  /**
-   * Step forward
-   */
   redo () {
-    if (this.currentStepIndex < (this.steps.length - 1)) {
-      return this.alignToStep(this.currentStepIndex + 1)
-    } else {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_REDO_ERROR'),
-        type: NotificationSingleton.types.ERROR
-      })
-    }
-  }
-
-  /**
-   * Defines current position in the step tracker and apply/remove step actions according to the position
-   * @param {Number} stepIndex
-   * @retuns { Array(Object) } - results of undone steps, for example result of unmerge action
-   */
-  alignToStep (stepIndex) {
-    if (this.currentStepIndex === stepIndex) {
-      return
-    }
-
-    let data = [] // eslint-disable-line prefer-const
-    let result = true
-
-    if (this.currentStepIndex > stepIndex) {
-      for (let i = this.currentStepIndex; i > stepIndex; i--) {
-        const dataResult = this.doStepAction(i, 'remove')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    } else if (this.currentStepIndex < stepIndex) {
-      for (let i = this.currentStepIndex + 1; i <= stepIndex; i++) {
-        const dataResult = this.doStepAction(i, 'apply')
-        result = result && dataResult.result
-        if (dataResult.data) { data.push(dataResult.data) }
-      }
-    }
-
-    this.currentStepIndex = stepIndex
-    return {
-      result, data
-    }
+    return this.alignmentGroupHistory.redo()
   }
 
   /**
@@ -358,80 +184,17 @@ export default class AlignmentGroup {
    * used in doStepAction
    */
   get allStepActions () {
-    const actions = { remove: {}, apply: {} }
-    actions.remove[AlignmentStep.types.ADD] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
+    return {
+      remove: {
+        [HistoryStep.types.ADD]: this.alignmentGroupActions.removeStepAdd.bind(this.alignmentGroupActions),
+        [HistoryStep.types.REMOVE]: this.alignmentGroupActions.removeStepRemove.bind(this.alignmentGroupActions),
+        [HistoryStep.types.MERGE]: this.alignmentGroupActions.removeStepMerge.bind(this.alignmentGroupActions)
+      },
+      apply: {
+        [HistoryStep.types.ADD]: this.alignmentGroupActions.applyStepAdd.bind(this.alignmentGroupActions),
+        [HistoryStep.types.REMOVE]: this.alignmentGroupActions.applyStepRemove.bind(this.alignmentGroupActions),
+        [HistoryStep.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
-    actions.remove[AlignmentStep.types.REMOVE] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions.remove[AlignmentStep.types.MERGE] = (step) => {
-      const data = this.unmerge(step)
-      return {
-        result: true,
-        data
-      }
-    }
-
-    actions.apply[AlignmentStep.types.ADD] = (step) => {
-      this[step.token.textType].push(step.token.idWord)
-      return {
-        result: true
-      }
-    }
-    actions.apply[AlignmentStep.types.REMOVE] = (step) => {
-      const tokenIndex = this[step.token.textType].findIndex(tokenId => tokenId === step.token.idWord)
-      this[step.token.textType].splice(tokenIndex, 1)
-      return {
-        result: true
-      }
-    }
-    actions.apply[AlignmentStep.types.MERGE] = (step) => {
-      this.origin.push(...step.token.origin)
-      this.target.push(...step.token.target)
-      return {
-        result: true
-      }
-    }
-
-    return actions
-  }
-
-  /**
-   * Remove/apply step action according to typeAction
-   * the following actions are defined - add, remove, merge
-   * @param {Number} stepIndex
-   * @param {String} typeAction - remove/apply
-   */
-  doStepAction (stepIndex, typeAction) {
-    const step = this.steps[stepIndex]
-    if (!step.hasValidType) {
-      console.error(L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_STEP_ERROR', { type: step.type }),
-        type: NotificationSingleton.types.ERROR
-      })
-      return
-    }
-
-    const actions = this.allStepActions
-    let finalResult
-    try {
-      finalResult = actions[typeAction][step.type](step)
-    } catch (e) {
-      console.error(e)
-      finalResult = {
-        result: false
-      }
-    }
-
-    return finalResult
   }
 }

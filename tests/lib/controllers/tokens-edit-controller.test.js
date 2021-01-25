@@ -11,6 +11,7 @@ import Segment from '@/lib/data/segment'
 import Token from '@/lib/data/token'
 import AppController from '@/lib/controllers/app-controller.js'
 
+
 import Vuex from 'vuex'
 
 describe('tokens-edit-controller.test.js', () => {
@@ -130,7 +131,7 @@ describe('tokens-edit-controller.test.js', () => {
     const tokenForMerge1 = alignment.origin.alignedText.segments[0].tokens[0]
     const tokenForMerge2 = alignment.origin.alignedText.segments[0].tokens[1]
 
-    const result = tokensEC.mergeToken(tokenForMerge1, 'right') // merge first token with the second
+    const result = tokensEC.mergeToken(tokenForMerge1, 'next') // merge first token with the second
 
     expect(result).toBeTruthy()
     expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.word)).toEqual(['origin text', 'here'])
@@ -161,7 +162,7 @@ describe('tokens-edit-controller.test.js', () => {
 
     alignedGC.clickToken(tokenForMerge2, targetIds[0]) // token is in an active group now
 
-    const result = tokensEC.mergeToken(tokenForMerge1, 'right') // merge first token with the second
+    const result = tokensEC.mergeToken(tokenForMerge1, 'next') // merge first token with the second
 
     expect(result).toBeFalsy()
     expect(alignment.origin.alignedText.segments[0].tokens.map(token => token.word)).toEqual(['origin', 'text', 'here'])
@@ -254,7 +255,5 @@ describe('tokens-edit-controller.test.js', () => {
     expect(result2).toBeTruthy()
     expect(tokenForBreak.hasLineBreak).toBeFalsy()
   })
+
 })
-
-
-

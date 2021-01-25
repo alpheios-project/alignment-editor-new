@@ -28,7 +28,7 @@ import Vue from '@vue-runtime'
 import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default {
   name: 'TokenEditBlock',
@@ -98,12 +98,12 @@ export default {
     },
     mergeTokenPrevIdWord () {
       if (this.activated && (this.mergeTokenPrevIdWord === this.token.idWord)) {
-        this.mergeToken(TokensEditController.direction.PREV)
+        this.mergeToken(HistoryStep.directions.PREV)
       }
     },
     mergeTokenNextIdWord () {
       if (this.activated && (this.mergeTokenNextIdWord === this.token.idWord)) {
-        this.mergeToken(TokensEditController.direction.NEXT)
+        this.mergeToken(HistoryStep.directions.NEXT)
       }
     },
     splitTokenIdWord () {

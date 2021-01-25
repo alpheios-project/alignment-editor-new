@@ -6,6 +6,7 @@ import SourceText from '@/lib/data/source-text'
 import AppController from '@/lib/controllers/app-controller.js'
 import { LocalStorageArea, Options } from 'alpheios-data-models'
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
+import HistoryStep from '@/lib/data/history/history-step.js'
 
 describe('tokenize-controller.test.js', () => {
   console.error = function () {}
@@ -94,35 +95,35 @@ describe('tokenize-controller.test.js', () => {
     // update token's word - the first time
     const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: '1-0-0',
-      changeType: TokensEditController.changeType.UPDATE
+      changeType: HistoryStep.types.UPDATE
     })
     expect(newWordId1).toEqual('1-0-0-e-1')
 
     // update token's word - the second time
     const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId1,
-      changeType: TokensEditController.changeType.UPDATE
+      changeType: HistoryStep.types.UPDATE
     })
     expect(newWordId2).toEqual('1-0-0-e-2')
 
     // merge this token with another one
     const newWordId3 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId2,
-      changeType: TokensEditController.changeType.MERGE
+      changeType: HistoryStep.types.MERGE
     })
     expect(newWordId3).toEqual('1-0-0-e-2-m-1')
 
     // merge this token with another one the second time
     const newWordId4 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId3,
-      changeType: TokensEditController.changeType.MERGE
+      changeType: HistoryStep.types.MERGE
     })
     expect(newWordId4).toEqual('1-0-0-e-2-m-2')
 
     // split this token to two token - this is the idWord for the first part
     const newWordId5 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId4,
-      changeType: TokensEditController.changeType.SPLIT,
+      changeType: HistoryStep.types.SPLIT,
       indexWord: 1
     })
 
@@ -131,7 +132,7 @@ describe('tokenize-controller.test.js', () => {
     // split this token to two token again - this is the idWord for the first part again
     const newWordId6 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId5,
-      changeType: TokensEditController.changeType.SPLIT,
+      changeType: HistoryStep.types.SPLIT,
       indexWord: 1
     })
     expect(newWordId6).toEqual('1-0-0-e-2-m-2-s1-2')
@@ -139,7 +140,7 @@ describe('tokenize-controller.test.js', () => {
     // split this token to two token again - this is the idWord for the second part
     const newWordId7 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId6,
-      changeType: TokensEditController.changeType.SPLIT,
+      changeType: HistoryStep.types.SPLIT,
       indexWord: 2
     })
     expect(newWordId7).toEqual('1-0-0-e-2-m-2-s1-2-s2-1')
@@ -147,14 +148,14 @@ describe('tokenize-controller.test.js', () => {
     // merge this token with another one again
     const newWordId8 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId7,
-      changeType: TokensEditController.changeType.MERGE
+      changeType: HistoryStep.types.MERGE
     })
     expect(newWordId8).toEqual('1-0-0-e-2-m-2-s1-2-s2-1-m-1')
 
     // update this token with another one again
     const newWordId9 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId8,
-      changeType: TokensEditController.changeType.UPDATE
+      changeType: HistoryStep.types.UPDATE
     })
     expect(newWordId9).toEqual('1-0-0-e-2-m-2-s1-2-s2-1-m-1-e-1')
 
@@ -177,26 +178,26 @@ describe('tokenize-controller.test.js', () => {
     // to the start
     const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: '1-0-0',
-      changeType: TokensEditController.changeType.NEW
+      changeType: HistoryStep.types.NEW
     })
     expect(newWordId1).toEqual('1-0-0-n-1')
 
     const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId1,
-      changeType: TokensEditController.changeType.NEW
+      changeType: HistoryStep.types.NEW
     })
     expect(newWordId2).toEqual('1-0-0-n-2')
 
     // to the end
     const newWordId3 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: '1-0-21',
-      changeType: TokensEditController.changeType.NEW
+      changeType: HistoryStep.types.NEW
     })
     expect(newWordId3).toEqual('1-0-21-n-1')
 
     const newWordId4 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId3,
-      changeType: TokensEditController.changeType.NEW
+      changeType: HistoryStep.types.NEW
     })
     expect(newWordId4).toEqual('1-0-21-n-2')
   })
@@ -205,14 +206,14 @@ describe('tokenize-controller.test.js', () => {
     // add line break
     const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: '1-0-0',
-      changeType: TokensEditController.changeType.ADD_LINE_BREAK
+      changeType: HistoryStep.types.ADD_LINE_BREAK
     })
     expect(newWordId1).toEqual('1-0-0-al-1')
 
     // remove line break
     const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId1,
-      changeType: TokensEditController.changeType.REMOVE_LINE_BREAK
+      changeType: HistoryStep.types.REMOVE_LINE_BREAK
     })
     expect(newWordId2).toEqual('1-0-0-al-1-rl-1')
   })
@@ -221,14 +222,14 @@ describe('tokenize-controller.test.js', () => {
     // to next segment
     const newWordId1 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: '1-0-0',
-      changeType: TokensEditController.changeType.TO_NEXT_SEGMENT
+      changeType: HistoryStep.types.TO_NEXT_SEGMENT
     })
     expect(newWordId1).toEqual('1-0-0-ns-1')
 
     // to prev segment
     const newWordId2 = TokenizeController.getNextTokenIdWordChangesType({
       tokenIdWord: newWordId1,
-      changeType: TokensEditController.changeType.TO_PREV_SEGMENT
+      changeType: HistoryStep.types.TO_PREV_SEGMENT
     })
     expect(newWordId2).toEqual('1-0-0-ns-1-ps-1')
   })

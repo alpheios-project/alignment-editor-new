@@ -1126,7 +1126,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   border-left: 2px solid #ddd;
 }
 .alpheios-alignment-editor-header {
-  margin: 15px 0;
+  margin: 0 0 10px;
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;
@@ -1197,6 +1197,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-text-segment-edit {
   position: relative;
+}
+.alpheios-alignment-editor-actions-menu__buttons {
+  padding: 5px 0 15px;
+  text-align: left;
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner {
   margin-top: 15px;

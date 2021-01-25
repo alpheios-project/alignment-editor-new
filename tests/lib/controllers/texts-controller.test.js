@@ -320,8 +320,6 @@ describe('texts-controller.test.js', () => {
     }
     textsC.updateTargetDocSource(docSourceTarget2)
 
-    console.info('textsC.allTargetDocSources - ', textsC.allTargetDocSources)
-
     expect(textsC.allTargetDocSources.length).toEqual(2)
 
     expect(textsC.allTargetDocSources[0]).toBeInstanceOf(SourceText)
