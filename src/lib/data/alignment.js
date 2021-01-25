@@ -881,4 +881,49 @@ export default class Alignment {
       }
     }
   }
+
+  convertToJSON () {
+    const origin = {
+      docSource: this.origin.docSource.convertToJSON(),
+      alignedText: this.origin.alignedText.convertToJSON()
+    }
+    let targets = {} 
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToJSON(),
+        alignedText: this.targets[targetId].alignedText.convertToJSON()
+      }
+    })
+    
+    let alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    let activeAlignmentGroup = this.activeAlignmentGroup.convertToJSON()
+
+    return {
+      origin,
+      targets,
+      alignmentGroups,
+      activeAlignmentGroup
+    }
+  }
+
+  static convertFromJSON (data) {
+    let alignment = new Alignment()
+
+    alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
+    alignment.origin.alignedText = AlignedText.convertFromJSON(data.origin.alignedText)
+
+    Object.keys(data.targets).forEach(targetId => {
+      alignment.targets[targetId] = {
+        sourceText: SourceText.convertFromJSON('target', data.targets[targetId].docSource),
+        alignedText: AlignedText.convertFromJSON(data.targets[targetId].alignedText)
+      }
+    })
+
+    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+
+    alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+
+    return alignment
+  }
 }

@@ -72,4 +72,28 @@ export default class Token {
     }
     return true
   }
+
+  convertToJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId
+    }
+  }
+
+  static convertFromJSON (data) {
+    return new Token ({
+      textType: data.textType, 
+      idWord: data.idWord, 
+      word: data.word, 
+      beforeWord: data.beforeWord, 
+      afterWord: data.afterWord, 
+      hasLineBreak: data.hasLineBreak
+    }, data.segmentIndex, data.docSourceId)
+  }
 }

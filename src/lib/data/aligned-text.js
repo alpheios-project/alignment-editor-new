@@ -80,4 +80,44 @@ export default class AlignedText {
       indexWord
     })
   }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  /*
+  constructor ({ docSource, tokenPrefix } = {}) {
+    this.id = docSource.id
+    this.textType = docSource.textType
+    this.direction = docSource.direction
+    this.lang = docSource.lang
+
+    this.sourceType = docSource.sourceType
+    this.tokenization = docSource.tokenization
+    this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
+  }
+  */
+  static convertFromJSON (data) {
+    let alignedText = new AlignedText({
+      docSource: {
+        id: data.textId,
+        textType: data.textType,
+        direction: data.direction,
+        lang: data.lang,
+        lansourceTypeg: data.sourceType,
+      }
+    }, data.tokenPrefix)
+    alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))
+
+    return alignedText
+  }
 }

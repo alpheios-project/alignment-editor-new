@@ -10,7 +10,8 @@ export default class DownloadController {
   static get downloadMethods () {
     return {
       plainSourceDownloadAll: this.plainSourceDownloadAll,
-      plainSourceDownloadSingle: this.plainSourceDownloadSingle
+      plainSourceDownloadSingle: this.plainSourceDownloadSingle,
+      jsonSimpleDownloadAll: this.jsonSimpleDownloadAll
     }
   }
 
@@ -93,5 +94,9 @@ export default class DownloadController {
 
     const fileName = `alignment-${data.sourceText.lang}`
     return DownloadFileCSV.download(fields, exportFields, fileName)
+  }
+
+  static jsonSimpleDownloadAll (data) {
+    
   }
 }

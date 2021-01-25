@@ -9,18 +9,19 @@ export default class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId) {
+  constructor (token, targetId, empty = false) {
     this.id = uuidv4()
-
     this.alignmentGroupHistory = new AlignmentGroupHistory()
-    this.alignmentGroupActions = new AlignmentGroupActions({
-      targetId,
-      alignmentGroupHistory: this.alignmentGroupHistory
-    })
 
-    this.alignmentGroupHistory.allStepActions = this.allStepActions
+    if (!empty) {
+      this.alignmentGroupActions = new AlignmentGroupActions({
+        targetId,
+        alignmentGroupHistory: this.alignmentGroupHistory
+      })
 
-    if (token) { this.add(token) }
+      this.alignmentGroupHistory.allStepActions = this.allStepActions
+      if (token) { this.add(token) }
+    }
   }
 
   // calculated props
@@ -196,5 +197,22 @@ export default class AlignmentGroup {
         [HistoryStep.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
+  }
+
+  convertToJSON () {
+    return {
+      actions: this.alignmentGroupActions.convertToJSON()
+    }
+  }
+
+  static convertFromJSON (data) {
+    let alGroup = new AlignmentGroup(null, null, true)
+
+    alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
   }
 }

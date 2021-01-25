@@ -12,7 +12,7 @@ export default class AlignmentGroupActions {
   // calculated props
 
   get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
+    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
   }
 
   // checks
@@ -238,5 +238,25 @@ export default class AlignmentGroupActions {
     return {
       result: true
     }
+  }
+
+  convertToJSON () {
+    return {
+      segmentIndex: this.segmentIndex,
+      targetId: this.targetId,
+      origin: this.origin,
+      target: this.target
+    }
+  }
+
+  static convertFromJSON (data) {
+    let actions = new AlignmentGroupActions({
+      targetId: data.targetId
+    })
+    actions.segmentIndex = data.segmentIndex
+    actions.origin = data.origin
+    actions.target = data.target
+
+    return actions
   }
 }

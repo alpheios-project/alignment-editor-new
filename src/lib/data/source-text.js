@@ -24,7 +24,15 @@ export default class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
-    this.metadata = docSource && docSource.metadata ? new Metadata(docSource.metadata) : new Metadata()
+    if (docSource && docSource.metadata) {
+      if (docSource.metadata instanceof Metadata) {
+        this.metadata = docSource.metadata
+      } else {
+        this.metadata = new Metadata(docSource.metadata)
+      }
+    } else {
+      this.metadata = new Metadata()
+    }
   }
 
   get defaultDirection () {
@@ -98,12 +106,24 @@ export default class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
+    const metadata = jsonData.metadata ? Metadata.convertFromJSON(jsonData.metadata) : null
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })  
 
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
     return sourceText
+  }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      text: this.text,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToJSON()
+    }
   }
 }

@@ -1,7 +1,7 @@
 import Token from '@/lib/data/token'
 
 export default class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
@@ -90,5 +90,27 @@ export default class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
+  }
+
+  convertToJSON () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map(token => token.convertToJSON())
+    }
+  }
+
+  static convertFromJSON (data) {
+    return new Segment({
+      index: data.index, 
+      textType: data.textType, 
+      lang: data.lang, 
+      direction: data.direction, 
+      docSourceId: data.docSourceId,
+      tokens: data.tokens.map(token => Token.convertFromJSON(token))
+    })
   }
 }
