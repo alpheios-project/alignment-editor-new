@@ -311,7 +311,7 @@ export default class TokensEditActions {
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
     return (!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getTokgetNextPrevTokenen(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+           (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
   }
 
   /**
