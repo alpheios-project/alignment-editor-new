@@ -95,12 +95,12 @@
       "component": "ActionsMenuTokensEditor"
     },
     "TOKENS_EDIT_UNDO_ERROR": {
-      "message": "There is no steps to be undone for tokens editor.",
+      "message": "Nothing to undo.",
       "description": "An error inside tokens edit history workflow",
       "component": "Alignment"
     },
     "TOKENS_EDIT_REDO_ERROR": {
-      "message": "There is no steps to be redone for tokens editor.",
+      "message": "Nothing to redo.",
       "description": "An error inside tokens edit history workflow",
       "component": "Alignment"
     }
