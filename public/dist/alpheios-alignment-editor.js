@@ -41961,7 +41961,7 @@ class TokensEditActions {
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
     return (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getTokgetNextPrevTokenen(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
   }
 
   /**
