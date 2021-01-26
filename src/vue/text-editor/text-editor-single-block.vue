@@ -267,6 +267,7 @@ export default {
         textarea {
             width:100%;
             min-height: 300px;
+            font-size: inherit;
         }
 
         p {
