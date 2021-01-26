@@ -51,7 +51,7 @@ export default class Metadata {
   }
 
   static convertFromJSON (data) {
-    let metadata = new Metadata()
+    const metadata = new Metadata()
     data.properties.forEach(prop => {
       const metaItem = MetadataTerm.convertFromJSON(prop)
       metadata.addProperty(metaItem.property, metaItem.value)

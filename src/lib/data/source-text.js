@@ -107,7 +107,7 @@ export default class SourceText {
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? Metadata.convertFromJSON(jsonData.metadata) : null
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })  
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
 
     if (jsonData.textId) {
       sourceText.id = jsonData.textId

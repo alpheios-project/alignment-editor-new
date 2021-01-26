@@ -97,6 +97,6 @@ export default class DownloadController {
   }
 
   static jsonSimpleDownloadAll (data) {
-    
+
   }
 }

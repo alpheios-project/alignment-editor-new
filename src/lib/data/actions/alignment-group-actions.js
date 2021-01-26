@@ -250,7 +250,7 @@ export default class AlignmentGroupActions {
   }
 
   static convertFromJSON (data) {
-    let actions = new AlignmentGroupActions({
+    const actions = new AlignmentGroupActions({
       targetId: data.targetId
     })
     actions.segmentIndex = data.segmentIndex

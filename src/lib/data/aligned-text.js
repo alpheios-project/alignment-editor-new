@@ -107,13 +107,13 @@ export default class AlignedText {
   }
   */
   static convertFromJSON (data) {
-    let alignedText = new AlignedText({
+    const alignedText = new AlignedText({
       docSource: {
         id: data.textId,
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType,
+        lansourceTypeg: data.sourceType
       }
     }, data.tokenPrefix)
     alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))

@@ -26202,6 +26202,8 @@ function icuUnitToEcma(unit) {
 }
 var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
 var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
+var INTEGER_WIDTH_REGEX = /(\*)(0+)|(#+)(0+)|(0+)/g;
+var CONCISE_INTEGER_WIDTH_REGEX = /^(0+)$/;
 function parseSignificantPrecision(str) {
     var result = {};
     str.replace(SIGNIFICANT_PRECISION_REGEX, function (_, g1, g2) {
@@ -26332,11 +26334,34 @@ function parseNumberSkeleton(tokens) {
             case 'scale':
                 result.scale = parseFloat(token.options[0]);
                 continue;
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+            case 'integer-width':
+                if (token.options.length > 1) {
+                    throw new RangeError('integer-width stems only accept a single optional option');
+                }
+                token.options[0].replace(INTEGER_WIDTH_REGEX, function (_, g1, g2, g3, g4, g5) {
+                    if (g1) {
+                        result.minimumIntegerDigits = g2.length;
+                    }
+                    else if (g3 && g4) {
+                        throw new Error('We currently do not support maximum integer digits');
+                    }
+                    else if (g5) {
+                        throw new Error('We currently do not support exact integer digits');
+                    }
+                    return '';
+                });
+                continue;
         }
-        // Precision
-        // https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#fraction-precision
-        // precision-integer case
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+        if (CONCISE_INTEGER_WIDTH_REGEX.test(token.stem)) {
+            result.minimumIntegerDigits = token.stem.length;
+            continue;
+        }
         if (FRACTION_PRECISION_REGEX.test(token.stem)) {
+            // Precision
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#fraction-precision
+            // precision-integer case
             if (token.options.length > 1) {
                 throw new RangeError('Fraction-precision stems only accept a single optional option');
             }
@@ -26365,6 +26390,7 @@ function parseNumberSkeleton(tokens) {
             }
             continue;
         }
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
         if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
             result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), parseSignificantPrecision(token.stem));
             continue;
@@ -40023,7 +40049,8 @@ class DownloadController {
   static get downloadMethods () {
     return {
       plainSourceDownloadAll: this.plainSourceDownloadAll,
-      plainSourceDownloadSingle: this.plainSourceDownloadSingle
+      plainSourceDownloadSingle: this.plainSourceDownloadSingle,
+      jsonSimpleDownloadAll: this.jsonSimpleDownloadAll
     }
   }
 
@@ -40106,6 +40133,10 @@ class DownloadController {
 
     const fileName = `alignment-${data.sourceText.lang}`
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
+  }
+
+  static jsonSimpleDownloadAll (data) {
+
   }
 }
 
@@ -41404,7 +41435,7 @@ class AlignmentGroupActions {
   // calculated props
 
   get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
+    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
   }
 
   // checks
@@ -41630,6 +41661,26 @@ class AlignmentGroupActions {
     return {
       result: true
     }
+  }
+
+  convertToJSON () {
+    return {
+      segmentIndex: this.segmentIndex,
+      targetId: this.targetId,
+      origin: this.origin,
+      target: this.target
+    }
+  }
+
+  static convertFromJSON (data) {
+    const actions = new AlignmentGroupActions({
+      targetId: data.targetId
+    })
+    actions.segmentIndex = data.segmentIndex
+    actions.origin = data.origin
+    actions.target = data.target
+
+    return actions
   }
 }
 
@@ -42263,6 +42314,46 @@ class AlignedText {
       indexWord
     })
   }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  /*
+  constructor ({ docSource, tokenPrefix } = {}) {
+    this.id = docSource.id
+    this.textType = docSource.textType
+    this.direction = docSource.direction
+    this.lang = docSource.lang
+
+    this.sourceType = docSource.sourceType
+    this.tokenization = docSource.tokenization
+    this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
+  }
+  */
+  static convertFromJSON (data) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: data.textId,
+        textType: data.textType,
+        direction: data.direction,
+        lang: data.lang,
+        lansourceTypeg: data.sourceType
+      }
+    }, data.tokenPrefix)
+    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
+
+    return alignedText
+  }
 }
 
 
@@ -42295,18 +42386,19 @@ class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId) {
+  constructor (token, targetId, empty = false) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-
     this.alignmentGroupHistory = new _lib_data_history_alignment_group_history__WEBPACK_IMPORTED_MODULE_2__.default()
-    this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
-      targetId,
-      alignmentGroupHistory: this.alignmentGroupHistory
-    })
 
-    this.alignmentGroupHistory.allStepActions = this.allStepActions
+    if (!empty) {
+      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
+        targetId,
+        alignmentGroupHistory: this.alignmentGroupHistory
+      })
 
-    if (token) { this.add(token) }
+      this.alignmentGroupHistory.allStepActions = this.allStepActions
+      if (token) { this.add(token) }
+    }
   }
 
   // calculated props
@@ -42482,6 +42574,23 @@ class AlignmentGroup {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
+  }
+
+  convertToJSON () {
+    return {
+      actions: this.alignmentGroupActions.convertToJSON()
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alGroup = new AlignmentGroup(null, null, true)
+
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
   }
 }
 
@@ -43392,6 +43501,51 @@ class Alignment {
       }
     }
   }
+
+  convertToJSON () {
+    const origin = {
+      docSource: this.origin.docSource.convertToJSON(),
+      alignedText: this.origin.alignedText.convertToJSON()
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToJSON(),
+        alignedText: this.targets[targetId].alignedText.convertToJSON()
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    const activeAlignmentGroup = this.activeAlignmentGroup.convertToJSON()
+
+    return {
+      origin,
+      targets,
+      alignmentGroups,
+      activeAlignmentGroup
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignment = new Alignment()
+
+    alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
+    alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.origin.alignedText)
+
+    Object.keys(data.targets).forEach(targetId => {
+      alignment.targets[targetId] = {
+        sourceText: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource),
+        alignedText: _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
+      }
+    })
+
+    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+
+    alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
+
+    return alignment
+  }
 }
 
 
@@ -43836,6 +43990,18 @@ class MetadataTerm {
       this.value.splice(valueIndex, 1)
     }
   }
+
+  convertToJSON () {
+    return {
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromJSON (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value)
+  }
 }
 
 MetadataTerm.property = {
@@ -43931,7 +44097,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Metadata {
-  constructor (data) {
+  constructor () {
     this.properties = {}
   }
 
@@ -43973,6 +44139,21 @@ class Metadata {
     })
     return allMeta
   }
+
+  convertToJSON () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToJSON())
+    }
+  }
+
+  static convertFromJSON (data) {
+    const metadata = new Metadata()
+    data.properties.forEach(prop => {
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(prop)
+      metadata.addProperty(metaItem.property, metaItem.value)
+    })
+    return metadata
+  }
 }
 
 
@@ -43993,7 +44174,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
@@ -44083,6 +44264,46 @@ class Segment {
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
   }
+
+  /**
+   * @returns { String } index
+   *          { String } textType - origin/target
+   *          { String } lang
+   *          { String } direction
+   *          { String } docSourceId
+   *          { Array[Object] } tokens - array of tokens converted to JSON
+   */
+  convertToJSON () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map(token => token.convertToJSON())
+    }
+  }
+
+  /**
+   * @param {Object} data
+   *        { String } index
+   *        { String } textType - origin/target
+   *        { String } lang
+   *        { String } direction
+   *        { String } docSourceId
+   *        { Array[Object] } tokens - array of tokens converted to JSON
+   * @returns { Segment }
+   */
+  static convertFromJSON (data) {
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(token))
+    })
+  }
 }
 
 
@@ -44130,7 +44351,15 @@ class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
-    this.metadata = docSource && docSource.metadata ? new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata) : new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    if (docSource && docSource.metadata) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default) {
+        this.metadata = docSource.metadata
+      } else {
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata)
+      }
+    } else {
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    }
   }
 
   get defaultDirection () {
@@ -44204,13 +44433,25 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(jsonData.metadata) : null
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
 
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
     return sourceText
+  }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      text: this.text,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToJSON()
+    }
   }
 }
 
@@ -44302,6 +44543,53 @@ class Token {
       })
     }
     return true
+  }
+
+  /**
+   * @returns { String } textType - origin/target
+   *          { String } idWord
+   *          { String } word
+   *          { String } beforeWord
+   *          { String } afterWord
+   *          { Boolean } hasLineBreak
+   *          { Number } segmentIndex
+   *          { String } docSourceId
+   */
+  convertToJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId
+    }
+  }
+
+  /**
+   *
+   * @param { Object } data
+   *        { String } textType - origin/target
+   *        { String } idWord
+   *        { String } word
+   *        { String } beforeWord
+   *        { String } afterWord
+   *        { Boolean } hasLineBreak
+   *        { Number } segmentIndex
+   *        { String } docSourceId
+   * @returns { Token }
+   */
+  static convertFromJSON (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak
+    }, data.segmentIndex, data.docSourceId)
   }
 }
 

@@ -887,17 +887,17 @@ export default class Alignment {
       docSource: this.origin.docSource.convertToJSON(),
       alignedText: this.origin.alignedText.convertToJSON()
     }
-    let targets = {} 
+    const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
         docSource: this.targets[targetId].docSource.convertToJSON(),
         alignedText: this.targets[targetId].alignedText.convertToJSON()
       }
     })
-    
-    let alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
-    let activeAlignmentGroup = this.activeAlignmentGroup.convertToJSON()
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    const activeAlignmentGroup = this.activeAlignmentGroup.convertToJSON()
 
     return {
       origin,
@@ -908,7 +908,7 @@ export default class Alignment {
   }
 
   static convertFromJSON (data) {
-    let alignment = new Alignment()
+    const alignment = new Alignment()
 
     alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
     alignment.origin.alignedText = AlignedText.convertFromJSON(data.origin.alignedText)

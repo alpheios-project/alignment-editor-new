@@ -92,6 +92,14 @@ export default class Segment {
     return this.tokens.splice(index, 0, token)
   }
 
+  /**
+   * @returns { String } index
+   *          { String } textType - origin/target
+   *          { String } lang
+   *          { String } direction
+   *          { String } docSourceId
+   *          { Array[Object] } tokens - array of tokens converted to JSON
+   */
   convertToJSON () {
     return {
       index: this.index,
@@ -103,12 +111,22 @@ export default class Segment {
     }
   }
 
+  /**
+   * @param {Object} data
+   *        { String } index
+   *        { String } textType - origin/target
+   *        { String } lang
+   *        { String } direction
+   *        { String } docSourceId
+   *        { Array[Object] } tokens - array of tokens converted to JSON
+   * @returns { Segment }
+   */
   static convertFromJSON (data) {
     return new Segment({
-      index: data.index, 
-      textType: data.textType, 
-      lang: data.lang, 
-      direction: data.direction, 
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: data.tokens.map(token => Token.convertFromJSON(token))
     })

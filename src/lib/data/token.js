@@ -73,6 +73,16 @@ export default class Token {
     return true
   }
 
+  /**
+   * @returns { String } textType - origin/target
+   *          { String } idWord
+   *          { String } word
+   *          { String } beforeWord
+   *          { String } afterWord
+   *          { Boolean } hasLineBreak
+   *          { Number } segmentIndex
+   *          { String } docSourceId
+   */
   convertToJSON () {
     return {
       textType: this.textType,
@@ -86,13 +96,26 @@ export default class Token {
     }
   }
 
+  /**
+   *
+   * @param { Object } data
+   *        { String } textType - origin/target
+   *        { String } idWord
+   *        { String } word
+   *        { String } beforeWord
+   *        { String } afterWord
+   *        { Boolean } hasLineBreak
+   *        { Number } segmentIndex
+   *        { String } docSourceId
+   * @returns { Token }
+   */
   static convertFromJSON (data) {
-    return new Token ({
-      textType: data.textType, 
-      idWord: data.idWord, 
-      word: data.word, 
-      beforeWord: data.beforeWord, 
-      afterWord: data.afterWord, 
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
       hasLineBreak: data.hasLineBreak
     }, data.segmentIndex, data.docSourceId)
   }

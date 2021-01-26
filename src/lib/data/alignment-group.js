@@ -206,7 +206,7 @@ export default class AlignmentGroup {
   }
 
   static convertFromJSON (data) {
-    let alGroup = new AlignmentGroup(null, null, true)
+    const alGroup = new AlignmentGroup(null, null, true)
 
     alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
     alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
