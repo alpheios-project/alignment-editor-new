@@ -219,7 +219,7 @@ describe('texts-controller.test.js', () => {
   })
 
 
-  it('10 TextsController - uploadDocSourceFromFileAll prints error if fileData is empty', () => {
+  it.skip('10 TextsController - uploadDocSourceFromFileAll prints error if fileData is empty', () => {
     const textsC = new TextsController(appC.store)
 
     UploadController.upload = jest.fn()

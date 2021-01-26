@@ -70,7 +70,27 @@ export default {
     * Starts upload workflow
     */
     uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFileAll(fileData, this.$settingsC.tokenizerOptionValue)
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue)
+      if (alignment) {
+        this.$alignedGC.alignment = null
+        this.$textC.alignment = null
+        this.$historyC.alignment = null
+        this.$tokensEC.alignment = null
+
+        this.$textC.alignment = alignment
+
+        this.$historyC.startTracking(this.$textC.alignment)
+        this.$alignedGC.alignment = alignment
+        this.$tokensEC.loadAlignment(this.$textC.alignment)
+
+        NotificationSingleton.clearNotifications()
+        
+        this.$textC.store.commit('incrementUploadCheck')
+        this.$textC.store.commit('incrementAlignmentUpdated')
+
+        this.hideTextEditor++
+        this.showAlignEditor++
+      }
     },
     /**
      * Starts redo action

@@ -1,4 +1,6 @@
 import DownloadFileCSV from '@/lib/download/download-file-csv.js'
+import DownloadFileJSON from '@/lib/download/download-file-json.js'
+
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
@@ -92,11 +94,17 @@ export default class DownloadController {
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const fileName = `alignment-${data.sourceText.lang}`
+    const fileName = `alignment-${data.docSource.lang}`
     return DownloadFileCSV.download(fields, exportFields, fileName)
   }
 
   static jsonSimpleDownloadAll (data) {
+    let langs = [] // eslint-disable-line prefer-const
 
+    Object.values(data.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
+    return DownloadFileJSON.download(data, fileName)
   }
 }

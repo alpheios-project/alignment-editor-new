@@ -2,6 +2,7 @@ import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
+import Alignment from '../data/alignment'
 
 export default class UploadController {
   /**
@@ -10,8 +11,9 @@ export default class UploadController {
    */
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
-      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
+      plainSourceUploadAll: this.plainSourceUploadAll,
+      plainSourceUploadSingle: this.plainSourceUploadSingle,
+      jsonSimpleUploadAll: this.jsonSimpleUploadAll
     }
   }
 
@@ -41,7 +43,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+  static plainSourceUploadAll ({ fileData, tokenization }) {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
@@ -80,7 +82,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
     if (fileData.filetext.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -100,5 +102,10 @@ export default class UploadController {
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
+  }
+
+  static jsonSimpleUploadAll (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return Alignment.convertFromJSON(fileJSON)
   }
 }

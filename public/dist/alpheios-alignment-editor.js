@@ -40035,8 +40035,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ DownloadController
 /* harmony export */ });
 /* harmony import */ var _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-csv.js */ "./lib/download/download-file-csv.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
 
 
 
@@ -40064,10 +40067,10 @@ class DownloadController {
     if (this.downloadMethods[downloadType]) {
       return this.downloadMethods[downloadType](data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
     })
     return false
   }
@@ -40080,10 +40083,10 @@ class DownloadController {
    */
   static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
       })
       return false
     }
@@ -40116,10 +40119,10 @@ class DownloadController {
    */
   static plainSourceDownloadSingle (data) {
     if (!data.sourceText) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
       })
       return false
     }
@@ -40131,12 +40134,18 @@ class DownloadController {
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const fileName = `alignment-${data.sourceText.lang}`
+    const fileName = `alignment-${data.docSource.lang}`
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
   }
 
   static jsonSimpleDownloadAll (data) {
+    let langs = [] // eslint-disable-line prefer-const
 
+    Object.values(data.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
+    return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
   }
 }
 
@@ -40644,11 +40653,7 @@ class TextsController {
     return null
   }
 
-  /**
-   * Parses data from file and updated source document texts in the alignment
-   * @param {String} fileData - a content of the uploaded file
-   */
-  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
+  uploadData (fileData, tokenizerOptionValue) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40657,7 +40662,23 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileAll'
+
+    return this.uploadDocSourceFromFileAll(fileData, tokenizerOptionValue)
+  }
+
+  uploadFullDataJSON (fileData, tokenizerOptionValue) {
+    const uploadType = 'jsonSimpleUploadAll'
+    const alignment = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+
+    return alignment
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
+    const uploadType = 'plainSourceUploadAll'
 
     const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(tokenizerOptionValue)
 
@@ -40685,7 +40706,7 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileSingle'
+    const uploadType = 'plainSourceUploadSingle'
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
@@ -40707,12 +40728,28 @@ class TextsController {
    * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
+    const result = this.downloadShortData()
+
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+  }
+
+  downloadShortData () {
     const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
+    return {
+      downloadType, data
+    }
+  }
+
+  downloadFullData () {
+    const downloadType = 'jsonSimpleDownloadAll'
+    const data = this.alignment.convertToJSON()
+    return {
+      downloadType, data
+    }
   }
 
   /**
@@ -41302,6 +41339,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
+/* harmony import */ var _data_alignment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data/alignment */ "./lib/data/alignment.js");
+
 
 
 
@@ -41314,8 +41353,9 @@ class UploadController {
    */
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
-      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
+      plainSourceUploadAll: this.plainSourceUploadAll,
+      plainSourceUploadSingle: this.plainSourceUploadSingle,
+      jsonSimpleUploadAll: this.jsonSimpleUploadAll
     }
   }
 
@@ -41345,7 +41385,7 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+  static plainSourceUploadAll ({ fileData, tokenization }) {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
@@ -41384,7 +41424,7 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
     if (fileData.filetext.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -41404,6 +41444,11 @@ class UploadController {
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
+  }
+
+  static jsonSimpleUploadAll (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return _data_alignment__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(fileJSON)
   }
 }
 
@@ -43506,19 +43551,19 @@ class Alignment {
   convertToJSON () {
     const origin = {
       docSource: this.origin.docSource.convertToJSON(),
-      alignedText: this.origin.alignedText.convertToJSON()
+      alignedText: this.origin.alignedText ? this.origin.alignedText.convertToJSON() : null
     }
     const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
         docSource: this.targets[targetId].docSource.convertToJSON(),
-        alignedText: this.targets[targetId].alignedText.convertToJSON()
+        alignedText: this.targets[targetId].alignedText ? this.targets[targetId].alignedText.convertToJSON() : null
       }
     })
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
-    const activeAlignmentGroup = this.activeAlignmentGroup.convertToJSON()
+    const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
       origin,
@@ -43536,7 +43581,7 @@ class Alignment {
 
     Object.keys(data.targets).forEach(targetId => {
       alignment.targets[targetId] = {
-        sourceText: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource),
+        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource),
         alignedText: _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
       }
     })
@@ -44638,6 +44683,41 @@ class DownloadFileCSV {
   static download (fields, exportFields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
     const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
     return this.downloadBlob(result, `${fileName}.${fileExtension}`)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/download/download-file-json.js":
+/*!********************************************!*\
+  !*** ./lib/download/download-file-json.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ DownloadFileJSON
+/* harmony export */ });
+const idForButton = 'alpheios-alignment-editor-app-container'
+
+class DownloadFileJSON {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    document.getElementById(idForButton).appendChild(a)
+    a.click()
+    a.remove()
+    return true
+  }
+
+  static download (data, fileName) {
+    return this.downloadBlob(data, `${fileName}.json`)
   }
 }
 
@@ -46237,7 +46317,27 @@ __webpack_require__.r(__webpack_exports__);
     * Starts upload workflow
     */
     uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFileAll(fileData, this.$settingsC.tokenizerOptionValue)
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue)
+      if (alignment) {
+        this.$alignedGC.alignment = null
+        this.$textC.alignment = null
+        this.$historyC.alignment = null
+        this.$tokensEC.alignment = null
+
+        this.$textC.alignment = alignment
+
+        this.$historyC.startTracking(this.$textC.alignment)
+        this.$alignedGC.alignment = alignment
+        this.$tokensEC.loadAlignment(this.$textC.alignment)
+
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
+        
+        this.$textC.store.commit('incrementUploadCheck')
+        this.$textC.store.commit('incrementAlignmentUpdated')
+
+        this.hideTextEditor++
+        this.showAlignEditor++
+      }
     },
     /**
      * Starts redo action
@@ -46538,6 +46638,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     redoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
+    },
+    downloadAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.originDocSource)
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
@@ -47364,16 +47467,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
 //
 //
 //
@@ -47402,8 +47504,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 
 
@@ -47437,13 +47537,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default
   },
   data () {
     return {
@@ -47566,7 +47666,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     }
   },
   methods: {
@@ -47575,6 +47675,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -51918,7 +52019,7 @@ var render = function() {
             staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-download",
-              disabled: !_vm.docSourceEditAvailable
+              disabled: !_vm.downloadAvailable
             },
             on: {
               click: function($event) {

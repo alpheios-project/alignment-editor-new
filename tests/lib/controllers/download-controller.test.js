@@ -31,7 +31,7 @@ describe('download-controller.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-/*
+
   it('1 DownloadController - static downloadMethods return an object with registered workflows ', () => {
     const downloadMethods = DownloadController.downloadMethods
   
@@ -156,7 +156,7 @@ describe('download-controller.test.js', () => {
 
     expect(DownloadFileCsv.download).toHaveBeenCalled()
   })
-*/
+
 
   it('6 DownloadController - static jsonSimpleDownloadAll - creates json download', async() => {
     const originDocSource = new SourceText('origin', {
@@ -167,7 +167,6 @@ describe('download-controller.test.js', () => {
     originDocSource.addMetadata(MetadataTerm.property.CREATOR, 'Origin creator1')
     originDocSource.addMetadata(MetadataTerm.property.CREATOR, 'Origin creator2')
 
-    // console.info(originDocSource.metadata.properties)
     const targetDocSource1 = new SourceText('target', {
       text: 'To a certain extent jointly launching occupabunt\u2028Will be sold then', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
@@ -189,8 +188,6 @@ describe('download-controller.test.js', () => {
     alignment.updateTargetDocSource(targetDocSource2) 
 
     await alignment.createAlignedTexts()
-
-    // console.info('alignment - ', alignment.origin.alignedText)
 
     const targetId1 = alignment.allTargetTextsIds[0]
     const targetId2 = alignment.allTargetTextsIds[1]
@@ -227,7 +224,7 @@ describe('download-controller.test.js', () => {
     console.info('2.', alignment.convertToJSON())
 
     /***********Conversion */
-    console.info('3.', Alignment.convertFromJSON(alignment.convertToJSON()))
+    // console.info('3.', Alignment.convertFromJSON(alignment.convertToJSON()))
   })
 
 })

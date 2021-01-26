@@ -128,11 +128,7 @@ export default class TextsController {
     return null
   }
 
-  /**
-   * Parses data from file and updated source document texts in the alignment
-   * @param {String} fileData - a content of the uploaded file
-   */
-  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
+  uploadData (fileData, tokenizerOptionValue) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -141,7 +137,23 @@ export default class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileAll'
+
+    return this.uploadDocSourceFromFileAll(fileData, tokenizerOptionValue)
+  }
+
+  uploadFullDataJSON (fileData, tokenizerOptionValue) {
+    const uploadType = 'jsonSimpleUploadAll'
+    const alignment = UploadController.upload(uploadType, fileData)
+
+    return alignment
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
+    const uploadType = 'plainSourceUploadAll'
 
     const tokenization = TokenizeController.defineTextTokenizationOptions(tokenizerOptionValue)
 
@@ -169,7 +181,7 @@ export default class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileSingle'
+    const uploadType = 'plainSourceUploadSingle'
 
     const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
@@ -191,12 +203,28 @@ export default class TextsController {
    * @returns {Boolean} - true - download was successful, false - was not
    */
   downloadData () {
+    const result = this.downloadShortData()
+
+    return DownloadController.download(result.downloadType, result.data)
+  }
+
+  downloadShortData () {
     const downloadType = 'plainSourceDownloadAll'
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
-    return DownloadController.download(downloadType, data)
+    return {
+      downloadType, data
+    }
+  }
+
+  downloadFullData () {
+    const downloadType = 'jsonSimpleDownloadAll'
+    const data = this.alignment.convertToJSON()
+    return {
+      downloadType, data
+    }
   }
 
   /**

@@ -11,7 +11,7 @@
         </button>
 
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-download" 
-                @click="$emit('download-data')"  :disabled="!docSourceEditAvailable" >
+                @click="$emit('download-data')" :disabled="!downloadAvailable" >
                 {{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}
         </button>
 
@@ -72,6 +72,9 @@ export default {
     },
     redoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
+    },
+    downloadAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.originDocSource)
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
