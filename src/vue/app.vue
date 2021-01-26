@@ -27,6 +27,8 @@
 <script>
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
+import Alignment from '@/lib/data/alignment'
+
 import MainMenu from '@/vue/main-menu.vue'
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -71,7 +73,7 @@ export default {
     */
     uploadData (fileData) {
       const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue)
-      if (alignment) {
+      if (alignment instanceof Alignment) {
         this.$alignedGC.alignment = null
         this.$textC.alignment = null
         this.$historyC.alignment = null
