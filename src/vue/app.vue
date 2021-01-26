@@ -111,9 +111,14 @@ export default {
      * Clear and start alignment over
      */
     startOver () {
-      this.$textC.startOver()
-      this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedGC.startOver()
+      this.$alignedGC.alignment = null
+      this.$textC.alignment = null
+      this.$historyC.alignment = null
+      this.$tokensEC.alignment = null
+
+      this.$textC.createAlignment()
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       NotificationSingleton.clearNotifications()
       this.$textC.store.commit('incrementAlignmentRestarted')

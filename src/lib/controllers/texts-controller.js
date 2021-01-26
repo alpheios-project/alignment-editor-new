@@ -214,6 +214,7 @@ export default class TextsController {
    * Clear alignment and start over
    */
   startOver () {
+    this.alignment = null
     this.createAlignment()
   }
 

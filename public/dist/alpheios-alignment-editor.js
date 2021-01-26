@@ -40730,6 +40730,7 @@ class TextsController {
    * Clear alignment and start over
    */
   startOver () {
+    this.alignment = null
     this.createAlignment()
   }
 
@@ -41735,6 +41736,11 @@ class TokensEditActions {
    */
   getSegmentByToken (token, segmentType = 'current') {
     const alignedText = this.getAlignedTextByToken(token)
+    /*
+    if (token.word === 'devincient') {
+      console.info('**********getSegmentByToken', alignedText)
+    }
+    */
     switch (segmentType) {
       case 'current' :
         return alignedText.segments[token.segmentIndex - 1]
@@ -41757,12 +41763,25 @@ class TokensEditActions {
    *          {Token} tokenResult
    */
   getNextPrevToken (token, direction) {
+    // if (token.word === 'devincient') {
+    // console.info('**********getNextPrevToken', direction)
+    // }
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
+
+    if (token.word === 'devincient') {
+      console.info('getNextPrevToken - tokenIndex', tokenIndex, segment, token)
+    }
 
     const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
 
     if (check) {
+      /*
+      if (token.word === 'devincient') {
+        console.info('tokenIndex1', tokenIndex)
+        console.info('tokenIndex2', direction, (direction === HistoryStep.directions.PREV) ? (tokenIndex - 1) : (tokenIndex + 1))
+      }
+      */
       return {
         segment,
         tokenIndex,
@@ -41992,6 +42011,13 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToNextSegment (token) {
+    /*
+    if (token.word === 'devincient') {
+      console.info('allowedToNextSegment - ', token)
+      console.info('this.getNextPrevToken(token, HistoryStep.directions.NEXT) - ', this.getNextPrevToken(token, HistoryStep.directions.NEXT))
+      console.info('this.getSegmentByToken(token, HistoryStep.directions.NEXT) - ', this.getSegmentByToken(token, HistoryStep.directions.NEXT))
+    }
+    */
     return !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && Boolean(this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
@@ -46277,9 +46303,14 @@ __webpack_require__.r(__webpack_exports__);
      * Clear and start alignment over
      */
     startOver () {
-      this.$textC.startOver()
-      this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedGC.startOver()
+      this.$alignedGC.alignment = null
+      this.$textC.alignment = null
+      this.$historyC.alignment = null
+      this.$tokensEC.alignment = null
+
+      this.$textC.createAlignment()
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
       this.$textC.store.commit('incrementAlignmentRestarted')
