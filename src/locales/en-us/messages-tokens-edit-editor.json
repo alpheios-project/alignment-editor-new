@@ -103,6 +103,11 @@
       "message": "Nothing to redo.",
       "description": "An error inside tokens edit history workflow",
       "component": "Alignment"
+    },
+    "TOKENS_EDIT_INSERT_DESCRIPTION": {
+      "message": "Words would be separated into tokens by spaces. Click Enter to insert tokens.",
+      "description": "A description for insert tokens input",
+      "component": "EmptyTokensInput"
     }
 
 }
