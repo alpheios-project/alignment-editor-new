@@ -34,11 +34,6 @@ export default class TokensEditActions {
    */
   getSegmentByToken (token, segmentType = 'current') {
     const alignedText = this.getAlignedTextByToken(token)
-    /*
-    if (token.word === 'devincient') {
-      console.info('**********getSegmentByToken', alignedText)
-    }
-    */
     switch (segmentType) {
       case 'current' :
         return alignedText.segments[token.segmentIndex - 1]
@@ -61,25 +56,12 @@ export default class TokensEditActions {
    *          {Token} tokenResult
    */
   getNextPrevToken (token, direction) {
-    // if (token.word === 'devincient') {
-    // console.info('**********getNextPrevToken', direction)
-    // }
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
-
-    if (token.word === 'devincient') {
-      console.info('getNextPrevToken - tokenIndex', tokenIndex, segment, token)
-    }
 
     const check = (direction === HistoryStep.directions.PREV) ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
 
     if (check) {
-      /*
-      if (token.word === 'devincient') {
-        console.info('tokenIndex1', tokenIndex)
-        console.info('tokenIndex2', direction, (direction === HistoryStep.directions.PREV) ? (tokenIndex - 1) : (tokenIndex + 1))
-      }
-      */
       return {
         segment,
         tokenIndex,
@@ -309,13 +291,6 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToNextSegment (token) {
-    /*
-    if (token.word === 'devincient') {
-      console.info('allowedToNextSegment - ', token)
-      console.info('this.getNextPrevToken(token, HistoryStep.directions.NEXT) - ', this.getNextPrevToken(token, HistoryStep.directions.NEXT))
-      console.info('this.getSegmentByToken(token, HistoryStep.directions.NEXT) - ', this.getSegmentByToken(token, HistoryStep.directions.NEXT))
-    }
-    */
     return !this.getNextPrevToken(token, HistoryStep.directions.NEXT) && Boolean(this.getSegmentByToken(token, HistoryStep.directions.NEXT))
   }
 

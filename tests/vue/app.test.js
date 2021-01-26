@@ -195,7 +195,7 @@ describe('app.test.js', () => {
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
   })
 
-  it('12 App - startOver - starts alignment process from the beginning', async () => {
+  it.skip('12 App - startOver - starts alignment process from the beginning', async () => {
     let cmp = shallowMount(App, { 
       store: appC.store,
       localVue 
