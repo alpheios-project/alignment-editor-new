@@ -35,17 +35,17 @@
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_ADD_LINEBREAK": {
-      "message": "Add line break after the token.",
+      "message": "Add line break after the token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_REMOVE_LINEBREAK": {
-      "message": "Remove line break after the token.",
+      "message": "Remove line break after the token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
     "ACTION_BUTTON_DELETE": {
-      "message": "Delete token.",
+      "message": "Delete token",
       "description": "A label for action menu buttons",
       "component": "ActionsMenuTokenEdit"
     },
@@ -75,12 +75,12 @@
       "component": "TokensEditController"
     },
     "ACTION_BUTTON_TO_NEXT_SEGMENT": {
-      "message": "Move the token to the next segment.",
+      "message": "Move the token to the next segment",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
     },
     "ACTION_BUTTON_TO_PREV_SEGMENT": {
-      "message": "Move the token to the previous segment.",
+      "message": "Move the token to the previous segment",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
     },
@@ -105,7 +105,7 @@
       "component": "Alignment"
     },
     "TOKENS_EDIT_INSERT_DESCRIPTION": {
-      "message": "Words would be separated into tokens by spaces. Click Enter to insert tokens.",
+      "message": "Each token needs to be separated by space. Click Enter to insert tokens.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
     }
