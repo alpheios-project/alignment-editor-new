@@ -135,7 +135,7 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   updateFirstStepToken (token) {

@@ -189,6 +189,7 @@ export default {
       height: 30px;
       border-radius: 30px;
       line-height: 30px;
+      padding: 5px;
     }
   }
 </style>

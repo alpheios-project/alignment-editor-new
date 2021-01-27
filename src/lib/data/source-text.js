@@ -112,6 +112,7 @@ export default class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
+
     return sourceText
   }
 

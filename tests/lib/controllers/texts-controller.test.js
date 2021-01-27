@@ -273,7 +273,7 @@ describe('texts-controller.test.js', () => {
 
     DownloadController.download = jest.fn()
 
-    textsC.downloadData()
+    textsC.downloadData('plainSourceDownloadAll')
     
     expect(DownloadController.download).toHaveBeenCalled()
   })

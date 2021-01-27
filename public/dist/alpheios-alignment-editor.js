@@ -40461,6 +40461,14 @@ class SettingsController {
     if (sourceTextData.sourceType) {
       localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
+
+    if (sourceTextData.tokenization && localTextEditorOptions[sourceTextData.sourceType]) {
+      Object.keys(sourceTextData.tokenization).forEach(optItemName => {
+        if (localTextEditorOptions[sourceTextData.sourceType].items[optItemName]) {
+          localTextEditorOptions[sourceTextData.sourceType].items[optItemName].setValue(sourceTextData.tokenization[optItemName])
+        }
+      })
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 
@@ -41567,7 +41575,7 @@ class AlignmentGroupActions {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token, targetId) {
-    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   // actions
@@ -42374,7 +42382,7 @@ class AlignedText {
       lang: this.lang,
       sourceType: this.sourceType,
       tokenPrefix: this.tokenPrefix,
-
+      tokenization: this.tokenization,
       segments: this.segments.map(seg => seg.convertToJSON())
     }
   }
@@ -42386,7 +42394,8 @@ class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType
+        lansourceTypeg: data.sourceType,
+        tokenization: data.tokenization
       }
     }, data.tokenPrefix)
     alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
@@ -42551,7 +42560,7 @@ class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   updateFirstStepToken (token) {
@@ -43556,13 +43565,13 @@ class Alignment {
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
-    const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
       origin,
       targets,
       alignmentGroups,
-      activeAlignmentGroup
+      activeAlignmentGroup: null
     }
   }
 
@@ -44300,7 +44309,7 @@ class Segment {
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
-    if (this.tokens.splice(tokenIndex + 1, 0, newToken)) {
+    if (this.insertToken(newToken, tokenIndex + 1)) {
       return newToken
     }
     return false
@@ -44489,6 +44498,7 @@ class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
+
     return sourceText
   }
 

@@ -89,7 +89,7 @@ export default class AlignedText {
       lang: this.lang,
       sourceType: this.sourceType,
       tokenPrefix: this.tokenPrefix,
-
+      tokenization: this.tokenization,
       segments: this.segments.map(seg => seg.convertToJSON())
     }
   }
@@ -101,7 +101,8 @@ export default class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType
+        lansourceTypeg: data.sourceType,
+        tokenization: data.tokenization
       }
     }, data.tokenPrefix)
     alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))

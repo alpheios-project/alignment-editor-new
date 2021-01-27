@@ -897,13 +897,13 @@ export default class Alignment {
 
     const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
-    const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
       origin,
       targets,
       alignmentGroups,
-      activeAlignmentGroup
+      activeAlignmentGroup: null
     }
   }
 

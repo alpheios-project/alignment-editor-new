@@ -93,7 +93,7 @@ export default class AlignmentGroupActions {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token, targetId) {
-    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   // actions

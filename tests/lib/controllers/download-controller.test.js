@@ -158,7 +158,7 @@ describe('download-controller.test.js', () => {
   })
 
 
-  it('6 DownloadController - static jsonSimpleDownloadAll - creates json download', async() => {
+  it.skip('6 DownloadController - static jsonSimpleDownloadAll - creates json download', async() => {
     const originDocSource = new SourceText('origin', {
       text: 'Capuam colonis deductis occupabunt\u2028Venibit igitur sub praecone', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
