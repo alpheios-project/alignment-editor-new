@@ -609,9 +609,22 @@ div.alpheios-alignment-checkbox-block {
   box-sizing: border-box;
 }
 .alpheios-alignment-app-menu__buttons,
-.alpheios-alignment-app-menu__upload-block {
+.alpheios-alignment-app-menu__upload-block,
+.alpheios-alignment-app-menu__download-block {
   padding: 15px 15px 0;
   text-align: left;
+}
+.alpheios-main-menu-download-block-radio-block_item,
+.alpheios-main-menu-upload-block-radio-block_item,
+.alpheios-main-menu-upload-block_item {
+  padding-right: 20px;
+}
+.alpheios-main-menu-upload-block_item.alpheios-token-edit-actions-button,
+.alpheios-main-menu-download-block_item.alpheios-token-edit-actions-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  line-height: 30px;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;

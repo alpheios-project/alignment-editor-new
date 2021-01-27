@@ -94,18 +94,6 @@ export default class AlignedText {
     }
   }
 
-  /*
-  constructor ({ docSource, tokenPrefix } = {}) {
-    this.id = docSource.id
-    this.textType = docSource.textType
-    this.direction = docSource.direction
-    this.lang = docSource.lang
-
-    this.sourceType = docSource.sourceType
-    this.tokenization = docSource.tokenization
-    this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
-  }
-  */
   static convertFromJSON (data) {
     const alignedText = new AlignedText({
       docSource: {

@@ -911,18 +911,26 @@ export default class Alignment {
     const alignment = new Alignment()
 
     alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
-    alignment.origin.alignedText = AlignedText.convertFromJSON(data.origin.alignedText)
+
+    if (data.origin.alignedText) {
+      alignment.origin.alignedText = AlignedText.convertFromJSON(data.origin.alignedText)
+    }
 
     Object.keys(data.targets).forEach(targetId => {
       alignment.targets[targetId] = {
-        docSource: SourceText.convertFromJSON('target', data.targets[targetId].docSource),
-        alignedText: AlignedText.convertFromJSON(data.targets[targetId].alignedText)
+        docSource: SourceText.convertFromJSON('target', data.targets[targetId].docSource)
+      }
+
+      if (data.targets[targetId].alignedText) {
+        alignment.targets[targetId].alignedText = AlignedText.convertFromJSON(data.targets[targetId].alignedText)
       }
     })
 
     data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
 
-    alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+    if (data.activeAlignmentGroup) {
+      alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+    }
 
     return alignment
   }

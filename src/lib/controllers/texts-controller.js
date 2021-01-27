@@ -128,7 +128,7 @@ export default class TextsController {
     return null
   }
 
-  uploadData (fileData, tokenizerOptionValue) {
+  uploadData (fileData, tokenizerOptionValue, uploadType) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -138,23 +138,23 @@ export default class TextsController {
       return
     }
 
-    return this.uploadDocSourceFromFileAll(fileData, tokenizerOptionValue)
+    const uploadPrepareMethods = {
+      plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
+      jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
+    }
+
+    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
   }
 
-  uploadFullDataJSON (fileData, tokenizerOptionValue) {
-    const uploadType = 'jsonSimpleUploadAll'
-    const alignment = UploadController.upload(uploadType, fileData)
-
-    return alignment
+  uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
+    return UploadController.upload(uploadType, fileData)
   }
 
   /**
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
-    const uploadType = 'plainSourceUploadAll'
-
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue, uploadType) {
     const tokenization = TokenizeController.defineTextTokenizationOptions(tokenizerOptionValue)
 
     const result = UploadController.upload(uploadType, { fileData, tokenization })
@@ -202,14 +202,18 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData () {
-    const result = this.downloadShortData()
+  downloadData (downloadType) {
+    const downloadPrepareMethods = {
+      plainSourceDownloadAll: this.downloadShortData.bind(this),
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this)
+    }
+
+    const result = downloadPrepareMethods[downloadType](downloadType)
 
     return DownloadController.download(result.downloadType, result.data)
   }
 
-  downloadShortData () {
-    const downloadType = 'plainSourceDownloadAll'
+  downloadShortData (downloadType) {
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
@@ -219,8 +223,7 @@ export default class TextsController {
     }
   }
 
-  downloadFullData () {
-    const downloadType = 'jsonSimpleDownloadAll'
+  downloadFullData (downloadType) {
     const data = this.alignment.convertToJSON()
     return {
       downloadType, data

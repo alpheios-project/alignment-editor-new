@@ -11,9 +11,9 @@ export default class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownloadAll: this.plainSourceDownloadAll,
-      plainSourceDownloadSingle: this.plainSourceDownloadSingle,
-      jsonSimpleDownloadAll: this.jsonSimpleDownloadAll
+      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
+      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' }
     }
   }
 
@@ -25,7 +25,7 @@ export default class DownloadController {
    */
   static download (downloadType, data) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType](data)
+      return this.downloadMethods[downloadType].method(data)
     }
     console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     NotificationSingleton.addNotification({

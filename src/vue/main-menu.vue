@@ -11,7 +11,7 @@
         </button>
 
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-download" 
-                @click="$emit('download-data')" :disabled="!downloadAvailable" >
+                @click="downloadTexts" :disabled="!downloadAvailable" >
                 {{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}
         </button>
 
@@ -40,15 +40,44 @@
         </button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
-        <input type="file" @change="loadTextFromFile" ref="fileupload">
+          <span v-for="dType in uploadTypes" :key="dType.name" class="alpheios-main-menu-upload-block-radio-block_item">
+              <input type="radio" :id="uploadTypeId(dType.name)" :value="dType.name" v-model="currentUploadType" >
+              <label :for="uploadTypeId(dType.name)">{{ dType.label }}</label>
+          </span>
+        <span class="alpheios-main-menu-upload-block_item">
+          <input type="file" ref="fileupload">
+        </span>
+        <span class="alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button">
+          <upload-icon @click="loadTextFromFile"/>
+        </span>
+      </div>
+      <div class="alpheios-alignment-app-menu__download-block" id="alpheios-main-menu-download-block" v-show="showDownloadBlock &&  downloadAvailable" >
+        <p class="alpheios-main-menu-download-block-radio-block">
+          <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item">
+              <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
+              <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
+          </span>
+          <span class="alpheios-main-menu-download-block_item alpheios-token-edit-actions-button">
+            <download-icon @click="$emit('download-data', currentDownloadType)"/>
+          </span>
+        </p>
       </div>
   </div>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import DownloadController from '@/lib/controllers/download-controller.js'
+import UploadController from '@/lib/controllers/upload-controller.js'
+
+import DownloadIcon from '@/inline-icons/download.svg'
+import UploadIcon from '@/inline-icons/upload.svg'
 
 export default {
   name: 'MainMenu',
+  components: {
+    downloadIcon: DownloadIcon,
+    uploadIcon: UploadIcon
+  },
   props: {
     shownOptionsBlock: {
       type: Boolean,
@@ -58,7 +87,14 @@ export default {
   data () {
     return {
       showUploadBlock: false,
+      showDownloadBlock: false,
+      currentDownloadType: null,
+      currentUploadType: null
     }
+  },
+  mounted () {  
+    this.currentDownloadType = this.downloadTypes[0].name
+    this.currentUploadType = this.uploadTypes[0].name
   },
   computed: {
     l10n () {
@@ -84,6 +120,12 @@ export default {
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+    },
+    downloadTypes () {
+      return Object.values(DownloadController.downloadMethods).filter(method => method.allTexts)
+    },
+    uploadTypes () {
+      return Object.values(UploadController.uploadMethods).filter(method => method.allTexts)
     }
   },
   methods: {
@@ -91,32 +133,62 @@ export default {
      * Shows/Hides block with choose file input
      */
     uploadTexts () {
+      this.showDownloadBlock = false
       this.showUploadBlock = !this.showUploadBlock
+    },
+
+    downloadTexts () {
+      this.showUploadBlock = false
+      this.showDownloadBlock = !this.showDownloadBlock
     },
 
     /**
      * Creates FileReader and passes data from file to App component for parsing
      */
-    loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
+    loadTextFromFile() {
+      const file = this.$refs.fileupload.files[0]
+
       if (!file) { return }
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result)
-        this.showUploadBlock = false
+        this.$emit("upload-data", e.target.result, this.currentUploadType)
+        // this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
 
-      this.$refs.fileupload.value = ''
+    downloadTypeId (dTypeName) {
+      return `alpheios-main-menu-download-block__radio_${dTypeName}`
+    },
+
+    uploadTypeId (dTypeName) {
+      return `alpheios-main-menu-upload-block__radio_${dTypeName}`
     }
   }
 }
 </script>
 <style lang="scss">
   .alpheios-alignment-app-menu__buttons,
-  .alpheios-alignment-app-menu__upload-block {
+  .alpheios-alignment-app-menu__upload-block,
+  .alpheios-alignment-app-menu__download-block {
     padding: 15px 15px 0;
     text-align: left;
+  }
+
+  .alpheios-main-menu-download-block-radio-block_item,
+  .alpheios-main-menu-upload-block-radio-block_item,
+  .alpheios-main-menu-upload-block_item {
+    padding-right: 20px; 
+  }
+
+  .alpheios-main-menu-upload-block_item,
+  .alpheios-main-menu-download-block_item {
+    &.alpheios-token-edit-actions-button {
+      width: 30px;
+      height: 30px;
+      border-radius: 30px;
+      line-height: 30px;
+    }
   }
 </style>

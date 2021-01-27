@@ -64,34 +64,18 @@ export default {
     /**
      * Starts download workflow
      */
-    downloadData () {
-      this.$textC.downloadData()
+    downloadData (downloadType) {
+      this.$textC.downloadData(downloadType)
     },
 
     /**
     * Starts upload workflow
     */
-    uploadData (fileData) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue)
+    uploadData (fileData, uploadType) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+
       if (alignment instanceof Alignment) {
-        this.$alignedGC.alignment = null
-        this.$textC.alignment = null
-        this.$historyC.alignment = null
-        this.$tokensEC.alignment = null
-
-        this.$textC.alignment = alignment
-
-        this.$historyC.startTracking(this.$textC.alignment)
-        this.$alignedGC.alignment = alignment
-        this.$tokensEC.loadAlignment(this.$textC.alignment)
-
-        NotificationSingleton.clearNotifications()
-        
-        this.$textC.store.commit('incrementUploadCheck')
-        this.$textC.store.commit('incrementAlignmentUpdated')
-
-        this.hideTextEditor++
-        this.showAlignEditor++
+        this.startOver(alignment)
       }
     },
     /**
@@ -132,21 +116,36 @@ export default {
     /**
      * Clear and start alignment over
      */
-    startOver () {
+
+    startOver (alignment) {
       this.$alignedGC.alignment = null
       this.$textC.alignment = null
       this.$historyC.alignment = null
       this.$tokensEC.alignment = null
 
-      this.$textC.createAlignment()
+      if (alignment instanceof Alignment) {
+        this.$textC.alignment = alignment
+        this.$alignedGC.alignment = alignment
+      } else {
+        this.$textC.createAlignment()
+      }
+      
       this.$historyC.startTracking(this.$textC.alignment)
       this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       NotificationSingleton.clearNotifications()
-      this.$textC.store.commit('incrementAlignmentRestarted')
+      if (alignment instanceof Alignment) {
+        this.$textC.store.commit('incrementUploadCheck')
+      } else {
+        this.$textC.store.commit('incrementAlignmentRestarted')
+      }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
       this.showTextEditor++
+
+      if (alignment instanceof Alignment) {
+        this.showAlignEditor++
+      }
     }
   }
 }

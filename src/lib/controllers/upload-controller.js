@@ -9,11 +9,13 @@ export default class UploadController {
    * The list with registered variants of upload workflows
    * @return {Object} - each property is one of the defined upload method
    */
+
+  // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: this.plainSourceUploadAll,
-      plainSourceUploadSingle: this.plainSourceUploadSingle,
-      jsonSimpleUploadAll: this.jsonSimpleUploadAll
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
     }
   }
 
@@ -25,7 +27,7 @@ export default class UploadController {
    */
   static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data)
+      return this.uploadMethods[uploadType].method(data)
     }
     console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     NotificationSingleton.addNotification({

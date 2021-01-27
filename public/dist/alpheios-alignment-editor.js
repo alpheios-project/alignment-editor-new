@@ -40051,9 +40051,9 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownloadAll: this.plainSourceDownloadAll,
-      plainSourceDownloadSingle: this.plainSourceDownloadSingle,
-      jsonSimpleDownloadAll: this.jsonSimpleDownloadAll
+      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
+      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' }
     }
   }
 
@@ -40065,7 +40065,7 @@ class DownloadController {
    */
   static download (downloadType, data) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType](data)
+      return this.downloadMethods[downloadType].method(data)
     }
     console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
@@ -40653,7 +40653,7 @@ class TextsController {
     return null
   }
 
-  uploadData (fileData, tokenizerOptionValue) {
+  uploadData (fileData, tokenizerOptionValue, uploadType) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40663,23 +40663,23 @@ class TextsController {
       return
     }
 
-    return this.uploadDocSourceFromFileAll(fileData, tokenizerOptionValue)
+    const uploadPrepareMethods = {
+      plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
+      jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
+    }
+
+    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
   }
 
-  uploadFullDataJSON (fileData, tokenizerOptionValue) {
-    const uploadType = 'jsonSimpleUploadAll'
-    const alignment = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
-
-    return alignment
+  uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
+    return _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
   }
 
   /**
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
-    const uploadType = 'plainSourceUploadAll'
-
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue, uploadType) {
     const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(tokenizerOptionValue)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
@@ -40727,14 +40727,18 @@ class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData () {
-    const result = this.downloadShortData()
+  downloadData (downloadType) {
+    const downloadPrepareMethods = {
+      plainSourceDownloadAll: this.downloadShortData.bind(this),
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this)
+    }
+
+    const result = downloadPrepareMethods[downloadType](downloadType)
 
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
   }
 
-  downloadShortData () {
-    const downloadType = 'plainSourceDownloadAll'
+  downloadShortData (downloadType) {
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
@@ -40744,8 +40748,7 @@ class TextsController {
     }
   }
 
-  downloadFullData () {
-    const downloadType = 'jsonSimpleDownloadAll'
+  downloadFullData (downloadType) {
     const data = this.alignment.convertToJSON()
     return {
       downloadType, data
@@ -41351,11 +41354,13 @@ class UploadController {
    * The list with registered variants of upload workflows
    * @return {Object} - each property is one of the defined upload method
    */
+
+  // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: this.plainSourceUploadAll,
-      plainSourceUploadSingle: this.plainSourceUploadSingle,
-      jsonSimpleUploadAll: this.jsonSimpleUploadAll
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
     }
   }
 
@@ -41367,7 +41372,7 @@ class UploadController {
    */
   static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data)
+      return this.uploadMethods[uploadType].method(data)
     }
     console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
@@ -42374,18 +42379,6 @@ class AlignedText {
     }
   }
 
-  /*
-  constructor ({ docSource, tokenPrefix } = {}) {
-    this.id = docSource.id
-    this.textType = docSource.textType
-    this.direction = docSource.direction
-    this.lang = docSource.lang
-
-    this.sourceType = docSource.sourceType
-    this.tokenization = docSource.tokenization
-    this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
-  }
-  */
   static convertFromJSON (data) {
     const alignedText = new AlignedText({
       docSource: {
@@ -43577,18 +43570,26 @@ class Alignment {
     const alignment = new Alignment()
 
     alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
-    alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.origin.alignedText)
+
+    if (data.origin.alignedText) {
+      alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.origin.alignedText)
+    }
 
     Object.keys(data.targets).forEach(targetId => {
       alignment.targets[targetId] = {
-        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource),
-        alignedText: _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
+        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource)
+      }
+
+      if (data.targets[targetId].alignedText) {
+        alignment.targets[targetId].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
       }
     })
 
     data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
 
-    alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
+    if (data.activeAlignmentGroup) {
+      alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
+    }
 
     return alignment
   }
@@ -46315,34 +46316,18 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Starts download workflow
      */
-    downloadData () {
-      this.$textC.downloadData()
+    downloadData (downloadType) {
+      this.$textC.downloadData(downloadType)
     },
 
     /**
     * Starts upload workflow
     */
-    uploadData (fileData) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue)
+    uploadData (fileData, uploadType) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
-        this.$alignedGC.alignment = null
-        this.$textC.alignment = null
-        this.$historyC.alignment = null
-        this.$tokensEC.alignment = null
-
-        this.$textC.alignment = alignment
-
-        this.$historyC.startTracking(this.$textC.alignment)
-        this.$alignedGC.alignment = alignment
-        this.$tokensEC.loadAlignment(this.$textC.alignment)
-
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
-        
-        this.$textC.store.commit('incrementUploadCheck')
-        this.$textC.store.commit('incrementAlignmentUpdated')
-
-        this.hideTextEditor++
-        this.showAlignEditor++
+        this.startOver(alignment)
       }
     },
     /**
@@ -46383,21 +46368,36 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Clear and start alignment over
      */
-    startOver () {
+
+    startOver (alignment) {
       this.$alignedGC.alignment = null
       this.$textC.alignment = null
       this.$historyC.alignment = null
       this.$tokensEC.alignment = null
 
-      this.$textC.createAlignment()
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.$textC.alignment = alignment
+        this.$alignedGC.alignment = alignment
+      } else {
+        this.$textC.createAlignment()
+      }
+      
       this.$historyC.startTracking(this.$textC.alignment)
       this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
-      this.$textC.store.commit('incrementAlignmentRestarted')
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.$textC.store.commit('incrementUploadCheck')
+      } else {
+        this.$textC.store.commit('incrementAlignmentRestarted')
+      }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
       this.showTextEditor++
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.showAlignEditor++
+      }
     }
   }
 });
@@ -46571,6 +46571,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
+/* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -46617,11 +46623,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
+  components: {
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default())
+  },
   props: {
     shownOptionsBlock: {
       type: Boolean,
@@ -46631,7 +46666,14 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       showUploadBlock: false,
+      showDownloadBlock: false,
+      currentDownloadType: null,
+      currentUploadType: null
     }
+  },
+  mounted () {  
+    this.currentDownloadType = this.downloadTypes[0].name
+    this.currentUploadType = this.uploadTypes[0].name
   },
   computed: {
     l10n () {
@@ -46657,6 +46699,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+    },
+    downloadTypes () {
+      return Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts)
+    },
+    uploadTypes () {
+      return Object.values(_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.uploadMethods).filter(method => method.allTexts)
     }
   },
   methods: {
@@ -46664,24 +46712,37 @@ __webpack_require__.r(__webpack_exports__);
      * Shows/Hides block with choose file input
      */
     uploadTexts () {
+      this.showDownloadBlock = false
       this.showUploadBlock = !this.showUploadBlock
+    },
+
+    downloadTexts () {
+      this.showUploadBlock = false
+      this.showDownloadBlock = !this.showDownloadBlock
     },
 
     /**
      * Creates FileReader and passes data from file to App component for parsing
      */
-    loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
+    loadTextFromFile() {
+      const file = this.$refs.fileupload.files[0]
+
       if (!file) { return }
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result)
-        this.showUploadBlock = false
+        this.$emit("upload-data", e.target.result, this.currentUploadType)
+        // this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
 
-      this.$refs.fileupload.value = ''
+    downloadTypeId (dTypeName) {
+      return `alpheios-main-menu-download-block__radio_${dTypeName}`
+    },
+
+    uploadTypeId (dTypeName) {
+      return `alpheios-main-menu-upload-block__radio_${dTypeName}`
     }
   }
 });
@@ -52029,11 +52090,7 @@ var render = function() {
               id: "alpheios-main-menu-download",
               disabled: !_vm.downloadAvailable
             },
-            on: {
-              click: function($event) {
-                return _vm.$emit("download-data")
-              }
-            }
+            on: { click: _vm.downloadTexts }
           },
           [
             _vm._v(
@@ -52168,11 +52225,143 @@ var render = function() {
           attrs: { id: "alpheios-main-menu-upload-block" }
         },
         [
-          _c("input", {
-            ref: "fileupload",
-            attrs: { type: "file" },
-            on: { change: _vm.loadTextFromFile }
-          })
+          _vm._l(_vm.uploadTypes, function(dType) {
+            return _c(
+              "span",
+              {
+                key: dType.name,
+                staticClass: "alpheios-main-menu-upload-block-radio-block_item"
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.currentUploadType,
+                      expression: "currentUploadType"
+                    }
+                  ],
+                  attrs: { type: "radio", id: _vm.uploadTypeId(dType.name) },
+                  domProps: {
+                    value: dType.name,
+                    checked: _vm._q(_vm.currentUploadType, dType.name)
+                  },
+                  on: {
+                    change: function($event) {
+                      _vm.currentUploadType = dType.name
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: _vm.uploadTypeId(dType.name) } }, [
+                  _vm._v(_vm._s(dType.label))
+                ])
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "alpheios-main-menu-upload-block_item" }, [
+            _c("input", { ref: "fileupload", attrs: { type: "file" } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
+            },
+            [_c("upload-icon", { on: { click: _vm.loadTextFromFile } })],
+            1
+          )
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showDownloadBlock && _vm.downloadAvailable,
+              expression: "showDownloadBlock &&  downloadAvailable"
+            }
+          ],
+          staticClass: "alpheios-alignment-app-menu__download-block",
+          attrs: { id: "alpheios-main-menu-download-block" }
+        },
+        [
+          _c(
+            "p",
+            { staticClass: "alpheios-main-menu-download-block-radio-block" },
+            [
+              _vm._l(_vm.downloadTypes, function(dType) {
+                return _c(
+                  "span",
+                  {
+                    key: dType.name,
+                    staticClass:
+                      "alpheios-main-menu-download-block-radio-block_item"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.currentDownloadType,
+                          expression: "currentDownloadType"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        id: _vm.downloadTypeId(dType.name)
+                      },
+                      domProps: {
+                        value: dType.name,
+                        checked: _vm._q(_vm.currentDownloadType, dType.name)
+                      },
+                      on: {
+                        change: function($event) {
+                          _vm.currentDownloadType = dType.name
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      { attrs: { for: _vm.downloadTypeId(dType.name) } },
+                      [_vm._v(_vm._s(dType.label))]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-main-menu-download-block_item alpheios-token-edit-actions-button"
+                },
+                [
+                  _c("download-icon", {
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit(
+                          "download-data",
+                          _vm.currentDownloadType
+                        )
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            2
+          )
         ]
       )
     ]
@@ -54480,6 +54669,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/download.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/download.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"224.26","height":"224.42","viewBox":"0 0 59.336 59.377","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.773 59.27C.985 58.98.19 58.03.033 57.197c-.183-.978.405-2.336 1.196-2.76.707-.378 56.208-.378 56.915 0 1.42.76 1.613 3.07.357 4.25l-.679.637-27.826.047c-15.304.026-28.005-.019-28.223-.1zm26.855-10.907c-.291-.13-3.595-3.319-7.342-7.085-6.713-6.748-6.813-6.865-6.813-7.947 0-1.502.823-2.433 2.327-2.635l1.136-.152 8.972 8.916V20.949c.001-17.093.036-18.582.464-19.436.903-1.808 3.22-2.042 4.406-.444.549.74.555.93.627 19.562l.073 18.815 4.443-4.415c4.76-4.731 4.999-4.875 6.661-4.015.968.5 1.318 1.141 1.318 2.417 0 .954-.316 1.315-6.948 7.961-5.983 5.995-7.076 6.979-7.871 7.083-.508.067-1.162.015-1.453-.115z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/enter.svg":
 /*!********************************!*\
   !*** ./inline-icons/enter.svg ***!
@@ -54769,6 +54995,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M632.22 539.98a54.952 54.952 0 01-16.1-38.9c0-30.4 24.6-55 55-55h139.2l-74.7-74.7c-21.5-21.5-21.5-56.3 0-77.8s56.3-21.5 77.8 0l168.7 168.7c6.399 6.399 11.2 14.399 13.7 23.1v.101c3.199 10.8 2.899 22.5-.601 33.1-2.7 8-7.3 15.4-13.2 21.4l-168.8 168.6c-21.5 21.5-56.3 21.5-77.8 0s-21.5-56.3 0-77.8l74.7-74.7h-139.1c-15.099-.003-28.899-6.203-38.799-16.102zM365.62 539.98c9.899-9.9 16.1-23.7 16.1-38.9 0-30.4-24.6-55-55-55h-139.1l74.7-74.7c21.5-21.5 21.5-56.3 0-77.8s-56.3-21.5-77.8 0l-168.5 168.6-.1.101c-6.4 6.399-11.2 14.399-13.7 23.1v.101c-3.2 10.8-2.9 22.5.6 33.1 2.7 8 7.3 15.4 13.2 21.4l168.6 168.6c21.5 21.5 56.3 21.5 77.8 0s21.5-56.3 0-77.8l-74.8-74.7h139.2c15.1-.003 28.9-6.203 38.8-16.102zM568.92 924.77V73.37c0-38.7-31.3-70-70-70s-70 31.3-70 70v851.3c0 38.7 31.3 70 70 70s70-31.3 70-69.9z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/upload.svg":
+/*!*********************************!*\
+  !*** ./inline-icons/upload.svg ***!
+  \*********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"224.26","height":"224.42","viewBox":"0 0 59.336 59.377","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.773.107C.985.4.19 1.347.033 2.181c-.183.98.405 2.337 1.196 2.76.707.379 56.208.379 56.915 0 1.42-.759 1.613-3.069.357-4.249l-.679-.638L29.996.007c-15.304-.026-28.005.02-28.223.1zm26.855 10.908c-.291.13-3.595 3.318-7.342 7.085-6.713 6.748-6.813 6.864-6.813 7.946 0 1.502.823 2.434 2.327 2.636l1.136.152 8.972-8.916V38.43c.001 17.093.036 18.582.464 19.436.903 1.808 3.22 2.042 4.406.444.549-.74.555-.93.627-19.562l.073-18.815 4.443 4.415c4.76 4.731 4.999 4.875 6.661 4.015.968-.5 1.318-1.142 1.318-2.417 0-.954-.316-1.315-6.948-7.961-5.983-5.995-7.076-6.979-7.871-7.083-.508-.067-1.162-.016-1.453.115z"}})])
           )
         }
       }
