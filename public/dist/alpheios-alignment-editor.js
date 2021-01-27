@@ -26202,6 +26202,8 @@ function icuUnitToEcma(unit) {
 }
 var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
 var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
+var INTEGER_WIDTH_REGEX = /(\*)(0+)|(#+)(0+)|(0+)/g;
+var CONCISE_INTEGER_WIDTH_REGEX = /^(0+)$/;
 function parseSignificantPrecision(str) {
     var result = {};
     str.replace(SIGNIFICANT_PRECISION_REGEX, function (_, g1, g2) {
@@ -26332,11 +26334,34 @@ function parseNumberSkeleton(tokens) {
             case 'scale':
                 result.scale = parseFloat(token.options[0]);
                 continue;
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+            case 'integer-width':
+                if (token.options.length > 1) {
+                    throw new RangeError('integer-width stems only accept a single optional option');
+                }
+                token.options[0].replace(INTEGER_WIDTH_REGEX, function (_, g1, g2, g3, g4, g5) {
+                    if (g1) {
+                        result.minimumIntegerDigits = g2.length;
+                    }
+                    else if (g3 && g4) {
+                        throw new Error('We currently do not support maximum integer digits');
+                    }
+                    else if (g5) {
+                        throw new Error('We currently do not support exact integer digits');
+                    }
+                    return '';
+                });
+                continue;
         }
-        // Precision
-        // https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#fraction-precision
-        // precision-integer case
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+        if (CONCISE_INTEGER_WIDTH_REGEX.test(token.stem)) {
+            result.minimumIntegerDigits = token.stem.length;
+            continue;
+        }
         if (FRACTION_PRECISION_REGEX.test(token.stem)) {
+            // Precision
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#fraction-precision
+            // precision-integer case
             if (token.options.length > 1) {
                 throw new RangeError('Fraction-precision stems only accept a single optional option');
             }
@@ -26365,6 +26390,7 @@ function parseNumberSkeleton(tokens) {
             }
             continue;
         }
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
         if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
             result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), parseSignificantPrecision(token.stem));
             continue;
@@ -40009,8 +40035,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => /* binding */ DownloadController
 /* harmony export */ });
 /* harmony import */ var _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-csv.js */ "./lib/download/download-file-csv.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
 
 
 
@@ -40022,8 +40051,9 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownloadAll: this.plainSourceDownloadAll,
-      plainSourceDownloadSingle: this.plainSourceDownloadSingle
+      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
+      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' }
     }
   }
 
@@ -40035,12 +40065,12 @@ class DownloadController {
    */
   static download (downloadType, data) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType](data)
+      return this.downloadMethods[downloadType].method(data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
     })
     return false
   }
@@ -40053,10 +40083,10 @@ class DownloadController {
    */
   static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
       })
       return false
     }
@@ -40089,10 +40119,10 @@ class DownloadController {
    */
   static plainSourceDownloadSingle (data) {
     if (!data.sourceText) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
       })
       return false
     }
@@ -40104,8 +40134,18 @@ class DownloadController {
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const fileName = `alignment-${data.sourceText.lang}`
+    const fileName = `alignment-${data.docSource.lang}`
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
+  }
+
+  static jsonSimpleDownloadAll (data) {
+    let langs = [] // eslint-disable-line prefer-const
+
+    Object.values(data.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
+    return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
   }
 }
 
@@ -40421,6 +40461,14 @@ class SettingsController {
     if (sourceTextData.sourceType) {
       localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
+
+    if (sourceTextData.tokenization && localTextEditorOptions[sourceTextData.sourceType]) {
+      Object.keys(sourceTextData.tokenization).forEach(optItemName => {
+        if (localTextEditorOptions[sourceTextData.sourceType].items[optItemName]) {
+          localTextEditorOptions[sourceTextData.sourceType].items[optItemName].setValue(sourceTextData.tokenization[optItemName])
+        }
+      })
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 
@@ -40613,11 +40661,7 @@ class TextsController {
     return null
   }
 
-  /**
-   * Parses data from file and updated source document texts in the alignment
-   * @param {String} fileData - a content of the uploaded file
-   */
-  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
+  uploadData (fileData, tokenizerOptionValue, uploadType) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40626,8 +40670,24 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileAll'
 
+    const uploadPrepareMethods = {
+      plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
+      jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
+    }
+
+    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+  }
+
+  uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
+    return _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue, uploadType) {
     const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(tokenizerOptionValue)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
@@ -40654,7 +40714,7 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileSingle'
+    const uploadType = 'plainSourceUploadSingle'
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
@@ -40675,13 +40735,32 @@ class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData () {
-    const downloadType = 'plainSourceDownloadAll'
+  downloadData (downloadType) {
+    const downloadPrepareMethods = {
+      plainSourceDownloadAll: this.downloadShortData.bind(this),
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this)
+    }
+
+    const result = downloadPrepareMethods[downloadType](downloadType)
+
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+  }
+
+  downloadShortData (downloadType) {
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
+    return {
+      downloadType, data
+    }
+  }
+
+  downloadFullData (downloadType) {
+    const data = this.alignment.convertToJSON()
+    return {
+      downloadType, data
+    }
   }
 
   /**
@@ -40699,6 +40778,7 @@ class TextsController {
    * Clear alignment and start over
    */
   startOver () {
+    this.alignment = null
     this.createAlignment()
   }
 
@@ -41270,6 +41350,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
+/* harmony import */ var _data_alignment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data/alignment */ "./lib/data/alignment.js");
+
 
 
 
@@ -41280,10 +41362,13 @@ class UploadController {
    * The list with registered variants of upload workflows
    * @return {Object} - each property is one of the defined upload method
    */
+
+  // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
-      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
     }
   }
 
@@ -41295,7 +41380,7 @@ class UploadController {
    */
   static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data)
+      return this.uploadMethods[uploadType].method(data)
     }
     console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
@@ -41313,7 +41398,7 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+  static plainSourceUploadAll ({ fileData, tokenization }) {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
@@ -41352,7 +41437,7 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
     if (fileData.filetext.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -41372,6 +41457,11 @@ class UploadController {
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
+  }
+
+  static jsonSimpleUploadAll (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return _data_alignment__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(fileJSON)
   }
 }
 
@@ -41404,7 +41494,7 @@ class AlignmentGroupActions {
   // calculated props
 
   get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
+    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
   }
 
   // checks
@@ -41485,7 +41575,7 @@ class AlignmentGroupActions {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token, targetId) {
-    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   // actions
@@ -41630,6 +41720,26 @@ class AlignmentGroupActions {
     return {
       result: true
     }
+  }
+
+  convertToJSON () {
+    return {
+      segmentIndex: this.segmentIndex,
+      targetId: this.targetId,
+      origin: this.origin,
+      target: this.target
+    }
+  }
+
+  static convertFromJSON (data) {
+    const actions = new AlignmentGroupActions({
+      targetId: data.targetId
+    })
+    actions.segmentIndex = data.segmentIndex
+    actions.origin = data.origin
+    actions.target = data.target
+
+    return actions
   }
 }
 
@@ -42263,6 +42373,35 @@ class AlignedText {
       indexWord
     })
   }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: data.textId,
+        textType: data.textType,
+        direction: data.direction,
+        lang: data.lang,
+        lansourceTypeg: data.sourceType,
+        tokenization: data.tokenization
+      }
+    }, data.tokenPrefix)
+    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
+
+    return alignedText
+  }
 }
 
 
@@ -42295,18 +42434,19 @@ class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId) {
+  constructor (token, targetId, empty = false) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-
     this.alignmentGroupHistory = new _lib_data_history_alignment_group_history__WEBPACK_IMPORTED_MODULE_2__.default()
-    this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
-      targetId,
-      alignmentGroupHistory: this.alignmentGroupHistory
-    })
 
-    this.alignmentGroupHistory.allStepActions = this.allStepActions
+    if (!empty) {
+      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
+        targetId,
+        alignmentGroupHistory: this.alignmentGroupHistory
+      })
 
-    if (token) { this.add(token) }
+      this.alignmentGroupHistory.allStepActions = this.allStepActions
+      if (token) { this.add(token) }
+    }
   }
 
   // calculated props
@@ -42420,7 +42560,7 @@ class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
   updateFirstStepToken (token) {
@@ -42482,6 +42622,23 @@ class AlignmentGroup {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_1__.default.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
+  }
+
+  convertToJSON () {
+    return {
+      actions: this.alignmentGroupActions.convertToJSON()
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alGroup = new AlignmentGroup(null, null, true)
+
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
   }
 }
 
@@ -43392,6 +43549,59 @@ class Alignment {
       }
     }
   }
+
+  convertToJSON () {
+    const origin = {
+      docSource: this.origin.docSource.convertToJSON(),
+      alignedText: this.origin.alignedText ? this.origin.alignedText.convertToJSON() : null
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToJSON(),
+        alignedText: this.targets[targetId].alignedText ? this.targets[targetId].alignedText.convertToJSON() : null
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+
+    return {
+      origin,
+      targets,
+      alignmentGroups,
+      activeAlignmentGroup: null
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignment = new Alignment()
+
+    alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
+
+    if (data.origin.alignedText) {
+      alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.origin.alignedText)
+    }
+
+    Object.keys(data.targets).forEach(targetId => {
+      alignment.targets[targetId] = {
+        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource)
+      }
+
+      if (data.targets[targetId].alignedText) {
+        alignment.targets[targetId].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
+      }
+    })
+
+    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+
+    if (data.activeAlignmentGroup) {
+      alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
+    }
+
+    return alignment
+  }
 }
 
 
@@ -43836,6 +44046,18 @@ class MetadataTerm {
       this.value.splice(valueIndex, 1)
     }
   }
+
+  convertToJSON () {
+    return {
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromJSON (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value)
+  }
 }
 
 MetadataTerm.property = {
@@ -43931,7 +44153,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Metadata {
-  constructor (data) {
+  constructor () {
     this.properties = {}
   }
 
@@ -43973,6 +44195,21 @@ class Metadata {
     })
     return allMeta
   }
+
+  convertToJSON () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToJSON())
+    }
+  }
+
+  static convertFromJSON (data) {
+    const metadata = new Metadata()
+    data.properties.forEach(prop => {
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(prop)
+      metadata.addProperty(metaItem.property, metaItem.value)
+    })
+    return metadata
+  }
 }
 
 
@@ -43993,13 +44230,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
     this.direction = direction
     this.docSourceId = docSourceId
-    this.checkAndUpdateTokens(tokens)
+
+    if (tokens) {
+      this.checkAndUpdateTokens(tokens)
+    }
   }
 
   /**
@@ -44009,7 +44249,7 @@ class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
 
-    this.lastTokenIdWord = this.tokens[this.tokens.length - 1].idWord
+    this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
   /**
@@ -44069,7 +44309,7 @@ class Segment {
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
-    if (this.tokens.splice(tokenIndex + 1, 0, newToken)) {
+    if (this.insertToken(newToken, tokenIndex + 1)) {
       return newToken
     }
     return false
@@ -44082,6 +44322,46 @@ class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
+  }
+
+  /**
+   * @returns { String } index
+   *          { String } textType - origin/target
+   *          { String } lang
+   *          { String } direction
+   *          { String } docSourceId
+   *          { Array[Object] } tokens - array of tokens converted to JSON
+   */
+  convertToJSON () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map(token => token.convertToJSON())
+    }
+  }
+
+  /**
+   * @param {Object} data
+   *        { String } index
+   *        { String } textType - origin/target
+   *        { String } lang
+   *        { String } direction
+   *        { String } docSourceId
+   *        { Array[Object] } tokens - array of tokens converted to JSON
+   * @returns { Segment }
+   */
+  static convertFromJSON (data) {
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(token))
+    })
   }
 }
 
@@ -44130,7 +44410,15 @@ class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
-    this.metadata = docSource && docSource.metadata ? new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata) : new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    if (docSource && docSource.metadata) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default) {
+        this.metadata = docSource.metadata
+      } else {
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata)
+      }
+    } else {
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    }
   }
 
   get defaultDirection () {
@@ -44204,13 +44492,26 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(jsonData.metadata) : null
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
 
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
+
     return sourceText
+  }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      text: this.text,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToJSON()
+    }
   }
 }
 
@@ -44303,6 +44604,53 @@ class Token {
     }
     return true
   }
+
+  /**
+   * @returns { String } textType - origin/target
+   *          { String } idWord
+   *          { String } word
+   *          { String } beforeWord
+   *          { String } afterWord
+   *          { Boolean } hasLineBreak
+   *          { Number } segmentIndex
+   *          { String } docSourceId
+   */
+  convertToJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId
+    }
+  }
+
+  /**
+   *
+   * @param { Object } data
+   *        { String } textType - origin/target
+   *        { String } idWord
+   *        { String } word
+   *        { String } beforeWord
+   *        { String } afterWord
+   *        { Boolean } hasLineBreak
+   *        { Number } segmentIndex
+   *        { String } docSourceId
+   * @returns { Token }
+   */
+  static convertFromJSON (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak
+    }, data.segmentIndex, data.docSourceId)
+  }
 }
 
 
@@ -44349,6 +44697,41 @@ class DownloadFileCSV {
   static download (fields, exportFields, fileName, delimiter = '\t', fileExtension = 'tsv', withHeaders = false) {
     const result = this.collectionToCSV(delimiter, exportFields, withHeaders)(fields)
     return this.downloadBlob(result, `${fileName}.${fileExtension}`)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/download/download-file-json.js":
+/*!********************************************!*\
+  !*** ./lib/download/download-file-json.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ DownloadFileJSON
+/* harmony export */ });
+const idForButton = 'alpheios-alignment-editor-app-container'
+
+class DownloadFileJSON {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    document.getElementById(idForButton).appendChild(a)
+    a.click()
+    a.remove()
+    return true
+  }
+
+  static download (data, fileName) {
+    return this.downloadBlob(data, `${fileName}.json`)
   }
 }
 
@@ -45870,12 +46253,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
-/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
-/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
-/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
-/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
-/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
+/* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
+/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
+/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
+/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
+/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
+/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 //
 //
 //
@@ -45902,6 +46286,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -45916,12 +46302,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
-    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default
+    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default
   },
   data () {
     return {
@@ -45940,15 +46326,19 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Starts download workflow
      */
-    downloadData () {
-      this.$textC.downloadData()
+    downloadData (downloadType) {
+      this.$textC.downloadData(downloadType)
     },
 
     /**
     * Starts upload workflow
     */
-    uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFileAll(fileData, this.$settingsC.tokenizerOptionValue)
+    uploadData (fileData, uploadType) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.startOver(alignment)
+      }
     },
     /**
      * Starts redo action
@@ -45988,16 +46378,36 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Clear and start alignment over
      */
-    startOver () {
-      this.$textC.startOver()
-      this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedGC.startOver()
+
+    startOver (alignment) {
+      this.$alignedGC.alignment = null
+      this.$textC.alignment = null
+      this.$historyC.alignment = null
+      this.$tokensEC.alignment = null
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.$textC.alignment = alignment
+        this.$alignedGC.alignment = alignment
+      } else {
+        this.$textC.createAlignment()
+      }
+      
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
-      this.$textC.store.commit('incrementAlignmentRestarted')
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.$textC.store.commit('incrementUploadCheck')
+      } else {
+        this.$textC.store.commit('incrementAlignmentRestarted')
+      }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
       this.showTextEditor++
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.showAlignEditor++
+      }
     }
   }
 });
@@ -46103,6 +46513,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'tooltip',
@@ -46170,6 +46581,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
+/* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -46216,11 +46633,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
+  components: {
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default())
+  },
   props: {
     shownOptionsBlock: {
       type: Boolean,
@@ -46230,7 +46676,14 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       showUploadBlock: false,
+      showDownloadBlock: false,
+      currentDownloadType: null,
+      currentUploadType: null
     }
+  },
+  mounted () {  
+    this.currentDownloadType = this.downloadTypes[0].name
+    this.currentUploadType = this.uploadTypes[0].name
   },
   computed: {
     l10n () {
@@ -46245,6 +46698,9 @@ __webpack_require__.r(__webpack_exports__);
     redoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
+    downloadAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.originDocSource)
+    },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
@@ -46253,6 +46709,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+    },
+    downloadTypes () {
+      return Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts)
+    },
+    uploadTypes () {
+      return Object.values(_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.uploadMethods).filter(method => method.allTexts)
     }
   },
   methods: {
@@ -46260,24 +46722,37 @@ __webpack_require__.r(__webpack_exports__);
      * Shows/Hides block with choose file input
      */
     uploadTexts () {
+      this.showDownloadBlock = false
       this.showUploadBlock = !this.showUploadBlock
+    },
+
+    downloadTexts () {
+      this.showUploadBlock = false
+      this.showDownloadBlock = !this.showDownloadBlock
     },
 
     /**
      * Creates FileReader and passes data from file to App component for parsing
      */
-    loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
+    loadTextFromFile() {
+      const file = this.$refs.fileupload.files[0]
+
       if (!file) { return }
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result)
-        this.showUploadBlock = false
+        this.$emit("upload-data", e.target.result, this.currentUploadType)
+        // this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
 
-      this.$refs.fileupload.value = ''
+    downloadTypeId (dTypeName) {
+      return `alpheios-main-menu-download-block__radio_${dTypeName}`
+    },
+
+    uploadTypeId (dTypeName) {
+      return `alpheios-main-menu-upload-block__radio_${dTypeName}`
     }
   }
 });
@@ -47070,16 +47545,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
 //
 //
 //
@@ -47108,8 +47582,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 
 
@@ -47143,13 +47615,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default
   },
   data () {
     return {
@@ -47272,7 +47744,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     }
   },
   methods: {
@@ -47281,6 +47753,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -47927,6 +48400,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -47941,6 +48415,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'EmptyTokensInput',
@@ -47971,6 +48446,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
     /**
      * Used for css id definition
      */
@@ -51533,7 +52011,8 @@ var render = function() {
           staticClass:
             "alpheios-tooltiptext alpheios-tooltiptext-span alpheios-text__smaller",
           class: _vm.directionClass,
-          style: _vm.additionalStyles
+          style: _vm.additionalStyles,
+          attrs: { dir: "ltr" }
         },
         [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
       )
@@ -51619,13 +52098,9 @@ var render = function() {
             staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-download",
-              disabled: !_vm.docSourceEditAvailable
+              disabled: !_vm.downloadAvailable
             },
-            on: {
-              click: function($event) {
-                return _vm.$emit("download-data")
-              }
-            }
+            on: { click: _vm.downloadTexts }
           },
           [
             _vm._v(
@@ -51760,11 +52235,143 @@ var render = function() {
           attrs: { id: "alpheios-main-menu-upload-block" }
         },
         [
-          _c("input", {
-            ref: "fileupload",
-            attrs: { type: "file" },
-            on: { change: _vm.loadTextFromFile }
-          })
+          _vm._l(_vm.uploadTypes, function(dType) {
+            return _c(
+              "span",
+              {
+                key: dType.name,
+                staticClass: "alpheios-main-menu-upload-block-radio-block_item"
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.currentUploadType,
+                      expression: "currentUploadType"
+                    }
+                  ],
+                  attrs: { type: "radio", id: _vm.uploadTypeId(dType.name) },
+                  domProps: {
+                    value: dType.name,
+                    checked: _vm._q(_vm.currentUploadType, dType.name)
+                  },
+                  on: {
+                    change: function($event) {
+                      _vm.currentUploadType = dType.name
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: _vm.uploadTypeId(dType.name) } }, [
+                  _vm._v(_vm._s(dType.label))
+                ])
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "alpheios-main-menu-upload-block_item" }, [
+            _c("input", { ref: "fileupload", attrs: { type: "file" } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
+            },
+            [_c("upload-icon", { on: { click: _vm.loadTextFromFile } })],
+            1
+          )
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showDownloadBlock && _vm.downloadAvailable,
+              expression: "showDownloadBlock &&  downloadAvailable"
+            }
+          ],
+          staticClass: "alpheios-alignment-app-menu__download-block",
+          attrs: { id: "alpheios-main-menu-download-block" }
+        },
+        [
+          _c(
+            "p",
+            { staticClass: "alpheios-main-menu-download-block-radio-block" },
+            [
+              _vm._l(_vm.downloadTypes, function(dType) {
+                return _c(
+                  "span",
+                  {
+                    key: dType.name,
+                    staticClass:
+                      "alpheios-main-menu-download-block-radio-block_item"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.currentDownloadType,
+                          expression: "currentDownloadType"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        id: _vm.downloadTypeId(dType.name)
+                      },
+                      domProps: {
+                        value: dType.name,
+                        checked: _vm._q(_vm.currentDownloadType, dType.name)
+                      },
+                      on: {
+                        change: function($event) {
+                          _vm.currentDownloadType = dType.name
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      { attrs: { for: _vm.downloadTypeId(dType.name) } },
+                      [_vm._v(_vm._s(dType.label))]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-main-menu-download-block_item alpheios-token-edit-actions-button"
+                },
+                [
+                  _c("download-icon", {
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit(
+                          "download-data",
+                          _vm.currentDownloadType
+                        )
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            2
+          )
         ]
       )
     ]
@@ -53583,11 +54190,14 @@ var render = function() {
             }
           ],
           staticClass:
-            "alpheios-alignment-editor-token-edit-empty-input-description"
+            "alpheios-alignment-editor-token-edit-empty-input-description",
+          attrs: { dir: "ltr" }
         },
         [
           _vm._v(
-            "\n      Words would be separated to tokens by spaces. Click Enter to insert tokens.\n    "
+            "\n      " +
+              _vm._s(_vm.l10n.getMsgS("TOKENS_EDIT_INSERT_DESCRIPTION")) +
+              "\n    "
           )
         ]
       )
@@ -54070,6 +54680,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/download.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/download.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"224.26","height":"224.42","viewBox":"0 0 59.336 59.377","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.773 59.27C.985 58.98.19 58.03.033 57.197c-.183-.978.405-2.336 1.196-2.76.707-.378 56.208-.378 56.915 0 1.42.76 1.613 3.07.357 4.25l-.679.637-27.826.047c-15.304.026-28.005-.019-28.223-.1zm26.855-10.907c-.291-.13-3.595-3.319-7.342-7.085-6.713-6.748-6.813-6.865-6.813-7.947 0-1.502.823-2.433 2.327-2.635l1.136-.152 8.972 8.916V20.949c.001-17.093.036-18.582.464-19.436.903-1.808 3.22-2.042 4.406-.444.549.74.555.93.627 19.562l.073 18.815 4.443-4.415c4.76-4.731 4.999-4.875 6.661-4.015.968.5 1.318 1.141 1.318 2.417 0 .954-.316 1.315-6.948 7.961-5.983 5.995-7.076 6.979-7.871 7.083-.508.067-1.162.015-1.453-.115z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/enter.svg":
 /*!********************************!*\
   !*** ./inline-icons/enter.svg ***!
@@ -54366,6 +55013,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/upload.svg":
+/*!*********************************!*\
+  !*** ./inline-icons/upload.svg ***!
+  \*********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"224.26","height":"224.42","viewBox":"0 0 59.336 59.377","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.773.107C.985.4.19 1.347.033 2.181c-.183.98.405 2.337 1.196 2.76.707.379 56.208.379 56.915 0 1.42-.759 1.613-3.069.357-4.249l-.679-.638L29.996.007c-15.304-.026-28.005.02-28.223.1zm26.855 10.908c-.291.13-3.595 3.318-7.342 7.085-6.713 6.748-6.813 6.864-6.813 7.946 0 1.502.823 2.434 2.327 2.636l1.136.152 8.972-8.916V38.43c.001 17.093.036 18.582.464 19.436.903 1.808 3.22 2.042 4.406.444.549-.74.555-.93.627-19.562l.073-18.815 4.443 4.415c4.76 4.731 4.999 4.875 6.661 4.015.968-.5 1.318-1.142 1.318-2.417 0-.954-.316-1.315-6.948-7.961-5.983-5.995-7.076-6.979-7.871-7.083-.508-.067-1.162-.016-1.453.115z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/x-close.svg":
 /*!**********************************!*\
   !*** ./inline-icons/x-close.svg ***!
@@ -54520,7 +55204,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_REMOVE_LINEBREAK\":{\"message\":\"Remove line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_DELETE\":{\"message\":\"Delete token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTIONS_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"ACTIONS_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"TOKENS_EDIT_UNDO_ERROR\":{\"message\":\"Nothing to undo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_REDO_ERROR\":{\"message\":\"Nothing to redo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"}}");
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_REMOVE_LINEBREAK\":{\"message\":\"Remove line break after the token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_DELETE\":{\"message\":\"Delete token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTIONS_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"ACTIONS_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"TOKENS_EDIT_UNDO_ERROR\":{\"message\":\"Nothing to undo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_REDO_ERROR\":{\"message\":\"Nothing to redo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_INSERT_DESCRIPTION\":{\"message\":\"Each token needs to be separated by space. Click Enter to insert tokens.\",\"description\":\"A description for insert tokens input\",\"component\":\"EmptyTokensInput\"}}");
 
 /***/ }),
 

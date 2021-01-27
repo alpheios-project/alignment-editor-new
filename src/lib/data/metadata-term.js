@@ -46,6 +46,18 @@ export default class MetadataTerm {
       this.value.splice(valueIndex, 1)
     }
   }
+
+  convertToJSON () {
+    return {
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromJSON (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value)
+  }
 }
 
 MetadataTerm.property = {

@@ -1,13 +1,16 @@
 import Token from '@/lib/data/token'
 
 export default class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
     this.direction = direction
     this.docSourceId = docSourceId
-    this.checkAndUpdateTokens(tokens)
+
+    if (tokens) {
+      this.checkAndUpdateTokens(tokens)
+    }
   }
 
   /**
@@ -17,7 +20,7 @@ export default class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
 
-    this.lastTokenIdWord = this.tokens[this.tokens.length - 1].idWord
+    this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
   /**
@@ -77,7 +80,7 @@ export default class Segment {
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
-    if (this.tokens.splice(tokenIndex + 1, 0, newToken)) {
+    if (this.insertToken(newToken, tokenIndex + 1)) {
       return newToken
     }
     return false
@@ -90,5 +93,45 @@ export default class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
+  }
+
+  /**
+   * @returns { String } index
+   *          { String } textType - origin/target
+   *          { String } lang
+   *          { String } direction
+   *          { String } docSourceId
+   *          { Array[Object] } tokens - array of tokens converted to JSON
+   */
+  convertToJSON () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map(token => token.convertToJSON())
+    }
+  }
+
+  /**
+   * @param {Object} data
+   *        { String } index
+   *        { String } textType - origin/target
+   *        { String } lang
+   *        { String } direction
+   *        { String } docSourceId
+   *        { Array[Object] } tokens - array of tokens converted to JSON
+   * @returns { Segment }
+   */
+  static convertFromJSON (data) {
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: data.tokens.map(token => Token.convertFromJSON(token))
+    })
   }
 }

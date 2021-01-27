@@ -881,4 +881,57 @@ export default class Alignment {
       }
     }
   }
+
+  convertToJSON () {
+    const origin = {
+      docSource: this.origin.docSource.convertToJSON(),
+      alignedText: this.origin.alignedText ? this.origin.alignedText.convertToJSON() : null
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToJSON(),
+        alignedText: this.targets[targetId].alignedText ? this.targets[targetId].alignedText.convertToJSON() : null
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+
+    return {
+      origin,
+      targets,
+      alignmentGroups,
+      activeAlignmentGroup: null
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignment = new Alignment()
+
+    alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
+
+    if (data.origin.alignedText) {
+      alignment.origin.alignedText = AlignedText.convertFromJSON(data.origin.alignedText)
+    }
+
+    Object.keys(data.targets).forEach(targetId => {
+      alignment.targets[targetId] = {
+        docSource: SourceText.convertFromJSON('target', data.targets[targetId].docSource)
+      }
+
+      if (data.targets[targetId].alignedText) {
+        alignment.targets[targetId].alignedText = AlignedText.convertFromJSON(data.targets[targetId].alignedText)
+      }
+    })
+
+    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+
+    if (data.activeAlignmentGroup) {
+      alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+    }
+
+    return alignment
+  }
 }

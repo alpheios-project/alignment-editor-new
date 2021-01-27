@@ -27,6 +27,8 @@
 <script>
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
+import Alignment from '@/lib/data/alignment'
+
 import MainMenu from '@/vue/main-menu.vue'
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -62,15 +64,19 @@ export default {
     /**
      * Starts download workflow
      */
-    downloadData () {
-      this.$textC.downloadData()
+    downloadData (downloadType) {
+      this.$textC.downloadData(downloadType)
     },
 
     /**
     * Starts upload workflow
     */
-    uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFileAll(fileData, this.$settingsC.tokenizerOptionValue)
+    uploadData (fileData, uploadType) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+
+      if (alignment instanceof Alignment) {
+        this.startOver(alignment)
+      }
     },
     /**
      * Starts redo action
@@ -110,16 +116,36 @@ export default {
     /**
      * Clear and start alignment over
      */
-    startOver () {
-      this.$textC.startOver()
-      this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedGC.startOver()
+
+    startOver (alignment) {
+      this.$alignedGC.alignment = null
+      this.$textC.alignment = null
+      this.$historyC.alignment = null
+      this.$tokensEC.alignment = null
+
+      if (alignment instanceof Alignment) {
+        this.$textC.alignment = alignment
+        this.$alignedGC.alignment = alignment
+      } else {
+        this.$textC.createAlignment()
+      }
+      
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       NotificationSingleton.clearNotifications()
-      this.$textC.store.commit('incrementAlignmentRestarted')
+      if (alignment instanceof Alignment) {
+        this.$textC.store.commit('incrementUploadCheck')
+      } else {
+        this.$textC.store.commit('incrementAlignmentRestarted')
+      }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
       this.showTextEditor++
+
+      if (alignment instanceof Alignment) {
+        this.showAlignEditor++
+      }
     }
   }
 }

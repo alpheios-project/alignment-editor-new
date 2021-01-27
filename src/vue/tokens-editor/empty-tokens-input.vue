@@ -7,12 +7,13 @@
             :id = "itemId"
             @keydown.enter = "insertTokens"
         >
-        <p class="alpheios-alignment-editor-token-edit-empty-input-description" v-show="showDescription">
-          Words would be separated to tokens by spaces. Click Enter to insert tokens.
+        <p class="alpheios-alignment-editor-token-edit-empty-input-description" v-show="showDescription" dir="ltr">
+          {{ l10n.getMsgS('TOKENS_EDIT_INSERT_DESCRIPTION') }}
         </p>
     </div>
 </template>
 <script>
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 export default {
   name: 'EmptyTokensInput',
   components: {
@@ -42,6 +43,9 @@ export default {
     }
   },
   computed: {
+    l10n () {
+      return L10nSingleton
+    },
     /**
      * Used for css id definition
      */

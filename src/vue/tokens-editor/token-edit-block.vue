@@ -213,6 +213,7 @@ export default {
   .alpheios-alignment-editor-token-edit-input {
     position: absolute;
     width: 100%;
+    top: 0;
     left: 0;
     z-index: 10;
   }

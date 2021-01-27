@@ -28,8 +28,6 @@
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import Langs from '@/lib/data/langs/langs.js'
-
 import DeleteIcon from '@/inline-icons/delete.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
@@ -199,6 +197,7 @@ export default {
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -267,6 +266,7 @@ export default {
         textarea {
             width:100%;
             min-height: 300px;
+            font-size: inherit;
         }
 
         p {

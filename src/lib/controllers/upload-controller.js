@@ -2,16 +2,20 @@ import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
+import Alignment from '../data/alignment'
 
 export default class UploadController {
   /**
    * The list with registered variants of upload workflows
    * @return {Object} - each property is one of the defined upload method
    */
+
+  // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
-      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
     }
   }
 
@@ -23,7 +27,7 @@ export default class UploadController {
    */
   static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data)
+      return this.uploadMethods[uploadType].method(data)
     }
     console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     NotificationSingleton.addNotification({
@@ -41,7 +45,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+  static plainSourceUploadAll ({ fileData, tokenization }) {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
@@ -80,7 +84,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
+  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
     if (fileData.filetext.indexOf('HEADER:') === 0) {
       const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
@@ -100,5 +104,10 @@ export default class UploadController {
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
+  }
+
+  static jsonSimpleUploadAll (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return Alignment.convertFromJSON(fileJSON)
   }
 }
