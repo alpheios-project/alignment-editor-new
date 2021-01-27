@@ -7,7 +7,7 @@
             :id = "itemId"
             @keydown.enter = "insertTokens"
         >
-        <p class="alpheios-alignment-editor-token-edit-empty-input-description" v-show="showDescription">
+        <p class="alpheios-alignment-editor-token-edit-empty-input-description" v-show="showDescription" dir="ltr">
           {{ l10n.getMsgS('TOKENS_EDIT_INSERT_DESCRIPTION') }}
         </p>
     </div>

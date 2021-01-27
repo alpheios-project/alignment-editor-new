@@ -625,6 +625,7 @@ div.alpheios-alignment-checkbox-block {
   height: 30px;
   border-radius: 30px;
   line-height: 30px;
+  padding: 5px;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;

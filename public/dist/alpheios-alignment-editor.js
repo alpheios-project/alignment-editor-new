@@ -54190,7 +54190,8 @@ var render = function() {
             }
           ],
           staticClass:
-            "alpheios-alignment-editor-token-edit-empty-input-description"
+            "alpheios-alignment-editor-token-edit-empty-input-description",
+          attrs: { dir: "ltr" }
         },
         [
           _vm._v(
