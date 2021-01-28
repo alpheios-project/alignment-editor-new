@@ -35,7 +35,7 @@
                 {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-menu-button" id ="alpheios-main-menu-clear-all" 
-                @click="$emit('clear-all')">
+                @click="clearAll">
                 {{ l10n.getMsgS('MAIN_MENU_CLEAR_TEXT') }}
         </button>
       </div>
@@ -153,7 +153,7 @@ export default {
 
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, this.currentUploadType)
-        // this.showUploadBlock = false
+        this.showUploadBlock = false
       }
       reader.readAsText(file)
     },
@@ -164,6 +164,11 @@ export default {
 
     uploadTypeId (dTypeName) {
       return `alpheios-main-menu-upload-block__radio_${dTypeName}`
+    },
+
+    clearAll () {
+      this.$refs.fileupload.value = ''
+      this.$emit('clear-all')
     }
   }
 }

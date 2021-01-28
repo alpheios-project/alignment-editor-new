@@ -46742,7 +46742,7 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, this.currentUploadType)
-        // this.showUploadBlock = false
+        this.showUploadBlock = false
       }
       reader.readAsText(file)
     },
@@ -46753,6 +46753,11 @@ __webpack_require__.r(__webpack_exports__);
 
     uploadTypeId (dTypeName) {
       return `alpheios-main-menu-upload-block__radio_${dTypeName}`
+    },
+
+    clearAll () {
+      this.$refs.fileupload.value = ''
+      this.$emit('clear-all')
     }
   }
 });
@@ -52204,11 +52209,7 @@ var render = function() {
           {
             staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: { id: "alpheios-main-menu-clear-all" },
-            on: {
-              click: function($event) {
-                return _vm.$emit("clear-all")
-              }
-            }
+            on: { click: _vm.clearAll }
           },
           [
             _vm._v(
