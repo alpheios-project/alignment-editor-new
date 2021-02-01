@@ -49231,7 +49231,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showTokensEditBlocks: true
+      showTokensEditBlocks: false,
+      renderAlignEditor: false
     }
   },
   watch: {
@@ -49253,6 +49254,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     toggleShowTokensEditBlocks () {
       this.showTokensEditBlocks = !this.showTokensEditBlocks
+      if (!this.renderAlignEditor && this.showTokensEditBlocks)  {
+        this.renderAlignEditor = true
+      }
     }
   }
 });
@@ -54688,7 +54692,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.showAlignEditor
+      _vm.renderAlignEditor
         ? _c("tokens-editor-inner-block", {
             directives: [
               {
