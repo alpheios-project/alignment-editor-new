@@ -17,7 +17,7 @@
             @moveToPrevSegment = "moveToPrevSegment"
             @deleteToken = "deleteToken"
         />
-        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" :show-description = "showDescription" v-if="segment.index === 1"/>
+        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" v-if="segment.index === 1"/>
 
         <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
@@ -96,9 +96,7 @@ export default {
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null,
-      removeLineBreakIdWord: null,
-      
-      showDescription: true
+      removeLineBreakIdWord: null
     }
   },
   watch: {
