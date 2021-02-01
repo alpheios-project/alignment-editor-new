@@ -1206,6 +1206,12 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-token-edit-empty-input-container {
   padding: 5px 15px;
 }
+.alpheios-alignment-editor-token-edit-empty-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1;
+  /* Firefox */
+}
 .alpheios-alignment-editor-token-edit-empty-input-description {
   color: #909294;
   padding: 5px 10px 0;

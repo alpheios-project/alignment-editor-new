@@ -104,8 +104,13 @@
       "description": "An error inside tokens edit history workflow",
       "component": "Alignment"
     },
-    "TOKENS_EDIT_INSERT_DESCRIPTION": {
-      "message": "Each token needs to be separated by space. Click Enter to insert tokens.",
+    "TOKENS_EDIT_INSERT_DESCRIPTION_START": {
+      "message": "Each token needs to be separated by space. Click Enter to insert tokens to the start.",
+      "description": "A description for insert tokens input",
+      "component": "EmptyTokensInput"
+    },
+    "TOKENS_EDIT_INSERT_DESCRIPTION_END": {
+      "message": "Each token needs to be separated by space. Click Enter to insert tokens to the end.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
     }
