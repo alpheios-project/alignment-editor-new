@@ -40190,7 +40190,6 @@ class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownloadSingle (data) {
-    console.info('data - ', data)
     if (!data.docSource) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
