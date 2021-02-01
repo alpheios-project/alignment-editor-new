@@ -78,7 +78,7 @@ export default class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownloadSingle (data) {
-    if (!data.sourceText) {
+    if (!data.docSource) {
       console.error(L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
@@ -88,8 +88,8 @@ export default class DownloadController {
     }
 
     const fields = [
-      { header: 'HEADER: 1', direction: data.sourceText.direction, lang: data.sourceText.lang, sourceType: data.sourceText.sourceType },
-      { header: data.sourceText.text }
+      { header: 'HEADER: 1', direction: data.docSource.direction, lang: data.docSource.lang, sourceType: data.docSource.sourceType },
+      { header: data.docSource.text }
     ]
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']

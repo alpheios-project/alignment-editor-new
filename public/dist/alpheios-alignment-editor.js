@@ -40190,7 +40190,7 @@ class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownloadSingle (data) {
-    if (!data.sourceText) {
+    if (!data.docSource) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
@@ -40200,8 +40200,8 @@ class DownloadController {
     }
 
     const fields = [
-      { header: 'HEADER: 1', direction: data.sourceText.direction, lang: data.sourceText.lang, sourceType: data.sourceText.sourceType },
-      { header: data.sourceText.text }
+      { header: 'HEADER: 1', direction: data.docSource.direction, lang: data.docSource.lang, sourceType: data.docSource.sourceType },
+      { header: data.docSource.text }
     ]
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
@@ -40841,9 +40841,9 @@ class TextsController {
    */
   downloadSingleSourceText (textType, textId) {
     const downloadType = 'plainSourceDownloadSingle'
-    const sourceText = this.getDocSource(textType, textId)
+    const docSource = this.getDocSource(textType, textId)
 
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { sourceText })
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { docSource })
   }
 
   /**
