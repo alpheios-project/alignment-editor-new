@@ -236,9 +236,9 @@ export default class TextsController {
    */
   downloadSingleSourceText (textType, textId) {
     const downloadType = 'plainSourceDownloadSingle'
-    const sourceText = this.getDocSource(textType, textId)
+    const docSource = this.getDocSource(textType, textId)
 
-    return DownloadController.download(downloadType, { sourceText })
+    return DownloadController.download(downloadType, { docSource })
   }
 
   /**
