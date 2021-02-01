@@ -6,7 +6,7 @@
       </h2>
     </div>
 
-    <tokens-editor-inner-block v-show="showTokensEditBlocks" v-if="showAlignEditor"/>
+    <tokens-editor-inner-block v-show="showTokensEditBlocks" v-if="renderAlignEditor"/>
     
   </div>
 </template>
@@ -26,7 +26,8 @@ export default {
   },
   data () {
     return {
-      showTokensEditBlocks: true
+      showTokensEditBlocks: false,
+      renderAlignEditor: false
     }
   },
   watch: {
@@ -48,6 +49,9 @@ export default {
   methods: {
     toggleShowTokensEditBlocks () {
       this.showTokensEditBlocks = !this.showTokensEditBlocks
+      if (!this.renderAlignEditor && this.showTokensEditBlocks)  {
+        this.renderAlignEditor = true
+      }
     }
   }
 }
