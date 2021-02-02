@@ -51,7 +51,9 @@
         <p class="alpheios-main-menu-download-block-radio-block">
           <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item">
               <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
-              <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
+              <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "top">
+                <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
+              </tooltip>
           </span>
           <span class="alpheios-main-menu-download-block_item alpheios-token-edit-actions-button">
             <download-icon @click="$emit('download-data', currentDownloadType)"/>
@@ -67,12 +69,14 @@ import UploadController from '@/lib/controllers/upload-controller.js'
 
 import DownloadIcon from '@/inline-icons/download.svg'
 import UploadIcon from '@/inline-icons/upload.svg'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
   name: 'MainMenu',
   components: {
     downloadIcon: DownloadIcon,
-    uploadIcon: UploadIcon
+    uploadIcon: UploadIcon,
+    tooltip: Tooltip
   },
   props: {
     shownOptionsBlock: {

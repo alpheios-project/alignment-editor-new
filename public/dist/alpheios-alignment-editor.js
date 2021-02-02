@@ -40123,8 +40123,8 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
-      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' },
-      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
+      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json', tooltip: 'download/upload source texts, tokens and segments, alignment groups' },
+      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv', tooltip: 'download/upload only source texts without tokens and alignment groups' },
       plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false }
     }
   }
@@ -40735,9 +40735,9 @@ class TextsController {
 
   checkUploadedFileByExtension (extension) {
     if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension)) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE'))
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE'),
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }),
         type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
       })
       return
@@ -46692,6 +46692,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
 /* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -46754,6 +46755,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -46766,7 +46770,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MainMenu',
   components: {
     downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
-    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default())
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default
   },
   props: {
     shownOptionsBlock: {
@@ -52408,11 +52413,23 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c(
-                      "label",
-                      { attrs: { for: _vm.downloadTypeId(dType.name) } },
-                      [_vm._v(_vm._s(dType.label))]
+                      "tooltip",
+                      {
+                        attrs: {
+                          tooltipText: dType.tooltip,
+                          tooltipDirection: "top"
+                        }
+                      },
+                      [
+                        _c(
+                          "label",
+                          { attrs: { for: _vm.downloadTypeId(dType.name) } },
+                          [_vm._v(_vm._s(dType.label))]
+                        )
+                      ]
                     )
-                  ]
+                  ],
+                  1
                 )
               }),
               _vm._v(" "),
