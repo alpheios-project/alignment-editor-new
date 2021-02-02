@@ -75,12 +75,12 @@
         "params": ["extension"]
     },
     "DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL": {
-        "message": "Short to csv",
+        "message": "Short from tsv",
         "description": "Download type label",
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL": {
-        "message": "Full to json",
+        "message": "Full from json",
         "description": "Download type label",
         "component": "DownloadController"
     },
