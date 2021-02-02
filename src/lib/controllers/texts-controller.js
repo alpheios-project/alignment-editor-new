@@ -128,8 +128,8 @@ export default class TextsController {
     return null
   }
 
-  checkUploadedFileByExtension (extension) {
-    if (!UploadController.isExtensionAvailable(extension)) {
+  checkUploadedFileByExtension (extension, allTexts) {
+    if (!UploadController.isExtensionAvailable(extension, allTexts)) {
       console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }),
@@ -195,7 +195,8 @@ export default class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadSingle'
+
+    const uploadType = UploadController.defineUploadTypeByExtension(fileData.extension, false)
 
     const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {

@@ -14,7 +14,7 @@ export default class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
     }
   }
@@ -23,8 +23,8 @@ export default class UploadController {
    * @param {String} extension - file extension
    * @returns {Boolean} - true - could be uploaded, false - not
    */
-  static isExtensionAvailable (extension) {
-    return Object.values(this.uploadMethods).some(method => method.extensions.includes(extension))
+  static isExtensionAvailable (extension, allTexts = true) {
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
   }
 
   /**
@@ -118,7 +118,7 @@ export default class UploadController {
 
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
-      const fileExtension = fileData.filename.split('.').pop()
+      const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }

@@ -76,10 +76,15 @@ export default {
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      console.info('loadTextFromFile - ', extension)
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', { filetext: e.target.result, filename: file.name })
+        this.$emit('upload-single', { filetext: e.target.result, extension })
         this.showUploadBlock = false
       }
       reader.readAsText(file)

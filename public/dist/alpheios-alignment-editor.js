@@ -40745,8 +40745,8 @@ class TextsController {
     return null
   }
 
-  checkUploadedFileByExtension (extension) {
-    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension)) {
+  checkUploadedFileByExtension (extension, allTexts) {
+    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension, allTexts)) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }),
@@ -40812,7 +40812,8 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadSingle'
+
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(fileData.extension, false)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
@@ -41465,7 +41466,7 @@ class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
     }
   }
@@ -41474,8 +41475,8 @@ class UploadController {
    * @param {String} extension - file extension
    * @returns {Boolean} - true - could be uploaded, false - not
    */
-  static isExtensionAvailable (extension) {
-    return Object.values(this.uploadMethods).some(method => method.extensions.includes(extension))
+  static isExtensionAvailable (extension, allTexts = true) {
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
   }
 
   /**
@@ -41569,7 +41570,7 @@ class UploadController {
 
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
-      const fileExtension = fileData.filename.split('.').pop()
+      const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
@@ -47312,10 +47313,15 @@ __webpack_require__.r(__webpack_exports__);
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      console.info('loadTextFromFile - ', extension)
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', { filetext: e.target.result, filename: file.name })
+        this.$emit('upload-single', { filetext: e.target.result, extension })
         this.showUploadBlock = false
       }
       reader.readAsText(file)

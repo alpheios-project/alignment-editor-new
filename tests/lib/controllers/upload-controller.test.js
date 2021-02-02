@@ -84,6 +84,12 @@ describe('upload-controller.test.js', () => {
     expect(UploadController.isExtensionAvailable('csv')).toBeTruthy()
     expect(UploadController.isExtensionAvailable('tsv')).toBeTruthy()
     expect(UploadController.isExtensionAvailable('json')).toBeTruthy()
+
+    expect(UploadController.isExtensionAvailable('txt', true)).toBeFalsy()
+    expect(UploadController.isExtensionAvailable('xml', true)).toBeFalsy()
+
+    expect(UploadController.isExtensionAvailable('txt', false)).toBeTruthy()
+    expect(UploadController.isExtensionAvailable('xml', false)).toBeTruthy()
   })
 
   it('6 UploadController - static defineUploadTypeByExtension defines upload type', () => {
@@ -93,7 +99,9 @@ describe('upload-controller.test.js', () => {
     expect(UploadController.defineUploadTypeByExtension('tsv')).toEqual('plainSourceUploadAll')
     expect(UploadController.defineUploadTypeByExtension('json', true)).toEqual('jsonSimpleUploadAll')
     
-    expect(UploadController.defineUploadTypeByExtension('tsv', false)).toEqual('plainSourceUploadSingle')
+    expect(UploadController.defineUploadTypeByExtension('txt', false)).toEqual('plainSourceUploadSingle')
+    expect(UploadController.defineUploadTypeByExtension('xml', false)).toEqual('plainSourceUploadSingle')
+
     expect(UploadController.defineUploadTypeByExtension('jpg')).not.toBeDefined()
   })
   
