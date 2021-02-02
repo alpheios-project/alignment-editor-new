@@ -40733,7 +40733,19 @@ class TextsController {
     return null
   }
 
-  uploadData (fileData, tokenizerOptionValue, uploadType) {
+  checkUploadedFileByExtension (extension) {
+    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension)) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+    return true
+  }
+
+  uploadData (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40742,6 +40754,8 @@ class TextsController {
       })
       return
     }
+
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(extension)
 
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
@@ -41438,10 +41452,28 @@ class UploadController {
   // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
-      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv'] },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
     }
+  }
+
+  /**
+   * @param {String} extension - file extension
+   * @returns {Boolean} - true - could be uploaded, false - not
+   */
+  static isExtensionAvailable (extension) {
+    return Object.values(this.uploadMethods).some(method => method.extensions.includes(extension))
+  }
+
+  /**
+   *
+   * @param {String} extension - file extension
+   * @param {Boolean} allTexts - true - global upload, false - local
+   * @returns {String} - upload type
+   */
+  static defineUploadTypeByExtension (extension, allTexts = true) {
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
   }
 
   /**
@@ -46406,8 +46438,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, uploadType) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+    uploadData (fileData, extension) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
         this.startOver(alignment)
@@ -46722,10 +46754,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -46750,13 +46778,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showUploadBlock: false,
       showDownloadBlock: false,
-      currentDownloadType: null,
-      currentUploadType: null
+      currentDownloadType: null
     }
   },
   mounted () {  
     this.currentDownloadType = this.downloadTypes[0].name
-    this.currentUploadType = this.uploadTypes[0].name
   },
   computed: {
     l10n () {
@@ -46785,9 +46811,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     downloadTypes () {
       return Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts)
-    },
-    uploadTypes () {
-      return Object.values(_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.uploadMethods).filter(method => method.allTexts)
     }
   },
   methods: {
@@ -46811,10 +46834,14 @@ __webpack_require__.r(__webpack_exports__);
       const file = this.$refs.fileupload.files[0]
 
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result, this.currentUploadType)
+        this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -46822,10 +46849,6 @@ __webpack_require__.r(__webpack_exports__);
 
     downloadTypeId (dTypeName) {
       return `alpheios-main-menu-download-block__radio_${dTypeName}`
-    },
-
-    uploadTypeId (dTypeName) {
-      return `alpheios-main-menu-upload-block__radio_${dTypeName}`
     },
 
     clearAll () {
@@ -52316,42 +52339,6 @@ var render = function() {
           attrs: { id: "alpheios-main-menu-upload-block" }
         },
         [
-          _vm._l(_vm.uploadTypes, function(dType) {
-            return _c(
-              "span",
-              {
-                key: dType.name,
-                staticClass: "alpheios-main-menu-upload-block-radio-block_item"
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.currentUploadType,
-                      expression: "currentUploadType"
-                    }
-                  ],
-                  attrs: { type: "radio", id: _vm.uploadTypeId(dType.name) },
-                  domProps: {
-                    value: dType.name,
-                    checked: _vm._q(_vm.currentUploadType, dType.name)
-                  },
-                  on: {
-                    change: function($event) {
-                      _vm.currentUploadType = dType.name
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: _vm.uploadTypeId(dType.name) } }, [
-                  _vm._v(_vm._s(dType.label))
-                ])
-              ]
-            )
-          }),
-          _vm._v(" "),
           _c("span", { staticClass: "alpheios-main-menu-upload-block_item" }, [
             _c("input", { ref: "fileupload", attrs: { type: "file" } })
           ]),
@@ -52365,8 +52352,7 @@ var render = function() {
             [_c("upload-icon", { on: { click: _vm.loadTextFromFile } })],
             1
           )
-        ],
-        2
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -55212,7 +55198,7 @@ module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"mess
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"},\"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE\":{\"message\":\"The data could not be uploaded from this file extension - {extension}.\",\"description\":\"An error message for upload workflow\",\"component\":\"TextsController\",\"params\":[\"extension\"]}}");
 
 /***/ }),
 

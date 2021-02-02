@@ -67,5 +67,11 @@
         "message": "This token is inside created alignment group, you should ungroup it first.",
         "description": "An error message for token edit workflow",
         "component": "TokenEditController"
+    },
+    "UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE": {
+        "message": "The data could not be uploaded from this file extension - {extension}.",
+        "description": "An error message for upload workflow",
+        "component": "TextsController",
+        "params": ["extension"]
     }
 }

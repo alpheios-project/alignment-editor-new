@@ -13,10 +13,28 @@ export default class UploadController {
   // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
-      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv'] },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
     }
+  }
+
+  /**
+   * @param {String} extension - file extension
+   * @returns {Boolean} - true - could be uploaded, false - not
+   */
+  static isExtensionAvailable (extension) {
+    return Object.values(this.uploadMethods).some(method => method.extensions.includes(extension))
+  }
+
+  /**
+   *
+   * @param {String} extension - file extension
+   * @param {Boolean} allTexts - true - global upload, false - local
+   * @returns {String} - upload type
+   */
+  static defineUploadTypeByExtension (extension, allTexts = true) {
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
   }
 
   /**

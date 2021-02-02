@@ -128,7 +128,19 @@ export default class TextsController {
     return null
   }
 
-  uploadData (fileData, tokenizerOptionValue, uploadType) {
+  checkUploadedFileByExtension (extension) {
+    if (!UploadController.isExtensionAvailable(extension)) {
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+    return true
+  }
+
+  uploadData (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -137,6 +149,8 @@ export default class TextsController {
       })
       return
     }
+
+    const uploadType = UploadController.defineUploadTypeByExtension(extension)
 
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
