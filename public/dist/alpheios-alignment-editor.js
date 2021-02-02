@@ -48773,22 +48773,28 @@ __webpack_require__.r(__webpack_exports__);
       this.showActionsMenuFlag = false
       this.deactivated++
     },
-    updateTokenWord (token) {
+    async clearPrevIdWord (token, typeName) {
+      if (token.idWord === this[typeName]) {
+        this[typeName] = null
+        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+      }
+    },
+    async updateTokenWord (token) {
+      await this.clearPrevIdWord(token, 'updateTokenIdWord')
       this.updateTokenIdWord = token.idWord
     },
-    mergeToken (token, direction) {
+    async mergeToken (token, direction) {
       if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.PREV) {
+        await this.clearPrevIdWord(token, 'mergeTokenPrevIdWord')
         this.mergeTokenPrevIdWord = token.idWord
       }
       if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.NEXT) {
+        await this.clearPrevIdWord(token, 'mergeTokenNextIdWord')
         this.mergeTokenNextIdWord = token.idWord
       }
     },
     async splitToken (token) {
-      if (token.idWord === this.splitTokenIdWord) {
-        this.splitTokenIdWord = null
-        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
-      }
+      await this.clearPrevIdWord(token, 'splitTokenIdWord')
       this.splitTokenIdWord = token.idWord
     },
     addLineBreak (token) {
