@@ -105,12 +105,12 @@
       "component": "Alignment"
     },
     "TOKENS_EDIT_INSERT_DESCRIPTION_START": {
-      "message": "Each token needs to be separated by space. Click Enter to insert tokens to the start.",
+      "message": "Add space between tokens. Click Enter to insert tokens to the start.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
     },
     "TOKENS_EDIT_INSERT_DESCRIPTION_END": {
-      "message": "Each token needs to be separated by space. Click Enter to insert tokens to the end.",
+      "message": "Add space between tokens. Click Enter to insert tokens to the end.",
       "description": "A description for insert tokens input",
       "component": "EmptyTokensInput"
     }
