@@ -40123,9 +40123,21 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
-      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
-      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' }
+      jsonSimpleDownloadAll: {
+        method: this.jsonSimpleDownloadAll,
+        allTexts: true,
+        name: 'jsonSimpleDownloadAll',
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP')
+      },
+      plainSourceDownloadAll: {
+        method: this.plainSourceDownloadAll,
+        allTexts: true,
+        name: 'plainSourceDownloadAll',
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
+      },
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false }
     }
   }
 
@@ -40733,7 +40745,19 @@ class TextsController {
     return null
   }
 
-  uploadData (fileData, tokenizerOptionValue, uploadType) {
+  checkUploadedFileByExtension (extension, allTexts) {
+    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension, allTexts)) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+    return true
+  }
+
+  uploadData (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40742,6 +40766,8 @@ class TextsController {
       })
       return
     }
+
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(extension)
 
     const uploadPrepareMethods = {
       plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
@@ -40786,7 +40812,8 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadSingle'
+
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(fileData.extension, false)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
@@ -41438,10 +41465,28 @@ class UploadController {
   // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv' },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false },
-      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json' }
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['xml', 'txt'] },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
     }
+  }
+
+  /**
+   * @param {String} extension - file extension
+   * @returns {Boolean} - true - could be uploaded, false - not
+   */
+  static isExtensionAvailable (extension, allTexts = true) {
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+  }
+
+  /**
+   *
+   * @param {String} extension - file extension
+   * @param {Boolean} allTexts - true - global upload, false - local
+   * @returns {String} - upload type
+   */
+  static defineUploadTypeByExtension (extension, allTexts = true) {
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
   }
 
   /**
@@ -41525,7 +41570,7 @@ class UploadController {
 
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
-      const fileExtension = fileData.filename.split('.').pop()
+      const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
       return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
     }
@@ -46406,8 +46451,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, uploadType) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+    uploadData (fileData, extension) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
         this.startOver(alignment)
@@ -46660,6 +46705,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
 /* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -46724,8 +46770,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
 
 
 
@@ -46738,7 +46783,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MainMenu',
   components: {
     downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
-    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default())
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default
   },
   props: {
     shownOptionsBlock: {
@@ -46750,13 +46796,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showUploadBlock: false,
       showDownloadBlock: false,
-      currentDownloadType: null,
-      currentUploadType: null
+      currentDownloadType: null
     }
   },
   mounted () {  
     this.currentDownloadType = this.downloadTypes[0].name
-    this.currentUploadType = this.uploadTypes[0].name
   },
   computed: {
     l10n () {
@@ -46785,9 +46829,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     downloadTypes () {
       return Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts)
-    },
-    uploadTypes () {
-      return Object.values(_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.uploadMethods).filter(method => method.allTexts)
     }
   },
   methods: {
@@ -46811,10 +46852,14 @@ __webpack_require__.r(__webpack_exports__);
       const file = this.$refs.fileupload.files[0]
 
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result, this.currentUploadType)
+        this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -46822,10 +46867,6 @@ __webpack_require__.r(__webpack_exports__);
 
     downloadTypeId (dTypeName) {
       return `alpheios-main-menu-download-block__radio_${dTypeName}`
-    },
-
-    uploadTypeId (dTypeName) {
-      return `alpheios-main-menu-upload-block__radio_${dTypeName}`
     },
 
     clearAll () {
@@ -47272,10 +47313,15 @@ __webpack_require__.r(__webpack_exports__);
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      console.info('loadTextFromFile - ', extension)
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', { filetext: e.target.result, filename: file.name })
+        this.$emit('upload-single', { filetext: e.target.result, extension })
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -52316,42 +52362,6 @@ var render = function() {
           attrs: { id: "alpheios-main-menu-upload-block" }
         },
         [
-          _vm._l(_vm.uploadTypes, function(dType) {
-            return _c(
-              "span",
-              {
-                key: dType.name,
-                staticClass: "alpheios-main-menu-upload-block-radio-block_item"
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.currentUploadType,
-                      expression: "currentUploadType"
-                    }
-                  ],
-                  attrs: { type: "radio", id: _vm.uploadTypeId(dType.name) },
-                  domProps: {
-                    value: dType.name,
-                    checked: _vm._q(_vm.currentUploadType, dType.name)
-                  },
-                  on: {
-                    change: function($event) {
-                      _vm.currentUploadType = dType.name
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: _vm.uploadTypeId(dType.name) } }, [
-                  _vm._v(_vm._s(dType.label))
-                ])
-              ]
-            )
-          }),
-          _vm._v(" "),
           _c("span", { staticClass: "alpheios-main-menu-upload-block_item" }, [
             _c("input", { ref: "fileupload", attrs: { type: "file" } })
           ]),
@@ -52365,8 +52375,7 @@ var render = function() {
             [_c("upload-icon", { on: { click: _vm.loadTextFromFile } })],
             1
           )
-        ],
-        2
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -52422,11 +52431,23 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c(
-                      "label",
-                      { attrs: { for: _vm.downloadTypeId(dType.name) } },
-                      [_vm._v(_vm._s(dType.label))]
+                      "tooltip",
+                      {
+                        attrs: {
+                          tooltipText: dType.tooltip,
+                          tooltipDirection: "top"
+                        }
+                      },
+                      [
+                        _c(
+                          "label",
+                          { attrs: { for: _vm.downloadTypeId(dType.name) } },
+                          [_vm._v(_vm._s(dType.label))]
+                        )
+                      ]
                     )
-                  ]
+                  ],
+                  1
                 )
               }),
               _vm._v(" "),
@@ -55212,7 +55233,7 @@ module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"mess
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"},\"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE\":{\"message\":\"The data could not be uploaded from this file extension - {extension}.\",\"description\":\"An error message for upload workflow\",\"component\":\"TextsController\",\"params\":[\"extension\"]},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL\":{\"message\":\"Short from tsv\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL\":{\"message\":\"Full from json\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP\":{\"message\":\"download/upload only source texts without tokens and alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP\":{\"message\":\"download/upload source texts, tokens and segments, alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"}}");
 
 /***/ }),
 
@@ -55278,7 +55299,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_REMOVE_LINEBREAK\":{\"message\":\"Remove line break after the token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_DELETE\":{\"message\":\"Delete token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTIONS_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"ACTIONS_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"TOKENS_EDIT_UNDO_ERROR\":{\"message\":\"Nothing to undo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_REDO_ERROR\":{\"message\":\"Nothing to redo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_INSERT_DESCRIPTION_START\":{\"message\":\"Each token needs to be separated by space. Click Enter to insert tokens to the start.\",\"description\":\"A description for insert tokens input\",\"component\":\"EmptyTokensInput\"},\"TOKENS_EDIT_INSERT_DESCRIPTION_END\":{\"message\":\"Each token needs to be separated by space. Click Enter to insert tokens to the end.\",\"description\":\"A description for insert tokens input\",\"component\":\"EmptyTokensInput\"}}");
+module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_REMOVE_LINEBREAK\":{\"message\":\"Remove line break after the token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_DELETE\":{\"message\":\"Delete token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTIONS_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"ACTIONS_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"TOKENS_EDIT_UNDO_ERROR\":{\"message\":\"Nothing to undo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_REDO_ERROR\":{\"message\":\"Nothing to redo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_INSERT_DESCRIPTION_START\":{\"message\":\"Add space between tokens. Click Enter to insert tokens to the start.\",\"description\":\"A description for insert tokens input\",\"component\":\"EmptyTokensInput\"},\"TOKENS_EDIT_INSERT_DESCRIPTION_END\":{\"message\":\"Add space between tokens. Click Enter to insert tokens to the end.\",\"description\":\"A description for insert tokens input\",\"component\":\"EmptyTokensInput\"}}");
 
 /***/ }),
 

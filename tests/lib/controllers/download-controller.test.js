@@ -36,9 +36,9 @@ describe('download-controller.test.js', () => {
     const downloadMethods = DownloadController.downloadMethods
   
     expect(Object.keys(downloadMethods).length).toEqual(3)
-    expect(Object.keys(downloadMethods)[0]).toEqual('plainSourceDownloadAll')
-    expect(Object.keys(downloadMethods)[1]).toEqual('plainSourceDownloadSingle')
-    expect(Object.keys(downloadMethods)[2]).toEqual('jsonSimpleDownloadAll')
+    expect(Object.keys(downloadMethods)[0]).toEqual('jsonSimpleDownloadAll')
+    expect(Object.keys(downloadMethods)[1]).toEqual('plainSourceDownloadAll')
+    expect(Object.keys(downloadMethods)[2]).toEqual('plainSourceDownloadSingle')
   })
 
   it('2 DownloadController - static download method prints error if downloadType is not registered ', () => {

@@ -80,7 +80,7 @@ describe('app.test.js', () => {
 
     jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFileAll')
     
-    cmp.vm.uploadData('test data', 'plainSourceUploadAll')
+    cmp.vm.uploadData('test data', 'tsv')
     expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer', 'plainSourceUploadAll')
   })
 

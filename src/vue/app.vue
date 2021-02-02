@@ -71,8 +71,8 @@ export default {
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, uploadType) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, uploadType)
+    uploadData (fileData, extension) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
       if (alignment instanceof Alignment) {
         this.startOver(alignment)

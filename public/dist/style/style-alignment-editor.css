@@ -608,143 +608,6 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-alignment-editor-app-container * {
   box-sizing: border-box;
 }
-.alpheios-alignment-app-menu__buttons,
-.alpheios-alignment-app-menu__upload-block,
-.alpheios-alignment-app-menu__download-block {
-  padding: 15px 15px 0;
-  text-align: left;
-}
-.alpheios-main-menu-download-block-radio-block_item,
-.alpheios-main-menu-upload-block-radio-block_item,
-.alpheios-main-menu-upload-block_item {
-  padding-right: 20px;
-}
-.alpheios-main-menu-upload-block_item.alpheios-token-edit-actions-button,
-.alpheios-main-menu-download-block_item.alpheios-token-edit-actions-button {
-  width: 30px;
-  height: 30px;
-  border-radius: 30px;
-  line-height: 30px;
-  padding: 5px;
-}
-.alpheios-alignment-notification-bar {
-  padding: 15px 15px 0;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message {
-  padding: 10px 30px 10px 10px;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  border: 1px solid transparent;
-  position: relative;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message .alpheios-alignment-notification-bar__close-btn {
-  padding: 0 10px 0 20px;
-  cursor: pointer;
-  display: inline-block;
-  position: absolute;
-  top: 30%;
-  right: 0;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message .alpheios-alignment-notification-bar__close-btn svg {
-  width: 20px;
-  height: 20px;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error {
-  background: rgba(198, 6, 35, 0.31);
-  color: #c60623;
-  border-color: #c60623;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn {
-  fill: #c60623;
-  stroke: #c60623;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn:hover, .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn:focus {
-  fill: #d1374e;
-  stroke: #d1374e;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn:active {
-  fill: #d1374e;
-  stroke: #d1374e;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error {
-  background: rgba(198, 73, 6, 0.31);
-  color: #C64906;
-  border-color: #C64906;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn {
-  fill: #C64906;
-  stroke: #C64906;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn:hover, .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn:focus {
-  fill: #F27431;
-  stroke: #F27431;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn:active {
-  fill: #F27431;
-  stroke: #F27431;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info {
-  background: #BCE5F0;
-  color: #757575;
-  border-color: #757575;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn {
-  fill: #757575;
-  stroke: #757575;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:hover, .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:focus {
-  fill: #1B374F;
-  stroke: #1B374F;
-}
-.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:active {
-  fill: #1B374F;
-  stroke: #1B374F;
-}
-.alpheios-alignment-option-item {
-  display: inline-block;
-  width: 100%;
-  vertical-align: top;
-  padding-right: 20px;
-  margin-bottom: 20px;
-}
-.alpheios-alignment-option-item > label {
-  width: 48%;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item input.alpheios-alignment-input,
-.alpheios-alignment-option-item .alpheios-alignment-select,
-.alpheios-alignment-option-item .alpheios-alignment-radio-block {
-  display: inline-block;
-  width: 50%;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item p.alpheios-alignment-radio-block {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.alpheios-alignment-option-item .alpheios-alignment-select-input__select-container span,
-.alpheios-alignment-option-item .alpheios-alignment-select-input__input-container span {
-  min-width: 160px;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item .alpheios-alignment-select-input__select,
-.alpheios-alignment-option-item .alpheios-alignment-select-input__input {
-  width: 80%;
-  max-width: 300px;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
-  font-size: 90%;
-  color: #888;
-}
-.alpheios-alignment-editor-actions-menu__buttons,
-.alpheios-alignment-editor-actions-menu__upload-block {
-  padding: 5px 0 15px;
-  text-align: left;
-}
 .alpheios-tooltip {
   position: relative;
   display: inline-block;
@@ -903,6 +766,143 @@ div.alpheios-alignment-checkbox-block {
   border-width: 5px;
   border-style: solid;
   border-color: transparent transparent transparent #757575;
+}
+.alpheios-alignment-app-menu__buttons,
+.alpheios-alignment-app-menu__upload-block,
+.alpheios-alignment-app-menu__download-block {
+  padding: 15px 15px 0;
+  text-align: left;
+}
+.alpheios-main-menu-download-block-radio-block_item,
+.alpheios-main-menu-upload-block-radio-block_item,
+.alpheios-main-menu-upload-block_item {
+  padding-right: 20px;
+}
+.alpheios-main-menu-upload-block_item.alpheios-token-edit-actions-button,
+.alpheios-main-menu-download-block_item.alpheios-token-edit-actions-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  line-height: 30px;
+  padding: 5px;
+}
+.alpheios-alignment-notification-bar {
+  padding: 15px 15px 0;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message {
+  padding: 10px 30px 10px 10px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  position: relative;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message .alpheios-alignment-notification-bar__close-btn {
+  padding: 0 10px 0 20px;
+  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  top: 30%;
+  right: 0;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message .alpheios-alignment-notification-bar__close-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error {
+  background: rgba(198, 6, 35, 0.31);
+  color: #c60623;
+  border-color: #c60623;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn {
+  fill: #c60623;
+  stroke: #c60623;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn:hover, .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn:focus {
+  fill: #d1374e;
+  stroke: #d1374e;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn:active {
+  fill: #d1374e;
+  stroke: #d1374e;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error {
+  background: rgba(198, 73, 6, 0.31);
+  color: #C64906;
+  border-color: #C64906;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn {
+  fill: #C64906;
+  stroke: #C64906;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn:hover, .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn:focus {
+  fill: #F27431;
+  stroke: #F27431;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn:active {
+  fill: #F27431;
+  stroke: #F27431;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info {
+  background: #BCE5F0;
+  color: #757575;
+  border-color: #757575;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn {
+  fill: #757575;
+  stroke: #757575;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:hover, .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:focus {
+  fill: #1B374F;
+  stroke: #1B374F;
+}
+.alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:active {
+  fill: #1B374F;
+  stroke: #1B374F;
+}
+.alpheios-alignment-option-item {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.alpheios-alignment-option-item > label {
+  width: 48%;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item input.alpheios-alignment-input,
+.alpheios-alignment-option-item .alpheios-alignment-select,
+.alpheios-alignment-option-item .alpheios-alignment-radio-block {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item p.alpheios-alignment-radio-block {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.alpheios-alignment-option-item .alpheios-alignment-select-input__select-container span,
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input-container span {
+  min-width: 160px;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item .alpheios-alignment-select-input__select,
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input {
+  width: 80%;
+  max-width: 300px;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
+  font-size: 90%;
+  color: #888;
+}
+.alpheios-alignment-editor-actions-menu__buttons,
+.alpheios-alignment-editor-actions-menu__upload-block {
+  padding: 5px 0 15px;
+  text-align: left;
 }
 .alpheios-alignment-editor-metadata-item {
   margin-bottom: 10px;

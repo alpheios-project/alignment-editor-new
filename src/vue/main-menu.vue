@@ -40,10 +40,6 @@
         </button>
       </div>
       <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
-          <span v-for="dType in uploadTypes" :key="dType.name" class="alpheios-main-menu-upload-block-radio-block_item">
-              <input type="radio" :id="uploadTypeId(dType.name)" :value="dType.name" v-model="currentUploadType" >
-              <label :for="uploadTypeId(dType.name)">{{ dType.label }}</label>
-          </span>
         <span class="alpheios-main-menu-upload-block_item">
           <input type="file" ref="fileupload">
         </span>
@@ -55,7 +51,9 @@
         <p class="alpheios-main-menu-download-block-radio-block">
           <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item">
               <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
-              <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
+              <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "top">
+                <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
+              </tooltip>
           </span>
           <span class="alpheios-main-menu-download-block_item alpheios-token-edit-actions-button">
             <download-icon @click="$emit('download-data', currentDownloadType)"/>
@@ -71,12 +69,14 @@ import UploadController from '@/lib/controllers/upload-controller.js'
 
 import DownloadIcon from '@/inline-icons/download.svg'
 import UploadIcon from '@/inline-icons/upload.svg'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
   name: 'MainMenu',
   components: {
     downloadIcon: DownloadIcon,
-    uploadIcon: UploadIcon
+    uploadIcon: UploadIcon,
+    tooltip: Tooltip
   },
   props: {
     shownOptionsBlock: {
@@ -88,13 +88,11 @@ export default {
     return {
       showUploadBlock: false,
       showDownloadBlock: false,
-      currentDownloadType: null,
-      currentUploadType: null
+      currentDownloadType: null
     }
   },
   mounted () {  
     this.currentDownloadType = this.downloadTypes[0].name
-    this.currentUploadType = this.uploadTypes[0].name
   },
   computed: {
     l10n () {
@@ -123,9 +121,6 @@ export default {
     },
     downloadTypes () {
       return Object.values(DownloadController.downloadMethods).filter(method => method.allTexts)
-    },
-    uploadTypes () {
-      return Object.values(UploadController.uploadMethods).filter(method => method.allTexts)
     }
   },
   methods: {
@@ -149,10 +144,14 @@ export default {
       const file = this.$refs.fileupload.files[0]
 
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result, this.currentUploadType)
+        this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -160,10 +159,6 @@ export default {
 
     downloadTypeId (dTypeName) {
       return `alpheios-main-menu-download-block__radio_${dTypeName}`
-    },
-
-    uploadTypeId (dTypeName) {
-      return `alpheios-main-menu-upload-block__radio_${dTypeName}`
     },
 
     clearAll () {
