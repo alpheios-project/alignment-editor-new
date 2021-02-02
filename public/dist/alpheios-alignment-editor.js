@@ -40123,9 +40123,9 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
+      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' },
       plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
-      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
-      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json' }
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false }
     }
   }
 
