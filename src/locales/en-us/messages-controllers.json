@@ -73,5 +73,25 @@
         "description": "An error message for upload workflow",
         "component": "TextsController",
         "params": ["extension"]
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL": {
+        "message": "Short to csv",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL": {
+        "message": "Full to json",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP": {
+        "message": "download/upload only source texts without tokens and alignment groups",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP": {
+        "message": "download/upload source texts, tokens and segments, alignment groups",
+        "description": "Download type label",
+        "component": "DownloadController"
     }
 }

@@ -11,8 +11,20 @@ export default class DownloadController {
    */
   static get downloadMethods () {
     return {
-      jsonSimpleDownloadAll: { method: this.jsonSimpleDownloadAll, allTexts: true, name: 'jsonSimpleDownloadAll', label: 'Full to json', tooltip: 'download/upload source texts, tokens and segments, alignment groups' },
-      plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv', tooltip: 'download/upload only source texts without tokens and alignment groups' },
+      jsonSimpleDownloadAll: {
+        method: this.jsonSimpleDownloadAll,
+        allTexts: true,
+        name: 'jsonSimpleDownloadAll',
+        label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP')
+      },
+      plainSourceDownloadAll: {
+        method: this.plainSourceDownloadAll,
+        allTexts: true,
+        name: 'plainSourceDownloadAll',
+        label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
+      },
       plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false }
     }
   }
