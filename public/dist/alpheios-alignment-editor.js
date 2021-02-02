@@ -48773,7 +48773,11 @@ __webpack_require__.r(__webpack_exports__);
       this.showActionsMenuFlag = false
       this.deactivated++
     },
-    updateTokenWord (token) {
+    async updateTokenWord (token) {
+      if (token.idWord === this.updateTokenIdWord) {
+        this.updateTokenIdWord = null
+        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+      }
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {

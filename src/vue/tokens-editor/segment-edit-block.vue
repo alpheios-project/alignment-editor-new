@@ -202,7 +202,11 @@ export default {
       this.showActionsMenuFlag = false
       this.deactivated++
     },
-    updateTokenWord (token) {
+    async updateTokenWord (token) {
+      if (token.idWord === this.updateTokenIdWord) {
+        this.updateTokenIdWord = null
+        await Vue.nextTick()
+      }
       this.updateTokenIdWord = token.idWord
     },
     mergeToken (token, direction) {
