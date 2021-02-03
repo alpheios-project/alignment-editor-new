@@ -163,6 +163,8 @@ export default {
 
     clearAll () {
       this.$refs.fileupload.value = ''
+      this.showUploadBlock = false
+      this.showDownloadBlock = false
       this.$emit('clear-all')
     }
   }

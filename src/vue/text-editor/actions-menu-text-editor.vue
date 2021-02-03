@@ -40,6 +40,11 @@ export default {
       shownMetadataBlock: false
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.$refs.fileupload.value = ''
+    }
+  },
   computed: {
     l10n () {
       return L10nSingleton
@@ -78,7 +83,6 @@ export default {
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      console.info('loadTextFromFile - ', extension)
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 
       const reader = new FileReader()

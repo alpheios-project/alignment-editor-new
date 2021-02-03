@@ -130,9 +130,10 @@ export default class TextsController {
 
   checkUploadedFileByExtension (extension, allTexts) {
     if (!UploadController.isExtensionAvailable(extension, allTexts)) {
-      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }))
+      const availableExtensions = UploadController.getAvailableExtensions(allTexts).join(', ')
+      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }))
       NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }),
+        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }),
         type: NotificationSingleton.types.ERROR
       })
       return

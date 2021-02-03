@@ -105,4 +105,9 @@ describe('upload-controller.test.js', () => {
     expect(UploadController.defineUploadTypeByExtension('jpg')).not.toBeDefined()
   })
   
+  it('6 UploadController - static getAvailableExtensions returns an array of available file extensions', () => {
+    expect(UploadController.getAvailableExtensions()).toEqual(['csv', 'tsv', 'json'])
+    expect(UploadController.getAvailableExtensions(true)).toEqual(['csv', 'tsv', 'json'])  
+    expect(UploadController.getAvailableExtensions(false)).toEqual(['xml', 'txt'])    
+  })
 })

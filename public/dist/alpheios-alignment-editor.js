@@ -40747,9 +40747,10 @@ class TextsController {
 
   checkUploadedFileByExtension (extension, allTexts) {
     if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension, allTexts)) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }))
+      const availableExtensions = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.getAvailableExtensions(allTexts).join(', ')
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension }),
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }),
         type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
       })
       return
@@ -41487,6 +41488,21 @@ class UploadController {
    */
   static defineUploadTypeByExtension (extension, allTexts = true) {
     return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+  }
+
+  /**
+   * @param {Boolean} allTexts - true - from main menu, false - from local
+   * @returns {Array[String]} - array of file extensions
+   */
+  static getAvailableExtensions (allTexts = true) {
+    const availableExtensions = []
+    Object.values(this.uploadMethods).forEach(method => {
+      if (method.allTexts === allTexts) {
+        availableExtensions.push(...method.extensions)
+      }
+    })
+
+    return availableExtensions.filter((item, pos, self) => self.indexOf(item) === pos)
   }
 
   /**
@@ -46871,6 +46887,8 @@ __webpack_require__.r(__webpack_exports__);
 
     clearAll () {
       this.$refs.fileupload.value = ''
+      this.showUploadBlock = false
+      this.showDownloadBlock = false
       this.$emit('clear-all')
     }
   }
@@ -47277,6 +47295,11 @@ __webpack_require__.r(__webpack_exports__);
       shownMetadataBlock: false
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.$refs.fileupload.value = ''
+    }
+  },
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
@@ -47315,7 +47338,6 @@ __webpack_require__.r(__webpack_exports__);
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      console.info('loadTextFromFile - ', extension)
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 
       const reader = new FileReader()
@@ -47736,6 +47758,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 0
+    },
+    clearFileInput: {
+      type: Number,
+      required: false
     }
   },
   components: {
@@ -55233,7 +55259,7 @@ module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"mess
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"},\"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE\":{\"message\":\"The data could not be uploaded from this file extension - {extension}.\",\"description\":\"An error message for upload workflow\",\"component\":\"TextsController\",\"params\":[\"extension\"]},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL\":{\"message\":\"Short from tsv\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL\":{\"message\":\"Full from json\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP\":{\"message\":\"download/upload only source texts without tokens and alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP\":{\"message\":\"download/upload source texts, tokens and segments, alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"},\"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE\":{\"message\":\"File extension {extension} is not supported. Use the following - {availableExtensions}.\",\"description\":\"An error message for upload workflow\",\"component\":\"TextsController\",\"params\":[\"extension\",\"availableExtensions\"]},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL\":{\"message\":\"Short from tsv\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL\":{\"message\":\"Full from json\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP\":{\"message\":\"download/upload only source texts without tokens and alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP\":{\"message\":\"download/upload source texts, tokens and segments, alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"}}");
 
 /***/ }),
 
