@@ -41467,7 +41467,7 @@ class UploadController {
   static get uploadMethods () {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
-      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['xml', 'txt'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
     }
   }
