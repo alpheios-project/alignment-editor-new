@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Alpheios Alignment Editor|Output</title>
     <link rel="icon" type="image/png" href="https://alignment.alpheios.net/logo.png">
-    <link rel="stylesheet" href="./dist/output/style/style-alignment-editor-output.css"/>
-    <script src="./dist/output/alpheios-alignment-editor-output.js"></script>
+    <link rel="stylesheet" href="file:///C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css"/>
+    <script src="file:///C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js"></script>
 </head>
 <body class="alpheios-v1-theme">
     <div class="container">
@@ -14,7 +14,6 @@
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function(event) {
-        console.info('starting rendering', window.App)
         new window.AlignmentEditorOutput.Vue({
           render: (h) => h(window.AlignmentEditorOutput.App),
         }).$mount('#alpheios-alignment-editor-output')

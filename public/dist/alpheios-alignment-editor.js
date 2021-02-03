@@ -40108,8 +40108,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-csv.js */ "./lib/download/download-file-csv.js");
 /* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/download/download-file-html.js */ "./lib/download/download-file-html.js");
+/* harmony import */ var _lib_download_html_template_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/download/html-template.json */ "./lib/download/html-template.json");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
+
 
 
 
@@ -40127,17 +40132,24 @@ class DownloadController {
         method: this.jsonSimpleDownloadAll,
         allTexts: true,
         name: 'jsonSimpleDownloadAll',
-        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP')
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP')
       },
       plainSourceDownloadAll: {
         method: this.plainSourceDownloadAll,
         allTexts: true,
         name: 'plainSourceDownloadAll',
-        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
       },
-      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false }
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
+      htmlDownloadAll: {
+        method: this.htmlDownloadAll,
+        allTexts: true,
+        name: 'htmlDownloadAll',
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP')
+      }
     }
   }
 
@@ -40151,10 +40163,10 @@ class DownloadController {
     if (this.downloadMethods[downloadType]) {
       return this.downloadMethods[downloadType].method(data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
     })
     return false
   }
@@ -40167,10 +40179,10 @@ class DownloadController {
    */
   static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
       })
       return false
     }
@@ -40203,10 +40215,10 @@ class DownloadController {
    */
   static plainSourceDownloadSingle (data) {
     if (!data.docSource) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_2__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_3__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
       })
       return false
     }
@@ -40230,6 +40242,21 @@ class DownloadController {
     })
     const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
     return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
+  }
+
+  static htmlDownloadAll (data) {
+    const htmlTemplate = _lib_download_html_template_json__WEBPACK_IMPORTED_MODULE_3__
+    let layout = htmlTemplate.layout
+
+    htmlTemplate.params.forEach(param => {
+      const paramValue = data[param] || htmlTemplate[param]
+      if (paramValue) {
+        layout = layout.replaceAll(`{{${param}}}`, paramValue)
+      }
+    })
+
+    const fileName = 'alignment-html-output'
+    return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__.default.download(layout, fileName)
   }
 }
 
@@ -40835,13 +40862,14 @@ class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType) {
+  downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
-      jsonSimpleDownloadAll: this.downloadFullData.bind(this)
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this),
+      htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType)
+    const result = downloadPrepareMethods[downloadType](downloadType, additional)
 
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
   }
@@ -40872,6 +40900,15 @@ class TextsController {
     const docSource = this.getDocSource(textType, textId)
 
     return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { docSource })
+  }
+
+  htmlDownloadAll (downloadType, additional) {
+    return {
+      downloadType,
+      data: {
+        theme: `alpheios-${additional.theme}`
+      }
+    }
   }
 
   /**
@@ -44836,6 +44873,41 @@ class DownloadFileCSV {
 
 /***/ }),
 
+/***/ "./lib/download/download-file-html.js":
+/*!********************************************!*\
+  !*** ./lib/download/download-file-html.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => /* binding */ DownloadFileHTML
+/* harmony export */ });
+const idForButton = 'alpheios-alignment-editor-app-container'
+
+class DownloadFileHTML {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([data], { type: 'text/html' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    document.getElementById(idForButton).appendChild(a)
+    a.click()
+    a.remove()
+    return true
+  }
+
+  static download (data, fileName) {
+    return this.downloadBlob(data, `${fileName}.html`)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/download/download-file-json.js":
 /*!********************************************!*\
   !*** ./lib/download/download-file-json.js ***!
@@ -46461,7 +46533,13 @@ __webpack_require__.r(__webpack_exports__);
      * Starts download workflow
      */
     downloadData (downloadType) {
-      this.$textC.downloadData(downloadType)
+      let additional = {}
+      if (downloadType === 'htmlDownloadAll') {
+        additional = {
+          theme: this.$settingsC.themeOptionValue
+        }
+      }
+      this.$textC.downloadData(downloadType, additional)
     },
 
     /**
@@ -55219,6 +55297,17 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 
 /***/ }),
 
+/***/ "./lib/download/html-template.json":
+/*!*****************************************!*\
+  !*** ./lib/download/html-template.json ***!
+  \*****************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\"],\"stylePath\":\"file:///C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"file:///C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/png\\\" href=\\\"https://alignment.alpheios.net/logo.png\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ render: (h) => h(window.AlignmentEditorOutput.App), }).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
+
+/***/ }),
+
 /***/ "./locales/en-gb/messages.json":
 /*!*************************************!*\
   !*** ./locales/en-gb/messages.json ***!
@@ -55259,7 +55348,7 @@ module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"mess
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"},\"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE\":{\"message\":\"File extension {extension} is not supported. Use the following - {availableExtensions}.\",\"description\":\"An error message for upload workflow\",\"component\":\"TextsController\",\"params\":[\"extension\",\"availableExtensions\"]},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL\":{\"message\":\"Short from tsv\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL\":{\"message\":\"Full from json\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP\":{\"message\":\"download/upload only source texts without tokens and alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP\":{\"message\":\"download/upload source texts, tokens and segments, alignment groups\",\"description\":\"Download type label\",\"component\":\"DownloadController\"}}");
+module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"},\"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE\":{\"message\":\"File extension {extension} is not supported. Use the following - {availableExtensions}.\",\"description\":\"An error message for upload workflow\",\"component\":\"TextsController\",\"params\":[\"extension\",\"availableExtensions\"]},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL\":{\"message\":\"Short from tsv\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL\":{\"message\":\"Full from json\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP\":{\"message\":\"download only source texts without tokens and alignment groups\",\"description\":\"Download type tooltip\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP\":{\"message\":\"download source texts, tokens and segments, alignment groups\",\"description\":\"Download type tooltip\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL\":{\"message\":\"Html\",\"description\":\"Download type label\",\"component\":\"DownloadController\"},\"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP\":{\"message\":\"download html with alignment result\",\"description\":\"Download type tooltip\",\"component\":\"DownloadController\"}}");
 
 /***/ }),
 

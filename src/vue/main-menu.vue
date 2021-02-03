@@ -49,7 +49,7 @@
       </div>
       <div class="alpheios-alignment-app-menu__download-block" id="alpheios-main-menu-download-block" v-show="showDownloadBlock &&  downloadAvailable" >
         <p class="alpheios-main-menu-download-block-radio-block">
-          <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item">
+          <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item" >
               <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
               <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "top">
                 <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>

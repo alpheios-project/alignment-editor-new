@@ -218,13 +218,14 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType) {
+  downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
-      jsonSimpleDownloadAll: this.downloadFullData.bind(this)
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this),
+      htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType)
+    const result = downloadPrepareMethods[downloadType](downloadType, additional)
 
     return DownloadController.download(result.downloadType, result.data)
   }
@@ -255,6 +256,15 @@ export default class TextsController {
     const docSource = this.getDocSource(textType, textId)
 
     return DownloadController.download(downloadType, { docSource })
+  }
+
+  htmlDownloadAll (downloadType, additional) {
+    return {
+      downloadType,
+      data: {
+        theme: `alpheios-${additional.theme}`
+      }
+    }
   }
 
   /**
