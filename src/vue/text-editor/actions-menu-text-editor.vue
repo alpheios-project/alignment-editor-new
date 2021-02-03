@@ -40,6 +40,11 @@ export default {
       shownMetadataBlock: false
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.$refs.fileupload.value = ''
+    }
+  },
   computed: {
     l10n () {
       return L10nSingleton

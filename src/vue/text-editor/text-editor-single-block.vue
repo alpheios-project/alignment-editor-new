@@ -56,6 +56,10 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    clearFileInput: {
+      type: Number,
+      required: false
     }
   },
   components: {

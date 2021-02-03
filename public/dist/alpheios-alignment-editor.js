@@ -46887,6 +46887,8 @@ __webpack_require__.r(__webpack_exports__);
 
     clearAll () {
       this.$refs.fileupload.value = ''
+      this.showUploadBlock = false
+      this.showDownloadBlock = false
       this.$emit('clear-all')
     }
   }
@@ -47291,6 +47293,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       showUploadBlock: false,
       shownMetadataBlock: false
+    }
+  },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.$refs.fileupload.value = ''
     }
   },
   computed: {
@@ -47751,6 +47758,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 0
+    },
+    clearFileInput: {
+      type: Number,
+      required: false
     }
   },
   components: {
