@@ -1118,11 +1118,6 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   background: #F8F8F8;
   border-bottom: 2px solid #ddd;
 }
-.alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data:before, .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data:after {
-  clear: both;
-  display: table;
-  content: "";
-}
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data.alpheios-alignment-editor-align-segment-data-last {
   border-bottom-color: transparent;
 }
@@ -1135,10 +1130,15 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
   width: 50%;
-  float: left;
 }
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
+}
+.alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data {
+  display: table;
+}
+.alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
+  display: table-cell;
 }
 .alpheios-alignment-editor-header {
   margin: 0 0 10px;
@@ -1232,13 +1232,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   color: #ae0000;
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-data {
+  display: table;
   background: #F8F8F8;
   border-bottom: 2px solid #ddd;
-}
-.alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-data:before, .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-data:after {
-  clear: both;
-  display: table;
-  content: "";
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-data.alpheios-alignment-editor-align-segment-data-last {
   border-bottom-color: transparent;
@@ -1252,7 +1248,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-edit-data-item {
   width: 50%;
-  float: left;
+  display: table-cell;
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-edit-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;

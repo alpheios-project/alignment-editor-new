@@ -139,13 +139,6 @@ export default {
     color: #ae0000;
 
     .alpheios-alignment-editor-align-segment-data {
-      &:before,
-      &:after {
-        clear: both;
-        display: table;
-        content: '';
-      }
-
       background: #F8F8F8;
       border-bottom: 2px solid  #ddd;
 
@@ -166,11 +159,17 @@ export default {
 
     .alpheios-alignment-editor-align-segment-data-item {
       width: 50%;
-      float: left;
 
       &.alpheios-alignment-editor-align-segment-data-target {
         border-left: 2px solid  #ddd;
       }
+    }
+
+    .alpheios-alignment-editor-align-segment-data {
+      display: table;
+    }
+    .alpheios-alignment-editor-align-segment-data-item {
+      display: table-cell;
     }
   }
 
