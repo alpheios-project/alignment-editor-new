@@ -1,0 +1,24 @@
+@mixin basic-theme ($theme) {
+    // Theme styles
+    background-color: map.get($theme, 'body-background-color');
+    color: map.get($theme, 'body-text-color');
+
+    .alpheios-header {
+        background-color: map.get($theme, 'header-background-color');
+        color: map.get($theme, 'header-text-color');
+
+        .alpheios-header-title {
+            display: map.get($theme, 'show-header-title');
+        }
+
+        .alpheios-header-logo {
+            .alpheios-logo-1 {
+                display: map.get($theme, 'logo-1-display');
+            }
+            .alpheios-logo-2 {
+                display: map.get($theme, 'logo-2-display');
+            }
+        }
+    }
+
+}
