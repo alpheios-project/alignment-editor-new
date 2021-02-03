@@ -156,6 +156,7 @@ export default {
 
     .alpheios-alignment-editor-align-segment-data {
       display: table;
+      width: 100%;
       background: #F8F8F8;
       border-bottom: 2px solid  #ddd;
 
