@@ -38,6 +38,21 @@ export default class UploadController {
   }
 
   /**
+   * @param {Boolean} allTexts - true - from main menu, false - from local
+   * @returns {Array[String]} - array of file extensions
+   */
+  static getAvailableExtensions (allTexts = true) {
+    const availableExtensions = []
+    Object.values(this.uploadMethods).forEach(method => {
+      if (method.allTexts === allTexts) {
+        availableExtensions.push(...method.extensions)
+      }
+    })
+
+    return availableExtensions.filter((item, pos, self) => self.indexOf(item) === pos)
+  }
+
+  /**
    * Defines an upload method and executes it
    * @param {String} uploadType  - defines the upload workflow
    * @param {Object} data - all data for parsing

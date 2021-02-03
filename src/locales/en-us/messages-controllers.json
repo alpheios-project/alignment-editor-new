@@ -69,10 +69,10 @@
         "component": "TokenEditController"
     },
     "UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE": {
-        "message": "The data could not be uploaded from this file extension - {extension}.",
+        "message": "File extension {extension} is not supported. Use the following - {availableExtensions}.",
         "description": "An error message for upload workflow",
         "component": "TextsController",
-        "params": ["extension"]
+        "params": ["extension", "availableExtensions"]
     },
     "DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL": {
         "message": "Short from tsv",

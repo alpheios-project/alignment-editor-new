@@ -78,7 +78,6 @@ export default {
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      console.info('loadTextFromFile - ', extension)
       if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
 
       const reader = new FileReader()
