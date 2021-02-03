@@ -6,17 +6,19 @@
     <title>Alpheios Alignment Editor|Output</title>
     <link rel="icon" type="image/png" href="https://alignment.alpheios.net/logo.png">
     <link rel="stylesheet" href="./dist/output/style/style-alignment-editor-output.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./dist/output/alpheios-alignment-editor-output.js"></script>
 </head>
 <body class="alpheios-v1-theme">
     <div class="container">
-      <div id="alpheios-alignment-editor-output">{{message}}</div>
-      <script>
-        const App = new Vue({
-          render: (h) => h(window.App),
-        }).$mount('#alpheios-alignment-editor-output')
-      </script>
+      <div id="alpheios-alignment-editor-output"></div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function(event) {
+        console.info('starting rendering', window.App)
+        new window.AlignmentEditorOutput.Vue({
+          render: (h) => h(window.AlignmentEditorOutput.App),
+        }).$mount('#alpheios-alignment-editor-output')
+      })
+    </script>
 </body>
 </html>
