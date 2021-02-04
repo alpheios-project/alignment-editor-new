@@ -9,6 +9,16 @@
         { "idWord": "1-1-2", "word": "deductis", "grouped": true, "groupId": "groupId1", "hasLineBreak": true},
         { "idWord": "1-1-3", "word": "occupabunt", "grouped": false },
         { "idWord": "1-1-4", "word": ",", "grouped": false }
+      ] },
+      { "tokens": [
+        { "idWord": "1-2-0", "word": "Mysia", "grouped": false },
+        { "idWord": "1-2-1", "word": "et", "grouped": false },
+        { "idWord": "1-2-2", "word": "Phrygia", "grouped": true, "groupId": "groupId2" },
+        { "idWord": "1-2-3", "word": "eidem", "grouped": true, "groupId": "groupId2" },
+        { "idWord": "1-2-4", "word": "condicioni", "grouped": true, "groupId": "groupId2" },
+        { "idWord": "1-2-5", "word": "legi", "grouped": true, "groupId": "groupId2" },
+        { "idWord": "1-2-6", "word": "que", "grouped": false },
+        { "idWord": "1-2-7", "word": "parebunt", "grouped": false }
       ] }
     ]
   },
@@ -26,6 +36,16 @@
             { "idWord": "2-1-5", "word": "launching", "grouped": false },
             { "idWord": "2-1-6", "word": "occupabunt", "grouped": false },
             { "idWord": "2-1-7", "word": ",", "grouped": false }
+        ] },
+        { "tokens": [
+            { "idWord": "2-2-0", "word": "Bulgaria", "grouped": false },
+            { "idWord": "2-2-1", "word": "and", "grouped": false },
+            { "idWord": "2-2-2", "word": "the", "grouped": false },
+            { "idWord": "2-2-3", "word": "West", "grouped": false },
+            { "idWord": "2-2-4", "word": "respond", "grouped": false },
+            { "idWord": "2-2-5", "word": "to", "grouped": false },
+            { "idWord": "2-2-6", "word": "the", "grouped": false },
+            { "idWord": "2-2-7", "word": "circumstances", "grouped": false }
         ] }
       ]
     },
@@ -45,6 +65,19 @@
             { "idWord": "3-1-8", "word": "el", "grouped": false },
             { "idWord": "3-1-9", "word": "ocupante", "grouped": false },
             { "idWord": "3-1-10", "word": ",", "grouped": false }
+        ] },
+        { "tokens": [
+            { "idWord": "3-2-0", "word": "Bulgaria", "grouped": false },
+            { "idWord": "3-2-1", "word": "y", "grouped": false },
+            { "idWord": "3-2-2", "word": "Occidente", "grouped": true, "groupId": "groupId2" },
+            { "idWord": "3-2-3", "word": "responden,", "grouped": true, "groupId": "groupId2" },
+            { "idWord": "3-2-4", "word": "a", "grouped": true, "groupId": "groupId2" },
+            { "idWord": "3-2-5", "word": "las", "grouped": true, "groupId": "groupId2" },
+            { "idWord": "3-2-6", "word": "circunstancias", "grouped": true, "groupId": "groupId2" },
+            { "idWord": "3-2-7", "word": "de", "grouped": false },
+            { "idWord": "3-2-8", "word": "su", "grouped": false },
+            { "idWord": "3-2-9", "word": "legique", "grouped": false },
+            { "idWord": "3-2-10", "word": "parebunt", "grouped": false }
         ] }
       ]
     }

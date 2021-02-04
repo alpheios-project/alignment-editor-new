@@ -1,23 +1,27 @@
 <template>
-    <div class="alpheios-alignment-editor-align-groups-editor-container">
-        <div class ="alpheios-alignment-editor-align-define-container-inner" v-if="fullData">
+    <div class="alpheios-alignment-editor-align-groups-editor-container" v-if="fullData">
+        <editor-tabs 
+            v-if="allTargetTextsIds.length > 1"
+            :tabs = "allTargetTextsIds" @selectTab = "selectTab"
+        />
 
+        <div class ="alpheios-alignment-editor-align-define-container-inner">
                 <div class="alpheios-alignment-editor-align-segment-data"
-                    v-for="(segmentData, segIndex) in allSegments" :key="getIndex('origin', segIndex)"
-                    :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segIndex === allSegments.length }"
+                    v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
+                    :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segIndex === allShownSegments.length }"
                 >
                     <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
                         <div class="alpheios-alignment-editor-align-text-segment" 
                             :id = "cssId('origin', 'no', segIndex)" :style="cssStyle('origin', 0, segIndex)"
-                            :class = "cssClass('origin', segIndex === allSegments.length)" :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
+                            :class = "cssClass('origin')" :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
                         >
                             <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
-                                <span :key = "tokenIndex" class = "alpheios-token" :class="tokenClasses(token)"
-                                      @mouseover = "addHoverToken(token)"
-                                      @mouseout = "removeHoverToken"
-                                >
-                                    {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
-                                </span>
+                                <token-block :key = "tokenIndex" :token="token" 
+                                             :selected = "selectedToken(token)"
+                                             :grouped = "groupedToken(token)"
+                                             @addHoverToken = "addHoverToken"
+                                             @removeHoverToken = "removeHoverToken"
+                                />
                                 <br v-if="token.hasLineBreak" />
                             </template>
                         </div>
@@ -27,15 +31,16 @@
                         <div class="alpheios-alignment-editor-align-text-segment" 
                           v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
                           :id = "cssId('target', targetId, segIndex)" :style="cssStyle('target', targetId, segIndex)"
-                          :class = "cssClass('target', segIndex === allSegments.length)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
+                          :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
+                          v-show="isShownTab(targetId)"
                         >
                             <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
-                                <span :key = "tokenIndex" class = "alpheios-token" :class="tokenClasses(token)" 
-                                      @mouseover = "addHoverToken(token)"
-                                      @mouseout = "removeHoverToken"
-                                >
-                                    {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
-                                </span>
+                                <token-block :key = "tokenIndex" :token="token" 
+                                             :selected = "selectedToken(token)"
+                                             :grouped = "groupedToken(token)"
+                                             @addHoverToken = "addHoverToken"
+                                             @removeHoverToken = "removeHoverToken"
+                                />
                                 <br v-if="token.hasLineBreak" />
                             </template>
                         </div>
@@ -48,19 +53,27 @@
 </template>
 <script>
 import FullData from '@/_output/vue/full-data.json'
+import EditorTabs from '@/_output/vue/editor-tabs.vue'
+import TokenBlock from '@/_output/vue/token-block.vue'
 
 export default {
   name: 'AlGroupsViewFull',
+  components: {
+    editorTabs: EditorTabs,
+    tokenBlock: TokenBlock
+  },
   data () {
     return {
       fullData: null,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
-      hoveredGroupId: null
+      hoveredGroupId: null,
+      shownTabs: []
     }
   },
   mounted () {
     this.fullData = FullData
+    this.shownTabs = this.allTargetTextsIds.slice(0, 1)
   },
   computed: {
     allSegments () {
@@ -83,6 +96,26 @@ export default {
       })
       return allS
     },
+    allShownSegments () {
+      let allS = [] // eslint-disable-line prefer-const
+
+      this.fullData.origin.segments.forEach((segment, indexS) => {
+        allS.push({
+          index: indexS,
+          origin: segment,
+          targets: {}
+        })
+      })
+
+      this.allTargetTextsIds.forEach(targetId => {
+        if (this.fullData.targets[targetId].segments && this.isShownTab(targetId)) {
+          this.fullData.targets[targetId].segments.forEach((segment, indexS) => {
+            allS[indexS].targets[targetId] = segment
+          })
+        }
+      })
+      return allS
+    },
     allTargetTextsIds () {
       return Object.keys(this.fullData.targets)
     },
@@ -92,8 +125,8 @@ export default {
       this.fullData.origin.segments.forEach(segment => {
         segment.tokens.forEach(token => {
           if (token.grouped) {
-            if (!allG[token.groupId]) { allG[token.groupId] = [] }
-            allG[token.groupId].push(token.idWord)
+            if (!allG[token.groupId]) { allG[token.groupId] = { tokens: [] } }
+            allG[token.groupId].tokens.push(token.idWord)
           }
         })
       })
@@ -103,8 +136,9 @@ export default {
           this.fullData.targets[targetId].segments.forEach(segment => {
             segment.tokens.forEach(token => {
               if (token.grouped) {
-                if (!allG[token.groupId]) { allG[token.groupId] = [] }
-                allG[token.groupId].push(token.idWord)
+                if (!allG[token.groupId]) { allG[token.groupId] = { tokens: [] } }
+                if (!allG[token.groupId].targetId) { allG[token.groupId].targetId = targetId }
+                allG[token.groupId].tokens.push(token.idWord)
               }
             })
           })
@@ -112,6 +146,12 @@ export default {
       })
 
       return allG
+    },
+    orderedTargetsId () {
+      return this.allTargetTextsIds.filter(targetId => this.shownTabs.includes(targetId))
+    },
+    lastTargetId () {
+      return this.orderedTargetsId[this.orderedTargetsId.length - 1]
     }
   },
   methods: {
@@ -135,23 +175,36 @@ export default {
     targetIdIndex (targetId) {
       return targetId ? this.allTargetTextsIds.indexOf(targetId) : null
     },
-    cssClass (textType, isLast) {
+    cssClass (textType, targetId) {
       let classes = {}
       classes[`alpheios-align-text-segment-${textType}`] = true
-      classes[`alpheios-align-text-segment-${textType}-last`] = isLast
+      classes[`alpheios-align-text-segment-${textType}-last`] = this.isLast(targetId)
       return classes
     },
-    tokenClasses (token) {
-      return { 
-        'alpheios-token-grouped': token.grouped,
-        'alpheios-token-selected': this.hoveredGroupId && token.grouped && token.groupId === this.hoveredGroupId
-      }
-    }, 
     addHoverToken (token) {
       this.hoveredGroupId = token.groupId
     },
     removeHoverToken() {
       this.hoveredGroupId = null
+    },
+    selectTab (targetId) {
+      if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
+        this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
+      } else if (!this.shownTabs.includes(targetId)) {
+        this.shownTabs.push(targetId)
+      }     
+    },
+    isShownTab (targetId) {
+      return this.shownTabs.includes(targetId)
+    },
+    isLast(targetId) {
+      return targetId === this.lastTargetId
+    },
+    groupedToken (token) {
+      return token.grouped && this.isShownTab(this.alGroups[token.groupId].targetId)
+    },
+    selectedToken (token) {
+      return this.hoveredGroupId && token.grouped && token.groupId === this.hoveredGroupId && this.isShownTab(this.alGroups[token.groupId].targetId)
     }
   }
 }
@@ -200,25 +253,5 @@ export default {
       display: table-cell;
     }
   }
-
-    .alpheios-alignment-editor-align-text-segment {
-        span.alpheios-token {
-            cursor: pointer;
-            padding: 4px;
-            border: 1px solid transparent;
-            display: inline-block;
-
-            &.alpheios-token-grouped {
-              border-color: #BCE5F0;
-              background: #BCE5F0;
-            }
-
-            &.alpheios-token-selected {
-              border-color: #F27431;
-              background: #F27431;
-              color: #fff;
-            }
-        }
-    }
 
 </style>
