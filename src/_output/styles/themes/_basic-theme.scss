@@ -21,4 +21,34 @@
         }
     }
 
+    .alpheios-alignment-editor-align-define-container-inner {
+        color: map.get($theme, 'align-editor-text-color');
+        background: map.get($theme, 'editors-text-blocks-background');
+
+        .alpheios-alignment-editor-align-segment-data {
+            border-bottom-color: map.get($theme, 'align-editor-inner-border-color');
+        }
+
+        .alpheios-alignment-editor-align-segment-data-item {
+            &.alpheios-alignment-editor-align-segment-data-target {
+                border-left-color: map.get($theme, 'align-editor-inner-border-color');
+            }
+        }
+
+        .alpheios-alignment-editor-align-text-segment span.alpheios-token {
+            &.alpheios-token-grouped {
+                color: map.get($theme, 'align-editor-text-color-grouped');
+                border-color: map.get($theme, 'align-editor-text-border-color-grouped');
+                background: map.get($theme, 'align-editor-text-background-color-grouped');
+            }
+
+            &.alpheios-token-selected {
+                color: map.get($theme, 'align-editor-text-color-selected');
+                border-color: map.get($theme, 'align-editor-text-border-color-selected');
+                background: map.get($theme, 'align-editor-text-background-color-selected');
+            }
+
+        }
+    }
+
 }

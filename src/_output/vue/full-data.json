@@ -1,0 +1,52 @@
+{
+  "origin": {
+    "dir": "ltr",
+    "lang": "lat",
+    "segments": [
+      { "tokens": [
+        { "idWord": "1-1-0", "word": "Capuam", "grouped": true, "groupId": "groupId1" },
+        { "idWord": "1-1-1", "word": "colonis", "grouped": true, "groupId": "groupId1" },
+        { "idWord": "1-1-2", "word": "deductis", "grouped": true, "groupId": "groupId1", "hasLineBreak": true},
+        { "idWord": "1-1-3", "word": "occupabunt", "grouped": false },
+        { "idWord": "1-1-4", "word": ",", "grouped": false }
+      ] }
+    ]
+  },
+  "targets": {
+    "targetId1": {
+      "dir": "ltr",
+      "lang": "eng",
+      "segments": [
+        { "tokens": [
+            { "idWord": "2-1-0", "word": "To", "grouped": false },
+            { "idWord": "2-1-1", "word": "a", "grouped": false },
+            { "idWord": "2-1-2", "word": "certain", "grouped": true, "groupId": "groupId1" },
+            { "idWord": "2-1-3", "word": "extent", "grouped": true, "groupId": "groupId1" },
+            { "idWord": "2-1-4", "word": "jointly", "grouped": false },
+            { "idWord": "2-1-5", "word": "launching", "grouped": false },
+            { "idWord": "2-1-6", "word": "occupabunt", "grouped": false },
+            { "idWord": "2-1-7", "word": ",", "grouped": false }
+        ] }
+      ]
+    },
+    "targetId2": {
+      "dir": "ltr",
+      "lang": "spa",        
+      "segments": [
+        { "tokens": [
+            { "idWord": "3-1-0", "word": "Hasta", "grouped": false },
+            { "idWord": "3-1-1", "word": "cierto", "grouped": false },
+            { "idWord": "3-1-2", "word": "punto", "grouped": false },
+            { "idWord": "3-1-3", "word": ",", "grouped": false },
+            { "idWord": "3-1-4", "word": "lanzando", "grouped": false },
+            { "idWord": "3-1-5", "word": "de", "grouped": false },
+            { "idWord": "3-1-6", "word": "manera", "grouped": false },
+            { "idWord": "3-1-7", "word": "conjunta", "grouped": false },
+            { "idWord": "3-1-8", "word": "el", "grouped": false },
+            { "idWord": "3-1-9", "word": "ocupante", "grouped": false },
+            { "idWord": "3-1-10", "word": ",", "grouped": false }
+        ] }
+      ]
+    }
+  }
+}

@@ -1136,6 +1136,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data {
   display: table;
+  width: 100%;
 }
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
   display: table-cell;
@@ -1233,6 +1234,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-data {
   display: table;
+  width: 100%;
   background: #F8F8F8;
   border-bottom: 2px solid #ddd;
 }
