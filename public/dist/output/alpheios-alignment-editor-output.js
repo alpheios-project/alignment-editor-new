@@ -8819,6 +8819,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     lastTargetId () {
       return this.orderedTargetsId[this.orderedTargetsId.length - 1]
+    },
+    containerHeight () {
+      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     }
   },
   methods: {
@@ -8833,10 +8836,19 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cssStyle (textType, targetId, segmentIndex) {
-      if (textType === 'target') {
-        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]};`
+      const minHeight = 400
+      let maxHeight
+
+      console.info('this.containerHeight - ', this.containerHeight)
+      if (this.allShownSegments.length === 1) {
+        maxHeight = this.containerHeight
       } else {
-        return `order: ${segmentIndex}; background: ${this.originColor};`
+        maxHeight = Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
+      }
+      if (textType === 'target') {
+        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]}; max-height: ${maxHeight}px`
+      } else {
+        return `order: ${segmentIndex}; background: ${this.originColor}; max-height: ${maxHeight}px`
       }
     },
     targetIdIndex (targetId) {
