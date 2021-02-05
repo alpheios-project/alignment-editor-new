@@ -1,5 +1,6 @@
 <template>
     <span class = "alpheios-token" :class="tokenClasses"
+          :id = "elementId" :ref = "elementId"
           @mouseover = "$emit('addHoverToken', token)"
           @mouseout = "$emit('addHoverToken', token)"
     >
@@ -31,6 +32,9 @@ export default {
         'alpheios-token-grouped': this.grouped,
         'alpheios-token-selected': this.selected
       }
+    },
+    elementId () {
+      return `token-${this.token.idWord}`
     }
   }
 }

@@ -126,11 +126,11 @@ export default {
     alGroups () {
       let allG = {} // eslint-disable-line prefer-const
 
-      this.fullData.origin.segments.forEach(segment => {
+      this.fullData.origin.segments.forEach((segment, segIndex) => {
         segment.tokens.forEach(token => {
           if (token.grouped) {
             token.groupData.forEach(groupDataItem => {
-              if (!allG[groupDataItem.groupId]) { allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, tokens: [] } }
+              if (!allG[groupDataItem.groupId]) { allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokens: [] } }
               allG[groupDataItem.groupId].tokens.push(token.idWord)
             })
 
@@ -179,7 +179,6 @@ export default {
       const minHeight = 400
       let maxHeight
 
-      console.info('this.containerHeight - ', this.containerHeight)
       if (this.allShownSegments.length === 1) {
         maxHeight = this.containerHeight
       } else {
@@ -202,6 +201,19 @@ export default {
     },
     addHoverToken (token) {
       this.hoveredGroupId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+
+      if (this.hoveredGroupId && (token.textType === 'target')) {
+        const hoveredGroup = this.alGroups[this.hoveredGroupId[0]]
+        const minOpositeTokenId = hoveredGroup.tokens[0] // the first is always min origin token
+        this.makeScrollTo(minOpositeTokenId, 'origin', hoveredGroup)
+      }
+
+      if (this.hoveredGroupId && (token.textType === 'origin')) {
+        const hoveredGroup = this.alGroups[this.hoveredGroupId[0]]
+        const minOpositeTokenId = hoveredGroup.tokens.find(tokenGr => token.idWord.split('-')[0] !== tokenGr.split('-')[0])
+
+        this.makeScrollTo(minOpositeTokenId, 'target', hoveredGroup)
+      }
     },
     removeHoverToken() {
       this.hoveredGroupId = null
@@ -228,6 +240,45 @@ export default {
 
     selectedToken (token) {
       return this.hoveredGroupId && (this.hoveredGroupId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
+    },
+
+    // scroll behaviour
+    makeScrollTo (idWord, textType, hoveredGroup) {
+
+      const tokenEl = document.getElementById(`token-${idWord}`)
+      const segId = this.cssId(textType, hoveredGroup.targetId, hoveredGroup.segIndex)
+      const segBlockEl = document.getElementById(segId)
+
+      let pPos = segBlockEl.getBoundingClientRect()
+      let cPos = tokenEl.getBoundingClientRect()
+      
+      const toTop = cPos.top - pPos.top + segBlockEl.scrollTop - 10
+      // segBlockEl.scrollTop = toTop
+      this.scrollTo(segBlockEl, toTop, 1)
+    },
+
+    easeInOutQuad (t) { 
+      return t<.5 ? 2*t*t : -1+(4-2*t)*t 
+    },
+
+    scrollTo (element, to, duration) {
+      let start = element.scrollTop
+      let change = to - start
+      let startTime = performance.now()
+      let now, elapsed, t
+
+      const animateScroll = () => {
+        now = performance.now()
+        elapsed = (now - startTime)/1000
+        t = (elapsed/duration)
+
+        element.scrollTop = start + change * this.easeInOutQuad(t)
+
+        if( t < 1 )
+            window.requestAnimationFrame(animateScroll)
+
+      }
+      animateScroll()
     }
   }
 }
