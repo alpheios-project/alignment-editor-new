@@ -1,3 +1,5 @@
+/* global BUILD_NAME */
+import { version as packageVersion } from '../../../package'
 import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
 import Vuex from 'vuex'
@@ -44,6 +46,9 @@ export default class AppController {
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
     }
+    // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
+    this.buildName = typeof BUILD_NAME !== 'undefined' ? BUILD_NAME : ''
+    this.version = packageVersion
   }
 
   /**
