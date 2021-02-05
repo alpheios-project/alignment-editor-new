@@ -279,7 +279,18 @@ export default class TextsController {
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
         token.grouped = this.alignment.tokenIsGrouped(token)
-        token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+
+        if (token.grouped) {
+          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+          if (!token.groupData) { token.groupData = [] }
+
+          tokenGroups.forEach(tokenGroup => {
+            token.groupData.push({
+              groupId: tokenGroup.id,
+              targetId: tokenGroup.targetId
+            })
+          })
+        }
       })
     })
 
@@ -287,7 +298,16 @@ export default class TextsController {
       targets[targetId].segments.forEach(seg => {
         seg.tokens.forEach(token => {
           token.grouped = this.alignment.tokenIsGrouped(token)
-          token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+          if (token.grouped) {
+            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+            if (!token.groupData) { token.groupData = [] }
+            tokenGroups.forEach(tokenGroup => {
+              token.groupData.push({
+                groupId: tokenGroup.id,
+                targetId: tokenGroup.targetId
+              })
+            })
+          }
         })
       })
     })

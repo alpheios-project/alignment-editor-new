@@ -8789,8 +8789,11 @@ __webpack_require__.r(__webpack_exports__);
       this.fullData.origin.segments.forEach(segment => {
         segment.tokens.forEach(token => {
           if (token.grouped) {
-            if (!allG[token.groupId]) { allG[token.groupId] = { tokens: [] } }
-            allG[token.groupId].tokens.push(token.idWord)
+            token.groupData.forEach(groupDataItem => {
+              if (!allG[groupDataItem.groupId]) { allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, tokens: [] } }
+              allG[groupDataItem.groupId].tokens.push(token.idWord)
+            })
+
           }
         })
       })
@@ -8800,9 +8803,9 @@ __webpack_require__.r(__webpack_exports__);
           this.fullData.targets[targetId].segments.forEach(segment => {
             segment.tokens.forEach(token => {
               if (token.grouped) {
-                if (!allG[token.groupId]) { allG[token.groupId] = { tokens: [] } }
-                if (!allG[token.groupId].targetId) { allG[token.groupId].targetId = targetId }
-                allG[token.groupId].tokens.push(token.idWord)
+                token.groupData.forEach(groupDataItem => {
+                  allG[groupDataItem.groupId].tokens.push(token.idWord)
+                })
               }
             })
           })
@@ -8846,7 +8849,7 @@ __webpack_require__.r(__webpack_exports__);
       return classes
     },
     addHoverToken (token) {
-      this.hoveredGroupId = token.groupId
+      this.hoveredGroupId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
     },
     removeHoverToken() {
       this.hoveredGroupId = null
@@ -8865,10 +8868,14 @@ __webpack_require__.r(__webpack_exports__);
       return targetId === this.lastTargetId
     },
     groupedToken (token) {
-      return token.grouped && this.isShownTab(this.alGroups[token.groupId].targetId)
+      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(this.alGroups[groupdataItem.groupId].targetId))
     },
+    isTokenInHovered (token) {
+      return token.groupData.some(groupDataItem => this.hoveredGroupId.includes(groupDataItem.groupId) ) 
+    },
+
     selectedToken (token) {
-      return this.hoveredGroupId && token.grouped && token.groupId === this.hoveredGroupId && this.isShownTab(this.alGroups[token.groupId].targetId)
+      return this.hoveredGroupId && (this.hoveredGroupId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     }
   }
 });

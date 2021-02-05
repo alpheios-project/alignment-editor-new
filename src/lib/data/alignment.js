@@ -420,6 +420,13 @@ export default class Alignment {
     return null
   }
 
+  findAllAlignmentGroups (token) {
+    if (this.tokenIsGrouped(token)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(alGroup => alGroup.includesToken(token)) : []
+    }
+    return null
+  }
+
   /**
    * Removes a group from alignmentGroups list
    * @param {AlignmentGroup} tokensGroup

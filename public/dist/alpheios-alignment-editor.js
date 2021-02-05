@@ -40924,7 +40924,18 @@ class TextsController {
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
         token.grouped = this.alignment.tokenIsGrouped(token)
-        token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+
+        if (token.grouped) {
+          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+          if (!token.groupData) { token.groupData = [] }
+
+          tokenGroups.forEach(tokenGroup => {
+            token.groupData.push({
+              groupId: tokenGroup.id,
+              targetId: tokenGroup.targetId
+            })
+          })
+        }
       })
     })
 
@@ -40932,7 +40943,16 @@ class TextsController {
       targets[targetId].segments.forEach(seg => {
         seg.tokens.forEach(token => {
           token.grouped = this.alignment.tokenIsGrouped(token)
-          token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+          if (token.grouped) {
+            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+            if (!token.groupData) { token.groupData = [] }
+            tokenGroups.forEach(tokenGroup => {
+              token.groupData.push({
+                groupId: tokenGroup.id,
+                targetId: tokenGroup.targetId
+              })
+            })
+          }
         })
       })
     })
@@ -43294,6 +43314,13 @@ class Alignment {
   findAlignmentGroup (token, limitByTargetId = null) {
     if (this.tokenIsGrouped(token, limitByTargetId)) {
       return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token)) : null
+    }
+    return null
+  }
+
+  findAllAlignmentGroups (token) {
+    if (this.tokenIsGrouped(token)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(alGroup => alGroup.includesToken(token)) : []
     }
     return null
   }
