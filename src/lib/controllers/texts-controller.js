@@ -218,13 +218,14 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType) {
+  downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
-      jsonSimpleDownloadAll: this.downloadFullData.bind(this)
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this),
+      htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType)
+    const result = downloadPrepareMethods[downloadType](downloadType, additional)
 
     return DownloadController.download(result.downloadType, result.data)
   }
@@ -255,6 +256,62 @@ export default class TextsController {
     const docSource = this.getDocSource(textType, textId)
 
     return DownloadController.download(downloadType, { docSource })
+  }
+
+  htmlDownloadAll (downloadType, additional) {
+    return {
+      downloadType,
+      data: {
+        theme: `alpheios-${additional.theme}`,
+        fullData: this.prepareFullDataForHTMLOutput()
+      }
+    }
+  }
+
+  prepareFullDataForHTMLOutput () {
+    let targets = {} // eslint-disable-line prefer-const
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+    })
+
+    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+
+    origin.segments.forEach(seg => {
+      seg.tokens.forEach(token => {
+        token.grouped = this.alignment.tokenIsGrouped(token)
+
+        if (token.grouped) {
+          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+          if (!token.groupData) { token.groupData = [] }
+
+          tokenGroups.forEach(tokenGroup => {
+            token.groupData.push({
+              groupId: tokenGroup.id,
+              targetId: tokenGroup.targetId
+            })
+          })
+        }
+      })
+    })
+
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId].segments.forEach(seg => {
+        seg.tokens.forEach(token => {
+          token.grouped = this.alignment.tokenIsGrouped(token)
+          if (token.grouped) {
+            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+            if (!token.groupData) { token.groupData = [] }
+            tokenGroups.forEach(tokenGroup => {
+              token.groupData.push({
+                groupId: tokenGroup.id,
+                targetId: tokenGroup.targetId
+              })
+            })
+          }
+        })
+      })
+    })
+    return JSON.stringify({ origin, targets })
   }
 
   /**

@@ -4,7 +4,9 @@
   "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
   "main": "src/index.js",
   "scripts": {
-    "build": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs",
+    "build": "npm run build-output && npm run build-regular",
+    "build-output": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs",
+    "build-regular": "npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs",
     "lint": "eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js",
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",

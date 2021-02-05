@@ -119,4 +119,15 @@ export default class Token {
       hasLineBreak: data.hasLineBreak
     }, data.segmentIndex, data.docSourceId)
   }
+
+  convertForHTMLOutput () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak
+    }
+  }
 }

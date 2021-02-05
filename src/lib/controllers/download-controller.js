@@ -1,5 +1,8 @@
 import DownloadFileCSV from '@/lib/download/download-file-csv.js'
 import DownloadFileJSON from '@/lib/download/download-file-json.js'
+import DownloadFileHTML from '@/lib/download/download-file-html.js'
+
+import HTMLTemplateJSON from '@/lib/download/html-template.json'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -25,7 +28,14 @@ export default class DownloadController {
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
         tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
       },
-      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false }
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
+      htmlDownloadAll: {
+        method: this.htmlDownloadAll,
+        allTexts: true,
+        name: 'htmlDownloadAll',
+        label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP')
+      }
     }
   }
 
@@ -118,5 +128,21 @@ export default class DownloadController {
     })
     const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
     return DownloadFileJSON.download(data, fileName)
+  }
+
+  static htmlDownloadAll (data) {
+    const htmlTemplate = HTMLTemplateJSON
+    let layout = htmlTemplate.layout
+
+    htmlTemplate.params.forEach(param => {
+      const paramValue = data[param] || htmlTemplate[param]
+
+      if (paramValue) {
+        layout = layout.replaceAll(`{{${param}}}`, paramValue)
+      }
+    })
+
+    const fileName = 'alignment-html-output'
+    return DownloadFileHTML.download(layout, fileName)
   }
 }

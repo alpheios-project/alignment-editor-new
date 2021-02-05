@@ -85,13 +85,23 @@
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP": {
-        "message": "download/upload only source texts without tokens and alignment groups",
-        "description": "Download type label",
+        "message": "download only source texts without tokens and alignment groups",
+        "description": "Download type tooltip",
         "component": "DownloadController"
     },
     "DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP": {
-        "message": "download/upload source texts, tokens and segments, alignment groups",
+        "message": "download source texts, tokens and segments, alignment groups",
+        "description": "Download type tooltip",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL": {
+        "message": "Html",
         "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP": {
+        "message": "download html with alignment result",
+        "description": "Download type tooltip",
         "component": "DownloadController"
     }
 }

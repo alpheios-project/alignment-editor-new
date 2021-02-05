@@ -65,7 +65,13 @@ export default {
      * Starts download workflow
      */
     downloadData (downloadType) {
-      this.$textC.downloadData(downloadType)
+      let additional = {}
+      if (downloadType === 'htmlDownloadAll') {
+        additional = {
+          theme: this.$settingsC.themeOptionValue
+        }
+      }
+      this.$textC.downloadData(downloadType, additional)
     },
 
     /**
