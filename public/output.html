@@ -15,6 +15,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function(event) {
         new window.AlignmentEditorOutput.Vue({
+          fullData: fullData
           render: (h) => h(window.AlignmentEditorOutput.App),
         }).$mount('#alpheios-alignment-editor-output')
       })

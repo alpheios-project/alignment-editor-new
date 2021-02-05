@@ -10,12 +10,11 @@
 
             </div>
         </div>
-        <div class="container-inner">
-            <div class="alpheios-alignment-editor-container">
-                <al-groups-view-full />
-            </div>
-            
+
+        <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container">
+            <al-groups-view-full :full-data="$parent.fullData"/>
         </div>
+            
     </div>
 </template>
 <script>
@@ -30,5 +29,6 @@ export default {
 <style lang="scss">
     .alpheios-alignment-editor-container {
         padding: 15px 15px 0;
+        height: calc(100% - 110px);
     }
 </style>

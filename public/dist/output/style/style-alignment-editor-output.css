@@ -224,6 +224,8 @@ body, html {
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment {
   border-bottom: 2px solid #e3e3e3;
   padding: 10px;
+  max-height: 400px;
+  overflow-y: scroll;
 }
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment.alpheios-align-text-segment-origin, .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment.alpheios-align-text-segment-target-last {
   border-bottom: 2px solid transparent;
@@ -243,6 +245,7 @@ body, html {
 }
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;
+  height: calc(100% - 110px);
 }
 
 /*# sourceMappingURL=style-alignment-editor-output.css.map*/

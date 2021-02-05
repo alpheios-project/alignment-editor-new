@@ -1,7 +1,7 @@
 <template>
     <span class = "alpheios-token" :class="tokenClasses"
           @mouseover = "$emit('addHoverToken', token)"
-          @mouseout = "$emit('removeHoverToken', token)"
+          @mouseout = "$emit('addHoverToken', token)"
     >
         {{ token.beforeWord }}{{ token.word }}{{ token.afterWord }}
     </span>

@@ -262,9 +262,36 @@ export default class TextsController {
     return {
       downloadType,
       data: {
-        theme: `alpheios-${additional.theme}`
+        theme: `alpheios-${additional.theme}`,
+        fullData: this.prepareFullDataForHTMLOutput()
       }
     }
+  }
+
+  prepareFullDataForHTMLOutput () {
+    let targets = {} // eslint-disable-line prefer-const
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+    })
+
+    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+
+    origin.segments.forEach(seg => {
+      seg.tokens.forEach(token => {
+        token.grouped = this.alignment.tokenIsGrouped(token)
+        token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+      })
+    })
+
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId].segments.forEach(seg => {
+        seg.tokens.forEach(token => {
+          token.grouped = this.alignment.tokenIsGrouped(token)
+          token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+        })
+      })
+    })
+    return JSON.stringify({ origin, targets })
   }
 
   /**

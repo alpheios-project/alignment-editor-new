@@ -8656,9 +8656,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _output_vue_full_data_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/full-data.json */ "./_output/vue/full-data.json");
-/* harmony import */ var _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/editor-tabs.vue */ "./_output/vue/editor-tabs.vue");
-/* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
+/* harmony import */ var _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/editor-tabs.vue */ "./_output/vue/editor-tabs.vue");
+/* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
 //
 //
 //
@@ -8713,19 +8712,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-
+// import FullData from '@/_output/vue/full-data.json'
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AlGroupsViewFull',
   components: {
-    editorTabs: _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    editorTabs: _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  props: {
+    fullData: {
+      type: Object,
+      required: true
+    }
   },
   data () {
     return {
-      fullData: null,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
       hoveredGroupId: null,
@@ -8733,7 +8737,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted () {
-    this.fullData = _output_vue_full_data_json__WEBPACK_IMPORTED_MODULE_0__
     this.shownTabs = this.allTargetTextsIds.slice(0, 1)
   },
   computed: {
@@ -8885,7 +8888,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _output_vue_al_groups_view_full_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/al-groups-view-full.vue */ "./_output/vue/al-groups-view-full.vue");
-//
 //
 //
 //
@@ -9597,14 +9599,19 @@ var render = function() {
   return _c("div", { staticClass: "alpheios-app-container" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "container-inner" }, [
-      _c(
-        "div",
-        { staticClass: "alpheios-alignment-editor-container" },
-        [_c("al-groups-view-full")],
-        1
-      )
-    ])
+    _c(
+      "div",
+      {
+        staticClass: "alpheios-alignment-editor-container",
+        attrs: { id: "alpheios-alignment-editor-container" }
+      },
+      [
+        _c("al-groups-view-full", {
+          attrs: { "full-data": _vm.$parent.fullData }
+        })
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -9717,7 +9724,7 @@ var render = function() {
           return _vm.$emit("addHoverToken", _vm.token)
         },
         mouseout: function($event) {
-          return _vm.$emit("removeHoverToken", _vm.token)
+          return _vm.$emit("addHoverToken", _vm.token)
         }
       }
     },
@@ -9736,17 +9743,6 @@ var staticRenderFns = []
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./_output/vue/full-data.json":
-/*!************************************!*\
-  !*** ./_output/vue/full-data.json ***!
-  \************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = JSON.parse("{\"origin\":{\"dir\":\"ltr\",\"lang\":\"lat\",\"segments\":[{\"tokens\":[{\"idWord\":\"1-1-0\",\"word\":\"Capuam\",\"grouped\":true,\"groupId\":\"groupId1\"},{\"idWord\":\"1-1-1\",\"word\":\"colonis\",\"grouped\":true,\"groupId\":\"groupId1\"},{\"idWord\":\"1-1-2\",\"word\":\"deductis\",\"grouped\":true,\"groupId\":\"groupId1\",\"hasLineBreak\":true},{\"idWord\":\"1-1-3\",\"word\":\"occupabunt\",\"grouped\":false},{\"idWord\":\"1-1-4\",\"word\":\",\",\"grouped\":false}]},{\"tokens\":[{\"idWord\":\"1-2-0\",\"word\":\"Mysia\",\"grouped\":false},{\"idWord\":\"1-2-1\",\"word\":\"et\",\"grouped\":false},{\"idWord\":\"1-2-2\",\"word\":\"Phrygia\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"1-2-3\",\"word\":\"eidem\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"1-2-4\",\"word\":\"condicioni\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"1-2-5\",\"word\":\"legi\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"1-2-6\",\"word\":\"que\",\"grouped\":false},{\"idWord\":\"1-2-7\",\"word\":\"parebunt\",\"grouped\":false}]}]},\"targets\":{\"targetId1\":{\"dir\":\"ltr\",\"lang\":\"eng\",\"segments\":[{\"tokens\":[{\"idWord\":\"2-1-0\",\"word\":\"To\",\"grouped\":false},{\"idWord\":\"2-1-1\",\"word\":\"a\",\"grouped\":false},{\"idWord\":\"2-1-2\",\"word\":\"certain\",\"grouped\":true,\"groupId\":\"groupId1\"},{\"idWord\":\"2-1-3\",\"word\":\"extent\",\"grouped\":true,\"groupId\":\"groupId1\"},{\"idWord\":\"2-1-4\",\"word\":\"jointly\",\"grouped\":false},{\"idWord\":\"2-1-5\",\"word\":\"launching\",\"grouped\":false},{\"idWord\":\"2-1-6\",\"word\":\"occupabunt\",\"grouped\":false},{\"idWord\":\"2-1-7\",\"word\":\",\",\"grouped\":false}]},{\"tokens\":[{\"idWord\":\"2-2-0\",\"word\":\"Bulgaria\",\"grouped\":false},{\"idWord\":\"2-2-1\",\"word\":\"and\",\"grouped\":false},{\"idWord\":\"2-2-2\",\"word\":\"the\",\"grouped\":false},{\"idWord\":\"2-2-3\",\"word\":\"West\",\"grouped\":false},{\"idWord\":\"2-2-4\",\"word\":\"respond\",\"grouped\":false},{\"idWord\":\"2-2-5\",\"word\":\"to\",\"grouped\":false},{\"idWord\":\"2-2-6\",\"word\":\"the\",\"grouped\":false},{\"idWord\":\"2-2-7\",\"word\":\"circumstances\",\"grouped\":false}]}]},\"targetId2\":{\"dir\":\"ltr\",\"lang\":\"spa\",\"segments\":[{\"tokens\":[{\"idWord\":\"3-1-0\",\"word\":\"Hasta\",\"grouped\":false},{\"idWord\":\"3-1-1\",\"word\":\"cierto\",\"grouped\":false},{\"idWord\":\"3-1-2\",\"word\":\"punto\",\"grouped\":false},{\"idWord\":\"3-1-3\",\"word\":\",\",\"grouped\":false},{\"idWord\":\"3-1-4\",\"word\":\"lanzando\",\"grouped\":false},{\"idWord\":\"3-1-5\",\"word\":\"de\",\"grouped\":false},{\"idWord\":\"3-1-6\",\"word\":\"manera\",\"grouped\":false},{\"idWord\":\"3-1-7\",\"word\":\"conjunta\",\"grouped\":false},{\"idWord\":\"3-1-8\",\"word\":\"el\",\"grouped\":false},{\"idWord\":\"3-1-9\",\"word\":\"ocupante\",\"grouped\":false},{\"idWord\":\"3-1-10\",\"word\":\",\",\"grouped\":false}]},{\"tokens\":[{\"idWord\":\"3-2-0\",\"word\":\"Bulgaria\",\"grouped\":false},{\"idWord\":\"3-2-1\",\"word\":\"y\",\"grouped\":false},{\"idWord\":\"3-2-2\",\"word\":\"Occidente\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"3-2-3\",\"word\":\"responden,\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"3-2-4\",\"word\":\"a\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"3-2-5\",\"word\":\"las\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"3-2-6\",\"word\":\"circunstancias\",\"grouped\":true,\"groupId\":\"groupId2\"},{\"idWord\":\"3-2-7\",\"word\":\"de\",\"grouped\":false},{\"idWord\":\"3-2-8\",\"word\":\"su\",\"grouped\":false},{\"idWord\":\"3-2-9\",\"word\":\"legique\",\"grouped\":false},{\"idWord\":\"3-2-10\",\"word\":\"parebunt\",\"grouped\":false}]}]}}}");
 
 /***/ })
 

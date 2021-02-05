@@ -40250,6 +40250,7 @@ class DownloadController {
 
     htmlTemplate.params.forEach(param => {
       const paramValue = data[param] || htmlTemplate[param]
+
       if (paramValue) {
         layout = layout.replaceAll(`{{${param}}}`, paramValue)
       }
@@ -40906,9 +40907,36 @@ class TextsController {
     return {
       downloadType,
       data: {
-        theme: `alpheios-${additional.theme}`
+        theme: `alpheios-${additional.theme}`,
+        fullData: this.prepareFullDataForHTMLOutput()
       }
     }
+  }
+
+  prepareFullDataForHTMLOutput () {
+    let targets = {} // eslint-disable-line prefer-const
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+    })
+
+    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+
+    origin.segments.forEach(seg => {
+      seg.tokens.forEach(token => {
+        token.grouped = this.alignment.tokenIsGrouped(token)
+        token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+      })
+    })
+
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId].segments.forEach(seg => {
+        seg.tokens.forEach(token => {
+          token.grouped = this.alignment.tokenIsGrouped(token)
+          token.groupId = token.grouped ? this.alignment.findAlignmentGroup(token).id : undefined
+        })
+      })
+    })
+    return JSON.stringify({ origin, targets })
   }
 
   /**
@@ -42571,6 +42599,18 @@ class AlignedText {
     alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
 
     return alignedText
+  }
+
+  convertForHTMLOutput () {
+    return {
+      dir: this.direction,
+      lang: this.lang,
+      segments: this.segments.map(seg => {
+        return {
+          tokens: seg.tokens.map(token => token.convertForHTMLOutput())
+        }
+      })
+    }
   }
 }
 
@@ -44820,6 +44860,17 @@ class Token {
       afterWord: data.afterWord,
       hasLineBreak: data.hasLineBreak
     }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertForHTMLOutput () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak
+    }
   }
 }
 
@@ -55304,7 +55355,7 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\"],\"stylePath\":\"file:///C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"file:///C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/png\\\" href=\\\"https://alignment.alpheios.net/logo.png\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ render: (h) => h(window.AlignmentEditorOutput.App), }).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
+module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"file:///C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"file:///C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/png\\\" href=\\\"https://alignment.alpheios.net/logo.png\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
 
 /***/ }),
 

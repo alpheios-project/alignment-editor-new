@@ -52,7 +52,7 @@
     </div>
 </template>
 <script>
-import FullData from '@/_output/vue/full-data.json'
+// import FullData from '@/_output/vue/full-data.json'
 import EditorTabs from '@/_output/vue/editor-tabs.vue'
 import TokenBlock from '@/_output/vue/token-block.vue'
 
@@ -62,9 +62,14 @@ export default {
     editorTabs: EditorTabs,
     tokenBlock: TokenBlock
   },
+  props: {
+    fullData: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
-      fullData: null,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
       hoveredGroupId: null,
@@ -72,7 +77,6 @@ export default {
     }
   },
   mounted () {
-    this.fullData = FullData
     this.shownTabs = this.allTargetTextsIds.slice(0, 1)
   },
   computed: {
@@ -230,6 +234,8 @@ export default {
     .alpheios-alignment-editor-align-text-segment {
       border-bottom: 2px solid  #e3e3e3;
       padding: 10px; 
+      max-height: 400px;
+      overflow-y: scroll;
 
       &.alpheios-align-text-segment-origin,
       &.alpheios-align-text-segment-target-last {

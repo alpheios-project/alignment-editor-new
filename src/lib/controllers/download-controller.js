@@ -136,6 +136,7 @@ export default class DownloadController {
 
     htmlTemplate.params.forEach(param => {
       const paramValue = data[param] || htmlTemplate[param]
+
       if (paramValue) {
         layout = layout.replaceAll(`{{${param}}}`, paramValue)
       }
