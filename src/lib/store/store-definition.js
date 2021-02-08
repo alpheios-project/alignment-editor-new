@@ -1,5 +1,5 @@
 /* global BUILD_NAME */
-import { version as libVersion, libName } from '@project/package'
+import { version as libVersion, libName } from '../../../package'
 
 export default class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails

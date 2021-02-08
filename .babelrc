@@ -11,6 +11,7 @@
       "alias": {
         "alpheios-messaging": "./node_modules/alpheios-messaging/dist/dev/alpheios-messaging.js"
       }
-    }]
+    }],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ]
 }
