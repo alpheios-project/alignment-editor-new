@@ -1,6 +1,6 @@
 {
   "name": "alpheios-alignment-editor",
-  "version": "1.0.1-i88-add-build-info-options.20210208383",
+  "version": "1.0.1",
   "libName": "Alpheios Translation Alignment editor",
   "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
   "main": "src/index.js",
