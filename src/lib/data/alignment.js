@@ -319,7 +319,8 @@ export default class Alignment {
    * @returns {Boolean}
    */
   shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
-    return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
+    return this.tokenInActiveGroup(token, limitByTargetId) &&
+          (!this.tokenTheSameTextTypeAsStart(token) || (this.allTokensInTheStartingText))
   }
 
   /**
@@ -328,6 +329,13 @@ export default class Alignment {
    */
   get hasActiveAlignmentGroup () {
     return Boolean(this.activeAlignmentGroup)
+  }
+
+  /**
+   * @returns {Boolean} true - all in one starting text has only origin or target, false - has both origin and target
+   */
+  get allTokensInTheStartingText () {
+    return this.activeAlignmentGroup.allTokensInTheStartingText
   }
 
   /**

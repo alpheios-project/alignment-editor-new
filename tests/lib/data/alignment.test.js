@@ -452,7 +452,7 @@ describe('alignment.test.js', () => {
     expect(alignment.shouldRemoveFromAlignmentGroup(originToken1, targetId1)).toBeFalsy() //there is no active alignment group
 
     alignment.startNewAlignmentGroup(originToken1)
-    expect(alignment.shouldRemoveFromAlignmentGroup(originToken1, targetId1)).toBeFalsy() // it is the same as start
+    expect(alignment.shouldRemoveFromAlignmentGroup(originToken1, targetId1)).toBeTruthy() // it is the same as start, and no tokens from other text
 
     alignment.addToAlignmentGroup(targetToken2)
 

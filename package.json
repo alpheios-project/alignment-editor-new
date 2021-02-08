@@ -14,7 +14,7 @@
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/upload-controller.test.js",
     "test-b": "jest tests/vue/align-editor/segment-block.test.js --coverage",
-    "test-c": "jest tests/lib/data/actions/tokens-edit-actions.test.js --coverage",
+    "test-c": "jest tests/lib/data/alignment-group.test.js --coverage",
     "test-d": "jest tests/targets-workflow.test.js --coverage",
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs"
   },
