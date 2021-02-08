@@ -16,7 +16,7 @@ describe('tokens-edit-actions.test.js', () => {
 
   const prepareParams = async () => {
     const sourceText1 = new SourceText('origin', {
-      text: 'vir femina\u2028vir femina', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'vir femina a\u2028vir\u2028femina vir', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
     
     const alignedText1 = new AlignedText({
@@ -27,7 +27,7 @@ describe('tokens-edit-actions.test.js', () => {
     await alignedText1.tokenize(sourceText1)
   
     const sourceText2 = new SourceText('target', {
-      text: 'male female\u2028male female', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'male female\u2028male female\u2028male female', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
      
     const alignedText2 = new AlignedText({
@@ -38,7 +38,7 @@ describe('tokens-edit-actions.test.js', () => {
     await alignedText2.tokenize(sourceText2)
   
     const sourceText3 = new SourceText('target', {
-      text: 'macho femenino\u2028macho femenino', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
+      text: 'macho femenino\u2028macho femenino\u2028macho femenino', direction: 'ltr', lang: 'spa', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
         
     const alignedText3 = new AlignedText({
@@ -183,7 +183,7 @@ describe('tokens-edit-actions.test.js', () => {
 
     tokensEditActions.mergeToken(token, 'next')
 
-    expect(params.origin.alignedText.segments[0].tokens.length).toEqual(1)
+    expect(params.origin.alignedText.segments[0].tokens.length).toEqual(2)
     expect(nextToken.word).toEqual('vir femina')
     expect(tokensEditActions.tokensEditHistory.steps[0].params.wasIdWord).toEqual('1-0-1') // result nextToken, the first token was merged to the next
     expect(tokensEditActions.tokensEditHistory.steps[0].params.newIdWord).toEqual('1-0-1-m-1')
@@ -316,7 +316,7 @@ describe('tokens-edit-actions.test.js', () => {
 
     // insert to start
     const firstSegment = Object.values(params.targets)[0].alignedText.segments[0] 
-    const lastSegment = Object.values(params.targets)[0].alignedText.segments[1] 
+    const lastSegment = Object.values(params.targets)[0].alignedText.segments[2] 
 
     tokensEditActions.insertTokens('Test start', 'target', Object.keys(params.targets)[0], 'start')
 
@@ -331,8 +331,154 @@ describe('tokens-edit-actions.test.js', () => {
 
     expect(lastSegment.tokens.map(token => token.word)).toEqual(['male', 'female', 'End', 'test'])
 
-    expect(lastSegment.tokens[2].idWord).toEqual('2-1-1-n-1')
-    expect(lastSegment.tokens[3].idWord).toEqual('2-1-1-n-2')
+    expect(lastSegment.tokens[2].idWord).toEqual('2-2-1-n-1')
+    expect(lastSegment.tokens[3].idWord).toEqual('2-2-1-n-2')
 
+  })
+
+  it('12 TokensEditActions - allowedMergePrev - true - if there is a left token, otherwise - false', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const currentSegment = Object.values(params.targets)[0].alignedText.segments[0] 
+    
+    const token0 = currentSegment.tokens[0] // [0] male [1] female
+    const token1 = currentSegment.tokens[1] 
+
+    expect(tokensEditActions.allowedMergePrev(token1)).toBeTruthy()
+    expect(tokensEditActions.allowedMergePrev(token0)).toBeFalsy()
+  })
+
+  it('13 TokensEditActions - allowedMergeNext - true - if there is a right token, otherwise - false', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const currentSegment = Object.values(params.targets)[0].alignedText.segments[0] 
+    
+    const token0 = currentSegment.tokens[0] // [0] male [1] female
+    const token1 = currentSegment.tokens[1] 
+
+    expect(tokensEditActions.allowedMergeNext(token0)).toBeTruthy()
+    expect(tokensEditActions.allowedMergeNext(token1)).toBeFalsy()
+  })
+
+  it('14 TokensEditActions - allowedSplit - true - if there are more than 1 letter, otherwise - false', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const currentSegment = params.origin.alignedText.segments[0] 
+    
+    const token0 = currentSegment.tokens[0] // [0] vir [1] femina [2] a
+    const token1 = currentSegment.tokens[1] 
+    const token2 = currentSegment.tokens[2]
+
+    expect(tokensEditActions.allowedSplit(token0)).toBeTruthy()
+    expect(tokensEditActions.allowedSplit(token1)).toBeTruthy()
+    expect(tokensEditActions.allowedSplit(token2)).toBeFalsy()
+  })
+
+  it('15 TokensEditActions - allowedAddLineBreak - true - if there are no line breaks, otherwise - false; allowedRemoveLineBreak - the opposite', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const currentSegment = params.origin.alignedText.segments[0] 
+    
+    const token0 = currentSegment.tokens[0] // [0] vir [1] femina [2] a
+
+    expect(tokensEditActions.allowedAddLineBreak(token0)).toBeTruthy()
+    expect(tokensEditActions.allowedRemoveLineBreak(token0)).toBeFalsy()
+
+    token0.hasLineBreak = true // no it has a line break
+
+    expect(tokensEditActions.allowedAddLineBreak(token0)).toBeFalsy()
+    expect(tokensEditActions.allowedRemoveLineBreak(token0)).toBeTruthy()
+  })
+
+  it('16 TokensEditActions - allowedToNextSegment - true - if it is the last token in a segment, there is a next segment and the current segment has more than 1 token, otherwise - false', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const currentSegment = params.origin.alignedText.segments[0] 
+    const nextSegment = params.origin.alignedText.segments[1] 
+    const nextNextSegment = params.origin.alignedText.segments[2] 
+    
+    const tokenC0 = currentSegment.tokens[0] // [0] vir [1] femina [2] a
+    const tokenC1 = currentSegment.tokens[1] 
+    const tokenC2 = currentSegment.tokens[2]
+
+    const tokenN0 = nextSegment.tokens[0] // [0] vir
+
+    const tokenNN0 = nextNextSegment.tokens[0] // [0] femina [1] vir
+    const tokenNN1 = nextNextSegment.tokens[1] 
+
+    expect(tokensEditActions.allowedToNextSegment(tokenC0)).toBeFalsy()
+    expect(tokensEditActions.allowedToNextSegment(tokenC1)).toBeFalsy()
+    expect(tokensEditActions.allowedToNextSegment(tokenC2)).toBeTruthy()
+
+    expect(tokensEditActions.allowedToNextSegment(tokenN0)).toBeFalsy()
+    
+    expect(tokensEditActions.allowedToNextSegment(tokenNN0)).toBeFalsy()
+    expect(tokensEditActions.allowedToNextSegment(tokenNN1)).toBeFalsy()
+  })
+
+  it('17 TokensEditActions - allowedToPrevSegment - true - if it is the first token in a segment, there is a prev segment and the current segment has more than 1 token, otherwise - false', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const prevPrevSegment = params.origin.alignedText.segments[0]
+    const prevSegment = params.origin.alignedText.segments[1]
+    const currentSegment = params.origin.alignedText.segments[2] 
+    
+    const tokenPP0 = prevPrevSegment.tokens[0] // [0] vir [1] femina [2] a
+    const tokenPP1 = prevPrevSegment.tokens[1] 
+    const tokenPP2 = prevPrevSegment.tokens[2]
+
+    const tokenP0 = prevSegment.tokens[0] // [0] vir
+
+    const tokenC0 = currentSegment.tokens[0] // [0] femina [1] vir
+    const tokenC1 = currentSegment.tokens[1] 
+
+    expect(tokensEditActions.allowedToPrevSegment(tokenC0)).toBeTruthy()
+    expect(tokensEditActions.allowedToPrevSegment(tokenC1)).toBeFalsy()
+
+    expect(tokensEditActions.allowedToPrevSegment(tokenP0)).toBeFalsy()
+    
+    expect(tokensEditActions.allowedToPrevSegment(tokenPP2)).toBeFalsy()
+    expect(tokensEditActions.allowedToPrevSegment(tokenPP1)).toBeFalsy()
+    expect(tokensEditActions.allowedToPrevSegment(tokenPP0)).toBeFalsy()
+  })
+
+  it('16 TokensEditActions - allowedDelete - true - if it is the first/last token in a text, otherwise - false', async () => {
+    const params = await prepareParams()
+
+    const tokensEditActions = new TokensEditActions(params)
+
+    const currentSegment = params.origin.alignedText.segments[0] 
+    const nextSegment = params.origin.alignedText.segments[1] 
+    const nextNextSegment = params.origin.alignedText.segments[2] 
+    
+    const tokenC0 = currentSegment.tokens[0] // [0] vir [1] femina [2] a
+    const tokenC1 = currentSegment.tokens[1] 
+    const tokenC2 = currentSegment.tokens[2]
+
+    const tokenN0 = nextSegment.tokens[0] // [0] vir
+
+    const tokenNN0 = nextNextSegment.tokens[0] // [0] femina [1] vir
+    const tokenNN1 = nextNextSegment.tokens[1] 
+
+    expect(tokensEditActions.allowedDelete(tokenC0)).toBeTruthy()
+    expect(tokensEditActions.allowedDelete(tokenC1)).toBeFalsy()
+    expect(tokensEditActions.allowedDelete(tokenC2)).toBeFalsy()
+
+    expect(tokensEditActions.allowedDelete(tokenN0)).toBeFalsy()
+    
+    expect(tokensEditActions.allowedDelete(tokenNN0)).toBeFalsy()
+    expect(tokensEditActions.allowedDelete(tokenNN1)).toBeTruthy()
   })
 })
