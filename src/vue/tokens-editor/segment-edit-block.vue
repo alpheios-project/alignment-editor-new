@@ -226,10 +226,12 @@ export default {
       await this.clearPrevIdWord(token, 'splitTokenIdWord')
       this.splitTokenIdWord = token.idWord
     },
-    addLineBreak (token) {
+    async addLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.addLineBreakIdWord = token.idWord
     },
-    removeLineBreak (token) {
+    async removeLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {

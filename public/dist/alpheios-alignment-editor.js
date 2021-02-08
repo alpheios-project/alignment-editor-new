@@ -43688,9 +43688,6 @@ class Alignment {
    * @returns {Boolean}
    */
   shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
-    console.info('*****************shouldRemoveFromAlignmentGroup - ', token.word)
-    console.info('this.tokenTheSameTextTypeAsStart(token) - ', this.tokenTheSameTextTypeAsStart(token))
-    console.info('this.allTokensInTheStartingText - ', this.allTokensInTheStartingText)
     return this.tokenInActiveGroup(token, limitByTargetId) &&
           (!this.tokenTheSameTextTypeAsStart(token) || (this.allTokensInTheStartingText))
   }
@@ -46026,7 +46023,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i154-remove-tokens-starting-text.20210208486" : 0
+    return  true ? "152-remove-line-breaks.20210208501" : 0
   }
 
   static get libName () {
@@ -49548,10 +49545,12 @@ __webpack_require__.r(__webpack_exports__);
       await this.clearPrevIdWord(token, 'splitTokenIdWord')
       this.splitTokenIdWord = token.idWord
     },
-    addLineBreak (token) {
+    async addLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.addLineBreakIdWord = token.idWord
     },
-    removeLineBreak (token) {
+    async removeLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
