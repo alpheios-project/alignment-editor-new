@@ -1281,6 +1281,14 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   padding: 5px 0 15px;
   text-align: left;
 }
+.alpheios-alignment-options__aboutcont {
+  border-top: 1px solid #f8f8f8;
+  padding: 10px 0;
+  font-size: 12px;
+}
+.alpheios-alignment-options__aboutcont h3 {
+  margin: 0;
+}
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;
 }

@@ -15,6 +15,12 @@
             {{ l10n.getMsgS('OPTIONS_BLOCK_RESET_ALL') }}
         </button>
       </p>
+      <div class="alpheios-alignment-options__aboutcont">
+        <h3>{{ l10n.getMsgS('OPTIONS_BLOCK_INFO_ABOUT') }}</h3>
+        <div class="alpheios-alignment-options__versiontext">
+          {{ versionData }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +46,9 @@ export default {
     },
     appOptionItems () {
       return this.$store.state.optionsUpdated && this.$settingsC.options.app.items
+    },
+    versionData () {
+      return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     }
   },
   methods: {
@@ -73,5 +82,15 @@ export default {
   .alpheios-alignment-options__buttons {
     padding: 5px 0 15px;
     text-align: left;
+  }
+
+  .alpheios-alignment-options__aboutcont {
+    border-top: 1px solid #f8f8f8;
+    padding: 10px 0;
+    font-size: 12px;
+
+    h3 {
+      margin: 0;
+    }
   }
 </style>

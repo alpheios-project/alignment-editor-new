@@ -1,4 +1,30 @@
+/* global BUILD_NAME */
+import { version as libVersion, libName } from '../../../package'
+
 export default class StoreDefinition {
+  // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
+  static get libBuildName () {
+    return typeof BUILD_NAME !== 'undefined' ? BUILD_NAME : ''
+  }
+
+  static get libName () {
+    return libName
+  }
+
+  static get libVersion () {
+    return libVersion
+  }
+
+  static get libBuildNameForDisplay () {
+    // if the build number is already included in the package version then
+    // don't display it
+    if (this.libVersion && this.libVersion.indexOf(this.libBuildName) === -1) {
+      return `build ${this.libBuildName}`
+    } else {
+      return ''
+    }
+  }
+
   /**
    * Default definition for Vuex Store, used inside AppController
    * returns {Object} Vuex Store initializing parameters
@@ -14,7 +40,12 @@ export default class StoreDefinition {
         alignmentRestarted: 1,
         uploadCheck: 1,
         resetOptions: 1,
-        tokenUpdated: 1
+        tokenUpdated: 1,
+
+        libName: this.libName,
+        libVersion: this.libVersion,
+        libBuildName: this.libBuildName,
+        libBuildNameForDisplay: this.libBuildNameForDisplay
       },
       mutations: {
         incrementAlignmentUpdated (state) {
