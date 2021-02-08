@@ -48,16 +48,7 @@ export default {
       return this.$store.state.optionsUpdated && this.$settingsC.options.app.items
     },
     versionData () {
-      return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.libBuildNameForDisplay})`
-    },
-    libBuildNameForDisplay () {
-      // if the build number is already included in the package version then
-      // don't display it
-      if (this.$store.state.libVersion && this.$store.state.libVersion.indexOf(this.$store.state.libBuildName) === -1) {
-        return `build ${this.$store.state.libBuildName}`
-      } else {
-        return ''
-      }
+      return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     }
   },
   methods: {

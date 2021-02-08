@@ -3,7 +3,7 @@ import { version as libVersion, libName } from '@project/package'
 
 export default class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
-  static get buildName () {
+  static get libBuildName () {
     return typeof BUILD_NAME !== 'undefined' ? BUILD_NAME : ''
   }
 
@@ -13,6 +13,16 @@ export default class StoreDefinition {
 
   static get libVersion () {
     return libVersion
+  }
+
+  static get libBuildNameForDisplay () {
+    // if the build number is already included in the package version then
+    // don't display it
+    if (this.libVersion && this.libVersion.indexOf(this.libBuildName) === -1) {
+      return `build ${this.libBuildName}`
+    } else {
+      return ''
+    }
   }
 
   /**
@@ -34,7 +44,8 @@ export default class StoreDefinition {
 
         libName: this.libName,
         libVersion: this.libVersion,
-        libBuildName: this.buildName
+        libBuildName: this.libBuildName,
+        libBuildNameForDisplay: this.libBuildNameForDisplay
       },
       mutations: {
         incrementAlignmentUpdated (state) {
