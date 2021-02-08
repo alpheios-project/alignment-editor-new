@@ -11,18 +11,21 @@
             </div>
         </div>
 
-        <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container">
-            <al-groups-view-full :full-data="$parent.fullData"/>
+        <div id="alpheios-alignment-editor-container" class="alpheios-alignment-editor-container ">
+            <al-groups-view-full :full-data="$parent.fullData" v-if="0===1" />
+            <al-groups-view-short :full-data="$parent.fullData"/>
         </div>
             
     </div>
 </template>
 <script>
 import AlGroupsViewFull from '@/_output/vue/al-groups-view-full.vue'
+import AlGroupsViewShort from '@/_output/vue/al-groups-view-short.vue'
 export default {
   name: 'App',
   components: {
-    alGroupsViewFull: AlGroupsViewFull
+    alGroupsViewFull: AlGroupsViewFull,
+    alGroupsViewShort: AlGroupsViewShort
   }
 }
 </script>

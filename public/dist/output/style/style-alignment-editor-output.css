@@ -243,6 +243,20 @@ body, html {
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
   display: table-cell;
 }
+.alpheios-alignment-editor-align-table-data {
+  display: table;
+}
+.alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-origin {
+  width: 70%;
+  display: table-cell;
+}
+.alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-target {
+  width: 30%;
+  display: table-cell;
+}
+.alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-target .alpheios-alignment-editor-align-text-segment {
+  border-bottom: none;
+}
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;
   height: calc(100% - 110px);
