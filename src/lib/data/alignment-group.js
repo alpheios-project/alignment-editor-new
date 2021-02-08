@@ -138,8 +138,19 @@ export default class AlignmentGroup {
     return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
+  /**
+   *
+   * @param {Token} token
+   */
   updateFirstStepToken (token) {
     return this.alignmentGroupActions.updateFirstStepToken(token)
+  }
+
+  /**
+   * @returns {Boolean} true - if has tokens only from one text
+   */
+  get allTokensInTheStartingText () {
+    return ((this.origin.length === 0) || (this.target.length === 0)) && (this.groupLen > 0)
   }
 
   // actions

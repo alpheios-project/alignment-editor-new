@@ -720,10 +720,10 @@ describe('aligned-groups-controller.test.js', () => {
     expect(alignedGC.shouldRemoveFromAlignmentGroup(tokenOrigin1, targetIds[0])).toBeFalsy() // there is no active alignment group
     alignedGC.clickToken(tokenOrigin1, targetIds[0])
 
+    expect(alignedGC.shouldRemoveFromAlignmentGroup(tokenOrigin1, targetIds[0])).toBeTruthy() // it is the same as start - and no tokens from the other text
+
     expect(alignedGC.shouldRemoveFromAlignmentGroup(tokenTarget2, targetIds[0])).toBeFalsy() // this token is not inside the alignment group
     alignedGC.clickToken(tokenTarget2, targetIds[0])
-
-    expect(alignedGC.shouldRemoveFromAlignmentGroup(tokenOrigin2, targetIds[0])).toBeFalsy() // it is the same as start - if click- it would finish the group
 
     expect(alignedGC.shouldRemoveFromAlignmentGroup(tokenTarget1, targetIds[0])).toBeFalsy() // it is not the same textType but it is not in the group yet
     alignedGC.clickToken(tokenOrigin2, targetIds[0])
