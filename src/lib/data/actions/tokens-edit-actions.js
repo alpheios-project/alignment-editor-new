@@ -291,7 +291,9 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToNextSegment (token) {
-    return !this.getNextPrevToken(token, HistoryStep.directions.NEXT) && Boolean(this.getSegmentByToken(token, HistoryStep.directions.NEXT))
+    const segment = this.getSegmentByToken(token)
+    const nextSegment = this.getSegmentByToken(token, HistoryStep.directions.NEXT)
+    return segment.tokens.length > 1 && !this.getNextPrevToken(token, HistoryStep.directions.NEXT) && Boolean(nextSegment)
   }
 
   /**
@@ -300,7 +302,9 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToPrevSegment (token) {
-    return !this.getNextPrevToken(token, HistoryStep.directions.PREV) && Boolean(this.getSegmentByToken(token, HistoryStep.directions.PREV))
+    const segment = this.getSegmentByToken(token)
+    const prevSegment = this.getSegmentByToken(token, HistoryStep.directions.PREV)
+    return segment.tokens.length > 1 && !this.getNextPrevToken(token, HistoryStep.directions.PREV) && Boolean(prevSegment)
   }
 
   /**
