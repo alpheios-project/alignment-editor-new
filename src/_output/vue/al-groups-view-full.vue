@@ -1,58 +1,57 @@
 <template>
-    <div class="alpheios-alignment-editor-align-groups-editor-container" v-if="fullData">
+    <div class="alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-full" v-if="fullData">
         <editor-tabs 
             v-if="allTargetTextsIds.length > 1"
             :tabs = "allTargetTextsIds" @selectTab = "selectTab"
         />
 
         <div class ="alpheios-alignment-editor-align-define-container-inner">
-                <div class="alpheios-alignment-editor-align-segment-data"
-                    v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
-                    :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segIndex === allShownSegments.length }"
-                >
-                    <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
-                        <div class="alpheios-alignment-editor-align-text-segment" 
-                            :id = "cssId('origin', 'no', segIndex)" :style="cssStyle('origin', 0, segIndex)"
-                            :class = "cssClass('origin')" :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
-                        >
-                            <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
-                                <token-block :key = "tokenIndex" :token="token" 
-                                             :selected = "selectedToken(token)"
-                                             :grouped = "groupedToken(token)"
-                                             @addHoverToken = "addHoverToken"
-                                             @removeHoverToken = "removeHoverToken"
-                                />
-                                <br v-if="token.hasLineBreak" />
-                            </template>
-                        </div>
+            <div class="alpheios-alignment-editor-align-segment-data"
+                v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
+                :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segIndex === allShownSegments.length }"
+            >
+                <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
+                    <div class="alpheios-alignment-editor-align-text-segment" 
+                        :id = "cssId('origin', 'no', segIndex)" :style="cssStyle('origin', 0, segIndex)"
+                        :class = "cssClass('origin')" :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
+                    >
+                        <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
+                            <token-block :key = "tokenIndex" :token="token" 
+                                          :selected = "selectedToken(token)"
+                                          :grouped = "groupedToken(token)"
+                                          @addHoverToken = "addHoverToken"
+                                          @removeHoverToken = "removeHoverToken"
+                            />
+                            <br v-if="token.hasLineBreak" />
+                        </template>
                     </div>
-
-                    <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
-                        <div class="alpheios-alignment-editor-align-text-segment" 
-                          v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
-                          :id = "cssId('target', targetId, segIndex)" :style="cssStyle('target', targetId, segIndex)"
-                          :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
-                          v-show="isShownTab(targetId)"
-                        >
-                            <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
-                                <token-block :key = "tokenIndex" :token="token" 
-                                             :selected = "selectedToken(token)"
-                                             :grouped = "groupedToken(token)"
-                                             @addHoverToken = "addHoverToken"
-                                             @removeHoverToken = "removeHoverToken"
-                                />
-                                <br v-if="token.hasLineBreak" />
-                            </template>
-                        </div>
-                    </div>
-
                 </div>
+
+                <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
+                    <div class="alpheios-alignment-editor-align-text-segment" 
+                      v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
+                      :id = "cssId('target', targetId, segIndex)" :style="cssStyle('target', targetId, segIndex)"
+                      :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
+                      v-show="isShownTab(targetId)"
+                    >
+                        <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
+                            <token-block :key = "tokenIndex" :token="token" 
+                                          :selected = "selectedToken(token)"
+                                          :grouped = "groupedToken(token)"
+                                          @addHoverToken = "addHoverToken"
+                                          @removeHoverToken = "removeHoverToken"
+                            />
+                            <br v-if="token.hasLineBreak" />
+                        </template>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
     </div>
 </template>
 <script>
-// import FullData from '@/_output/vue/full-data.json'
 import EditorTabs from '@/_output/vue/editor-tabs.vue'
 import TokenBlock from '@/_output/vue/token-block.vue'
 

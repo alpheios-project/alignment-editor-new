@@ -41373,6 +41373,8 @@ class TextsController {
     let targets = {} // eslint-disable-line prefer-const
     this.alignment.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+
+      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
@@ -44920,6 +44922,10 @@ class Metadata {
     }
   }
 
+  convertToJSONLine () {
+    return Object.values(this.properties).map(metadataTerm => metadataTerm.getValue()).join('; ')
+  }
+
   static convertFromJSON (data) {
     const metadata = new Metadata()
     data.properties.forEach(prop => {
@@ -46025,7 +46031,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i171-tootips-upper-case.20210209522" : 0
+    return  true ? "i70-html-output-step2.20210209647" : 0
   }
 
   static get libName () {
