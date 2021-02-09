@@ -42707,7 +42707,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedAddLineBreak (token) {
-    return !token.hasLineBreak
+    return !token.hasLineBreak && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -42716,7 +42716,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedRemoveLineBreak (token) {
-    return Boolean(token.hasLineBreak)
+    return Boolean(token.hasLineBreak) && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -46023,7 +46023,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "152-remove-line-breaks.20210208501" : 0
+    return  true ? "i166-line-break-last-word.20210209300" : 0
   }
 
   static get libName () {

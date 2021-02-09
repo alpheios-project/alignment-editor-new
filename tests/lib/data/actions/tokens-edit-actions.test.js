@@ -388,9 +388,13 @@ describe('tokens-edit-actions.test.js', () => {
     const currentSegment = params.origin.alignedText.segments[0] 
     
     const token0 = currentSegment.tokens[0] // [0] vir [1] femina [2] a
+    const token2 = currentSegment.tokens[2]
 
     expect(tokensEditActions.allowedAddLineBreak(token0)).toBeTruthy()
     expect(tokensEditActions.allowedRemoveLineBreak(token0)).toBeFalsy()
+
+    expect(tokensEditActions.allowedAddLineBreak(token2)).toBeFalsy() // it is the last
+    expect(tokensEditActions.allowedRemoveLineBreak(token2)).toBeFalsy() // it is the last
 
     token0.hasLineBreak = true // no it has a line break
 
