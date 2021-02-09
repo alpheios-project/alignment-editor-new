@@ -42748,8 +42748,10 @@ class TokensEditActions {
    */
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+    const segment = this.getSegmentByToken(token)
+    return segment.tokens.length > 1 &&
+           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
   }
 
   /**
@@ -46023,7 +46025,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i166-line-break-last-word.20210209300" : 0
+    return  true ? "i155-check-delete-all-tokens.20210209306" : 0
   }
 
   static get libName () {

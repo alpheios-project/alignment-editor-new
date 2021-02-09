@@ -484,5 +484,12 @@ describe('tokens-edit-actions.test.js', () => {
     
     expect(tokensEditActions.allowedDelete(tokenNN0)).toBeFalsy()
     expect(tokensEditActions.allowedDelete(tokenNN1)).toBeTruthy()
+
+    tokensEditActions.deleteToken(tokenC0)
+
+    expect(tokensEditActions.allowedDelete(tokenC1)).toBeTruthy()
+    tokensEditActions.deleteToken(tokenC1)
+
+    expect(tokensEditActions.allowedDelete(tokenC2)).toBeFalsy() // it is the last token in the first segment
   })
 })
