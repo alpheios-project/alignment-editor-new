@@ -273,7 +273,7 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedAddLineBreak (token) {
-    return !token.hasLineBreak
+    return !token.hasLineBreak && Boolean(this.getNextPrevToken(token, HistoryStep.directions.NEXT))
   }
 
   /**
@@ -282,7 +282,7 @@ export default class TokensEditActions {
    * @returns {Boolean}
    */
   allowedRemoveLineBreak (token) {
-    return Boolean(token.hasLineBreak)
+    return Boolean(token.hasLineBreak) && Boolean(this.getNextPrevToken(token, HistoryStep.directions.NEXT))
   }
 
   /**
