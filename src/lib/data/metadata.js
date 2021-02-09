@@ -50,6 +50,10 @@ export default class Metadata {
     }
   }
 
+  convertToJSONLine () {
+    return Object.values(this.properties).map(metadataTerm => metadataTerm.getValue()).join('; ')
+  }
+
   static convertFromJSON (data) {
     const metadata = new Metadata()
     data.properties.forEach(prop => {

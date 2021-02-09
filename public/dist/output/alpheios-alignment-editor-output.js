@@ -8995,6 +8995,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9007,6 +9020,12 @@ __webpack_require__.r(__webpack_exports__);
     fullData: {
       type: Object,
       required: true
+    }
+  },
+  data () {
+    return {
+      hoveredGroupsId: null,
+      updateHovered: 1
     }
   },
   computed: {
@@ -9022,6 +9041,9 @@ __webpack_require__.r(__webpack_exports__);
       })
       return allS
     },
+    allTargetTextsIds () {
+      return Object.keys(this.fullData.targets)
+    },
     allAlGroups () {
       let allGroups = {}
 
@@ -9030,20 +9052,57 @@ __webpack_require__.r(__webpack_exports__);
           if (token.grouped) {
             token.groupData.forEach(groupDataItem => {
               if (!allGroups[groupDataItem.groupId]) { 
-                allGroups[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokensOrigin: [] } 
+                allGroups[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokensTarget: [] } 
               }
-              allGroups[groupDataItem.groupId].tokensOrigin.push(token.idWord)
             })
-
           }
         })
       })
 
-      console.info('allGroups - ', allGroups)
+      this.allTargetTextsIds.forEach(targetId => {
+        
+        const metadata = this.fullData.targets[targetId].metadata
+        if (this.fullData.targets[targetId].segments) {
+          this.fullData.targets[targetId].segments.forEach(segment => {
+            segment.tokens.forEach(token => {
+              if (token.grouped) {
+                token.groupData.forEach(groupDataItem => {                 
+                  if (!allGroups[groupDataItem.groupId].metadata) { allGroups[groupDataItem.groupId].metadata = metadata }
+                  allGroups[groupDataItem.groupId].tokensTarget.push(token)
+                })
+              }
+            })
+          })
+        }
+      })
+
       return allGroups
+    },
+    hoveredTargetTokens () {
+      return this.updateHovered && this.hoveredGroupsId && 
+            Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
+              return {
+                metadata: this.allAlGroups[groupId].metadata,
+                tokensTarget: this.allAlGroups[groupId].tokensTarget
+              }
+            })
+    },
+    containerHeight () {
+      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 200
+    },
+    cssStyle () {
+      const minHeight = 400
+      let maxHeight
+      if (this.fullData.origin.segments.length === 1) {
+        maxHeight = this.containerHeight
+      } else {
+        maxHeight = Math.round(Math.min(minHeight, this.containerHeight/this.fullData.origin.segments.length))
+      }
+      return `max-height: ${maxHeight}px`
     }
   },
   methods: {
+    
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
@@ -9058,19 +9117,21 @@ __webpack_require__.r(__webpack_exports__);
       return token.grouped
     },
     isTokenInHovered (token) {
-      return token.groupData.some(groupDataItem => this.hoveredGroupId.includes(groupDataItem.groupId) ) 
+      return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
     },
 
     selectedToken (token) {
-      return this.hoveredGroupId && (this.hoveredGroupId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
+      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     },
 
     addHoverToken (token) {
-
+      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      this.updateHovered++
     },
 
     removeHoverToken (token) {
-        
+      this.hoveredGroupsId = null
+      this.updateHovered++
     }
   }
 });
@@ -9111,6 +9172,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9119,6 +9188,20 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     alGroupsViewFull: _output_vue_al_groups_view_full_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     alGroupsViewShort: _output_vue_al_groups_view_short_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  data () {
+    return {
+      allViewTypes: [
+        { value: 'viewFull', label: 'Full view'},
+        { value: 'viewShort', label: 'Short view'}
+      ],
+      viewType: 'viewShort'
+    }
+  },
+  methods: {
+    itemIdWithValue (value) {
+      return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
+    }
   }
 });
 
@@ -9926,6 +10009,7 @@ var render = function() {
                       key: _vm.getIndex("origin", segIndex),
                       staticClass:
                         "alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin",
+                      style: _vm.cssStyle,
                       attrs: {
                         id: _vm.cssId("origin", "no", segIndex),
                         dir: _vm.fullData.origin.dir,
@@ -9968,11 +10052,68 @@ var render = function() {
                     "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
                 },
                 [
-                  _vm.allAlGroups
-                    ? _c("div", {
-                        staticClass:
-                          "alpheios-alignment-editor-align-text-segment"
-                      })
+                  _vm.hoveredTargetTokens
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-align-text-segment"
+                        },
+                        _vm._l(_vm.hoveredTargetTokens, function(
+                          hoveredGroupData,
+                          hoveredGroupDataIndex
+                        ) {
+                          return _c(
+                            "div",
+                            {
+                              key: hoveredGroupDataIndex,
+                              staticClass:
+                                "alpheios-alignment-editor-align-text-target-hovered-block"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "alpheios-alignment-editor-align-text-target-hovered-block__tokens"
+                                },
+                                [
+                                  _vm._l(
+                                    hoveredGroupData.tokensTarget,
+                                    function(token, tokenIndex) {
+                                      return [
+                                        _c("token-block", {
+                                          key: tokenIndex,
+                                          attrs: { token: token }
+                                        }),
+                                        _vm._v(" "),
+                                        token.hasLineBreak ? _c("br") : _vm._e()
+                                      ]
+                                    }
+                                  )
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "alpheios-alignment-editor-align-text-target-hovered-block__metadata"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(hoveredGroupData.metadata) +
+                                      "\n                  "
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
                     : _vm._e()
                 ]
               )
@@ -10015,13 +10156,54 @@ var render = function() {
         attrs: { id: "alpheios-alignment-editor-container" }
       },
       [
-         false
-          ? 0
+        _c(
+          "p",
+          {
+            staticClass:
+              "alpheios-alignment-radio-block alpheios-alignment-option-item__control"
+          },
+          _vm._l(_vm.allViewTypes, function(item) {
+            return _c("span", { key: item.value }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.viewType,
+                    expression: "viewType"
+                  }
+                ],
+                attrs: { type: "radio", id: _vm.itemIdWithValue(item.value) },
+                domProps: {
+                  value: item.value,
+                  checked: _vm._q(_vm.viewType, item.value)
+                },
+                on: {
+                  change: function($event) {
+                    _vm.viewType = item.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: _vm.itemIdWithValue(item.value) } }, [
+                _vm._v(_vm._s(item.label))
+              ])
+            ])
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _vm.viewType === "viewFull"
+          ? _c("al-groups-view-full", {
+              attrs: { "full-data": _vm.$parent.fullData }
+            })
           : _vm._e(),
         _vm._v(" "),
-        _c("al-groups-view-short", {
-          attrs: { "full-data": _vm.$parent.fullData }
-        })
+        _vm.viewType === "viewShort"
+          ? _c("al-groups-view-short", {
+              attrs: { "full-data": _vm.$parent.fullData }
+            })
+          : _vm._e()
       ],
       1
     )

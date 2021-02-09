@@ -272,6 +272,8 @@ export default class TextsController {
     let targets = {} // eslint-disable-line prefer-const
     this.alignment.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+
+      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const

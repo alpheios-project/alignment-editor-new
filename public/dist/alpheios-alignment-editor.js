@@ -41373,6 +41373,8 @@ class TextsController {
     let targets = {} // eslint-disable-line prefer-const
     this.alignment.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+
+      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
@@ -44918,6 +44920,10 @@ class Metadata {
     }
   }
 
+  convertToJSONLine () {
+    return Object.values(this.properties).map(metadataTerm => metadataTerm.getValue()).join('; ')
+  }
+
   static convertFromJSON (data) {
     const metadata = new Metadata()
     data.properties.forEach(prop => {
@@ -46023,7 +46029,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-step2.20210208644" : 0
+    return  true ? "i70-html-output-step2.20210209644" : 0
   }
 
   static get libName () {
@@ -55927,7 +55933,7 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js\",\"stylePath2\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css\",\"jsPath2\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/png\\\" href=\\\"https://alignment.alpheios.net/logo.png\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
+module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/png\\\" href=\\\"https://alignment.alpheios.net/logo.png\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
 
 /***/ }),
 
