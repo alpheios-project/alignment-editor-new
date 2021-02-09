@@ -10095,20 +10095,22 @@ var render = function() {
                                 2
                               ),
                               _vm._v(" "),
-                              _c(
-                                "p",
-                                {
-                                  staticClass:
-                                    "alpheios-alignment-editor-align-text-target-hovered-block__metadata"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                    " +
-                                      _vm._s(hoveredGroupData.metadata) +
-                                      "\n                  "
+                              hoveredGroupData.metadata
+                                ? _c(
+                                    "p",
+                                    {
+                                      staticClass:
+                                        "alpheios-alignment-editor-align-text-target-hovered-block__metadata"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                    " +
+                                          _vm._s(hoveredGroupData.metadata) +
+                                          "\n                  "
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
+                                : _vm._e()
                             ]
                           )
                         }),

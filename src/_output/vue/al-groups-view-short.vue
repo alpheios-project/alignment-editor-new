@@ -30,7 +30,7 @@
                             <br v-if="token.hasLineBreak" />
                         </template>
                       </div>
-                      <p class="alpheios-alignment-editor-align-text-target-hovered-block__metadata">
+                      <p class="alpheios-alignment-editor-align-text-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">
                         {{ hoveredGroupData.metadata }}
                       </p>
                   </div>
