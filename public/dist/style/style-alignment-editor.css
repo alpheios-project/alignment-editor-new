@@ -626,6 +626,7 @@ div.alpheios-alignment-checkbox-block {
   display: none;
   font-size: 12px;
   text-align: center;
+  text-transform: initial;
 }
 .alpheios-tooltip:hover span.alpheios-tooltiptext.alpheios-tooltiptext-span {
   visibility: visible;

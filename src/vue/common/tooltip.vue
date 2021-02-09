@@ -82,6 +82,8 @@ export default {
       display: none;
       font-size: 12px;
       text-align: center;
+
+      text-transform: initial;
     }
   }
 

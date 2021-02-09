@@ -42709,7 +42709,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedAddLineBreak (token) {
-    return !token.hasLineBreak
+    return !token.hasLineBreak && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -42718,7 +42718,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedRemoveLineBreak (token) {
-    return Boolean(token.hasLineBreak)
+    return Boolean(token.hasLineBreak) && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -42750,8 +42750,10 @@ class TokensEditActions {
    */
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+    const segment = this.getSegmentByToken(token)
+    return segment.tokens.length > 1 &&
+           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
   }
 
   /**
@@ -46029,7 +46031,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-step2.20210209644" : 0
+    return  true ? "i70-html-output-step2.20210209645" : 0
   }
 
   static get libName () {
