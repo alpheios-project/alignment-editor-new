@@ -314,8 +314,10 @@ export default class TokensEditActions {
    */
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return (!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+    const segment = this.getSegmentByToken(token)
+    return segment.tokens.length > 1 &&
+           ((!this.getNextPrevToken(token, HistoryStep.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextPrevToken(token, HistoryStep.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
   }
 
   /**
