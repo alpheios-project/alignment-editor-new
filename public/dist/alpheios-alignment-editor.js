@@ -41414,6 +41414,7 @@ class TextsController {
         })
       })
     })
+
     return JSON.stringify({ origin, targets })
   }
 
@@ -44972,7 +44973,6 @@ class Segment {
    */
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
-
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
@@ -46036,7 +46036,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-step2-fix.20210210614" : 0
+    return  true ? "i70-html-output-step3.20210210679" : 0
   }
 
   static get libName () {

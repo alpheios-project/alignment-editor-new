@@ -54,6 +54,108 @@
   src: url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.eot);
   src: url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.eot?#iefix) format("embedded-opentype"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.woff2) format("woff2"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.woff) format("woff"), url(https://fonts.gstatic.com/ea/notosanssyriacwestern/v1/NotoSansSyriacWestern-Regular.ttf) format("truetype");
 }
+input.alpheios-alignment-input, input.alpheios-alignment-input[type] {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: inherit;
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #757575;
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+  color: #757575;
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-appearance: none;
+}
+input.alpheios-alignment-input[type=search]::-webkit-search-cancel-button, input.alpheios-alignment-input[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+input.alpheios-alignment-input[type=number]::-webkit-inner-spin-button, input.alpheios-alignment-input[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+input.alpheios-alignment-input::-moz-placeholder {
+  opacity: 1;
+}
+input.alpheios-alignment-input:not(input) {
+  line-height: 40px;
+}
+input.alpheios-alignment-input:focus, input.alpheios-alignment-input[type]:focus {
+  outline: none;
+  border: inherit;
+  border: 1px solid #757575;
+  border: 1px solid #757575;
+  border-radius: 10px;
+}
+input.alpheios-alignment-input:disabled {
+  background-color: #e3e3e3;
+  color: #909090;
+  border: 1px solid #757575;
+  border-radius: 10px;
+}
+input.alpheios-alignment-input::placeholder {
+  color: #fff;
+}
+input.alpheios-alignment-input::-ms-input-placeholder {
+  color: #fff !important;
+}
+
+.alpheios-alignment-select {
+  font-family: "Source Sans Pro", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 10px;
+  font: inherit;
+  text-transform: none;
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #757575;
+  padding: 8px 10px;
+  background: #fff;
+  color: #757575;
+  -webkit-appearance: none;
+}
+.alpheios-alignment-select:not([multiple]):not([size]) {
+  height: 42px;
+  vertical-align: middle;
+  display: inline-block;
+}
+.alpheios-alignment-select:not(select) {
+  line-height: 42px;
+}
+.alpheios-alignment-select[multiple], .alpheios-alignment-select[size] {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  vertical-align: top;
+}
+.alpheios-alignment-select:focus {
+  outline: none;
+}
+.alpheios-alignment-select:disabled {
+  background-color: #fff;
+  color: #909090;
+}
+.alpheios-alignment-select:not([multiple]):not([size]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 20px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: 24px;
+}
+.alpheios-alignment-select:not([multiple]):not([size])::-ms-expand {
+  display: none;
+}
+.alpheios-alignment-select:not([multiple]):not([size]) option {
+  color: #757575;
+}
+.alpheios-alignment-select:not([multiple]):not([size]):disabled {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+}
+
 .alpheios-standard-theme {
   background-color: #fff;
   color: #212529;
@@ -266,6 +368,29 @@ body, html {
   margin: 0;
   color: #666666;
 }
+.alpheios-alignment-editor-align-table-data {
+  display: table;
+  width: 100%;
+}
+.alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-origin {
+  width: 50%;
+  display: table-cell;
+}
+.alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-target {
+  width: 50%;
+  display: table-cell;
+}
+.alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-target .alpheios-alignment-editor-align-text-segment {
+  border-bottom: none;
+}
+.alpheios-alignment-editor-align-text-target-hovered-block {
+  margin-bottom: 20px;
+}
+.alpheios-alignment-editor-align-text-target-hovered-block .alpheios-alignment-editor-align-text-target-hovered-block__metadata {
+  padding: 0 5px;
+  margin: 0;
+  color: #666666;
+}
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;
   height: calc(100% - 110px);
@@ -276,6 +401,9 @@ body, html {
 .alpheios-alignment-radio-block span {
   display: inline-block;
   margin-right: 20px;
+}
+.alpheios-alignment-radio-block input.alpheios-alignment-input__sentence-count {
+  width: 100px;
 }
 
 /*# sourceMappingURL=style-alignment-editor-output.css.map*/

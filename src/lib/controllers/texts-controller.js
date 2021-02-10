@@ -313,6 +313,7 @@ export default class TextsController {
         })
       })
     })
+
     return JSON.stringify({ origin, targets })
   }
 

@@ -18,10 +18,20 @@
                     >
                     <label :for="itemIdWithValue(item.value)">{{ item.label }}</label>
                 </span>
+                <span>
+                  <input
+                      class="alpheios-alignment-input alpheios-alignment-input__sentence-count"
+                      type="number"
+                      v-model.number="sentenceCount"
+                      :id="itemIdWithValue('sentenceCount')"
+                  >
+                  <label :for="itemIdWithValue('sentenceCount')">sentences around</label>
+                </span>
             </p>
 
             <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
             <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
+            <al-groups-view-sentence :full-data="$parent.fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
         </div>
             
     </div>
@@ -29,19 +39,24 @@
 <script>
 import AlGroupsViewFull from '@/_output/vue/al-groups-view-full.vue'
 import AlGroupsViewShort from '@/_output/vue/al-groups-view-short.vue'
+import AlGroupsViewSentence from '@/_output/vue/al-groups-view-sentence.vue'
+
 export default {
   name: 'App',
   components: {
     alGroupsViewFull: AlGroupsViewFull,
-    alGroupsViewShort: AlGroupsViewShort
+    alGroupsViewShort: AlGroupsViewShort,
+    alGroupsViewSentence: AlGroupsViewSentence
   },
   data () {
     return {
       allViewTypes: [
         { value: 'viewFull', label: 'Full view'},
-        { value: 'viewShort', label: 'Short view'}
+        { value: 'viewShort', label: 'Short view'},
+        { value: 'viewSentence', label: 'Sentence view'}
       ],
-      viewType: 'viewShort'
+      viewType: 'viewSentence',
+      sentenceCount: 0
     }
   },
   methods: {
@@ -62,6 +77,10 @@ export default {
         span {
             display: inline-block;
             margin-right: 20px;
+        }
+
+        input.alpheios-alignment-input__sentence-count {
+          width: 100px;
         }
     }
 </style>
