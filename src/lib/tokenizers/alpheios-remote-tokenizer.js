@@ -53,13 +53,22 @@ export default class AlpheiosRemoteTokenizer {
     for (let iSeg = 0; iSeg < segments.length; iSeg++) {
       let tokens = segments[iSeg].tokens // eslint-disable-line prefer-const
 
+      let sentenceIndex = 1
+
       for (let iTok = 0; iTok < tokens.length; iTok++) {
         let token = tokens[iTok] // eslint-disable-line prefer-const
         token.textType = textType
         token.word = token.text
         token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+
         if (token.line_break_before === true && iTok > 0) {
           tokens[iTok - 1].hasLineBreak = true
+        }
+
+        token.sentenceIndex = sentenceIndex
+
+        if (token.punct && token.word === '.') {
+          sentenceIndex++
         }
       }
     }

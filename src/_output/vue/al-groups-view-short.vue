@@ -171,6 +171,7 @@ export default {
 
   .alpheios-alignment-editor-align-table-data {
     display: table;
+    width: 100%;
 
     .alpheios-alignment-editor-align-segment-data-origin {
       width: 70%;

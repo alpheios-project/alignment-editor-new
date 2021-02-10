@@ -45257,13 +45257,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
     this.beforeWord = beforeWord
     this.afterWord = afterWord
     this.hasLineBreak = hasLineBreak
+    this.sentenceIndex = sentenceIndex
+
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
   }
@@ -45348,7 +45350,8 @@ class Token {
       afterWord: this.afterWord,
       hasLineBreak: this.hasLineBreak,
       segmentIndex: this.segmentIndex,
-      docSourceId: this.docSourceId
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex
     }
   }
 
@@ -45372,7 +45375,8 @@ class Token {
       word: data.word,
       beforeWord: data.beforeWord,
       afterWord: data.afterWord,
-      hasLineBreak: data.hasLineBreak
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex
     }, data.segmentIndex, data.docSourceId)
   }
 
@@ -45383,7 +45387,8 @@ class Token {
       word: this.word,
       beforeWord: this.beforeWord,
       afterWord: this.afterWord,
-      hasLineBreak: this.hasLineBreak
+      hasLineBreak: this.hasLineBreak,
+      sentenceIndex: this.sentenceIndex
     }
   }
 }
@@ -46031,7 +46036,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-step2.20210209647" : 0
+    return  true ? "i70-html-output-step2-fix.20210210614" : 0
   }
 
   static get libName () {
@@ -46195,13 +46200,22 @@ class AlpheiosRemoteTokenizer {
     for (let iSeg = 0; iSeg < segments.length; iSeg++) {
       let tokens = segments[iSeg].tokens // eslint-disable-line prefer-const
 
+      let sentenceIndex = 1
+
       for (let iTok = 0; iTok < tokens.length; iTok++) {
         let token = tokens[iTok] // eslint-disable-line prefer-const
         token.textType = textType
         token.word = token.text
         token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+
         if (token.line_break_before === true && iTok > 0) {
           tokens[iTok - 1].hasLineBreak = true
+        }
+
+        token.sentenceIndex = sentenceIndex
+
+        if (token.punct && token.word === '.') {
+          sentenceIndex++
         }
       }
     }
