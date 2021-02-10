@@ -22,6 +22,7 @@
 
             <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
             <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
+            <al-groups-view-sentence :full-data="$parent.fullData" v-if="viewType === 'viewSentence'" />
         </div>
             
     </div>
@@ -29,19 +30,23 @@
 <script>
 import AlGroupsViewFull from '@/_output/vue/al-groups-view-full.vue'
 import AlGroupsViewShort from '@/_output/vue/al-groups-view-short.vue'
+import AlGroupsViewSentence from '@/_output/vue/al-groups-view-sentence.vue'
+
 export default {
   name: 'App',
   components: {
     alGroupsViewFull: AlGroupsViewFull,
-    alGroupsViewShort: AlGroupsViewShort
+    alGroupsViewShort: AlGroupsViewShort,
+    alGroupsViewSentence: AlGroupsViewSentence
   },
   data () {
     return {
       allViewTypes: [
         { value: 'viewFull', label: 'Full view'},
-        { value: 'viewShort', label: 'Short view'}
+        { value: 'viewShort', label: 'Short view'},
+        { value: 'viewSentence', label: 'Sentence view'}
       ],
-      viewType: 'viewShort'
+      viewType: 'viewSentence'
     }
   },
   methods: {
