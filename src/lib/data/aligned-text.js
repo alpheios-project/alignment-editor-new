@@ -49,8 +49,6 @@ export default class AlignedText {
         direction: docSource.direction,
         docSourceId: docSource.id
       }))
-
-      console.info('tokenize this.segments - ', this.segments)
       return true
     }
     return false
