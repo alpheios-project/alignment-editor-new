@@ -9034,6 +9034,11 @@ __webpack_require__.r(__webpack_exports__);
     fullData: {
       type: Object,
       required: true
+    },
+    sentenceCount: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data () {
@@ -9126,13 +9131,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
       let prevToken = tokenIndex > 0 ? segment.tokens[tokenIndex - 1] : null
-      if (prevToken && !prevToken.grouped && (prevToken.sentenceIndex === currentSentenceIndex)) {
+      if (prevToken && !prevToken.grouped && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
         let shouldCheckBack = true
         let shouldCheckTokenIndex = tokenIndex - 1
 
         while (shouldCheckBack && (shouldCheckTokenIndex >= 0)) {
           prevToken = segment.tokens[shouldCheckTokenIndex]
-          if (prevToken.sentenceIndex === currentSentenceIndex) {
+          if (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
             tokensTarget.unshift(prevToken)
             shouldCheckTokenIndex--
           } else {
@@ -9145,13 +9150,13 @@ __webpack_require__.r(__webpack_exports__);
 
     collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
       let nextToken = tokenIndex < segment.tokens.length ? segment.tokens[tokenIndex + 1] : null
-      if (nextToken && !nextToken.grouped && (nextToken.sentenceIndex === currentSentenceIndex)) {
+      if (nextToken && !nextToken.grouped && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
         let shouldCheckNext = true
         let shouldCheckTokenIndex = tokenIndex + 1
 
         while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
           const nextToken = segment.tokens[shouldCheckTokenIndex]
-          if (nextToken.sentenceIndex === currentSentenceIndex) {
+          if (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
             tokensTarget.push(nextToken)
             shouldCheckTokenIndex++
           } else {
@@ -9425,6 +9430,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9444,7 +9458,8 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'viewShort', label: 'Short view'},
         { value: 'viewSentence', label: 'Sentence view'}
       ],
-      viewType: 'viewSentence'
+      viewType: 'viewSentence',
+      sentenceCount: 0
     }
   },
   methods: {
@@ -10397,7 +10412,8 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "alpheios-alignment-editor-align-text-segment"
+                            "alpheios-alignment-editor-align-text-segment",
+                          style: _vm.cssStyle
                         },
                         _vm._l(_vm.hoveredTargetTokens, function(
                           hoveredGroupData,
@@ -10675,35 +10691,77 @@ var render = function() {
             staticClass:
               "alpheios-alignment-radio-block alpheios-alignment-option-item__control"
           },
-          _vm._l(_vm.allViewTypes, function(item) {
-            return _c("span", { key: item.value }, [
+          [
+            _vm._l(_vm.allViewTypes, function(item) {
+              return _c("span", { key: item.value }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.viewType,
+                      expression: "viewType"
+                    }
+                  ],
+                  attrs: { type: "radio", id: _vm.itemIdWithValue(item.value) },
+                  domProps: {
+                    value: item.value,
+                    checked: _vm._q(_vm.viewType, item.value)
+                  },
+                  on: {
+                    change: function($event) {
+                      _vm.viewType = item.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { attrs: { for: _vm.itemIdWithValue(item.value) } },
+                  [_vm._v(_vm._s(item.label))]
+                )
+              ])
+            }),
+            _vm._v(" "),
+            _c("span", [
               _c("input", {
                 directives: [
                   {
                     name: "model",
-                    rawName: "v-model",
-                    value: _vm.viewType,
-                    expression: "viewType"
+                    rawName: "v-model.number",
+                    value: _vm.sentenceCount,
+                    expression: "sentenceCount",
+                    modifiers: { number: true }
                   }
                 ],
-                attrs: { type: "radio", id: _vm.itemIdWithValue(item.value) },
-                domProps: {
-                  value: item.value,
-                  checked: _vm._q(_vm.viewType, item.value)
+                staticClass:
+                  "alpheios-alignment-input alpheios-alignment-input__sentence-count",
+                attrs: {
+                  type: "number",
+                  id: _vm.itemIdWithValue("sentenceCount")
                 },
+                domProps: { value: _vm.sentenceCount },
                 on: {
-                  change: function($event) {
-                    _vm.viewType = item.value
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.sentenceCount = _vm._n($event.target.value)
+                  },
+                  blur: function($event) {
+                    return _vm.$forceUpdate()
                   }
                 }
               }),
               _vm._v(" "),
-              _c("label", { attrs: { for: _vm.itemIdWithValue(item.value) } }, [
-                _vm._v(_vm._s(item.label))
-              ])
+              _c(
+                "label",
+                { attrs: { for: _vm.itemIdWithValue("sentenceCount") } },
+                [_vm._v("sentences around")]
+              )
             ])
-          }),
-          0
+          ],
+          2
         ),
         _vm._v(" "),
         _vm.viewType === "viewFull"
@@ -10720,7 +10778,10 @@ var render = function() {
         _vm._v(" "),
         _vm.viewType === "viewSentence"
           ? _c("al-groups-view-sentence", {
-              attrs: { "full-data": _vm.$parent.fullData }
+              attrs: {
+                "full-data": _vm.$parent.fullData,
+                "sentence-count": _vm.sentenceCount
+              }
             })
           : _vm._e()
       ],

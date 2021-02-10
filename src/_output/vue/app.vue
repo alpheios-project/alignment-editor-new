@@ -18,11 +18,20 @@
                     >
                     <label :for="itemIdWithValue(item.value)">{{ item.label }}</label>
                 </span>
+                <span>
+                  <input
+                      class="alpheios-alignment-input alpheios-alignment-input__sentence-count"
+                      type="number"
+                      v-model.number="sentenceCount"
+                      :id="itemIdWithValue('sentenceCount')"
+                  >
+                  <label :for="itemIdWithValue('sentenceCount')">sentences around</label>
+                </span>
             </p>
 
             <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
             <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
-            <al-groups-view-sentence :full-data="$parent.fullData" v-if="viewType === 'viewSentence'" />
+            <al-groups-view-sentence :full-data="$parent.fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
         </div>
             
     </div>
@@ -46,7 +55,8 @@ export default {
         { value: 'viewShort', label: 'Short view'},
         { value: 'viewSentence', label: 'Sentence view'}
       ],
-      viewType: 'viewSentence'
+      viewType: 'viewSentence',
+      sentenceCount: 0
     }
   },
   methods: {
@@ -67,6 +77,10 @@ export default {
         span {
             display: inline-block;
             margin-right: 20px;
+        }
+
+        input.alpheios-alignment-input__sentence-count {
+          width: 100px;
         }
     }
 </style>

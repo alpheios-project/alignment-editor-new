@@ -20,7 +20,7 @@
             </div>
             
             <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target" >
-                <div class="alpheios-alignment-editor-align-text-segment" v-if="hoveredTargetTokens" >
+                <div class="alpheios-alignment-editor-align-text-segment" v-if="hoveredTargetTokens" :style="cssStyle">
 
                   <div class="alpheios-alignment-editor-align-text-target-hovered-block"
                     v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex">
@@ -55,6 +55,11 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    sentenceCount: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data () {
@@ -147,13 +152,13 @@ export default {
   methods: {
     collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
       let prevToken = tokenIndex > 0 ? segment.tokens[tokenIndex - 1] : null
-      if (prevToken && !prevToken.grouped && (prevToken.sentenceIndex === currentSentenceIndex)) {
+      if (prevToken && !prevToken.grouped && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
         let shouldCheckBack = true
         let shouldCheckTokenIndex = tokenIndex - 1
 
         while (shouldCheckBack && (shouldCheckTokenIndex >= 0)) {
           prevToken = segment.tokens[shouldCheckTokenIndex]
-          if (prevToken.sentenceIndex === currentSentenceIndex) {
+          if (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
             tokensTarget.unshift(prevToken)
             shouldCheckTokenIndex--
           } else {
@@ -166,13 +171,13 @@ export default {
 
     collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
       let nextToken = tokenIndex < segment.tokens.length ? segment.tokens[tokenIndex + 1] : null
-      if (nextToken && !nextToken.grouped && (nextToken.sentenceIndex === currentSentenceIndex)) {
+      if (nextToken && !nextToken.grouped && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
         let shouldCheckNext = true
         let shouldCheckTokenIndex = tokenIndex + 1
 
         while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
           const nextToken = segment.tokens[shouldCheckTokenIndex]
-          if (nextToken.sentenceIndex === currentSentenceIndex) {
+          if (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
             tokensTarget.push(nextToken)
             shouldCheckTokenIndex++
           } else {
