@@ -40589,14 +40589,16 @@ class DownloadController {
         allTexts: true,
         name: 'jsonSimpleDownloadAll',
         label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP')
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
+        alignmentStarted: false
       },
       plainSourceDownloadAll: {
         method: this.plainSourceDownloadAll,
         allTexts: true,
         name: 'plainSourceDownloadAll',
         label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
+        alignmentStarted: false
       },
       plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
       htmlDownloadAll: {
@@ -40604,7 +40606,8 @@ class DownloadController {
         allTexts: true,
         name: 'htmlDownloadAll',
         label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
-        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP')
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
+        alignmentStarted: true
       }
     }
   }
@@ -46045,7 +46048,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-fixes1.20210211653" : 0
+    return  true ? "i70-html-output-fixes1.20210211658" : 0
   }
 
   static get libName () {
@@ -47515,7 +47518,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted () {  
-    this.currentDownloadType = this.downloadTypes[0].name
+    this.currentDownloadType = this.downloadTypes.length > 0 ? this.downloadTypes[0].name : null
   },
   computed: {
     l10n () {
@@ -47543,7 +47546,8 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     },
     downloadTypes () {
-      return Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
     }
   },
   methods: {

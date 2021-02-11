@@ -92,7 +92,7 @@ export default {
     }
   },
   mounted () {  
-    this.currentDownloadType = this.downloadTypes[0].name
+    this.currentDownloadType = this.downloadTypes.length > 0 ? this.downloadTypes[0].name : null
   },
   computed: {
     l10n () {
@@ -120,7 +120,8 @@ export default {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     },
     downloadTypes () {
-      return Object.values(DownloadController.downloadMethods).filter(method => method.allTexts)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             Object.values(DownloadController.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
     }
   },
   methods: {

@@ -19,14 +19,16 @@ export default class DownloadController {
         allTexts: true,
         name: 'jsonSimpleDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
-        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP')
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
+        alignmentStarted: false
       },
       plainSourceDownloadAll: {
         method: this.plainSourceDownloadAll,
         allTexts: true,
         name: 'plainSourceDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
-        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP')
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
+        alignmentStarted: false
       },
       plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
       htmlDownloadAll: {
@@ -34,7 +36,8 @@ export default class DownloadController {
         allTexts: true,
         name: 'htmlDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
-        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP')
+        tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
+        alignmentStarted: true
       }
     }
   }
