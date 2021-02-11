@@ -40712,7 +40712,7 @@ class DownloadController {
       }
     })
 
-    const fileName = 'alignment-html-output'
+    const fileName = `alignment-html-output-${data.langs.join('-')}`
     return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__.default.download(layout, fileName)
   }
 }
@@ -41364,9 +41364,18 @@ class TextsController {
       downloadType,
       data: {
         theme: `alpheios-${additional.theme}`,
+        langs: this.collectLangsForFileName(),
         fullData: this.prepareFullDataForHTMLOutput()
       }
     }
+  }
+
+  collectLangsForFileName () {
+    const langs = [this.alignment.origin.docSource.lang]
+    Object.values(this.alignment.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    return langs
   }
 
   prepareFullDataForHTMLOutput () {
@@ -46036,7 +46045,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-fixes1.20210211647" : 0
+    return  true ? "i70-html-output-fixes1.20210211653" : 0
   }
 
   static get libName () {

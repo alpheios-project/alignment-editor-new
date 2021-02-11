@@ -142,7 +142,7 @@ export default class DownloadController {
       }
     })
 
-    const fileName = 'alignment-html-output'
+    const fileName = `alignment-html-output-${data.langs.join('-')}`
     return DownloadFileHTML.download(layout, fileName)
   }
 }

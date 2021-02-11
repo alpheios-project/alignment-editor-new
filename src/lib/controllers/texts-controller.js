@@ -263,9 +263,18 @@ export default class TextsController {
       downloadType,
       data: {
         theme: `alpheios-${additional.theme}`,
+        langs: this.collectLangsForFileName(),
         fullData: this.prepareFullDataForHTMLOutput()
       }
     }
+  }
+
+  collectLangsForFileName () {
+    const langs = [this.alignment.origin.docSource.lang]
+    Object.values(this.alignment.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    return langs
   }
 
   prepareFullDataForHTMLOutput () {
