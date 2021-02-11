@@ -55,7 +55,7 @@ export default {
         { value: 'viewShort', label: 'Short view'},
         { value: 'viewSentence', label: 'Sentence view'}
       ],
-      viewType: 'viewSentence',
+      viewType: 'viewFull',
       sentenceCount: 0
     }
   },

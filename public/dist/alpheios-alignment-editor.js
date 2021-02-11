@@ -46036,7 +46036,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-fixes1.20210211314" : 0
+    return  true ? "i70-html-output-fixes1.20210211647" : 0
   }
 
   static get libName () {
@@ -46213,9 +46213,9 @@ class AlpheiosRemoteTokenizer {
         }
 
         token.sentenceIndex = sentenceIndex
-        const sentenceEnds = ['.', ';', '!', '?', ':']
+        const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
 
-        if (token.punct && sentenceEnds.includes(token.word)) {
+        if (token.punct && sentenceEnds.test(token.word)) {
           sentenceIndex++
         }
       }

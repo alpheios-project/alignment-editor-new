@@ -66,9 +66,9 @@ export default class AlpheiosRemoteTokenizer {
         }
 
         token.sentenceIndex = sentenceIndex
-        const sentenceEnds = ['.', ';', '!', '?', ':']
+        const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
 
-        if (token.punct && sentenceEnds.includes(token.word)) {
+        if (token.punct && sentenceEnds.test(token.word)) {
           sentenceIndex++
         }
       }
