@@ -26,7 +26,7 @@
                     v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex">
 
                       <div class="alpheios-alignment-editor-align-text-target-hovered-block__tokens">
-                        <template v-for = "(token, tokenIndex) in hoveredGroupData.tokensTarget">
+                        <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" 
                                 :selected = "selectedToken(token)"
                                 :grouped = "groupedToken(token)"
@@ -45,6 +45,8 @@
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
+
+import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
   name: 'AlGroupsViewSentence',
@@ -70,16 +72,7 @@ export default {
   },
   computed: {
     allOriginSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-      return allS
+      return GroupUtility.allOriginSegments(this.fullData)
     },
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 200
@@ -94,100 +87,20 @@ export default {
       }
       return `max-height: ${maxHeight}px`
     },
-    allTargetTextsIds () {
-      return Object.keys(this.fullData.targets)
-    },
     allAlGroups () {
-      let allGroups = {}
-
-      this.fullData.origin.segments.forEach((segment, segIndex) => {
-        segment.tokens.forEach(token => {
-          if (token.grouped) {
-            token.groupData.forEach(groupDataItem => {
-              if (!allGroups[groupDataItem.groupId]) { 
-                allGroups[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokensTarget: [] } 
-              }
-            })
-          }
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        
-        const metadata = this.fullData.targets[targetId].metadata
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach(segment => {
-            segment.tokens.forEach((token, tokenIndex) => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {                 
-                  if (!allGroups[groupDataItem.groupId].metadata) { 
-                      allGroups[groupDataItem.groupId].metadata = metadata 
-                  }
-                  const currentSentenceIndex = token.sentenceIndex
-                  
-                  allGroups[groupDataItem.groupId].tokensTarget = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, allGroups[groupDataItem.groupId].tokensTarget)
-
-                  allGroups[groupDataItem.groupId].tokensTarget.push(token)
-                  
-                  allGroups[groupDataItem.groupId].tokensTarget = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, allGroups[groupDataItem.groupId].tokensTarget)
-                })
-              }
-            })
-          })
-        }
-      })
-
-      return allGroups
+      return GroupUtility.alignmentGroups(this.fullData, 'sentence', this.sentenceCount)
     },
     hoveredTargetTokens () {
       return this.updateHovered && this.hoveredGroupsId && 
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                tokensTarget: this.allAlGroups[groupId].tokensTarget
+                target: this.allAlGroups[groupId].target
               }
             })
     }
   },
   methods: {
-    collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
-      let prevToken = tokenIndex > 0 ? segment.tokens[tokenIndex - 1] : null
-      if (prevToken && !prevToken.grouped && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
-        let shouldCheckBack = true
-        let shouldCheckTokenIndex = tokenIndex - 1
-
-        while (shouldCheckBack && (shouldCheckTokenIndex >= 0)) {
-          prevToken = segment.tokens[shouldCheckTokenIndex]
-          if (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
-            tokensTarget.unshift(prevToken)
-            shouldCheckTokenIndex--
-          } else {
-            shouldCheckBack = false
-          }
-        }
-      }
-      return tokensTarget
-    },
-
-    collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
-      let nextToken = tokenIndex < segment.tokens.length ? segment.tokens[tokenIndex + 1] : null
-      if (nextToken && !nextToken.grouped && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
-        let shouldCheckNext = true
-        let shouldCheckTokenIndex = tokenIndex + 1
-
-        while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
-          const nextToken = segment.tokens[shouldCheckTokenIndex]
-          if (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
-            tokensTarget.push(nextToken)
-            shouldCheckTokenIndex++
-          } else {
-            shouldCheckNext = false
-          }
-        }
-      }
-      return tokensTarget
-    },
-
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },

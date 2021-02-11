@@ -8665,6 +8665,191 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./_output/utility/group-utility.js":
+/*!******************************************!*\
+  !*** ./_output/utility/group-utility.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GroupUtility)
+/* harmony export */ });
+class GroupUtility {
+  static allTargetTextsIds (fullData) {
+    return Object.keys(fullData.targets)
+  }
+
+  static isShownTab (shownTabs, targetId) {
+    return shownTabs.includes(targetId)
+  }
+
+  static allOriginSegments (fullData) {
+    let allS = [] // eslint-disable-line prefer-const
+
+    fullData.origin.segments.forEach((segment, indexS) => {
+      allS.push({
+        index: indexS,
+        origin: segment,
+        targets: {}
+      })
+    })
+    return allS
+  }
+
+  static allShownSegments (fullData, shownTabs) {
+    const allS = this.allOriginSegments(fullData)
+
+    this.allTargetTextsIds(fullData).forEach(targetId => {
+      if (fullData.targets[targetId].segments && this.isShownTab(shownTabs, targetId)) {
+        fullData.targets[targetId].segments.forEach((segment, indexS) => {
+          allS[indexS].targets[targetId] = segment
+        })
+      }
+    })
+    return allS
+  }
+
+  static alignmentGroups (fullData, view = 'full', sentenceCount = 0) {
+    let allG = {} // eslint-disable-line prefer-const
+
+    fullData.origin.segments.forEach((segment, segIndex) => {
+      segment.tokens.forEach(token => {
+        if (token.grouped) {
+          token.groupData.forEach(groupDataItem => {
+            if (!allG[groupDataItem.groupId]) {
+              allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, origin: [], target: [] }
+            }
+            allG[groupDataItem.groupId].origin.push(token.idWord)
+          })
+        }
+      })
+    })
+
+    this.allTargetTextsIds(fullData).forEach(targetId => {
+      const metadata = fullData.targets[targetId].metadata
+      if (fullData.targets[targetId].segments) {
+        fullData.targets[targetId].segments.forEach(segment => {
+          segment.tokens.forEach((token, tokenIndex) => {
+            if (token.grouped) {
+              token.groupData.forEach(groupDataItem => {
+                if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
+
+                const currentSentenceIndex = token.sentenceIndex
+                if (view === 'sentence') {
+                  allG[groupDataItem.groupId].target = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
+                }
+
+                const tokenData = view === 'full' ? token.idWord : token
+                allG[groupDataItem.groupId].target.push(tokenData)
+
+                if (view === 'sentence') {
+                  allG[groupDataItem.groupId].target = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
+                }
+              })
+            }
+          })
+        })
+      }
+    })
+
+    return allG
+  }
+
+  static collectPrevTokensInSentence (segment, tokenIndex, currentSentenceIndex, sentenceCount, target) {
+    let prevToken = tokenIndex > 0 ? segment.tokens[tokenIndex - 1] : null
+    if (prevToken && !prevToken.grouped && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= sentenceCount)) {
+      let shouldCheckBack = true
+      let shouldCheckTokenIndex = tokenIndex - 1
+
+      while (shouldCheckBack && (shouldCheckTokenIndex >= 0)) {
+        prevToken = segment.tokens[shouldCheckTokenIndex]
+        if (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= sentenceCount) {
+          target.unshift(prevToken)
+          shouldCheckTokenIndex--
+        } else {
+          shouldCheckBack = false
+        }
+      }
+    }
+    return target
+  }
+
+  static collectNextTokensInSentence (segment, tokenIndex, currentSentenceIndex, sentenceCount, target) {
+    const nextToken = tokenIndex < segment.tokens.length ? segment.tokens[tokenIndex + 1] : null
+    if (nextToken && !nextToken.grouped && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount)) {
+      let shouldCheckNext = true
+      let shouldCheckTokenIndex = tokenIndex + 1
+
+      while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
+        const nextToken = segment.tokens[shouldCheckTokenIndex]
+        if (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount) {
+          target.push(nextToken)
+          shouldCheckTokenIndex++
+        } else {
+          shouldCheckNext = false
+        }
+      }
+    }
+    return target
+  }
+}
+
+
+/***/ }),
+
+/***/ "./_output/utility/scroll-utility.js":
+/*!*******************************************!*\
+  !*** ./_output/utility/scroll-utility.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ScrollUtility)
+/* harmony export */ });
+class ScrollUtility {
+  static makeScrollTo (idElementBlock, idContainerBlock) {
+    // const tokenEl = document.getElementById(`token-${idWord}`)
+    const itemEl = document.getElementById(idElementBlock)
+    // const segId = this.cssId(textType, hoveredGroup.targetId, hoveredGroup.segIndex)
+    const containerEl = document.getElementById(idContainerBlock)
+
+    const pPos = containerEl.getBoundingClientRect()
+    const cPos = itemEl.getBoundingClientRect()
+
+    const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
+    this.scrollTo(containerEl, toTop, 1)
+  }
+
+  static easeInOutQuad (t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+  }
+
+  static scrollTo (element, to, duration) {
+    const start = element.scrollTop
+    const change = to - start
+    const startTime = performance.now()
+    let now, elapsed, t
+
+    const animateScroll = () => {
+      now = performance.now()
+      elapsed = (now - startTime) / 1000
+      t = (elapsed / duration)
+
+      element.scrollTop = start + change * this.easeInOutQuad(t)
+
+      if (t < 1) window.requestAnimationFrame(animateScroll)
+    }
+    animateScroll()
+  }
+}
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./_output/vue/al-groups-view-full.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./_output/vue/al-groups-view-full.vue?vue&type=script&lang=js& ***!
@@ -8678,6 +8863,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/editor-tabs.vue */ "./_output/vue/editor-tabs.vue");
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
+/* harmony import */ var _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/origin-segment-block.vue */ "./_output/vue/origin-segment-block.vue");
+/* harmony import */ var _output_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/utility/scroll-utility.js */ "./_output/utility/scroll-utility.js");
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
 //
@@ -8722,15 +8910,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
 
 
 
@@ -8739,7 +8923,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'AlGroupsViewFull',
   components: {
     editorTabs: _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    originSegmentBlock: _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
     fullData: {
@@ -8751,7 +8936,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
-      hoveredGroupId: null,
+      hoveredGroupsId: null,
       shownTabs: []
     }
   },
@@ -8759,79 +8944,14 @@ __webpack_require__.r(__webpack_exports__);
     this.shownTabs = this.allTargetTextsIds.slice(0, 1)
   },
   computed: {
-    allSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach((segment, indexS) => {
-            allS[indexS].targets[targetId] = segment
-          })
-        }
-      })
-      return allS
-    },
     allShownSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        if (this.fullData.targets[targetId].segments && this.isShownTab(targetId)) {
-          this.fullData.targets[targetId].segments.forEach((segment, indexS) => {
-            allS[indexS].targets[targetId] = segment
-          })
-        }
-      })
-      return allS
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__.default.allShownSegments(this.fullData, this.shownTabs)
     },
     allTargetTextsIds () {
-      return Object.keys(this.fullData.targets)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__.default.allTargetTextsIds(this.fullData)
     },
     alGroups () {
-      let allG = {} // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, segIndex) => {
-        segment.tokens.forEach(token => {
-          if (token.grouped) {
-            token.groupData.forEach(groupDataItem => {
-              if (!allG[groupDataItem.groupId]) { allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokens: [] } }
-              allG[groupDataItem.groupId].tokens.push(token.idWord)
-            })
-
-          }
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach(segment => {
-            segment.tokens.forEach(token => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {
-                  allG[groupDataItem.groupId].tokens.push(token.idWord)
-                })
-              }
-            })
-          })
-        }
-      })
-
-      return allG
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__.default.alignmentGroups(this.fullData, 'full')
     },
     orderedTargetsId () {
       return this.allTargetTextsIds.filter(targetId => this.shownTabs.includes(targetId))
@@ -8841,6 +8961,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
+    },
+    maxHeight () {
+      const minHeight = 400
+      
+      if (this.allShownSegments.length === 1) {
+        return this.containerHeight
+      } 
+      return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
     }
   },
   methods: {
@@ -8855,18 +8983,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cssStyle (textType, targetId, segmentIndex) {
-      const minHeight = 400
-      let maxHeight
-
-      if (this.allShownSegments.length === 1) {
-        maxHeight = this.containerHeight
-      } else {
-        maxHeight = Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
-      }
       if (textType === 'target') {
-        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]}; max-height: ${maxHeight}px`
+        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]}; max-height: ${this.maxHeight}px`
       } else {
-        return `order: ${segmentIndex}; background: ${this.originColor}; max-height: ${maxHeight}px`
+        return `order: ${segmentIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px`
       }
     },
     targetIdIndex (targetId) {
@@ -8879,23 +8999,23 @@ __webpack_require__.r(__webpack_exports__);
       return classes
     },
     addHoverToken (token) {
-      this.hoveredGroupId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
 
-      if (this.hoveredGroupId && (token.textType === 'target')) {
-        const hoveredGroup = this.alGroups[this.hoveredGroupId[0]]
-        const minOpositeTokenId = hoveredGroup.tokens[0] // the first is always min origin token
-        this.makeScrollTo(minOpositeTokenId, 'origin', hoveredGroup)
-      }
+      this.makeScroll(token)
+    },
 
-      if (this.hoveredGroupId && (token.textType === 'origin')) {
-        const hoveredGroup = this.alGroups[this.hoveredGroupId[0]]
-        const minOpositeTokenId = hoveredGroup.tokens.find(tokenGr => token.idWord.split('-')[0] !== tokenGr.split('-')[0])
+    makeScroll (token) {
+      if (this.hoveredGroupsId) {
+        const hoveredGroup = this.alGroups[this.hoveredGroupsId[0]]
+        const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+        const minOpositeTokenId = hoveredGroup[textTypeSeg][0]
 
-        this.makeScrollTo(minOpositeTokenId, 'target', hoveredGroup)
+        const segId = this.cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
+        _output_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
       }
     },
     removeHoverToken() {
-      this.hoveredGroupId = null
+      this.hoveredGroupsId = null
     },
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
@@ -8911,53 +9031,14 @@ __webpack_require__.r(__webpack_exports__);
       return targetId === this.lastTargetId
     },
     groupedToken (token) {
-      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(this.alGroups[groupdataItem.groupId].targetId))
+      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
     },
     isTokenInHovered (token) {
-      return token.groupData.some(groupDataItem => this.hoveredGroupId.includes(groupDataItem.groupId) ) 
+      return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
     },
 
     selectedToken (token) {
-      return this.hoveredGroupId && (this.hoveredGroupId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
-    },
-
-    // scroll behaviour
-    makeScrollTo (idWord, textType, hoveredGroup) {
-
-      const tokenEl = document.getElementById(`token-${idWord}`)
-      const segId = this.cssId(textType, hoveredGroup.targetId, hoveredGroup.segIndex)
-      const segBlockEl = document.getElementById(segId)
-
-      let pPos = segBlockEl.getBoundingClientRect()
-      let cPos = tokenEl.getBoundingClientRect()
-      
-      const toTop = cPos.top - pPos.top + segBlockEl.scrollTop - 10
-      // segBlockEl.scrollTop = toTop
-      this.scrollTo(segBlockEl, toTop, 1)
-    },
-
-    easeInOutQuad (t) { 
-      return t<.5 ? 2*t*t : -1+(4-2*t)*t 
-    },
-
-    scrollTo (element, to, duration) {
-      let start = element.scrollTop
-      let change = to - start
-      let startTime = performance.now()
-      let now, elapsed, t
-
-      const animateScroll = () => {
-        now = performance.now()
-        elapsed = (now - startTime)/1000
-        t = (elapsed/duration)
-
-        element.scrollTop = start + change * this.easeInOutQuad(t)
-
-        if( t < 1 )
-            window.requestAnimationFrame(animateScroll)
-
-      }
-      animateScroll()
+      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     }
   }
 });
@@ -8977,6 +9058,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
 //
@@ -9022,6 +9104,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -9049,16 +9133,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     allOriginSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-      return allS
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.allOriginSegments(this.fullData)
     },
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 200
@@ -9073,100 +9148,20 @@ __webpack_require__.r(__webpack_exports__);
       }
       return `max-height: ${maxHeight}px`
     },
-    allTargetTextsIds () {
-      return Object.keys(this.fullData.targets)
-    },
     allAlGroups () {
-      let allGroups = {}
-
-      this.fullData.origin.segments.forEach((segment, segIndex) => {
-        segment.tokens.forEach(token => {
-          if (token.grouped) {
-            token.groupData.forEach(groupDataItem => {
-              if (!allGroups[groupDataItem.groupId]) { 
-                allGroups[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokensTarget: [] } 
-              }
-            })
-          }
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        
-        const metadata = this.fullData.targets[targetId].metadata
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach(segment => {
-            segment.tokens.forEach((token, tokenIndex) => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {                 
-                  if (!allGroups[groupDataItem.groupId].metadata) { 
-                      allGroups[groupDataItem.groupId].metadata = metadata 
-                  }
-                  const currentSentenceIndex = token.sentenceIndex
-                  
-                  allGroups[groupDataItem.groupId].tokensTarget = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, allGroups[groupDataItem.groupId].tokensTarget)
-
-                  allGroups[groupDataItem.groupId].tokensTarget.push(token)
-                  
-                  allGroups[groupDataItem.groupId].tokensTarget = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, allGroups[groupDataItem.groupId].tokensTarget)
-                })
-              }
-            })
-          })
-        }
-      })
-
-      return allGroups
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.alignmentGroups(this.fullData, 'sentence', this.sentenceCount)
     },
     hoveredTargetTokens () {
       return this.updateHovered && this.hoveredGroupsId && 
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                tokensTarget: this.allAlGroups[groupId].tokensTarget
+                target: this.allAlGroups[groupId].target
               }
             })
     }
   },
   methods: {
-    collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
-      let prevToken = tokenIndex > 0 ? segment.tokens[tokenIndex - 1] : null
-      if (prevToken && !prevToken.grouped && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
-        let shouldCheckBack = true
-        let shouldCheckTokenIndex = tokenIndex - 1
-
-        while (shouldCheckBack && (shouldCheckTokenIndex >= 0)) {
-          prevToken = segment.tokens[shouldCheckTokenIndex]
-          if (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
-            tokensTarget.unshift(prevToken)
-            shouldCheckTokenIndex--
-          } else {
-            shouldCheckBack = false
-          }
-        }
-      }
-      return tokensTarget
-    },
-
-    collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, tokensTarget) {
-      let nextToken = tokenIndex < segment.tokens.length ? segment.tokens[tokenIndex + 1] : null
-      if (nextToken && !nextToken.grouped && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount)) {
-        let shouldCheckNext = true
-        let shouldCheckTokenIndex = tokenIndex + 1
-
-        while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
-          const nextToken = segment.tokens[shouldCheckTokenIndex]
-          if (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= this.sentenceCount) {
-            tokensTarget.push(nextToken)
-            shouldCheckTokenIndex++
-          } else {
-            shouldCheckNext = false
-          }
-        }
-      }
-      return tokensTarget
-    },
-
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
@@ -9215,6 +9210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
 //
@@ -9256,6 +9252,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
+
 
 
 
@@ -9278,60 +9277,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     allOriginSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-      return allS
-    },
-    allTargetTextsIds () {
-      return Object.keys(this.fullData.targets)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.allOriginSegments(this.fullData)
     },
     allAlGroups () {
-      let allGroups = {}
-
-      this.fullData.origin.segments.forEach((segment, segIndex) => {
-        segment.tokens.forEach(token => {
-          if (token.grouped) {
-            token.groupData.forEach(groupDataItem => {
-              if (!allGroups[groupDataItem.groupId]) { 
-                allGroups[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokensTarget: [] } 
-              }
-            })
-          }
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        
-        const metadata = this.fullData.targets[targetId].metadata
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach(segment => {
-            segment.tokens.forEach(token => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {                 
-                  if (!allGroups[groupDataItem.groupId].metadata) { allGroups[groupDataItem.groupId].metadata = metadata }
-                  allGroups[groupDataItem.groupId].tokensTarget.push(token)
-                })
-              }
-            })
-          })
-        }
-      })
-
-      return allGroups
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.alignmentGroups(this.fullData, 'short')
     },
     hoveredTargetTokens () {
       return this.updateHovered && this.hoveredGroupsId && 
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                tokensTarget: this.allAlGroups[groupId].tokensTarget
+                target: this.allAlGroups[groupId].target
               }
             })
     },
@@ -9458,7 +9414,7 @@ __webpack_require__.r(__webpack_exports__);
         { value: 'viewShort', label: 'Short view'},
         { value: 'viewSentence', label: 'Sentence view'}
       ],
-      viewType: 'viewSentence',
+      viewType: 'viewFull',
       sentenceCount: 0
     }
   },
@@ -9538,6 +9494,108 @@ __webpack_require__.r(__webpack_exports__);
       
       this.tabsStates[index].active = !this.tabsStates[index].active
       this.$emit('selectTab', tabData)
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./_output/vue/origin-segment-block.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./_output/vue/origin-segment-block.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'OriginSegmentBlock',
+  components: {
+    tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  props: {
+    segmentData: {
+      type: Object,
+      required: true
+    },
+    segIndex: {
+      type: Number,
+      required: true
+    },
+    maxHeight: {
+      type: Number,
+      required: true
+    },
+    dir: {
+      type: String,
+      required: true
+    },
+    lang: {
+      type: String,
+      required: true
+    },
+    shownTabs: {
+      type: Array,
+      required: false,
+      default: []
+    },
+    hoveredGroupsId: {
+      type: Array,
+      required: false,
+      default: []
+    }
+  },
+  data () {
+    return {
+      originColor: '#F8F8F8',
+    }
+  },
+  computed: {
+    cssId () {
+      return `alpheios-align-text-segment-origin-${this.segIndex}`
+    },
+    cssStyle () {
+      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px`
+    },
+  },
+  methods: {
+    isShownTab (targetId) {
+      return this.shownTabs.includes(targetId)
+    },
+    groupedToken (token) {
+      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
+    },
+    isTokenInHovered (token) {
+      return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
+    },
+    selectedToken (token) {
+      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     }
   }
 });
@@ -9805,6 +9863,45 @@ component.options.__file = "_output/vue/editor-tabs.vue"
 
 /***/ }),
 
+/***/ "./_output/vue/origin-segment-block.vue":
+/*!**********************************************!*\
+  !*** ./_output/vue/origin-segment-block.vue ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _origin_segment_block_vue_vue_type_template_id_5b584e92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./origin-segment-block.vue?vue&type=template&id=5b584e92& */ "./_output/vue/origin-segment-block.vue?vue&type=template&id=5b584e92&");
+/* harmony import */ var _origin_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./origin-segment-block.vue?vue&type=script&lang=js& */ "./_output/vue/origin-segment-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _origin_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _origin_segment_block_vue_vue_type_template_id_5b584e92___WEBPACK_IMPORTED_MODULE_0__.render,
+  _origin_segment_block_vue_vue_type_template_id_5b584e92___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "_output/vue/origin-segment-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./_output/vue/token-block.vue":
 /*!*************************************!*\
   !*** ./_output/vue/token-block.vue ***!
@@ -10028,6 +10125,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./_output/vue/origin-segment-block.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./_output/vue/origin-segment-block.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_origin_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./origin-segment-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./_output/vue/origin-segment-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_origin_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./_output/vue/token-block.vue?vue&type=script&lang=js&":
 /*!**************************************************************!*\
   !*** ./_output/vue/token-block.vue?vue&type=script&lang=js& ***!
@@ -10129,6 +10242,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./_output/vue/origin-segment-block.vue?vue&type=template&id=5b584e92&":
+/*!*****************************************************************************!*\
+  !*** ./_output/vue/origin-segment-block.vue?vue&type=template&id=5b584e92& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_origin_segment_block_vue_vue_type_template_id_5b584e92___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_origin_segment_block_vue_vue_type_template_id_5b584e92___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_origin_segment_block_vue_vue_type_template_id_5b584e92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./origin-segment-block.vue?vue&type=template&id=5b584e92& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/origin-segment-block.vue?vue&type=template&id=5b584e92&");
+
+
+/***/ }),
+
 /***/ "./_output/vue/token-block.vue?vue&type=template&id=4df62723&":
 /*!********************************************************************!*\
   !*** ./_output/vue/token-block.vue?vue&type=template&id=4df62723& ***!
@@ -10195,53 +10325,21 @@ var render = function() {
                   }
                 },
                 [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin"
+                  _c("origin-segment-block", {
+                    attrs: {
+                      segmentData: segmentData,
+                      segIndex: segIndex,
+                      maxHeight: _vm.maxHeight,
+                      dir: _vm.fullData.origin.dir,
+                      lang: _vm.fullData.origin.lang,
+                      shownTabs: _vm.shownTabs,
+                      hoveredGroupsId: _vm.hoveredGroupsId
                     },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "alpheios-alignment-editor-align-text-segment",
-                          class: _vm.cssClass("origin"),
-                          style: _vm.cssStyle("origin", 0, segIndex),
-                          attrs: {
-                            id: _vm.cssId("origin", "no", segIndex),
-                            dir: _vm.fullData.origin.dir,
-                            lang: _vm.fullData.origin.lang
-                          }
-                        },
-                        [
-                          _vm._l(segmentData.origin.tokens, function(
-                            token,
-                            tokenIndex
-                          ) {
-                            return [
-                              _c("token-block", {
-                                key: tokenIndex,
-                                attrs: {
-                                  token: token,
-                                  selected: _vm.selectedToken(token),
-                                  grouped: _vm.groupedToken(token)
-                                },
-                                on: {
-                                  addHoverToken: _vm.addHoverToken,
-                                  removeHoverToken: _vm.removeHoverToken
-                                }
-                              }),
-                              _vm._v(" "),
-                              token.hasLineBreak ? _c("br") : _vm._e()
-                            ]
-                          })
-                        ],
-                        2
-                      )
-                    ]
-                  ),
+                    on: {
+                      addHoverToken: _vm.addHoverToken,
+                      removeHoverToken: _vm.removeHoverToken
+                    }
+                  }),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -10303,7 +10401,8 @@ var render = function() {
                     }),
                     0
                   )
-                ]
+                ],
+                1
               )
             }),
             0
@@ -10434,23 +10533,23 @@ var render = function() {
                                     "alpheios-alignment-editor-align-text-target-hovered-block__tokens"
                                 },
                                 [
-                                  _vm._l(
-                                    hoveredGroupData.tokensTarget,
-                                    function(token, tokenIndex) {
-                                      return [
-                                        _c("token-block", {
-                                          key: tokenIndex,
-                                          attrs: {
-                                            token: token,
-                                            selected: _vm.selectedToken(token),
-                                            grouped: _vm.groupedToken(token)
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        token.hasLineBreak ? _c("br") : _vm._e()
-                                      ]
-                                    }
-                                  )
+                                  _vm._l(hoveredGroupData.target, function(
+                                    token,
+                                    tokenIndex
+                                  ) {
+                                    return [
+                                      _c("token-block", {
+                                        key: tokenIndex,
+                                        attrs: {
+                                          token: token,
+                                          selected: _vm.selectedToken(token),
+                                          grouped: _vm.groupedToken(token)
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      token.hasLineBreak ? _c("br") : _vm._e()
+                                    ]
+                                  })
                                 ],
                                 2
                               ),
@@ -10605,19 +10704,19 @@ var render = function() {
                                     "alpheios-alignment-editor-align-text-target-hovered-block__tokens"
                                 },
                                 [
-                                  _vm._l(
-                                    hoveredGroupData.tokensTarget,
-                                    function(token, tokenIndex) {
-                                      return [
-                                        _c("token-block", {
-                                          key: tokenIndex,
-                                          attrs: { token: token }
-                                        }),
-                                        _vm._v(" "),
-                                        token.hasLineBreak ? _c("br") : _vm._e()
-                                      ]
-                                    }
-                                  )
+                                  _vm._l(hoveredGroupData.target, function(
+                                    token,
+                                    tokenIndex
+                                  ) {
+                                    return [
+                                      _c("token-block", {
+                                        key: tokenIndex,
+                                        attrs: { token: token }
+                                      }),
+                                      _vm._v(" "),
+                                      token.hasLineBreak ? _c("br") : _vm._e()
+                                    ]
+                                  })
                                 ],
                                 2
                               ),
@@ -10865,6 +10964,73 @@ var render = function() {
         0
       )
     : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/origin-segment-block.vue?vue&type=template&id=5b584e92&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./_output/vue/origin-segment-block.vue?vue&type=template&id=5b584e92& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin"
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass:
+            "alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin",
+          style: _vm.cssStyle,
+          attrs: { id: _vm.cssId, dir: _vm.dir, lang: _vm.lang }
+        },
+        [
+          _vm._l(_vm.segmentData.origin.tokens, function(token, tokenIndex) {
+            return [
+              _c("token-block", {
+                key: tokenIndex,
+                attrs: {
+                  token: token,
+                  selected: _vm.selectedToken(token),
+                  grouped: _vm.groupedToken(token)
+                },
+                on: {
+                  addHoverToken: function($event) {
+                    return _vm.$emit("addHoverToken", token)
+                  },
+                  removeHoverToken: function($event) {
+                    return _vm.$emit("removeHoverToken", token)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              token.hasLineBreak ? _c("br") : _vm._e()
+            ]
+          })
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

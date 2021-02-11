@@ -10,22 +10,13 @@
                 v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
                 :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segIndex === allShownSegments.length }"
             >
-                <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
-                    <div class="alpheios-alignment-editor-align-text-segment" 
-                        :id = "cssId('origin', 'no', segIndex)" :style="cssStyle('origin', 0, segIndex)"
-                        :class = "cssClass('origin')" :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
-                    >
-                        <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
-                            <token-block :key = "tokenIndex" :token="token" 
-                                          :selected = "selectedToken(token)"
-                                          :grouped = "groupedToken(token)"
-                                          @addHoverToken = "addHoverToken"
-                                          @removeHoverToken = "removeHoverToken"
-                            />
-                            <br v-if="token.hasLineBreak" />
-                        </template>
-                    </div>
-                </div>
+
+              <origin-segment-block
+                :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
+                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
+                :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
+                @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+              />
 
                 <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
                     <div class="alpheios-alignment-editor-align-text-segment" 
@@ -55,11 +46,17 @@
 import EditorTabs from '@/_output/vue/editor-tabs.vue'
 import TokenBlock from '@/_output/vue/token-block.vue'
 
+import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
+
+import ScrollUtility from '@/_output/utility/scroll-utility.js'
+import GroupUtility from '@/_output/utility/group-utility.js'
+
 export default {
   name: 'AlGroupsViewFull',
   components: {
     editorTabs: EditorTabs,
-    tokenBlock: TokenBlock
+    tokenBlock: TokenBlock,
+    originSegmentBlock: OriginSegmentBlock
   },
   props: {
     fullData: {
@@ -71,7 +68,7 @@ export default {
     return {
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       originColor: '#F8F8F8',
-      hoveredGroupId: null,
+      hoveredGroupsId: null,
       shownTabs: []
     }
   },
@@ -79,79 +76,14 @@ export default {
     this.shownTabs = this.allTargetTextsIds.slice(0, 1)
   },
   computed: {
-    allSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach((segment, indexS) => {
-            allS[indexS].targets[targetId] = segment
-          })
-        }
-      })
-      return allS
-    },
     allShownSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        if (this.fullData.targets[targetId].segments && this.isShownTab(targetId)) {
-          this.fullData.targets[targetId].segments.forEach((segment, indexS) => {
-            allS[indexS].targets[targetId] = segment
-          })
-        }
-      })
-      return allS
+      return GroupUtility.allShownSegments(this.fullData, this.shownTabs)
     },
     allTargetTextsIds () {
-      return Object.keys(this.fullData.targets)
+      return GroupUtility.allTargetTextsIds(this.fullData)
     },
     alGroups () {
-      let allG = {} // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, segIndex) => {
-        segment.tokens.forEach(token => {
-          if (token.grouped) {
-            token.groupData.forEach(groupDataItem => {
-              if (!allG[groupDataItem.groupId]) { allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokens: [] } }
-              allG[groupDataItem.groupId].tokens.push(token.idWord)
-            })
-
-          }
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach(segment => {
-            segment.tokens.forEach(token => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {
-                  allG[groupDataItem.groupId].tokens.push(token.idWord)
-                })
-              }
-            })
-          })
-        }
-      })
-
-      return allG
+      return GroupUtility.alignmentGroups(this.fullData, 'full')
     },
     orderedTargetsId () {
       return this.allTargetTextsIds.filter(targetId => this.shownTabs.includes(targetId))
@@ -161,6 +93,14 @@ export default {
     },
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
+    },
+    maxHeight () {
+      const minHeight = 400
+      
+      if (this.allShownSegments.length === 1) {
+        return this.containerHeight
+      } 
+      return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
     }
   },
   methods: {
@@ -175,18 +115,10 @@ export default {
       }
     },
     cssStyle (textType, targetId, segmentIndex) {
-      const minHeight = 400
-      let maxHeight
-
-      if (this.allShownSegments.length === 1) {
-        maxHeight = this.containerHeight
-      } else {
-        maxHeight = Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
-      }
       if (textType === 'target') {
-        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]}; max-height: ${maxHeight}px`
+        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]}; max-height: ${this.maxHeight}px`
       } else {
-        return `order: ${segmentIndex}; background: ${this.originColor}; max-height: ${maxHeight}px`
+        return `order: ${segmentIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px`
       }
     },
     targetIdIndex (targetId) {
@@ -199,23 +131,23 @@ export default {
       return classes
     },
     addHoverToken (token) {
-      this.hoveredGroupId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
 
-      if (this.hoveredGroupId && (token.textType === 'target')) {
-        const hoveredGroup = this.alGroups[this.hoveredGroupId[0]]
-        const minOpositeTokenId = hoveredGroup.tokens[0] // the first is always min origin token
-        this.makeScrollTo(minOpositeTokenId, 'origin', hoveredGroup)
-      }
+      this.makeScroll(token)
+    },
 
-      if (this.hoveredGroupId && (token.textType === 'origin')) {
-        const hoveredGroup = this.alGroups[this.hoveredGroupId[0]]
-        const minOpositeTokenId = hoveredGroup.tokens.find(tokenGr => token.idWord.split('-')[0] !== tokenGr.split('-')[0])
+    makeScroll (token) {
+      if (this.hoveredGroupsId) {
+        const hoveredGroup = this.alGroups[this.hoveredGroupsId[0]]
+        const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+        const minOpositeTokenId = hoveredGroup[textTypeSeg][0]
 
-        this.makeScrollTo(minOpositeTokenId, 'target', hoveredGroup)
+        const segId = this.cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
+        ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
       }
     },
     removeHoverToken() {
-      this.hoveredGroupId = null
+      this.hoveredGroupsId = null
     },
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
@@ -231,53 +163,14 @@ export default {
       return targetId === this.lastTargetId
     },
     groupedToken (token) {
-      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(this.alGroups[groupdataItem.groupId].targetId))
+      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
     },
     isTokenInHovered (token) {
-      return token.groupData.some(groupDataItem => this.hoveredGroupId.includes(groupDataItem.groupId) ) 
+      return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
     },
 
     selectedToken (token) {
-      return this.hoveredGroupId && (this.hoveredGroupId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
-    },
-
-    // scroll behaviour
-    makeScrollTo (idWord, textType, hoveredGroup) {
-
-      const tokenEl = document.getElementById(`token-${idWord}`)
-      const segId = this.cssId(textType, hoveredGroup.targetId, hoveredGroup.segIndex)
-      const segBlockEl = document.getElementById(segId)
-
-      let pPos = segBlockEl.getBoundingClientRect()
-      let cPos = tokenEl.getBoundingClientRect()
-      
-      const toTop = cPos.top - pPos.top + segBlockEl.scrollTop - 10
-      // segBlockEl.scrollTop = toTop
-      this.scrollTo(segBlockEl, toTop, 1)
-    },
-
-    easeInOutQuad (t) { 
-      return t<.5 ? 2*t*t : -1+(4-2*t)*t 
-    },
-
-    scrollTo (element, to, duration) {
-      let start = element.scrollTop
-      let change = to - start
-      let startTime = performance.now()
-      let now, elapsed, t
-
-      const animateScroll = () => {
-        now = performance.now()
-        elapsed = (now - startTime)/1000
-        t = (elapsed/duration)
-
-        element.scrollTop = start + change * this.easeInOutQuad(t)
-
-        if( t < 1 )
-            window.requestAnimationFrame(animateScroll)
-
-      }
-      animateScroll()
+      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     }
   }
 }

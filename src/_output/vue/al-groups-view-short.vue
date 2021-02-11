@@ -1,5 +1,6 @@
 <template>
     <div class="alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-short" v-if="fullData">
+        
         <div class ="alpheios-alignment-editor-align-define-container-inner alpheios-alignment-editor-align-table-data">
             <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
                 <div class="alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin" 
@@ -25,7 +26,7 @@
                     v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex">
 
                       <div class="alpheios-alignment-editor-align-text-target-hovered-block__tokens">
-                        <template v-for = "(token, tokenIndex) in hoveredGroupData.tokensTarget">
+                        <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" />
                             <br v-if="token.hasLineBreak" />
                         </template>
@@ -41,6 +42,8 @@
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
+
+import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
   name: 'AlGroupsViewShort',
@@ -61,60 +64,17 @@ export default {
   },
   computed: {
     allOriginSegments () {
-      let allS = [] // eslint-disable-line prefer-const
-
-      this.fullData.origin.segments.forEach((segment, indexS) => {
-        allS.push({
-          index: indexS,
-          origin: segment,
-          targets: {}
-        })
-      })
-      return allS
-    },
-    allTargetTextsIds () {
-      return Object.keys(this.fullData.targets)
+      return GroupUtility.allOriginSegments(this.fullData)
     },
     allAlGroups () {
-      let allGroups = {}
-
-      this.fullData.origin.segments.forEach((segment, segIndex) => {
-        segment.tokens.forEach(token => {
-          if (token.grouped) {
-            token.groupData.forEach(groupDataItem => {
-              if (!allGroups[groupDataItem.groupId]) { 
-                allGroups[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, tokensTarget: [] } 
-              }
-            })
-          }
-        })
-      })
-
-      this.allTargetTextsIds.forEach(targetId => {
-        
-        const metadata = this.fullData.targets[targetId].metadata
-        if (this.fullData.targets[targetId].segments) {
-          this.fullData.targets[targetId].segments.forEach(segment => {
-            segment.tokens.forEach(token => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {                 
-                  if (!allGroups[groupDataItem.groupId].metadata) { allGroups[groupDataItem.groupId].metadata = metadata }
-                  allGroups[groupDataItem.groupId].tokensTarget.push(token)
-                })
-              }
-            })
-          })
-        }
-      })
-
-      return allGroups
+      return GroupUtility.alignmentGroups(this.fullData, 'short')
     },
     hoveredTargetTokens () {
       return this.updateHovered && this.hoveredGroupsId && 
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                tokensTarget: this.allAlGroups[groupId].tokensTarget
+                target: this.allAlGroups[groupId].target
               }
             })
     },
