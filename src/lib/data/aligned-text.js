@@ -1,5 +1,6 @@
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import Segment from '@/lib/data/segment'
+import Langs from '@/lib/data/langs/langs'
 
 export default class AlignedText {
   /**
@@ -114,6 +115,7 @@ export default class AlignedText {
     return {
       dir: this.direction,
       lang: this.lang,
+      langName: Langs.all.find(langData => langData.value === this.lang).text,
       segments: this.segments.map(seg => {
         return {
           tokens: seg.tokens.map(token => token.convertForHTMLOutput())

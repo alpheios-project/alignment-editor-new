@@ -13,7 +13,7 @@
 
               <origin-segment-block
                 :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
+                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -25,6 +25,7 @@
                       :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
                       v-show="isShownTab(targetId)"
                     >
+                      <span class="alpheios-align-text-segment__langname">{{ fullData.targets[targetId].langName }}</span>
                         <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
                             <token-block :key = "tokenIndex" :token="token" 
                                           :selected = "selectedToken(token)"
@@ -222,4 +223,25 @@ export default {
     }
   }
 
+  .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment {
+    position: relative;
+    padding-top: 30px;
+
+    .alpheios-align-text-segment__langname {
+        position: absolute;
+        overflow-y: hidden;
+        border-bottom: 0;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        text-align: right;
+        padding: 5px;
+        font-size: 90%;
+
+        background: #185F6D;
+        color: #fff;
+        z-index: 100;
+    }
+  }
 </style>

@@ -41505,14 +41505,16 @@ class TokenizeController {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
         hasOptions: false,
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
   }
@@ -41687,6 +41689,25 @@ class TokenizeController {
       return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${finalIncrement}`
     } else {
       return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
+    }
+  }
+
+  static getReIndexSentenceMethod (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer].reIndexSentence
+    }
+  }
+
+  static reIndexSentences (segment) {
+    let sentenceIndex = 1
+    for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
+      let token = segment.tokens[iTok] // eslint-disable-line prefer-const
+      token.sentenceIndex = sentenceIndex
+      const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]$/
+
+      if (sentenceEnds.test(token.word)) {
+        sentenceIndex++
+      }
     }
   }
 }
@@ -42447,6 +42468,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ TokensEditActions)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+
 
 
 class TokensEditActions {
@@ -42539,7 +42562,9 @@ class TokensEditActions {
 
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
-    return token.update({ word, idWord: newIdWord })
+    token.update({ word, idWord: newIdWord })
+    this.reIndexSentence(segment)
+    return true
   }
 
   /**
@@ -42572,6 +42597,7 @@ class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(tokenResult, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
+    this.reIndexSentence(segment)
     return true
   }
 
@@ -42620,6 +42646,7 @@ class TokensEditActions {
     this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.SPLIT, stepParams)
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
+    this.reIndexSentence(segment)
     return true
   }
 
@@ -42686,6 +42713,8 @@ class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, changeType, stepParams)
 
+    this.reIndexSentence(segment)
+    this.reIndexSentence(newSegment)
     return true
   }
 
@@ -42805,7 +42834,15 @@ class TokensEditActions {
       createdTokens, segmentToInsert, insertType
     })
 
+    this.reIndexSentence(segmentToInsert)
     return true
+  }
+
+  reIndexSentence (segment) {
+    const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
+    const getReIndexSentenceMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
+    getReIndexSentenceMethod(segment)
+    console.info('reIndexSentence', segment)
   }
 
   /**
@@ -42816,20 +42853,35 @@ class TokensEditActions {
   deleteToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
-    return segment.deleteToken(tokenIndex)
+
+    const deletedToken = segment.deleteToken(tokenIndex)
+    if (deletedToken) {
+      this.tokensEditHistory.truncateSteps()
+      this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.DELETE, {
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken
+      })
+
+      this.reIndexSentence(segment)
+      return true
+    }
+    return false
   }
 
   // history actions
 
   removeStepUpdate (step) {
+    const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
+    this.reIndexSentence(segment)
     return {
       result: true
     }
   }
 
   applyStepUpdate (step) {
+    const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42844,6 +42896,7 @@ class TokensEditActions {
     const insertPosition = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex : tokenIndex + 1
 
     segment.insertToken(step.params.mergedToken, insertPosition)
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42856,7 +42909,7 @@ class TokensEditActions {
     const tokenIndex = segment.getTokenIndex(step.token)
     const deleteIndex = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
-
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42868,7 +42921,7 @@ class TokensEditActions {
 
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
     segment.deleteToken(tokenIndex + 1)
-
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42880,6 +42933,7 @@ class TokensEditActions {
 
     step.token.update({ word: step.params.newWord1, idWord: step.params.newIdWord1 })
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42926,6 +42980,8 @@ class TokensEditActions {
     newSegment.deleteToken(step.params.newTokenIndex)
     wasSegment.insertToken(step.token, step.params.wasTokenIndex)
 
+    this.reIndexSentence(newSegment)
+    this.reIndexSentence(wasSegment)
     return {
       result: true
     }
@@ -42944,6 +43000,8 @@ class TokensEditActions {
     wasSegment.deleteToken(step.params.wasTokenIndex)
     newSegment.insertToken(step.token, step.params.newTokenIndex)
 
+    this.reIndexSentence(newSegment)
+    this.reIndexSentence(wasSegment)
     return {
       result: true
     }
@@ -42954,6 +43012,7 @@ class TokensEditActions {
       const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
       step.params.segmentToInsert.deleteToken(tokenIndex)
     })
+    this.reIndexSentence(step.params.segmentToInsert)
     return {
       result: true
     }
@@ -42964,6 +43023,23 @@ class TokensEditActions {
       const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
       step.params.segmentToInsert.insertToken(token, insertPosition)
     })
+    this.reIndexSentence(step.params.segmentToInsert)
+    return {
+      result: true
+    }
+  }
+
+  removeStepDeleteToken (step) {
+    step.params.segmentToDelete.insertToken(step.params.deletedToken, step.params.deleteIndex)
+    this.reIndexSentence(step.params.segmentToDelete)
+    return {
+      result: true
+    }
+  }
+
+  applyStepDeleteToken (step) {
+    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true
     }
@@ -42986,6 +43062,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/segment */ "./lib/data/segment.js");
+/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+
 
 
 
@@ -43102,6 +43180,7 @@ class AlignedText {
     return {
       dir: this.direction,
       lang: this.lang,
+      langName: _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang).text,
       segments: this.segments.map(seg => {
         return {
           tokens: seg.tokens.map(token => token.convertForHTMLOutput())
@@ -44268,7 +44347,8 @@ class Alignment {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
       },
       apply: {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
@@ -44278,7 +44358,8 @@ class Alignment {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
       }
     }
   }
@@ -45026,7 +45107,9 @@ class Segment {
    * @returns {Boolean}
    */
   deleteToken (tokenIndex) {
-    return this.tokens.splice(tokenIndex, 1)
+    const tokenToDelete = this.tokens[tokenIndex]
+    this.tokens.splice(tokenIndex, 1)
+    return tokenToDelete
   }
 
   /**
@@ -46048,7 +46131,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-step3-fix2.20210212364" : 0
+    return  true ? "i70-html-output-step3-fix3.20210212564" : 0
   }
 
   static get libName () {

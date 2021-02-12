@@ -309,6 +309,26 @@ body, html {
   background: #F27431;
   color: #fff;
 }
+.alpheios-alignment-editor-align-text-segment {
+  position: relative;
+  padding-top: 30px;
+}
+.alpheios-alignment-editor-align-text-segment .alpheios-align-text-segment__langname {
+  position: absolute;
+  overflow-y: hidden;
+  border-bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  padding: 5px;
+  font-size: 90%;
+  background: #185F6D;
+  color: #fff;
+  z-index: 100;
+}
 .alpheios-alignment-editor-align-define-container-inner {
   margin-top: 15px;
   border: 1px solid #ddd;
@@ -345,20 +365,43 @@ body, html {
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
   display: table-cell;
 }
+.alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment {
+  position: relative;
+  padding-top: 30px;
+}
+.alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment .alpheios-align-text-segment__langname {
+  position: absolute;
+  overflow-y: hidden;
+  border-bottom: 0;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  padding: 5px;
+  font-size: 90%;
+  background: #185F6D;
+  color: #fff;
+  z-index: 100;
+}
 .alpheios-alignment-editor-align-table-data {
   display: table;
   width: 100%;
+  vertical-align: top;
 }
 .alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-origin {
   width: 70%;
   display: table-cell;
+  vertical-align: top;
 }
 .alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-target {
   width: 30%;
   display: table-cell;
+  vertical-align: top;
 }
 .alpheios-alignment-editor-align-table-data .alpheios-alignment-editor-align-segment-data-target .alpheios-alignment-editor-align-text-segment {
   border-bottom: none;
+  padding: 0;
 }
 .alpheios-alignment-editor-align-text-target-hovered-block {
   margin-bottom: 20px;
@@ -367,6 +410,26 @@ body, html {
   padding: 0 5px;
   margin: 0;
   color: #666666;
+}
+.alpheios-alignment-editor-align-text-target-hovered-block {
+  position: relative;
+  padding: 30px 10px 10px;
+}
+.alpheios-alignment-editor-align-text-target-hovered-block .alpheios-align-text-segment__langname {
+  position: absolute;
+  overflow-y: hidden;
+  border-bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  padding: 5px;
+  font-size: 90%;
+  background: #185F6D;
+  color: #fff;
+  z-index: 100;
 }
 .alpheios-alignment-editor-align-table-data {
   display: table;
