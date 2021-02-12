@@ -76,17 +76,4 @@ export default class AlpheiosRemoteTokenizer {
 
     return segments
   }
-
-  static reIndexSentences (segment) {
-    let sentenceIndex = 1
-    for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
-      let token = segment.tokens[iTok] // eslint-disable-line prefer-const
-      token.sentenceIndex = sentenceIndex
-      const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]$/
-
-      if (sentenceEnds.test(token.word)) {
-        sentenceIndex++
-      }
-    }
-  }
 }

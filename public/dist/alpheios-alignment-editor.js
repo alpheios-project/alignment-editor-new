@@ -41505,7 +41505,8 @@ class TokenizeController {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
         hasOptions: false,
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
@@ -41513,7 +41514,7 @@ class TokenizeController {
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
         getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
-        reIndexSentence: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.reIndexSentences.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default)
+        reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
   }
@@ -41694,6 +41695,19 @@ class TokenizeController {
   static getReIndexSentenceMethod (tokenizer) {
     if (this.tokenizeMethods[tokenizer]) {
       return this.tokenizeMethods[tokenizer].reIndexSentence
+    }
+  }
+
+  static reIndexSentences (segment) {
+    let sentenceIndex = 1
+    for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
+      let token = segment.tokens[iTok] // eslint-disable-line prefer-const
+      token.sentenceIndex = sentenceIndex
+      const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]$/
+
+      if (sentenceEnds.test(token.word)) {
+        sentenceIndex++
+      }
     }
   }
 }
@@ -46114,7 +46128,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-html-output-step3-fix3.20210212494" : 0
+    return  true ? "i70-html-output-step3-fix3.20210212505" : 0
   }
 
   static get libName () {
@@ -46300,19 +46314,6 @@ class AlpheiosRemoteTokenizer {
     }
 
     return segments
-  }
-
-  static reIndexSentences (segment) {
-    let sentenceIndex = 1
-    for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
-      let token = segment.tokens[iTok] // eslint-disable-line prefer-const
-      token.sentenceIndex = sentenceIndex
-      const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]$/
-
-      if (sentenceEnds.test(token.word)) {
-        sentenceIndex++
-      }
-    }
   }
 }
 
@@ -56042,7 +56043,7 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js\",\"stylePath2\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css\",\"jsPath2\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/x-icon\\\" href=\\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
+module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/x-icon\\\" href=\\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
 
 /***/ }),
 
