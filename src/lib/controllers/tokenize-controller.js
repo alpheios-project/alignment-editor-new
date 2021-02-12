@@ -25,7 +25,8 @@ export default class TokenizeController {
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: AlpheiosRemoteTokenizer.reIndexSentences.bind(AlpheiosRemoteTokenizer)
       }
     }
   }
@@ -200,6 +201,12 @@ export default class TokenizeController {
       return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${finalIncrement}`
     } else {
       return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
+    }
+  }
+
+  static getReIndexSentenceMethod (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer].reIndexSentence
     }
   }
 }

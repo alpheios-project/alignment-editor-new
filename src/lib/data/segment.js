@@ -60,7 +60,9 @@ export default class Segment {
    * @returns {Boolean}
    */
   deleteToken (tokenIndex) {
-    return this.tokens.splice(tokenIndex, 1)
+    const tokenToDelete = this.tokens[tokenIndex]
+    this.tokens.splice(tokenIndex, 1)
+    return tokenToDelete
   }
 
   /**

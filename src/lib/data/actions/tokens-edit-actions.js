@@ -1,4 +1,5 @@
 import HistoryStep from '@/lib/data/history/history-step.js'
+import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 export default class TokensEditActions {
   /**
@@ -90,7 +91,9 @@ export default class TokensEditActions {
 
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, HistoryStep.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
-    return token.update({ word, idWord: newIdWord })
+    token.update({ word, idWord: newIdWord })
+    this.reIndexSentence(segment)
+    return true
   }
 
   /**
@@ -123,6 +126,7 @@ export default class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(tokenResult, HistoryStep.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
+    this.reIndexSentence(segment)
     return true
   }
 
@@ -171,6 +175,7 @@ export default class TokensEditActions {
     this.tokensEditHistory.addStep(token, HistoryStep.types.SPLIT, stepParams)
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
+    this.reIndexSentence(segment)
     return true
   }
 
@@ -237,6 +242,8 @@ export default class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, changeType, stepParams)
 
+    this.reIndexSentence(segment)
+    this.reIndexSentence(newSegment)
     return true
   }
 
@@ -356,7 +363,15 @@ export default class TokensEditActions {
       createdTokens, segmentToInsert, insertType
     })
 
+    this.reIndexSentence(segmentToInsert)
     return true
+  }
+
+  reIndexSentence (segment) {
+    const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
+    const getReIndexSentenceMethod = TokenizeController.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
+    getReIndexSentenceMethod(segment)
+    console.info('reIndexSentence', segment)
   }
 
   /**
@@ -367,20 +382,35 @@ export default class TokensEditActions {
   deleteToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
-    return segment.deleteToken(tokenIndex)
+
+    const deletedToken = segment.deleteToken(tokenIndex)
+    if (deletedToken) {
+      this.tokensEditHistory.truncateSteps()
+      this.tokensEditHistory.addStep(null, HistoryStep.types.DELETE, {
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken
+      })
+
+      this.reIndexSentence(segment)
+      return true
+    }
+    return false
   }
 
   // history actions
 
   removeStepUpdate (step) {
+    const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
+    this.reIndexSentence(segment)
     return {
       result: true
     }
   }
 
   applyStepUpdate (step) {
+    const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -395,6 +425,7 @@ export default class TokensEditActions {
     const insertPosition = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex : tokenIndex + 1
 
     segment.insertToken(step.params.mergedToken, insertPosition)
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -407,7 +438,7 @@ export default class TokensEditActions {
     const tokenIndex = segment.getTokenIndex(step.token)
     const deleteIndex = (step.params.position === HistoryStep.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
-
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -419,7 +450,7 @@ export default class TokensEditActions {
 
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
     segment.deleteToken(tokenIndex + 1)
-
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -431,6 +462,7 @@ export default class TokensEditActions {
 
     step.token.update({ word: step.params.newWord1, idWord: step.params.newIdWord1 })
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -477,6 +509,8 @@ export default class TokensEditActions {
     newSegment.deleteToken(step.params.newTokenIndex)
     wasSegment.insertToken(step.token, step.params.wasTokenIndex)
 
+    this.reIndexSentence(newSegment)
+    this.reIndexSentence(wasSegment)
     return {
       result: true
     }
@@ -495,6 +529,8 @@ export default class TokensEditActions {
     wasSegment.deleteToken(step.params.wasTokenIndex)
     newSegment.insertToken(step.token, step.params.newTokenIndex)
 
+    this.reIndexSentence(newSegment)
+    this.reIndexSentence(wasSegment)
     return {
       result: true
     }
@@ -505,6 +541,7 @@ export default class TokensEditActions {
       const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
       step.params.segmentToInsert.deleteToken(tokenIndex)
     })
+    this.reIndexSentence(step.params.segmentToInsert)
     return {
       result: true
     }
@@ -515,6 +552,23 @@ export default class TokensEditActions {
       const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
       step.params.segmentToInsert.insertToken(token, insertPosition)
     })
+    this.reIndexSentence(step.params.segmentToInsert)
+    return {
+      result: true
+    }
+  }
+
+  removeStepDeleteToken (step) {
+    step.params.segmentToDelete.insertToken(step.params.deletedToken, step.params.deleteIndex)
+    this.reIndexSentence(step.params.segmentToDelete)
+    return {
+      result: true
+    }
+  }
+
+  applyStepDeleteToken (step) {
+    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true
     }
