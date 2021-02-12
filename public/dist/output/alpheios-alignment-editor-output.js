@@ -8737,7 +8737,7 @@ class GroupUtility {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
 
                 const currentSentenceIndex = token.sentenceIndex
-                if (view === 'sentence') {
+                if ((view === 'sentence') && (allG[groupDataItem.groupId].target.length === 0)) {
                   allG[groupDataItem.groupId].target = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
                 }
 
@@ -8784,7 +8784,7 @@ class GroupUtility {
 
       while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
         const nextToken = segment.tokens[shouldCheckTokenIndex]
-        if (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount) {
+        if (nextToken && !nextToken.grouped && Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount) {
           target.push(nextToken)
           shouldCheckTokenIndex++
         } else {
