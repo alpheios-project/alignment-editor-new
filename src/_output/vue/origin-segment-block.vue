@@ -1,9 +1,11 @@
 <template>
     <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
+        
         <div class="alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin" 
             :id = "cssId" :style="cssStyle"
             :dir = "dir" :lang = "lang"
         >
+          <span class="alpheios-align-text-segment__langname">{{ langName }}</span>
             <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
                 <token-block :key = "tokenIndex" :token="token" 
                                 :selected = "selectedToken(token)"
@@ -45,15 +47,19 @@ export default {
       type: String,
       required: true
     },
+    langName: {
+      type: String,
+      required: true
+    },
     shownTabs: {
       type: Array,
       required: false,
-      default: []
+      default: () => { return [] }
     },
     hoveredGroupsId: {
       type: Array,
       required: false,
-      default: []
+      default: () => { return [] }
     }
   },
   data () {
@@ -74,7 +80,7 @@ export default {
       return this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
-      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
+      return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
     isTokenInHovered (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
@@ -86,4 +92,26 @@ export default {
 }
 </script>
 <style lang="scss">
+  .alpheios-alignment-editor-align-text-segment {
+    position: relative;
+    padding-top: 30px;
+
+    .alpheios-align-text-segment__langname {
+      position: absolute;
+      overflow-y: hidden;
+      border-bottom: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+      padding: 5px;
+      font-size: 90%;
+
+      background: #185F6D;
+      color: #fff;
+      z-index: 100;
+    }
+  }
 </style>

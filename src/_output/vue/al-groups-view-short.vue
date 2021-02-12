@@ -2,29 +2,24 @@
     <div class="alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-short" v-if="fullData">
         
         <div class ="alpheios-alignment-editor-align-define-container-inner alpheios-alignment-editor-align-table-data">
-            <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
-                <div class="alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin" 
+            <div class="alpheios-alignment-editor-align-segment-data-origin" >
+                <div class="alpheios-align-text-segment-origin" 
                     v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
-                    :id = "cssId('origin', 'no', segIndex)" :style="cssStyle"
-                    :dir = "fullData.origin.dir" :lang = "fullData.origin.lang"
                 >
-                    <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
-                        <token-block :key = "tokenIndex" :token="token" 
-                                        :selected = "selectedToken(token)"
-                                        :grouped = "groupedToken(token)"
-                                        @addHoverToken = "addHoverToken"
-                                        @removeHoverToken = "removeHoverToken"
-                        />
-                        <br v-if="token.hasLineBreak" />
-                    </template>
+                  <origin-segment-block
+                    :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
+                    :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
+                    :hoveredGroupsId = "hoveredGroupsId"
+                    @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+                  />
                 </div>
             </div>
             <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target" >
                 <div class="alpheios-alignment-editor-align-text-segment" v-if="hoveredTargetTokens" >
 
                   <div class="alpheios-alignment-editor-align-text-target-hovered-block"
-                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex">
-
+                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key=" hoveredGroupDataIndex">
+                      <span class="alpheios-align-text-segment__langname">{{ targetLangName(hoveredGroupData) }}</span>
                       <div class="alpheios-alignment-editor-align-text-target-hovered-block__tokens">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" />
@@ -42,13 +37,15 @@
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
+import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
 
 import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
   name: 'AlGroupsViewShort',
   components: {
-    tokenBlock: TokenBlock
+    tokenBlock: TokenBlock,
+    originSegmentBlock: OriginSegmentBlock
   },
   props: {
     fullData: {
@@ -74,35 +71,27 @@ export default {
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                target: this.allAlGroups[groupId].target
+                target: this.allAlGroups[groupId].target,
+                targetId: this.allAlGroups[groupId].targetId
               }
             })
     },
     containerHeight () {
-      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 200
+      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
-    cssStyle () {
+    maxHeight () {
       const minHeight = 400
-      let maxHeight
-      if (this.fullData.origin.segments.length === 1) {
-        maxHeight = this.containerHeight
-      } else {
-        maxHeight = Math.round(Math.min(minHeight, this.containerHeight/this.fullData.origin.segments.length))
-      }
-      return `max-height: ${maxHeight}px`
+      
+      if (this.allOriginSegments.length === 1) {
+        return this.containerHeight
+      } 
+      return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
     }
   },
   methods: {
     
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
-    },
-    cssId (textType, targetId, segmentIndex) {
-      if (textType === 'target') {
-        return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
-      } else {
-        return `alpheios-align-text-segment-${textType}-${segmentIndex}`
-      }
     },
     groupedToken (token) {
       return token.grouped
@@ -123,6 +112,9 @@ export default {
     removeHoverToken (token) {
       this.hoveredGroupsId = null
       this.updateHovered++
+    },
+    targetLangName (hoveredTargetTokens) {
+      return this.fullData.targets[hoveredTargetTokens.targetId].langName
     }
   }
 }
@@ -132,18 +124,22 @@ export default {
   .alpheios-alignment-editor-align-table-data {
     display: table;
     width: 100%;
+    vertical-align: top;
 
     .alpheios-alignment-editor-align-segment-data-origin {
       width: 70%;
       display: table-cell;
+      vertical-align: top;
     }
 
     .alpheios-alignment-editor-align-segment-data-target {
       width: 30%;
       display: table-cell;
+      vertical-align: top;
 
       .alpheios-alignment-editor-align-text-segment {
           border-bottom: none;
+          padding: 0;
       }
     }
   }
@@ -156,6 +152,29 @@ export default {
       padding: 0 5px;
       margin: 0;
       color: #666666;
+    }
+  }
+
+  .alpheios-alignment-editor-align-text-target-hovered-block {
+    position: relative;
+    padding: 30px 10px 10px;
+
+    .alpheios-align-text-segment__langname {
+      position: absolute;
+      overflow-y: hidden;
+      border-bottom: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+      padding: 5px;
+      font-size: 90%;
+
+      background: #185F6D;
+      color: #fff;
+      z-index: 100;
     }
   }
 </style>
