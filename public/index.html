@@ -26,13 +26,13 @@
               mode: 'custom',
               libs: { components: 'https://cdn.jsdelivr.net/npm/alpheios-components@1.5.1/dist/alpheios-components.min.js' }
             }).then(Embedded => {
-              new Embedded(
+              const result = new Embedded(
                 {
                   clientId: 'alignment-editor',
                   // authEnv: auth0Env,
-                  disabledSelector:".customignore",
-                  enabledClass: 'alpheios-tools-enabled',
-                  disabledClass: 'customdisabled',
+                  enabledSelector: '.alpheios-tools-enabled',
+                  desktopTriggerEvent: 'click',
+                  triggerPreCallback: detectCtrl,
                   popupInitialPos: {
                     left: '150px',
                     top: '150px'
@@ -42,6 +42,7 @@
                     right: '5vw'
                   },
                 }).activate();
+              console.info('result - ', result)
             }).catch(e => {
               console.error(`Import of an embedded library dependencies failed: ${e}`)
             })
