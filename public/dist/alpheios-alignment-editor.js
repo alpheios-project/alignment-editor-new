@@ -46131,7 +46131,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i68-enable-alpheios-tools.20210214482" : 0
+    return  true ? "i68-enable-alpheios-tools.20210214493" : 0
   }
 
   static get libName () {
@@ -47139,8 +47139,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    clickToken () {
-      this.$emit('click-token', this.token)
+    clickToken (event) {
+      if (!event.ctrlKey) {
+        this.$emit('click-token', this.token)
+      }
     },
     addHoverToken () {
       this.$emit('add-hover-token', this.token)
@@ -52649,22 +52651,28 @@ var render = function() {
       staticClass: "alpheios-alignment-editor-container"
     },
     [
-      _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
-        _c("h2", [
-          _vm._v(
-            _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")) + " \n      ("
-          ),
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-alignment-editor-header__show-label",
-              on: { click: _vm.toggleShowAlignBlocks }
-            },
-            [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
-          ),
-          _vm._v(")\n    ")
-        ])
-      ]),
+      _c(
+        "div",
+        {
+          staticClass: "alpheios-alignment-editor-header alpheios-tools-enabled"
+        },
+        [
+          _c("h2", [
+            _vm._v(
+              _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")) + " \n      ("
+            ),
+            _c(
+              "span",
+              {
+                staticClass: "alpheios-alignment-editor-header__show-label",
+                on: { click: _vm.toggleShowAlignBlocks }
+              },
+              [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
+            ),
+            _vm._v(")\n    ")
+          ])
+        ]
+      ),
       _vm._v(" "),
       _vm.showAlignEditor
         ? _c("align-editor-view-mode", {
@@ -52782,10 +52790,7 @@ var render = function() {
       class: _vm.tokenClasses,
       attrs: { "data-type": _vm.token.textType, id: _vm.token.idWord },
       on: {
-        click: function($event) {
-          $event.stopPropagation()
-          return _vm.clickToken($event)
-        },
+        click: _vm.clickToken,
         mouseover: _vm.addHoverToken,
         mouseout: _vm.removeHoverToken
       }
