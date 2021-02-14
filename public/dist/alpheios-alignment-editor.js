@@ -42842,7 +42842,6 @@ class TokensEditActions {
     const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
     const getReIndexSentenceMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
     getReIndexSentenceMethod(segment)
-    console.info('reIndexSentence', segment)
   }
 
   /**
@@ -46131,7 +46130,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i68-enable-alpheios-tools.20210214493" : 0
+    return  true ? "i68-enable-alpheios-tools.20210214499" : 0
   }
 
   static get libName () {
@@ -47140,9 +47139,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     clickToken (event) {
-      if (!event.ctrlKey) {
-        this.$emit('click-token', this.token)
-      }
+      this.$emit('click-token', this.token)
     },
     addHoverToken () {
       this.$emit('add-hover-token', this.token)
@@ -52790,7 +52787,17 @@ var render = function() {
       class: _vm.tokenClasses,
       attrs: { "data-type": _vm.token.textType, id: _vm.token.idWord },
       on: {
-        click: _vm.clickToken,
+        click: function($event) {
+          if (
+            $event.ctrlKey ||
+            $event.shiftKey ||
+            $event.altKey ||
+            $event.metaKey
+          ) {
+            return null
+          }
+          return _vm.clickToken($event)
+        },
         mouseover: _vm.addHoverToken,
         mouseout: _vm.removeHoverToken
       }
