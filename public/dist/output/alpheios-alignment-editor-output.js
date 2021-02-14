@@ -9153,7 +9153,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
+      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
     },
     cssStyle () {
       return `max-height: ${this.maxHeight}px`
@@ -9306,7 +9306,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
+      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
     }
   },
   methods: {

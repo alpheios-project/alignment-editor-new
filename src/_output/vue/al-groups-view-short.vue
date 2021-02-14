@@ -85,7 +85,7 @@ export default {
       if (this.allOriginSegments.length === 1) {
         return this.containerHeight
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.shownTabs.length))
+      return Math.round(Math.min(minHeight, this.containerHeight/this.allOriginSegments.length))
     }
   },
   methods: {
