@@ -8921,6 +8921,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9111,6 +9113,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9219,6 +9223,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
 /* harmony import */ var _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/origin-segment-block.vue */ "./_output/vue/origin-segment-block.vue");
 /* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
+//
+//
+//
 //
 //
 //
@@ -9513,8 +9520,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
-//
-//
 //
 //
 //
@@ -10322,7 +10327,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-full"
+            "alpheios-al-editor-container alpheios-al-editor-view-full"
         },
         [
           _vm.allTargetTextsIds.length > 1
@@ -10336,42 +10341,52 @@ var render = function() {
             "div",
             {
               staticClass:
-                "alpheios-alignment-editor-align-define-container-inner"
+                "alpheios-al-editor-container-inner alpheios-al-editor-segment-view"
             },
             _vm._l(_vm.allShownSegments, function(segmentData, segIndex) {
               return _c(
                 "div",
                 {
                   key: _vm.getIndex("origin", segIndex),
-                  staticClass: "alpheios-alignment-editor-align-segment-data",
+                  staticClass: "alpheios-al-editor-segment-row",
                   class: {
-                    "alpheios-alignment-editor-align-segment-data-last":
+                    "alpheios-al-editor-segment-row-last":
                       segIndex === _vm.allShownSegments.length
                   }
                 },
                 [
-                  _c("origin-segment-block", {
-                    attrs: {
-                      segmentData: segmentData,
-                      segIndex: segIndex,
-                      maxHeight: _vm.maxHeight,
-                      dir: _vm.fullData.origin.dir,
-                      lang: _vm.fullData.origin.lang,
-                      langName: _vm.fullData.origin.langName,
-                      shownTabs: _vm.shownTabs,
-                      hoveredGroupsId: _vm.hoveredGroupsId
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin"
                     },
-                    on: {
-                      addHoverToken: _vm.addHoverToken,
-                      removeHoverToken: _vm.removeHoverToken
-                    }
-                  }),
+                    [
+                      _c("origin-segment-block", {
+                        attrs: {
+                          segmentData: segmentData,
+                          segIndex: segIndex,
+                          maxHeight: _vm.maxHeight,
+                          dir: _vm.fullData.origin.dir,
+                          lang: _vm.fullData.origin.lang,
+                          langName: _vm.fullData.origin.langName,
+                          shownTabs: _vm.shownTabs,
+                          hoveredGroupsId: _vm.hoveredGroupsId
+                        },
+                        on: {
+                          addHoverToken: _vm.addHoverToken,
+                          removeHoverToken: _vm.removeHoverToken
+                        }
+                      })
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
                     {
                       staticClass:
-                        "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
+                        "alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-target"
                     },
                     _vm._l(segmentData.targets, function(
                       segmentTarget,
@@ -10390,7 +10405,7 @@ var render = function() {
                           ],
                           key: _vm.getIndex("target", segIndex, targetId),
                           staticClass:
-                            "alpheios-alignment-editor-align-text-segment",
+                            "alpheios-al-editor-segment-cell-target-row",
                           class: _vm.cssClass("target", targetId),
                           style: _vm.cssStyle("target", targetId, segIndex),
                           attrs: {
@@ -10404,7 +10419,7 @@ var render = function() {
                             "span",
                             {
                               staticClass:
-                                "alpheios-align-text-segment__langname"
+                                "alpheios-al-editor-segment-cell-target-row__langname"
                             },
                             [
                               _vm._v(
@@ -10440,8 +10455,7 @@ var render = function() {
                     }),
                     0
                   )
-                ],
-                1
+                ]
               )
             }),
             0
@@ -10479,28 +10493,30 @@ var render = function() {
         "div",
         {
           staticClass:
-            "alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-sentence"
+            "alpheios-al-editor-container alpheios-al-editor-view-sentence"
         },
         [
           _c(
             "div",
             {
               staticClass:
-                "alpheios-alignment-editor-align-define-container-inner alpheios-alignment-editor-align-table-data"
+                "alpheios-al-editor-container-inner alpheios-al-editor-table-view"
             },
             [
               _c(
                 "div",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-segment-data-origin"
-                },
+                { staticClass: "alpheios-al-editor-segment-block-all-origins" },
                 _vm._l(_vm.allOriginSegments, function(segmentData, segIndex) {
                   return _c(
                     "div",
                     {
                       key: _vm.getIndex("origin", segIndex),
-                      staticClass: "alpheios-align-text-segment-origin"
+                      staticClass:
+                        "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin",
+                      class: {
+                        "alpheios-al-editor-segment-row-last":
+                          segIndex === _vm.allOriginSegments.length
+                      }
                     },
                     [
                       _c("origin-segment-block", {
@@ -10529,15 +10545,14 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
+                    "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target"
                 },
                 [
                   _vm.hoveredTargetTokens
                     ? _c(
                         "div",
                         {
-                          staticClass:
-                            "alpheios-alignment-editor-align-text-segment",
+                          staticClass: "alpheios-al-editor-segment-block-text",
                           style: _vm.cssStyle
                         },
                         _vm._l(_vm.hoveredTargetTokens, function(
@@ -10549,14 +10564,14 @@ var render = function() {
                             {
                               key: hoveredGroupDataIndex,
                               staticClass:
-                                "alpheios-alignment-editor-align-text-target-hovered-block"
+                                "alpheios-al-editor-target-hovered-block"
                             },
                             [
                               _c(
                                 "span",
                                 {
                                   staticClass:
-                                    "alpheios-align-text-segment__langname"
+                                    "alpheios-al-editor-segment-block-text__langname"
                                 },
                                 [
                                   _vm._v(
@@ -10569,7 +10584,7 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass:
-                                    "alpheios-alignment-editor-align-text-target-hovered-block__tokens"
+                                    "alpheios-al-editor-target-hovered-block__tokens"
                                 },
                                 [
                                   _vm._l(hoveredGroupData.target, function(
@@ -10598,7 +10613,7 @@ var render = function() {
                                     "p",
                                     {
                                       staticClass:
-                                        "alpheios-alignment-editor-align-text-target-hovered-block__metadata"
+                                        "alpheios-al-editor-target-hovered-block__metadata"
                                     },
                                     [
                                       _vm._v(
@@ -10651,28 +10666,30 @@ var render = function() {
         "div",
         {
           staticClass:
-            "alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-short"
+            "alpheios-al-editor-container alpheios-al-editor-view-short"
         },
         [
           _c(
             "div",
             {
               staticClass:
-                "alpheios-alignment-editor-align-define-container-inner alpheios-alignment-editor-align-table-data"
+                "alpheios-al-editor-container-inner alpheios-al-editor-table-view"
             },
             [
               _c(
                 "div",
-                {
-                  staticClass:
-                    "alpheios-alignment-editor-align-segment-data-origin"
-                },
+                { staticClass: "alpheios-al-editor-segment-block-all-origins" },
                 _vm._l(_vm.allOriginSegments, function(segmentData, segIndex) {
                   return _c(
                     "div",
                     {
                       key: _vm.getIndex("origin", segIndex),
-                      staticClass: "alpheios-align-text-segment-origin"
+                      staticClass:
+                        "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin",
+                      class: {
+                        "alpheios-al-editor-segment-row-last":
+                          segIndex === _vm.allOriginSegments.length
+                      }
                     },
                     [
                       _c("origin-segment-block", {
@@ -10701,15 +10718,14 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target"
+                    "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target"
                 },
                 [
                   _vm.hoveredTargetTokens
                     ? _c(
                         "div",
                         {
-                          staticClass:
-                            "alpheios-alignment-editor-align-text-segment"
+                          staticClass: "alpheios-al-editor-segment-block-text"
                         },
                         _vm._l(_vm.hoveredTargetTokens, function(
                           hoveredGroupData,
@@ -10720,14 +10736,14 @@ var render = function() {
                             {
                               key: hoveredGroupDataIndex,
                               staticClass:
-                                "alpheios-alignment-editor-align-text-target-hovered-block"
+                                "alpheios-al-editor-target-hovered-block"
                             },
                             [
                               _c(
                                 "span",
                                 {
                                   staticClass:
-                                    "alpheios-align-text-segment__langname"
+                                    "alpheios-al-editor-segment-block-text__langname"
                                 },
                                 [
                                   _vm._v(
@@ -10740,7 +10756,7 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass:
-                                    "alpheios-alignment-editor-align-text-target-hovered-block__tokens"
+                                    "alpheios-al-editor-target-hovered-block_tokens"
                                 },
                                 [
                                   _vm._l(hoveredGroupData.target, function(
@@ -10765,7 +10781,7 @@ var render = function() {
                                     "p",
                                     {
                                       staticClass:
-                                        "alpheios-alignment-editor-align-text-target-hovered-block__metadata"
+                                        "alpheios-al-editor-target-hovered-block__metadata"
                                     },
                                     [
                                       _vm._v(
@@ -11030,49 +11046,41 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass:
-        "alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin"
+      staticClass: "alpheios-al-editor-segment-block-text",
+      style: _vm.cssStyle,
+      attrs: { id: _vm.cssId, dir: _vm.dir, lang: _vm.lang }
     },
     [
       _c(
-        "div",
-        {
-          staticClass:
-            "alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin",
-          style: _vm.cssStyle,
-          attrs: { id: _vm.cssId, dir: _vm.dir, lang: _vm.lang }
-        },
-        [
-          _c("span", { staticClass: "alpheios-align-text-segment__langname" }, [
-            _vm._v(_vm._s(_vm.langName))
-          ]),
+        "span",
+        { staticClass: "alpheios-al-editor-segment-block-text__langname" },
+        [_vm._v(_vm._s(_vm.langName))]
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.segmentData.origin.tokens, function(token, tokenIndex) {
+        return [
+          _c("token-block", {
+            key: tokenIndex,
+            attrs: {
+              token: token,
+              selected: _vm.selectedToken(token),
+              grouped: _vm.groupedToken(token)
+            },
+            on: {
+              addHoverToken: function($event) {
+                return _vm.$emit("addHoverToken", token)
+              },
+              removeHoverToken: function($event) {
+                return _vm.$emit("removeHoverToken", token)
+              }
+            }
+          }),
           _vm._v(" "),
-          _vm._l(_vm.segmentData.origin.tokens, function(token, tokenIndex) {
-            return [
-              _c("token-block", {
-                key: tokenIndex,
-                attrs: {
-                  token: token,
-                  selected: _vm.selectedToken(token),
-                  grouped: _vm.groupedToken(token)
-                },
-                on: {
-                  addHoverToken: function($event) {
-                    return _vm.$emit("addHoverToken", token)
-                  },
-                  removeHoverToken: function($event) {
-                    return _vm.$emit("removeHoverToken", token)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              token.hasLineBreak ? _c("br") : _vm._e()
-            ]
-          })
-        ],
-        2
-      )
-    ]
+          token.hasLineBreak ? _c("br") : _vm._e()
+        ]
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []

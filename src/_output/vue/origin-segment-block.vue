@@ -1,22 +1,20 @@
 <template>
-    <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin" >
-        
-        <div class="alpheios-alignment-editor-align-text-segment alpheios-align-text-segment-origin" 
-            :id = "cssId" :style="cssStyle"
-            :dir = "dir" :lang = "lang"
-        >
-          <span class="alpheios-align-text-segment__langname">{{ langName }}</span>
-            <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
-                <token-block :key = "tokenIndex" :token="token" 
-                                :selected = "selectedToken(token)"
-                                :grouped = "groupedToken(token)"
-                                @addHoverToken = "$emit('addHoverToken', token)"
-                                @removeHoverToken = "$emit('removeHoverToken', token)"
-                />
-                <br v-if="token.hasLineBreak" />
-            </template>
-        </div>
-    </div>
+      <div class="alpheios-al-editor-segment-block-text" 
+          :id = "cssId" :style="cssStyle"
+          :dir = "dir" :lang = "lang"
+      >
+        <span class="alpheios-al-editor-segment-block-text__langname">{{ langName }}</span>
+          <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
+              <token-block :key = "tokenIndex" :token="token" 
+                              :selected = "selectedToken(token)"
+                              :grouped = "groupedToken(token)"
+                              @addHoverToken = "$emit('addHoverToken', token)"
+                              @removeHoverToken = "$emit('removeHoverToken', token)"
+              />
+              <br v-if="token.hasLineBreak" />
+          </template>
+      </div>
+
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
@@ -92,11 +90,11 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-align-text-segment {
+  .alpheios-al-editor-segment-block-text {
     position: relative;
     padding-top: 30px;
 
-    .alpheios-align-text-segment__langname {
+    .alpheios-al-editor-segment-block-text__langname {
       position: absolute;
       overflow-y: hidden;
       border-bottom: 0;

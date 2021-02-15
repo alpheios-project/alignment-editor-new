@@ -1,46 +1,48 @@
 <template>
-    <div class="alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-full" v-if="fullData">
+    <div class="alpheios-al-editor-container alpheios-al-editor-view-full" v-if="fullData">
         <editor-tabs 
             v-if="allTargetTextsIds.length > 1"
             :tabs = "allTargetTextsIds" @selectTab = "selectTab"
         />
 
-        <div class ="alpheios-alignment-editor-align-define-container-inner">
-            <div class="alpheios-alignment-editor-align-segment-data"
-                v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
-                :class = "{ 'alpheios-alignment-editor-align-segment-data-last': segIndex === allShownSegments.length }"
-            >
+        <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
 
+          <div class="alpheios-al-editor-segment-row"
+                v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
+                :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allShownSegments.length }"
+            >
+            <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin" >
               <origin-segment-block
                 :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
+            </div><!-- alpheios-al-editor-segment-cell -->
 
-                <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
-                    <div class="alpheios-alignment-editor-align-text-segment" 
-                      v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
-                      :id = "cssId('target', targetId, segIndex)" :style="cssStyle('target', targetId, segIndex)"
-                      :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
-                      v-show="isShownTab(targetId)"
-                    >
-                      <span class="alpheios-align-text-segment__langname">{{ fullData.targets[targetId].langName }}</span>
-                        <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
-                            <token-block :key = "tokenIndex" :token="token" 
-                                          :selected = "selectedToken(token)"
-                                          :grouped = "groupedToken(token)"
-                                          @addHoverToken = "addHoverToken"
-                                          @removeHoverToken = "removeHoverToken"
-                            />
-                            <br v-if="token.hasLineBreak" />
-                        </template>
-                    </div>
+            <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-target">
+                <div class="alpheios-al-editor-segment-cell-target-row" 
+                  v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
+                  :id = "cssId('target', targetId, segIndex)" :style="cssStyle('target', targetId, segIndex)"
+                  :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
+                  v-show="isShownTab(targetId)"
+                >
+                  <span class="alpheios-al-editor-segment-cell-target-row__langname">{{ fullData.targets[targetId].langName }}</span>
+                    <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
+                        <token-block :key = "tokenIndex" :token="token" 
+                                      :selected = "selectedToken(token)"
+                                      :grouped = "groupedToken(token)"
+                                      @addHoverToken = "addHoverToken"
+                                      @removeHoverToken = "removeHoverToken"
+                        />
+                        <br v-if="token.hasLineBreak" />
+                    </template>
                 </div>
+            </div><!-- alpheios-al-editor-segment-cell -->
 
             </div>
 
-        </div>
+        </div><!-- alpheios-al-editor-container-inner-->
     </div>
 </template>
 <script>
@@ -178,23 +180,23 @@ export default {
 </script>
 <style lang="scss">
 
-  .alpheios-alignment-editor-align-define-container-inner {
+  .alpheios-al-editor-container-inner {
     margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     background: #F8F8F8;
     color: #ae0000;
 
-    .alpheios-alignment-editor-align-segment-data {
+    .alpheios-al-editor-segment-row {
       background: #F8F8F8;
       border-bottom: 2px solid  #ddd;
 
-      &.alpheios-alignment-editor-align-segment-data-last {
+      &.alpheios-al-editor-segment-row-last {
         border-bottom-color: transparent;
       }
     }    
 
-    .alpheios-alignment-editor-align-text-segment {
+    .alpheios-al-editor-segment-cell-target-row {
       border-bottom: 2px solid  #e3e3e3;
       padding: 10px; 
       max-height: 400px;
@@ -206,33 +208,38 @@ export default {
       }
     }
 
-    .alpheios-alignment-editor-align-segment-data-item {
-      width: 50%;
+    .alpheios-al-editor-segment-cell {
 
-      &.alpheios-alignment-editor-align-segment-data-target {
+      &.alpheios-al-editor-segment-cell-target {
         border-left: 2px solid  #ddd;
       }
     }
+  }
 
-    .alpheios-alignment-editor-align-segment-data {
+  .alpheios-al-editor-view-full .alpheios-al-editor-container-inner {
+    .alpheios-al-editor-segment-row {
       display: table;
       width: 100%;
     }
-    .alpheios-alignment-editor-align-segment-data-item {
+
+    .alpheios-al-editor-segment-cell {
       display: table-cell;
+      width: 50%;
+      vertical-align: top;
     }
   }
 
-  .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment {
+  .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
     position: relative;
     padding-top: 30px;
 
-    .alpheios-align-text-segment__langname {
+    .alpheios-al-editor-segment-cell-target-row__langname {
         position: absolute;
         overflow-y: hidden;
         border-bottom: 0;
         top: 0;
         right: 0;
+        left: 0;
         margin: 0;
         padding: 0;
         text-align: right;
