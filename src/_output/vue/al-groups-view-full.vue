@@ -51,7 +51,7 @@ import TokenBlock from '@/_output/vue/token-block.vue'
 
 import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
 
-import ScrollUtility from '@/_output/utility/scroll-utility.js'
+import ScrollUtility from '@/lib/utility/scroll-utility.js'
 import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {

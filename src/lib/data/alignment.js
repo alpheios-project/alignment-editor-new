@@ -639,6 +639,18 @@ export default class Alignment {
     return true
   }
 
+  getMinOpositeTokenIdInHoveredGroup (token) {
+    if (this.hoveredGroups.length > 0) {
+      const hoveredGroup = this.hoveredGroups[0]
+      const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+      return {
+        minOpositeTokenId: hoveredGroup[textTypeSeg][0],
+        targetId: hoveredGroup.targetId
+      }
+    }
+    return {}
+  }
+
   /**
    * Checks if the token is included to hoveredGroups
    * Used for hover groups workflow

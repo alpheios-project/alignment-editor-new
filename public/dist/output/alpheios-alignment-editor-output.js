@@ -8809,10 +8809,10 @@ class GroupUtility {
 
 /***/ }),
 
-/***/ "./_output/utility/scroll-utility.js":
-/*!*******************************************!*\
-  !*** ./_output/utility/scroll-utility.js ***!
-  \*******************************************/
+/***/ "./lib/utility/scroll-utility.js":
+/*!***************************************!*\
+  !*** ./lib/utility/scroll-utility.js ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -8822,16 +8822,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class ScrollUtility {
   static makeScrollTo (idElementBlock, idContainerBlock) {
-    // const tokenEl = document.getElementById(`token-${idWord}`)
     const itemEl = document.getElementById(idElementBlock)
-    // const segId = this.cssId(textType, hoveredGroup.targetId, hoveredGroup.segIndex)
     const containerEl = document.getElementById(idContainerBlock)
+
+    if (!itemEl || !containerEl) { return }
 
     const pPos = containerEl.getBoundingClientRect()
     const cPos = itemEl.getBoundingClientRect()
 
-    const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
-    this.scrollTo(containerEl, toTop, 1)
+    if (!this.isElementInViewport(cPos, pPos)) {
+      const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
+      this.scrollTo(containerEl, toTop, 1)
+    }
   }
 
   static easeInOutQuad (t) {
@@ -8855,6 +8857,16 @@ class ScrollUtility {
     }
     animateScroll()
   }
+
+  static isElementInViewport (elPos, parentPos) {
+    const tolerance = 0.01
+
+    const visiblePixelX = Math.min(elPos.right, parentPos.right) - Math.max(elPos.left, parentPos.left)
+    const visiblePixelY = Math.min(elPos.bottom, parentPos.bottom) - Math.max(elPos.top, parentPos.top)
+    const visiblePercentageX = visiblePixelX / elPos.width * 100
+    const visiblePercentageY = visiblePixelY / elPos.height * 100
+    return (visiblePercentageX + tolerance > 100) && (visiblePercentageY + tolerance > 100)
+  }
 }
 
 
@@ -8874,7 +8886,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _output_vue_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/editor-tabs.vue */ "./_output/vue/editor-tabs.vue");
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
 /* harmony import */ var _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/origin-segment-block.vue */ "./_output/vue/origin-segment-block.vue");
-/* harmony import */ var _output_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/utility/scroll-utility.js */ "./_output/utility/scroll-utility.js");
+/* harmony import */ var _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/scroll-utility.js */ "./lib/utility/scroll-utility.js");
 /* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
@@ -9024,7 +9036,7 @@ __webpack_require__.r(__webpack_exports__);
         const minOpositeTokenId = hoveredGroup[textTypeSeg][0]
 
         const segId = this.cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
-        _output_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+        _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
       }
     },
     removeHoverToken() {
@@ -11117,8 +11129,8 @@ var render = function() {
         mouseover: function($event) {
           return _vm.$emit("addHoverToken", _vm.token)
         },
-        mouseout: function($event) {
-          return _vm.$emit("addHoverToken", _vm.token)
+        mouseleave: function($event) {
+          return _vm.$emit("removeHoverToken", _vm.token)
         }
       }
     },

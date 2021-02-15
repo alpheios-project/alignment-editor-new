@@ -21,6 +21,7 @@
 </template>
 <script>
 import TokenBlock from '@/vue/align-editor/token-block.vue'
+import ScrollUtility from '@/lib/utility/scroll-utility.js'
 
 export default {
   name: 'SegmentBlock',
@@ -76,11 +77,7 @@ export default {
      * @returns {String} css id for html layout
      */
     cssId () {
-      if (this.textType === 'target') {
-        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
-      } else {
-        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
-      }
+      return this.getCssId(this.textType, this.targetId, this.segment.index)
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
@@ -88,9 +85,9 @@ export default {
      */
     cssStyle () {
       if (this.textType === 'target') {
-        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
       } else {
-        return `order: ${this.segment.index}; background: ${this.originColor};`
+        return `order: ${this.segment.index}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
       }
     },
     /**
@@ -126,9 +123,30 @@ export default {
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+    },
+    amountOfSegments () {
+      return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
+    },
+    containerHeight () {
+      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
+    },
+    maxHeight () {
+      const minHeight = 400
+      
+      if (this.amountOfSegments === 1) {
+        return this.containerHeight
+      } 
+      return Math.round(Math.min(minHeight, this.containerHeight/this.amountOfSegments))
     }
   },
   methods: {
+    getCssId (textType, targetId, segmentIndex) {
+      if (textType === 'target') {
+        return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
+      } else {
+        return `alpheios-align-text-segment-${textType}-${segmentIndex}`
+      }
+    },
     /**
      * Starts click token workflow
      * @param {Token}
@@ -144,6 +162,18 @@ export default {
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
+      this.makeScroll(token)
+    },
+    makeScroll (token) {
+      const { minOpositeTokenId, targetId } = this.$alignedGC.getMinOpositeTokenIdInHoveredGroup(token)
+      if (minOpositeTokenId) {
+        const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+        
+        const segId = this.getCssId(textTypeSeg, targetId, this.segment.index)
+        const tokId = `token-${minOpositeTokenId}`
+
+        ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+      }
     },
     /**
      * Ends hover token workflow
@@ -184,4 +214,8 @@ export default {
 }
 </script>
 <style lang="scss">
+.alpheios-alignment-editor-align-text-segment {
+  max-height: 400px;
+  overflow-y: scroll;
+}
 </style>
