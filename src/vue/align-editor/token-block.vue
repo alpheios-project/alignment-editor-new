@@ -1,6 +1,6 @@
 <template>
     <span :data-type = "token.textType" :id = "token.idWord"
-          @click.stop = "clickToken"
+          @click.exact = "clickToken"
           @mouseover = "addHoverToken"
           @mouseout = "removeHoverToken"
           class = "alpheios-token"
@@ -62,7 +62,7 @@ export default {
     }
   },
   methods: {
-    clickToken () {
+    clickToken (event) {
       this.$emit('click-token', this.token)
     },
     addHoverToken () {
