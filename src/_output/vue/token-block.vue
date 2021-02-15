@@ -40,7 +40,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-align-text-segment {
+    .alpheios-al-editor-container-inner {
       span.alpheios-token {
           cursor: pointer;
           padding: 4px;

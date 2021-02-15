@@ -1,32 +1,35 @@
 <template>
-    <div class="alpheios-alignment-editor-align-groups-editor-container alpheios-alignment-editor-view-short" v-if="fullData">
+    <div class="alpheios-al-editor-container alpheios-al-editor-view-short" v-if="fullData">
         
-        <div class ="alpheios-alignment-editor-align-define-container-inner alpheios-alignment-editor-align-table-data">
-            <div class="alpheios-alignment-editor-align-segment-data-origin" >
-                <div class="alpheios-align-text-segment-origin" 
-                    v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
-                >
-                  <origin-segment-block
-                    :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                    :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
-                    :hoveredGroupsId = "hoveredGroupsId"
-                    @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
-                  />
-                </div>
-            </div>
-            <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target" >
-                <div class="alpheios-alignment-editor-align-text-segment" v-if="hoveredTargetTokens" >
+        <div class ="alpheios-al-editor-container-inner alpheios-al-editor-table-view">
 
-                  <div class="alpheios-alignment-editor-align-text-target-hovered-block"
+          <div class="alpheios-al-editor-segment-block-all-origins">
+            <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin"
+                v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
+                :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allOriginSegments.length }"
+            >
+              <origin-segment-block
+                :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
+                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
+                :hoveredGroupsId = "hoveredGroupsId"
+                @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+              />
+            </div>
+          </div>
+
+            <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target" >
+                <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetTokens" >
+
+                  <div class="alpheios-al-editor-target-hovered-block"
                     v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key=" hoveredGroupDataIndex">
-                      <span class="alpheios-align-text-segment__langname">{{ targetLangName(hoveredGroupData) }}</span>
-                      <div class="alpheios-alignment-editor-align-text-target-hovered-block__tokens">
+                      <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
+                      <div class="alpheios-al-editor-target-hovered-block_tokens">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" />
                             <br v-if="token.hasLineBreak" />
                         </template>
                       </div>
-                      <p class="alpheios-alignment-editor-align-text-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">
+                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">
                         {{ hoveredGroupData.metadata }}
                       </p>
                   </div>
@@ -121,23 +124,24 @@ export default {
 </script>
 <style lang="scss">
 
-  .alpheios-alignment-editor-align-table-data {
+  .alpheios-al-editor-table-view {
     display: table;
     width: 100%;
     vertical-align: top;
 
-    .alpheios-alignment-editor-align-segment-data-origin {
+    .alpheios-al-editor-segment-block-all-origins {
       width: 70%;
       display: table-cell;
       vertical-align: top;
     }
 
-    .alpheios-alignment-editor-align-segment-data-target {
+    .alpheios-al-editor-segment-block-target {
       width: 30%;
       display: table-cell;
       vertical-align: top;
+      border-left: 2px solid  #ddd;
 
-      .alpheios-alignment-editor-align-text-segment {
+      .alpheios-al-editor-segment-block-text {
           border-bottom: none;
           padding: 0;
       }
@@ -145,21 +149,21 @@ export default {
   }
 
   
-  .alpheios-alignment-editor-align-text-target-hovered-block {
+  .alpheios-al-editor-target-hovered-block {
     margin-bottom: 20px;
 
-    .alpheios-alignment-editor-align-text-target-hovered-block__metadata {
+    .alpheios-al-editor-target-hovered-block__metadata {
       padding: 0 5px;
       margin: 0;
       color: #666666;
     }
   }
 
-  .alpheios-alignment-editor-align-text-target-hovered-block {
+  .alpheios-al-editor-target-hovered-block {
     position: relative;
     padding: 30px 10px 10px;
 
-    .alpheios-align-text-segment__langname {
+    .alpheios-al-editor-segment-block-text__langname {
       position: absolute;
       overflow-y: hidden;
       border-bottom: 0;
