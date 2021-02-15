@@ -152,13 +152,13 @@ describe('segment-block.test.js', () => {
       }
     })
 
-    expect(cmp.vm.cssStyle).toEqual(`order: 1; background: ${cmp.vm.originColor};`) 
+    expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 1; background: ${cmp.vm.originColor};`))
     cmp.setProps({
       segment: targetSegment // index 2, targetId[0]
     })
 
     await Vue.nextTick()
-    expect(cmp.vm.cssStyle).toEqual(`order: 2; background: ${cmp.vm.colors[1]};`) // color for the second target
+    expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 2; background: ${cmp.vm.colors[1]};`)) // color for the second target
   })
 
   it('7 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {

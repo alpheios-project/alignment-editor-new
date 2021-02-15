@@ -1,8 +1,8 @@
 <template>
-    <span :data-type = "token.textType" :id = "token.idWord"
-          @click.exact = "clickToken"
+    <span :data-type = "token.textType" :id = "elementId"
+          @click.exact.prevent = "clickToken"
           @mouseover = "addHoverToken"
-          @mouseout = "removeHoverToken"
+          @mouseleave = "removeHoverToken"
           class = "alpheios-token"
           :class="tokenClasses"
     >
@@ -59,6 +59,9 @@ export default {
     }, 
     tokenAfterWord () {
       return this.$store.state.tokenUpdated && this.token.afterWord
+    },
+    elementId () {
+      return `token-${this.token.idWord}`
     }
   },
   methods: {

@@ -92,7 +92,8 @@ export default {
 <style lang="scss">
   .alpheios-al-editor-segment-block-text {
     position: relative;
-    padding-top: 30px;
+    padding: 30px 10px 10px;
+    overflow-y: scroll;
 
     .alpheios-al-editor-segment-block-text__langname {
       position: absolute;

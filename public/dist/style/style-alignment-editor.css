@@ -1090,6 +1090,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   background: #f06d26;
   color: #fff;
 }
+.alpheios-alignment-editor-align-text-segment {
+  max-height: 400px;
+  overflow-y: scroll;
+}
 .alpheios-alignment-editor-align-target-tabs {
   padding-left: 51%;
 }
