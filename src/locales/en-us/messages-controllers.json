@@ -11,7 +11,7 @@
         "component": "DownloadController"
     },
     "TEXTS_CONTROLLER_EMPTY_FILE_DATA": {
-        "message": "There is no data in file to upload",
+        "message": "The file doesn't have all the required fields. Text won't be created.",
         "description": "An error message for upload data from file.",
         "component": "TextsController"
     },
