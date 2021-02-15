@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-alignment-editor-align-text-segment alpheios-tools-enabled" 
+    <div class="alpheios-alignment-editor-align-text-segment" 
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
