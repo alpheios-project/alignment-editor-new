@@ -55,6 +55,11 @@ export default {
       blockTokensActionsFlag: 1
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.shownTabsInited = false
+    }
+  },
   computed: {
     /**
      * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
@@ -64,12 +69,12 @@ export default {
      */
     allTokenizedTargetTextsIds () {
       const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-      if (!this.shownTabsInited) {
+      if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+      return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
     },
 
     /**

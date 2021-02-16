@@ -31,6 +31,10 @@ export default {
     }
   },
   watch: {
+    '$store.state.alignmentRestarted' () {
+      this.renderTokensEditor = false
+      this.showTokensEditBlocks = false
+    }
   },
   computed: {
     l10n () {

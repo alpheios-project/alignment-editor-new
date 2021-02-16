@@ -46172,7 +46172,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i196-target-unavailable-origin-empty.20210216610" : 0
+    return  true ? "i197-tokens-editor-target-invisible.20210216632" : 0
   }
 
   static get libName () {
@@ -50112,6 +50112,11 @@ __webpack_require__.r(__webpack_exports__);
       blockTokensActionsFlag: 1
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.shownTabsInited = false
+    }
+  },
   computed: {
     /**
      * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
@@ -50121,12 +50126,12 @@ __webpack_require__.r(__webpack_exports__);
      */
     allTokenizedTargetTextsIds () {
       const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-      if (!this.shownTabsInited) {
+      if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+      return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
     },
 
     /**
@@ -50252,6 +50257,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
+    '$store.state.alignmentRestarted' () {
+      this.renderTokensEditor = false
+      this.showTokensEditBlocks = false
+    }
   },
   computed: {
     l10n () {
