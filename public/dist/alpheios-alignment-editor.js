@@ -41476,6 +41476,10 @@ class TextsController {
   changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
+
+  get originDocSourceDefined () {
+    return this.alignment.originDocSourceDefined
+  }
 }
 
 
@@ -43536,7 +43540,7 @@ class Alignment {
    * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
+    return this.originDocSourceDefined && this.origin.docSource.fullyDefined
   }
 
   /**
@@ -43545,6 +43549,10 @@ class Alignment {
    */
   get targetDocSourceFullyDefined () {
     return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+  }
+
+  get originDocSourceDefined () {
+    return Boolean(this.origin.docSource)
   }
 
   /**
@@ -43557,7 +43565,7 @@ class Alignment {
       return false
     }
 
-    if (!this.origin.docSource) {
+    if (!this.originDocSourceDefined) {
       if (docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default) {
         this.origin.docSource = docSource
       } else {
@@ -46164,7 +46172,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-language-duplicates.20210216598" : 0
+    return  true ? "i196-target-unavailable-origin-empty.20210216607" : 0
   }
 
   static get libName () {
@@ -48805,7 +48813,9 @@ __webpack_require__.r(__webpack_exports__);
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             ((this.textType === 'origin') || this.$textC.originDocSourceDefined) &&
+             !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
