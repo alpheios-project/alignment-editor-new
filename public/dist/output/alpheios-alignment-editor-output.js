@@ -9473,8 +9473,8 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     checkSentenceCount () {
-      if (sentenceCount < 0) { 
-        sentenceCount = 0
+      if (this.sentenceCount < 0) { 
+        this.sentenceCount = 0
       }
     }
   }
