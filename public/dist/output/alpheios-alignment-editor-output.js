@@ -10625,7 +10625,7 @@ var render = function() {
                                 {
                                   staticClass:
                                     "alpheios-al-editor-target-hovered-block__tokens",
-                                  style: _vm.cssStyle,
+                                  style: _vm.cssStyleTarget,
                                   attrs: {
                                     id: _vm.getTargetSegId(
                                       hoveredGroupDataIndex

@@ -22,7 +22,7 @@
                   <div class="alpheios-al-editor-target-hovered-block" 
                     v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex" >
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
-                      <div class="alpheios-al-editor-target-hovered-block__tokens" :id = "getTargetSegId(hoveredGroupDataIndex)" :style="cssStyle">
+                      <div class="alpheios-al-editor-target-hovered-block__tokens" :id = "getTargetSegId(hoveredGroupDataIndex)" :style="cssStyleTarget">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" 
                                 :selected = "selectedToken(token)"
