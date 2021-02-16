@@ -17,12 +17,12 @@
             </div>
             
             <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target" >
-                <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetTokens" :style="cssStyle">
+                <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetTokens" >
 
-                  <div class="alpheios-al-editor-target-hovered-block"
-                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex">
+                  <div class="alpheios-al-editor-target-hovered-block" 
+                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex" >
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
-                      <div class="alpheios-al-editor-target-hovered-block__tokens">
+                      <div class="alpheios-al-editor-target-hovered-block__tokens" :id = "getTargetSegId(hoveredGroupDataIndex)" :style="cssStyle">
                         <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
                             <token-block :key = "tokenIndex" :token="token" 
                                 :selected = "selectedToken(token)"
@@ -43,8 +43,9 @@
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
 import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
-
+import ScrollUtility from '@/lib/utility/scroll-utility.js'
 import GroupUtility from '@/_output/utility/group-utility.js'
+import Vue from '@vue-runtime'
 
 export default {
   name: 'AlGroupsViewSentence',
@@ -87,6 +88,9 @@ export default {
     cssStyle () {
       return `max-height: ${this.maxHeight}px`
     },
+    cssStyleTarget () {
+      return `max-height: ${this.containerHeight}px`
+    },
     allAlGroups () {
       return GroupUtility.alignmentGroups(this.fullData, 'sentence', this.sentenceCount)
     },
@@ -116,17 +120,36 @@ export default {
       return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     },
 
-    addHoverToken (token) {
-      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      this.updateHovered++
+    async addHoverToken (token) {
+      const hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      if (hoveredGroupsId) {
+        this.hoveredGroupsId = hoveredGroupsId
+        this.updateHovered++
+        
+        await Vue.nextTick()
+        this.makeScroll(token)
+      }
+    },
+    
+    makeScroll (token) {
+      if (this.hoveredGroupsId) {
+        const hoveredGroupData = this.hoveredTargetTokens[0]
+        const minOpositeTokenId = hoveredGroupData.target.find(targetToken => targetToken.grouped).idWord
+
+        const segId = this.getTargetSegId(0)
+        ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+      }
     },
 
     removeHoverToken (token) {
-      this.hoveredGroupsId = null
-      this.updateHovered++
+      // this.hoveredGroupsId = null
+      // this.updateHovered++
     },
     targetLangName (hoveredTargetTokens) {
       return this.fullData.targets[hoveredTargetTokens.targetId].langName
+    },
+    getTargetSegId (hoveredGroupDataIndex) {
+      return `hovered-segment-target-id-${hoveredGroupDataIndex}`
     }
   }
 }
@@ -137,17 +160,27 @@ export default {
     display: table;
     width: 100%;
 
-    .alpheios-alignment-editor-align-segment-data-origin {
+    .alpheios-al-editor-segment-block-all-origins {
       width: 50%;
       display: table-cell;
     }
 
-    .alpheios-alignment-editor-align-segment-data-target {
+    .alpheios-al-editor-segment-block-target {
       width: 50%;
       display: table-cell;
 
       .alpheios-al-editor-segment-block-text {
           border-bottom: none;
+          overflow: initial;
+      }
+
+      .alpheios-al-editor-target-hovered-block {
+        padding: 30px 0;
+      }
+      .alpheios-al-editor-target-hovered-block__tokens {
+        padding: 0 10px 10px;
+        overflow-y: scroll;
+        max-height: 400px;
       }
     }
   }

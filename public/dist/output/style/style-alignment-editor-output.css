@@ -437,16 +437,25 @@ body, html {
   display: table;
   width: 100%;
 }
-.alpheios-al-editor-table-view .alpheios-alignment-editor-align-segment-data-origin {
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-all-origins {
   width: 50%;
   display: table-cell;
 }
-.alpheios-al-editor-table-view .alpheios-alignment-editor-align-segment-data-target {
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target {
   width: 50%;
   display: table-cell;
 }
-.alpheios-al-editor-table-view .alpheios-alignment-editor-align-segment-data-target .alpheios-al-editor-segment-block-text {
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-segment-block-text {
   border-bottom: none;
+  overflow: initial;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-target-hovered-block {
+  padding: 30px 0;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-target-hovered-block__tokens {
+  padding: 0 10px 10px;
+  overflow-y: scroll;
+  max-height: 400px;
 }
 .alpheios-al-editor-target-hovered-block {
   margin-bottom: 20px;
