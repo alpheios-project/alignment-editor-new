@@ -177,7 +177,9 @@ export default {
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             ((this.textType === 'origin') || this.$textC.originDocSourceDefined) &&
+             !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'

@@ -358,4 +358,8 @@ export default class TextsController {
   changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
+
+  get originDocSourceDefined () {
+    return this.alignment.originDocSourceDefined
+  }
 }

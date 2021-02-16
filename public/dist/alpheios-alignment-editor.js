@@ -41476,6 +41476,10 @@ class TextsController {
   changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
+
+  get originDocSourceDefined () {
+    return this.alignment.originDocSourceDefined
+  }
 }
 
 
@@ -43536,7 +43540,7 @@ class Alignment {
    * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
+    return this.originDocSourceDefined && this.origin.docSource.fullyDefined
   }
 
   /**
@@ -43545,6 +43549,10 @@ class Alignment {
    */
   get targetDocSourceFullyDefined () {
     return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+  }
+
+  get originDocSourceDefined () {
+    return Boolean(this.origin.docSource)
   }
 
   /**
@@ -43557,7 +43565,7 @@ class Alignment {
       return false
     }
 
-    if (!this.origin.docSource) {
+    if (!this.originDocSourceDefined) {
       if (docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default) {
         this.origin.docSource = docSource
       } else {
@@ -43578,9 +43586,9 @@ class Alignment {
   updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
         _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
           type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
         })
       }
@@ -46164,7 +46172,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-language-duplicates.20210216598" : 0
+    return  true ? "i196-target-unavailable-origin-empty.20210216610" : 0
   }
 
   static get libName () {
@@ -48805,7 +48813,9 @@ __webpack_require__.r(__webpack_exports__);
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             ((this.textType === 'origin') || this.$textC.originDocSourceDefined) &&
+             !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
@@ -56241,7 +56251,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"The file doesn't have all the required fields. Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TARGET_SOURCE\":{\"message\":\"First you should define origin source text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"The file doesn't have all the required fields. Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
 
 /***/ }),
 

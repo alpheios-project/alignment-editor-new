@@ -58,7 +58,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
+    return this.originDocSourceDefined && this.origin.docSource.fullyDefined
   }
 
   /**
@@ -67,6 +67,10 @@ export default class Alignment {
    */
   get targetDocSourceFullyDefined () {
     return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+  }
+
+  get originDocSourceDefined () {
+    return Boolean(this.origin.docSource)
   }
 
   /**
@@ -79,7 +83,7 @@ export default class Alignment {
       return false
     }
 
-    if (!this.origin.docSource) {
+    if (!this.originDocSourceDefined) {
       if (docSource instanceof SourceText) {
         this.origin.docSource = docSource
       } else {
@@ -100,9 +104,9 @@ export default class Alignment {
   updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
         NotificationSingleton.addNotification({
-          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
           type: NotificationSingleton.types.ERROR
         })
       }
