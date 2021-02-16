@@ -9443,6 +9443,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -9469,6 +9470,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     itemIdWithValue (value) {
       return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
+    },
+
+    checkSentenceCount () {
+      if (sentenceCount < 0) { 
+        sentenceCount = 0
+      }
     }
   }
 });
@@ -10938,10 +10945,12 @@ var render = function() {
                   "alpheios-alignment-input alpheios-alignment-input__sentence-count",
                 attrs: {
                   type: "number",
+                  min: "0",
                   id: _vm.itemIdWithValue("sentenceCount")
                 },
                 domProps: { value: _vm.sentenceCount },
                 on: {
+                  change: _vm.checkSentenceCount,
                   input: function($event) {
                     if ($event.target.composing) {
                       return

@@ -21,8 +21,9 @@
                 <span>
                   <input
                       class="alpheios-alignment-input alpheios-alignment-input__sentence-count"
-                      type="number"
+                      type="number" min="0"
                       v-model.number="sentenceCount"
+                      @change="checkSentenceCount"
                       :id="itemIdWithValue('sentenceCount')"
                   >
                   <label :for="itemIdWithValue('sentenceCount')">sentences around</label>
@@ -62,6 +63,12 @@ export default {
   methods: {
     itemIdWithValue (value) {
       return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
+    },
+
+    checkSentenceCount () {
+      if (sentenceCount < 0) { 
+        sentenceCount = 0
+      }
     }
   }
 }
