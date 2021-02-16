@@ -104,9 +104,9 @@ export default class Alignment {
   updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
         NotificationSingleton.addNotification({
-          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
           type: NotificationSingleton.types.ERROR
         })
       }
