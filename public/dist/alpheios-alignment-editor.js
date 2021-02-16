@@ -45050,7 +45050,7 @@ class Metadata {
   }
 
   convertToJSONLine () {
-    return Object.values(this.properties).sort((a, b) => (a.order - b.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
+    return Object.values(this.properties).sort((a, b) => (a.property.order - b.property.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
   }
 
   static convertFromJSON (data) {
@@ -46164,7 +46164,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i195-metadata-order-html.20210216566" : 0
+    return  true ? "i195-metadata-order-html.20210216576" : 0
   }
 
   static get libName () {

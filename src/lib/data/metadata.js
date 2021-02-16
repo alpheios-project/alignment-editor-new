@@ -51,7 +51,7 @@ export default class Metadata {
   }
 
   convertToJSONLine () {
-    return Object.values(this.properties).sort((a, b) => (a.order - b.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
+    return Object.values(this.properties).sort((a, b) => (a.property.order - b.property.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
   }
 
   static convertFromJSON (data) {
