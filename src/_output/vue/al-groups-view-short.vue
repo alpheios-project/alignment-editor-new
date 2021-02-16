@@ -6,11 +6,11 @@
           <div class="alpheios-al-editor-segment-block-all-origins">
             <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin"
                 v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
-                :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allOriginSegments.length }"
+                :class = "{ 'alpheios-al-editor-segment-block-last': segIndex === allOriginSegments.length - 1 }"
             >
               <origin-segment-block
                 :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
+                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName" :showLangName = "segIndex === 0"
                 :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -142,23 +142,35 @@ export default {
       width: 30%;
       display: table-cell;
       vertical-align: top;
-      border-left: 2px solid  #ddd;
+      border-left: 1px solid  #ddd;
 
       .alpheios-al-editor-segment-block-text {
           border-bottom: none;
           padding: 0;
       }
     }
+
+    .alpheios-al-editor-segment-block {
+      background: #F8F8F8;
+      border-bottom: 1px solid  #ddd;
+
+      &.alpheios-al-editor-segment-block-last {
+        border-bottom-color: transparent;
+      }
+    }    
   }
 
   
   .alpheios-al-editor-target-hovered-block {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 
     .alpheios-al-editor-target-hovered-block__metadata {
-      padding: 0 5px;
+      padding: 0 15px;
       margin: 0;
       color: #666666;
+    }
+    .alpheios-al-editor-target-hovered-block_tokens {
+      padding: 0 10px;
     }
   }
 
