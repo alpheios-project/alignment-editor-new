@@ -5,11 +5,11 @@
             <div class="alpheios-al-editor-segment-block-all-origins">
               <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin"
                   v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
-                  :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allOriginSegments.length }"
+                  :class = "{ 'alpheios-al-editor-segment-block-last': segIndex === allOriginSegments.length - 1 }"
               >
                 <origin-segment-block
                   :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                  :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
+                  :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName" :showLangName = "segIndex === 0"
                   :hoveredGroupsId = "hoveredGroupsId"
                   @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
                 />
@@ -175,7 +175,7 @@ export default {
       }
 
       .alpheios-al-editor-target-hovered-block {
-        padding: 30px 0;
+        padding: 35px 0 10px;
       }
       .alpheios-al-editor-target-hovered-block__tokens {
         padding: 0 10px 10px;
@@ -187,10 +187,10 @@ export default {
 
   
   .alpheios-al-editor-target-hovered-block {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 
     .alpheios-al-editor-target-hovered-block__metadata {
-      padding: 0 5px;
+      padding: 0 15px;
       margin: 0;
       color: #666666;
     }

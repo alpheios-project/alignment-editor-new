@@ -9,7 +9,7 @@
 
           <div class="alpheios-al-editor-segment-row"
                 v-for="(segmentData, segIndex) in allShownSegments" :key="getIndex('origin', segIndex)"
-                :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allShownSegments.length }"
+                :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allShownSegments.length - 1 }"
             >
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin" >
               <origin-segment-block
@@ -197,7 +197,7 @@ export default {
     }    
 
     .alpheios-al-editor-segment-cell-target-row {
-      border-bottom: 2px solid  #e3e3e3;
+      border-bottom: 1px solid  #e3e3e3;
       padding: 10px; 
       max-height: 400px;
       overflow-y: scroll;
@@ -211,7 +211,7 @@ export default {
     .alpheios-al-editor-segment-cell {
 
       &.alpheios-al-editor-segment-cell-target {
-        border-left: 2px solid  #ddd;
+        border-left: 1px solid  #ddd;
       }
     }
   }

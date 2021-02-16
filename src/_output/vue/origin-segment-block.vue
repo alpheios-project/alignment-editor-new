@@ -1,9 +1,10 @@
 <template>
-      <div class="alpheios-al-editor-segment-block-text" 
+      <div class = "alpheios-al-editor-segment-block-text" 
+          :class = "{ 'alpheios-al-editor-segment-block-text__no-langname': !showLangName }"
           :id = "cssId" :style="cssStyle"
           :dir = "dir" :lang = "lang"
       >
-        <span class="alpheios-al-editor-segment-block-text__langname">{{ langName }}</span>
+        <span class="alpheios-al-editor-segment-block-text__langname" v-show="showLangName">{{ langName }}</span>
           <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
               <token-block :key = "tokenIndex" :token="token" 
                               :selected = "selectedToken(token)"
@@ -58,6 +59,11 @@ export default {
       type: Array,
       required: false,
       default: () => { return [] }
+    },
+    showLangName: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -94,6 +100,10 @@ export default {
     position: relative;
     padding: 30px 10px 10px;
     overflow-y: scroll;
+
+    &.alpheios-al-editor-segment-block-text__no-langname {
+      padding: 10px;
+    }
 
     .alpheios-al-editor-segment-block-text__langname {
       position: absolute;

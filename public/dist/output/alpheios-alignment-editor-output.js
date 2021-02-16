@@ -9586,6 +9586,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -9628,6 +9629,11 @@ __webpack_require__.r(__webpack_exports__);
       type: Array,
       required: false,
       default: () => { return [] }
+    },
+    showLangName: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -10399,7 +10405,7 @@ var render = function() {
                   staticClass: "alpheios-al-editor-segment-row",
                   class: {
                     "alpheios-al-editor-segment-row-last":
-                      segIndex === _vm.allShownSegments.length
+                      segIndex === _vm.allShownSegments.length - 1
                   }
                 },
                 [
@@ -10562,8 +10568,8 @@ var render = function() {
                       staticClass:
                         "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin",
                       class: {
-                        "alpheios-al-editor-segment-row-last":
-                          segIndex === _vm.allOriginSegments.length
+                        "alpheios-al-editor-segment-block-last":
+                          segIndex === _vm.allOriginSegments.length - 1
                       }
                     },
                     [
@@ -10575,6 +10581,7 @@ var render = function() {
                           dir: _vm.fullData.origin.dir,
                           lang: _vm.fullData.origin.lang,
                           langName: _vm.fullData.origin.langName,
+                          showLangName: segIndex === 0,
                           hoveredGroupsId: _vm.hoveredGroupsId
                         },
                         on: {
@@ -10740,8 +10747,8 @@ var render = function() {
                       staticClass:
                         "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-origin",
                       class: {
-                        "alpheios-al-editor-segment-row-last":
-                          segIndex === _vm.allOriginSegments.length
+                        "alpheios-al-editor-segment-block-last":
+                          segIndex === _vm.allOriginSegments.length - 1
                       }
                     },
                     [
@@ -10753,6 +10760,7 @@ var render = function() {
                           dir: _vm.fullData.origin.dir,
                           lang: _vm.fullData.origin.lang,
                           langName: _vm.fullData.origin.langName,
+                          showLangName: segIndex === 0,
                           hoveredGroupsId: _vm.hoveredGroupsId
                         },
                         on: {
@@ -11102,13 +11110,26 @@ var render = function() {
     "div",
     {
       staticClass: "alpheios-al-editor-segment-block-text",
+      class: {
+        "alpheios-al-editor-segment-block-text__no-langname": !_vm.showLangName
+      },
       style: _vm.cssStyle,
       attrs: { id: _vm.cssId, dir: _vm.dir, lang: _vm.lang }
     },
     [
       _c(
         "span",
-        { staticClass: "alpheios-al-editor-segment-block-text__langname" },
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showLangName,
+              expression: "showLangName"
+            }
+          ],
+          staticClass: "alpheios-al-editor-segment-block-text__langname"
+        },
         [_vm._v(_vm._s(_vm.langName))]
       ),
       _vm._v(" "),
