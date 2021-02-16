@@ -8,7 +8,8 @@ export default class ScrollUtility {
     const pPos = containerEl.getBoundingClientRect()
     const cPos = itemEl.getBoundingClientRect()
 
-    if (!this.isElementInViewport(cPos, pPos)) {
+    const visible = this.isElementInViewport(cPos, pPos)
+    if (!visible) {
       const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
       this.scrollTo(containerEl, toTop, 1)
     }

@@ -46156,7 +46156,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "optimize-layout.20210215681" : 0
+    return  true ? "i188-sentence-short-view-fix.20210216361" : 0
   }
 
   static get libName () {
@@ -46584,7 +46584,8 @@ class ScrollUtility {
     const pPos = containerEl.getBoundingClientRect()
     const cPos = itemEl.getBoundingClientRect()
 
-    if (!this.isElementInViewport(cPos, pPos)) {
+    const visible = this.isElementInViewport(cPos, pPos)
+    if (!visible) {
       const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
       this.scrollTo(containerEl, toTop, 1)
     }

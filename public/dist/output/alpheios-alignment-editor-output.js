@@ -8830,7 +8830,8 @@ class ScrollUtility {
     const pPos = containerEl.getBoundingClientRect()
     const cPos = itemEl.getBoundingClientRect()
 
-    if (!this.isElementInViewport(cPos, pPos)) {
+    const visible = this.isElementInViewport(cPos, pPos)
+    if (!visible) {
       const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
       this.scrollTo(containerEl, toTop, 1)
     }
@@ -9084,7 +9085,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
 /* harmony import */ var _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/origin-segment-block.vue */ "./_output/vue/origin-segment-block.vue");
-/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
+/* harmony import */ var _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/utility/scroll-utility.js */ "./lib/utility/scroll-utility.js");
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 //
 //
 //
@@ -9127,6 +9130,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -9158,7 +9162,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     allOriginSegments () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.allOriginSegments(this.fullData)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.allOriginSegments(this.fullData)
     },
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 200
@@ -9174,8 +9178,11 @@ __webpack_require__.r(__webpack_exports__);
     cssStyle () {
       return `max-height: ${this.maxHeight}px`
     },
+    cssStyleTarget () {
+      return `max-height: ${this.containerHeight}px`
+    },
     allAlGroups () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.alignmentGroups(this.fullData, 'sentence', this.sentenceCount)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.alignmentGroups(this.fullData, 'sentence', this.sentenceCount)
     },
     hoveredTargetTokens () {
       return this.updateHovered && this.hoveredGroupsId && 
@@ -9203,17 +9210,36 @@ __webpack_require__.r(__webpack_exports__);
       return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     },
 
-    addHoverToken (token) {
-      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      this.updateHovered++
+    async addHoverToken (token) {
+      const hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      if (hoveredGroupsId) {
+        this.hoveredGroupsId = hoveredGroupsId
+        this.updateHovered++
+        
+        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+        this.makeScroll(token)
+      }
+    },
+    
+    makeScroll (token) {
+      if (this.hoveredGroupsId) {
+        const hoveredGroupData = this.hoveredTargetTokens[0]
+        const minOpositeTokenId = hoveredGroupData.target.find(targetToken => targetToken.grouped).idWord
+
+        const segId = this.getTargetSegId(0)
+        _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+      }
     },
 
     removeHoverToken (token) {
-      this.hoveredGroupsId = null
-      this.updateHovered++
+      // this.hoveredGroupsId = null
+      // this.updateHovered++
     },
     targetLangName (hoveredTargetTokens) {
       return this.fullData.targets[hoveredTargetTokens.targetId].langName
+    },
+    getTargetSegId (hoveredGroupDataIndex) {
+      return `hovered-segment-target-id-${hoveredGroupDataIndex}`
     }
   }
 });
@@ -9345,13 +9371,16 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     addHoverToken (token) {
-      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      this.updateHovered++
+      const hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      if (hoveredGroupsId) {
+        this.hoveredGroupsId = hoveredGroupsId
+        this.updateHovered++
+      }
     },
 
     removeHoverToken (token) {
-      this.hoveredGroupsId = null
-      this.updateHovered++
+      // this.hoveredGroupsId = null
+      // this.updateHovered++
     },
     targetLangName (hoveredTargetTokens) {
       return this.fullData.targets[hoveredTargetTokens.targetId].langName
@@ -10564,8 +10593,7 @@ var render = function() {
                     ? _c(
                         "div",
                         {
-                          staticClass: "alpheios-al-editor-segment-block-text",
-                          style: _vm.cssStyle
+                          staticClass: "alpheios-al-editor-segment-block-text"
                         },
                         _vm._l(_vm.hoveredTargetTokens, function(
                           hoveredGroupData,
@@ -10596,7 +10624,13 @@ var render = function() {
                                 "div",
                                 {
                                   staticClass:
-                                    "alpheios-al-editor-target-hovered-block__tokens"
+                                    "alpheios-al-editor-target-hovered-block__tokens",
+                                  style: _vm.cssStyleTarget,
+                                  attrs: {
+                                    id: _vm.getTargetSegId(
+                                      hoveredGroupDataIndex
+                                    )
+                                  }
                                 },
                                 [
                                   _vm._l(hoveredGroupData.target, function(
@@ -11126,7 +11160,7 @@ var render = function() {
       class: _vm.tokenClasses,
       attrs: { id: _vm.elementId },
       on: {
-        mouseover: function($event) {
+        mouseenter: function($event) {
           return _vm.$emit("addHoverToken", _vm.token)
         },
         mouseleave: function($event) {

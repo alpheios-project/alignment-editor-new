@@ -108,13 +108,16 @@ export default {
     },
 
     addHoverToken (token) {
-      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      this.updateHovered++
+      const hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+      if (hoveredGroupsId) {
+        this.hoveredGroupsId = hoveredGroupsId
+        this.updateHovered++
+      }
     },
 
     removeHoverToken (token) {
-      this.hoveredGroupsId = null
-      this.updateHovered++
+      // this.hoveredGroupsId = null
+      // this.updateHovered++
     },
     targetLangName (hoveredTargetTokens) {
       return this.fullData.targets[hoveredTargetTokens.targetId].langName
