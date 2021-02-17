@@ -9,7 +9,7 @@
               >
                 <origin-segment-block
                   :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                  :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName" :showLangName = "segIndex === 0"
+                  :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
                   :hoveredGroupsId = "hoveredGroupsId"
                   @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
                 />

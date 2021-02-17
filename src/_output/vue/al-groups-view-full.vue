@@ -142,7 +142,7 @@ export default {
       if (this.hoveredGroupsId) {
         let scrolledTargetsIds = []
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
-        
+
         for (let i = 0; i < this.hoveredGroupsId.length; i++) {
           const hoveredGroup = this.alGroups[this.hoveredGroupsId[i]]
 
@@ -206,7 +206,7 @@ export default {
     }    
 
     .alpheios-al-editor-segment-cell-target-row {
-      border-bottom: 1px solid  #e3e3e3;
+      border-bottom: 2px solid  #e3e3e3;
       padding: 10px; 
       max-height: 400px;
       overflow-y: scroll;
@@ -220,7 +220,7 @@ export default {
     .alpheios-al-editor-segment-cell {
 
       &.alpheios-al-editor-segment-cell-target {
-        border-left: 1px solid  #ddd;
+        border-left: 2px solid  #ddd;
       }
     }
   }

@@ -348,7 +348,7 @@ body, html {
   border-bottom-color: transparent;
 }
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
-  border-bottom: 1px solid #e3e3e3;
+  border-bottom: 2px solid #e3e3e3;
   padding: 10px;
   max-height: 400px;
   overflow-y: scroll;
@@ -357,7 +357,7 @@ body, html {
   border-bottom: 2px solid transparent;
 }
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell.alpheios-al-editor-segment-cell-target {
-  border-left: 1px solid #ddd;
+  border-left: 2px solid #ddd;
 }
 .alpheios-al-editor-view-full .alpheios-al-editor-container-inner .alpheios-al-editor-segment-row {
   display: table;
@@ -410,7 +410,7 @@ body, html {
 }
 .alpheios-al-editor-table-view .alpheios-al-editor-segment-block {
   background: #F8F8F8;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
 }
 .alpheios-al-editor-table-view .alpheios-al-editor-segment-block.alpheios-al-editor-segment-block-last {
   border-bottom-color: transparent;
