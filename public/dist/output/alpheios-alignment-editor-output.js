@@ -9033,7 +9033,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.hoveredGroupsId) {
         let scrolledTargetsIds = []
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
-        
+
         for (let i = 0; i < this.hoveredGroupsId.length; i++) {
           const hoveredGroup = this.alGroups[this.hoveredGroupsId[i]]
 
@@ -10590,7 +10590,6 @@ var render = function() {
                           dir: _vm.fullData.origin.dir,
                           lang: _vm.fullData.origin.lang,
                           langName: _vm.fullData.origin.langName,
-                          showLangName: segIndex === 0,
                           hoveredGroupsId: _vm.hoveredGroupsId
                         },
                         on: {
@@ -10769,7 +10768,6 @@ var render = function() {
                           dir: _vm.fullData.origin.dir,
                           lang: _vm.fullData.origin.lang,
                           langName: _vm.fullData.origin.langName,
-                          showLangName: segIndex === 0,
                           hoveredGroupsId: _vm.hoveredGroupsId
                         },
                         on: {

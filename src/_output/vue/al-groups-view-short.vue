@@ -10,7 +10,7 @@
             >
               <origin-segment-block
                 :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName" :showLangName = "segIndex === 0"
+                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName" 
                 :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -152,7 +152,7 @@ export default {
 
     .alpheios-al-editor-segment-block {
       background: #F8F8F8;
-      border-bottom: 1px solid  #ddd;
+      border-bottom: 2px solid  #ddd;
 
       &.alpheios-al-editor-segment-block-last {
         border-bottom-color: transparent;
