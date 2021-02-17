@@ -297,7 +297,7 @@ export default class AlignedGroupsController {
     return this.alignment.getAmountOfSegments(segment)
   }
 
-  getMinOpositeTokenIdInHoveredGroup (token) {
-    return this.alignment.getMinOpositeTokenIdInHoveredGroup(token)
+  getOpositeTokenTargetIdForScroll (token) {
+    return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
 }

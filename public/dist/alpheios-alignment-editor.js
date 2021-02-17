@@ -40364,8 +40364,8 @@ class AlignedGroupsController {
     return this.alignment.getAmountOfSegments(segment)
   }
 
-  getMinOpositeTokenIdInHoveredGroup (token) {
-    return this.alignment.getMinOpositeTokenIdInHoveredGroup(token)
+  getOpositeTokenTargetIdForScroll (token) {
+    return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
 }
 
@@ -44125,14 +44125,24 @@ class Alignment {
     return true
   }
 
-  getMinOpositeTokenIdInHoveredGroup (token) {
+  getOpositeTokenTargetIdForScroll (token) {
     if (this.hoveredGroups.length > 0) {
-      const hoveredGroup = this.hoveredGroups[0]
       const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
-      return {
-        minOpositeTokenId: hoveredGroup[textTypeSeg][0],
-        targetId: hoveredGroup.targetId
+      const scrolledTargetsIds = []
+
+      const scrolldata = []
+
+      for (let i = 0; i < this.hoveredGroups.length; i++) {
+        const hoveredGroup = this.hoveredGroups[i]
+        if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+          scrolledTargetsIds.push(hoveredGroup.targetId)
+          scrolldata.push({
+            minOpositeTokenId: hoveredGroup[textTypeSeg].sort()[0],
+            targetId: hoveredGroup.targetId
+          })
+        }
       }
+      return scrolldata
     }
     return {}
   }
@@ -46172,7 +46182,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i68-reading-tools-on-mac.20210216645" : 0
+    return  true ? "i188-scroll-fix.20210217439" : 0
   }
 
   static get libName () {
@@ -47149,14 +47159,16 @@ __webpack_require__.r(__webpack_exports__);
       this.makeScroll(token)
     },
     makeScroll (token) {
-      const { minOpositeTokenId, targetId } = this.$alignedGC.getMinOpositeTokenIdInHoveredGroup(token)
-      if (minOpositeTokenId) {
+      const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)
+      if (scrollData.length > 0) {
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
         
-        const segId = this.getCssId(textTypeSeg, targetId, this.segment.index)
-        const tokId = `token-${minOpositeTokenId}`
+        for (let i = 0; i < scrollData.length; i++) {
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
-        _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+          _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.makeScrollTo(tokId, segId)
+        }
       }
     },
     /**
@@ -56227,7 +56239,7 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/x-icon\\\" href=\\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
+module.exports = JSON.parse("{\"params\":[\"theme\",\"stylePath\",\"jsPath\",\"pageTitle\",\"fullData\"],\"stylePath\":\"C:/_Alpheios/alignment-editor/public/dist/output/style/style-alignment-editor-output.css\",\"jsPath\":\"C:/_Alpheios/alignment-editor/public/dist/output/alpheios-alignment-editor-output.js\",\"stylePath2\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css\",\"jsPath2\":\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js\",\"pageTitle\":\"Alpheios Alignment Editor|Result\",\"layout\":\"<!DOCTYPE html> <html class=\\\"{{theme}}\\\"> <head> <meta charset=\\\"UTF-8\\\"> <meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"> <title>{{pageTitle}}</title> <link rel=\\\"icon\\\" type=\\\"image/x-icon\\\" href=\\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\\"> <link rel=\\\"stylesheet\\\" href=\\\"{{stylePath}}\\\"/> <script src=\\\"{{jsPath}}\\\"></script> </head> <body class=\\\"{{theme}}\\\"> <div class=\\\"container\\\"> <div id=\\\"alpheios-alignment-editor-output\\\"></div> </div> <script> document.addEventListener(\\\"DOMContentLoaded\\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount('#alpheios-alignment-editor-output') }) </script> </body> </html>\"}");
 
 /***/ }),
 

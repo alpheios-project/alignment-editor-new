@@ -9025,19 +9025,28 @@ __webpack_require__.r(__webpack_exports__);
       return classes
     },
     addHoverToken (token) {
-      this.hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-
+      this.hoveredGroupsId = token.grouped ? token.groupData.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId)).map(groupDataItem => groupDataItem.groupId) : null
       this.makeScroll(token)
     },
 
     makeScroll (token) {
       if (this.hoveredGroupsId) {
-        const hoveredGroup = this.alGroups[this.hoveredGroupsId[0]]
+        let scrolledTargetsIds = []
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
-        const minOpositeTokenId = hoveredGroup[textTypeSeg][0]
+        
+        for (let i = 0; i < this.hoveredGroupsId.length; i++) {
+          const hoveredGroup = this.alGroups[this.hoveredGroupsId[i]]
 
-        const segId = this.cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
-        _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+          if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+
+            scrolledTargetsIds.push(hoveredGroup.targetId)
+            const minOpositeTokenId = hoveredGroup[textTypeSeg].sort()[0]
+
+            const segId = this.cssId(textTypeSeg, hoveredGroup.targetId, hoveredGroup.segIndex)
+            _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+
+          }
+        }
       }
     },
     removeHoverToken() {
