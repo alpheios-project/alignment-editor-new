@@ -6,5 +6,5 @@ const auth0Env = {
     settings: 'https://settings.alpheios.net/v1/settings'
   },
   AUDIENCE: 'alpheios.net:apis',
-  LOGOUT_URL: 'https://alignment.alpheios.net/index.html'
+  LOGOUT_URL: 'https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/index.html'
 }
