@@ -165,14 +165,16 @@ export default {
       this.makeScroll(token)
     },
     makeScroll (token) {
-      const { minOpositeTokenId, targetId } = this.$alignedGC.getMinOpositeTokenIdInHoveredGroup(token)
-      if (minOpositeTokenId) {
+      const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)
+      if (scrollData.length > 0) {
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
         
-        const segId = this.getCssId(textTypeSeg, targetId, this.segment.index)
-        const tokId = `token-${minOpositeTokenId}`
+        for (let i = 0; i < scrollData.length; i++) {
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
-        ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
+          ScrollUtility.makeScrollTo(tokId, segId)
+        }
       }
     },
     /**

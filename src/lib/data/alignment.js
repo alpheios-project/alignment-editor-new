@@ -643,14 +643,24 @@ export default class Alignment {
     return true
   }
 
-  getMinOpositeTokenIdInHoveredGroup (token) {
+  getOpositeTokenTargetIdForScroll (token) {
     if (this.hoveredGroups.length > 0) {
-      const hoveredGroup = this.hoveredGroups[0]
       const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
-      return {
-        minOpositeTokenId: hoveredGroup[textTypeSeg][0],
-        targetId: hoveredGroup.targetId
+      const scrolledTargetsIds = []
+
+      const scrolldata = []
+
+      for (let i = 0; i < this.hoveredGroups.length; i++) {
+        const hoveredGroup = this.hoveredGroups[i]
+        if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+          scrolledTargetsIds.push(hoveredGroup.targetId)
+          scrolldata.push({
+            minOpositeTokenId: hoveredGroup[textTypeSeg].sort()[0],
+            targetId: hoveredGroup.targetId
+          })
+        }
       }
+      return scrolldata
     }
     return {}
   }
