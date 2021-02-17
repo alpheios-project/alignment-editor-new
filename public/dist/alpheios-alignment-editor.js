@@ -46182,7 +46182,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i70-return-langname-origin.20210217525" : 0
+    return  true ? "i196-origin-target-order-define.20210217602" : 0
   }
 
   static get libName () {
@@ -48826,7 +48826,6 @@ __webpack_require__.r(__webpack_exports__);
      */
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && 
-             ((this.textType === 'origin') || this.$textC.originDocSourceDefined) &&
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {

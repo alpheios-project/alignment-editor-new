@@ -178,7 +178,6 @@ export default {
      */
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && 
-             ((this.textType === 'origin') || this.$textC.originDocSourceDefined) &&
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
