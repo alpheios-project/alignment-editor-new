@@ -41,7 +41,7 @@ export default class GroupUtility {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
             if (!allG[groupDataItem.groupId]) {
-              allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, origin: [], target: [] }
+              allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, origin: [], target: [], targetSentence: [] }
             }
             allG[groupDataItem.groupId].origin.push(token.idWord)
           })
@@ -49,6 +49,7 @@ export default class GroupUtility {
       })
     })
 
+    // collect all targets in groups
     this.allTargetTextsIds(fullData).forEach(targetId => {
       const metadata = fullData.targets[targetId].metadata
       if (fullData.targets[targetId].segments) {
@@ -57,24 +58,54 @@ export default class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
-
-                const currentSentenceIndex = token.sentenceIndex
-                if ((view === 'sentence') && (allG[groupDataItem.groupId].target.length === 0)) {
-                  allG[groupDataItem.groupId].target = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
-                }
-
                 const tokenData = view === 'full' ? token.idWord : token
                 allG[groupDataItem.groupId].target.push(tokenData)
-
-                if (view === 'sentence') {
-                  allG[groupDataItem.groupId].target = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
-                }
               })
             }
           })
         })
       }
     })
+
+    if (view === 'sentence') {
+      // collect sentence data
+
+      this.allTargetTextsIds(fullData).forEach(targetId => {
+        if (fullData.targets[targetId].segments) {
+          fullData.targets[targetId].segments.forEach(segment => {
+            const startedGroups = []
+            segment.tokens.forEach((token, tokenIndex) => {
+              if (token.grouped) {
+                token.groupData.forEach(groupDataItem => {
+                  // if it is the first token in group
+                  if (!startedGroups.includes(groupDataItem.groupId)) {
+                    startedGroups.push(groupDataItem.groupId)
+                    const currentSentenceIndex = token.sentenceIndex
+
+                    allG[groupDataItem.groupId].targetSentence = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+                    allG[groupDataItem.groupId].targetSentence.push(token)
+                  } else {
+                    const lastTarget = allG[groupDataItem.groupId].target[allG[groupDataItem.groupId].target.length - 1].idWord
+                    allG[groupDataItem.groupId].targetSentence.push(token)
+                    // it is the last token
+                    if (lastTarget === token.idWord) {
+                      const currentSentenceIndex = token.sentenceIndex
+                      allG[groupDataItem.groupId].targetSentence = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+
+                      startedGroups.splice(startedGroups.indexOf(groupDataItem.groupId), 1)
+                    }
+                  }
+                })
+              } else {
+                startedGroups.forEach(groupId => {
+                  allG[groupId].targetSentence.push(token)
+                })
+              }
+            })
+          })
+        }
+      })
+    }
 
     return allG
   }

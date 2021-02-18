@@ -23,7 +23,7 @@
                     v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key="hoveredGroupDataIndex" >
                       <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
                       <div class="alpheios-al-editor-target-hovered-block__tokens" :id = "getTargetSegId(hoveredGroupDataIndex)" :style="cssStyleTarget">
-                        <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
+                        <template v-for = "(token, tokenIndex) in hoveredGroupData.targetSentence">
                             <token-block :key = "tokenIndex" :token="token" 
                                 :selected = "selectedToken(token)"
                                 :grouped = "groupedToken(token)"
@@ -99,7 +99,7 @@ export default {
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                target: this.allAlGroups[groupId].target,
+                targetSentence: this.allAlGroups[groupId].targetSentence,
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
@@ -134,7 +134,7 @@ export default {
     makeScroll (token) {
       if (this.hoveredGroupsId) {
         const hoveredGroupData = this.hoveredTargetTokens[0]
-        const minOpositeTokenId = hoveredGroupData.target.find(targetToken => targetToken.grouped).idWord
+        const minOpositeTokenId = hoveredGroupData.targetSentence.find(targetToken => targetToken.grouped).idWord
 
         const segId = this.getTargetSegId(0)
         ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
