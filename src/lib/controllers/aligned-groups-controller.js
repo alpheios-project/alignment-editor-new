@@ -57,6 +57,10 @@ export default class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    const event = new Event('AlpheiosAlignmentGroupsWorkflowStarted')
+    document.dispatchEvent(event)
+
     return resultAlignment
   }
 

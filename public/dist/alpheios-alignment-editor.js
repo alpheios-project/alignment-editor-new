@@ -40124,6 +40124,10 @@ class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    const event = new Event('AlpheiosAlignmentGroupsWorkflowStarted')
+    document.dispatchEvent(event)
+
     return resultAlignment
   }
 
@@ -46182,7 +46186,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i68-add-auth0-support.20210217623" : 0
+    return  true ? "i68-activate-alpheios-on-specific-event.20210218496" : 0
   }
 
   static get libName () {
