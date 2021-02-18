@@ -8729,7 +8729,7 @@ class GroupUtility {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
             if (!allG[groupDataItem.groupId]) {
-              allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, origin: [], target: [] }
+              allG[groupDataItem.groupId] = { targetId: groupDataItem.targetId, segIndex, origin: [], target: [], targetSentence: [] }
             }
             allG[groupDataItem.groupId].origin.push(token.idWord)
           })
@@ -8737,6 +8737,7 @@ class GroupUtility {
       })
     })
 
+    // collect all targets in groups
     this.allTargetTextsIds(fullData).forEach(targetId => {
       const metadata = fullData.targets[targetId].metadata
       if (fullData.targets[targetId].segments) {
@@ -8745,24 +8746,54 @@ class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
-
-                const currentSentenceIndex = token.sentenceIndex
-                if ((view === 'sentence') && (allG[groupDataItem.groupId].target.length === 0)) {
-                  allG[groupDataItem.groupId].target = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
-                }
-
                 const tokenData = view === 'full' ? token.idWord : token
                 allG[groupDataItem.groupId].target.push(tokenData)
-
-                if (view === 'sentence') {
-                  allG[groupDataItem.groupId].target = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].target)
-                }
               })
             }
           })
         })
       }
     })
+
+    if (view === 'sentence') {
+      // collect sentence data
+
+      this.allTargetTextsIds(fullData).forEach(targetId => {
+        if (fullData.targets[targetId].segments) {
+          fullData.targets[targetId].segments.forEach(segment => {
+            const startedGroups = []
+            segment.tokens.forEach((token, tokenIndex) => {
+              if (token.grouped) {
+                token.groupData.forEach(groupDataItem => {
+                  // if it is the first token in group
+                  if (!startedGroups.includes(groupDataItem.groupId)) {
+                    startedGroups.push(groupDataItem.groupId)
+                    const currentSentenceIndex = token.sentenceIndex
+
+                    allG[groupDataItem.groupId].targetSentence = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+                    allG[groupDataItem.groupId].targetSentence.push(token)
+                  } else {
+                    const lastTarget = allG[groupDataItem.groupId].target[allG[groupDataItem.groupId].target.length - 1].idWord
+                    allG[groupDataItem.groupId].targetSentence.push(token)
+                    // it is the last token
+                    if (lastTarget === token.idWord) {
+                      const currentSentenceIndex = token.sentenceIndex
+                      allG[groupDataItem.groupId].targetSentence = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+
+                      startedGroups.splice(startedGroups.indexOf(groupDataItem.groupId), 1)
+                    }
+                  }
+                })
+              } else {
+                startedGroups.forEach(groupId => {
+                  allG[groupId].targetSentence.push(token)
+                })
+              }
+            })
+          })
+        }
+      })
+    }
 
     return allG
   }
@@ -9198,7 +9229,7 @@ __webpack_require__.r(__webpack_exports__);
             Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
-                target: this.allAlGroups[groupId].target,
+                targetSentence: this.allAlGroups[groupId].targetSentence,
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
@@ -9233,7 +9264,7 @@ __webpack_require__.r(__webpack_exports__);
     makeScroll (token) {
       if (this.hoveredGroupsId) {
         const hoveredGroupData = this.hoveredTargetTokens[0]
-        const minOpositeTokenId = hoveredGroupData.target.find(targetToken => targetToken.grouped).idWord
+        const minOpositeTokenId = hoveredGroupData.targetSentence.find(targetToken => targetToken.grouped).idWord
 
         const segId = this.getTargetSegId(0)
         _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.makeScrollTo(`token-${minOpositeTokenId}`, segId)
@@ -10655,23 +10686,23 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _vm._l(hoveredGroupData.target, function(
-                                    token,
-                                    tokenIndex
-                                  ) {
-                                    return [
-                                      _c("token-block", {
-                                        key: tokenIndex,
-                                        attrs: {
-                                          token: token,
-                                          selected: _vm.selectedToken(token),
-                                          grouped: _vm.groupedToken(token)
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      token.hasLineBreak ? _c("br") : _vm._e()
-                                    ]
-                                  })
+                                  _vm._l(
+                                    hoveredGroupData.targetSentence,
+                                    function(token, tokenIndex) {
+                                      return [
+                                        _c("token-block", {
+                                          key: tokenIndex,
+                                          attrs: {
+                                            token: token,
+                                            selected: _vm.selectedToken(token),
+                                            grouped: _vm.groupedToken(token)
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        token.hasLineBreak ? _c("br") : _vm._e()
+                                      ]
+                                    }
+                                  )
                                 ],
                                 2
                               ),
