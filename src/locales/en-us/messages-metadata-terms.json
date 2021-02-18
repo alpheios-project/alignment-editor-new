@@ -25,7 +25,7 @@
       "component": "MetadataTerm"
     },
     "METADATA_TERM_LABEL_DATE_COPYRIGHTED": {
-      "message": "Date copyrighted",
+      "message": "Copyright Date",
       "description": "Metadata term label",
       "component": "MetadataTerm"
     },
