@@ -12,14 +12,14 @@
       >
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-block 
-                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId"
+                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
           />
         </div>
 
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
                   :segment = "segmentTarget" 
-                  :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId"
+                  :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
                   v-show="isShownTab(targetId)"
           />
         </div>
@@ -93,7 +93,11 @@ export default {
      */
     currentTargetId () {
       return this.shownTabs.length === 1 ? this.shownTabs[0] : null
+    },
+    amountOfShownTabs () {
+      return this.shownTabs.length
     }
+
 
   },
   methods: {
@@ -149,7 +153,6 @@ export default {
 
     .alpheios-alignment-editor-align-text-segment {
       border-bottom: 2px solid  #e3e3e3;
-      padding: 10px; 
 
       &.alpheios-align-text-segment-origin,
       &.alpheios-align-text-segment-target-last {
@@ -162,6 +165,7 @@ export default {
 
       &.alpheios-alignment-editor-align-segment-data-target {
         border-left: 2px solid  #ddd;
+        
       }
     }
 

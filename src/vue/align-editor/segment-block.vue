@@ -3,30 +3,42 @@
          :id = "cssId" :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
-        <template v-for = "(token, tokenIndex) in allTokens">
-          <token
-            v-if ="token.word"
-            :token = "token" :key = "tokenIndex"
-            @click-token = "clickToken"
-            @add-hover-token = "addHoverToken"
-            @remove-hover-token = "removeHoverToken"
-            :selected = "$store.state.alignmentUpdated && selectedToken(token)"
-            :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
-            :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
-            :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
-          />
-          <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
-        </template>
+
+          <template v-for = "(token, tokenIndex) in allTokens">
+            <token
+              v-if ="token.word"
+              :token = "token" :key = "tokenIndex"
+              @click-token = "clickToken"
+              @add-hover-token = "addHoverToken"
+              @remove-hover-token = "removeHoverToken"
+              :selected = "$store.state.alignmentUpdated && selectedToken(token)"
+              :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
+              :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
+              :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+            />
+            <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
+          </template>
+          
+          <div class="alpheios-alignment-editor-align-text-segment__up-down" :style="backgroundStyle" v-show="showUpDown">
+            <span class="alpheios-align-text-segment-button" @click="reduceHeight"><up-arrow /></span>
+            <span class="alpheios-align-text-segment-button" @click="increaseHeight"><down-arrow /></span>
+          </div>
     </div>
 </template>
 <script>
+import Vue from '@vue-runtime'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 import ScrollUtility from '@/lib/utility/scroll-utility.js'
+
+import UpArrow from '@/inline-icons/up-arrow.svg'
+import DownArrow from '@/inline-icons/down-arrow.svg'
 
 export default {
   name: 'SegmentBlock',
   components: {
-    token: TokenBlock
+    token: TokenBlock,
+    upArrow: UpArrow,
+    downArrow: DownArrow
   },
   props: {
     currentTargetId: {
@@ -43,13 +55,23 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    amountOfShownTabs: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
     return {
       updated: 1,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      heightStep: 20,
+      heightDelta: 0,
+      heightUpdated: 1,
+      showUpDown: true
     }
   },
   watch: {
@@ -83,12 +105,22 @@ export default {
      * Styles for creating a html table layout with different background-colors for different targetIds
      * @returns {String}
      */
-    cssStyle () {
+    backgroundStyle () {
       if (this.textType === 'target') {
-        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+         return `background: ${this.colors[this.targetIdIndex]};`
       } else {
-        return `order: ${this.segment.index}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+        return `background: ${this.originColor};`
       }
+    },
+    cssStyle () {
+      let result 
+      if (this.textType === 'target') {
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      } else {
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      }
+      this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      return result
     },
     /**
      * Defines classes by textType and isLast flag
@@ -131,12 +163,13 @@ export default {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const minHeight = 400 * (this.textType === 'origin') ? this.amountOfShownTabs : 1
       if (this.amountOfSegments === 1) {
-        return this.containerHeight
+        return this.containerHeight + this.heightDelta
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.amountOfSegments))
+
+      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
+      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
     }
   },
   methods: {
@@ -210,6 +243,14 @@ export default {
      */
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
+    },
+    reduceHeight () {
+      this.heightDelta = this.heightDelta - this.heightStep
+      this.heightUpdated++
+    },
+    increaseHeight () {
+      this.heightDelta = this.heightDelta + this.heightStep
+      this.heightUpdated++
     }
   }
 
@@ -219,5 +260,34 @@ export default {
 .alpheios-alignment-editor-align-text-segment {
   max-height: 400px;
   overflow-y: scroll;
+  padding: 10px;
+  position: relative;
+
+  .alpheios-alignment-editor-align-text-segment__up-down {
+    position: sticky;
+    bottom: -15px;
+    left: 0; right: 0;
+    width: 100%;
+    // background: #F8F8F8;
+    background: transparent;
+    text-align: right;
+    padding: 5px;
+
+    .alpheios-align-text-segment-button {
+      display: inline-block;
+      padding: 2px;
+      height: 30px;
+      width: 30px;
+      cursor: pointer;
+      border-radius: 10px;
+
+        svg {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          vertical-align: top;
+        }
+    }
+  }
 }
 </style>
