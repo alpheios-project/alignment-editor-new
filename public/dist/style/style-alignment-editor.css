@@ -967,6 +967,18 @@ div.alpheios-alignment-checkbox-block {
   width: 100%;
   height: 100%;
 }
+.alpheios-alignment-editor-metadata__info-title {
+  cursor: pointer;
+  color: #90a959;
+  text-decoration: underline;
+}
+.alpheios-alignment-editor-metadata__info-details {
+  border-bottom: 1px solid #6a9fb5;
+  padding-bottom: 10px;
+}
+.alpheios-alignment-editor-metadata__info-details p, .alpheios-alignment-editor-metadata__info-details ul {
+  margin: 0;
+}
 p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
   cursor: pointer;
