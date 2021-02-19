@@ -40125,9 +40125,7 @@ class AlignedGroupsController {
     }
     this.store.commit('incrementAlignmentUpdated')
 
-    const event = new Event('AlpheiosAlignmentGroupsWorkflowStarted')
-    document.dispatchEvent(event)
-
+    document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
   }
 
@@ -44461,6 +44459,9 @@ class Alignment {
       alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
     }
 
+    if (alignment.origin.alignedText) {
+      document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    }
     return alignment
   }
 }
@@ -46186,7 +46187,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i195-small-fixes.20210218622" : 0
+    return  true ? "i67-add-buttons-up-down-segment.20210219359" : 0
   }
 
   static get libName () {
@@ -46996,6 +46997,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token-block.vue */ "./vue/align-editor/token-block.vue");
 /* harmony import */ var _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/scroll-utility.js */ "./lib/utility/scroll-utility.js");
+/* harmony import */ var _inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/up-arrow.svg */ "./inline-icons/up-arrow.svg");
+/* harmony import */ var _inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/down-arrow.svg */ "./inline-icons/down-arrow.svg");
+/* harmony import */ var _inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -47017,6 +47022,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
+
+
 
 
 
@@ -47024,7 +47039,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentBlock',
   components: {
-    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    upArrow: (_inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    downArrow: (_inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3___default())
   },
   props: {
     currentTargetId: {
@@ -47047,7 +47064,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       updated: 1,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      heightStep: 20,
+      heightDelta: 0,
+      heightUpdated: 1,
+      showUpDown: true
     }
   },
   watch: {
@@ -47082,11 +47103,14 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String}
      */
     cssStyle () {
+      let result 
       if (this.textType === 'target') {
-        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
       } else {
-        return `order: ${this.segment.index}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
       }
+      this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      return result
     },
     /**
      * Defines classes by textType and isLast flag
@@ -47129,12 +47153,11 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = 400
-      
+      const minHeight = 500
       if (this.amountOfSegments === 1) {
-        return this.containerHeight
+        return this.containerHeight + this.heightDelta
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.amountOfSegments))
+      return Math.round(Math.min(minHeight, this.containerHeight/this.amountOfSegments)) + this.heightDelta
     }
   },
   methods: {
@@ -47208,6 +47231,14 @@ __webpack_require__.r(__webpack_exports__);
      */
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
+    },
+    reduceHeight () {
+      this.heightDelta = this.heightDelta - this.heightStep
+      this.heightUpdated++
+    },
+    increaseHeight () {
+      this.heightDelta = this.heightDelta + this.heightStep
+      this.heightUpdated++
     }
   }
 
@@ -52934,7 +52965,43 @@ var render = function() {
             ? _c("br")
             : _vm._e()
         ]
-      })
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showUpDown,
+              expression: "showUpDown"
+            }
+          ],
+          staticClass: "alpheios-alignment-editor-align-text-segment__up-down"
+        },
+        [
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-align-text-segment-button",
+              on: { click: _vm.reduceHeight }
+            },
+            [_c("up-arrow")],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-align-text-segment-button",
+              on: { click: _vm.increaseHeight }
+            },
+            [_c("down-arrow")],
+            1
+          )
+        ]
+      )
     ],
     2
   )
@@ -55806,6 +55873,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/down-arrow.svg":
+/*!*************************************!*\
+  !*** ./inline-icons/down-arrow.svg ***!
+  \*************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"16","height":"16","viewBox":"0 0 4.233 4.233","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.44 0v1.786H.001L1.06 3.01l1.058 1.223L3.176 3.01l1.058-1.224H2.887V0H1.44z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/download.svg":
 /*!***********************************!*\
   !*** ./inline-icons/download.svg ***!
@@ -56132,6 +56236,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M632.22 539.98a54.952 54.952 0 01-16.1-38.9c0-30.4 24.6-55 55-55h139.2l-74.7-74.7c-21.5-21.5-21.5-56.3 0-77.8s56.3-21.5 77.8 0l168.7 168.7c6.399 6.399 11.2 14.399 13.7 23.1v.101c3.199 10.8 2.899 22.5-.601 33.1-2.7 8-7.3 15.4-13.2 21.4l-168.8 168.6c-21.5 21.5-56.3 21.5-77.8 0s-21.5-56.3 0-77.8l74.7-74.7h-139.1c-15.099-.003-28.899-6.203-38.799-16.102zM365.62 539.98c9.899-9.9 16.1-23.7 16.1-38.9 0-30.4-24.6-55-55-55h-139.1l74.7-74.7c21.5-21.5 21.5-56.3 0-77.8s-56.3-21.5-77.8 0l-168.5 168.6-.1.101c-6.4 6.399-11.2 14.399-13.7 23.1v.101c-3.2 10.8-2.9 22.5.6 33.1 2.7 8 7.3 15.4 13.2 21.4l168.6 168.6c21.5 21.5 56.3 21.5 77.8 0s21.5-56.3 0-77.8l-74.8-74.7h139.2c15.1-.003 28.9-6.203 38.8-16.102zM568.92 924.77V73.37c0-38.7-31.3-70-70-70s-70 31.3-70 70v851.3c0 38.7 31.3 70 70 70s70-31.3 70-69.9z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/up-arrow.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/up-arrow.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"16","height":"16","viewBox":"0 0 4.233 4.233","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.44 4.23V2.444H.001L2.118-.003l2.117 2.447H2.887V4.23H1.44z"}})])
           )
         }
       }

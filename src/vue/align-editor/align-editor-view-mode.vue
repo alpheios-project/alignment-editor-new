@@ -149,7 +149,6 @@ export default {
 
     .alpheios-alignment-editor-align-text-segment {
       border-bottom: 2px solid  #e3e3e3;
-      padding: 10px; 
 
       &.alpheios-align-text-segment-origin,
       &.alpheios-align-text-segment-target-last {
@@ -162,6 +161,7 @@ export default {
 
       &.alpheios-alignment-editor-align-segment-data-target {
         border-left: 2px solid  #ddd;
+        
       }
     }
 
