@@ -19,7 +19,7 @@
             <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
           </template>
           
-          <div class="alpheios-alignment-editor-align-text-segment__up-down" v-show="showUpDown">
+          <div class="alpheios-alignment-editor-align-text-segment__up-down" :style="backgroundStyle" v-show="showUpDown">
             <span class="alpheios-align-text-segment-button" @click="reduceHeight"><up-arrow /></span>
             <span class="alpheios-align-text-segment-button" @click="increaseHeight"><down-arrow /></span>
           </div>
@@ -55,6 +55,12 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+
+    amountOfShownTabs: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
@@ -99,12 +105,19 @@ export default {
      * Styles for creating a html table layout with different background-colors for different targetIds
      * @returns {String}
      */
+    backgroundStyle () {
+      if (this.textType === 'target') {
+         return `background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `background: ${this.originColor};`
+      }
+    },
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
       } else {
-        result = `order: ${this.segment.index}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
       }
       this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
       return result
@@ -150,11 +163,13 @@ export default {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = 500
+      const minHeight = 400 * (this.textType === 'origin') ? this.amountOfShownTabs : 1
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.amountOfSegments)) + this.heightDelta
+
+      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
+      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
     }
   },
   methods: {

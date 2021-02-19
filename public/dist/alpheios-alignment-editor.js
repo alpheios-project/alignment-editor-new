@@ -46187,7 +46187,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i67-add-buttons-up-down-segment.20210219359" : 0
+    return  true ? "i67-add-buttons-up-down-segment.20210219433" : 0
   }
 
   static get libName () {
@@ -46859,7 +46859,11 @@ __webpack_require__.r(__webpack_exports__);
      */
     currentTargetId () {
       return this.shownTabs.length === 1 ? this.shownTabs[0] : null
+    },
+    amountOfShownTabs () {
+      return this.shownTabs.length
     }
+
 
   },
   methods: {
@@ -47058,6 +47062,12 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+
+    amountOfShownTabs: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
@@ -47102,12 +47112,19 @@ __webpack_require__.r(__webpack_exports__);
      * Styles for creating a html table layout with different background-colors for different targetIds
      * @returns {String}
      */
+    backgroundStyle () {
+      if (this.textType === 'target') {
+         return `background: ${this.colors[this.targetIdIndex]};`
+      } else {
+        return `background: ${this.originColor};`
+      }
+    },
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
       } else {
-        result = `order: ${this.segment.index}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
       }
       this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
       return result
@@ -47153,11 +47170,13 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = 500
+      const minHeight = 400 * (this.textType === 'origin') ? this.amountOfShownTabs : 1
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       } 
-      return Math.round(Math.min(minHeight, this.containerHeight/this.amountOfSegments)) + this.heightDelta
+
+      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
+      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
     }
   },
   methods: {
@@ -52789,7 +52808,8 @@ var render = function() {
                   _c("segment-block", {
                     attrs: {
                       segment: segmentData.origin,
-                      currentTargetId: _vm.currentTargetId
+                      currentTargetId: _vm.currentTargetId,
+                      amountOfShownTabs: _vm.amountOfShownTabs
                     }
                   })
                 ],
@@ -52816,7 +52836,8 @@ var render = function() {
                     attrs: {
                       segment: segmentTarget,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
-                      currentTargetId: _vm.currentTargetId
+                      currentTargetId: _vm.currentTargetId,
+                      amountOfShownTabs: _vm.amountOfShownTabs
                     }
                   })
                 }),
@@ -52978,7 +52999,8 @@ var render = function() {
               expression: "showUpDown"
             }
           ],
-          staticClass: "alpheios-alignment-editor-align-text-segment__up-down"
+          staticClass: "alpheios-alignment-editor-align-text-segment__up-down",
+          style: _vm.backgroundStyle
         },
         [
           _c(
