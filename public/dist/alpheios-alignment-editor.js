@@ -41416,7 +41416,7 @@ class TextsController {
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
-
+    origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
         token.grouped = this.alignment.tokenIsGrouped(token)
@@ -44941,7 +44941,7 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/identifier',
     description: 'An unambiguous reference to the resource within a given context.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER',
-    order: 1
+    order: 8
   },
   TITLE: {
     label: 'title',
@@ -44951,7 +44951,7 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/title',
     description: 'A name given to the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE',
-    order: 2
+    order: 1
   },
   CREATOR: {
     label: 'creator',
@@ -44961,7 +44961,7 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/creator',
     description: 'An entity primarily responsible for making the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR',
-    order: 3
+    order: 2
   },
   CONTRIBUTOR: {
     label: 'contributor',
@@ -44991,7 +44991,7 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
     description: 'Date of copyright of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED',
-    order: 6
+    order: 3
   },
   SOURCE: {
     label: 'source',
@@ -45001,7 +45001,7 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/terms/source',
     description: 'A related resource from which the described resource is derived.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE',
-    order: 7
+    order: 6
   },
   DESCRIPTION: {
     label: 'description',
@@ -45011,7 +45011,7 @@ MetadataTerm.property = {
     URI: 'http://purl.org/dc/elements/1.1/description',
     description: 'An account of the resource.',
     descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION',
-    order: 8
+    order: 7
   }
 }
 
@@ -46197,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i177-metadata-instructions.20210219501" : 0
+    return  true ? "i213-metadata-in-html-output.20210219590" : 0
   }
 
   static get libName () {

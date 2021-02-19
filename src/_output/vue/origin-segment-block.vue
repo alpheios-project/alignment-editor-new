@@ -4,7 +4,8 @@
           :id = "cssId" :style="cssStyle"
           :dir = "dir" :lang = "lang"
       >
-        <span class="alpheios-al-editor-segment-block-text__langname" v-show="showLangName">{{ langName }}</span>
+        <lang-name-bar :langName = "langName" v-show="showLangName" :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"/>
+
           <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
               <token-block :key = "tokenIndex" :token="token" 
                               :selected = "selectedToken(token)"
@@ -19,11 +20,13 @@
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
+import LangNameBar from '@/_output/vue/lang-name-bar.vue'
 
 export default {
   name: 'OriginSegmentBlock',
   components: {
-    tokenBlock: TokenBlock
+    tokenBlock: TokenBlock,
+    langNameBar: LangNameBar
   },
   props: {
     segmentData: {
@@ -50,6 +53,11 @@ export default {
       type: String,
       required: true
     },
+    metadata: {
+      type: String,
+      required: false,
+      defult: ''
+    },
     shownTabs: {
       type: Array,
       required: false,
@@ -69,6 +77,7 @@ export default {
   data () {
     return {
       originColor: '#F8F8F8',
+      paddingTop: 30
     }
   },
   computed: {
@@ -76,7 +85,7 @@ export default {
       return `alpheios-align-text-segment-origin-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px`
+      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px; padding-top: ${this.paddingTop}px;`
     },
   },
   methods: {
@@ -91,6 +100,9 @@ export default {
     },
     selectedToken (token) {
       return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
+    },
+    updateMetadataHeight (height) {
+      this.paddingTop = height
     }
   }
 }

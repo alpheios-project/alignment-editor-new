@@ -286,7 +286,7 @@ export default class TextsController {
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
-
+    origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
         token.grouped = this.alignment.tokenIsGrouped(token)
