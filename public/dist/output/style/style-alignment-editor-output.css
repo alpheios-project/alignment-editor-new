@@ -294,6 +294,42 @@ body, html {
 .alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
   background: #185F6D;
 }
+.alpheios-al-editor-segment-cell-target-row__bar {
+  margin: 0;
+  display: inline-block;
+  position: absolute;
+  overflow-y: hidden;
+  border-bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  padding: 5px;
+  font-size: 90%;
+  background: #185F6D;
+  color: #fff;
+  z-index: 100;
+}
+.alpheios-al-editor-segment-cell-target-row__bar .alpheios-al-editor-segment-cell-target-row__metadata {
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: calc(100% - 200px);
+  cursor: pointer;
+  text-align: left;
+  vertical-align: top;
+  overflow: hidden;
+}
+.alpheios-al-editor-segment-cell-target-row__bar .alpheios-al-editor-segment-cell-target-row__metadata.alpheios-al-editor-segment-cell-target-row__metadata-full {
+  white-space: initial;
+}
+.alpheios-al-editor-segment-cell-target-row__bar .alpheios-al-editor-segment-cell-target-row__langname {
+  display: inline-block;
+  width: 180px;
+  text-align: right;
+  vertical-align: top;
+}
 .alpheios-al-editor-container-inner span.alpheios-token {
   cursor: pointer;
   padding: 4px;
@@ -371,22 +407,6 @@ body, html {
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
   position: relative;
   padding-top: 30px;
-}
-.alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row .alpheios-al-editor-segment-cell-target-row__langname {
-  position: absolute;
-  overflow-y: hidden;
-  border-bottom: 0;
-  top: 0;
-  right: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  text-align: right;
-  padding: 5px;
-  font-size: 90%;
-  background: #185F6D;
-  color: #fff;
-  z-index: 100;
 }
 .alpheios-al-editor-table-view {
   display: table;

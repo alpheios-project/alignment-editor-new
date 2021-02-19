@@ -14,30 +14,22 @@
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin" >
               <origin-segment-block
                 :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" :langName = "fullData.origin.langName"
+                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
+                :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div><!-- alpheios-al-editor-segment-cell -->
 
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-target">
-                <div class="alpheios-al-editor-segment-cell-target-row" 
-                  v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
-                  :id = "cssId('target', targetId, segIndex)" :style="cssStyle('target', targetId, segIndex)"
-                  :class = "cssClass('target', targetId)" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
-                  v-show="isShownTab(targetId)"
-                >
-                  <span class="alpheios-al-editor-segment-cell-target-row__langname">{{ fullData.targets[targetId].langName }}</span>
-                    <template v-for = "(token, tokenIndex) in segmentTarget.tokens">
-                        <token-block :key = "tokenIndex" :token="token" 
-                                      :selected = "selectedToken(token)"
-                                      :grouped = "groupedToken(token)"
-                                      @addHoverToken = "addHoverToken"
-                                      @removeHoverToken = "removeHoverToken"
-                        />
-                        <br v-if="token.hasLineBreak" />
-                    </template>
-                </div>
+              <target-segment-block
+                v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
+                :targetId = "targetId" :segIndex = "segIndex" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
+                :langName = "fullData.targets[targetId].langName" :metadata = "fullData.targets[targetId].metadata" 
+                :segmentData = "segmentTarget" :targetIdIndex = "targetIdIndex(targetId)" :maxHeight = "maxHeight"
+                :isLast = "isLast(targetId)" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+                v-show="isShownTab(targetId)"
+              />
             </div><!-- alpheios-al-editor-segment-cell -->
 
             </div>
@@ -47,9 +39,10 @@
 </template>
 <script>
 import EditorTabs from '@/_output/vue/editor-tabs.vue'
-import TokenBlock from '@/_output/vue/token-block.vue'
+import LangNameBar from '@/_output/vue/lang-name-bar.vue'
 
 import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
+import TargetSegmentBlock from '@/_output/vue/target-segment-block.vue'
 
 import ScrollUtility from '@/lib/utility/scroll-utility.js'
 import GroupUtility from '@/_output/utility/group-utility.js'
@@ -58,8 +51,9 @@ export default {
   name: 'AlGroupsViewFull',
   components: {
     editorTabs: EditorTabs,
-    tokenBlock: TokenBlock,
-    originSegmentBlock: OriginSegmentBlock
+    originSegmentBlock: OriginSegmentBlock,
+    targetSegmentBlock: TargetSegmentBlock,
+    langNameBar: LangNameBar
   },
   props: {
     fullData: {
@@ -117,21 +111,8 @@ export default {
         return `alpheios-align-text-segment-${textType}-${segmentIndex}`
       }
     },
-    cssStyle (textType, targetId, segmentIndex) {
-      if (textType === 'target') {
-        return `order: ${segmentIndex}; background: ${this.colors[this.targetIdIndex(targetId)]}; max-height: ${this.maxHeight}px`
-      } else {
-        return `order: ${segmentIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px`
-      }
-    },
     targetIdIndex (targetId) {
       return targetId ? this.allTargetTextsIds.indexOf(targetId) : null
-    },
-    cssClass (textType, targetId) {
-      let classes = {}
-      classes[`alpheios-align-text-segment-${textType}`] = true
-      classes[`alpheios-align-text-segment-${textType}-last`] = this.isLast(targetId)
-      return classes
     },
     addHoverToken (token) {
       this.hoveredGroupsId = token.grouped ? token.groupData.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId)).map(groupDataItem => groupDataItem.groupId) : null
@@ -173,16 +154,6 @@ export default {
     },
     isLast(targetId) {
       return targetId === this.lastTargetId
-    },
-    groupedToken (token) {
-      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
-    },
-    isTokenInHovered (token) {
-      return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
-    },
-
-    selectedToken (token) {
-      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     }
   }
 }
@@ -241,23 +212,5 @@ export default {
   .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
     position: relative;
     padding-top: 30px;
-
-    .alpheios-al-editor-segment-cell-target-row__langname {
-        position: absolute;
-        overflow-y: hidden;
-        border-bottom: 0;
-        top: 0;
-        right: 0;
-        left: 0;
-        margin: 0;
-        padding: 0;
-        text-align: right;
-        padding: 5px;
-        font-size: 90%;
-
-        background: #185F6D;
-        color: #fff;
-        z-index: 100;
-    }
   }
 </style>
