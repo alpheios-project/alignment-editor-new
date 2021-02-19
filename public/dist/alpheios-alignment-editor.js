@@ -132,6 +132,16 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -46187,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i67-add-buttons-up-down-segment.20210219433" : 0
+    return  true ? "i177-metadata-instructions.20210219501" : 0
   }
 
   static get libName () {
@@ -48497,6 +48507,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/metadata-term-block.vue */ "./vue/text-editor/metadata-term-block.vue");
+/* harmony import */ var _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/metadata-info.vue */ "./vue/text-editor/metadata-info.vue");
 //
 //
 //
@@ -48504,13 +48515,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MetadataBlock',
   components: {
-    metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
     textType: {
@@ -48541,6 +48555,50 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'MetadataInfo',
+  data () {
+    return {
+      showDetails: false
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    instructions () {
+      return this.l10n.getMsgS('METADATA_INSTRUCTIONS')
+    }
   }
 });
 
@@ -50963,6 +51021,47 @@ component.options.__file = "vue/text-editor/metadata-block.vue"
 
 /***/ }),
 
+/***/ "./vue/text-editor/metadata-info.vue":
+/*!*******************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata-info.vue?vue&type=template&id=589c69a3& */ "./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&");
+/* harmony import */ var _metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata-info.vue?vue&type=script&lang=js& */ "./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&");
+/* harmony import */ var _metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata-info.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.render,
+  _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/metadata-info.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/text-editor/metadata-term-block.vue":
 /*!*************************************************!*\
   !*** ./vue/text-editor/metadata-term-block.vue ***!
@@ -51659,6 +51758,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-info.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss&":
 /*!***********************************************************************************!*\
   !*** ./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -52100,6 +52216,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-info.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -52546,6 +52678,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-block.vue?vue&type=template&id=afaf8a30& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&":
+/*!**************************************************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-info.vue?vue&type=template&id=589c69a3& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&");
 
 
 /***/ }),
@@ -54318,19 +54467,78 @@ var render = function() {
     ? _c(
         "div",
         { staticClass: "alpheios-alignment-editor-metadata" },
-        _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
-          return _c("metadata-term-block", {
-            key: termIndex,
-            attrs: {
-              "text-type": _vm.textType,
-              "text-id": _vm.textId,
-              "metadata-term": metadataTerm
-            }
+        [
+          _c("metadata-info"),
+          _vm._v(" "),
+          _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
+            return _c("metadata-term-block", {
+              key: termIndex,
+              attrs: {
+                "text-type": _vm.textType,
+                "text-id": _vm.textId,
+                "metadata-term": metadataTerm
+              }
+            })
           })
-        }),
-        1
+        ],
+        2
       )
     : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alpheios-alignment-editor-metadata__info" },
+    [
+      _c(
+        "p",
+        {
+          staticClass: "alpheios-alignment-editor-metadata__info-title",
+          on: {
+            click: function($event) {
+              _vm.showDetails = !_vm.showDetails
+            }
+          }
+        },
+        [_vm._v("\n        Instructions for metadata updates\n    ")]
+      ),
+      _vm._v(" "),
+      _c("div", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showDetails,
+            expression: "showDetails"
+          }
+        ],
+        staticClass: "alpheios-alignment-editor-metadata__info-details",
+        domProps: { innerHTML: _vm._s(_vm.instructions) }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56482,7 +56690,7 @@ module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Downlo
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"Identifier\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_TITLE\":{\"message\":\"Title\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CREATOR\":{\"message\":\"Creator\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CONTRIBUTOR\":{\"message\":\"Contributor\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_PUBLISHER\":{\"message\":\"Publisher\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DATE_COPYRIGHTED\":{\"message\":\"Copyright Date\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_SOURCE\":{\"message\":\"Source\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DESCRIPTION\":{\"message\":\"Description\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_IDENTIFIER\":{\"message\":\"An unambiguous reference to the resource within a given context.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_TITLE\":{\"message\":\"A name given to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CREATOR\":{\"message\":\"An entity primarily responsible for making the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CONTRIBUTOR\":{\"message\":\"An entity responsible for making contributions to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_PUBLISHER\":{\"message\":\"An entity responsible for making the resource available.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED\":{\"message\":\"Date of copyright of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_SOURCE\":{\"message\":\"A related resource from which the described resource is derived.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DESCRIPTION\":{\"message\":\"An account of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"}}");
+module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"Identifier\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_TITLE\":{\"message\":\"Title\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CREATOR\":{\"message\":\"Creator\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CONTRIBUTOR\":{\"message\":\"Contributor\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_PUBLISHER\":{\"message\":\"Publisher\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DATE_COPYRIGHTED\":{\"message\":\"Copyright Date\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_SOURCE\":{\"message\":\"Source\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DESCRIPTION\":{\"message\":\"Description\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_IDENTIFIER\":{\"message\":\"An unambiguous reference to the resource within a given context.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_TITLE\":{\"message\":\"A name given to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CREATOR\":{\"message\":\"An entity primarily responsible for making the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CONTRIBUTOR\":{\"message\":\"An entity responsible for making contributions to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_PUBLISHER\":{\"message\":\"An entity responsible for making the resource available.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED\":{\"message\":\"Date of copyright of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_SOURCE\":{\"message\":\"A related resource from which the described resource is derived.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DESCRIPTION\":{\"message\":\"An account of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_INSTRUCTIONS\":{\"message\":\"<p>There are two types of metadata - single value and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributed)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value would be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>\",\"description\":\"Metadata update instructions\",\"component\":\"MetadataBlock\"}}");
 
 /***/ }),
 
