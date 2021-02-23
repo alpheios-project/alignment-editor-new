@@ -46197,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i226-sentence-view-bug.20210223700" : 0
+    return  true ? "i226-sentence-view-bug.20210223706" : 0
   }
 
   static get libName () {
@@ -48649,7 +48649,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -48722,7 +48721,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.$textC.changeMetadataTerm()
 
-      if (this.metadataTerm.property.multivalued) { this.value = null }
+      if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
@@ -54616,8 +54615,7 @@ var render = function() {
             attrs: { type: "text", id: _vm.itemId },
             domProps: { value: _vm.value },
             on: {
-              change: _vm.changeMetadataItem,
-              key: function($event) {
+              keyup: function($event) {
                 if (
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
