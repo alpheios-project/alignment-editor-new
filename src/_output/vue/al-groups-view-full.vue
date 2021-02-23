@@ -26,7 +26,7 @@
                 v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
                 :targetId = "targetId" :segIndex = "segIndex" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
                 :langName = "fullData.targets[targetId].langName" :metadata = "fullData.targets[targetId].metadata" 
-                :segmentData = "segmentTarget" :targetIdIndex = "targetIdIndex(targetId)" :maxHeight = "maxHeight"
+                :segmentData = "segmentTarget" :targetIdIndex = "targetIdIndex(targetId)" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
                 :isLast = "isLast(targetId)" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
                 v-show="isShownTab(targetId)"
               />
