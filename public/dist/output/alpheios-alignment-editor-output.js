@@ -8772,6 +8772,7 @@ class GroupUtility {
         if (fullData.targets[targetId].segments) {
           fullData.targets[targetId].segments.forEach(segment => {
             const startedGroups = []
+
             segment.tokens.forEach((token, tokenIndex) => {
               if (token.grouped) {
                 token.groupData.forEach(groupDataItem => {
@@ -8783,15 +8784,16 @@ class GroupUtility {
                     allG[groupDataItem.groupId].targetSentence = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
                     allG[groupDataItem.groupId].targetSentence.push(token)
                   } else {
-                    const lastTarget = allG[groupDataItem.groupId].target[allG[groupDataItem.groupId].target.length - 1].idWord
                     allG[groupDataItem.groupId].targetSentence.push(token)
-                    // it is the last token
-                    if (lastTarget === token.idWord) {
-                      const currentSentenceIndex = token.sentenceIndex
-                      allG[groupDataItem.groupId].targetSentence = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
 
-                      startedGroups.splice(startedGroups.indexOf(groupDataItem.groupId), 1)
-                    }
+                    // it is the last token
+                  }
+                  const lastTarget = allG[groupDataItem.groupId].target[allG[groupDataItem.groupId].target.length - 1].idWord
+                  if (lastTarget === token.idWord) {
+                    const currentSentenceIndex = token.sentenceIndex
+                    allG[groupDataItem.groupId].targetSentence = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+
+                    startedGroups.splice(startedGroups.indexOf(groupDataItem.groupId), 1)
                   }
                 })
               } else {
@@ -8810,7 +8812,7 @@ class GroupUtility {
 
   static collectPrevTokensInSentence (segment, tokenIndex, currentSentenceIndex, sentenceCount, target) {
     let prevToken = tokenIndex > 0 ? segment.tokens[tokenIndex - 1] : null
-    if (prevToken && !prevToken.grouped && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= sentenceCount)) {
+    if (prevToken && (Math.abs(prevToken.sentenceIndex - currentSentenceIndex) <= sentenceCount)) {
       let shouldCheckBack = true
       let shouldCheckTokenIndex = tokenIndex - 1
 
@@ -8829,13 +8831,14 @@ class GroupUtility {
 
   static collectNextTokensInSentence (segment, tokenIndex, currentSentenceIndex, sentenceCount, target) {
     const nextToken = tokenIndex < segment.tokens.length ? segment.tokens[tokenIndex + 1] : null
-    if (nextToken && !nextToken.grouped && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount)) {
+
+    if (nextToken && (Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount)) {
       let shouldCheckNext = true
       let shouldCheckTokenIndex = tokenIndex + 1
 
       while (shouldCheckNext && (shouldCheckTokenIndex < segment.tokens.length)) {
         const nextToken = segment.tokens[shouldCheckTokenIndex]
-        if (nextToken && !nextToken.grouped && Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount) {
+        if (nextToken && Math.abs(nextToken.sentenceIndex - currentSentenceIndex) <= sentenceCount) {
           target.push(nextToken)
           shouldCheckTokenIndex++
         } else {
@@ -10860,6 +10863,7 @@ var render = function() {
                           segmentData: segmentTarget,
                           targetIdIndex: _vm.targetIdIndex(targetId),
                           maxHeight: _vm.maxHeight,
+                          hoveredGroupsId: _vm.hoveredGroupsId,
                           isLast: _vm.isLast(targetId)
                         },
                         on: {
