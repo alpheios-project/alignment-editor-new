@@ -46197,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i226-sentence-view-bug.20210223715" : 0
+    return  true ? "i195-metadata-save-fix.20210224 12" : 0
   }
 
   static get libName () {
@@ -48649,6 +48649,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -48711,7 +48712,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    changeMetadataItem () {
+    changeMetadataItem (typeEvent) {
+      if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
+      if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
+
       if (!this.value) { return }
 
       if (this.metadataTerm.template) {
@@ -54615,6 +54619,9 @@ var render = function() {
             attrs: { type: "text", id: _vm.itemId },
             domProps: { value: _vm.value },
             on: {
+              change: function($event) {
+                return _vm.changeMetadataItem("change")
+              },
               keyup: function($event) {
                 if (
                   !$event.type.indexOf("key") &&
@@ -54622,7 +54629,7 @@ var render = function() {
                 ) {
                   return null
                 }
-                return _vm.changeMetadataItem($event)
+                return _vm.changeMetadataItem("enter")
               },
               input: function($event) {
                 if ($event.target.composing) {
