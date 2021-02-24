@@ -1085,6 +1085,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   padding: 4px;
   border: 1px solid transparent;
   display: inline-block;
+  vertical-align: top;
 }
 .alpheios-alignment-editor-align-text-segment span.alpheios-token:hover {
   border-color: #FFC24F;
@@ -1194,18 +1195,19 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;
-  vertical-align: baseline;
+  vertical-align: top;
   padding: 4px;
   position: relative;
 }
 .alpheios-alignment-editor-token-edit__input-width-machine {
   display: inline-block;
-  vertical-align: baseline;
+  vertical-align: top;
   padding: 8px;
   visibility: hidden;
 }
 .alpheios-alignment-editor-token-edit-input-container {
   display: inline-block;
+  vertical-align: top;
   position: relative;
   padding: 4px;
 }
