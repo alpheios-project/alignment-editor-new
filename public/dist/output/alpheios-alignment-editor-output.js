@@ -1,4 +1,3 @@
-window.AlignmentEditorOutput =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -8658,33 +8657,6 @@ if (inBrowser) {
 
 /***/ }),
 
-/***/ "./_output/index.js":
-/*!**************************!*\
-  !*** ./_output/index.js ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "OutputStyle": () => (/* reexport default from dynamic */ _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default.a),
-/* harmony export */   "App": () => (/* reexport safe */ _output_vue_app_vue__WEBPACK_IMPORTED_MODULE_1__.default),
-/* harmony export */   "Vue": () => (/* reexport safe */ _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default)
-/* harmony export */ });
-/* harmony import */ var _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/styles/style.scss */ "./_output/styles/style.scss");
-/* harmony import */ var _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _output_vue_app_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/app.vue */ "./_output/vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-
-
-
-
-
-
-
-
-/***/ }),
-
 /***/ "./_output/utility/group-utility.js":
 /*!******************************************!*\
   !*** ./_output/utility/group-utility.js ***!
@@ -11768,10 +11740,33 @@ render._withStripped = true
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// module exports must be returned from runtime so entry inlining is disabled
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__("./_output/index.js");
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!**************************!*\
+  !*** ./_output/index.js ***!
+  \**************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OutputStyle": () => (/* reexport default from dynamic */ _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default.a),
+/* harmony export */   "App": () => (/* reexport safe */ _output_vue_app_vue__WEBPACK_IMPORTED_MODULE_1__.default),
+/* harmony export */   "Vue": () => (/* reexport safe */ _vue_runtime__WEBPACK_IMPORTED_MODULE_2__.default)
+/* harmony export */ });
+/* harmony import */ var _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/styles/style.scss */ "./_output/styles/style.scss");
+/* harmony import */ var _output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_output_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _output_vue_app_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/app.vue */ "./_output/vue/app.vue");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+
+
+
+
+
+
+
+})();
+
+window.AlignmentEditorOutput = __webpack_exports__;
 /******/ })()
 ;
 //# sourceMappingURL=alpheios-alignment-editor-output.js.map
