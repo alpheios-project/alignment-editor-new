@@ -46,6 +46,7 @@ export default {
           padding: 4px;
           border: 1px solid transparent;
           display: inline-block;
+          vertical-align: top;
 
           &.alpheios-token-grouped {
             border-color: #BCE5F0;

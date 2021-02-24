@@ -100,5 +100,10 @@
     "message": "Show metadata",
     "description": "Button in main menu",
     "component": "MainMenu"
+  },
+  "UPLOAD_DTSAPI_TITLE": {
+    "message": "Upload texts from DTS API",
+    "description": "Title in upload bloc",
+    "component": "UploadDTSAPIBlock"
   }
 }
