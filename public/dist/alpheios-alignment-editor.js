@@ -43880,10 +43880,12 @@ class Alignment {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.INFO
+      /*
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
+        type: NotificationSingleton.types.INFO
       })
+      */
       return true
     }
     return false
@@ -46173,7 +46175,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i177-metadata-instructions-fix.20210224466" : 0
+    return  true ? "small-layout-updates.20210224488" : 0
   }
 
   static get libName () {

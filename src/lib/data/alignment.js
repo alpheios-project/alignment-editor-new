@@ -410,10 +410,12 @@ export default class Alignment {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
+      /*
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
         type: NotificationSingleton.types.INFO
       })
+      */
       return true
     }
     return false

@@ -84,6 +84,7 @@ export default {
             padding: 4px;
             border: 1px solid transparent;
             display: inline-block;
+            vertical-align: top;
 
             &:hover {
                 border-color: #FFC24F;
