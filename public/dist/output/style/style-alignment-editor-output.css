@@ -335,6 +335,7 @@ body, html {
   padding: 4px;
   border: 1px solid transparent;
   display: inline-block;
+  vertical-align: top;
 }
 .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
   border-color: #BCE5F0;

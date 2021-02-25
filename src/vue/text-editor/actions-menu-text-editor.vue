@@ -15,15 +15,26 @@
         </button>
       </div>
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
-        <input type="file" @change="loadTextFromFile" ref="fileupload">
+        
+          <input type="file" @change="loadTextFromFile" ref="fileupload">
+
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
+              @click="showModal = true">
+              DTSAPI
+          </button>
       </div>
+      <upload-dtsapi-block :showModal="showModal" @closeModal = "showModal = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
     </div>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
 
 export default {
   name: 'ActionsMenuTextEditor',
+  components: {
+    uploadDtsapiBlock: UploadDTSAPIBlock
+  },
   props: {
     textType: {
       type: String,
@@ -37,7 +48,8 @@ export default {
   data () {
     return {
       showUploadBlock: false,
-      shownMetadataBlock: false
+      shownMetadataBlock: false,
+      showModal: false
     }
   },
   watch: {
@@ -94,6 +106,11 @@ export default {
       reader.readAsText(file)
 
       this.$refs.fileupload.value = ''
+    },
+
+    uploadFromDTSAPI (teiText) {
+      this.$emit('upload-single', { filetext: teiText, extension: 'xml' })
+      this.showUploadBlock = false
     }
   }
 }
