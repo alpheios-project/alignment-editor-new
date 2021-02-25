@@ -324,6 +324,8 @@ div.alpheios-alignment-checkbox-block {
 
 .modal-body {
   margin: 20px 0;
+  max-height: 600px;
+  overflow: auto;
 }
 
 .modal-default-button {
@@ -969,11 +971,30 @@ div.alpheios-alignment-checkbox-block {
   font-size: 90%;
   color: #888;
 }
+.alpheios-editor__waiting {
+  text-align: center;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 .alpheios-editor-content-list {
   column-count: 2;
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+.alpheios-editor-content-list.alpheios-editor-content-list__col2 {
+  column-count: 2;
+}
+.alpheios-editor-content-list.alpheios-editor-content-list__col4 {
+  column-count: 4;
 }
 .alpheios-editor-content-link {
   cursor: pointer;

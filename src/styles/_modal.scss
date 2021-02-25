@@ -32,6 +32,8 @@
   
   .modal-body {
     margin: 20px 0;
+    max-height: 600px;
+    overflow: auto;
   }
   
   .modal-default-button {

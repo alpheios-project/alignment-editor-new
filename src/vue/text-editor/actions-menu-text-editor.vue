@@ -23,7 +23,7 @@
               DTSAPI
           </button>
       </div>
-      <upload-dtsapi-block :showModal="showModal" @closeModal = "showModal = false"/>
+      <upload-dtsapi-block :showModal="showModal" @closeModal = "showModal = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
     </div>
 </template>
 <script>
@@ -106,6 +106,11 @@ export default {
       reader.readAsText(file)
 
       this.$refs.fileupload.value = ''
+    },
+
+    uploadFromDTSAPI (teiText) {
+      this.$emit('upload-single', { filetext: teiText, extension: 'xml' })
+      this.showUploadBlock = false
     }
   }
 }
