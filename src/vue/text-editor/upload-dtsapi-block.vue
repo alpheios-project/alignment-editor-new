@@ -2,7 +2,7 @@
     <modal v-if="showModal" @close="$emit('closeModal')">
         <template v-slot:header>
           <p class="alpheios-editor-content-title">{{ title }}</p>
-          <ul class="alpheios-editor-content-breadcrumbs">
+          <ul class="alpheios-editor-content-breadcrumbs" v-show="showBreadcrumbs">
             <li v-for="(crumb, crumbIndex) in breadcrumbs" :key="crumbIndex" 
                 :class = "crumbClass(crumb)"
                 @click = "clickCrumb(crumb, crumbIndex)"
@@ -94,6 +94,9 @@ export default {
     },
     uploadButtonDisabled () {
       return this.contentUpdated && ((this.content.length === 0) || ((this.content.length > 0) && (this.content[0].type === 'Collection')) || (this.checkedRefs.length === 0))
+    },
+    showBreadcrumbs () {
+      return this.breadcrumbs.length > 1
     }
   },
   methods: {

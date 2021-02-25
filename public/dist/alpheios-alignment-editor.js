@@ -46486,7 +46486,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i77-dts-api-upload.20210225651" : 0
+    return  true ? "i77-dts-api-upload.20210225657" : 0
   }
 
   static get libName () {
@@ -49737,6 +49737,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     uploadButtonDisabled () {
       return this.contentUpdated && ((this.content.length === 0) || ((this.content.length > 0) && (this.content[0].type === 'Collection')) || (this.checkedRefs.length === 0))
+    },
+    showBreadcrumbs () {
+      return this.breadcrumbs.length > 1
     }
   },
   methods: {
@@ -56157,7 +56160,17 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "ul",
-                    { staticClass: "alpheios-editor-content-breadcrumbs" },
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showBreadcrumbs,
+                          expression: "showBreadcrumbs"
+                        }
+                      ],
+                      staticClass: "alpheios-editor-content-breadcrumbs"
+                    },
                     _vm._l(_vm.breadcrumbs, function(crumb, crumbIndex) {
                       return _c(
                         "li",
