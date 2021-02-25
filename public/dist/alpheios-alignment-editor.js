@@ -46486,7 +46486,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i77-dts-api-upload.20210225527" : 0
+    return  true ? "i77-dts-api-upload.20210225651" : 0
   }
 
   static get libName () {
@@ -49662,6 +49662,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -49685,13 +49700,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      content: [
-        { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', type: 'Collection' }
-      ],
+      homeLinks: [],
+      content: [],
       contentUpdated: 1,
       showWaiting: false,
-      baseUrl: 'https://dts.alpheios.net/api/dts/'
+      baseUrl: 'https://dts.alpheios.net/api/dts/',
+      cachedContent: {},
+      breadcrumbs: [],
+      checkedRefs: []
     }
+  },
+  mounted () {
+    this.homeLinks = [
+        { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', type: 'Collection' }
+      ]
+    
+    this.content = [...this.homeLinks]
+    this.breadcrumbs.push({ title: 'Home' })
+    this.updateContent(false)
   },
   computed: {
     l10n () {
@@ -49708,17 +49734,35 @@ __webpack_require__.r(__webpack_exports__);
         'alpheios-editor-content-list__col2': this.content.length <= 20,
         'alpheios-editor-content-list__col4': this.content.length > 20
       }
+    },
+    uploadButtonDisabled () {
+      return this.contentUpdated && ((this.content.length === 0) || ((this.content.length > 0) && (this.content[0].type === 'Collection')) || (this.checkedRefs.length === 0))
     }
   },
   methods: {
-    defineGetDataMethod (linkData) {
-      if (linkData.type === 'Collection') {
-        return 'getCollection'
+    crumbClass (crumb) {
+      return {
+        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.links) && crumb.links.length > 0
       }
+    },
+
+    clickCrumb (crumb, crumbIndex) {
+      this.clearContent(false)
+
+      this.breadcrumbs.splice(crumbIndex + 1)
+      this.content = [...crumb.links]
+      crumb.links = undefined
+      
+      this.updateContent()
+    },
+
+    contentRefId (ref) {
+      return `alpheios-editor-content-link-ref-${ref.replace('.','_')}`
     },
 
     clearContent (showWaiting = true) {
       this.content = []
+      this.checkedRefs = []
       this.contentUpdated++
       this.showWaiting = showWaiting
     },
@@ -49729,30 +49773,50 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async getData (linkData) {
-      // console.info('getData', linkData)
+      let result
+      
+      this.breadcrumbs[this.breadcrumbs.length - 1].links = [ ...this.content ]
+      this.breadcrumbs.push({ title: linkData.title })
       this.clearContent()
 
-      let result
-      if (linkData.type === 'Collection') {
-        result = await this.getCollection(linkData)
-      } else if (linkData.type === 'Navigation') {
-        result = await this.getDocument(linkData)
+      if (this.cachedContent[linkData.id]) {
+        this.content = this.cachedContent[linkData.id]
+        this.updateContent()
+        return
       }
+      result = await this.getCollection(linkData)
+      
+      this.cachedContent[linkData.id] = [ ...this.content ]
       return result
     },
 
-    async getDocument (linkData) {
+    async getDocumentRefs () {
+      let refParams = {}
+
+      if (this.checkedRefs.length === 1) {
+        refParams = { ref: this.content[this.checkedRefs[0]].ref }
+      } else {
+        this.checkedRefs.sort()
+        refParams = { start: this.content[this.checkedRefs[0]].ref, end: this.content[this.checkedRefs[this.checkedRefs.length-1]].ref }
+      }
+
+      const linkData = this.content[this.checkedRefs[0]]
+      const result = await this.getDocument(linkData, refParams)
+      return result
+    },
+
+    async getDocument (linkData, refParams) {
+      this.showWaiting = true
       let data = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_3__.ClientAdapters.dtsapiGroup.dtsapi({
         method: 'getDocument',
         params: {
           baseUrl: linkData.baseUrl,
           id: linkData.id,
-          refParams: { ref: linkData.ref }
+          refParams
         }
       })
-
-      this.clearContent()
-      
+     
+      this.showWaiting = false
       this.$emit('uploadFromDTSAPI', data.result)
       this.$emit('closeModal')
       return true
@@ -54205,15 +54269,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("transition", { attrs: { name: "modal" } }, [
-    _c("div", { staticClass: "modal-mask" }, [
-      _c("div", { staticClass: "modal-wrapper" }, [
-        _c("div", { staticClass: "modal-container" }, [
-          _c("div", { staticClass: "modal-header" }, [_vm._t("header")], 2),
+  return _c("transition", { attrs: { name: "alpheios-modal" } }, [
+    _c("div", { staticClass: "alpheios-modal-mask" }, [
+      _c("div", { staticClass: "alpheios-modal-wrapper" }, [
+        _c("div", { staticClass: "alpheios-modal-container" }, [
+          _c(
+            "div",
+            { staticClass: "alpheios-modal-header" },
+            [_vm._t("header")],
+            2
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "modal-body" }, [_vm._t("body")], 2),
+          _c(
+            "div",
+            { staticClass: "alpheios-modal-body" },
+            [_vm._t("body")],
+            2
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "modal-footer" }, [_vm._t("footer")], 2)
+          _c(
+            "div",
+            { staticClass: "alpheios-modal-footer" },
+            [_vm._t("footer")],
+            2
+          )
         ])
       ])
     ])
@@ -56071,7 +56150,36 @@ var render = function() {
             {
               key: "header",
               fn: function() {
-                return [_vm._v(_vm._s(_vm.title))]
+                return [
+                  _c("p", { staticClass: "alpheios-editor-content-title" }, [
+                    _vm._v(_vm._s(_vm.title))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    { staticClass: "alpheios-editor-content-breadcrumbs" },
+                    _vm._l(_vm.breadcrumbs, function(crumb, crumbIndex) {
+                      return _c(
+                        "li",
+                        {
+                          key: crumbIndex,
+                          class: _vm.crumbClass(crumb),
+                          on: {
+                            click: function($event) {
+                              return _vm.clickCrumb(crumb, crumbIndex)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n          " + _vm._s(crumb.title) + "\n        "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ]
               },
               proxy: true
             },
@@ -56094,6 +56202,14 @@ var render = function() {
                       _c(
                         "ul",
                         {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: !_vm.showWaiting,
+                              expression: "!showWaiting"
+                            }
+                          ],
                           staticClass: "alpheios-editor-content-list",
                           class: _vm.cssClasses
                         },
@@ -56102,14 +56218,96 @@ var render = function() {
                             "li",
                             {
                               key: linkIndex,
-                              staticClass: "alpheios-editor-content-link",
-                              on: {
-                                click: function($event) {
-                                  return _vm.getData(linkData)
-                                }
-                              }
+                              staticClass: "alpheios-editor-content-link"
                             },
-                            [_vm._v(_vm._s(linkData.title))]
+                            [
+                              linkData.type === "Collection"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-link__text",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getData(linkData)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(linkData.title))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "Navigation"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-link__checkbox"
+                                    },
+                                    [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.checkedRefs,
+                                            expression: "checkedRefs"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          id: _vm.contentRefId(linkData.ref)
+                                        },
+                                        domProps: {
+                                          value: linkIndex,
+                                          checked: Array.isArray(
+                                            _vm.checkedRefs
+                                          )
+                                            ? _vm._i(
+                                                _vm.checkedRefs,
+                                                linkIndex
+                                              ) > -1
+                                            : _vm.checkedRefs
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.checkedRefs,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = linkIndex,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  (_vm.checkedRefs = $$a.concat(
+                                                    [$$v]
+                                                  ))
+                                              } else {
+                                                $$i > -1 &&
+                                                  (_vm.checkedRefs = $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1)))
+                                              }
+                                            } else {
+                                              _vm.checkedRefs = $$c
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        {
+                                          attrs: {
+                                            for: _vm.contentRefId(linkData.ref)
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(linkData.title))]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
                           )
                         }),
                         0
@@ -56128,11 +56326,8 @@ var render = function() {
                     {
                       staticClass:
                         "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.$emit("upload")
-                        }
-                      }
+                      attrs: { disabled: _vm.uploadButtonDisabled },
+                      on: { click: _vm.getDocumentRefs }
                     },
                     [_vm._v("Upload")]
                   ),

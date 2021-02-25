@@ -1,18 +1,18 @@
 <template>
-    <transition name="modal">
-        <div class="modal-mask">
-            <div class="modal-wrapper">
-            <div class="modal-container">
+    <transition name="alpheios-modal">
+        <div class="alpheios-modal-mask">
+            <div class="alpheios-modal-wrapper">
+            <div class="alpheios-modal-container">
 
-                <div class="modal-header">
+                <div class="alpheios-modal-header">
                 <slot name="header"></slot>
                 </div>
 
-                <div class="modal-body">
+                <div class="alpheios-modal-body">
                 <slot name="body"></slot>
                 </div>
 
-                <div class="modal-footer">
+                <div class="alpheios-modal-footer">
                 <slot name="footer"></slot>
                 </div>
             </div>

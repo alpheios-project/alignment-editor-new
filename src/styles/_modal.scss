@@ -1,4 +1,4 @@
-.modal-mask {
+.alpheios-modal-mask {
     position: fixed;
     z-index: 9998;
     top: 0;
@@ -10,12 +10,12 @@
     transition: opacity 0.5s ease;
   }
   
-  .modal-wrapper {
+  .alpheios-modal-wrapper {
     display: table-cell;
     vertical-align: middle;
   }
   
-  .modal-container {
+  .alpheios-modal-container {
     width: 600px;
     margin: 0px auto;
     padding: 20px 30px;
@@ -25,18 +25,21 @@
     transition: all 0.5s ease;
   }
   
-  .modal-header h3 {
+  .alpheios-modal-header h3 {
     margin-top: 0;
     color: #42b983;
   }
   
-  .modal-body {
-    margin: 20px 0;
+  .alpheios-modal-body {
+    margin: 10px 0;
     max-height: 600px;
     overflow: auto;
+
+    border: 2px solid #ddd;
+    padding: 10px;
   }
   
-  .modal-default-button {
+  .alpheios-modal-default-button {
     float: right;
   }
   
