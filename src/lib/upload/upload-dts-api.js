@@ -76,7 +76,7 @@ export default class UploadDTSAPI {
     collection.members.forEach(dataMember => {
       const link = {
         baseUrl: collection.baseUrl,
-        totalItems: dataMember.totalItems,
+        totalItems: collection.totalItems,
         title: dataMember.title,
         id: dataMember.id,
         type: 'Collection'

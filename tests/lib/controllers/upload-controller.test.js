@@ -30,11 +30,11 @@ describe('upload-controller.test.js', () => {
   it('1 UploadController - static uploadMethods return an object with registered workflows ', () => {
     const uploadMethods = UploadController.uploadMethods
   
-    expect(Object.keys(uploadMethods).length).toEqual(3)
+    expect(Object.keys(uploadMethods).length).toEqual(4)
     expect(Object.keys(uploadMethods)[0]).toEqual('plainSourceUploadAll')
     expect(Object.keys(uploadMethods)[1]).toEqual('plainSourceUploadSingle')
     expect(Object.keys(uploadMethods)[2]).toEqual('jsonSimpleUploadAll')
-    
+    expect(Object.keys(uploadMethods)[2]).toEqual('dtsAPIUpload')
   })
 
   it('2 UploadController - static upload method prints error if uploadType is not registered ', () => {

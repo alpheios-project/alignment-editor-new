@@ -24,7 +24,7 @@ export default class DownloadController {
       },
       plainSourceDownloadAll: {
         method: this.plainSourceDownloadAll,
-        allTexts: true,
+        // allTexts: true,
         name: 'plainSourceDownloadAll',
         label: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
         tooltip: L10nSingleton.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
