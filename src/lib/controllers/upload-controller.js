@@ -1,8 +1,11 @@
-import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
+import Alignment from '@/lib/data/alignment'
+import SourceText from '@/lib/data/source-text'
+
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
-import Alignment from '../data/alignment'
+import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 
 export default class UploadController {
   /**
@@ -15,7 +18,8 @@ export default class UploadController {
     return {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
-      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] }
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
     }
   }
 
@@ -142,5 +146,15 @@ export default class UploadController {
   static jsonSimpleUploadAll (fileData) {
     const fileJSON = JSON.parse(fileData)
     return Alignment.convertFromJSON(fileJSON)
+  }
+
+  static async dtsAPIUploadSingle ({ linkData, objType = 'Collection', refParams = {} } = {}) {
+    if (objType === 'Collection') {
+      const content = await UploadDTSAPI.getCollection(linkData)
+      return content
+    } else if (objType === 'Document') {
+      const docXML = await UploadDTSAPI.getDocument(linkData, refParams)
+      return docXML
+    }
   }
 }

@@ -18,28 +18,29 @@
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
-              <span v-if="linkData.type === 'Collection'" class="alpheios-editor-content-link__text" @click = "getData(linkData)">{{ linkData.title }}</span>
+              <span v-if="linkData.type === 'Collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.title }}</span>
 
               <span v-if="linkData.type === 'Navigation'" class="alpheios-editor-content-link__checkbox">
-                <input type="checkbox" :id="contentRefId(linkData.ref)" :value="linkIndex" v-model="checkedRefs">
-                <label :for="contentRefId(linkData.ref)">{{ linkData.title }}</label>
+                <input type="checkbox" :id="contentRefId(linkIndex)" :value="linkIndex" v-model="checkedRefs">
+                <label :for="contentRefId(linkIndex)">{{ linkData.title }}</label>
               </span>
             </li>
           </ul>
         </template>
 
         <template v-slot:footer>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "getDocumentRefs" :disabled="uploadButtonDisabled">Upload</button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Cancel</button>
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "getDocument" :disabled="uploadButtonDisabled">Upload</button>
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="closeModal">Cancel</button>
         </template>
     </modal>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import UploadController from '@/lib/controllers/upload-controller.js'
+
+import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 import Modal from '@/vue/common/modal.vue'
 import Waiting from '@/vue/common/waiting.vue'
-
-import { ClientAdapters } from 'alpheios-client-adapters'
 
 
 export default {
@@ -61,20 +62,15 @@ export default {
       content: [],
       contentUpdated: 1,
       showWaiting: false,
-      baseUrl: 'https://dts.alpheios.net/api/dts/',
-      cachedContent: {},
       breadcrumbs: [],
       checkedRefs: []
     }
   },
   mounted () {
-    this.homeLinks = [
-        { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', type: 'Collection' }
-      ]
+    this.homeLinks = UploadDTSAPI.rootCollections
     
-    this.content = [...this.homeLinks]
     this.breadcrumbs.push({ title: 'Home' })
-    this.updateContent(false)
+    this.updateContent(this.homeLinks, false)
   },
   computed: {
     l10n () {
@@ -100,26 +96,48 @@ export default {
     }
   },
   methods: {
+    /**
+     * Defines css class for checkbox or simple link for refs
+     * @param {Object} crumb - single breadcrumb
+     *        {Array[Object]} content - saved content for the breadcrumb
+     *        {String} title
+     * @returns {Object} - :class definition
+     */
     crumbClass (crumb) {
       return {
-        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.links) && crumb.links.length > 0
+        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
       }
     },
 
+    /**
+     * Defines css id for each ref block in content
+     * @param {Number} refIndex - single breadcrumb
+     * @returns {String} - css id
+     */
+    contentRefId (refIndex) {
+      return `alpheios-editor-content-link-ref-${refIndex}`
+    },
+
+    /**
+     * Uploads content for the clicked breadcrumb
+     * @param {Object} crumb - single breadcrumb
+     *        {Array[Object]} content - saved content for the breadcrumb
+     *        {String} title
+     * @param {Number} crumbIndex - index of the given breadcrumb
+     */
     clickCrumb (crumb, crumbIndex) {
       this.clearContent(false)
 
+      this.updateContent(crumb.content)
+
       this.breadcrumbs.splice(crumbIndex + 1)
-      this.content = [...crumb.links]
-      crumb.links = undefined
-      
-      this.updateContent()
+      crumb.content = undefined
     },
 
-    contentRefId (ref) {
-      return `alpheios-editor-content-link-ref-${ref.replace('.','_')}`
-    },
-
+    /**
+     * Clears content block with/without showing waiting gif
+     * @param {Boolean} showWaiting - true - shows waiting gif
+     */
     clearContent (showWaiting = true) {
       this.content = []
       this.checkedRefs = []
@@ -127,116 +145,89 @@ export default {
       this.showWaiting = showWaiting
     },
 
-    updateContent (showWaiting = false) {
+    /**
+     * Updates content in the block 
+     * @param {Array[Object]} - content for updating content block
+     * @param {Boolean} showWaiting - true - shows waiting gif
+     */
+    updateContent (content = null, showWaiting = false) {
+      if (content) {
+        this.content.splice(0, this.content.length)
+        this.content.push(...content)
+      }
       this.showWaiting = showWaiting
       this.contentUpdated++
     },
 
-    async getData (linkData) {
-      let result
-      
-      this.breadcrumbs[this.breadcrumbs.length - 1].links = [ ...this.content ]
+    /**
+     * Updates breadcrumb
+     * @param {Object} linkData - clicked linkData for placing to breadcrumbs
+     *        {String} type - Collection/Navigation
+     *        {String} id - unique id for getting data from DTS API
+     *        {String} title - title for the link
+     */
+    updateBreadcrumbs(linkData) {
+      this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
       this.breadcrumbs.push({ title: linkData.title })
-      this.clearContent()
-
-      if (this.cachedContent[linkData.id]) {
-        this.content = this.cachedContent[linkData.id]
-        this.updateContent()
-        return
-      }
-      result = await this.getCollection(linkData)
-      
-      this.cachedContent[linkData.id] = [ ...this.content ]
-      return result
     },
 
-    async getDocumentRefs () {
+    /**
+     * Retrives a collection from DTS API and uploads to the modal
+     * @param {Object} linkData - clicked linkData for placing to breadcrumbs
+     *        {String} type - Collection/Navigation
+     *        {String} id - unique id for getting data from DTS API
+     *        {String} title - title for the link
+     *        {String} baseUrl - defines DTS API
+     */
+    async getCollection (linkData) {     
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+
+      const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'Collection'})
+
+      this.updateContent(content)
+    },
+
+    /**
+     * Defines refParams for getting Document
+     * @returns {Object}
+     *          {String} ref - to get one passage by ref
+     *          {String} start - a starting passage for getting a range of passages
+     *          {String} end - an ending passage for getting a range of passages
+     */
+    defineRefParams () {
       let refParams = {}
 
       if (this.checkedRefs.length === 1) {
         refParams = { ref: this.content[this.checkedRefs[0]].ref }
       } else {
-        this.checkedRefs.sort()
+        this.checkedRefs.sort((a, b) => a-b)
         refParams = { start: this.content[this.checkedRefs[0]].ref, end: this.content[this.checkedRefs[this.checkedRefs.length-1]].ref }
       }
-
-      const linkData = this.content[this.checkedRefs[0]]
-      const result = await this.getDocument(linkData, refParams)
-      return result
+      return refParams
     },
 
-    async getDocument (linkData, refParams) {
+    /**
+     * Retrives a XML Document from DTS API, closes the modal and uploads text to the text-editor-single
+     */
+    async getDocument () {
+      const refParams = this.defineRefParams()
+      const linkData = this.content[this.checkedRefs[0]]
       this.showWaiting = true
-      let data = await ClientAdapters.dtsapiGroup.dtsapi({
-        method: 'getDocument',
-        params: {
-          baseUrl: linkData.baseUrl,
-          id: linkData.id,
-          refParams
-        }
-      })
-     
+
+      const result = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'Document', refParams})
+
       this.showWaiting = false
-      this.$emit('uploadFromDTSAPI', data.result)
+      this.checkedRefs.splice(0, this.checkedRefs.length)
+
+      this.$emit('uploadFromDTSAPI', result)
       this.$emit('closeModal')
       return true
     },
 
-    async getCollection (linkData) {
-      let data = await ClientAdapters.dtsapiGroup.dtsapi({
-        method: 'getCollection',
-        params: {
-          baseUrl: linkData.baseUrl,
-          id: linkData.id
-        }
-      })
-
-      const collection = data.result
-      if ((collection.members.length === 0) && collection.navigation) { 
-        await ClientAdapters.dtsapiGroup.dtsapi({
-          method: 'getNavigation',
-          params: {
-            baseUrl: linkData.baseUrl,
-            id: collection.navigation.id,
-            collection
-          }
-        })
-      }
-      return this.convertToContent(collection)
-    },
-
-    convertToContent (collection) {
-      if (collection.members.length > 0) {
-        this.convertCollectionToLinks(collection)
-      } else if (collection.navigation && collection.navigation.refs && collection.navigation.refs.length > 0) {
-        this.convertNavigationToLinks(collection)
-      }
-
-      this.updateContent()
-    },
-
-    convertCollectionToLinks (collection) {
-      collection.members.forEach(dataMember => {
-        const link = {
-          baseUrl: this.baseUrl,
-          title: dataMember.title,
-          id: dataMember.id,
-          type: 'Collection'
-        }
-        this.content.push(link)
-      })
-    },
-    convertNavigationToLinks (collection) {
-      collection.navigation.refs.forEach(dataRef => {
-        const link = {
-          baseUrl: this.baseUrl,
-          title: dataRef,
-          id: collection.navigation.id,
-          ref: dataRef,
-          type: 'Navigation'
-        }
-        this.content.push(link)
-      })
+    closeModal () {
+      this.checkedRefs.splice(0, this.checkedRefs.length)
+      this.$emit('closeModal')
     }
   }
 }
