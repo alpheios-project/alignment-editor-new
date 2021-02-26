@@ -18,7 +18,7 @@
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
-              <span v-if="linkData.type === 'Collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.title }}</span>
+              <span v-if="linkData.type === 'Collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ formattedTitle(linkData) }}</span>
 
               <span v-if="linkData.type === 'Navigation'" class="alpheios-editor-content-link__checkbox">
                 <input type="checkbox" :id="contentRefId(linkIndex)" :value="linkIndex" v-model="checkedRefs">
@@ -118,6 +118,10 @@ export default {
       return `alpheios-editor-content-link-ref-${refIndex}`
     },
 
+    formattedTitle (linkData) {
+      const totalItems = linkData.totalItems ? ` (${linkData.totalItems})` : ''
+      return `${linkData.title}${totalItems}`
+    },
     /**
      * Uploads content for the clicked breadcrumb
      * @param {Object} crumb - single breadcrumb
@@ -184,7 +188,6 @@ export default {
       this.clearContent()
 
       const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'Collection'})
-
       this.updateContent(content)
     },
 
@@ -218,11 +221,13 @@ export default {
       const result = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'Document', refParams})
 
       this.showWaiting = false
-      this.checkedRefs.splice(0, this.checkedRefs.length)
+      if (result) {
+        this.checkedRefs.splice(0, this.checkedRefs.length)
 
-      this.$emit('uploadFromDTSAPI', result)
-      this.$emit('closeModal')
-      return true
+        this.$emit('uploadFromDTSAPI', result)
+        this.$emit('closeModal')
+        return true
+      }
     },
 
     closeModal () {

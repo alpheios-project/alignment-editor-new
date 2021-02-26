@@ -1,10 +1,12 @@
 import { ClientAdapters } from 'alpheios-client-adapters'
+import NotificationSingleton from '@/lib/notifications/notification-singleton'
 const cachedContent = {}
 
 export default class UploadDTSAPI {
   static get rootCollections () {
     return [
-      { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', type: 'Collection' }
+      { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', type: 'Collection', id: 'Alpheios DTS API', skipId: true },
+      { baseUrl: 'https://betamasaheft.eu/api/dts/', title: 'Beta maṣāḥǝft DTS API', type: 'Collection', id: 'Beta maṣāḥǝft DTS API', skipId: true }
     ]
   }
 
@@ -17,14 +19,26 @@ export default class UploadDTSAPI {
       method: 'getCollection',
       params: {
         baseUrl: linkData.baseUrl,
-        id: linkData.id
+        id: !linkData.skipId ? linkData.id : null
       }
     })
 
+    if (data.errors && data.errors.length > 0) {
+      data.errors.forEach(err => {
+        console.error(err)
+        NotificationSingleton.addNotification({
+          text: err.message,
+          type: NotificationSingleton.types.ERROR
+        })
+      })
+
+      return null
+    }
+
     const collection = data.result
-    console.info('collection', collection)
+
     if ((collection.members.length === 0) && collection.navigation) {
-      await ClientAdapters.dtsapiGroup.dtsapi({
+      const result = await ClientAdapters.dtsapiGroup.dtsapi({
         method: 'getNavigation',
         params: {
           baseUrl: linkData.baseUrl,
@@ -32,6 +46,17 @@ export default class UploadDTSAPI {
           collection
         }
       })
+      if (result.errors && result.errors.length > 0) {
+        result.errors.forEach(err => {
+          console.error(err)
+          NotificationSingleton.addNotification({
+            text: err.message,
+            type: NotificationSingleton.types.ERROR
+          })
+        })
+
+        return null
+      }
     }
 
     let content
@@ -51,6 +76,7 @@ export default class UploadDTSAPI {
     collection.members.forEach(dataMember => {
       const link = {
         baseUrl: collection.baseUrl,
+        totalItems: dataMember.totalItems,
         title: dataMember.title,
         id: dataMember.id,
         type: 'Collection'
@@ -84,7 +110,17 @@ export default class UploadDTSAPI {
         refParams
       }
     })
+    if (data.errors && data.errors.length > 0) {
+      data.errors.forEach(err => {
+        console.error(err)
+        NotificationSingleton.addNotification({
+          text: err.message,
+          type: NotificationSingleton.types.ERROR
+        })
+      })
 
+      return null
+    }
     return data.result
   }
 }
