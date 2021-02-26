@@ -34,7 +34,7 @@ describe('upload-controller.test.js', () => {
     expect(Object.keys(uploadMethods)[0]).toEqual('plainSourceUploadAll')
     expect(Object.keys(uploadMethods)[1]).toEqual('plainSourceUploadSingle')
     expect(Object.keys(uploadMethods)[2]).toEqual('jsonSimpleUploadAll')
-    expect(Object.keys(uploadMethods)[2]).toEqual('dtsAPIUpload')
+    expect(Object.keys(uploadMethods)[3]).toEqual('dtsAPIUpload')
   })
 
   it('2 UploadController - static upload method prints error if uploadType is not registered ', () => {
