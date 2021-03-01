@@ -17,11 +17,10 @@
           <div class = "alpheios-editor-content-description" v-show="showDescription">
             <p class = "alpheios-editor-content-description__title" 
                @click = "showDescriptionDetails = !showDescriptionDetails">
-               There are two ways to upload passages:
+               {{ descriptionTitle }} 
             </p>
-            <ul v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details">
-            <li>If you choose one reference, only it will be uploaded.</li>
-            <li>If you choose more than one reference, a range would be uploaded - from minimum selected to the maximum selected. For example, you chose 2, 5, 8, then there will be uploaded a range from 2 to 8 references.</li>
+            <ul v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details" v-html="descriptionDetails">
+            
             </ul>
           </div>
           <ul class="alpheios-editor-content-list" :class = "cssClasses" v-show="!showWaiting">
@@ -91,8 +90,15 @@ export default {
     title () {
       return this.l10n.getMsgS('UPLOAD_DTSAPI_TITLE')
     },
+    descriptionTitle () {
+      return this.l10n.getMsgS('UPLOAD_DTSAPI_DESCRIPTION_TITLE') 
+    },
+    descriptionDetails () {
+      return this.l10n.getMsgS('UPLOAD_DTSAPI_DESCRIPTION_DETAILS') 
+    },
+    
     contentAvailable () {
-      return this.contentUpdated && Boolean(this.content) && (this.content.length > 0)
+      return this.contentUpdated && Boolean(this.content) 
     },
     cssClasses () {
       return {
@@ -107,7 +113,7 @@ export default {
       return this.breadcrumbs.length > 1
     },
     showDescription () {
-      return this.contentAvailable && (this.content[0].type === 'document') && this.content.length > 1
+      return this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1
     }
   },
   methods: {
