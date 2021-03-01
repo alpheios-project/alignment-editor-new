@@ -100,7 +100,7 @@ export default {
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', { filetext: e.target.result, extension })
+        this.$emit('upload-single', { text: e.target.result, extension })
         this.showUploadBlock = false
       }
       reader.readAsText(file)
@@ -108,8 +108,8 @@ export default {
       this.$refs.fileupload.value = ''
     },
 
-    uploadFromDTSAPI (teiText) {
-      this.$emit('upload-single', { filetext: teiText, extension: 'xml' })
+    uploadFromDTSAPI (filedata) {
+      this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadBlock = false
     }
   }

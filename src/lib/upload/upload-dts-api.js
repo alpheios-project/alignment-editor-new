@@ -5,9 +5,24 @@ const cachedContent = {}
 export default class UploadDTSAPI {
   static get rootCollections () {
     return [
-      { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', type: 'Collection', id: 'Alpheios DTS API', skipId: true },
-      { baseUrl: 'https://betamasaheft.eu/api/dts/', title: 'Beta maṣāḥǝft DTS API', type: 'Collection', id: 'Beta maṣāḥǝft DTS API', skipId: true }
+      { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', formattedTitle: 'Alpheios DTS API', type: 'collection', id: 'Alpheios DTS API', skipId: true },
+      { baseUrl: 'https://betamasaheft.eu/api/dts/', title: 'Beta maṣāḥǝft DTS API', formattedTitle: 'Beta maṣāḥǝft DTS API', type: 'collection', id: 'Beta maṣāḥǝft DTS API', skipId: true }
     ]
+  }
+
+  static hasErrors (result) {
+    if (result.errors && result.errors.length > 0) {
+      result.errors.forEach(err => {
+        console.error(err)
+        NotificationSingleton.addNotification({
+          text: err.message,
+          type: NotificationSingleton.types.ERROR
+        })
+      })
+
+      return true
+    }
+    return false
   }
 
   static async getCollection (linkData) {
@@ -23,82 +38,30 @@ export default class UploadDTSAPI {
       }
     })
 
-    if (data.errors && data.errors.length > 0) {
-      data.errors.forEach(err => {
-        console.error(err)
-        NotificationSingleton.addNotification({
-          text: err.message,
-          type: NotificationSingleton.types.ERROR
-        })
-      })
+    if (this.hasErrors(data)) { return }
 
-      return null
-    }
-
-    const collection = data.result
-
-    if ((collection.members.length === 0) && collection.navigation) {
-      const result = await ClientAdapters.dtsapiGroup.dtsapi({
-        method: 'getNavigation',
-        params: {
-          baseUrl: linkData.baseUrl,
-          id: collection.navigation.id,
-          collection
-        }
-      })
-      if (result.errors && result.errors.length > 0) {
-        result.errors.forEach(err => {
-          console.error(err)
-          NotificationSingleton.addNotification({
-            text: err.message,
-            type: NotificationSingleton.types.ERROR
-          })
-        })
-
-        return null
-      }
-    }
-
-    let content
-
-    if (collection.members.length > 0) {
-      content = this.convertCollectionToLinks(collection)
-    } else if (collection.navigation && collection.navigation.refs && collection.navigation.refs.length > 0) {
-      content = this.convertNavigationToLinks(collection)
-    }
-
-    cachedContent[linkData.id] = [...content]
-    return content
+    cachedContent[linkData.id] = data.result.links
+    return data.result.links
   }
 
-  static convertCollectionToLinks (collection) {
-    const content = []
-    collection.members.forEach(dataMember => {
-      const link = {
-        baseUrl: collection.baseUrl,
-        totalItems: collection.totalItems,
-        title: dataMember.title,
-        id: dataMember.id,
-        type: 'Collection'
-      }
-      content.push(link)
-    })
-    return content
-  }
+  static async getNavigation (linkData) {
+    if (cachedContent[linkData.id]) {
+      return cachedContent[linkData.id]
+    }
 
-  static convertNavigationToLinks (collection) {
-    const content = []
-    collection.navigation.refs.forEach(dataRef => {
-      const link = {
-        baseUrl: collection.baseUrl,
-        title: dataRef,
-        id: collection.navigation.id,
-        ref: dataRef,
-        type: 'Navigation'
+    const data = await ClientAdapters.dtsapiGroup.dtsapi({
+      method: 'getNavigation',
+      params: {
+        baseUrl: linkData.baseUrl,
+        id: linkData.id,
+        resource: linkData.resource
       }
-      content.push(link)
     })
-    return content
+
+    if (this.hasErrors(data)) { return }
+
+    cachedContent[linkData.id] = linkData.resource.refsLinks
+    return linkData.resource.refsLinks
   }
 
   static async getDocument (linkData, refParams) {
@@ -110,17 +73,29 @@ export default class UploadDTSAPI {
         refParams
       }
     })
-    if (data.errors && data.errors.length > 0) {
-      data.errors.forEach(err => {
-        console.error(err)
-        NotificationSingleton.addNotification({
-          text: err.message,
-          type: NotificationSingleton.types.ERROR
-        })
-      })
+    if (this.hasErrors(data)) { return }
 
-      return null
+    const xmlDoc = data.result
+    const parser = new DOMParser()
+    const dom = parser.parseFromString(xmlDoc, 'application/xml')
+    const check = dom.documentElement.nodeName === 'parsererror' ? null : dom.documentElement.nodeName
+    let lang
+    if (check) {
+      const body = dom.documentElement.getElementsByTagName('body')[0]
+      if (body) {
+        lang = body.getAttribute('xml:lang')
+      }
+
+      if (!lang) {
+        const divs = dom.documentElement.getElementsByTagName('div')
+        if (divs.length > 0) {
+          for (let i = 0; i < divs.length; i++) {
+            lang = divs[i].getAttribute('xml:lang')
+            if (lang) { break }
+          }
+        }
+      }
     }
-    return data.result
+    return { tei: xmlDoc, lang, extension: 'xml' }
   }
 }

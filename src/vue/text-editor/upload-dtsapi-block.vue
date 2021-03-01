@@ -14,15 +14,26 @@
         
         <template v-slot:body v-if="contentAvailable">
           <waiting v-show="showWaiting" />
+          <div class = "alpheios-editor-content-description" v-show="showDescription">
+            <p class = "alpheios-editor-content-description__title" 
+               @click = "showDescriptionDetails = !showDescriptionDetails">
+               There are two ways to upload passages:
+            </p>
+            <ul v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details">
+            <li>If you choose one reference, only it will be uploaded.</li>
+            <li>If you choose more than one reference, a range would be uploaded - from minimum selected to the maximum selected. For example, you chose 2, 5, 8, then there will be uploaded a range from 2 to 8 references.</li>
+            </ul>
+          </div>
           <ul class="alpheios-editor-content-list" :class = "cssClasses" v-show="!showWaiting">
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
-              <span v-if="linkData.type === 'Collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ formattedTitle(linkData) }}</span>
-
-              <span v-if="linkData.type === 'Navigation'" class="alpheios-editor-content-link__checkbox">
+              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.formattedTitle }}</span>
+              <span v-if="linkData.type === 'resource'" class="alpheios-editor-content-link__text" @click = "getNavigation(linkData)">{{ linkData.title }}</span>
+              
+              <span v-if="linkData.type === 'document'" class="alpheios-editor-content-link__checkbox">
                 <input type="checkbox" :id="contentRefId(linkIndex)" :value="linkIndex" v-model="checkedRefs">
-                <label :for="contentRefId(linkIndex)">{{ linkData.title }}</label>
+                <label :for="contentRefId(linkIndex)">{{ linkData.ref }}</label>
               </span>
             </li>
           </ul>
@@ -63,7 +74,8 @@ export default {
       contentUpdated: 1,
       showWaiting: false,
       breadcrumbs: [],
-      checkedRefs: []
+      checkedRefs: [],
+      showDescriptionDetails: false
     }
   },
   mounted () {
@@ -80,7 +92,7 @@ export default {
       return this.l10n.getMsgS('UPLOAD_DTSAPI_TITLE')
     },
     contentAvailable () {
-      return this.contentUpdated && Boolean(this.content)
+      return this.contentUpdated && Boolean(this.content) && (this.content.length > 0)
     },
     cssClasses () {
       return {
@@ -93,6 +105,9 @@ export default {
     },
     showBreadcrumbs () {
       return this.breadcrumbs.length > 1
+    },
+    showDescription () {
+      return this.contentAvailable && (this.content[0].type === 'document') && this.content.length > 1
     }
   },
   methods: {
@@ -118,10 +133,6 @@ export default {
       return `alpheios-editor-content-link-ref-${refIndex}`
     },
 
-    formattedTitle (linkData) {
-      const totalItems = linkData.totalItems ? ` (${linkData.totalItems})` : ''
-      return `${linkData.title}${totalItems}`
-    },
     /**
      * Uploads content for the clicked breadcrumb
      * @param {Object} crumb - single breadcrumb
@@ -187,7 +198,15 @@ export default {
       this.updateBreadcrumbs(linkData)
       this.clearContent()
 
-      const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'Collection'})
+      const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      this.updateContent(content)
+    },
+
+    async getNavigation (linkData) {     
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+      
+      const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'navigation'})
       this.updateContent(content)
     },
 
@@ -214,11 +233,12 @@ export default {
      * Retrives a XML Document from DTS API, closes the modal and uploads text to the text-editor-single
      */
     async getDocument () {
-      const refParams = this.defineRefParams()
       const linkData = this.content[this.checkedRefs[0]]
+
+      const refParams = this.defineRefParams()     
       this.showWaiting = true
 
-      const result = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'Document', refParams})
+      const result = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'document', refParams})
 
       this.showWaiting = false
       if (result) {
@@ -301,6 +321,21 @@ export default {
       text-decoration: underline;
       color: #185F6D;
     }
+  }
+}
+
+.alpheios-editor-content-description {
+  p.alpheios-editor-content-description__title {
+    text-decoration: underline;
+    color: #185F6D;
+    margin: 0 0 10px 0;
+    cursor: pointer;
+  }
+
+  .alpheios-editor-content-description__details {
+    margin: 0 0 10px;
+    padding: 0 20px 0;
+    border-bottom: 2px solid #ddd;
   }
 }
 </style>

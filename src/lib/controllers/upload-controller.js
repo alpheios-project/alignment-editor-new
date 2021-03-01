@@ -122,8 +122,8 @@ export default class UploadController {
     * @return {SourceText}
    */
   static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.filetext.indexOf('HEADER:') === 0) {
-      const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
+    if (fileData.text.indexOf('HEADER:') === 0) {
+      const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
         console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
         NotificationSingleton.addNotification({
@@ -139,7 +139,7 @@ export default class UploadController {
     } else {
       const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
-      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
     }
   }
 
@@ -148,11 +148,14 @@ export default class UploadController {
     return Alignment.convertFromJSON(fileJSON)
   }
 
-  static async dtsAPIUploadSingle ({ linkData, objType = 'Collection', refParams = {} } = {}) {
-    if (objType === 'Collection') {
+  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams = {} } = {}) {
+    if (objType === 'collection') {
       const content = await UploadDTSAPI.getCollection(linkData)
       return content
-    } else if (objType === 'Document') {
+    } else if (objType === 'navigation') {
+      const content = await UploadDTSAPI.getNavigation(linkData)
+      return content
+    } else if (objType === 'document') {
       const docXML = await UploadDTSAPI.getDocument(linkData, refParams)
       return docXML
     }
