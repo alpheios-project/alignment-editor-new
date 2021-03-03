@@ -13,6 +13,10 @@ export default class Segment {
     }
   }
 
+  updateLanguage (lang) {
+    this.lang = lang
+  }
+
   /**
    * Formats tokens from simple objects to Token class objects
    * @param {Array[Object]} tokens

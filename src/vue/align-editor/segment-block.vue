@@ -19,7 +19,7 @@
             <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
           </template>
           
-          <div class="alpheios-alignment-editor-align-text-segment__up-down" :style="backgroundStyle" v-show="showUpDown">
+          <div class="alpheios-alignment-editor-align-text-segment__up-down" :style="backgroundStyle" v-if="showUpDown">
             <span class="alpheios-align-text-segment-button" @click="reduceHeight"><up-arrow /></span>
             <span class="alpheios-align-text-segment-button" @click="increaseHeight"><down-arrow /></span>
           </div>
@@ -71,7 +71,8 @@ export default {
       heightStep: 20,
       heightDelta: 0,
       heightUpdated: 1,
-      showUpDown: true
+      showUpDown: false,
+      minMaxHeight: 500
     }
   },
   watch: {
@@ -93,7 +94,7 @@ export default {
      * @returns {String} - lang code
      */
     lang () {
-      return this.segment.lang
+      return this.$store.state.alignmentUpdated && this.segment.lang
     },
     /**
      * @returns {String} css id for html layout
@@ -119,7 +120,7 @@ export default {
       } else {
         result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
       }
-      this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      // this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
       return result
     },
     /**
@@ -163,7 +164,7 @@ export default {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = 400 * (this.textType === 'origin') ? this.amountOfShownTabs : 1
+      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       } 

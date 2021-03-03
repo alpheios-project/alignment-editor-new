@@ -91,6 +91,9 @@ export default class Alignment {
       }
     } else {
       this.origin.docSource.update(docSource)
+      if (this.origin.alignedText) {
+        this.origin.alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -122,6 +125,9 @@ export default class Alignment {
       }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
+      if (this.targets[docSource.id].alignedText) {
+        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }

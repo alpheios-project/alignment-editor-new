@@ -33,6 +33,11 @@ export default class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
+  updateLanguage (lang) {
+    this.lang = lang
+    this.segments.forEach(segment => segment.updateLanguage(lang))
+  }
+
   /**
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
