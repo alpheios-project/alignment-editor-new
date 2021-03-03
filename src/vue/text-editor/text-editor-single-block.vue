@@ -17,7 +17,7 @@
       ></textarea>
 
       <language-options-block :textType = "textType"
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" 
       />
 
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions"

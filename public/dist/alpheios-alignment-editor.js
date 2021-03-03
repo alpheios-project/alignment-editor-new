@@ -43542,6 +43542,11 @@ class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
+  updateLanguage (lang) {
+    this.lang = lang
+    this.segments.forEach(segment => segment.updateLanguage(lang))
+  }
+
   /**
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
@@ -44000,6 +44005,9 @@ class Alignment {
       }
     } else {
       this.origin.docSource.update(docSource)
+      if (this.origin.alignedText) {
+        this.origin.alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -44031,6 +44039,9 @@ class Alignment {
       }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
+      if (this.targets[docSource.id].alignedText) {
+        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -45543,6 +45554,10 @@ class Segment {
     }
   }
 
+  updateLanguage (lang) {
+    this.lang = lang
+  }
+
   /**
    * Formats tokens from simple objects to Token class objects
    * @param {Array[Object]} tokens
@@ -46614,7 +46629,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "updates-before-merge-to-master.20210303453" : 0
+    return  true ? "updates-before-merge-to-master.20210303477" : 0
   }
 
   static get libName () {
@@ -47647,7 +47662,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} - lang code
      */
     lang () {
-      return this.segment.lang
+      return this.$store.state.alignmentUpdated && this.segment.lang
     },
     /**
      * @returns {String} css id for html layout
@@ -56100,8 +56115,7 @@ var render = function() {
       _c("language-options-block", {
         attrs: {
           textType: _vm.textType,
-          localOptions: _vm.localTextEditorOptions,
-          disabled: !_vm.docSourceEditAvailable
+          localOptions: _vm.localTextEditorOptions
         },
         on: { updateText: _vm.updateText }
       }),
