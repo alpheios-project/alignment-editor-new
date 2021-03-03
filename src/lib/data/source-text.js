@@ -83,6 +83,10 @@ export default class SourceText {
     return Boolean(this.textType && this.text && this.direction && this.lang && this.sourceType && this.tokenization.tokenizer)
   }
 
+  checkSize (maxCharactersPerTextValue) {
+    return this.text && (this.text.length <= maxCharactersPerTextValue)
+  }
+
   /**
    * Converts jsonObject to SourceText instance if data is defined correctly
    * @param {String} textType origin or target

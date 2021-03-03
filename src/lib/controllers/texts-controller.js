@@ -28,6 +28,10 @@ export default class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
+  checkSize (maxCharactersPerTextValue) {
+    return Boolean(this.alignment) && this.alignment.checkSize(maxCharactersPerTextValue)
+  }
+
   /**
    * Uploads origin source document to the alignment object.
    * If an alignment is not created yet, it would be created.

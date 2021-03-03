@@ -44,6 +44,10 @@ export default class Alignment {
     return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.allSourceTextTokenized
   }
 
+  checkSize (maxCharactersPerTextValue) {
+    return this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
+  }
+
   /**
    * Checks if all alligned texts (origin and targets) have the same amount of segments
    * @returns {Boolean}

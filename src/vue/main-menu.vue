@@ -99,7 +99,7 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.couldStartAlign
+      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     },
     undoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
