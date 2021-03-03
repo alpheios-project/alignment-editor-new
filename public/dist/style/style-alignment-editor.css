@@ -1142,6 +1142,12 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   text-decoration: underline;
   margin: 0;
 }
+.alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
+  margin-bottom: 10px;
+}
+.alpheios-alignment-editor-hidden {
+  visibility: hidden;
+}
 .alpheios-alignment-editor-text-blocks-single textarea {
   width: 100%;
   min-height: 300px;
@@ -1149,6 +1155,14 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-text-blocks-single p {
   margin-bottom: 10px;
+}
+.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-text-blocks-single__characters {
+  color: #888;
+  font-size: 90%;
+  margin: 0;
+}
+.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-red {
+  color: #99002a;
 }
 .alpheios-alignment-editor-text-blocks-single__title {
   position: relative;

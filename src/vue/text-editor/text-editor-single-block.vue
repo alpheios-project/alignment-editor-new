@@ -12,9 +12,14 @@
       <direction-options-block 
         @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
       />
+      <p class="alpheios-alignment-editor-text-blocks-single__characters" 
+         :class = "charactersClasses">
+         {{ charactersText }}
+      </p>
       <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText" 
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
+
 
       <language-options-block :textType = "textType"
         @updateText = "updateText" :localOptions = "localTextEditorOptions" 
@@ -194,6 +199,21 @@ export default {
     },
     tokenization () {
       return TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+    },
+    charactersClasses () {
+      return {
+        'alpheios-alignment-editor-hidden' : this.textCharactersAmount === 0,
+        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+      }
+    },
+    textCharactersAmount () {
+      return this.text ? this.text.length : 0
+    },
+    maxCharactersForTheText () {
+      return this.$store.state.optionsUpdated && this.$settingsC.maxCharactersPerTextValue
+    },
+    charactersText () {
+      return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
     }
   },
   methods: {
@@ -267,6 +287,10 @@ export default {
 }
 </script>
 <style lang="scss">
+    .alpheios-alignment-editor-hidden {
+      visibility: hidden;
+    }
+  
     .alpheios-alignment-editor-text-blocks-single {
         textarea {
             width:100%;
@@ -276,6 +300,16 @@ export default {
 
         p {
             margin-bottom: 10px;
+        }
+
+        p.alpheios-alignment-editor-text-blocks-single__characters {
+          color: #888;
+          font-size: 90%;
+          margin: 0;
+        }
+
+        p.alpheios-alignment-editor-red {
+          color: #99002a;
         }
     }
 

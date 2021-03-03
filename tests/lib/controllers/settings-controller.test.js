@@ -214,7 +214,6 @@ describe('settings-controller.test.js', () => {
 
     settingsC.changeOption(tokenizerOption)
 
-    expect(settingsC.store.commit).toHaveBeenCalledWith('incrementTokenizerUpdated')
     expect(settingsC.store.commit).toHaveBeenCalledWith('incrementOptionsUpdated')
 
     settingsC.changeOption(sourceOption)

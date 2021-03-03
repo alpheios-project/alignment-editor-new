@@ -41,6 +41,7 @@ export default class StoreDefinition {
         uploadCheck: 1,
         resetOptions: 1,
         tokenUpdated: 1,
+        maxCharactersUpdated: 1,
 
         libName: this.libName,
         libVersion: this.libVersion,
@@ -81,6 +82,9 @@ export default class StoreDefinition {
         },
         incrementTokenUpdated (state) {
           state.tokenUpdated++
+        },
+        incrementMaxCharactersUpdated (state) {
+          state.maxCharactersUpdated++
         }
       }
     }

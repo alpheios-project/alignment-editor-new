@@ -46,6 +46,14 @@
           "text": "No"
         }
       ]
+    },
+    "maxCharactersPerText": {
+      "defaultValue": 5000,
+      "labelText": "Max characters per text",
+      "number": true,
+      "minValue": 1,
+      "maxValue": 50000,
+      "values": []
     }
   }
 }
