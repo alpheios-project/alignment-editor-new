@@ -46629,7 +46629,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "updates-before-merge-to-master.20210303477" : 0
+    return  true ? "updates-before-merge-to-master-2.20210303492" : 0
   }
 
   static get libName () {
@@ -50747,7 +50747,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} - lang code
      */
     lang () {
-      return this.segment.lang
+      return this.$store.state.alignmentUpdated && this.segment.lang
     },
     /**
      * @returns {String} css id for html layout
