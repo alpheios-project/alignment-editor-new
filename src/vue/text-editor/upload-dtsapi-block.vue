@@ -27,7 +27,7 @@
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
-              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.formattedTitle }}</span>
+              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.title }}</span>
               <span v-if="linkData.type === 'resource'" class="alpheios-editor-content-link__text" @click = "getNavigation(linkData)">{{ linkData.title }}</span>
               
               <span v-if="linkData.type === 'document'" class="alpheios-editor-content-link__checkbox">
