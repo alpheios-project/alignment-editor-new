@@ -192,7 +192,7 @@ export default {
 <style lang="scss">
   .alpheios-alignment-editor-token-edit-span {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: baseline;
     padding: 4px;
     position: relative;
   }
@@ -206,7 +206,7 @@ export default {
  
   .alpheios-alignment-editor-token-edit-input-container {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: baseline;
     position: relative;
     padding: 4px;
   }

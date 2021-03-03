@@ -1340,7 +1340,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: baseline;
   padding: 4px;
   position: relative;
 }
@@ -1352,7 +1352,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-token-edit-input-container {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: baseline;
   position: relative;
   padding: 4px;
 }
