@@ -112,7 +112,7 @@
     "component": "UploadDTSAPIBlock"
   },
   "UPLOAD_DTSAPI_DESCRIPTION_DETAILS": {
-    "message": "<li>If you choose one reference, only it will be uploaded.</li><li>If you choose more than one reference, a range would be uploaded - from minimum selected to the maximum selected. For example, you chose 2, 5, 8, then there will be uploaded a range from 2 to 8 references.</li>",
+    "message": "<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>",
     "description": "Description in upload bloc",
     "component": "UploadDTSAPIBlock"
   }
