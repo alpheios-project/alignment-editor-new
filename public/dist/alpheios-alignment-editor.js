@@ -46629,7 +46629,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "development.20210303507" : 0
+    return  true ? "i247-remove-digits-from-dtsapi-title.20210303587" : 0
   }
 
   static get libName () {
@@ -56577,7 +56577,7 @@ var render = function() {
                                         }
                                       }
                                     },
-                                    [_vm._v(_vm._s(linkData.formattedTitle))]
+                                    [_vm._v(_vm._s(linkData.title))]
                                   )
                                 : _vm._e(),
                               _vm._v(" "),
