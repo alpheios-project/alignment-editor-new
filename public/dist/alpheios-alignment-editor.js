@@ -46614,7 +46614,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "updates-before-merge-to-master.20210303429" : 0
+    return  true ? "updates-before-merge-to-master.20210303453" : 0
   }
 
   static get libName () {
@@ -47624,7 +47624,8 @@ __webpack_require__.r(__webpack_exports__);
       heightStep: 20,
       heightDelta: 0,
       heightUpdated: 1,
-      showUpDown: true
+      showUpDown: false,
+      minMaxHeight: 500
     }
   },
   watch: {
@@ -47672,7 +47673,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
       }
-      this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      // this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
       return result
     },
     /**
@@ -47716,7 +47717,7 @@ __webpack_require__.r(__webpack_exports__);
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
     },
     maxHeight () {
-      const minHeight = 400 * (this.textType === 'origin') ? this.amountOfShownTabs : 1
+      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
       if (this.amountOfSegments === 1) {
         return this.containerHeight + this.heightDelta
       } 
@@ -54299,42 +54300,37 @@ var render = function() {
         ]
       }),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
+      _vm.showUpDown
+        ? _c(
+            "div",
             {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showUpDown,
-              expression: "showUpDown"
-            }
-          ],
-          staticClass: "alpheios-alignment-editor-align-text-segment__up-down",
-          style: _vm.backgroundStyle
-        },
-        [
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-align-text-segment-button",
-              on: { click: _vm.reduceHeight }
+              staticClass:
+                "alpheios-alignment-editor-align-text-segment__up-down",
+              style: _vm.backgroundStyle
             },
-            [_c("up-arrow")],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-align-text-segment-button",
-              on: { click: _vm.increaseHeight }
-            },
-            [_c("down-arrow")],
-            1
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-align-text-segment-button",
+                  on: { click: _vm.reduceHeight }
+                },
+                [_c("up-arrow")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-align-text-segment-button",
+                  on: { click: _vm.increaseHeight }
+                },
+                [_c("down-arrow")],
+                1
+              )
+            ]
           )
-        ]
-      )
+        : _vm._e()
     ],
     2
   )
