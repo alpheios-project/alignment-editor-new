@@ -1,5 +1,6 @@
 <template>
     <div class="alpheios-alignment-editor-metadata" v-if="metadataAvailable">
+      <metadata-info />
       <metadata-term-block 
         v-for="(metadataTerm, termIndex) in allMetadata" :key="termIndex"
         :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
@@ -7,11 +8,13 @@
 </template>
 <script>
 import MetadataTermBlock from '@/vue/text-editor/metadata-term-block.vue'
+import MetadataInfo from '@/vue/text-editor/metadata-info.vue'
 
 export default {
   name: 'MetadataBlock',
   components: {
-    metadataTermBlock: MetadataTermBlock
+    metadataTermBlock: MetadataTermBlock,
+    metadataInfo: MetadataInfo
   },
   props: {
     textType: {

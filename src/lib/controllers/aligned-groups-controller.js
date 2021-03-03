@@ -57,6 +57,8 @@ export default class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
   }
 
@@ -295,5 +297,9 @@ export default class AlignedGroupsController {
 
   getAmountOfSegments (segment) {
     return this.alignment.getAmountOfSegments(segment)
+  }
+
+  getOpositeTokenTargetIdForScroll (token) {
+    return this.alignment.getOpositeTokenTargetIdForScroll(token)
   }
 }

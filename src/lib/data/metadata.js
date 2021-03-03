@@ -1,7 +1,7 @@
 import MetadataTerm from '@/lib/data/metadata-term.js'
 
 export default class Metadata {
-  constructor (data) {
+  constructor () {
     this.properties = {}
   }
 
@@ -42,5 +42,24 @@ export default class Metadata {
       allMeta[property.label] = this.hasProperty(property) ? this.getProperty(property) : { template: true, property, value: (property.multivalued ? [null] : null) }
     })
     return allMeta
+  }
+
+  convertToJSON () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToJSON())
+    }
+  }
+
+  convertToJSONLine () {
+    return Object.values(this.properties).sort((a, b) => (a.property.order - b.property.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
+  }
+
+  static convertFromJSON (data) {
+    const metadata = new Metadata()
+    data.properties.forEach(prop => {
+      const metaItem = MetadataTerm.convertFromJSON(prop)
+      metadata.addProperty(metaItem.property, metaItem.value)
+    })
+    return metadata
   }
 }

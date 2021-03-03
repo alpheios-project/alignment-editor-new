@@ -1,18 +1,59 @@
-import SourceText from '@/lib/data/source-text'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+
+import Alignment from '@/lib/data/alignment'
+import SourceText from '@/lib/data/source-text'
+
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
+import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
 
 export default class UploadController {
   /**
    * The list with registered variants of upload workflows
    * @return {Object} - each property is one of the defined upload method
    */
+
+  // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
-      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
     }
+  }
+
+  /**
+   * @param {String} extension - file extension
+   * @returns {Boolean} - true - could be uploaded, false - not
+   */
+  static isExtensionAvailable (extension, allTexts = true) {
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+  }
+
+  /**
+   *
+   * @param {String} extension - file extension
+   * @param {Boolean} allTexts - true - global upload, false - local
+   * @returns {String} - upload type
+   */
+  static defineUploadTypeByExtension (extension, allTexts = true) {
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+  }
+
+  /**
+   * @param {Boolean} allTexts - true - from main menu, false - from local
+   * @returns {Array[String]} - array of file extensions
+   */
+  static getAvailableExtensions (allTexts = true) {
+    const availableExtensions = []
+    Object.values(this.uploadMethods).forEach(method => {
+      if (method.allTexts === allTexts) {
+        availableExtensions.push(...method.extensions)
+      }
+    })
+
+    return availableExtensions.filter((item, pos, self) => self.indexOf(item) === pos)
   }
 
   /**
@@ -23,7 +64,7 @@ export default class UploadController {
    */
   static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data)
+      return this.uploadMethods[uploadType].method(data)
     }
     console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
     NotificationSingleton.addNotification({
@@ -41,7 +82,7 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+  static plainSourceUploadAll ({ fileData, tokenization }) {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
@@ -80,9 +121,9 @@ export default class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.filetext.indexOf('HEADER:') === 0) {
-      const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
+  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
+    if (fileData.text.indexOf('HEADER:') === 0) {
+      const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
         console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
         NotificationSingleton.addNotification({
@@ -96,9 +137,27 @@ export default class UploadController {
 
       return SourceText.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
-      const fileExtension = fileData.filename.split('.').pop()
+      const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
-      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
+      return SourceText.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
+    }
+  }
+
+  static jsonSimpleUploadAll (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return Alignment.convertFromJSON(fileJSON)
+  }
+
+  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams = {} } = {}) {
+    if (objType === 'collection') {
+      const content = await UploadDTSAPI.getCollection(linkData)
+      return content
+    } else if (objType === 'navigation') {
+      const content = await UploadDTSAPI.getNavigation(linkData)
+      return content
+    } else if (objType === 'document') {
+      const docXML = await UploadDTSAPI.getDocument(linkData, refParams)
+      return docXML
     }
   }
 }

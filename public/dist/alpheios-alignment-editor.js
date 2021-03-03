@@ -1,4 +1,3 @@
-window.AlignmentEditor =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -26,6 +25,16 @@ window.AlignmentEditor =
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=style&index=0&lang=scss& ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -65,6 +74,16 @@ window.AlignmentEditor =
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=style&index=0&lang=scss& ***!
   \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
@@ -122,6 +141,16 @@ window.AlignmentEditor =
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -156,6 +185,16 @@ window.AlignmentEditor =
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=style&index=0&lang=scss& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ (() => {
 
 // extracted by mini-css-extract-plugin
@@ -257,32 +296,32 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "../../../node_modules/axios/index.js":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ../../../node_modules/axios/index.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1292__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1293__) => {
 
-module.exports = __nested_webpack_require_1292__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
+module.exports = __nested_webpack_require_1293__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
 
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/adapters/xhr.js":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ../../../node_modules/axios/lib/adapters/xhr.js ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1712__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1714__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_1712__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var settle = __nested_webpack_require_1712__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
-var cookies = __nested_webpack_require_1712__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
-var buildURL = __nested_webpack_require_1712__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var buildFullPath = __nested_webpack_require_1712__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
-var parseHeaders = __nested_webpack_require_1712__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __nested_webpack_require_1712__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __nested_webpack_require_1712__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
+var utils = __nested_webpack_require_1714__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var settle = __nested_webpack_require_1714__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
+var cookies = __nested_webpack_require_1714__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __nested_webpack_require_1714__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __nested_webpack_require_1714__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __nested_webpack_require_1714__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __nested_webpack_require_1714__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __nested_webpack_require_1714__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -457,19 +496,19 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/axios.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ../../../node_modules/axios/lib/axios.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_8438__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_8441__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_8438__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var bind = __nested_webpack_require_8438__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
-var Axios = __nested_webpack_require_8438__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
-var mergeConfig = __nested_webpack_require_8438__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
-var defaults = __nested_webpack_require_8438__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_8441__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var bind = __nested_webpack_require_8441__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var Axios = __nested_webpack_require_8441__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __nested_webpack_require_8441__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __nested_webpack_require_8441__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Create an instance of Axios
@@ -502,15 +541,18 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __nested_webpack_require_8438__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __nested_webpack_require_8438__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __nested_webpack_require_8438__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+axios.Cancel = __nested_webpack_require_8441__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __nested_webpack_require_8441__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __nested_webpack_require_8441__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __nested_webpack_require_8438__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
+axios.spread = __nested_webpack_require_8441__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
+
+// Expose isAxiosError
+axios.isAxiosError = __nested_webpack_require_8441__(/*! ./helpers/isAxiosError */ "../../../node_modules/axios/lib/helpers/isAxiosError.js");
 
 module.exports = axios;
 
@@ -521,7 +563,7 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/cancel/Cancel.js":
-/*!********************************************************!*
+/*!********************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/Cancel.js ***!
   \********************************************************/
 /***/ ((module) => {
@@ -551,15 +593,15 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/cancel/CancelToken.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11475__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11635__) => {
 
 "use strict";
 
 
-var Cancel = __nested_webpack_require_11475__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+var Cancel = __nested_webpack_require_11635__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -619,7 +661,7 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/cancel/isCancel.js":
-/*!**********************************************************!*
+/*!**********************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/isCancel.js ***!
   \**********************************************************/
 /***/ ((module) => {
@@ -635,19 +677,19 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/Axios.js":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ../../../node_modules/axios/lib/core/Axios.js ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_13484__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_13646__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_13484__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var buildURL = __nested_webpack_require_13484__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var InterceptorManager = __nested_webpack_require_13484__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __nested_webpack_require_13484__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
-var mergeConfig = __nested_webpack_require_13484__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var utils = __nested_webpack_require_13646__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var buildURL = __nested_webpack_require_13646__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __nested_webpack_require_13646__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __nested_webpack_require_13646__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __nested_webpack_require_13646__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
 
 /**
  * Create a new instance of Axios
@@ -741,15 +783,15 @@ module.exports = Axios;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/InterceptorManager.js":
-/*!******************************************************************!*
+/*!******************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/InterceptorManager.js ***!
   \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_16852__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_17015__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_16852__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_17015__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function InterceptorManager() {
   this.handlers = [];
@@ -804,16 +846,16 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/buildFullPath.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/buildFullPath.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_18508__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_18672__) => {
 
 "use strict";
 
 
-var isAbsoluteURL = __nested_webpack_require_18508__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __nested_webpack_require_18508__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
+var isAbsoluteURL = __nested_webpack_require_18672__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __nested_webpack_require_18672__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -835,15 +877,15 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/createError.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/createError.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19690__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19855__) => {
 
 "use strict";
 
 
-var enhanceError = __nested_webpack_require_19690__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
+var enhanceError = __nested_webpack_require_19855__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -864,18 +906,18 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/dispatchRequest.js":
-/*!***************************************************************!*
+/*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/dispatchRequest.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20740__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20906__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_20740__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var transformData = __nested_webpack_require_20740__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
-var isCancel = __nested_webpack_require_20740__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __nested_webpack_require_20740__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_20906__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var transformData = __nested_webpack_require_20906__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
+var isCancel = __nested_webpack_require_20906__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __nested_webpack_require_20906__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -954,7 +996,7 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/enhanceError.js":
-/*!************************************************************!*
+/*!************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/enhanceError.js ***!
   \************************************************************/
 /***/ ((module) => {
@@ -1007,15 +1049,15 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/mergeConfig.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/mergeConfig.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_24620__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_24788__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_24620__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_24788__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -1105,15 +1147,15 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/settle.js":
-/*!******************************************************!*
+/*!******************************************************!*\
   !*** ../../../node_modules/axios/lib/core/settle.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_27892__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28061__) => {
 
 "use strict";
 
 
-var createError = __nested_webpack_require_27892__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
+var createError = __nested_webpack_require_28061__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1141,15 +1183,15 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/transformData.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/transformData.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29014__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29184__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_29014__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_29184__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Transform the data for a request or a response
@@ -1172,16 +1214,16 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/defaults.js":
-/*!***************************************************!*
+/*!***************************************************!*\
   !*** ../../../node_modules/axios/lib/defaults.js ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29929__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_30100__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_29929__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __nested_webpack_require_29929__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var utils = __nested_webpack_require_30100__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __nested_webpack_require_30100__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1197,10 +1239,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __nested_webpack_require_29929__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_30100__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
   } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __nested_webpack_require_29929__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_30100__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
   }
   return adapter;
 }
@@ -1281,7 +1323,7 @@ module.exports = defaults;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/bind.js":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/bind.js ***!
   \*******************************************************/
 /***/ ((module) => {
@@ -1303,15 +1345,15 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/buildURL.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/buildURL.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_33635__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_33808__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_33635__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_33808__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -1384,7 +1426,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/combineURLs.js":
-/*!**************************************************************!*
+/*!**************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/combineURLs.js ***!
   \**************************************************************/
 /***/ ((module) => {
@@ -1409,15 +1451,15 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/cookies.js":
-/*!**********************************************************!*
+/*!**********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/cookies.js ***!
   \**********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_36354__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_36529__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_36354__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_36529__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1473,7 +1515,7 @@ module.exports = (
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js":
-/*!****************************************************************!*
+/*!****************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \****************************************************************/
 /***/ ((module) => {
@@ -1497,16 +1539,38 @@ module.exports = function isAbsoluteURL(url) {
 
 /***/ }),
 
-/***/ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js":
-/*!******************************************************************!*
-  !*** ../../../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_39087__) => {
+/***/ "../../../node_modules/axios/lib/helpers/isAxiosError.js":
+/*!***************************************************************!*\
+  !*** ../../../node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \***************************************************************/
+/***/ ((module) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_39087__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+/**
+ * Determines whether the payload is an error thrown by Axios
+ *
+ * @param {*} payload The value to test
+ * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+ */
+module.exports = function isAxiosError(payload) {
+  return (typeof payload === 'object') && (payload.isAxiosError === true);
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!******************************************************************!*\
+  !*** ../../../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \******************************************************************/
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_39914__) => {
+
+"use strict";
+
+
+var utils = __nested_webpack_require_39914__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1577,15 +1641,15 @@ module.exports = (
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js":
-/*!**********************************************************************!*
+/*!**********************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \**********************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_41833__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42661__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_41833__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_42661__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -1600,15 +1664,15 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/parseHeaders.js":
-/*!***************************************************************!*
+/*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42603__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_43432__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_42603__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_43432__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -1664,7 +1728,7 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/spread.js":
-/*!*********************************************************!*
+/*!*********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/spread.js ***!
   \*********************************************************/
 /***/ ((module) => {
@@ -1702,15 +1766,15 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/utils.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ../../../node_modules/axios/lib/utils.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_45195__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_46026__) => {
 
 "use strict";
 
 
-var bind = __nested_webpack_require_45195__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var bind = __nested_webpack_require_46026__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
 
 /*global toString:true*/
 
@@ -2064,12 +2128,12 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/xmltojson/lib/xmlToJSON.js":
-/*!********************************************************!*
+/*!********************************************************!*\
   !*** ../../../node_modules/xmltojson/lib/xmlToJSON.js ***!
   \********************************************************/
-/***/ ((module, exports, __nested_webpack_require_54517__) => {
+/***/ ((module, exports, __nested_webpack_require_55349__) => {
 
-/* module decorator */ module = __nested_webpack_require_54517__.nmd(module);
+/* module decorator */ module = __nested_webpack_require_55349__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;/* Copyright 2015 William Summers, MetaTribal LLC
  * adapted from https://developer.mozilla.org/en-US/docs/JXON
  *
@@ -2311,29 +2375,29 @@ var xmlToJSON = (function () {
 }).call({});
 
 if (  true && module !== null && module.exports) module.exports = xmlToJSON;
-else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON }).call(exports, __nested_webpack_require_54517__, exports, module),
+else if (true) !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return xmlToJSON }).call(exports, __nested_webpack_require_55349__, exports, module),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 
 /***/ }),
 
 /***/ "./adapters/alpheiostb/adapter.js":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ./adapters/alpheiostb/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_64054__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_64887__) => {
 
 "use strict";
-__nested_webpack_require_64054__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_64054__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_64887__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_64887__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_64054__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_64054__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_64054__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_64054__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
-/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_64054__(/*! xmltojson */ "../../../node_modules/xmltojson/lib/xmlToJSON.js");
-/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nested_webpack_require_64054__.n(xmltojson__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_64887__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_64887__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_64887__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_64887__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
+/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_64887__(/*! xmltojson */ "../../../node_modules/xmltojson/lib/xmlToJSON.js");
+/* harmony import */ var xmltojson__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nested_webpack_require_64887__.n(xmltojson__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -2459,24 +2523,24 @@ class AlpheiosTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /***/ }),
 
 /***/ "./adapters/arethusa/adapter.js":
-/*!**************************************!*
+/*!**************************************!*\
   !*** ./adapters/arethusa/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_70814__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_71650__) => {
 
 "use strict";
-__nested_webpack_require_70814__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_70814__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_71650__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_71650__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_70814__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_70814__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_70814__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_70814__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_70814__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_70814__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_70814__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_70814__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_71650__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_71650__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_71650__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_71650__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_71650__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_config_json__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_71650__(/*! @clAdapters/adapters/alpheiostb/config.json */ "./adapters/alpheiostb/config.json");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_71650__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__nested_webpack_require_71650__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -2592,7 +2656,7 @@ class ArethusaTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
         if (homonym && homonym.lexemes && homonym.lexemes.length === 1 &&
            homonym.lexemes[0].lemma.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Constants.POFS_VERB &&
            homonym.lexemes[0].inflections.length === 1 &&
-           homonym.lexemes[0].inflections[0][alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Feature.types.mood].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Constants.MOOD_PARTICIPLE) {
+           languageModel.normalizeFeatureValue(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Feature.types.mood, homonym.lexemes[0].inflections[0][alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Feature.types.mood].value) === alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Constants.MOOD_PARTICIPLE) {
           homonym.lexemes[0].inflections[0].addFeature(new alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Feature(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Feature.types.part, alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__.Constants.POFS_VERB_PARTICIPLE, languageModel.languageID))
         }
         return homonym
@@ -2653,28 +2717,28 @@ class ArethusaTreebankAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /***/ }),
 
 /***/ "./adapters/base-adapter.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./adapters/base-adapter.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_80837__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_81783__) => {
 
 "use strict";
-__nested_webpack_require_80837__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_80837__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_81783__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_81783__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_80837__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_80837__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_80837__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_80837__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_80837__(/*! alpheios-l10n */ "alpheios-l10n");
-/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_80837__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_80837__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_80837__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_80837__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
-/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_80837__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
-/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_80837__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_80837__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_81783__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_81783__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_81783__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_81783__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_81783__(/*! alpheios-l10n */ "alpheios-l10n");
+/* harmony import */ var alpheios_l10n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_81783__.n(alpheios_l10n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_errors_adapter_error__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/adapter-error */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_adapter_warning_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/adapter-warning.js */ "./errors/adapter-warning.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_81783__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_locales_locales_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _clAdapters_locales_en_us_messages_json__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _clAdapters_locales_en_gb_messages_json__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_81783__(/*! @clAdapters/locales/en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -2765,18 +2829,15 @@ class BaseAdapter {
     if (url) {
       try {
         const response = await window.fetch(url, options.requestParams)
-
         if (!response.ok) {
-          const resultResponse = await response.json()
           let statusText
 
-          if (resultResponse && resultResponse.message) {
-            statusText = resultResponse.message
-          } else {
-            statusText = response.statusText
+          if (response.status === 400) {
+            const resultResponse = await response.json()
+            statusText = (resultResponse && resultResponse.message) ? resultResponse.message : response.statusText
           }
 
-          this.addError(this.l10n.getMsg('BASIC_ADAPTER_URL_RESPONSE_FAILED', { statusCode: response.status, statusText: statusText }), response.status)
+          this.addError(this.l10n.getMsg('BASIC_ADAPTER_URL_RESPONSE_FAILED', { statusCode: response.status, statusText }), response.status)
           return
         }
         if (options.type === 'xml') {
@@ -2910,22 +2971,22 @@ class BaseAdapter {
 /***/ }),
 
 /***/ "./adapters/chineseloc/adapter.js":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ./adapters/chineseloc/adapter.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_92040__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_92961__) => {
 
 "use strict";
-__nested_webpack_require_92040__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_92040__.d(__webpack_exports__, {
-/* harmony export */   "CedictCharacterForms": () => /* binding */ CedictCharacterForms,
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_92961__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_92961__.d(__webpack_exports__, {
+/* harmony export */   "CedictCharacterForms": () => (/* binding */ CedictCharacterForms),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_92040__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_92040__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_92040__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_92040__(/*! alpheios-messaging */ "alpheios-messaging");
-/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_92040__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_92961__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_92961__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_92961__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_92961__(/*! alpheios-messaging */ "alpheios-messaging");
+/* harmony import */ var alpheios_messaging__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_92961__.n(alpheios_messaging__WEBPACK_IMPORTED_MODULE_2__);
 /* eslint-disable no-unused-vars */
 
 
@@ -3095,21 +3156,21 @@ class AlpheiosChineseLocAdapter extends _clAdapters_adapters_base_adapter__WEBPA
 /***/ }),
 
 /***/ "./adapters/concordance/adapter.js":
-/*!*****************************************!*
+/*!*****************************************!*\
   !*** ./adapters/concordance/adapter.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_101445__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_102371__) => {
 
 "use strict";
-__nested_webpack_require_101445__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_101445__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_102371__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_102371__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_101445__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
-/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_101445__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_101445__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_101445__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_101445__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/concordance/config.json */ "./adapters/concordance/config.json");
+/* harmony import */ var _clAdapters_adapters_concordance_author_work_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/concordance/author-work.json */ "./adapters/concordance/author-work.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_102371__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_102371__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_102371__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -3422,23 +3483,218 @@ class AlpheiosConcordanceAdapter extends _clAdapters_adapters_base_adapter__WEBP
 
 /***/ }),
 
-/***/ "./adapters/lexicons/adapter.js":
-/*!**************************************!*
-  !*** ./adapters/lexicons/adapter.js ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_115809__) => {
+/***/ "./adapters/dtsapi/adapter.js":
+/*!************************************!*\
+  !*** ./adapters/dtsapi/adapter.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_116730__) => {
 
 "use strict";
-__nested_webpack_require_115809__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_115809__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_116730__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_116730__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DTSAPIAdapter)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_115809__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_115809__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_115809__(/*! papaparse */ "papaparse");
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_115809__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_115809__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_115809__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_116730__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_116730__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_116730__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+class DTSAPIAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__.default {
+  /**
+   *
+   * @param {Object} config - properties for the adapter
+   */
+  constructor (config = {}) {
+    super()
+    this.config = {
+      baseUrl: config.baseUrl
+    }
+  }
+
+  /**
+   * Retrieves collection
+   * @param {String} id - @id for the collection for example urn:alpheios:latinLit, if it is null would be retrieved the root collections
+   * @return {Collection}
+   */
+  async getCollection (id) {
+    try {
+      const url = this.getCollectionUrl(id)
+      const collections = await this.fetch(url)
+      if (collections) {
+        return this.convertToCollections(collections)
+      }
+      return false
+    } catch (error) {
+      this.addError(this.l10n.getMsg('DTSAPI_FETCH_ERROR', { message: error.message }))
+    }
+  }
+
+  /**
+   * Retrieves refs
+   * @param {String} id - @id for the Resource for example urn:cts:latinLit:phi0472.phi001.alpheios-text-lat1
+   * @param {Collection} collection - would be updated with retrieve data
+   *
+   */
+  async getNavigation (id, resource) {
+    try {
+      const url = this.getNavigationUrl(id)
+      const refs = await this.fetch(url)
+      if (refs) {
+        this.convertToRefs(refs, resource)
+        return resource
+      }
+      return false
+    } catch (error) {
+      this.addError(this.l10n.getMsg('DTSAPI_FETCH_ERROR', { message: error.message }))
+    }
+  }
+
+  /**
+   * Retrieves TEI document - by setting ref, start, end
+   * @param {String} id - @id for the document for example urn:cts:latinLit:phi0472.phi001.alpheios-text-lat1
+   * @param {Object} refParams
+   *        {String} ref - a ref for the passage (if defined start and end are ignored)
+   *        {String} start - a starting ref from it the text would be retrieved
+   *        {String} end - an ending ref till it the text would be retrieved (if it is not defined - would be retrieved till the end of the text)
+   * @retunrs {String} - TEI xml document
+   */
+  async getDocument (id, refParams = {}) {
+    try {
+      const url = this.getDocumentUrl(id, refParams)
+      if (!url) { return }
+
+      const document = await this.fetch(url, { type: 'xml' })
+      return document
+    } catch (error) {
+      this.addError(this.l10n.getMsg('DTSAPI_FETCH_ERROR', { message: error.message }))
+    }
+  }
+
+  /**
+   *
+   * @param {String} id - @id
+   * @returns {string} - url for getting collections
+   */
+  getCollectionUrl (id) {
+    let url = `${this.config.baseUrl}collections`
+    if (id) {
+      url = `${url}?id=${id}`
+    }
+    return url
+  }
+
+  /**
+   *
+   * @param {String} id - @id
+   * @returns {string} - url for getting resources
+   */
+  getNavigationUrl (id) {
+    let url = `${this.config.baseUrl}navigation`
+    if (id) {
+      url = `${url}?id=${id}`
+    }
+    return url
+  }
+
+  /**
+   *
+   * @param {String} id - @id
+   * @returns {string} - url for getting document
+   */
+  getDocumentUrl (id, refParams) {
+    const { ref, start, end } = refParams
+    let url = `${this.config.baseUrl}document`
+    if (!id || (!ref && !start)) {
+      const message = 'getDocumentUrl - not defined id or ref/start'
+      this.addError(this.l10n.getMsg('DTSAPI_NO_OBLIGATORY_PROPS', { message }))
+      return
+    }
+
+    url = `${url}?id=${id}`
+
+    if (ref) { return `${url}&ref=${ref}` }
+
+    url = `${url}&start=${start}`
+    if (end) { return `${url}&end=${end}` }
+
+    return url
+  }
+
+  /**
+   * Converts JSON object to Collection with members
+   * @param {Object} collectionsJSON - JSON object retrieved from the remote
+   * @returns {Collection}
+   */
+  convertToCollections (collectionsJSON) {
+    const rootCollection = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Collection({
+      totalItems: collectionsJSON.totalItems,
+      title: collectionsJSON.title !== 'None' ? collectionsJSON.title : 'Alpheios',
+      id: collectionsJSON['@id'] !== 'default' ? collectionsJSON['@id'] : null,
+      baseUrl: this.config.baseUrl,
+      description: collectionsJSON.description
+    })
+
+    if (collectionsJSON.member) {
+      collectionsJSON.member.forEach(collJson => {
+        rootCollection.addMember({
+          totalItems: collJson.totalItems,
+          title: collJson.title,
+          id: collJson['@id'],
+          type: collJson['@type'],
+          description: collJson.description,
+          baseUrl: this.config.baseUrl
+        })
+      })
+    }
+    return rootCollection
+  }
+
+  /**
+   * Converts and uploads passage's refs to collection
+   * @param {Array[Object]} refs - array of passage's refs - [ { ref: '1' }, { ref: '1a' } .. ]
+   * @param {Collection} collection
+   */
+  convertToRefs (refs, resource) {
+    let finalRefs
+
+    if (refs['hydra:member'] && refs['hydra:member'].length > 0) {
+      finalRefs = refs['hydra:member'].map(refObj => refObj.ref)
+    } else if (refs.member && refs.member.length > 0) {
+      finalRefs = refs.member.map(refObj => refObj['dts:ref'])
+    }
+
+    if (finalRefs) {
+      resource.uploadRefs({
+        refs: finalRefs,
+        passage: refs.passage ? refs.passage : refs['dts:passage']
+      })
+    }
+    return true
+  }
+}
+
+
+/***/ }),
+
+/***/ "./adapters/lexicons/adapter.js":
+/*!**************************************!*\
+  !*** ./adapters/lexicons/adapter.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_123017__) => {
+
+"use strict";
+__nested_webpack_require_123017__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_123017__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_123017__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_123017__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_123017__(/*! papaparse */ "papaparse");
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_123017__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_123017__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_123017__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
 
 
 
@@ -3451,11 +3707,17 @@ let uploadStarted = new Map() // eslint-disable-line prefer-const
 class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__.default {
   /**
   * Lexicons adapter uploads config data, defines default options and inits data
-  * @param {Object} config - properties with higher priority
+  * @param {Object} config - lexicon adapter properties
+  * @param {Object} remoteConfig - remote lexicon service configuration
+  *                                merges with and overrides the lexicon
+  *                                settings in the local config.json,
+  *                                if present and populated. An empty object
+  *                                signifies that there are no overrides
   */
-  constructor (config = {}) {
+  constructor (config = {}, remoteConfig = {}) {
     super()
-    this.config = this.uploadConfig(config, _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__)
+    this.config = config
+    this.config.lexicons = this.uploadConfig(remoteConfig, _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__)
     this.options = { timeout: this.config.timeout ? this.config.timeout : 0 }
     this.async = Boolean(this.config.callBackEvtSuccess)
   }
@@ -3484,7 +3746,7 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
   * @param {String} urlKey - urlIndex for geting data from config
   */
   prepareShortDefPromise (homonym, urlKey) {
-    const url = this.config[urlKey].urls.short
+    const url = this.config.lexicons[urlKey].urls.short
     const requestType = 'shortDefs'
 
     const resCheckCached = this.checkCachedData(url)
@@ -3492,7 +3754,7 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
       async (result) => {
         if (result) {
           const res = cachedDefinitions.get(url)
-          await this.updateShortDefs(res, homonym, this.config[urlKey])
+          await this.updateShortDefs(res, homonym, this.config.lexicons[urlKey])
           this.prepareSuccessCallback(requestType, homonym)
         }
       },
@@ -3509,15 +3771,15 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
   * @param {String} urlKey - urlIndex for geting data from config
   */
   prepareFullDefPromise (homonym, urlKey) {
-    const url = this.config[urlKey].urls.index
+    const url = this.config.lexicons[urlKey].urls.index
     const requestType = 'fullDefs'
 
     const resCheckCached = this.checkCachedData(url)
     return resCheckCached.then(
       async (result) => {
         if (result) {
-          const fullDefsRequests = this.collectFullDefURLs(cachedDefinitions.get(url), homonym, this.config[urlKey])
-          const resFullDefs = this.updateFullDefsAsync(fullDefsRequests, this.config[urlKey], homonym)
+          const fullDefsRequests = this.collectFullDefURLs(cachedDefinitions.get(url), homonym, this.config.lexicons[urlKey])
+          const resFullDefs = this.updateFullDefsAsync(fullDefsRequests, this.config.lexicons[urlKey], homonym)
           resFullDefs.catch(error => {
             this.addError(this.l10n.getMsg('LEXICONS_FAILED_CACHED_DATA', { message: error.message }))
             this.prepareFailedCallback(requestType, homonym)
@@ -3594,12 +3856,12 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
       const urlKeys = this.getRequests(languageID).filter(url => this.options.allow.includes(url))
 
       for (const urlKey of urlKeys) {
-        const url = this.config[urlKey].urls.short
+        const url = this.config.lexicons[urlKey].urls.short
         const result = await this.checkCachedData(url)
 
         if (result) {
           const res = cachedDefinitions.get(url)
-          await this.updateShortDefs(res, homonym, this.config[urlKey])
+          await this.updateShortDefs(res, homonym, this.config.lexicons[urlKey])
         }
       }
     } catch (error) {
@@ -3616,12 +3878,12 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
     const urlKeys = this.getRequests(languageID).filter(url => this.options.allow.includes(url))
 
     for (const urlKey of urlKeys) {
-      const url = this.config[urlKey].urls.index
+      const url = this.config.lexicons[urlKey].urls.index
       const result = await this.checkCachedData(url)
 
       if (result) {
-        const fullDefsRequests = this.collectFullDefURLs(cachedDefinitions.get(url), homonym, this.config[urlKey])
-        await this.updateFullDefs(fullDefsRequests, this.config[urlKey], homonym)
+        const fullDefsRequests = this.collectFullDefURLs(cachedDefinitions.get(url), homonym, this.config.lexicons[urlKey])
+        await this.updateFullDefs(fullDefsRequests, this.config.lexicons[urlKey], homonym)
       }
     }
   }
@@ -3829,7 +4091,9 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
   */
   getRequests (languageID) {
     const languageCode = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LanguageModelFactory.getLanguageCodeFromId(languageID)
-    return Object.keys(this.config).filter(url => this.config[url] && this.config[url].langs && this.config[url].langs.source === languageCode)
+    return Object.keys(this.config.lexicons).filter(url =>
+      this.config.lexicons[url] && this.config.lexicons[url].langs &&
+      this.config.lexicons[url].langs.source === languageCode)
   }
 
   /**
@@ -3976,20 +4240,20 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /***/ }),
 
 /***/ "./adapters/logeion/adapter.js":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./adapters/logeion/adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_138683__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_146459__) => {
 
 "use strict";
-__nested_webpack_require_138683__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_138683__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_146459__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_146459__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_138683__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_138683__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_138683__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_138683__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_146459__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_146459__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_146459__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_146459__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -4093,20 +4357,20 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /***/ }),
 
 /***/ "./adapters/tokenization/adapter.js":
-/*!******************************************!*
+/*!******************************************!*\
   !*** ./adapters/tokenization/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_143266__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_151045__) => {
 
 "use strict";
-__nested_webpack_require_143266__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_143266__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_151045__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_151045__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_143266__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_143266__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_143266__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_143266__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_151045__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_151045__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_151045__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_151045__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -4277,20 +4541,20 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /***/ }),
 
 /***/ "./adapters/translations/adapter.js":
-/*!******************************************!*
+/*!******************************************!*\
   !*** ./adapters/translations/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_149511__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157293__) => {
 
 "use strict";
-__nested_webpack_require_149511__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_149511__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_157293__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_157293__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149511__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149511__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_149511__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149511__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157293__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157293__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_157293__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157293__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -4416,22 +4680,22 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /***/ }),
 
 /***/ "./adapters/tufts/adapter.js":
-/*!***********************************!*
+/*!***********************************!*\
   !*** ./adapters/tufts/adapter.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_155088__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162873__) => {
 
 "use strict";
-__nested_webpack_require_155088__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_155088__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_162873__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_162873__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155088__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_155088__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155088__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155088__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_155088__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_155088__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162873__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_162873__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162873__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_162873__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_162873__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_162873__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 
 
 
@@ -4548,19 +4812,19 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /***/ }),
 
 /***/ "./adapters/tufts/engine/aramorph.js":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./adapters/tufts/engine/aramorph.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_161089__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_168877__) => {
 
 "use strict";
-__nested_webpack_require_161089__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_161089__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_168877__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_168877__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161089__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161089__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_161089__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_168877__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_168877__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_168877__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4572,19 +4836,19 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /***/ }),
 
 /***/ "./adapters/tufts/engine/hazm.js":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./adapters/tufts/engine/hazm.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_162375__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170166__) => {
 
 "use strict";
-__nested_webpack_require_162375__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_162375__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_170166__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_170166__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162375__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_162375__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_162375__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170166__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170166__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170166__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4599,28 +4863,48 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /***/ }),
 
 /***/ "./adapters/tufts/engine/morpheusgrc.js":
-/*!**********************************************!*
+/*!**********************************************!*\
   !*** ./adapters/tufts/engine/morpheusgrc.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163891__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_171685__) => {
 
 "use strict";
-__nested_webpack_require_163891__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_163891__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_171685__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_171685__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163891__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163891__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_163891__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_171685__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_171685__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_171685__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
 let data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__.default(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.GreekLanguageModel, 'morpheusgrc') // eslint-disable-line prefer-const
 
-// Morpheus uses 'irregular' as pofs for some pronouns, override with lemma
-// the dictionary entry's conjugation if it's available
 data.inflectionOverrides = {
-  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part]: (i, ls) => i[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.TYPE_IRREGULAR && ls.filter(l => l.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.POFS_PRONOUN)
+  // Morpheus uses 'irregular' as pofs for some pronouns, override with lemma
+  // the dictionary entry's conjugation if it's available
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part]: (i, ls) => {
+    return {
+      withLemma: i[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.TYPE_IRREGULAR && ls.some(l => l.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.POFS_PRONOUN),
+      withFeature: null
+    }
+  },
+  // for some irregular adjectives, the compartive is only specified in the morph flags
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.comparison]: (i, ls) => {
+    const retVal = {
+      withLemma: false,
+      withFeature: null
+    }
+    if (i[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.morph].value === 'irreg_comp' &&
+      ls.some(l => l.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.POFS_ADJECTIVE)) {
+      retVal.withFeature = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.comparison, alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.COMP_COMPARITIVE, alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.GreekLanguageModel.languageID)
+    } else if (i[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.morph].value === 'irreg_superl' &&
+      ls.some(l => l.features[alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.part].value === alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.POFS_ADJECTIVE)) {
+      retVal.withFeature = new alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.comparison, alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Constants.COMP_SUPERLATIVE, alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.GreekLanguageModel.languageID)
+    }
+    return retVal
+  }
 }
 /*
 Below are value conversion maps for each grammatical feature to be parsed.
@@ -4657,19 +4941,19 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /***/ }),
 
 /***/ "./adapters/tufts/engine/sedra.js":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ./adapters/tufts/engine/sedra.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_167258__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176678__) => {
 
 "use strict";
-__nested_webpack_require_167258__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_167258__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_176678__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_176678__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_167258__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_167258__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_167258__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176678__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176678__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176678__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4709,19 +4993,19 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /***/ }),
 
 /***/ "./adapters/tufts/engine/traces.js":
-/*!*****************************************!*
+/*!*****************************************!*\
   !*** ./adapters/tufts/engine/traces.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169737__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_179160__) => {
 
 "use strict";
-__nested_webpack_require_169737__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_169737__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_179160__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_179160__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169737__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169737__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_169737__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_179160__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_179160__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_179160__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4733,19 +5017,19 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /***/ }),
 
 /***/ "./adapters/tufts/engine/whitakers.js":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ./adapters/tufts/engine/whitakers.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_171039__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180465__) => {
 
 "use strict";
-__nested_webpack_require_171039__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_171039__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_180465__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180465__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_171039__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_171039__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_171039__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180465__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180465__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180465__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4753,7 +5037,14 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 
 // Whitaker's has weird inflection data for conjugation, we prefer
 // the dictionary entry's conjugation if it's available
-data.inflectionOverrides = { [alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.conjugation]: (i, ls) => true }
+data.inflectionOverrides = {
+  [alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__.Feature.types.conjugation]: (i, ls) => {
+    return {
+      withLemma: true,
+      withFeature: null
+    }
+  }
+}
 
 /*
 Below are value conversion maps for each grammatical feature to be parsed.
@@ -4859,24 +5150,24 @@ data.setLemmaParser(function (lemma) {
 /***/ }),
 
 /***/ "./adapters/tufts/engines-set.js":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./adapters/tufts/engines-set.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_177202__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_186706__) => {
 
 "use strict";
-__nested_webpack_require_177202__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_177202__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_186706__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_186706__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_177202__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_177202__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_177202__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_177202__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_177202__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_177202__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_177202__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_177202__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186706__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186706__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186706__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186706__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186706__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_186706__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_186706__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_186706__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -4924,28 +5215,30 @@ class EnginesSet {
 /***/ }),
 
 /***/ "./client-adapters.js":
-/*!****************************!*
+/*!****************************!*\
   !*** ./client-adapters.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180753__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190260__) => {
 
 "use strict";
-__nested_webpack_require_180753__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180753__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_190260__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_190260__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_180753__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_180753__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_180753__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_190260__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_190260__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_190260__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+
 
 
 
@@ -4970,10 +5263,10 @@ class ClientAdapters {
   */
   static init () {
     if (cachedConfig.size === 0) {
-      for (const category in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__) {
+      for (const category in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__) {
         let adapters = {} // eslint-disable-line prefer-const
-        for (const adapterKey in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__[category]) {
-          const adapterData = _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_11__[category][adapterKey]
+        for (const adapterKey in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__[category]) {
+          const adapterData = _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__[category][adapterKey]
 
           adapters[adapterKey] = {
             adapter: ClientAdapters[adapterData.adapter],
@@ -5035,6 +5328,11 @@ class ClientAdapters {
     return cachedAdaptersList.get('tokenizationGroup')
   }
 
+  static get dtsapiGroup () {
+    ClientAdapters.init()
+    return cachedAdaptersList.get('dtsapiGroup')
+  }
+
   /**
   * This method checks if given method is registered in config for category.adapterName
   * @param {String} category - category name - morphology, lemmatranslation, lexicon
@@ -5043,7 +5341,7 @@ class ClientAdapters {
   */
   static checkMethod (category, adapterName, methodName) {
     if (!cachedConfig.get(category)[adapterName].methods.includes(methodName)) {
-      throw new _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_9__.default(category, adapterName, methodName)
+      throw new _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_10__.default(category, adapterName, methodName)
     }
   }
 
@@ -5058,8 +5356,8 @@ class ClientAdapters {
     if (cachedConfig.get(category)[adapterName].params) {
       cachedConfig.get(category)[adapterName].params[methodName].forEach(paramName => {
         // Param values other than `undefined` such as `null` or empty strings could be valid values
-        if (typeof params[paramName] === 'undefined') {
-          throw new _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_10__.default(category, adapterName, methodName, paramName)
+        if (params && typeof params[paramName] === 'undefined') {
+          throw new _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_11__.default(category, adapterName, methodName, paramName)
         }
       })
     }
@@ -5268,6 +5566,7 @@ class ClientAdapters {
    * it is used for getting data from lexicons adapter
    * @param {Object} options - object contains parametes:
    *    @param {String} options.method - action that should be done wth the help of adapter - fetchShortDefs and fetchFullDefs
+   *    @param {Object} options.config - lexicon configuration supplied by client
    *    @param {Homonym} options.params.homonym - homonym for retrieving translations
    *    @param {Object(allow: [String])} options.params.opts - an object with array of urls for dictionaries
    *    @param {PSEvent} options.params.callBackEvtSuccess - an event that should be published on success result
@@ -5290,7 +5589,7 @@ class ClientAdapters {
       callBackEvtFailed: options.params ? options.params.callBackEvtFailed : null
     }
 
-    const localLexiconsAdapter = new _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__.default(adapterParams)
+    const localLexiconsAdapter = new _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__.default(adapterParams, options.config)
 
     if (options.method === 'fetchShortDefs') {
       await localLexiconsAdapter.fetchShortDefs(options.params.homonym, options.params.opts)
@@ -5307,7 +5606,7 @@ class ClientAdapters {
     }
 
     if (options.method === 'getConfig') {
-      return localLexiconsAdapter.config
+      return localLexiconsAdapter.config.lexicons
     }
     return null
   }
@@ -5371,6 +5670,33 @@ class ClientAdapters {
     }
     return null
   }
+
+  static async dtsApiMethod (options) {
+    ClientAdapters.checkMethodParam('dtsapiGroup', 'dtsapi', options)
+
+    const localDTSAPIAdapter = new _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__.default({
+      category: 'dtsapiGroup',
+      adapterName: 'dtsapi',
+      method: options.method,
+      clientId: options.clientId,
+      baseUrl: options.params.baseUrl
+    })
+
+    if (options.method === 'getCollection') {
+      const res = await localDTSAPIAdapter.getCollection(options.params.id)
+      return { result: res, errors: localDTSAPIAdapter.errors }
+    }
+
+    if (options.method === 'getNavigation') {
+      const res = await localDTSAPIAdapter.getNavigation(options.params.id, options.params.resource)
+      return { result: res, errors: localDTSAPIAdapter.errors }
+    }
+
+    if (options.method === 'getDocument') {
+      const res = await localDTSAPIAdapter.getDocument(options.params.id, options.params.refParams)
+      return { result: res, errors: localDTSAPIAdapter.errors }
+    }
+  }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ClientAdapters);
@@ -5379,15 +5705,15 @@ class ClientAdapters {
 /***/ }),
 
 /***/ "./errors/adapter-error.js":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./errors/adapter-error.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_201143__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_212126__) => {
 
 "use strict";
-__nested_webpack_require_201143__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_201143__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_212126__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_212126__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class AdapterError extends Error {
   constructor (category, adapterName, methodName, messageError, statusCode) {
@@ -5426,15 +5752,15 @@ class AdapterError extends Error {
 /***/ }),
 
 /***/ "./errors/adapter-warning.js":
-/*!***********************************!*
+/*!***********************************!*\
   !*** ./errors/adapter-warning.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_202660__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_213646__) => {
 
 "use strict";
-__nested_webpack_require_202660__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_202660__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AdapterWarning
+__nested_webpack_require_213646__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_213646__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AdapterWarning)
 /* harmony export */ });
 /**
  A warning represents a problem that is less severe than an error.
@@ -5463,15 +5789,15 @@ class AdapterWarning extends Error {
 /***/ }),
 
 /***/ "./errors/no-required-param-error.js":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./errors/no-required-param-error.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_204174__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_215163__) => {
 
 "use strict";
-__nested_webpack_require_204174__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_204174__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_215163__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_215163__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class NoRequiredParamError extends Error {
   constructor (category, adapterName, methodName, paramName) {
@@ -5490,15 +5816,15 @@ class NoRequiredParamError extends Error {
 /***/ }),
 
 /***/ "./errors/remote-error.js":
-/*!********************************!*
+/*!********************************!*\
   !*** ./errors/remote-error.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_205145__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_216137__) => {
 
 "use strict";
-__nested_webpack_require_205145__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_205145__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ RemoteError
+__nested_webpack_require_216137__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_216137__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RemoteError)
 /* harmony export */ });
 class RemoteError extends Error {
   constructor (category, adapterName, methodName, errorCode, errorMessage) {
@@ -5521,15 +5847,15 @@ class RemoteError extends Error {
 /***/ }),
 
 /***/ "./errors/warning-codes.js":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./errors/warning-codes.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_206090__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217085__) => {
 
 "use strict";
-__nested_webpack_require_206090__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_206090__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_217085__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217085__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /** @enum {string} */
 const WarningCodes = {
@@ -5544,15 +5870,15 @@ const WarningCodes = {
 /***/ }),
 
 /***/ "./errors/wrong-method-error.js":
-/*!**************************************!*
+/*!**************************************!*\
   !*** ./errors/wrong-method-error.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_206839__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217837__) => {
 
 "use strict";
-__nested_webpack_require_206839__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_206839__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_217837__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217837__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class WrongMethodError extends Error {
   constructor (category, adapterName, methodName) {
@@ -5570,21 +5896,21 @@ class WrongMethodError extends Error {
 /***/ }),
 
 /***/ "./index.js":
-/*!******************!*
+/*!******************!*\
   !*** ./index.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_207662__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218663__) => {
 
 "use strict";
-__nested_webpack_require_207662__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_207662__.d(__webpack_exports__, {
-/* harmony export */   "ClientAdapters": () => /* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default,
-/* harmony export */   "AdapterError": () => /* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default,
-/* harmony export */   "RemoteError": () => /* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default
+__nested_webpack_require_218663__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_218663__.d(__webpack_exports__, {
+/* harmony export */   "ClientAdapters": () => (/* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default),
+/* harmony export */   "AdapterError": () => (/* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default),
+/* harmony export */   "RemoteError": () => (/* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_207662__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_207662__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_207662__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_218663__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_218663__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_218663__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 
 
 
@@ -5595,18 +5921,18 @@ __nested_webpack_require_207662__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./locales/locales.js":
-/*!****************************!*
+/*!****************************!*\
   !*** ./locales/locales.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_208993__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220001__) => {
 
 "use strict";
-__nested_webpack_require_208993__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_208993__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_220001__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220001__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_208993__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_208993__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220001__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_220001__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -5623,19 +5949,19 @@ __nested_webpack_require_208993__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./transformers/alpheios-lexicon-transformer.js":
-/*!******************************************************!*
+/*!******************************************************!*\
   !*** ./transformers/alpheios-lexicon-transformer.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_210119__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221130__) => {
 
 "use strict";
-__nested_webpack_require_210119__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_210119__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_221130__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221130__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_210119__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_210119__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_210119__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_221130__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_221130__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_errors_warning_codes_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_221130__(/*! @clAdapters/errors/warning-codes.js */ "./errors/warning-codes.js");
 
 
 
@@ -5661,6 +5987,7 @@ const featuresArray = [
 ]
 
 const featuresArrayAll = [
+  ['morph', 'morph'], // morph is first because it may have data that overrides other features
   ['pofs', 'part'],
   ['case', 'grmCase'],
   ['gend', 'gender'],
@@ -5674,8 +6001,7 @@ const featuresArrayAll = [
   ['comp', 'comparison'],
   ['stemtype', 'stemtype'],
   ['derivtype', 'derivtype'],
-  ['dial', 'dialect'],
-  ['morph', 'morph']
+  ['dial', 'dialect']
 ]
 
 const attributeBasedFeatures = [
@@ -5950,18 +6276,18 @@ class AlpheiosLexiconTransformer {
 /***/ }),
 
 /***/ "./transformers/import-morph-data.js":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./transformers/import-morph-data.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224616__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_235703__) => {
 
 "use strict";
-__nested_webpack_require_224616__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_224616__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_235703__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_235703__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224616__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_224616__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_235703__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_235703__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -6030,7 +6356,16 @@ class ImportMorphData {
 
     // may be overriden by specific engine use to a list of of featureTypes which
     // should be overridden in the inflection data from the lemma data
-    this.inflectionOverrides = []
+    // for any featureType that can be overridden, it should map that featureType
+    // name to a callback with the signature
+    // callback(featureType,inflection,lemmas): { <boolean> withLemma,
+    //                                            <Feature> withFeature
+    //                                           }
+    // if withLemma is false, and withFeature is null, no override will be used
+    // if withLemma is true, the feature from the lemma, if present, will be used
+    // if withLemma is false and withFeature is not null, the feature value of
+    //   withFeature will be used
+    this.inflectionOverrides = {}
   }
 
   /**
@@ -6215,16 +6550,21 @@ class ImportMorphData {
 
   /**
    * Overrides feature data from an inflection with feature data from the lemma
-   * if required by an engine-specific list of featureTypes
+   * or other data
+   * as defined by the engine-specific inflectionOverrides property
    * @param {String} featureType the feature type name
    * @param {Inflection} inflection the inflection object
    * @param {Lemma[]} lemmas the lemma objects
    */
   overrideInflectionFeatureIfRequired (featureType, inflection, lemmas) {
-    if (this.inflectionOverrides[featureType] &&
-        this.inflectionOverrides[featureType](inflection, lemmas)) {
-      for (const lemma of lemmas.filter(l => l.features[featureType])) {
-        inflection.addFeature(lemma.features[featureType])
+    if (this.inflectionOverrides[featureType]) {
+      const override = this.inflectionOverrides[featureType](inflection, lemmas)
+      if (override.withLemma) {
+        for (const lemma of lemmas.filter(l => l.features[featureType])) {
+          inflection.addFeature(lemma.features[featureType])
+        }
+      } else if (override.withFeature !== null) {
+        inflection.addFeature(override.withFeature)
       }
     }
   }
@@ -6235,18 +6575,18 @@ class ImportMorphData {
 /***/ }),
 
 /***/ "./adapters/adapters-config.json":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./adapters/adapters-config.json ***!
   \***************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"morphology\":{\"alpheiosTreebank\":{\"adapter\":\"tbAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"wordref\"]}},\"arethusaTreebank\":{\"adapter\":\"arethusaAdapter\",\"methods\":[\"getHomonym\",\"refreshView\",\"gotoSentence\",\"findWord\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\",\"provider\",\"sentenceId\",\"wordId\"],\"refreshView\":[\"provider\"],\"gotoSentence\":[\"provider\",\"sentenceId\",\"wordIds\"],\"findWord\":[\"provider\",\"word\",\"prefix\",\"suffix\",\"sentenceId\"]}},\"tufts\":{\"adapter\":\"maAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"]}},\"chineseloc\":{\"adapter\":\"chineseAdapter\",\"methods\":[\"getHomonym\",\"loadData\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"],\"loadData\":[\"timeout\"]}}},\"lexicon\":{\"alpheios\":{\"adapter\":\"lexicons\",\"methods\":[\"fetchShortDefs\",\"fetchFullDefs\",\"checkCachedData\",\"getConfig\"],\"params\":{\"fetchShortDefs\":[\"homonym\",\"opts\"],\"fetchFullDefs\":[\"homonym\",\"opts\"],\"checkCachedData\":[\"url\",\"externalData\"],\"getConfig\":[]}}},\"lemmatranslation\":{\"alpheios\":{\"adapter\":\"lemmaTranslations\",\"methods\":\"fetchTranslations\",\"params\":{\"fetchTranslations\":[\"homonym\",\"browserLang\"]}}},\"wordusageExamples\":{\"concordance\":{\"adapter\":\"wordUsageExamples\",\"methods\":[\"getAuthorsWorks\",\"getWordUsageExamples\"],\"params\":{\"getAuthorsWorks\":[],\"getWordUsageExamples\":[\"homonym\"]}}},\"autocompleteWords\":{\"logeion\":{\"adapter\":\"autoCompleteWords\",\"methods\":\"getWords\",\"params\":{\"getWords\":[\"text\",\"lang\",\"fetchOptions\"]}}},\"tokenizationGroup\":{\"alpheios\":{\"adapter\":\"tokenizationMethod\",\"methods\":[\"getTokens\",\"getConfig\"],\"params\":{\"getTokens\":[\"text\"],\"getConfig\":[\"storage\"]}}}}");
+module.exports = JSON.parse("{\"morphology\":{\"alpheiosTreebank\":{\"adapter\":\"tbAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"wordref\"]}},\"arethusaTreebank\":{\"adapter\":\"arethusaAdapter\",\"methods\":[\"getHomonym\",\"refreshView\",\"gotoSentence\",\"findWord\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\",\"provider\",\"sentenceId\",\"wordId\"],\"refreshView\":[\"provider\"],\"gotoSentence\":[\"provider\",\"sentenceId\",\"wordIds\"],\"findWord\":[\"provider\",\"word\",\"prefix\",\"suffix\",\"sentenceId\"]}},\"tufts\":{\"adapter\":\"maAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"]}},\"chineseloc\":{\"adapter\":\"chineseAdapter\",\"methods\":[\"getHomonym\",\"loadData\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"],\"loadData\":[\"timeout\"]}}},\"lexicon\":{\"alpheios\":{\"adapter\":\"lexicons\",\"methods\":[\"fetchShortDefs\",\"fetchFullDefs\",\"checkCachedData\",\"getConfig\"],\"params\":{\"fetchShortDefs\":[\"homonym\",\"opts\"],\"fetchFullDefs\":[\"homonym\",\"opts\"],\"checkCachedData\":[\"url\",\"externalData\"],\"getConfig\":[]}}},\"lemmatranslation\":{\"alpheios\":{\"adapter\":\"lemmaTranslations\",\"methods\":\"fetchTranslations\",\"params\":{\"fetchTranslations\":[\"homonym\",\"browserLang\"]}}},\"wordusageExamples\":{\"concordance\":{\"adapter\":\"wordUsageExamples\",\"methods\":[\"getAuthorsWorks\",\"getWordUsageExamples\"],\"params\":{\"getAuthorsWorks\":[],\"getWordUsageExamples\":[\"homonym\"]}}},\"autocompleteWords\":{\"logeion\":{\"adapter\":\"autoCompleteWords\",\"methods\":\"getWords\",\"params\":{\"getWords\":[\"text\",\"lang\",\"fetchOptions\"]}}},\"tokenizationGroup\":{\"alpheios\":{\"adapter\":\"tokenizationMethod\",\"methods\":[\"getTokens\",\"getConfig\"],\"params\":{\"getTokens\":[\"text\"],\"getConfig\":[\"storage\"]}}},\"dtsapiGroup\":{\"dtsapi\":{\"adapter\":\"dtsApiMethod\",\"methods\":[\"getCollection\",\"getNavigation\",\"getDocument\"],\"params\":{\"getCollection\":[\"baseUrl\"],\"getNavigation\":[\"baseUrl\",\"id\",\"resource\"],\"getDocument\":[\"baseUrl\",\"id\",\"refParams\"]}}}}");
 
 /***/ }),
 
 /***/ "./adapters/alpheiostb/config.json":
-/*!*****************************************!*
+/*!*****************************************!*\
   !*** ./adapters/alpheiostb/config.json ***!
   \*****************************************/
 /***/ ((module) => {
@@ -6257,7 +6597,7 @@ module.exports = JSON.parse("{\"servers\":[{\"texts\":[],\"isDefault\":true,\"ur
 /***/ }),
 
 /***/ "./adapters/concordance/author-work.json":
-/*!***********************************************!*
+/*!***********************************************!*\
   !*** ./adapters/concordance/author-work.json ***!
   \***********************************************/
 /***/ ((module) => {
@@ -6268,7 +6608,7 @@ module.exports = JSON.parse("{\"authors\":[{\"urn\":\"urn:cts:latinLit:phi2456\"
 /***/ }),
 
 /***/ "./adapters/concordance/config.json":
-/*!******************************************!*
+/*!******************************************!*\
   !*** ./adapters/concordance/config.json ***!
   \******************************************/
 /***/ ((module) => {
@@ -6279,7 +6619,7 @@ module.exports = JSON.parse("{\"url\":\"https://latin.packhum.org/rst/concordanc
 /***/ }),
 
 /***/ "./adapters/lexicons/config.json":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./adapters/lexicons/config.json ***!
   \***************************************/
 /***/ ((module) => {
@@ -6290,7 +6630,7 @@ module.exports = JSON.parse("{\"https://github.com/alpheios-project/mjm\":{\"url
 /***/ }),
 
 /***/ "./adapters/logeion/config.json":
-/*!**************************************!*
+/*!**************************************!*\
   !*** ./adapters/logeion/config.json ***!
   \**************************************/
 /***/ ((module) => {
@@ -6301,7 +6641,7 @@ module.exports = JSON.parse("{\"url\":\"https://api-v2.logeion.org/search?q=\",\
 /***/ }),
 
 /***/ "./adapters/tokenization/config.json":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./adapters/tokenization/config.json ***!
   \*******************************************/
 /***/ ((module) => {
@@ -6312,7 +6652,7 @@ module.exports = JSON.parse("{\"fetchOptions\":{\"baseUrl\":\"https://tools.alph
 /***/ }),
 
 /***/ "./adapters/translations/config.json":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ./adapters/translations/config.json ***!
   \*******************************************/
 /***/ ((module) => {
@@ -6323,7 +6663,7 @@ module.exports = JSON.parse("{\"url\":\"https://ats.alpheios.net\",\"availableLa
 /***/ }),
 
 /***/ "./adapters/tufts/config.json":
-/*!************************************!*
+/*!************************************!*\
   !*** ./adapters/tufts/config.json ***!
   \************************************/
 /***/ ((module) => {
@@ -6334,7 +6674,7 @@ module.exports = JSON.parse("{\"engine\":{\"lat\":[\"whitakerLat\"],\"grc\":[\"m
 /***/ }),
 
 /***/ "./locales/en-gb/messages.json":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./locales/en-gb/messages.json ***!
   \*************************************/
 /***/ ((module) => {
@@ -6345,18 +6685,18 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ }),
 
 /***/ "./locales/en-us/messages.json":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./locales/en-us/messages.json ***!
   \*************************************/
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a test message about a cookie.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\"},\"NUM_LINES_TEST_MESSAGE\":{\"message\":\"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\",\"params\":[\"numLines\"]},\"MORPH_TUFTS_NO_ENGINE_FOR_LANGUAGE\":{\"message\":\"There is no engine for the given languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no engine is found for given languageID\",\"component\":\"morphology.tufts\",\"params\":[\"languageID\"]},\"MORPH_NO_HOMONYM\":{\"message\":\"There is no homonym for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no homonym was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_TUFTS_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no data was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.tufts adapter - unknown\",\"component\":\"morphology.tufts\",\"params\":[\"message\"]},\"MORPH_TRANSFORM_NO_LANGUAGE\":{\"message\":\"No Language was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_LEMMA\":{\"message\":\"No Lemma was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_MAPPING_DATA\":{\"message\":\"No mapping data found for {language}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"language\"]},\"MORPH_TRANSFORM_INFLECTION_ERROR\":{\"message\":\"Error parsing inflection: {error}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"error\"]},\"BASIC_ADAPTER_NO_DATA_FROM_URL\":{\"message\":\"Unable to get data from url - {url}\",\"description\":\"Error message for basic adapter - when no data was returned from the url\",\"component\":\"basic_adapter\",\"params\":[\"url\"]},\"BASIC_ADAPTER_EMPTY_URL\":{\"message\":\"Unable to get data from empty url\",\"description\":\"Error message for basic adapter - when empty url was given\",\"component\":\"basic_adapter\"},\"BASIC_ADAPTER_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"message\"]},\"BASIC_ADAPTER_URL_RESPONSE_FAILED\":{\"message\":\"Request doesn't return data - {statusCode}: {statusText}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"statusCode\",\"statusText\"]},\"MORPH_TREEBANK_MISSING_REF\":{\"message\":\"Reference is missing from treebank request = {request}\",\"description\":\"Missing reference in treebank request\",\"component\":\"morph.treebank\",\"params\":[\"request\"]},\"MORPH_TREEBANK_UNSUPPORTED_LANGUAGE\":{\"message\":\"Unsupported treebank language ${languageId}\",\"description\":\"Unsupported treebank language\",\"component\":\"morph.treebank\",\"params\":[\"languageId\"]},\"MORPH_TREEBANK_NO_URL\":{\"message\":\"There is a problem with creating url for the given word - {word}\",\"description\":\"Error message for morph.treebank - no url for fetching data from treebank\",\"component\":\"morph.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word}\",\"description\":\"Error message for morphology.treebank adapter - when no data was returned from the source\",\"component\":\"morphology.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.treebank adapter - unknown\",\"component\":\"morphology.treebank\",\"params\":[\"message\"]},\"TRANSLATION_INPUT_PREPARE_ERROR\":{\"message\":\"Some problems with preparing input for geting translations - {input}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - problems with input\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"input\"]},\"TRANSLATION_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - unknown\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"message\"]},\"TRANSLATION_INCORRECT_LEXEMES\":{\"message\":\"There is no correct homonym in input\",\"description\":\"Error message for lemmatranslation.alpheios adapter - no lexemes\",\"component\":\"lemmatranslation.alpheios\"},\"LEXICONS_NO_ALLOWED_URL\":{\"message\":\"There are no allowed urls in the options\",\"description\":\"Error message for lexicon.alpheios adapter - no urls were found in options\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_FAILED_CACHED_DATA\":{\"message\":\"There is a problem with catching data from lexicon source - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with getting cached data\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_FAILED_APPEND_DEFS\":{\"message\":\"There is a problem with updating definitions - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with updating definitions\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_NO_FULL_URL\":{\"message\":\"No full url is defined for definitions\",\"description\":\"Error message for lexicon.alpheios adapter - no full url is defined\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_NO_DATA_FROM_URL\":{\"message\":\"No data recieved from url - {url}\",\"description\":\"Error message for lexicon.alpheios adapter - no data from url\",\"component\":\"lexicon.alpheios\",\"params\":[\"url\"]},\"CONCORDANCE_AUTHOR_UPLOAD_ERROR\":{\"message\":\"Some problems with retrieving from author/textWork config file - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with uploading data from author-work config file\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"CONCORDANCE_WORD_USAGE_FETCH_ERROR\":{\"message\":\"Some problems with fetching word usage examples from concordance api - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with fetching word usage examples from concordance api\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"LOGEION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from logeion api - {message}\",\"description\":\"Error message for autoCompleteWords.logeion adapter - problems with fetching words from logeion api\",\"component\":\"autoCompleteWords.logeion\",\"params\":[\"message\"]},\"LOGEION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Logeion API request\",\"description\":\"Error message for autoCompleteWords.logeion adapter - no apikey and baseurl for Logeion API\",\"component\":\"autoCompleteWords.logeion\"},\"TOKENIZATION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from Alpheios Tokenization API - {message}\",\"description\":\"Error message for Alpheios Tokenization adapter - problems with fetching words from api\",\"component\":\"tokenizationGroup.alpheios\",\"params\":[\"message\"]},\"TOKENIZATION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Alpheios Tokenization API request\",\"description\":\"Error message - no apikey and baseurl for Alpheios Tokenization API\",\"component\":\"tokenizationGroup.alpheios\"},\"TOKENIZATION_AVAILABILITY_ERROR\":{\"message\":\"Tokenization service is not available for passed fetch parameters (language)\",\"description\":\"Error message - tokenization service doesn't support passed language\",\"component\":\"tokenizationGroup.alpheios\"}}");
+module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a test message about a cookie.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\"},\"NUM_LINES_TEST_MESSAGE\":{\"message\":\"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\",\"params\":[\"numLines\"]},\"MORPH_TUFTS_NO_ENGINE_FOR_LANGUAGE\":{\"message\":\"There is no engine for the given languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no engine is found for given languageID\",\"component\":\"morphology.tufts\",\"params\":[\"languageID\"]},\"MORPH_NO_HOMONYM\":{\"message\":\"There is no homonym for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no homonym was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_TUFTS_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no data was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.tufts adapter - unknown\",\"component\":\"morphology.tufts\",\"params\":[\"message\"]},\"MORPH_TRANSFORM_NO_LANGUAGE\":{\"message\":\"No Language was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_LEMMA\":{\"message\":\"No Lemma was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_MAPPING_DATA\":{\"message\":\"No mapping data found for {language}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"language\"]},\"MORPH_TRANSFORM_INFLECTION_ERROR\":{\"message\":\"Error parsing inflection: {error}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"error\"]},\"BASIC_ADAPTER_NO_DATA_FROM_URL\":{\"message\":\"Unable to get data from url - {url}\",\"description\":\"Error message for basic adapter - when no data was returned from the url\",\"component\":\"basic_adapter\",\"params\":[\"url\"]},\"BASIC_ADAPTER_EMPTY_URL\":{\"message\":\"Unable to get data from empty url\",\"description\":\"Error message for basic adapter - when empty url was given\",\"component\":\"basic_adapter\"},\"BASIC_ADAPTER_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"message\"]},\"BASIC_ADAPTER_URL_RESPONSE_FAILED\":{\"message\":\"Request doesn't return data - {statusCode}: {statusText}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"statusCode\",\"statusText\"]},\"MORPH_TREEBANK_MISSING_REF\":{\"message\":\"Reference is missing from treebank request = {request}\",\"description\":\"Missing reference in treebank request\",\"component\":\"morph.treebank\",\"params\":[\"request\"]},\"MORPH_TREEBANK_UNSUPPORTED_LANGUAGE\":{\"message\":\"Unsupported treebank language ${languageId}\",\"description\":\"Unsupported treebank language\",\"component\":\"morph.treebank\",\"params\":[\"languageId\"]},\"MORPH_TREEBANK_NO_URL\":{\"message\":\"There is a problem with creating url for the given word - {word}\",\"description\":\"Error message for morph.treebank - no url for fetching data from treebank\",\"component\":\"morph.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word}\",\"description\":\"Error message for morphology.treebank adapter - when no data was returned from the source\",\"component\":\"morphology.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.treebank adapter - unknown\",\"component\":\"morphology.treebank\",\"params\":[\"message\"]},\"TRANSLATION_INPUT_PREPARE_ERROR\":{\"message\":\"Some problems with preparing input for geting translations - {input}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - problems with input\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"input\"]},\"TRANSLATION_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - unknown\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"message\"]},\"TRANSLATION_INCORRECT_LEXEMES\":{\"message\":\"There is no correct homonym in input\",\"description\":\"Error message for lemmatranslation.alpheios adapter - no lexemes\",\"component\":\"lemmatranslation.alpheios\"},\"LEXICONS_NO_ALLOWED_URL\":{\"message\":\"There are no allowed urls in the options\",\"description\":\"Error message for lexicon.alpheios adapter - no urls were found in options\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_FAILED_CACHED_DATA\":{\"message\":\"There is a problem with catching data from lexicon source - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with getting cached data\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_FAILED_APPEND_DEFS\":{\"message\":\"There is a problem with updating definitions - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with updating definitions\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_NO_FULL_URL\":{\"message\":\"No full url is defined for definitions\",\"description\":\"Error message for lexicon.alpheios adapter - no full url is defined\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_NO_DATA_FROM_URL\":{\"message\":\"No data recieved from url - {url}\",\"description\":\"Error message for lexicon.alpheios adapter - no data from url\",\"component\":\"lexicon.alpheios\",\"params\":[\"url\"]},\"CONCORDANCE_AUTHOR_UPLOAD_ERROR\":{\"message\":\"Some problems with retrieving from author/textWork config file - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with uploading data from author-work config file\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"CONCORDANCE_WORD_USAGE_FETCH_ERROR\":{\"message\":\"Some problems with fetching word usage examples from concordance api - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with fetching word usage examples from concordance api\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"LOGEION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from logeion api - {message}\",\"description\":\"Error message for autoCompleteWords.logeion adapter - problems with fetching words from logeion api\",\"component\":\"autoCompleteWords.logeion\",\"params\":[\"message\"]},\"LOGEION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Logeion API request\",\"description\":\"Error message for autoCompleteWords.logeion adapter - no apikey and baseurl for Logeion API\",\"component\":\"autoCompleteWords.logeion\"},\"TOKENIZATION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from Alpheios Tokenization API - {message}\",\"description\":\"Error message for Alpheios Tokenization adapter - problems with fetching words from api\",\"component\":\"tokenizationGroup.alpheios\",\"params\":[\"message\"]},\"TOKENIZATION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Alpheios Tokenization API request\",\"description\":\"Error message - no apikey and baseurl for Alpheios Tokenization API\",\"component\":\"tokenizationGroup.alpheios\"},\"TOKENIZATION_AVAILABILITY_ERROR\":{\"message\":\"Tokenization service is not available for passed fetch parameters (language)\",\"description\":\"Error message - tokenization service doesn't support passed language\",\"component\":\"tokenizationGroup.alpheios\"},\"DTSAPI_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from DTS API - {message}\",\"description\":\"Error message for DTS API adapter - problems with fetching words from api\",\"component\":\"dtsapiGroup.general\",\"params\":[\"message\"]},\"DTSAPI_NO_OBLIGATORY_PROPS\":{\"message\":\"Not all obligatory parameters are defined for the method - {message}\",\"description\":\"Error message for DTS API adapter - problems with fetching words from api\",\"component\":\"dtsapiGroup.general\",\"params\":[\"message\"]}}");
 
 /***/ }),
 
 /***/ "alpheios-data-models":
-/*!***************************************!*
+/*!***************************************!*\
   !*** external "alpheios-data-models" ***!
   \***************************************/
 /***/ ((module) => {
@@ -6367,7 +6707,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_data_models__;
 /***/ }),
 
 /***/ "alpheios-l10n":
-/*!********************************!*
+/*!********************************!*\
   !*** external "alpheios-l10n" ***!
   \********************************/
 /***/ ((module) => {
@@ -6378,7 +6718,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_l10n__;
 /***/ }),
 
 /***/ "alpheios-messaging":
-/*!*************************************!*
+/*!*************************************!*\
   !*** external "alpheios-messaging" ***!
   \*************************************/
 /***/ ((module) => {
@@ -6389,7 +6729,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_alpheios_messaging__;
 /***/ }),
 
 /***/ "papaparse":
-/*!****************************!*
+/*!****************************!*\
   !*** external "papaparse" ***!
   \****************************/
 /***/ ((module) => {
@@ -6405,7 +6745,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_466957__(moduleId) {
+/******/ 	function __nested_webpack_require_479664__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -6418,7 +6758,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_466957__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_479664__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -6431,11 +6771,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_466957__.n = (module) => {
+/******/ 		__nested_webpack_require_479664__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__nested_webpack_require_466957__.d(getter, { a: getter });
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nested_webpack_require_479664__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -6443,9 +6783,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_466957__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_479664__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_466957__.o(definition, key) && !__nested_webpack_require_466957__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_479664__.o(definition, key) && !__nested_webpack_require_479664__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -6454,13 +6794,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_466957__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_479664__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_466957__.r = (exports) => {
+/******/ 		__nested_webpack_require_479664__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -6470,7 +6810,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_466957__.nmd = (module) => {
+/******/ 		__nested_webpack_require_479664__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -6481,7 +6821,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_466957__("./index.js");
+/******/ 	return __nested_webpack_require_479664__("./index.js");
 /******/ })()
 ;
 });
@@ -6504,32 +6844,32 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "../../../node_modules/axios/index.js":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ../../../node_modules/axios/index.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_703__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_704__) => {
 
-module.exports = __nested_webpack_require_703__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
+module.exports = __nested_webpack_require_704__(/*! ./lib/axios */ "../../../node_modules/axios/lib/axios.js");
 
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/adapters/xhr.js":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ../../../node_modules/axios/lib/adapters/xhr.js ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1123__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_1125__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_1123__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var settle = __nested_webpack_require_1123__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
-var cookies = __nested_webpack_require_1123__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
-var buildURL = __nested_webpack_require_1123__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var buildFullPath = __nested_webpack_require_1123__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
-var parseHeaders = __nested_webpack_require_1123__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
-var isURLSameOrigin = __nested_webpack_require_1123__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
-var createError = __nested_webpack_require_1123__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
+var utils = __nested_webpack_require_1125__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var settle = __nested_webpack_require_1125__(/*! ./../core/settle */ "../../../node_modules/axios/lib/core/settle.js");
+var cookies = __nested_webpack_require_1125__(/*! ./../helpers/cookies */ "../../../node_modules/axios/lib/helpers/cookies.js");
+var buildURL = __nested_webpack_require_1125__(/*! ./../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var buildFullPath = __nested_webpack_require_1125__(/*! ../core/buildFullPath */ "../../../node_modules/axios/lib/core/buildFullPath.js");
+var parseHeaders = __nested_webpack_require_1125__(/*! ./../helpers/parseHeaders */ "../../../node_modules/axios/lib/helpers/parseHeaders.js");
+var isURLSameOrigin = __nested_webpack_require_1125__(/*! ./../helpers/isURLSameOrigin */ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js");
+var createError = __nested_webpack_require_1125__(/*! ../core/createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -6704,19 +7044,19 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/axios.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ../../../node_modules/axios/lib/axios.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_7849__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_7852__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_7849__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var bind = __nested_webpack_require_7849__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
-var Axios = __nested_webpack_require_7849__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
-var mergeConfig = __nested_webpack_require_7849__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
-var defaults = __nested_webpack_require_7849__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_7852__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var bind = __nested_webpack_require_7852__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var Axios = __nested_webpack_require_7852__(/*! ./core/Axios */ "../../../node_modules/axios/lib/core/Axios.js");
+var mergeConfig = __nested_webpack_require_7852__(/*! ./core/mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var defaults = __nested_webpack_require_7852__(/*! ./defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Create an instance of Axios
@@ -6749,15 +7089,18 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __nested_webpack_require_7849__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
-axios.CancelToken = __nested_webpack_require_7849__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
-axios.isCancel = __nested_webpack_require_7849__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+axios.Cancel = __nested_webpack_require_7852__(/*! ./cancel/Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+axios.CancelToken = __nested_webpack_require_7852__(/*! ./cancel/CancelToken */ "../../../node_modules/axios/lib/cancel/CancelToken.js");
+axios.isCancel = __nested_webpack_require_7852__(/*! ./cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __nested_webpack_require_7849__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
+axios.spread = __nested_webpack_require_7852__(/*! ./helpers/spread */ "../../../node_modules/axios/lib/helpers/spread.js");
+
+// Expose isAxiosError
+axios.isAxiosError = __nested_webpack_require_7852__(/*! ./helpers/isAxiosError */ "../../../node_modules/axios/lib/helpers/isAxiosError.js");
 
 module.exports = axios;
 
@@ -6768,7 +7111,7 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/cancel/Cancel.js":
-/*!********************************************************!*
+/*!********************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/Cancel.js ***!
   \********************************************************/
 /***/ ((module) => {
@@ -6798,15 +7141,15 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/cancel/CancelToken.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/CancelToken.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_10886__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_11046__) => {
 
 "use strict";
 
 
-var Cancel = __nested_webpack_require_10886__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
+var Cancel = __nested_webpack_require_11046__(/*! ./Cancel */ "../../../node_modules/axios/lib/cancel/Cancel.js");
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -6866,7 +7209,7 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/cancel/isCancel.js":
-/*!**********************************************************!*
+/*!**********************************************************!*\
   !*** ../../../node_modules/axios/lib/cancel/isCancel.js ***!
   \**********************************************************/
 /***/ ((module) => {
@@ -6882,19 +7225,19 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/Axios.js":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ../../../node_modules/axios/lib/core/Axios.js ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_12895__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_13057__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_12895__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var buildURL = __nested_webpack_require_12895__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
-var InterceptorManager = __nested_webpack_require_12895__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
-var dispatchRequest = __nested_webpack_require_12895__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
-var mergeConfig = __nested_webpack_require_12895__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
+var utils = __nested_webpack_require_13057__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var buildURL = __nested_webpack_require_13057__(/*! ../helpers/buildURL */ "../../../node_modules/axios/lib/helpers/buildURL.js");
+var InterceptorManager = __nested_webpack_require_13057__(/*! ./InterceptorManager */ "../../../node_modules/axios/lib/core/InterceptorManager.js");
+var dispatchRequest = __nested_webpack_require_13057__(/*! ./dispatchRequest */ "../../../node_modules/axios/lib/core/dispatchRequest.js");
+var mergeConfig = __nested_webpack_require_13057__(/*! ./mergeConfig */ "../../../node_modules/axios/lib/core/mergeConfig.js");
 
 /**
  * Create a new instance of Axios
@@ -6988,15 +7331,15 @@ module.exports = Axios;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/InterceptorManager.js":
-/*!******************************************************************!*
+/*!******************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/InterceptorManager.js ***!
   \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_16263__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_16426__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_16263__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_16426__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function InterceptorManager() {
   this.handlers = [];
@@ -7051,16 +7394,16 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/buildFullPath.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/buildFullPath.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_17919__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_18083__) => {
 
 "use strict";
 
 
-var isAbsoluteURL = __nested_webpack_require_17919__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
-var combineURLs = __nested_webpack_require_17919__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
+var isAbsoluteURL = __nested_webpack_require_18083__(/*! ../helpers/isAbsoluteURL */ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js");
+var combineURLs = __nested_webpack_require_18083__(/*! ../helpers/combineURLs */ "../../../node_modules/axios/lib/helpers/combineURLs.js");
 
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
@@ -7082,15 +7425,15 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/createError.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/createError.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19101__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_19266__) => {
 
 "use strict";
 
 
-var enhanceError = __nested_webpack_require_19101__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
+var enhanceError = __nested_webpack_require_19266__(/*! ./enhanceError */ "../../../node_modules/axios/lib/core/enhanceError.js");
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -7111,18 +7454,18 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/dispatchRequest.js":
-/*!***************************************************************!*
+/*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/dispatchRequest.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20151__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_20317__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_20151__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
-var transformData = __nested_webpack_require_20151__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
-var isCancel = __nested_webpack_require_20151__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
-var defaults = __nested_webpack_require_20151__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
+var utils = __nested_webpack_require_20317__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var transformData = __nested_webpack_require_20317__(/*! ./transformData */ "../../../node_modules/axios/lib/core/transformData.js");
+var isCancel = __nested_webpack_require_20317__(/*! ../cancel/isCancel */ "../../../node_modules/axios/lib/cancel/isCancel.js");
+var defaults = __nested_webpack_require_20317__(/*! ../defaults */ "../../../node_modules/axios/lib/defaults.js");
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -7201,7 +7544,7 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/enhanceError.js":
-/*!************************************************************!*
+/*!************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/enhanceError.js ***!
   \************************************************************/
 /***/ ((module) => {
@@ -7254,15 +7597,15 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/mergeConfig.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/core/mergeConfig.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_24031__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_24199__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_24031__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_24199__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Config-specific merge-function which creates a new config-object
@@ -7352,15 +7695,15 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/settle.js":
-/*!******************************************************!*
+/*!******************************************************!*\
   !*** ../../../node_modules/axios/lib/core/settle.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_27303__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_27472__) => {
 
 "use strict";
 
 
-var createError = __nested_webpack_require_27303__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
+var createError = __nested_webpack_require_27472__(/*! ./createError */ "../../../node_modules/axios/lib/core/createError.js");
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -7388,15 +7731,15 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/core/transformData.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/axios/lib/core/transformData.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28425__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_28595__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_28425__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_28595__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 /**
  * Transform the data for a request or a response
@@ -7419,16 +7762,16 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/defaults.js":
-/*!***************************************************!*
+/*!***************************************************!*\
   !*** ../../../node_modules/axios/lib/defaults.js ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29340__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_29511__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_29340__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
-var normalizeHeaderName = __nested_webpack_require_29340__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
+var utils = __nested_webpack_require_29511__(/*! ./utils */ "../../../node_modules/axios/lib/utils.js");
+var normalizeHeaderName = __nested_webpack_require_29511__(/*! ./helpers/normalizeHeaderName */ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js");
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -7444,10 +7787,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __nested_webpack_require_29340__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_29511__(/*! ./adapters/xhr */ "../../../node_modules/axios/lib/adapters/xhr.js");
   } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
-    adapter = __nested_webpack_require_29340__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
+    adapter = __nested_webpack_require_29511__(/*! ./adapters/http */ "../../../node_modules/axios/lib/adapters/xhr.js");
   }
   return adapter;
 }
@@ -7528,7 +7871,7 @@ module.exports = defaults;
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/bind.js":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/bind.js ***!
   \*******************************************************/
 /***/ ((module) => {
@@ -7550,15 +7893,15 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/buildURL.js":
-/*!***********************************************************!*
+/*!***********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/buildURL.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_33046__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_33219__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_33046__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_33219__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -7631,7 +7974,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/combineURLs.js":
-/*!**************************************************************!*
+/*!**************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/combineURLs.js ***!
   \**************************************************************/
 /***/ ((module) => {
@@ -7656,15 +7999,15 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/cookies.js":
-/*!**********************************************************!*
+/*!**********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/cookies.js ***!
   \**********************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_35765__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_35940__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_35765__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_35940__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -7720,7 +8063,7 @@ module.exports = (
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/isAbsoluteURL.js":
-/*!****************************************************************!*
+/*!****************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \****************************************************************/
 /***/ ((module) => {
@@ -7744,16 +8087,38 @@ module.exports = function isAbsoluteURL(url) {
 
 /***/ }),
 
-/***/ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js":
-/*!******************************************************************!*
-  !*** ../../../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_38498__) => {
+/***/ "../../../node_modules/axios/lib/helpers/isAxiosError.js":
+/*!***************************************************************!*\
+  !*** ../../../node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \***************************************************************/
+/***/ ((module) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_38498__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+/**
+ * Determines whether the payload is an error thrown by Axios
+ *
+ * @param {*} payload The value to test
+ * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+ */
+module.exports = function isAxiosError(payload) {
+  return (typeof payload === 'object') && (payload.isAxiosError === true);
+};
+
+
+/***/ }),
+
+/***/ "../../../node_modules/axios/lib/helpers/isURLSameOrigin.js":
+/*!******************************************************************!*\
+  !*** ../../../node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \******************************************************************/
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_39325__) => {
+
+"use strict";
+
+
+var utils = __nested_webpack_require_39325__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -7824,15 +8189,15 @@ module.exports = (
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/normalizeHeaderName.js":
-/*!**********************************************************************!*
+/*!**********************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \**********************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_41244__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42072__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_41244__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_42072__(/*! ../utils */ "../../../node_modules/axios/lib/utils.js");
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -7847,15 +8212,15 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/parseHeaders.js":
-/*!***************************************************************!*
+/*!***************************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/parseHeaders.js ***!
   \***************************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42014__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_42843__) => {
 
 "use strict";
 
 
-var utils = __nested_webpack_require_42014__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
+var utils = __nested_webpack_require_42843__(/*! ./../utils */ "../../../node_modules/axios/lib/utils.js");
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -7911,7 +8276,7 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/helpers/spread.js":
-/*!*********************************************************!*
+/*!*********************************************************!*\
   !*** ../../../node_modules/axios/lib/helpers/spread.js ***!
   \*********************************************************/
 /***/ ((module) => {
@@ -7949,15 +8314,15 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ "../../../node_modules/axios/lib/utils.js":
-/*!************************************************!*
+/*!************************************************!*\
   !*** ../../../node_modules/axios/lib/utils.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_44606__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_45437__) => {
 
 "use strict";
 
 
-var bind = __nested_webpack_require_44606__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
+var bind = __nested_webpack_require_45437__(/*! ./helpers/bind */ "../../../node_modules/axios/lib/helpers/bind.js");
 
 /*global toString:true*/
 
@@ -8311,13 +8676,13 @@ module.exports = {
 /***/ }),
 
 /***/ "../../../node_modules/uuid/index.js":
-/*!*******************************************!*
+/*!*******************************************!*\
   !*** ../../../node_modules/uuid/index.js ***!
   \*******************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_53893__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_54725__) => {
 
-var v1 = __nested_webpack_require_53893__(/*! ./v1 */ "../../../node_modules/uuid/v1.js");
-var v4 = __nested_webpack_require_53893__(/*! ./v4 */ "../../../node_modules/uuid/v4.js");
+var v1 = __nested_webpack_require_54725__(/*! ./v1 */ "../../../node_modules/uuid/v1.js");
+var v4 = __nested_webpack_require_54725__(/*! ./v4 */ "../../../node_modules/uuid/v4.js");
 
 var uuid = v4;
 uuid.v1 = v1;
@@ -8329,7 +8694,7 @@ module.exports = uuid;
 /***/ }),
 
 /***/ "../../../node_modules/uuid/lib/bytesToUuid.js":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ../../../node_modules/uuid/lib/bytesToUuid.js ***!
   \*****************************************************/
 /***/ ((module) => {
@@ -8365,7 +8730,7 @@ module.exports = bytesToUuid;
 /***/ }),
 
 /***/ "../../../node_modules/uuid/lib/rng-browser.js":
-/*!*****************************************************!*
+/*!*****************************************************!*\
   !*** ../../../node_modules/uuid/lib/rng-browser.js ***!
   \*****************************************************/
 /***/ ((module) => {
@@ -8409,13 +8774,13 @@ if (getRandomValues) {
 /***/ }),
 
 /***/ "../../../node_modules/uuid/v1.js":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ../../../node_modules/uuid/v1.js ***!
   \****************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_56994__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_57829__) => {
 
-var rng = __nested_webpack_require_56994__(/*! ./lib/rng */ "../../../node_modules/uuid/lib/rng-browser.js");
-var bytesToUuid = __nested_webpack_require_56994__(/*! ./lib/bytesToUuid */ "../../../node_modules/uuid/lib/bytesToUuid.js");
+var rng = __nested_webpack_require_57829__(/*! ./lib/rng */ "../../../node_modules/uuid/lib/rng-browser.js");
+var bytesToUuid = __nested_webpack_require_57829__(/*! ./lib/bytesToUuid */ "../../../node_modules/uuid/lib/bytesToUuid.js");
 
 // **`v1()` - Generate time-based UUID**
 //
@@ -8528,13 +8893,13 @@ module.exports = v1;
 /***/ }),
 
 /***/ "../../../node_modules/uuid/v4.js":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ../../../node_modules/uuid/v4.js ***!
   \****************************************/
-/***/ ((module, __unused_webpack_exports, __nested_webpack_require_60715__) => {
+/***/ ((module, __unused_webpack_exports, __nested_webpack_require_61551__) => {
 
-var rng = __nested_webpack_require_60715__(/*! ./lib/rng */ "../../../node_modules/uuid/lib/rng-browser.js");
-var bytesToUuid = __nested_webpack_require_60715__(/*! ./lib/bytesToUuid */ "../../../node_modules/uuid/lib/bytesToUuid.js");
+var rng = __nested_webpack_require_61551__(/*! ./lib/rng */ "../../../node_modules/uuid/lib/rng-browser.js");
+var bytesToUuid = __nested_webpack_require_61551__(/*! ./lib/bytesToUuid */ "../../../node_modules/uuid/lib/bytesToUuid.js");
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -8567,20 +8932,20 @@ module.exports = v4;
 /***/ }),
 
 /***/ "./arabic_language_model.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./arabic_language_model.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_61773__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_62610__) => {
 
 "use strict";
-__nested_webpack_require_61773__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_61773__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ ArabicLanguageModel
+__nested_webpack_require_62610__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_62610__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ArabicLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_61773__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_61773__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_61773__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_61773__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_62610__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_62610__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_62610__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_62610__(/*! ./feature.js */ "./feature.js");
 
 
 
@@ -8715,21 +9080,21 @@ for the current node
 /***/ }),
 
 /***/ "./chinese_language_model.js":
-/*!***********************************!*
+/*!***********************************!*\
   !*** ./chinese_language_model.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_68265__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_69105__) => {
 
 "use strict";
-__nested_webpack_require_68265__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_68265__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ ChineseLanguageModel
+__nested_webpack_require_69105__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_69105__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ChineseLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_68265__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_68265__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_68265__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_68265__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_68265__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_69105__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_69105__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_69105__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_69105__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_69105__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -8861,240 +9226,240 @@ class ChineseLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0
 /***/ }),
 
 /***/ "./constants.js":
-/*!**********************!*
+/*!**********************!*\
   !*** ./constants.js ***!
   \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_73572__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_74415__) => {
 
 "use strict";
-__nested_webpack_require_73572__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_73572__.d(__webpack_exports__, {
-/* harmony export */   "LANG_UNIT_WORD": () => /* binding */ LANG_UNIT_WORD,
-/* harmony export */   "LANG_UNIT_CHAR": () => /* binding */ LANG_UNIT_CHAR,
-/* harmony export */   "LANG_DIR_LTR": () => /* binding */ LANG_DIR_LTR,
-/* harmony export */   "LANG_DIR_RTL": () => /* binding */ LANG_DIR_RTL,
-/* harmony export */   "LANG_UNDEFINED": () => /* binding */ LANG_UNDEFINED,
-/* harmony export */   "LANG_LATIN": () => /* binding */ LANG_LATIN,
-/* harmony export */   "LANG_GREEK": () => /* binding */ LANG_GREEK,
-/* harmony export */   "LANG_ARABIC": () => /* binding */ LANG_ARABIC,
-/* harmony export */   "LANG_PERSIAN": () => /* binding */ LANG_PERSIAN,
-/* harmony export */   "LANG_GEEZ": () => /* binding */ LANG_GEEZ,
-/* harmony export */   "LANG_CHINESE": () => /* binding */ LANG_CHINESE,
-/* harmony export */   "LANG_SYRIAC": () => /* binding */ LANG_SYRIAC,
-/* harmony export */   "STR_LANG_CODE_UNDEFINED": () => /* binding */ STR_LANG_CODE_UNDEFINED,
-/* harmony export */   "STR_LANG_CODE_LAT": () => /* binding */ STR_LANG_CODE_LAT,
-/* harmony export */   "STR_LANG_CODE_LA": () => /* binding */ STR_LANG_CODE_LA,
-/* harmony export */   "STR_LANG_CODE_GRC": () => /* binding */ STR_LANG_CODE_GRC,
-/* harmony export */   "STR_LANG_CODE_ARA": () => /* binding */ STR_LANG_CODE_ARA,
-/* harmony export */   "STR_LANG_CODE_AR": () => /* binding */ STR_LANG_CODE_AR,
-/* harmony export */   "STR_LANG_CODE_FAS": () => /* binding */ STR_LANG_CODE_FAS,
-/* harmony export */   "STR_LANG_CODE_PER": () => /* binding */ STR_LANG_CODE_PER,
-/* harmony export */   "STR_LANG_CODE_FA_IR": () => /* binding */ STR_LANG_CODE_FA_IR,
-/* harmony export */   "STR_LANG_CODE_FA": () => /* binding */ STR_LANG_CODE_FA,
-/* harmony export */   "STR_LANG_CODE_GEZ": () => /* binding */ STR_LANG_CODE_GEZ,
-/* harmony export */   "STR_LANG_CODE_ZHO": () => /* binding */ STR_LANG_CODE_ZHO,
-/* harmony export */   "STR_LANG_CODE_ZH": () => /* binding */ STR_LANG_CODE_ZH,
-/* harmony export */   "STR_LANG_CODE_ZH_HANT": () => /* binding */ STR_LANG_CODE_ZH_HANT,
-/* harmony export */   "STR_LANG_CODE_ZH_HANS": () => /* binding */ STR_LANG_CODE_ZH_HANS,
-/* harmony export */   "STR_LANG_CODE_SYC": () => /* binding */ STR_LANG_CODE_SYC,
-/* harmony export */   "STR_LANG_CODE_SYR": () => /* binding */ STR_LANG_CODE_SYR,
-/* harmony export */   "STR_LANG_CODE_SYR_SYRJ": () => /* binding */ STR_LANG_CODE_SYR_SYRJ,
-/* harmony export */   "STR_LANG_CODE_ENG": () => /* binding */ STR_LANG_CODE_ENG,
-/* harmony export */   "POFS_ADJECTIVE": () => /* binding */ POFS_ADJECTIVE,
-/* harmony export */   "POFS_ADVERB": () => /* binding */ POFS_ADVERB,
-/* harmony export */   "POFS_ADVERBIAL": () => /* binding */ POFS_ADVERBIAL,
-/* harmony export */   "POFS_ARTICLE": () => /* binding */ POFS_ARTICLE,
-/* harmony export */   "POFS_CONJUNCTION": () => /* binding */ POFS_CONJUNCTION,
-/* harmony export */   "POFS_EXCLAMATION": () => /* binding */ POFS_EXCLAMATION,
-/* harmony export */   "POFS_INTERJECTION": () => /* binding */ POFS_INTERJECTION,
-/* harmony export */   "POFS_NOUN": () => /* binding */ POFS_NOUN,
-/* harmony export */   "POFS_NOUN_PROPER": () => /* binding */ POFS_NOUN_PROPER,
-/* harmony export */   "POFS_NUMERAL": () => /* binding */ POFS_NUMERAL,
-/* harmony export */   "POFS_PARTICLE": () => /* binding */ POFS_PARTICLE,
-/* harmony export */   "POFS_PREFIX": () => /* binding */ POFS_PREFIX,
-/* harmony export */   "POFS_PREPOSITION": () => /* binding */ POFS_PREPOSITION,
-/* harmony export */   "POFS_PRONOUN": () => /* binding */ POFS_PRONOUN,
-/* harmony export */   "POFS_SUFFIX": () => /* binding */ POFS_SUFFIX,
-/* harmony export */   "POFS_GERUNDIVE": () => /* binding */ POFS_GERUNDIVE,
-/* harmony export */   "POFS_SUPINE": () => /* binding */ POFS_SUPINE,
-/* harmony export */   "POFS_VERB": () => /* binding */ POFS_VERB,
-/* harmony export */   "POFS_VERB_PARTICIPLE": () => /* binding */ POFS_VERB_PARTICIPLE,
-/* harmony export */   "POFS_DENOMINATIVE": () => /* binding */ POFS_DENOMINATIVE,
-/* harmony export */   "GEND_MASCULINE": () => /* binding */ GEND_MASCULINE,
-/* harmony export */   "GEND_FEMININE": () => /* binding */ GEND_FEMININE,
-/* harmony export */   "GEND_NEUTER": () => /* binding */ GEND_NEUTER,
-/* harmony export */   "GEND_COMMON": () => /* binding */ GEND_COMMON,
-/* harmony export */   "GEND_ANIMATE": () => /* binding */ GEND_ANIMATE,
-/* harmony export */   "GEND_INANIMATE": () => /* binding */ GEND_INANIMATE,
-/* harmony export */   "GEND_PERSONAL_MASCULINE": () => /* binding */ GEND_PERSONAL_MASCULINE,
-/* harmony export */   "GEND_ANIMATE_MASCULINE": () => /* binding */ GEND_ANIMATE_MASCULINE,
-/* harmony export */   "GEND_INANIMATE_MASCULINE": () => /* binding */ GEND_INANIMATE_MASCULINE,
-/* harmony export */   "COMP_POSITIVE": () => /* binding */ COMP_POSITIVE,
-/* harmony export */   "COMP_COMPARITIVE": () => /* binding */ COMP_COMPARITIVE,
-/* harmony export */   "COMP_SUPERLATIVE": () => /* binding */ COMP_SUPERLATIVE,
-/* harmony export */   "CASE_ABESSIVE": () => /* binding */ CASE_ABESSIVE,
-/* harmony export */   "CASE_ABLATIVE": () => /* binding */ CASE_ABLATIVE,
-/* harmony export */   "CASE_ABSOLUTIVE": () => /* binding */ CASE_ABSOLUTIVE,
-/* harmony export */   "CASE_ACCUSATIVE": () => /* binding */ CASE_ACCUSATIVE,
-/* harmony export */   "CASE_ADDIRECTIVE": () => /* binding */ CASE_ADDIRECTIVE,
-/* harmony export */   "CASE_ADELATIVE": () => /* binding */ CASE_ADELATIVE,
-/* harmony export */   "CASE_ADESSIVE": () => /* binding */ CASE_ADESSIVE,
-/* harmony export */   "CASE_ADVERBIAL": () => /* binding */ CASE_ADVERBIAL,
-/* harmony export */   "CASE_ALLATIVE": () => /* binding */ CASE_ALLATIVE,
-/* harmony export */   "CASE_ANTESSIVE": () => /* binding */ CASE_ANTESSIVE,
-/* harmony export */   "CASE_APUDESSIVE": () => /* binding */ CASE_APUDESSIVE,
-/* harmony export */   "CASE_AVERSIVE": () => /* binding */ CASE_AVERSIVE,
-/* harmony export */   "CASE_BENEFACTIVE": () => /* binding */ CASE_BENEFACTIVE,
-/* harmony export */   "CASE_CARITIVE": () => /* binding */ CASE_CARITIVE,
-/* harmony export */   "CASE_CAUSAL": () => /* binding */ CASE_CAUSAL,
-/* harmony export */   "CASE_CAUSAL_FINAL": () => /* binding */ CASE_CAUSAL_FINAL,
-/* harmony export */   "CASE_COMITATIVE": () => /* binding */ CASE_COMITATIVE,
-/* harmony export */   "CASE_DATIVE": () => /* binding */ CASE_DATIVE,
-/* harmony export */   "CASE_DELATIVE": () => /* binding */ CASE_DELATIVE,
-/* harmony export */   "CASE_DIRECT": () => /* binding */ CASE_DIRECT,
-/* harmony export */   "CASE_DISTRIBUTIVE": () => /* binding */ CASE_DISTRIBUTIVE,
-/* harmony export */   "CASE_DISTRIBUTIVE_TEMPORAL": () => /* binding */ CASE_DISTRIBUTIVE_TEMPORAL,
-/* harmony export */   "CASE_ELATIVE": () => /* binding */ CASE_ELATIVE,
-/* harmony export */   "CASE_ERGATIVE": () => /* binding */ CASE_ERGATIVE,
-/* harmony export */   "CASE_ESSIVE": () => /* binding */ CASE_ESSIVE,
-/* harmony export */   "CASE_ESSIVE_FORMAL": () => /* binding */ CASE_ESSIVE_FORMAL,
-/* harmony export */   "CASE_ESSIVE_MODAL": () => /* binding */ CASE_ESSIVE_MODAL,
-/* harmony export */   "CASE_EQUATIVE": () => /* binding */ CASE_EQUATIVE,
-/* harmony export */   "CASE_EVITATIVE": () => /* binding */ CASE_EVITATIVE,
-/* harmony export */   "CASE_EXESSIVE": () => /* binding */ CASE_EXESSIVE,
-/* harmony export */   "CASE_FINAL": () => /* binding */ CASE_FINAL,
-/* harmony export */   "CASE_FORMAL": () => /* binding */ CASE_FORMAL,
-/* harmony export */   "CASE_GENITIVE": () => /* binding */ CASE_GENITIVE,
-/* harmony export */   "CASE_ILLATIVE": () => /* binding */ CASE_ILLATIVE,
-/* harmony export */   "CASE_INELATIVE": () => /* binding */ CASE_INELATIVE,
-/* harmony export */   "CASE_INESSIVE": () => /* binding */ CASE_INESSIVE,
-/* harmony export */   "CASE_INSTRUCTIVE": () => /* binding */ CASE_INSTRUCTIVE,
-/* harmony export */   "CASE_INSTRUMENTAL": () => /* binding */ CASE_INSTRUMENTAL,
-/* harmony export */   "CASE_INSTRUMENTAL_COMITATIVE": () => /* binding */ CASE_INSTRUMENTAL_COMITATIVE,
-/* harmony export */   "CASE_INTRANSITIVE": () => /* binding */ CASE_INTRANSITIVE,
-/* harmony export */   "CASE_LATIVE": () => /* binding */ CASE_LATIVE,
-/* harmony export */   "CASE_LOCATIVE": () => /* binding */ CASE_LOCATIVE,
-/* harmony export */   "CASE_MODAL": () => /* binding */ CASE_MODAL,
-/* harmony export */   "CASE_MULTIPLICATIVE": () => /* binding */ CASE_MULTIPLICATIVE,
-/* harmony export */   "CASE_NOMINATIVE": () => /* binding */ CASE_NOMINATIVE,
-/* harmony export */   "CASE_PARTITIVE": () => /* binding */ CASE_PARTITIVE,
-/* harmony export */   "CASE_PEGATIVE": () => /* binding */ CASE_PEGATIVE,
-/* harmony export */   "CASE_PERLATIVE": () => /* binding */ CASE_PERLATIVE,
-/* harmony export */   "CASE_POSSESSIVE": () => /* binding */ CASE_POSSESSIVE,
-/* harmony export */   "CASE_POSTELATIVE": () => /* binding */ CASE_POSTELATIVE,
-/* harmony export */   "CASE_POSTDIRECTIVE": () => /* binding */ CASE_POSTDIRECTIVE,
-/* harmony export */   "CASE_POSTESSIVE": () => /* binding */ CASE_POSTESSIVE,
-/* harmony export */   "CASE_POSTPOSITIONAL": () => /* binding */ CASE_POSTPOSITIONAL,
-/* harmony export */   "CASE_PREPOSITIONAL": () => /* binding */ CASE_PREPOSITIONAL,
-/* harmony export */   "CASE_PRIVATIVE": () => /* binding */ CASE_PRIVATIVE,
-/* harmony export */   "CASE_PROLATIVE": () => /* binding */ CASE_PROLATIVE,
-/* harmony export */   "CASE_PROSECUTIVE": () => /* binding */ CASE_PROSECUTIVE,
-/* harmony export */   "CASE_PROXIMATIVE": () => /* binding */ CASE_PROXIMATIVE,
-/* harmony export */   "CASE_SEPARATIVE": () => /* binding */ CASE_SEPARATIVE,
-/* harmony export */   "CASE_SOCIATIVE": () => /* binding */ CASE_SOCIATIVE,
-/* harmony export */   "CASE_SUBDIRECTIVE": () => /* binding */ CASE_SUBDIRECTIVE,
-/* harmony export */   "CASE_SUBESSIVE": () => /* binding */ CASE_SUBESSIVE,
-/* harmony export */   "CASE_SUBELATIVE": () => /* binding */ CASE_SUBELATIVE,
-/* harmony export */   "CASE_SUBLATIVE": () => /* binding */ CASE_SUBLATIVE,
-/* harmony export */   "CASE_SUPERDIRECTIVE": () => /* binding */ CASE_SUPERDIRECTIVE,
-/* harmony export */   "CASE_SUPERESSIVE": () => /* binding */ CASE_SUPERESSIVE,
-/* harmony export */   "CASE_SUPERLATIVE": () => /* binding */ CASE_SUPERLATIVE,
-/* harmony export */   "CASE_SUPPRESSIVE": () => /* binding */ CASE_SUPPRESSIVE,
-/* harmony export */   "CASE_TEMPORAL": () => /* binding */ CASE_TEMPORAL,
-/* harmony export */   "CASE_TERMINATIVE": () => /* binding */ CASE_TERMINATIVE,
-/* harmony export */   "CASE_TRANSLATIVE": () => /* binding */ CASE_TRANSLATIVE,
-/* harmony export */   "CASE_VIALIS": () => /* binding */ CASE_VIALIS,
-/* harmony export */   "CASE_VOCATIVE": () => /* binding */ CASE_VOCATIVE,
-/* harmony export */   "MOOD_ADMIRATIVE": () => /* binding */ MOOD_ADMIRATIVE,
-/* harmony export */   "MOOD_COHORTATIVE": () => /* binding */ MOOD_COHORTATIVE,
-/* harmony export */   "MOOD_CONDITIONAL": () => /* binding */ MOOD_CONDITIONAL,
-/* harmony export */   "MOOD_DECLARATIVE": () => /* binding */ MOOD_DECLARATIVE,
-/* harmony export */   "MOOD_DUBITATIVE": () => /* binding */ MOOD_DUBITATIVE,
-/* harmony export */   "MOOD_ENERGETIC": () => /* binding */ MOOD_ENERGETIC,
-/* harmony export */   "MOOD_EVENTIVE": () => /* binding */ MOOD_EVENTIVE,
-/* harmony export */   "MOOD_GENERIC": () => /* binding */ MOOD_GENERIC,
-/* harmony export */   "MOOD_GERUNDIVE": () => /* binding */ MOOD_GERUNDIVE,
-/* harmony export */   "MOOD_HYPOTHETICAL": () => /* binding */ MOOD_HYPOTHETICAL,
-/* harmony export */   "MOOD_IMPERATIVE": () => /* binding */ MOOD_IMPERATIVE,
-/* harmony export */   "MOOD_INDICATIVE": () => /* binding */ MOOD_INDICATIVE,
-/* harmony export */   "MOOD_INFERENTIAL": () => /* binding */ MOOD_INFERENTIAL,
-/* harmony export */   "MOOD_INFINITIVE": () => /* binding */ MOOD_INFINITIVE,
-/* harmony export */   "MOOD_INTERROGATIVE": () => /* binding */ MOOD_INTERROGATIVE,
-/* harmony export */   "MOOD_JUSSIVE": () => /* binding */ MOOD_JUSSIVE,
-/* harmony export */   "MOOD_NEGATIVE": () => /* binding */ MOOD_NEGATIVE,
-/* harmony export */   "MOOD_OPTATIVE": () => /* binding */ MOOD_OPTATIVE,
-/* harmony export */   "MOOD_PARTICIPLE": () => /* binding */ MOOD_PARTICIPLE,
-/* harmony export */   "MOOD_PRESUMPTIVE": () => /* binding */ MOOD_PRESUMPTIVE,
-/* harmony export */   "MOOD_RENARRATIVE": () => /* binding */ MOOD_RENARRATIVE,
-/* harmony export */   "MOOD_SUBJUNCTIVE": () => /* binding */ MOOD_SUBJUNCTIVE,
-/* harmony export */   "MOOD_SUPINE": () => /* binding */ MOOD_SUPINE,
-/* harmony export */   "NUM_SINGULAR": () => /* binding */ NUM_SINGULAR,
-/* harmony export */   "NUM_PLURAL": () => /* binding */ NUM_PLURAL,
-/* harmony export */   "NUM_DUAL": () => /* binding */ NUM_DUAL,
-/* harmony export */   "NUM_TRIAL": () => /* binding */ NUM_TRIAL,
-/* harmony export */   "NUM_PAUCAL": () => /* binding */ NUM_PAUCAL,
-/* harmony export */   "NUM_SINGULATIVE": () => /* binding */ NUM_SINGULATIVE,
-/* harmony export */   "NUM_COLLECTIVE": () => /* binding */ NUM_COLLECTIVE,
-/* harmony export */   "NUM_DISTRIBUTIVE_PLURAL": () => /* binding */ NUM_DISTRIBUTIVE_PLURAL,
-/* harmony export */   "NRL_CARDINAL": () => /* binding */ NRL_CARDINAL,
-/* harmony export */   "NRL_ORDINAL": () => /* binding */ NRL_ORDINAL,
-/* harmony export */   "NRL_DISTRIBUTIVE": () => /* binding */ NRL_DISTRIBUTIVE,
-/* harmony export */   "NURL_NUMERAL_ADVERB": () => /* binding */ NURL_NUMERAL_ADVERB,
-/* harmony export */   "ORD_1ST": () => /* binding */ ORD_1ST,
-/* harmony export */   "ORD_2ND": () => /* binding */ ORD_2ND,
-/* harmony export */   "ORD_3RD": () => /* binding */ ORD_3RD,
-/* harmony export */   "ORD_4TH": () => /* binding */ ORD_4TH,
-/* harmony export */   "ORD_5TH": () => /* binding */ ORD_5TH,
-/* harmony export */   "ORD_6TH": () => /* binding */ ORD_6TH,
-/* harmony export */   "ORD_7TH": () => /* binding */ ORD_7TH,
-/* harmony export */   "ORD_8TH": () => /* binding */ ORD_8TH,
-/* harmony export */   "ORD_9TH": () => /* binding */ ORD_9TH,
-/* harmony export */   "TENSE_AORIST": () => /* binding */ TENSE_AORIST,
-/* harmony export */   "TENSE_FUTURE": () => /* binding */ TENSE_FUTURE,
-/* harmony export */   "TENSE_FUTURE_PERFECT": () => /* binding */ TENSE_FUTURE_PERFECT,
-/* harmony export */   "TENSE_IMPERFECT": () => /* binding */ TENSE_IMPERFECT,
-/* harmony export */   "TENSE_PAST_ABSOLUTE": () => /* binding */ TENSE_PAST_ABSOLUTE,
-/* harmony export */   "TENSE_PERFECT": () => /* binding */ TENSE_PERFECT,
-/* harmony export */   "TENSE_PLUPERFECT": () => /* binding */ TENSE_PLUPERFECT,
-/* harmony export */   "TENSE_PRESENT": () => /* binding */ TENSE_PRESENT,
-/* harmony export */   "VKIND_TO_BE": () => /* binding */ VKIND_TO_BE,
-/* harmony export */   "VKIND_COMPOUNDS_OF_TO_BE": () => /* binding */ VKIND_COMPOUNDS_OF_TO_BE,
-/* harmony export */   "VKIND_TAKING_ABLATIVE": () => /* binding */ VKIND_TAKING_ABLATIVE,
-/* harmony export */   "VKIND_TAKING_DATIVE": () => /* binding */ VKIND_TAKING_DATIVE,
-/* harmony export */   "VKIND_TAKING_GENITIVE": () => /* binding */ VKIND_TAKING_GENITIVE,
-/* harmony export */   "VKIND_TRANSITIVE": () => /* binding */ VKIND_TRANSITIVE,
-/* harmony export */   "VKIND_INTRANSITIVE": () => /* binding */ VKIND_INTRANSITIVE,
-/* harmony export */   "VKIND_IMPERSONAL": () => /* binding */ VKIND_IMPERSONAL,
-/* harmony export */   "VKIND_DEPONENT": () => /* binding */ VKIND_DEPONENT,
-/* harmony export */   "VKIND_SEMIDEPONENT": () => /* binding */ VKIND_SEMIDEPONENT,
-/* harmony export */   "VKIND_PERFECT_DEFINITE": () => /* binding */ VKIND_PERFECT_DEFINITE,
-/* harmony export */   "VOICE_ACTIVE": () => /* binding */ VOICE_ACTIVE,
-/* harmony export */   "VOICE_PASSIVE": () => /* binding */ VOICE_PASSIVE,
-/* harmony export */   "VOICE_MEDIOPASSIVE": () => /* binding */ VOICE_MEDIOPASSIVE,
-/* harmony export */   "VOICE_IMPERSONAL_PASSIVE": () => /* binding */ VOICE_IMPERSONAL_PASSIVE,
-/* harmony export */   "VOICE_MIDDLE": () => /* binding */ VOICE_MIDDLE,
-/* harmony export */   "VOICE_ANTIPASSIVE": () => /* binding */ VOICE_ANTIPASSIVE,
-/* harmony export */   "VOICE_REFLEXIVE": () => /* binding */ VOICE_REFLEXIVE,
-/* harmony export */   "VOICE_RECIPROCAL": () => /* binding */ VOICE_RECIPROCAL,
-/* harmony export */   "VOICE_CAUSATIVE": () => /* binding */ VOICE_CAUSATIVE,
-/* harmony export */   "VOICE_ADJUTATIVE": () => /* binding */ VOICE_ADJUTATIVE,
-/* harmony export */   "VOICE_APPLICATIVE": () => /* binding */ VOICE_APPLICATIVE,
-/* harmony export */   "VOICE_CIRCUMSTANTIAL": () => /* binding */ VOICE_CIRCUMSTANTIAL,
-/* harmony export */   "VOICE_DEPONENT": () => /* binding */ VOICE_DEPONENT,
-/* harmony export */   "TYPE_IRREGULAR": () => /* binding */ TYPE_IRREGULAR,
-/* harmony export */   "TYPE_REGULAR": () => /* binding */ TYPE_REGULAR,
-/* harmony export */   "CLASS_PERSONAL": () => /* binding */ CLASS_PERSONAL,
-/* harmony export */   "CLASS_REFLEXIVE": () => /* binding */ CLASS_REFLEXIVE,
-/* harmony export */   "CLASS_POSSESSIVE": () => /* binding */ CLASS_POSSESSIVE,
-/* harmony export */   "CLASS_DEMONSTRATIVE": () => /* binding */ CLASS_DEMONSTRATIVE,
-/* harmony export */   "CLASS_RELATIVE": () => /* binding */ CLASS_RELATIVE,
-/* harmony export */   "CLASS_INTERROGATIVE": () => /* binding */ CLASS_INTERROGATIVE,
-/* harmony export */   "CLASS_GENERAL_RELATIVE": () => /* binding */ CLASS_GENERAL_RELATIVE,
-/* harmony export */   "CLASS_INDEFINITE": () => /* binding */ CLASS_INDEFINITE,
-/* harmony export */   "CLASS_INTENSIVE": () => /* binding */ CLASS_INTENSIVE,
-/* harmony export */   "CLASS_RECIPROCAL": () => /* binding */ CLASS_RECIPROCAL,
-/* harmony export */   "PARADIGM_CAT_KAYLO": () => /* binding */ PARADIGM_CAT_KAYLO,
-/* harmony export */   "PARADIGM_CAT_STATE": () => /* binding */ PARADIGM_CAT_STATE
+__nested_webpack_require_74415__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_74415__.d(__webpack_exports__, {
+/* harmony export */   "LANG_UNIT_WORD": () => (/* binding */ LANG_UNIT_WORD),
+/* harmony export */   "LANG_UNIT_CHAR": () => (/* binding */ LANG_UNIT_CHAR),
+/* harmony export */   "LANG_DIR_LTR": () => (/* binding */ LANG_DIR_LTR),
+/* harmony export */   "LANG_DIR_RTL": () => (/* binding */ LANG_DIR_RTL),
+/* harmony export */   "LANG_UNDEFINED": () => (/* binding */ LANG_UNDEFINED),
+/* harmony export */   "LANG_LATIN": () => (/* binding */ LANG_LATIN),
+/* harmony export */   "LANG_GREEK": () => (/* binding */ LANG_GREEK),
+/* harmony export */   "LANG_ARABIC": () => (/* binding */ LANG_ARABIC),
+/* harmony export */   "LANG_PERSIAN": () => (/* binding */ LANG_PERSIAN),
+/* harmony export */   "LANG_GEEZ": () => (/* binding */ LANG_GEEZ),
+/* harmony export */   "LANG_CHINESE": () => (/* binding */ LANG_CHINESE),
+/* harmony export */   "LANG_SYRIAC": () => (/* binding */ LANG_SYRIAC),
+/* harmony export */   "STR_LANG_CODE_UNDEFINED": () => (/* binding */ STR_LANG_CODE_UNDEFINED),
+/* harmony export */   "STR_LANG_CODE_LAT": () => (/* binding */ STR_LANG_CODE_LAT),
+/* harmony export */   "STR_LANG_CODE_LA": () => (/* binding */ STR_LANG_CODE_LA),
+/* harmony export */   "STR_LANG_CODE_GRC": () => (/* binding */ STR_LANG_CODE_GRC),
+/* harmony export */   "STR_LANG_CODE_ARA": () => (/* binding */ STR_LANG_CODE_ARA),
+/* harmony export */   "STR_LANG_CODE_AR": () => (/* binding */ STR_LANG_CODE_AR),
+/* harmony export */   "STR_LANG_CODE_FAS": () => (/* binding */ STR_LANG_CODE_FAS),
+/* harmony export */   "STR_LANG_CODE_PER": () => (/* binding */ STR_LANG_CODE_PER),
+/* harmony export */   "STR_LANG_CODE_FA_IR": () => (/* binding */ STR_LANG_CODE_FA_IR),
+/* harmony export */   "STR_LANG_CODE_FA": () => (/* binding */ STR_LANG_CODE_FA),
+/* harmony export */   "STR_LANG_CODE_GEZ": () => (/* binding */ STR_LANG_CODE_GEZ),
+/* harmony export */   "STR_LANG_CODE_ZHO": () => (/* binding */ STR_LANG_CODE_ZHO),
+/* harmony export */   "STR_LANG_CODE_ZH": () => (/* binding */ STR_LANG_CODE_ZH),
+/* harmony export */   "STR_LANG_CODE_ZH_HANT": () => (/* binding */ STR_LANG_CODE_ZH_HANT),
+/* harmony export */   "STR_LANG_CODE_ZH_HANS": () => (/* binding */ STR_LANG_CODE_ZH_HANS),
+/* harmony export */   "STR_LANG_CODE_SYC": () => (/* binding */ STR_LANG_CODE_SYC),
+/* harmony export */   "STR_LANG_CODE_SYR": () => (/* binding */ STR_LANG_CODE_SYR),
+/* harmony export */   "STR_LANG_CODE_SYR_SYRJ": () => (/* binding */ STR_LANG_CODE_SYR_SYRJ),
+/* harmony export */   "STR_LANG_CODE_ENG": () => (/* binding */ STR_LANG_CODE_ENG),
+/* harmony export */   "POFS_ADJECTIVE": () => (/* binding */ POFS_ADJECTIVE),
+/* harmony export */   "POFS_ADVERB": () => (/* binding */ POFS_ADVERB),
+/* harmony export */   "POFS_ADVERBIAL": () => (/* binding */ POFS_ADVERBIAL),
+/* harmony export */   "POFS_ARTICLE": () => (/* binding */ POFS_ARTICLE),
+/* harmony export */   "POFS_CONJUNCTION": () => (/* binding */ POFS_CONJUNCTION),
+/* harmony export */   "POFS_EXCLAMATION": () => (/* binding */ POFS_EXCLAMATION),
+/* harmony export */   "POFS_INTERJECTION": () => (/* binding */ POFS_INTERJECTION),
+/* harmony export */   "POFS_NOUN": () => (/* binding */ POFS_NOUN),
+/* harmony export */   "POFS_NOUN_PROPER": () => (/* binding */ POFS_NOUN_PROPER),
+/* harmony export */   "POFS_NUMERAL": () => (/* binding */ POFS_NUMERAL),
+/* harmony export */   "POFS_PARTICLE": () => (/* binding */ POFS_PARTICLE),
+/* harmony export */   "POFS_PREFIX": () => (/* binding */ POFS_PREFIX),
+/* harmony export */   "POFS_PREPOSITION": () => (/* binding */ POFS_PREPOSITION),
+/* harmony export */   "POFS_PRONOUN": () => (/* binding */ POFS_PRONOUN),
+/* harmony export */   "POFS_SUFFIX": () => (/* binding */ POFS_SUFFIX),
+/* harmony export */   "POFS_GERUNDIVE": () => (/* binding */ POFS_GERUNDIVE),
+/* harmony export */   "POFS_SUPINE": () => (/* binding */ POFS_SUPINE),
+/* harmony export */   "POFS_VERB": () => (/* binding */ POFS_VERB),
+/* harmony export */   "POFS_VERB_PARTICIPLE": () => (/* binding */ POFS_VERB_PARTICIPLE),
+/* harmony export */   "POFS_DENOMINATIVE": () => (/* binding */ POFS_DENOMINATIVE),
+/* harmony export */   "GEND_MASCULINE": () => (/* binding */ GEND_MASCULINE),
+/* harmony export */   "GEND_FEMININE": () => (/* binding */ GEND_FEMININE),
+/* harmony export */   "GEND_NEUTER": () => (/* binding */ GEND_NEUTER),
+/* harmony export */   "GEND_COMMON": () => (/* binding */ GEND_COMMON),
+/* harmony export */   "GEND_ANIMATE": () => (/* binding */ GEND_ANIMATE),
+/* harmony export */   "GEND_INANIMATE": () => (/* binding */ GEND_INANIMATE),
+/* harmony export */   "GEND_PERSONAL_MASCULINE": () => (/* binding */ GEND_PERSONAL_MASCULINE),
+/* harmony export */   "GEND_ANIMATE_MASCULINE": () => (/* binding */ GEND_ANIMATE_MASCULINE),
+/* harmony export */   "GEND_INANIMATE_MASCULINE": () => (/* binding */ GEND_INANIMATE_MASCULINE),
+/* harmony export */   "COMP_POSITIVE": () => (/* binding */ COMP_POSITIVE),
+/* harmony export */   "COMP_COMPARITIVE": () => (/* binding */ COMP_COMPARITIVE),
+/* harmony export */   "COMP_SUPERLATIVE": () => (/* binding */ COMP_SUPERLATIVE),
+/* harmony export */   "CASE_ABESSIVE": () => (/* binding */ CASE_ABESSIVE),
+/* harmony export */   "CASE_ABLATIVE": () => (/* binding */ CASE_ABLATIVE),
+/* harmony export */   "CASE_ABSOLUTIVE": () => (/* binding */ CASE_ABSOLUTIVE),
+/* harmony export */   "CASE_ACCUSATIVE": () => (/* binding */ CASE_ACCUSATIVE),
+/* harmony export */   "CASE_ADDIRECTIVE": () => (/* binding */ CASE_ADDIRECTIVE),
+/* harmony export */   "CASE_ADELATIVE": () => (/* binding */ CASE_ADELATIVE),
+/* harmony export */   "CASE_ADESSIVE": () => (/* binding */ CASE_ADESSIVE),
+/* harmony export */   "CASE_ADVERBIAL": () => (/* binding */ CASE_ADVERBIAL),
+/* harmony export */   "CASE_ALLATIVE": () => (/* binding */ CASE_ALLATIVE),
+/* harmony export */   "CASE_ANTESSIVE": () => (/* binding */ CASE_ANTESSIVE),
+/* harmony export */   "CASE_APUDESSIVE": () => (/* binding */ CASE_APUDESSIVE),
+/* harmony export */   "CASE_AVERSIVE": () => (/* binding */ CASE_AVERSIVE),
+/* harmony export */   "CASE_BENEFACTIVE": () => (/* binding */ CASE_BENEFACTIVE),
+/* harmony export */   "CASE_CARITIVE": () => (/* binding */ CASE_CARITIVE),
+/* harmony export */   "CASE_CAUSAL": () => (/* binding */ CASE_CAUSAL),
+/* harmony export */   "CASE_CAUSAL_FINAL": () => (/* binding */ CASE_CAUSAL_FINAL),
+/* harmony export */   "CASE_COMITATIVE": () => (/* binding */ CASE_COMITATIVE),
+/* harmony export */   "CASE_DATIVE": () => (/* binding */ CASE_DATIVE),
+/* harmony export */   "CASE_DELATIVE": () => (/* binding */ CASE_DELATIVE),
+/* harmony export */   "CASE_DIRECT": () => (/* binding */ CASE_DIRECT),
+/* harmony export */   "CASE_DISTRIBUTIVE": () => (/* binding */ CASE_DISTRIBUTIVE),
+/* harmony export */   "CASE_DISTRIBUTIVE_TEMPORAL": () => (/* binding */ CASE_DISTRIBUTIVE_TEMPORAL),
+/* harmony export */   "CASE_ELATIVE": () => (/* binding */ CASE_ELATIVE),
+/* harmony export */   "CASE_ERGATIVE": () => (/* binding */ CASE_ERGATIVE),
+/* harmony export */   "CASE_ESSIVE": () => (/* binding */ CASE_ESSIVE),
+/* harmony export */   "CASE_ESSIVE_FORMAL": () => (/* binding */ CASE_ESSIVE_FORMAL),
+/* harmony export */   "CASE_ESSIVE_MODAL": () => (/* binding */ CASE_ESSIVE_MODAL),
+/* harmony export */   "CASE_EQUATIVE": () => (/* binding */ CASE_EQUATIVE),
+/* harmony export */   "CASE_EVITATIVE": () => (/* binding */ CASE_EVITATIVE),
+/* harmony export */   "CASE_EXESSIVE": () => (/* binding */ CASE_EXESSIVE),
+/* harmony export */   "CASE_FINAL": () => (/* binding */ CASE_FINAL),
+/* harmony export */   "CASE_FORMAL": () => (/* binding */ CASE_FORMAL),
+/* harmony export */   "CASE_GENITIVE": () => (/* binding */ CASE_GENITIVE),
+/* harmony export */   "CASE_ILLATIVE": () => (/* binding */ CASE_ILLATIVE),
+/* harmony export */   "CASE_INELATIVE": () => (/* binding */ CASE_INELATIVE),
+/* harmony export */   "CASE_INESSIVE": () => (/* binding */ CASE_INESSIVE),
+/* harmony export */   "CASE_INSTRUCTIVE": () => (/* binding */ CASE_INSTRUCTIVE),
+/* harmony export */   "CASE_INSTRUMENTAL": () => (/* binding */ CASE_INSTRUMENTAL),
+/* harmony export */   "CASE_INSTRUMENTAL_COMITATIVE": () => (/* binding */ CASE_INSTRUMENTAL_COMITATIVE),
+/* harmony export */   "CASE_INTRANSITIVE": () => (/* binding */ CASE_INTRANSITIVE),
+/* harmony export */   "CASE_LATIVE": () => (/* binding */ CASE_LATIVE),
+/* harmony export */   "CASE_LOCATIVE": () => (/* binding */ CASE_LOCATIVE),
+/* harmony export */   "CASE_MODAL": () => (/* binding */ CASE_MODAL),
+/* harmony export */   "CASE_MULTIPLICATIVE": () => (/* binding */ CASE_MULTIPLICATIVE),
+/* harmony export */   "CASE_NOMINATIVE": () => (/* binding */ CASE_NOMINATIVE),
+/* harmony export */   "CASE_PARTITIVE": () => (/* binding */ CASE_PARTITIVE),
+/* harmony export */   "CASE_PEGATIVE": () => (/* binding */ CASE_PEGATIVE),
+/* harmony export */   "CASE_PERLATIVE": () => (/* binding */ CASE_PERLATIVE),
+/* harmony export */   "CASE_POSSESSIVE": () => (/* binding */ CASE_POSSESSIVE),
+/* harmony export */   "CASE_POSTELATIVE": () => (/* binding */ CASE_POSTELATIVE),
+/* harmony export */   "CASE_POSTDIRECTIVE": () => (/* binding */ CASE_POSTDIRECTIVE),
+/* harmony export */   "CASE_POSTESSIVE": () => (/* binding */ CASE_POSTESSIVE),
+/* harmony export */   "CASE_POSTPOSITIONAL": () => (/* binding */ CASE_POSTPOSITIONAL),
+/* harmony export */   "CASE_PREPOSITIONAL": () => (/* binding */ CASE_PREPOSITIONAL),
+/* harmony export */   "CASE_PRIVATIVE": () => (/* binding */ CASE_PRIVATIVE),
+/* harmony export */   "CASE_PROLATIVE": () => (/* binding */ CASE_PROLATIVE),
+/* harmony export */   "CASE_PROSECUTIVE": () => (/* binding */ CASE_PROSECUTIVE),
+/* harmony export */   "CASE_PROXIMATIVE": () => (/* binding */ CASE_PROXIMATIVE),
+/* harmony export */   "CASE_SEPARATIVE": () => (/* binding */ CASE_SEPARATIVE),
+/* harmony export */   "CASE_SOCIATIVE": () => (/* binding */ CASE_SOCIATIVE),
+/* harmony export */   "CASE_SUBDIRECTIVE": () => (/* binding */ CASE_SUBDIRECTIVE),
+/* harmony export */   "CASE_SUBESSIVE": () => (/* binding */ CASE_SUBESSIVE),
+/* harmony export */   "CASE_SUBELATIVE": () => (/* binding */ CASE_SUBELATIVE),
+/* harmony export */   "CASE_SUBLATIVE": () => (/* binding */ CASE_SUBLATIVE),
+/* harmony export */   "CASE_SUPERDIRECTIVE": () => (/* binding */ CASE_SUPERDIRECTIVE),
+/* harmony export */   "CASE_SUPERESSIVE": () => (/* binding */ CASE_SUPERESSIVE),
+/* harmony export */   "CASE_SUPERLATIVE": () => (/* binding */ CASE_SUPERLATIVE),
+/* harmony export */   "CASE_SUPPRESSIVE": () => (/* binding */ CASE_SUPPRESSIVE),
+/* harmony export */   "CASE_TEMPORAL": () => (/* binding */ CASE_TEMPORAL),
+/* harmony export */   "CASE_TERMINATIVE": () => (/* binding */ CASE_TERMINATIVE),
+/* harmony export */   "CASE_TRANSLATIVE": () => (/* binding */ CASE_TRANSLATIVE),
+/* harmony export */   "CASE_VIALIS": () => (/* binding */ CASE_VIALIS),
+/* harmony export */   "CASE_VOCATIVE": () => (/* binding */ CASE_VOCATIVE),
+/* harmony export */   "MOOD_ADMIRATIVE": () => (/* binding */ MOOD_ADMIRATIVE),
+/* harmony export */   "MOOD_COHORTATIVE": () => (/* binding */ MOOD_COHORTATIVE),
+/* harmony export */   "MOOD_CONDITIONAL": () => (/* binding */ MOOD_CONDITIONAL),
+/* harmony export */   "MOOD_DECLARATIVE": () => (/* binding */ MOOD_DECLARATIVE),
+/* harmony export */   "MOOD_DUBITATIVE": () => (/* binding */ MOOD_DUBITATIVE),
+/* harmony export */   "MOOD_ENERGETIC": () => (/* binding */ MOOD_ENERGETIC),
+/* harmony export */   "MOOD_EVENTIVE": () => (/* binding */ MOOD_EVENTIVE),
+/* harmony export */   "MOOD_GENERIC": () => (/* binding */ MOOD_GENERIC),
+/* harmony export */   "MOOD_GERUNDIVE": () => (/* binding */ MOOD_GERUNDIVE),
+/* harmony export */   "MOOD_HYPOTHETICAL": () => (/* binding */ MOOD_HYPOTHETICAL),
+/* harmony export */   "MOOD_IMPERATIVE": () => (/* binding */ MOOD_IMPERATIVE),
+/* harmony export */   "MOOD_INDICATIVE": () => (/* binding */ MOOD_INDICATIVE),
+/* harmony export */   "MOOD_INFERENTIAL": () => (/* binding */ MOOD_INFERENTIAL),
+/* harmony export */   "MOOD_INFINITIVE": () => (/* binding */ MOOD_INFINITIVE),
+/* harmony export */   "MOOD_INTERROGATIVE": () => (/* binding */ MOOD_INTERROGATIVE),
+/* harmony export */   "MOOD_JUSSIVE": () => (/* binding */ MOOD_JUSSIVE),
+/* harmony export */   "MOOD_NEGATIVE": () => (/* binding */ MOOD_NEGATIVE),
+/* harmony export */   "MOOD_OPTATIVE": () => (/* binding */ MOOD_OPTATIVE),
+/* harmony export */   "MOOD_PARTICIPLE": () => (/* binding */ MOOD_PARTICIPLE),
+/* harmony export */   "MOOD_PRESUMPTIVE": () => (/* binding */ MOOD_PRESUMPTIVE),
+/* harmony export */   "MOOD_RENARRATIVE": () => (/* binding */ MOOD_RENARRATIVE),
+/* harmony export */   "MOOD_SUBJUNCTIVE": () => (/* binding */ MOOD_SUBJUNCTIVE),
+/* harmony export */   "MOOD_SUPINE": () => (/* binding */ MOOD_SUPINE),
+/* harmony export */   "NUM_SINGULAR": () => (/* binding */ NUM_SINGULAR),
+/* harmony export */   "NUM_PLURAL": () => (/* binding */ NUM_PLURAL),
+/* harmony export */   "NUM_DUAL": () => (/* binding */ NUM_DUAL),
+/* harmony export */   "NUM_TRIAL": () => (/* binding */ NUM_TRIAL),
+/* harmony export */   "NUM_PAUCAL": () => (/* binding */ NUM_PAUCAL),
+/* harmony export */   "NUM_SINGULATIVE": () => (/* binding */ NUM_SINGULATIVE),
+/* harmony export */   "NUM_COLLECTIVE": () => (/* binding */ NUM_COLLECTIVE),
+/* harmony export */   "NUM_DISTRIBUTIVE_PLURAL": () => (/* binding */ NUM_DISTRIBUTIVE_PLURAL),
+/* harmony export */   "NRL_CARDINAL": () => (/* binding */ NRL_CARDINAL),
+/* harmony export */   "NRL_ORDINAL": () => (/* binding */ NRL_ORDINAL),
+/* harmony export */   "NRL_DISTRIBUTIVE": () => (/* binding */ NRL_DISTRIBUTIVE),
+/* harmony export */   "NURL_NUMERAL_ADVERB": () => (/* binding */ NURL_NUMERAL_ADVERB),
+/* harmony export */   "ORD_1ST": () => (/* binding */ ORD_1ST),
+/* harmony export */   "ORD_2ND": () => (/* binding */ ORD_2ND),
+/* harmony export */   "ORD_3RD": () => (/* binding */ ORD_3RD),
+/* harmony export */   "ORD_4TH": () => (/* binding */ ORD_4TH),
+/* harmony export */   "ORD_5TH": () => (/* binding */ ORD_5TH),
+/* harmony export */   "ORD_6TH": () => (/* binding */ ORD_6TH),
+/* harmony export */   "ORD_7TH": () => (/* binding */ ORD_7TH),
+/* harmony export */   "ORD_8TH": () => (/* binding */ ORD_8TH),
+/* harmony export */   "ORD_9TH": () => (/* binding */ ORD_9TH),
+/* harmony export */   "TENSE_AORIST": () => (/* binding */ TENSE_AORIST),
+/* harmony export */   "TENSE_FUTURE": () => (/* binding */ TENSE_FUTURE),
+/* harmony export */   "TENSE_FUTURE_PERFECT": () => (/* binding */ TENSE_FUTURE_PERFECT),
+/* harmony export */   "TENSE_IMPERFECT": () => (/* binding */ TENSE_IMPERFECT),
+/* harmony export */   "TENSE_PAST_ABSOLUTE": () => (/* binding */ TENSE_PAST_ABSOLUTE),
+/* harmony export */   "TENSE_PERFECT": () => (/* binding */ TENSE_PERFECT),
+/* harmony export */   "TENSE_PLUPERFECT": () => (/* binding */ TENSE_PLUPERFECT),
+/* harmony export */   "TENSE_PRESENT": () => (/* binding */ TENSE_PRESENT),
+/* harmony export */   "VKIND_TO_BE": () => (/* binding */ VKIND_TO_BE),
+/* harmony export */   "VKIND_COMPOUNDS_OF_TO_BE": () => (/* binding */ VKIND_COMPOUNDS_OF_TO_BE),
+/* harmony export */   "VKIND_TAKING_ABLATIVE": () => (/* binding */ VKIND_TAKING_ABLATIVE),
+/* harmony export */   "VKIND_TAKING_DATIVE": () => (/* binding */ VKIND_TAKING_DATIVE),
+/* harmony export */   "VKIND_TAKING_GENITIVE": () => (/* binding */ VKIND_TAKING_GENITIVE),
+/* harmony export */   "VKIND_TRANSITIVE": () => (/* binding */ VKIND_TRANSITIVE),
+/* harmony export */   "VKIND_INTRANSITIVE": () => (/* binding */ VKIND_INTRANSITIVE),
+/* harmony export */   "VKIND_IMPERSONAL": () => (/* binding */ VKIND_IMPERSONAL),
+/* harmony export */   "VKIND_DEPONENT": () => (/* binding */ VKIND_DEPONENT),
+/* harmony export */   "VKIND_SEMIDEPONENT": () => (/* binding */ VKIND_SEMIDEPONENT),
+/* harmony export */   "VKIND_PERFECT_DEFINITE": () => (/* binding */ VKIND_PERFECT_DEFINITE),
+/* harmony export */   "VOICE_ACTIVE": () => (/* binding */ VOICE_ACTIVE),
+/* harmony export */   "VOICE_PASSIVE": () => (/* binding */ VOICE_PASSIVE),
+/* harmony export */   "VOICE_MEDIOPASSIVE": () => (/* binding */ VOICE_MEDIOPASSIVE),
+/* harmony export */   "VOICE_IMPERSONAL_PASSIVE": () => (/* binding */ VOICE_IMPERSONAL_PASSIVE),
+/* harmony export */   "VOICE_MIDDLE": () => (/* binding */ VOICE_MIDDLE),
+/* harmony export */   "VOICE_ANTIPASSIVE": () => (/* binding */ VOICE_ANTIPASSIVE),
+/* harmony export */   "VOICE_REFLEXIVE": () => (/* binding */ VOICE_REFLEXIVE),
+/* harmony export */   "VOICE_RECIPROCAL": () => (/* binding */ VOICE_RECIPROCAL),
+/* harmony export */   "VOICE_CAUSATIVE": () => (/* binding */ VOICE_CAUSATIVE),
+/* harmony export */   "VOICE_ADJUTATIVE": () => (/* binding */ VOICE_ADJUTATIVE),
+/* harmony export */   "VOICE_APPLICATIVE": () => (/* binding */ VOICE_APPLICATIVE),
+/* harmony export */   "VOICE_CIRCUMSTANTIAL": () => (/* binding */ VOICE_CIRCUMSTANTIAL),
+/* harmony export */   "VOICE_DEPONENT": () => (/* binding */ VOICE_DEPONENT),
+/* harmony export */   "TYPE_IRREGULAR": () => (/* binding */ TYPE_IRREGULAR),
+/* harmony export */   "TYPE_REGULAR": () => (/* binding */ TYPE_REGULAR),
+/* harmony export */   "CLASS_PERSONAL": () => (/* binding */ CLASS_PERSONAL),
+/* harmony export */   "CLASS_REFLEXIVE": () => (/* binding */ CLASS_REFLEXIVE),
+/* harmony export */   "CLASS_POSSESSIVE": () => (/* binding */ CLASS_POSSESSIVE),
+/* harmony export */   "CLASS_DEMONSTRATIVE": () => (/* binding */ CLASS_DEMONSTRATIVE),
+/* harmony export */   "CLASS_RELATIVE": () => (/* binding */ CLASS_RELATIVE),
+/* harmony export */   "CLASS_INTERROGATIVE": () => (/* binding */ CLASS_INTERROGATIVE),
+/* harmony export */   "CLASS_GENERAL_RELATIVE": () => (/* binding */ CLASS_GENERAL_RELATIVE),
+/* harmony export */   "CLASS_INDEFINITE": () => (/* binding */ CLASS_INDEFINITE),
+/* harmony export */   "CLASS_INTENSIVE": () => (/* binding */ CLASS_INTENSIVE),
+/* harmony export */   "CLASS_RECIPROCAL": () => (/* binding */ CLASS_RECIPROCAL),
+/* harmony export */   "PARADIGM_CAT_KAYLO": () => (/* binding */ PARADIGM_CAT_KAYLO),
+/* harmony export */   "PARADIGM_CAT_STATE": () => (/* binding */ PARADIGM_CAT_STATE)
 /* harmony export */ });
 /* eslint-disable no-unused-vars */
 const LANG_UNIT_WORD = Symbol('word')
@@ -9337,18 +9702,18 @@ const PARADIGM_CAT_STATE = 'state'
 /***/ }),
 
 /***/ "./definition-set.js":
-/*!***************************!*
+/*!***************************!*\
   !*** ./definition-set.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_99989__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_101285__) => {
 
 "use strict";
-__nested_webpack_require_99989__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_99989__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ DefinitionSet
+__nested_webpack_require_101285__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_101285__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DefinitionSet)
 /* harmony export */ });
-/* harmony import */ var _definition__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_99989__(/*! ./definition */ "./definition.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_99989__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _definition__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_101285__(/*! ./definition */ "./definition.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_101285__(/*! ./language_model_factory.js */ "./language_model_factory.js");
 
 
 
@@ -9468,19 +9833,19 @@ class DefinitionSet {
 /***/ }),
 
 /***/ "./definition.js":
-/*!***********************!*
+/*!***********************!*\
   !*** ./definition.js ***!
   \***********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_104100__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_105399__) => {
 
 "use strict";
-__nested_webpack_require_104100__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_104100__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_105399__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_105399__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_104100__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_104100__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_104100__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_105399__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_105399__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_105399__(/*! ./resource_provider.js */ "./resource_provider.js");
 
 
 
@@ -9532,17 +9897,17 @@ class Definition {
 /***/ }),
 
 /***/ "./digest.js":
-/*!*******************!*
+/*!*******************!*\
   !*** ./digest.js ***!
   \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_106158__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_107460__) => {
 
 "use strict";
-__nested_webpack_require_106158__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_106158__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Digest
+__nested_webpack_require_107460__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_107460__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Digest)
 /* harmony export */ });
-/* harmony import */ var _sha1_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_106158__(/*! ./sha1.js */ "./sha1.js");
+/* harmony import */ var _sha1_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_107460__(/*! ./sha1.js */ "./sha1.js");
 
 
 /**
@@ -9578,97 +9943,101 @@ class Digest {
 /***/ }),
 
 /***/ "./driver.js":
-/*!*******************!*
+/*!*******************!*\
   !*** ./driver.js ***!
   \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_107658__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_108963__) => {
 
 "use strict";
-__nested_webpack_require_107658__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_107658__.d(__webpack_exports__, {
-/* harmony export */   "Constants": () => /* reexport module object */ _constants_js__WEBPACK_IMPORTED_MODULE_0__,
-/* harmony export */   "Definition": () => /* reexport safe */ _definition_js__WEBPACK_IMPORTED_MODULE_1__.default,
-/* harmony export */   "DefinitionSet": () => /* reexport safe */ _definition_set__WEBPACK_IMPORTED_MODULE_2__.default,
-/* harmony export */   "Feature": () => /* reexport safe */ _feature_js__WEBPACK_IMPORTED_MODULE_3__.default,
-/* harmony export */   "GrmFeature": () => /* reexport safe */ _grm_feature_js__WEBPACK_IMPORTED_MODULE_4__.default,
-/* harmony export */   "FeatureType": () => /* reexport safe */ _feature_type_js__WEBPACK_IMPORTED_MODULE_5__.default,
-/* harmony export */   "FeatureList": () => /* reexport safe */ _feature_list_js__WEBPACK_IMPORTED_MODULE_6__.default,
-/* harmony export */   "FeatureImporter": () => /* reexport safe */ _feature_importer_js__WEBPACK_IMPORTED_MODULE_7__.default,
-/* harmony export */   "Inflection": () => /* reexport safe */ _inflection_js__WEBPACK_IMPORTED_MODULE_13__.default,
-/* harmony export */   "LanguageModelFactory": () => /* reexport safe */ _language_model_factory_js__WEBPACK_IMPORTED_MODULE_8__.default,
-/* harmony export */   "HomonymGroup": () => /* reexport safe */ _homonym_group_js__WEBPACK_IMPORTED_MODULE_9__.default,
-/* harmony export */   "Homonym": () => /* reexport safe */ _homonym_js__WEBPACK_IMPORTED_MODULE_10__.default,
-/* harmony export */   "Lexeme": () => /* reexport safe */ _lexeme_js__WEBPACK_IMPORTED_MODULE_11__.default,
-/* harmony export */   "Lemma": () => /* reexport safe */ _lemma_js__WEBPACK_IMPORTED_MODULE_12__.default,
-/* harmony export */   "Language": () => /* reexport safe */ _language_js__WEBPACK_IMPORTED_MODULE_14__.default,
-/* harmony export */   "LatinLanguageModel": () => /* reexport safe */ _latin_language_model_js__WEBPACK_IMPORTED_MODULE_15__.default,
-/* harmony export */   "GreekLanguageModel": () => /* reexport safe */ _greek_language_model_js__WEBPACK_IMPORTED_MODULE_16__.default,
-/* harmony export */   "ArabicLanguageModel": () => /* reexport safe */ _arabic_language_model_js__WEBPACK_IMPORTED_MODULE_17__.default,
-/* harmony export */   "PersianLanguageModel": () => /* reexport safe */ _persian_language_model_js__WEBPACK_IMPORTED_MODULE_18__.default,
-/* harmony export */   "GeezLanguageModel": () => /* reexport safe */ _geez_language_model_js__WEBPACK_IMPORTED_MODULE_19__.default,
-/* harmony export */   "ChineseLanguageModel": () => /* reexport safe */ _chinese_language_model_js__WEBPACK_IMPORTED_MODULE_20__.default,
-/* harmony export */   "SyriacLanguageModel": () => /* reexport safe */ _syriac_language_model_js__WEBPACK_IMPORTED_MODULE_21__.default,
-/* harmony export */   "ResourceProvider": () => /* reexport safe */ _resource_provider_js__WEBPACK_IMPORTED_MODULE_22__.default,
-/* harmony export */   "Translation": () => /* reexport safe */ _translation_js__WEBPACK_IMPORTED_MODULE_25__.default,
-/* harmony export */   "PsEvent": () => /* reexport safe */ _ps_events_ps_event_js__WEBPACK_IMPORTED_MODULE_23__.default,
-/* harmony export */   "PsEventData": () => /* reexport safe */ _ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_24__.default,
-/* harmony export */   "TextQuoteSelector": () => /* reexport safe */ _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_26__.default,
-/* harmony export */   "WordUsageExample": () => /* reexport safe */ _texts_word_usage_example_js__WEBPACK_IMPORTED_MODULE_27__.default,
-/* harmony export */   "Author": () => /* reexport safe */ _texts_author_js__WEBPACK_IMPORTED_MODULE_28__.default,
-/* harmony export */   "TextWork": () => /* reexport safe */ _texts_text_work_js__WEBPACK_IMPORTED_MODULE_29__.default,
-/* harmony export */   "WordItem": () => /* reexport safe */ _word_item_js__WEBPACK_IMPORTED_MODULE_30__.default,
-/* harmony export */   "WordList": () => /* reexport safe */ _word_list_js__WEBPACK_IMPORTED_MODULE_31__.default,
-/* harmony export */   "TreebankDataItem": () => /* reexport safe */ _treebank_data_item_js__WEBPACK_IMPORTED_MODULE_32__.default,
-/* harmony export */   "Logger": () => /* reexport safe */ _logging_logger_js__WEBPACK_IMPORTED_MODULE_33__.default,
-/* harmony export */   "Digest": () => /* reexport safe */ _digest_js__WEBPACK_IMPORTED_MODULE_34__.default,
-/* harmony export */   "Options": () => /* reexport safe */ _options_options_js__WEBPACK_IMPORTED_MODULE_35__.default,
-/* harmony export */   "DefaultsLoader": () => /* reexport safe */ _storages_defaults_loader_js__WEBPACK_IMPORTED_MODULE_36__.default,
-/* harmony export */   "ExtensionSyncStorage": () => /* reexport safe */ _storages_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_37__.default,
-/* harmony export */   "LocalStorageArea": () => /* reexport safe */ _storages_local_storage_area_js__WEBPACK_IMPORTED_MODULE_38__.default,
-/* harmony export */   "RemoteAuthStorageArea": () => /* reexport safe */ _storages_remote_auth_storage_area_js__WEBPACK_IMPORTED_MODULE_39__.default,
-/* harmony export */   "TempStorageArea": () => /* reexport safe */ _storages_temp_storage_area_js__WEBPACK_IMPORTED_MODULE_40__.default
+__nested_webpack_require_108963__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_108963__.d(__webpack_exports__, {
+/* harmony export */   "Constants": () => (/* reexport module object */ _constants_js__WEBPACK_IMPORTED_MODULE_0__),
+/* harmony export */   "Definition": () => (/* reexport safe */ _definition_js__WEBPACK_IMPORTED_MODULE_1__.default),
+/* harmony export */   "DefinitionSet": () => (/* reexport safe */ _definition_set__WEBPACK_IMPORTED_MODULE_2__.default),
+/* harmony export */   "Feature": () => (/* reexport safe */ _feature_js__WEBPACK_IMPORTED_MODULE_3__.default),
+/* harmony export */   "GrmFeature": () => (/* reexport safe */ _grm_feature_js__WEBPACK_IMPORTED_MODULE_4__.default),
+/* harmony export */   "FeatureType": () => (/* reexport safe */ _feature_type_js__WEBPACK_IMPORTED_MODULE_5__.default),
+/* harmony export */   "FeatureList": () => (/* reexport safe */ _feature_list_js__WEBPACK_IMPORTED_MODULE_6__.default),
+/* harmony export */   "FeatureImporter": () => (/* reexport safe */ _feature_importer_js__WEBPACK_IMPORTED_MODULE_7__.default),
+/* harmony export */   "Inflection": () => (/* reexport safe */ _inflection_js__WEBPACK_IMPORTED_MODULE_13__.default),
+/* harmony export */   "LanguageModelFactory": () => (/* reexport safe */ _language_model_factory_js__WEBPACK_IMPORTED_MODULE_8__.default),
+/* harmony export */   "HomonymGroup": () => (/* reexport safe */ _homonym_group_js__WEBPACK_IMPORTED_MODULE_9__.default),
+/* harmony export */   "Homonym": () => (/* reexport safe */ _homonym_js__WEBPACK_IMPORTED_MODULE_10__.default),
+/* harmony export */   "Lexeme": () => (/* reexport safe */ _lexeme_js__WEBPACK_IMPORTED_MODULE_11__.default),
+/* harmony export */   "Lemma": () => (/* reexport safe */ _lemma_js__WEBPACK_IMPORTED_MODULE_12__.default),
+/* harmony export */   "Language": () => (/* reexport safe */ _language_js__WEBPACK_IMPORTED_MODULE_14__.default),
+/* harmony export */   "LatinLanguageModel": () => (/* reexport safe */ _latin_language_model_js__WEBPACK_IMPORTED_MODULE_15__.default),
+/* harmony export */   "GreekLanguageModel": () => (/* reexport safe */ _greek_language_model_js__WEBPACK_IMPORTED_MODULE_16__.default),
+/* harmony export */   "ArabicLanguageModel": () => (/* reexport safe */ _arabic_language_model_js__WEBPACK_IMPORTED_MODULE_17__.default),
+/* harmony export */   "PersianLanguageModel": () => (/* reexport safe */ _persian_language_model_js__WEBPACK_IMPORTED_MODULE_18__.default),
+/* harmony export */   "GeezLanguageModel": () => (/* reexport safe */ _geez_language_model_js__WEBPACK_IMPORTED_MODULE_19__.default),
+/* harmony export */   "ChineseLanguageModel": () => (/* reexport safe */ _chinese_language_model_js__WEBPACK_IMPORTED_MODULE_20__.default),
+/* harmony export */   "SyriacLanguageModel": () => (/* reexport safe */ _syriac_language_model_js__WEBPACK_IMPORTED_MODULE_21__.default),
+/* harmony export */   "ResourceProvider": () => (/* reexport safe */ _resource_provider_js__WEBPACK_IMPORTED_MODULE_22__.default),
+/* harmony export */   "Translation": () => (/* reexport safe */ _translation_js__WEBPACK_IMPORTED_MODULE_25__.default),
+/* harmony export */   "PsEvent": () => (/* reexport safe */ _ps_events_ps_event_js__WEBPACK_IMPORTED_MODULE_23__.default),
+/* harmony export */   "PsEventData": () => (/* reexport safe */ _ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_24__.default),
+/* harmony export */   "TextQuoteSelector": () => (/* reexport safe */ _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_26__.default),
+/* harmony export */   "WordUsageExample": () => (/* reexport safe */ _texts_word_usage_example_js__WEBPACK_IMPORTED_MODULE_27__.default),
+/* harmony export */   "Author": () => (/* reexport safe */ _texts_author_js__WEBPACK_IMPORTED_MODULE_28__.default),
+/* harmony export */   "TextWork": () => (/* reexport safe */ _texts_text_work_js__WEBPACK_IMPORTED_MODULE_29__.default),
+/* harmony export */   "WordItem": () => (/* reexport safe */ _word_item_js__WEBPACK_IMPORTED_MODULE_30__.default),
+/* harmony export */   "WordList": () => (/* reexport safe */ _word_list_js__WEBPACK_IMPORTED_MODULE_31__.default),
+/* harmony export */   "TreebankDataItem": () => (/* reexport safe */ _treebank_data_item_js__WEBPACK_IMPORTED_MODULE_32__.default),
+/* harmony export */   "Logger": () => (/* reexport safe */ _logging_logger_js__WEBPACK_IMPORTED_MODULE_33__.default),
+/* harmony export */   "Digest": () => (/* reexport safe */ _digest_js__WEBPACK_IMPORTED_MODULE_34__.default),
+/* harmony export */   "Options": () => (/* reexport safe */ _options_options_js__WEBPACK_IMPORTED_MODULE_35__.default),
+/* harmony export */   "DefaultsLoader": () => (/* reexport safe */ _storages_defaults_loader_js__WEBPACK_IMPORTED_MODULE_36__.default),
+/* harmony export */   "ExtensionSyncStorage": () => (/* reexport safe */ _storages_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_37__.default),
+/* harmony export */   "LocalStorageArea": () => (/* reexport safe */ _storages_local_storage_area_js__WEBPACK_IMPORTED_MODULE_38__.default),
+/* harmony export */   "RemoteAuthStorageArea": () => (/* reexport safe */ _storages_remote_auth_storage_area_js__WEBPACK_IMPORTED_MODULE_39__.default),
+/* harmony export */   "TempStorageArea": () => (/* reexport safe */ _storages_temp_storage_area_js__WEBPACK_IMPORTED_MODULE_40__.default),
+/* harmony export */   "Collection": () => (/* reexport safe */ _dts_collection_js__WEBPACK_IMPORTED_MODULE_41__.default),
+/* harmony export */   "Resource": () => (/* reexport safe */ _dts_resource_js__WEBPACK_IMPORTED_MODULE_42__.default)
 /* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_107658__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _definition_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_107658__(/*! ./definition.js */ "./definition.js");
-/* harmony import */ var _definition_set__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_107658__(/*! ./definition-set */ "./definition-set.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_107658__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _grm_feature_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_107658__(/*! ./grm-feature.js */ "./grm-feature.js");
-/* harmony import */ var _feature_type_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_107658__(/*! ./feature_type.js */ "./feature_type.js");
-/* harmony import */ var _feature_list_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_107658__(/*! ./feature_list.js */ "./feature_list.js");
-/* harmony import */ var _feature_importer_js__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_107658__(/*! ./feature_importer.js */ "./feature_importer.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_107658__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _homonym_group_js__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_107658__(/*! ./homonym-group.js */ "./homonym-group.js");
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_107658__(/*! ./homonym.js */ "./homonym.js");
-/* harmony import */ var _lexeme_js__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_107658__(/*! ./lexeme.js */ "./lexeme.js");
-/* harmony import */ var _lemma_js__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_107658__(/*! ./lemma.js */ "./lemma.js");
-/* harmony import */ var _inflection_js__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_107658__(/*! ./inflection.js */ "./inflection.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_107658__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _latin_language_model_js__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_107658__(/*! ./latin_language_model.js */ "./latin_language_model.js");
-/* harmony import */ var _greek_language_model_js__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_107658__(/*! ./greek_language_model.js */ "./greek_language_model.js");
-/* harmony import */ var _arabic_language_model_js__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_107658__(/*! ./arabic_language_model.js */ "./arabic_language_model.js");
-/* harmony import */ var _persian_language_model_js__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_107658__(/*! ./persian_language_model.js */ "./persian_language_model.js");
-/* harmony import */ var _geez_language_model_js__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_107658__(/*! ./geez_language_model.js */ "./geez_language_model.js");
-/* harmony import */ var _chinese_language_model_js__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_107658__(/*! ./chinese_language_model.js */ "./chinese_language_model.js");
-/* harmony import */ var _syriac_language_model_js__WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_107658__(/*! ./syriac_language_model.js */ "./syriac_language_model.js");
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_22__ = __nested_webpack_require_107658__(/*! ./resource_provider.js */ "./resource_provider.js");
-/* harmony import */ var _ps_events_ps_event_js__WEBPACK_IMPORTED_MODULE_23__ = __nested_webpack_require_107658__(/*! ./ps-events/ps-event.js */ "./ps-events/ps-event.js");
-/* harmony import */ var _ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_24__ = __nested_webpack_require_107658__(/*! ./ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
-/* harmony import */ var _translation_js__WEBPACK_IMPORTED_MODULE_25__ = __nested_webpack_require_107658__(/*! ./translation.js */ "./translation.js");
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_26__ = __nested_webpack_require_107658__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
-/* harmony import */ var _texts_word_usage_example_js__WEBPACK_IMPORTED_MODULE_27__ = __nested_webpack_require_107658__(/*! ./texts/word-usage-example.js */ "./texts/word-usage-example.js");
-/* harmony import */ var _texts_author_js__WEBPACK_IMPORTED_MODULE_28__ = __nested_webpack_require_107658__(/*! ./texts/author.js */ "./texts/author.js");
-/* harmony import */ var _texts_text_work_js__WEBPACK_IMPORTED_MODULE_29__ = __nested_webpack_require_107658__(/*! ./texts/text-work.js */ "./texts/text-work.js");
-/* harmony import */ var _word_item_js__WEBPACK_IMPORTED_MODULE_30__ = __nested_webpack_require_107658__(/*! ./word-item.js */ "./word-item.js");
-/* harmony import */ var _word_list_js__WEBPACK_IMPORTED_MODULE_31__ = __nested_webpack_require_107658__(/*! ./word-list.js */ "./word-list.js");
-/* harmony import */ var _treebank_data_item_js__WEBPACK_IMPORTED_MODULE_32__ = __nested_webpack_require_107658__(/*! ./treebank_data_item.js */ "./treebank_data_item.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_33__ = __nested_webpack_require_107658__(/*! ./logging/logger.js */ "./logging/logger.js");
-/* harmony import */ var _digest_js__WEBPACK_IMPORTED_MODULE_34__ = __nested_webpack_require_107658__(/*! ./digest.js */ "./digest.js");
-/* harmony import */ var _options_options_js__WEBPACK_IMPORTED_MODULE_35__ = __nested_webpack_require_107658__(/*! ./options/options.js */ "./options/options.js");
-/* harmony import */ var _storages_defaults_loader_js__WEBPACK_IMPORTED_MODULE_36__ = __nested_webpack_require_107658__(/*! ./storages/defaults-loader.js */ "./storages/defaults-loader.js");
-/* harmony import */ var _storages_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_37__ = __nested_webpack_require_107658__(/*! ./storages/extension-sync-storage.js */ "./storages/extension-sync-storage.js");
-/* harmony import */ var _storages_local_storage_area_js__WEBPACK_IMPORTED_MODULE_38__ = __nested_webpack_require_107658__(/*! ./storages/local-storage-area.js */ "./storages/local-storage-area.js");
-/* harmony import */ var _storages_remote_auth_storage_area_js__WEBPACK_IMPORTED_MODULE_39__ = __nested_webpack_require_107658__(/*! ./storages/remote-auth-storage-area.js */ "./storages/remote-auth-storage-area.js");
-/* harmony import */ var _storages_temp_storage_area_js__WEBPACK_IMPORTED_MODULE_40__ = __nested_webpack_require_107658__(/*! ./storages/temp-storage-area.js */ "./storages/temp-storage-area.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_108963__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _definition_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_108963__(/*! ./definition.js */ "./definition.js");
+/* harmony import */ var _definition_set__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_108963__(/*! ./definition-set */ "./definition-set.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_108963__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _grm_feature_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_108963__(/*! ./grm-feature.js */ "./grm-feature.js");
+/* harmony import */ var _feature_type_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_108963__(/*! ./feature_type.js */ "./feature_type.js");
+/* harmony import */ var _feature_list_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_108963__(/*! ./feature_list.js */ "./feature_list.js");
+/* harmony import */ var _feature_importer_js__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_108963__(/*! ./feature_importer.js */ "./feature_importer.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_108963__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _homonym_group_js__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_108963__(/*! ./homonym-group.js */ "./homonym-group.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_108963__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _lexeme_js__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_108963__(/*! ./lexeme.js */ "./lexeme.js");
+/* harmony import */ var _lemma_js__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_108963__(/*! ./lemma.js */ "./lemma.js");
+/* harmony import */ var _inflection_js__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_108963__(/*! ./inflection.js */ "./inflection.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_108963__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _latin_language_model_js__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_108963__(/*! ./latin_language_model.js */ "./latin_language_model.js");
+/* harmony import */ var _greek_language_model_js__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_108963__(/*! ./greek_language_model.js */ "./greek_language_model.js");
+/* harmony import */ var _arabic_language_model_js__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_108963__(/*! ./arabic_language_model.js */ "./arabic_language_model.js");
+/* harmony import */ var _persian_language_model_js__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_108963__(/*! ./persian_language_model.js */ "./persian_language_model.js");
+/* harmony import */ var _geez_language_model_js__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_108963__(/*! ./geez_language_model.js */ "./geez_language_model.js");
+/* harmony import */ var _chinese_language_model_js__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_108963__(/*! ./chinese_language_model.js */ "./chinese_language_model.js");
+/* harmony import */ var _syriac_language_model_js__WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_108963__(/*! ./syriac_language_model.js */ "./syriac_language_model.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_22__ = __nested_webpack_require_108963__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _ps_events_ps_event_js__WEBPACK_IMPORTED_MODULE_23__ = __nested_webpack_require_108963__(/*! ./ps-events/ps-event.js */ "./ps-events/ps-event.js");
+/* harmony import */ var _ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_24__ = __nested_webpack_require_108963__(/*! ./ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
+/* harmony import */ var _translation_js__WEBPACK_IMPORTED_MODULE_25__ = __nested_webpack_require_108963__(/*! ./translation.js */ "./translation.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_26__ = __nested_webpack_require_108963__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _texts_word_usage_example_js__WEBPACK_IMPORTED_MODULE_27__ = __nested_webpack_require_108963__(/*! ./texts/word-usage-example.js */ "./texts/word-usage-example.js");
+/* harmony import */ var _texts_author_js__WEBPACK_IMPORTED_MODULE_28__ = __nested_webpack_require_108963__(/*! ./texts/author.js */ "./texts/author.js");
+/* harmony import */ var _texts_text_work_js__WEBPACK_IMPORTED_MODULE_29__ = __nested_webpack_require_108963__(/*! ./texts/text-work.js */ "./texts/text-work.js");
+/* harmony import */ var _word_item_js__WEBPACK_IMPORTED_MODULE_30__ = __nested_webpack_require_108963__(/*! ./word-item.js */ "./word-item.js");
+/* harmony import */ var _word_list_js__WEBPACK_IMPORTED_MODULE_31__ = __nested_webpack_require_108963__(/*! ./word-list.js */ "./word-list.js");
+/* harmony import */ var _treebank_data_item_js__WEBPACK_IMPORTED_MODULE_32__ = __nested_webpack_require_108963__(/*! ./treebank_data_item.js */ "./treebank_data_item.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_33__ = __nested_webpack_require_108963__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _digest_js__WEBPACK_IMPORTED_MODULE_34__ = __nested_webpack_require_108963__(/*! ./digest.js */ "./digest.js");
+/* harmony import */ var _options_options_js__WEBPACK_IMPORTED_MODULE_35__ = __nested_webpack_require_108963__(/*! ./options/options.js */ "./options/options.js");
+/* harmony import */ var _storages_defaults_loader_js__WEBPACK_IMPORTED_MODULE_36__ = __nested_webpack_require_108963__(/*! ./storages/defaults-loader.js */ "./storages/defaults-loader.js");
+/* harmony import */ var _storages_extension_sync_storage_js__WEBPACK_IMPORTED_MODULE_37__ = __nested_webpack_require_108963__(/*! ./storages/extension-sync-storage.js */ "./storages/extension-sync-storage.js");
+/* harmony import */ var _storages_local_storage_area_js__WEBPACK_IMPORTED_MODULE_38__ = __nested_webpack_require_108963__(/*! ./storages/local-storage-area.js */ "./storages/local-storage-area.js");
+/* harmony import */ var _storages_remote_auth_storage_area_js__WEBPACK_IMPORTED_MODULE_39__ = __nested_webpack_require_108963__(/*! ./storages/remote-auth-storage-area.js */ "./storages/remote-auth-storage-area.js");
+/* harmony import */ var _storages_temp_storage_area_js__WEBPACK_IMPORTED_MODULE_40__ = __nested_webpack_require_108963__(/*! ./storages/temp-storage-area.js */ "./storages/temp-storage-area.js");
+/* harmony import */ var _dts_collection_js__WEBPACK_IMPORTED_MODULE_41__ = __nested_webpack_require_108963__(/*! ./dts/collection.js */ "./dts/collection.js");
+/* harmony import */ var _dts_resource_js__WEBPACK_IMPORTED_MODULE_42__ = __nested_webpack_require_108963__(/*! ./dts/resource.js */ "./dts/resource.js");
 
 ;
 
@@ -9720,22 +10089,190 @@ __nested_webpack_require_107658__.r(__webpack_exports__);
 
 
 
+
+
+
+/***/ }),
+
+/***/ "./dts/collection.js":
+/*!***************************!*\
+  !*** ./dts/collection.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_121413__) => {
+
+"use strict";
+__nested_webpack_require_121413__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_121413__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Collection)
+/* harmony export */ });
+/* harmony import */ var _resource_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_121413__(/*! ./resource.js */ "./dts/resource.js");
+
+
+class Collection {
+  /**
+   * Created from DTS API Json
+   *
+   * @param {number} totalItems - amount of items in a collection
+   * @param {string} title
+   * @param {string} id
+   * @param {string} baseUrl - baseURL for DTS API
+   * @param {string} description
+   */
+  constructor ({ totalItems, title, id, baseUrl, description } = {}) {
+    this.totalItems = totalItems
+    this.title = title
+    this.id = id
+    this.baseUrl = baseUrl
+    this.description = description
+
+    this.members = []
+    this.resources = []
+  }
+
+  /**
+   * Adds level - membered collection or resource
+   *
+   * @param {JSON Object} jsonObj  - described in Collection/Resource constructors
+   */
+  addMember (jsonObj) {
+    if (jsonObj.type === 'Collection') {
+      this.members.push(new Collection(jsonObj))
+    }
+    if (jsonObj.type === 'Resource') {
+      this.resources.push(new _resource_js__WEBPACK_IMPORTED_MODULE_0__.default(jsonObj))
+    }
+  }
+
+  /**
+   * @returns {string} - title with totalItems in brackets
+   */
+  get formattedTitle () {
+    const totalItems = this.totalItems ? ` (${this.totalItems})` : ''
+    return `${this.title}${totalItems}`
+  }
+
+  /**
+   * @returns {object} - data for creating link for next step retrieval (descendant)
+   */
+  get linkData () {
+    return {
+      baseUrl: this.baseUrl,
+      totalItems: this.totalItems,
+      formattedTitle: this.formattedTitle,
+      title: this.title,
+      id: this.id,
+      type: 'collection'
+    }
+  }
+
+  /**
+   * @returns {Array[Object]} - array of links from membered collections
+   */
+  get membersLinks () {
+    return this.members.map(memberCollection => memberCollection.linkData)
+  }
+
+  /**
+   * @returns {Array[Object]} - array of links from membered resources
+   */
+  get resourcesLinks () {
+    return this.resources.map(resource => resource.linkData)
+  }
+
+  /**
+   * @returns {Array[Object]} - array of links - collections or resources
+   */
+  get links () {
+    if (this.members.length > 0) {
+      return this.membersLinks
+    } else if (this.resources.length > 0) {
+      return this.resourcesLinks
+    }
+    return []
+  }
+}
+
+
+/***/ }),
+
+/***/ "./dts/resource.js":
+/*!*************************!*\
+  !*** ./dts/resource.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_124162__) => {
+
+"use strict";
+__nested_webpack_require_124162__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_124162__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Resource)
+/* harmony export */ });
+class Resource {
+  /**
+   * @param {string} title
+   * @param {string} id
+   * @param {string} baseUrl - baseURL for DTS API
+   * @param {string} description
+   */
+  constructor ({ title, id, baseUrl, description } = {}) {
+    this.title = title
+    this.id = id
+    this.baseUrl = baseUrl
+    this.description = description
+  }
+
+  /**
+   *
+   * @param {Array[String]} refs - a list of refs to passages
+   * @param {string} passage - a url template for getting XML document
+   */
+  uploadRefs ({ refs, passage } = {}) {
+    this.passage = passage
+    this.refs = refs
+  }
+
+  /**
+   * @returns {object} - data for creating link for next step retrieval (descendant)
+   */
+  get linkData () {
+    return {
+      baseUrl: this.baseUrl,
+      title: this.title,
+      id: this.id,
+      description: this.description,
+      type: 'resource',
+      resource: this
+    }
+  }
+
+  get refsLinks () {
+    return this.refs.map(ref => {
+      return {
+        baseUrl: this.baseUrl,
+        id: this.id,
+        ref,
+        type: 'document'
+      }
+    })
+  }
+}
+
+
 /***/ }),
 
 /***/ "./feature.js":
-/*!********************!*
+/*!********************!*\
   !*** ./feature.js ***!
   \********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_119464__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_125668__) => {
 
 "use strict";
-__nested_webpack_require_119464__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_119464__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Feature
+__nested_webpack_require_125668__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_125668__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Feature)
 /* harmony export */ });
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_119464__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _feature_importer_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_119464__(/*! ./feature_importer.js */ "./feature_importer.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_119464__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_125668__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _feature_importer_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_125668__(/*! ./feature_importer.js */ "./feature_importer.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_125668__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -10263,15 +10800,15 @@ Feature.errMsgs = {
 /***/ }),
 
 /***/ "./feature_importer.js":
-/*!*****************************!*
+/*!*****************************!*\
   !*** ./feature_importer.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_138380__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_144587__) => {
 
 "use strict";
-__nested_webpack_require_138380__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_138380__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_144587__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_144587__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class FeatureImporter {
   /**
@@ -10342,15 +10879,15 @@ class FeatureImporter {
 /***/ }),
 
 /***/ "./feature_list.js":
-/*!*************************!*
+/*!*************************!*\
   !*** ./feature_list.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_140792__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_147002__) => {
 
 "use strict";
-__nested_webpack_require_140792__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_140792__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_147002__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_147002__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /**
  * A list of grammatical features that characterizes a language unit. Has some additional service methods,
@@ -10420,20 +10957,20 @@ class FeatureList {
 /***/ }),
 
 /***/ "./feature_type.js":
-/*!*************************!*
+/*!*************************!*\
   !*** ./feature_type.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_142942__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_149155__) => {
 
 "use strict";
-__nested_webpack_require_142942__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_142942__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_149155__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_149155__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_142942__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _feature_importer_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_142942__(/*! ./feature_importer.js */ "./feature_importer.js");
-/* harmony import */ var _language_model_factory__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_142942__(/*! ./language_model_factory */ "./language_model_factory.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_142942__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149155__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _feature_importer_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149155__(/*! ./feature_importer.js */ "./feature_importer.js");
+/* harmony import */ var _language_model_factory__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149155__(/*! ./language_model_factory */ "./language_model_factory.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_149155__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -10687,20 +11224,20 @@ FeatureType.UNRESTRICTED_VALUE = Symbol('unrestricted')
 /***/ }),
 
 /***/ "./geez_language_model.js":
-/*!********************************!*
+/*!********************************!*\
   !*** ./geez_language_model.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_154249__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_160465__) => {
 
 "use strict";
-__nested_webpack_require_154249__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_154249__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ GeezLanguageModel
+__nested_webpack_require_160465__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_160465__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GeezLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_154249__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_154249__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_154249__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_154249__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_160465__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_160465__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_160465__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_160465__(/*! ./constants.js */ "./constants.js");
 
 
 
@@ -10794,23 +11331,23 @@ for the current node
 /***/ }),
 
 /***/ "./greek_language_model.js":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./greek_language_model.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157741__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163960__) => {
 
 "use strict";
-__nested_webpack_require_157741__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_157741__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ GreekLanguageModel
+__nested_webpack_require_163960__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_163960__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GreekLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157741__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157741__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157741__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_157741__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_157741__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_157741__(/*! ./logging/logger.js */ "./logging/logger.js");
-/* harmony import */ var _languages_greek_chars_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_157741__(/*! ./languages/greek-chars.js */ "./languages/greek-chars.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163960__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163960__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_163960__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_163960__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_163960__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_163960__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _languages_greek_chars_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_163960__(/*! ./languages/greek-chars.js */ "./languages/greek-chars.js");
 
 
 
@@ -10971,6 +11508,50 @@ for the current node
       text = text.replace(/\u2019$/, '\u1fbd')
     }
     return text
+  }
+
+  /**
+   * Return a normalized part of speech for a lexeme based upon the lemma and inflection data
+   *
+   * @param {Lexeme} lexeme the lexeme to normalize
+   * @returns {string} the alpheios-normalized part of speech value
+   *                   or null if no part of speech data is present on the lexeme
+   **/
+  static normalizePartOfSpeechValue (lexeme) {
+    if (lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_4__.default.types.part]) {
+      if (lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_4__.default.types.part].value === _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_PARTICLE) {
+        // alpheios standard for Greek follows the Perseus Treebank Guidelines
+        // which normalize particles as adverbs
+        return _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_ADVERB
+      } else if (lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_4__.default.types.part].value === _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_EXCLAMATION) {
+        // alpheios normalizes exclamation to interjection (following treebank guidelines)
+        return _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_INTERJECTION
+      } else {
+        return lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_4__.default.types.part].value
+      }
+    } else {
+      return null
+    }
+  }
+
+  /**
+   * Return a normalized feature value, based upon the feature type  and supplied value
+   *
+   * @param {string} featureType the feature type
+   * @param {string} featureValue the feature value
+   * @returns {string} the alpheios-normalized feature value
+   */
+  static normalizeFeatureValue (featureType, featureValue) {
+    // alpheios standard for Latin is currently following Whitaker, and
+    // normalize the gerundive mood to participle
+    if (featureType === _feature_js__WEBPACK_IMPORTED_MODULE_4__.default.types.part && featureValue === _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_PARTICLE) {
+      return _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_ADVERB
+    } else if (featureType === _feature_js__WEBPACK_IMPORTED_MODULE_4__.default.types.part && featureValue === _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_EXCLAMATION) {
+      // alpheios normalizes exclamation to interjection (following treebank guidelines)
+      return _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_INTERJECTION
+    } else {
+      return featureValue
+    }
   }
 
   static _tonosToOxia (word) {
@@ -11211,19 +11792,19 @@ for the current node
 /***/ }),
 
 /***/ "./grm-feature.js":
-/*!************************!*
+/*!************************!*\
   !*** ./grm-feature.js ***!
   \************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175902__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_184518__) => {
 
 "use strict";
-__nested_webpack_require_175902__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_175902__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_184518__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_184518__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175902__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175902__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_175902__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_184518__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_184518__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_184518__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -11395,17 +11976,17 @@ GrmFeature.types = {
 /***/ }),
 
 /***/ "./homonym-group.js":
-/*!**************************!*
+/*!**************************!*\
   !*** ./homonym-group.js ***!
   \**************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_182901__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_191520__) => {
 
 "use strict";
-__nested_webpack_require_182901__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_182901__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ HomonymGroup
+__nested_webpack_require_191520__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_191520__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ HomonymGroup)
 /* harmony export */ });
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_182901__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_191520__(/*! ./homonym.js */ "./homonym.js");
 
 
 class HomonymGroup {
@@ -11487,20 +12068,20 @@ HomonymGroup.errors = {
 /***/ }),
 
 /***/ "./homonym.js":
-/*!********************!*
+/*!********************!*\
   !*** ./homonym.js ***!
   \********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_185706__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_194328__) => {
 
 "use strict";
-__nested_webpack_require_185706__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_185706__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_194328__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_194328__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _language_model_factory__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_185706__(/*! ./language_model_factory */ "./language_model_factory.js");
-/* harmony import */ var _lexeme_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_185706__(/*! ./lexeme.js */ "./lexeme.js");
-/* harmony import */ var _lemma_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_185706__(/*! ./lemma.js */ "./lemma.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_185706__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _language_model_factory__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194328__(/*! ./language_model_factory */ "./language_model_factory.js");
+/* harmony import */ var _lexeme_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194328__(/*! ./lexeme.js */ "./lexeme.js");
+/* harmony import */ var _lemma_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_194328__(/*! ./lemma.js */ "./lemma.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_194328__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -11655,32 +12236,58 @@ class Homonym {
       return base
     }
     const disambiguator = disambiguators.shift()
-    let lexemes = [] // eslint-disable-line prefer-const
+    let matchedLexemes = [] // eslint-disable-line prefer-const
     let missedLexemes = [] // eslint-disable-line prefer-const
+    let possibleLexemes = [] // eslint-disable-line prefer-const
+    let unmatchedLexemes = [] // eslint-disable-line prefer-const
     // iterate through the lexemes in the disambiguator and try
     // to disambiguate the existing lexemes with each
     for (const otherLexeme of disambiguator.lexemes) {
-      let lexemeMatched = false
       for (const lexeme of base.lexemes) {
         // Do not try to disambiguate lexemes that can't: it will erase a `disambiguated` flag
-        const newLex = lexeme.canBeDisambiguatedWith(otherLexeme) ? _lexeme_js__WEBPACK_IMPORTED_MODULE_1__.default.disambiguate(lexeme, otherLexeme) : lexeme
+        const newLex = lexeme.canBeDisambiguatedWith(otherLexeme) ? _lexeme_js__WEBPACK_IMPORTED_MODULE_1__.default.disambiguateInflections(lexeme, otherLexeme) : lexeme
 
         if (lexeme.isFullHomonym(otherLexeme, { normalize: true })) {
-          lexemeMatched = true
-          // If lexeme is a full homonym with a disambiguator, it should always be marked as disambiguated
-          newLex.disambiguated = true
+          if (newLex.getSelectedInflection() !== null) {
+            // If lexeme is a full homonym with a disambiguator and had a matching
+            // inflection, it is a full match
+            newLex.setDisambiguation(otherLexeme)
+            matchedLexemes.push(newLex)
+          } else {
+            // If lexeme is a full homonym with a disambiguator but didn't have a
+            // matching inflection, it may or may not be a full match depending
+            // upon whether any other lexeme was a more complete match
+            possibleLexemes.push(newLex)
+          }
+        } else {
+          unmatchedLexemes.push(newLex)
         }
-        lexemes.push(newLex)
       }
-      // if we couldn't find a matching lexeme, add the disambigutor's lexemes
-      // to the list of lexemes for the new Homonym
-      if (!lexemeMatched) {
-        otherLexeme.disambiguated = true
-        missedLexemes.push(otherLexeme)
+      if (matchedLexemes.length === 0) {
+        if (possibleLexemes.length > 0) {
+          // we didn't have a better match so mark as disamibugated
+          // and add in the disambiguator's inflections
+          for (const lexeme of possibleLexemes) {
+            lexeme.setDisambiguation(otherLexeme)
+            // we have to add in the disamibugators inflections
+            for (const infl of disambiguator.inflections) {
+              lexeme.addInflection(infl)
+              lexeme.setSelectedInflection(infl)
+            }
+          }
+        } else {
+          // if we couldn't find a matching lexeme, add the disambigutor's lexemes
+          // to the list of lexemes for the new Homonym
+          otherLexeme.setDisambiguation()
+          for (const infl of otherLexeme.inflections) {
+            otherLexeme.setSelectedInflection(infl)
+          }
+          missedLexemes.push(otherLexeme)
+        }
       }
     }
     // create a new homonym with the disamibugated lexemes
-    const newHom = new Homonym([...lexemes, ...missedLexemes], base.targetWord)
+    const newHom = new Homonym([...missedLexemes, ...matchedLexemes, ...possibleLexemes, ...unmatchedLexemes], base.targetWord)
     return Homonym.disambiguate(newHom, disambiguators)
   }
 }
@@ -11690,20 +12297,20 @@ class Homonym {
 /***/ }),
 
 /***/ "./inflection.js":
-/*!***********************!*
+/*!***********************!*\
   !*** ./inflection.js ***!
   \***********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_193884__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_203784__) => {
 
 "use strict";
-__nested_webpack_require_193884__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_193884__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_203784__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_203784__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_193884__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_193884__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_193884__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_193884__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_203784__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_203784__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_203784__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_203784__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -11920,27 +12527,61 @@ class Inflection {
   }
 
   /**
+   * Compare single feature values delegating to the language model
+   * rules for normalization
+   *
+   * @param {string} featureType the feature type
+   * @param {string} valueA the first value
+   * @param {string} valueB the secon value
+   * @param {boolean} normalize whether or not to apply normalization
+   */
+  modelCompareFeatureValue (featureType, valueA, valueB, normalize = true) {
+    const model = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__.default.getLanguageModel(this.languageID)
+    return model.compareFeatureValue(featureType, valueA, valueB, { normalize })
+  }
+
+  /**
    * Check to see if the supplied inflection can disambiguate this one
    *
    * @param {Inflection} infl Inflection object to be used for disambiguation
+   * @param {object} options disambiguation options
+   * @param {boolean} options.ignorePofs flag to ignore the inflection's part of speech
+   *                                    (use if lexeme pofs is more relevant)
+   * @returns {object} object { {Boolean} match, {Boolean} exactMatch }
+   *                   a match means the inflection was disamibugated
+   *                   an exactMatch means the disamibugator matched all
+   *                   values of all features
    */
-  disambiguatedBy (infl) {
+  disambiguatedBy (infl, { ignorePofs = false } = {}) {
     let matched = true
+    let exactMatch = true
     // an inflection can only be disambiguated by its features
-    if (this.features.length === 0 || infl.features.length === 0) {
+    if (this.features.size === 0 || infl.features.size === 0) {
       matched = false
     }
     // the supplied inflection can be less specific but not more
-    if (infl.features.length > this.features.length) {
+    if (infl.features.size > this.features.size) {
       matched = false
     }
     for (const feature of infl.features) {
-      if (!this[feature] || !this[feature].isEqual(infl[feature])) {
-        matched = false
-        break
+      if (ignorePofs && feature === _feature_js__WEBPACK_IMPORTED_MODULE_0__.default.types.part) {
+        continue
+      }
+      for (const value of infl[feature].values) {
+        if (!this.hasFeatureValue(feature, value, { normalize: true })) {
+          matched = false
+          break
+        }
+        // it's an exact match if all of the values of a multi-valued
+        // feature match (e.g. an inflection with a single masculine gender feature
+        // disambiguates an inflection with a masculine and feminine gender feature
+        // but it is not an exact match of the inflection
+        if (this[feature].values.length !== infl[feature].values.length) {
+          exactMatch = false
+        }
       }
     }
-    return matched
+    return { match: matched, exactMatch: exactMatch }
   }
 
   /**
@@ -12019,11 +12660,13 @@ class Inflection {
    *
    * @param {string} featureName - A name of a feature
    * @param {string} featureValue - A value of a feature
+   * @param {object} options
+   * @param {boolean} options.normalize - whether or not to normalize the feature values
    * @returns {boolean} True if an inflection contains a feature, false otherwise
    */
-  hasFeatureValue (featureName, featureValue) {
+  hasFeatureValue (featureName, featureValue, { normalize = false } = {}) {
     if (this.hasOwnProperty(featureName)) {
-      return this[featureName].values.includes(featureValue)
+      return this[featureName].values.some(v => this.modelCompareFeatureValue(featureName, v, featureValue))
     }
     return false
   }
@@ -12085,15 +12728,15 @@ class Inflection {
 /***/ }),
 
 /***/ "./inflection_group.js":
-/*!*****************************!*
+/*!*****************************!*\
   !*** ./inflection_group.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_208739__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220601__) => {
 
 "use strict";
-__nested_webpack_require_208739__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_208739__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_220601__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220601__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class InflectionGroup {
   /**
@@ -12123,17 +12766,17 @@ class InflectionGroup {
 /***/ }),
 
 /***/ "./inflection_grouping_key.js":
-/*!************************************!*
+/*!************************************!*\
   !*** ./inflection_grouping_key.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_209940__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221805__) => {
 
 "use strict";
-__nested_webpack_require_209940__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_209940__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_221805__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221805__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_209940__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_221805__(/*! ./feature.js */ "./feature.js");
 
 
 class InflectionGroupingKey {
@@ -12187,16 +12830,16 @@ is included in the grouping key
 /***/ }),
 
 /***/ "./language.js":
-/*!*********************!*
+/*!*********************!*\
   !*** ./language.js ***!
   \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_211916__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_223784__) => {
 
 "use strict";
-__nested_webpack_require_211916__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_211916__.d(__webpack_exports__, {
-/* harmony export */   "Lang": () => /* binding */ Lang,
-/* harmony export */   "default": () => /* binding */ Language
+__nested_webpack_require_223784__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_223784__.d(__webpack_exports__, {
+/* harmony export */   "Lang": () => (/* binding */ Lang),
+/* harmony export */   "default": () => (/* binding */ Language)
 /* harmony export */ });
 /**
  * Constants that define a macrolanguage.
@@ -12318,23 +12961,23 @@ class Language {
 /***/ }),
 
 /***/ "./language_model.js":
-/*!***************************!*
+/*!***************************!*\
   !*** ./language_model.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_214889__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_226762__) => {
 
 "use strict";
-__nested_webpack_require_214889__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_214889__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_226762__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_226762__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_214889__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_214889__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_214889__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _feature_type_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_214889__(/*! ./feature_type.js */ "./feature_type.js");
-/* harmony import */ var _inflection_grouping_key_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_214889__(/*! ./inflection_grouping_key.js */ "./inflection_grouping_key.js");
-/* harmony import */ var _inflection_group_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_214889__(/*! ./inflection_group.js */ "./inflection_group.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_214889__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_226762__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_226762__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_226762__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _feature_type_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_226762__(/*! ./feature_type.js */ "./feature_type.js");
+/* harmony import */ var _inflection_grouping_key_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_226762__(/*! ./inflection_grouping_key.js */ "./inflection_grouping_key.js");
+/* harmony import */ var _inflection_group_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_226762__(/*! ./inflection_group.js */ "./inflection_group.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_226762__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -12715,7 +13358,7 @@ class LanguageModel {
    * @returns {string} A normalized word.
    */
   static normalizeTrailingDigit (word) {
-    return /^.+1$/.test(word) ? word.substring(0, word.length - 1) : word
+    return /^.+\d$/.test(word) ? word.substring(0, word.length - 1) : word
   }
 
   /**
@@ -12753,6 +13396,29 @@ class LanguageModel {
   }
 
   /**
+   * Return a normalized part of speech for a lexeme based upon the lemma and inflection data
+   *
+   * @param {Lexeme} lexeme the lexeme to normalize
+   * @returns {string} the alpheios-normalized part of speech value
+   **/
+  static normalizePartOfSpeechValue (lexeme) {
+    // default is to return the value as it exists on the lemma
+    return lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part] ? lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part].value : null
+  }
+
+  /**
+   * Return a normalized feature value, based upon the feature type  and supplied value
+   *
+   * @param {string} featureType the feature type
+   * @param {string} featureValue the feature value
+   * @returns {string} the alpheios-normalized feature value
+   */
+  static normalizeFeatureValue (featureType, featureValue) {
+    // default is to return the value as supplied
+    return featureValue
+  }
+
+  /**
    * Returns alternate encodings for a word
    *
    * @param {object} params - A parameters object.
@@ -12787,6 +13453,23 @@ class LanguageModel {
     } else {
       return wordA === wordB
     }
+  }
+
+  /**
+   * Compare two feature values with language specific logic
+   *
+   * @param {string} featureType - the feature type being compared
+   * @param {string} valueA - the first value for comparison
+   * @param {string} valueB - the second value for comparison
+   * @param {object} options
+   * @param {boolean} options.normalize - whether or not to apply normalization
+   */
+  static compareFeatureValue (featureType, valueA, valueB, { normalize = true } = {}) {
+    if (normalize) {
+      valueA = this.normalizeFeatureValue(featureType, valueA)
+      valueB = this.normalizeFeatureValue(featureType, valueB)
+    }
+    return valueA === valueB
   }
 
   /**
@@ -13022,26 +13705,26 @@ class LanguageModel {
 /***/ }),
 
 /***/ "./language_model_factory.js":
-/*!***********************************!*
+/*!***********************************!*\
   !*** ./language_model_factory.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_241725__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_255202__) => {
 
 "use strict";
-__nested_webpack_require_241725__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_241725__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_255202__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_255202__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_241725__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_241725__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _latin_language_model_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_241725__(/*! ./latin_language_model.js */ "./latin_language_model.js");
-/* harmony import */ var _greek_language_model_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_241725__(/*! ./greek_language_model.js */ "./greek_language_model.js");
-/* harmony import */ var _arabic_language_model_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_241725__(/*! ./arabic_language_model.js */ "./arabic_language_model.js");
-/* harmony import */ var _persian_language_model_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_241725__(/*! ./persian_language_model.js */ "./persian_language_model.js");
-/* harmony import */ var _geez_language_model_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_241725__(/*! ./geez_language_model.js */ "./geez_language_model.js");
-/* harmony import */ var _chinese_language_model_js__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_241725__(/*! ./chinese_language_model.js */ "./chinese_language_model.js");
-/* harmony import */ var _syriac_language_model_js__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_241725__(/*! ./syriac_language_model.js */ "./syriac_language_model.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_241725__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_255202__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_255202__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _latin_language_model_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_255202__(/*! ./latin_language_model.js */ "./latin_language_model.js");
+/* harmony import */ var _greek_language_model_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_255202__(/*! ./greek_language_model.js */ "./greek_language_model.js");
+/* harmony import */ var _arabic_language_model_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_255202__(/*! ./arabic_language_model.js */ "./arabic_language_model.js");
+/* harmony import */ var _persian_language_model_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_255202__(/*! ./persian_language_model.js */ "./persian_language_model.js");
+/* harmony import */ var _geez_language_model_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_255202__(/*! ./geez_language_model.js */ "./geez_language_model.js");
+/* harmony import */ var _chinese_language_model_js__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_255202__(/*! ./chinese_language_model.js */ "./chinese_language_model.js");
+/* harmony import */ var _syriac_language_model_js__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_255202__(/*! ./syriac_language_model.js */ "./syriac_language_model.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_255202__(/*! ./constants.js */ "./constants.js");
 
 
 
@@ -13240,15 +13923,15 @@ class LanguageModelFactory {
 /***/ }),
 
 /***/ "./languages/greek-chars.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./languages/greek-chars.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_251625__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_265105__) => {
 
 "use strict";
-__nested_webpack_require_251625__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_251625__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ GreekChars
+__nested_webpack_require_265105__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_265105__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ GreekChars)
 /* harmony export */ });
 class GreekChars {
   static get chars () {
@@ -13569,21 +14252,21 @@ class GreekChars {
 /***/ }),
 
 /***/ "./latin_language_model.js":
-/*!*********************************!*
+/*!*********************************!*\
   !*** ./latin_language_model.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_257391__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_270874__) => {
 
 "use strict";
-__nested_webpack_require_257391__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_257391__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ LatinLanguageModel
+__nested_webpack_require_270874__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_270874__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LatinLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_257391__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_257391__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_257391__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_257391__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_257391__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_270874__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_270874__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_270874__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_270874__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_270874__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -13755,6 +14438,45 @@ class LatinLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0__
   }
 
   /**
+   * Return a normalized feature value, based upon the feature type  and supplied value
+   *
+   * @param {string} featureType the feature type
+   * @param {string} featureValue the feature value
+   * @returns {string} the alpheios-normalized feature value
+   */
+  static normalizeFeatureValue (featureType, featureValue) {
+    // alpheios standard for Latin is currently following Whitaker, and
+    // normalize the gerundive mood to participle
+    if (featureType === _feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.mood && featureValue === _constants_js__WEBPACK_IMPORTED_MODULE_3__.MOOD_GERUNDIVE) {
+      return _constants_js__WEBPACK_IMPORTED_MODULE_3__.MOOD_PARTICIPLE
+    } else if (featureType === _feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part && featureValue === _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_EXCLAMATION) {
+      return _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_INTERJECTION
+    } else {
+      return featureValue
+    }
+  }
+
+  /**
+   * Return a normalized part of speech for a lexeme based upon the lemma and inflection data
+   *
+   * @param {Lexeme} lexeme the lexeme to normalize
+   * @returns {string} the alpheios-normalized part of speech value
+   **/
+  static normalizePartOfSpeechValue (lexeme) {
+    if (lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part]) {
+      // Alpheios currently follows Whitaker for Latin and normalizes  exclamation
+      // to interjection
+      if (lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part].value === _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_EXCLAMATION) {
+        return _constants_js__WEBPACK_IMPORTED_MODULE_3__.POFS_INTERJECTION
+      } else {
+        return lexeme.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part].value
+      }
+    } else {
+      return null
+    }
+  }
+
+  /**
    * Get a list of valid puncutation for this language
    *
    * @returns {string} a string containing valid puncutation symbols
@@ -13797,23 +14519,23 @@ class LatinLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0__
 /***/ }),
 
 /***/ "./lemma.js":
-/*!******************!*
+/*!******************!*\
   !*** ./lemma.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_267427__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_282791__) => {
 
 "use strict";
-__nested_webpack_require_267427__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_267427__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_282791__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_282791__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_267427__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_267427__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_267427__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _translation_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_267427__(/*! ./translation.js */ "./translation.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_267427__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__nested_webpack_require_267427__.n(uuid__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_267427__(/*! ./logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_282791__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_282791__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_282791__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _translation_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_282791__(/*! ./translation.js */ "./translation.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_282791__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__nested_webpack_require_282791__.n(uuid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_282791__(/*! ./logging/logger.js */ "./logging/logger.js");
 
 
 
@@ -13996,21 +14718,38 @@ class Lemma {
    * @param {Lemma} lemma - the lemma to compare.
    * @param {object} options - Additional comparison options.
    * @param {boolean} options.normalize - Whether to normalize words before comparison.
+   * @param {boolean} options.ignorePofs - Whether to ignore the part of speech in comparison.
+   *                                       (use if the lexeme data is needed
+   *                                        for a part of speech comparison)
    * @returns {boolean} true or false.
    */
-  isFullHomonym (lemma, { normalize = false } = {}) {
+  isFullHomonym (lemma, { normalize = false, ignorePofs = false } = {}) {
     // If parts of speech do not match this is not a full homonym
-    if (!this.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part] ||
+    // don't check if told to ignorePofs
+    if (!ignorePofs &&
+      (!this.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part] ||
       !lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part] ||
-      !this.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part].isEqual(lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part])) {
+      !this.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part].isEqual(lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part]))) {
       return false
     }
 
+    const lm = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__.default.getLanguageModel(this.languageID)
     // Check if words are the same
     const areSameWords = normalize
-      ? _language_model_factory_js__WEBPACK_IMPORTED_MODULE_0__.default.getLanguageModel(this.languageID).compareWords(this.word, lemma.word, true,
+      ? lm.compareWords(this.word, lemma.word, true,
           { normalizeTrailingDigit: true })
       : this.word === lemma.word
+
+    // if they have differing trailing digits, they cannot be the same
+    const thisHasTrailingDigit = lm.hasTrailingDigit(this.word)
+    const otherHasTrailingDigit = lm.hasTrailingDigit(lemma.word)
+    if (thisHasTrailingDigit && otherHasTrailingDigit) {
+      const thisTrailingDigit = this.word.match(/\d+$/)[0]
+      const otherTrailingDigit = lemma.word.match(/\d+$/)[0]
+      if (thisTrailingDigit !== otherTrailingDigit) {
+        return false
+      }
+    }
 
     return areSameWords
   }
@@ -14087,22 +14826,24 @@ class Lemma {
 /***/ }),
 
 /***/ "./lexeme.js":
-/*!*******************!*
+/*!*******************!*\
   !*** ./lexeme.js ***!
   \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_277962__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_294148__) => {
 
 "use strict";
-__nested_webpack_require_277962__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_277962__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_294148__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_294148__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lemma_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_277962__(/*! ./lemma.js */ "./lemma.js");
-/* harmony import */ var _inflection_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_277962__(/*! ./inflection.js */ "./inflection.js");
-/* harmony import */ var _definition_set_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_277962__(/*! ./definition-set.js */ "./definition-set.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_277962__(/*! ./language_model_factory.js */ "./language_model_factory.js");
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_277962__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_277962__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _lemma_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_294148__(/*! ./lemma.js */ "./lemma.js");
+/* harmony import */ var _inflection_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_294148__(/*! ./inflection.js */ "./inflection.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_294148__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _definition_set_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_294148__(/*! ./definition-set.js */ "./definition-set.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_294148__(/*! ./language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_294148__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_294148__(/*! ./resource_provider.js */ "./resource_provider.js");
+
 
 
 
@@ -14145,7 +14886,7 @@ class Lexeme {
       }
     }
 
-    if (meaning !== null && !(meaning instanceof _definition_set_js__WEBPACK_IMPORTED_MODULE_2__.default)) {
+    if (meaning !== null && !(meaning instanceof _definition_set_js__WEBPACK_IMPORTED_MODULE_3__.default)) {
       throw new Error('Meaning should be of DefinitionSet object type.')
     }
 
@@ -14153,8 +14894,45 @@ class Lexeme {
     this.altLemmas = []
     this.inflections = []
     this.addInflections(inflections)
-    this.meaning = meaning || new _definition_set_js__WEBPACK_IMPORTED_MODULE_2__.default(this.lemma.word, this.lemma.languageID)
+    this.meaning = meaning || new _definition_set_js__WEBPACK_IMPORTED_MODULE_3__.default(this.lemma.word, this.lemma.languageID)
     this.disambiguated = false
+    this.selectedInflection = null
+  }
+
+  /**
+   * Set the selected inflection for a lexeme which has had its
+   * inflections disambiguated
+   *
+   * @param {Inflection} inflection the selected inflection
+   */
+  setSelectedInflection (inflection) {
+    this.selectedInflection = inflection
+  }
+
+  /**
+   * Get the selected inflection for a lexeme which has had its
+   * inflections disambiguated
+   *
+   * @returns {Inflection} (or null if none is selected)
+   */
+  getSelectedInflection () {
+    return this.selectedInflection
+  }
+
+  /**
+   * Gets the selected inflection formatted for display
+   * (returns an array because the display is grouped by feature
+   * but there should only be one inflection in the array)
+   *
+   * @returns {Array} if no selected inflection the array will be empty
+   */
+  getGroupedSelectedInflection () {
+    if (this.selectedInflection) {
+      const lm = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_4__.default.getLanguageModel(this.lemma.languageID)
+      return lm.groupInflectionsForDisplay([this.selectedInflection])
+    } else {
+      return []
+    }
   }
 
   /**
@@ -14229,7 +15007,14 @@ class Lexeme {
    * @returns {boolean} - true if two aforementioned lemmas are full homonyms, false otherwise.
    */
   isFullHomonym (otherLexeme, { normalize = false } = {}) {
-    return this.lemma.isFullHomonym(otherLexeme.lemma, { normalize })
+    const lm = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_4__.default.getLanguageModel(this.lemma.languageID)
+    const normalizedPofs = lm.normalizePartOfSpeechValue(this)
+    if (normalizedPofs === lm.normalizePartOfSpeechValue(otherLexeme)) {
+      const ignorePofs = Boolean(normalizedPofs !== this.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part])
+      return this.lemma.isFullHomonym(otherLexeme.lemma, { normalize, ignorePofs })
+    } else {
+      return false
+    }
   }
 
   /**
@@ -14247,48 +15032,63 @@ class Lexeme {
       - some additional information in a word (e.g. a trailing digit) that lemma has not;
       - at least one inflection.
     */
-    const hasExtraFeatures = disambiguator.inflections.length || _language_model_js__WEBPACK_IMPORTED_MODULE_4__.default.hasTrailingDigit(disambiguator.lemma.word)
+    const hasExtraFeatures = disambiguator.inflections.length || _language_model_js__WEBPACK_IMPORTED_MODULE_5__.default.hasTrailingDigit(disambiguator.lemma.word)
     return this.isFullHomonym(disambiguator, { normalize: true }) && hasExtraFeatures
   }
 
   /**
-   * disambiguate with another supplied Lexeme
+   * disambiguate the inflections in this lexeme with those in another lexeme
    *
    * @param {Lexeme} lexeme the lexeme to be disambiguated
    * @param {Lexeme} disambiguator the lexeme to use to disambiguate
-   * @returns {Lexeme} a new lexeme, if disamibugation was successful disambiguated flag will be set on it
+   * @returns {Lexeme} a new lexeme, if disambiguation was successful the
+   * disambiguated inflection will be selected
    */
-  static disambiguate (lexeme, disambiguator) {
+  static disambiguateInflections (lexeme, disambiguator) {
     let newLexeme = new Lexeme(lexeme.lemma, lexeme.inflections, lexeme.meaning) // eslint-disable-line prefer-const
+    const lm = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_4__.default.getLanguageModel(lexeme.lemma.languageID)
     if (lexeme.canBeDisambiguatedWith(disambiguator)) {
-      newLexeme.disambiguated = true
-      newLexeme.lemma.word = lexeme.lemma.disambiguate(disambiguator.lemma)
-      let keepInflections = [] // eslint-disable-line prefer-const
-      // iterate through this lexemes inflections and keep only thoes that are disambiguatedBy by the supplied lexeme's inflection
-      // we want to keep the original inflections rather than just replacing them
-      // because the original inflections may have more information
+      // iterate through this lexemes inflections and see if one is disambiguated
+      // there should be only one that matches
       for (const inflection of newLexeme.inflections) {
         for (const disambiguatorInflection of disambiguator.inflections) {
-          if (inflection.disambiguatedBy(disambiguatorInflection)) {
-            keepInflections.push(inflection)
+          const normalizedPofs = lm.normalizePartOfSpeechValue(disambiguator)
+          const ignorePofs = Boolean(normalizedPofs !== disambiguator.lemma.features[_feature_js__WEBPACK_IMPORTED_MODULE_2__.default.types.part])
+          const inflMatch = inflection.disambiguatedBy(disambiguatorInflection, { ignorePofs })
+          if (inflMatch.match) {
+            if (inflMatch.exactMatch) {
+              // if it was an exact match, we can use the source lexeme's inflection
+              // which may carry more information
+              newLexeme.setSelectedInflection(inflection)
+            } else {
+              // if it was not an exact match (e.g. if the source inflection
+              // had a multi-valued feature), use the disambiguator lexeme's
+              // inflection
+              newLexeme.setSelectedInflection(disambiguatorInflection)
+            }
           }
-        }
-      }
-      // Set greek inflections
-      newLexeme.inflections = [] // Remove inflections before adding new ones
-      newLexeme.addInflections(keepInflections)
-      // if we couldn't match any existing inflections, then add the disambiguated one
-      if (newLexeme.inflections.length === 0) {
-        for (const infl of disambiguator.inflections) {
-          newLexeme.addInflection(infl)
         }
       }
     }
     return newLexeme
   }
 
+  /**
+   * Set the disambiguation flag of this lexeme
+   * if a disambiguator lexeme is provided, it's lemma word will be used
+   * to update the word of this lexeme's lemma
+   *
+   * @param {Lexeme} disambiguator
+   */
+  setDisambiguation (disambiguator = null) {
+    this.disambiguated = true
+    if (disambiguator) {
+      this.lemma.word = this.lemma.disambiguate(disambiguator.lemma)
+    }
+  }
+
   getGroupedInflections () {
-    const lm = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_3__.default.getLanguageModel(this.lemma.languageID)
+    const lm = _language_model_factory_js__WEBPACK_IMPORTED_MODULE_4__.default.getLanguageModel(this.lemma.languageID)
     return lm.groupInflectionsForDisplay(this.inflections)
   }
 
@@ -14301,12 +15101,12 @@ class Lexeme {
 
     const lexeme = new Lexeme(lemma, inflections)
     if (jsonObject.meaning) {
-      lexeme.meaning = _definition_set_js__WEBPACK_IMPORTED_MODULE_2__.default.readObject(jsonObject.meaning)
+      lexeme.meaning = _definition_set_js__WEBPACK_IMPORTED_MODULE_3__.default.readObject(jsonObject.meaning)
     }
 
     if (jsonObject.provider) {
-      const provider = _resource_provider_js__WEBPACK_IMPORTED_MODULE_5__.default.readObject(jsonObject.provider)
-      return _resource_provider_js__WEBPACK_IMPORTED_MODULE_5__.default.getProxy(provider, lexeme)
+      const provider = _resource_provider_js__WEBPACK_IMPORTED_MODULE_6__.default.readObject(jsonObject.provider)
+      return _resource_provider_js__WEBPACK_IMPORTED_MODULE_6__.default.getProxy(provider, lexeme)
     } else {
       return lexeme
     }
@@ -14381,15 +15181,15 @@ class Lexeme {
 /***/ }),
 
 /***/ "./logging/logger.js":
-/*!***************************!*
+/*!***************************!*\
   !*** ./logging/logger.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_289290__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_307747__) => {
 
 "use strict";
-__nested_webpack_require_289290__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_289290__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Logger
+__nested_webpack_require_307747__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_307747__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Logger)
 /* harmony export */ });
 let singleInstance
 
@@ -14539,17 +15339,17 @@ class Logger {
 /***/ }),
 
 /***/ "./options/option-item.js":
-/*!********************************!*
+/*!********************************!*\
   !*** ./options/option-item.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_293628__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_312088__) => {
 
 "use strict";
-__nested_webpack_require_293628__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_293628__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ OptionItem
+__nested_webpack_require_312088__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_312088__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ OptionItem)
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_293628__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_312088__(/*! ../logging/logger.js */ "./logging/logger.js");
 
 
 /**
@@ -14677,18 +15477,18 @@ class OptionItem {
 /***/ }),
 
 /***/ "./options/options.js":
-/*!****************************!*
+/*!****************************!*\
   !*** ./options/options.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_297421__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_315884__) => {
 
 "use strict";
-__nested_webpack_require_297421__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_297421__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Options
+__nested_webpack_require_315884__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_315884__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Options)
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_297421__(/*! ../logging/logger.js */ "./logging/logger.js");
-/* harmony import */ var _option_item_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_297421__(/*! ./option-item.js */ "./options/option-item.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_315884__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _option_item_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_315884__(/*! ./option-item.js */ "./options/option-item.js");
 
 
 /**
@@ -14883,19 +15683,19 @@ class Options {
 /***/ }),
 
 /***/ "./persian_language_model.js":
-/*!***********************************!*
+/*!***********************************!*\
   !*** ./persian_language_model.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_304974__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_323440__) => {
 
 "use strict";
-__nested_webpack_require_304974__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_304974__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ PersianLanguageModel
+__nested_webpack_require_323440__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_323440__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PersianLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_304974__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_304974__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_304974__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323440__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_323440__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_323440__(/*! ./constants.js */ "./constants.js");
 
 
 
@@ -14958,15 +15758,15 @@ class PersianLanguageModel extends _language_model_js__WEBPACK_IMPORTED_MODULE_0
 /***/ }),
 
 /***/ "./ps-events/ps-event-data.js":
-/*!************************************!*
+/*!************************************!*\
   !*** ./ps-events/ps-event-data.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_307818__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_326287__) => {
 
 "use strict";
-__nested_webpack_require_307818__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_307818__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ PsEventData
+__nested_webpack_require_326287__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_326287__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PsEventData)
 /* harmony export */ });
 /**
  * A public information about published event that is returned to subscriber.
@@ -15009,19 +15809,19 @@ class PsEventData {
 /***/ }),
 
 /***/ "./ps-events/ps-event.js":
-/*!*******************************!*
+/*!*******************************!*\
   !*** ./ps-events/ps-event.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_309972__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_328444__) => {
 
 "use strict";
-__nested_webpack_require_309972__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_309972__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ PsEvent
+__nested_webpack_require_328444__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_328444__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PsEvent)
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_309972__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_309972__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_309972__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_328444__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_328444__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_ps_events_ps_event_data_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_328444__(/*! ../../src/ps-events/ps-event-data.js */ "./ps-events/ps-event-data.js");
 
 
 
@@ -15114,15 +15914,15 @@ class PsEvent {
 /***/ }),
 
 /***/ "./resource_provider.js":
-/*!******************************!*
+/*!******************************!*\
   !*** ./resource_provider.js ***!
   \******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_313379__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_331854__) => {
 
 "use strict";
-__nested_webpack_require_313379__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_313379__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_331854__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_331854__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /**
  * An abstraction of an Alpheios resource provider
@@ -15197,15 +15997,15 @@ class ResourceProvider {
 /***/ }),
 
 /***/ "./sha1.js":
-/*!*****************!*
+/*!*****************!*\
   !*** ./sha1.js ***!
   \*****************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_315747__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_334225__) => {
 
 "use strict";
-__nested_webpack_require_315747__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_315747__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_334225__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_334225__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* eslint-disable */
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
@@ -15381,17 +16181,17 @@ class Sha1 {
 /***/ }),
 
 /***/ "./storages/defaults-loader.js":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./storages/defaults-loader.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_323028__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_341509__) => {
 
 "use strict";
-__nested_webpack_require_323028__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_323028__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ DefaultsLoader
+__nested_webpack_require_341509__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_341509__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DefaultsLoader)
 /* harmony export */ });
-/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323028__(/*! ../logging/logger.js */ "./logging/logger.js");
+/* harmony import */ var _logging_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_341509__(/*! ../logging/logger.js */ "./logging/logger.js");
 
 
 class DefaultsLoader {
@@ -15409,17 +16209,17 @@ class DefaultsLoader {
 /***/ }),
 
 /***/ "./storages/extension-sync-storage.js":
-/*!********************************************!*
+/*!********************************************!*\
   !*** ./storages/extension-sync-storage.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_323969__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_342453__) => {
 
 "use strict";
-__nested_webpack_require_323969__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_323969__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ ExtensionSyncStorage
+__nested_webpack_require_342453__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_342453__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ExtensionSyncStorage)
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323969__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_342453__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 /* global browser */
 
 
@@ -15464,17 +16264,17 @@ class ExtensionSyncStorage extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_
 /***/ }),
 
 /***/ "./storages/local-storage-area.js":
-/*!****************************************!*
+/*!****************************************!*\
   !*** ./storages/local-storage-area.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_326334__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_344821__) => {
 
 "use strict";
-__nested_webpack_require_326334__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_326334__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ LocalStorageArea
+__nested_webpack_require_344821__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_344821__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LocalStorageArea)
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_326334__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344821__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 
 
 /**
@@ -15626,19 +16426,19 @@ class LocalStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.
 /***/ }),
 
 /***/ "./storages/remote-auth-storage-area.js":
-/*!**********************************************!*
+/*!**********************************************!*\
   !*** ./storages/remote-auth-storage-area.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_332045__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_350535__) => {
 
 "use strict";
-__nested_webpack_require_332045__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_332045__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ RemoteAuthStorageArea
+__nested_webpack_require_350535__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_350535__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RemoteAuthStorageArea)
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_332045__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_332045__(/*! axios */ "../../../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_332045__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_350535__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_350535__(/*! axios */ "../../../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_350535__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -15730,15 +16530,15 @@ class RemoteAuthStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE
 /***/ }),
 
 /***/ "./storages/storage-adapter.js":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./storages/storage-adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_336271__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_354764__) => {
 
 "use strict";
-__nested_webpack_require_336271__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_336271__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ StorageAdapter
+__nested_webpack_require_354764__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_354764__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StorageAdapter)
 /* harmony export */ });
 /**
  * An abstract storage adapter class for an Options object. Implements two methods: set() and get().
@@ -15808,17 +16608,17 @@ class StorageAdapter {
 /***/ }),
 
 /***/ "./storages/temp-storage-area.js":
-/*!***************************************!*
+/*!***************************************!*\
   !*** ./storages/temp-storage-area.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_339879__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_358375__) => {
 
 "use strict";
-__nested_webpack_require_339879__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_339879__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TempStorageArea
+__nested_webpack_require_358375__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_358375__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TempStorageArea)
 /* harmony export */ });
-/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_339879__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
+/* harmony import */ var _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_358375__(/*! ./storage-adapter.js */ "./storages/storage-adapter.js");
 
 
 /**
@@ -15858,22 +16658,22 @@ class TempStorageArea extends _storage_adapter_js__WEBPACK_IMPORTED_MODULE_0__.d
 /***/ }),
 
 /***/ "./syriac_language_model.js":
-/*!**********************************!*
+/*!**********************************!*\
   !*** ./syriac_language_model.js ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_342207__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_360706__) => {
 
 "use strict";
-__nested_webpack_require_342207__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_342207__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ SyriacLanguageModel
+__nested_webpack_require_360706__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_360706__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SyriacLanguageModel)
 /* harmony export */ });
-/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_342207__(/*! ./language_model.js */ "./language_model.js");
-/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_342207__(/*! ./language.js */ "./language.js");
-/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_342207__(/*! ./feature.js */ "./feature.js");
-/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_342207__(/*! ./constants.js */ "./constants.js");
-/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_342207__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
-/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_342207__(/*! ./inflection_group */ "./inflection_group.js");
+/* harmony import */ var _language_model_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_360706__(/*! ./language_model.js */ "./language_model.js");
+/* harmony import */ var _language_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_360706__(/*! ./language.js */ "./language.js");
+/* harmony import */ var _feature_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_360706__(/*! ./feature.js */ "./feature.js");
+/* harmony import */ var _constants_js__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_360706__(/*! ./constants.js */ "./constants.js");
+/* harmony import */ var _inflection_grouping_key__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_360706__(/*! ./inflection_grouping_key */ "./inflection_grouping_key.js");
+/* harmony import */ var _inflection_group__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_360706__(/*! ./inflection_group */ "./inflection_group.js");
 
 
 
@@ -16106,15 +16906,15 @@ for the current node
 /***/ }),
 
 /***/ "./texts/author.js":
-/*!*************************!*
+/*!*************************!*\
   !*** ./texts/author.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_354058__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_372560__) => {
 
 "use strict";
-__nested_webpack_require_354058__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_354058__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_372560__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_372560__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class Author {
   /**
@@ -16181,15 +16981,15 @@ class Author {
 /***/ }),
 
 /***/ "./texts/text-work.js":
-/*!****************************!*
+/*!****************************!*\
   !*** ./texts/text-work.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_356352__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_374857__) => {
 
 "use strict";
-__nested_webpack_require_356352__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_356352__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_374857__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_374857__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class TextWork {
   /**
@@ -16267,18 +17067,18 @@ class TextWork {
 /***/ }),
 
 /***/ "./texts/word-usage-example.js":
-/*!*************************************!*
+/*!*************************************!*\
   !*** ./texts/word-usage-example.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_358936__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_377444__) => {
 
 "use strict";
-__nested_webpack_require_358936__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_358936__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ WordUsageExample
+__nested_webpack_require_377444__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_377444__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ WordUsageExample)
 /* harmony export */ });
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_358936__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
-/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_358936__(/*! ../language_model_factory.js */ "./language_model_factory.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_377444__(/*! ../w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _language_model_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_377444__(/*! ../language_model_factory.js */ "./language_model_factory.js");
 
 
 
@@ -16373,17 +17173,17 @@ class WordUsageExample extends _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MOD
 /***/ }),
 
 /***/ "./translation.js":
-/*!************************!*
+/*!************************!*\
   !*** ./translation.js ***!
   \************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_362310__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_380821__) => {
 
 "use strict";
-__nested_webpack_require_362310__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_362310__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_380821__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_380821__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_362310__(/*! ./resource_provider.js */ "./resource_provider.js");
+/* harmony import */ var _resource_provider_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_380821__(/*! ./resource_provider.js */ "./resource_provider.js");
 
 /**
  * stores a scope of lemma translations from python service
@@ -16452,15 +17252,15 @@ class Translation {
 /***/ }),
 
 /***/ "./treebank_data_item.js":
-/*!*******************************!*
+/*!*******************************!*\
   !*** ./treebank_data_item.js ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_365033__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_383547__) => {
 
 "use strict";
-__nested_webpack_require_365033__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_365033__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TreebankDataItem
+__nested_webpack_require_383547__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_383547__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TreebankDataItem)
 /* harmony export */ });
 class TreebankDataItem {
   /**
@@ -16648,18 +17448,18 @@ class TreebankDataItem {
 /***/ }),
 
 /***/ "./w3c/text-quote-selector.js":
-/*!************************************!*
+/*!************************************!*\
   !*** ./w3c/text-quote-selector.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_373642__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_392159__) => {
 
 "use strict";
-__nested_webpack_require_373642__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_373642__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TextQuoteSelector
+__nested_webpack_require_392159__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_392159__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ TextQuoteSelector)
 /* harmony export */ });
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_373642__(/*! uuid */ "../../../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_373642__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_392159__(/*! uuid */ "../../../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_392159__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * Implements a W3C Text Quote Selector (https://www.w3.org/TR/annotation-model/#h-text-quote-selector)
  */
@@ -16715,18 +17515,18 @@ class TextQuoteSelector {
 /***/ }),
 
 /***/ "./word-item.js":
-/*!**********************!*
+/*!**********************!*\
   !*** ./word-item.js ***!
   \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_376102__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_394622__) => {
 
 "use strict";
-__nested_webpack_require_376102__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_376102__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ WordItem
+__nested_webpack_require_394622__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_394622__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ WordItem)
 /* harmony export */ });
-/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_376102__(/*! ./homonym.js */ "./homonym.js");
-/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_376102__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
+/* harmony import */ var _homonym_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_394622__(/*! ./homonym.js */ "./homonym.js");
+/* harmony import */ var _w3c_text_quote_selector_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_394622__(/*! ./w3c/text-quote-selector.js */ "./w3c/text-quote-selector.js");
 
 
 
@@ -16876,17 +17676,17 @@ class WordItem {
 /***/ }),
 
 /***/ "./word-list.js":
-/*!**********************!*
+/*!**********************!*\
   !*** ./word-list.js ***!
   \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_380646__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_399169__) => {
 
 "use strict";
-__nested_webpack_require_380646__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_380646__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ WordList
+__nested_webpack_require_399169__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_399169__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ WordList)
 /* harmony export */ });
-/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_380646__(/*! ./word-item */ "./word-item.js");
+/* harmony import */ var _word_item__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_399169__(/*! ./word-item */ "./word-item.js");
 
 
 class WordList {
@@ -17000,7 +17800,7 @@ class WordList {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_383900__(moduleId) {
+/******/ 	function __nested_webpack_require_402425__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -17013,7 +17813,7 @@ class WordList {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_383900__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_402425__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -17023,11 +17823,11 @@ class WordList {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_383900__.n = (module) => {
+/******/ 		__nested_webpack_require_402425__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__nested_webpack_require_383900__.d(getter, { a: getter });
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nested_webpack_require_402425__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -17035,9 +17835,9 @@ class WordList {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_383900__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_402425__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_383900__.o(definition, key) && !__nested_webpack_require_383900__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_402425__.o(definition, key) && !__nested_webpack_require_402425__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -17046,13 +17846,13 @@ class WordList {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_383900__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_402425__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_383900__.r = (exports) => {
+/******/ 		__nested_webpack_require_402425__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -17064,7 +17864,7 @@ class WordList {
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_383900__("./driver.js");
+/******/ 	return __nested_webpack_require_402425__("./driver.js");
 /******/ })()
 ;
 });
@@ -17087,7 +17887,7 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "../../../node_modules/fast-memoize/src/index.js":
-/*!*******************************************************!*
+/*!*******************************************************!*\
   !*** ../../../node_modules/fast-memoize/src/index.js ***!
   \*******************************************************/
 /***/ ((module) => {
@@ -17241,37 +18041,37 @@ module.exports.strategies = {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat-parser/lib/index.js":
-/*!********************************************************************!*
+/*!********************************************************************!*\
   !*** ../../../node_modules/intl-messageformat-parser/lib/index.js ***!
   \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_3687__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_3689__) => {
 
 "use strict";
-__nested_webpack_require_3687__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_3687__.d(__webpack_exports__, {
-/* harmony export */   "SKELETON_TYPE": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.SKELETON_TYPE,
-/* harmony export */   "TYPE": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.TYPE,
-/* harmony export */   "createLiteralElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createLiteralElement,
-/* harmony export */   "createNumberElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createNumberElement,
-/* harmony export */   "isArgumentElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement,
-/* harmony export */   "isDateElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateElement,
-/* harmony export */   "isDateTimeSkeleton": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton,
-/* harmony export */   "isLiteralElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement,
-/* harmony export */   "isNumberElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberElement,
-/* harmony export */   "isNumberSkeleton": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton,
-/* harmony export */   "isPluralElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPluralElement,
-/* harmony export */   "isPoundElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPoundElement,
-/* harmony export */   "isSelectElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isSelectElement,
-/* harmony export */   "isTagElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTagElement,
-/* harmony export */   "isTimeElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTimeElement,
-/* harmony export */   "SyntaxError": () => /* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.SyntaxError,
-/* harmony export */   "pegParse": () => /* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse,
-/* harmony export */   "parse": () => /* binding */ parse
+__nested_webpack_require_3689__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_3689__.d(__webpack_exports__, {
+/* harmony export */   "SKELETON_TYPE": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.SKELETON_TYPE),
+/* harmony export */   "TYPE": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.TYPE),
+/* harmony export */   "createLiteralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createNumberElement),
+/* harmony export */   "isArgumentElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement),
+/* harmony export */   "isDateElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateElement),
+/* harmony export */   "isDateTimeSkeleton": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton),
+/* harmony export */   "isLiteralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement),
+/* harmony export */   "isNumberElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberElement),
+/* harmony export */   "isNumberSkeleton": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton),
+/* harmony export */   "isPluralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPoundElement),
+/* harmony export */   "isSelectElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isSelectElement),
+/* harmony export */   "isTagElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTagElement),
+/* harmony export */   "isTimeElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTimeElement),
+/* harmony export */   "SyntaxError": () => (/* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.SyntaxError),
+/* harmony export */   "pegParse": () => (/* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse),
+/* harmony export */   "parse": () => (/* binding */ parse)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_3687__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _src_parser__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_3687__(/*! ./src/parser */ "../../../node_modules/intl-messageformat-parser/lib/src/parser.js");
-/* harmony import */ var _src_normalize__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_3687__(/*! ./src/normalize */ "../../../node_modules/intl-messageformat-parser/lib/src/normalize.js");
-/* harmony import */ var _src_types__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_3687__(/*! ./src/types */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_3689__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _src_parser__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_3689__(/*! ./src/parser */ "../../../node_modules/intl-messageformat-parser/lib/src/parser.js");
+/* harmony import */ var _src_normalize__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_3689__(/*! ./src/normalize */ "../../../node_modules/intl-messageformat-parser/lib/src/normalize.js");
+/* harmony import */ var _src_types__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_3689__(/*! ./src/types */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
 
 
 
@@ -17290,19 +18090,19 @@ function parse(input, opts) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat-parser/lib/src/normalize.js":
-/*!****************************************************************************!*
+/*!****************************************************************************!*\
   !*** ../../../node_modules/intl-messageformat-parser/lib/src/normalize.js ***!
   \****************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_7530__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_7569__) => {
 
 "use strict";
-__nested_webpack_require_7530__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_7530__.d(__webpack_exports__, {
-/* harmony export */   "normalizeHashtagInPlural": () => /* binding */ normalizeHashtagInPlural
+__nested_webpack_require_7569__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_7569__.d(__webpack_exports__, {
+/* harmony export */   "normalizeHashtagInPlural": () => (/* binding */ normalizeHashtagInPlural)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_7530__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_7530__(/*! ./types */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
-/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_7530__(/*! ./parser */ "../../../node_modules/intl-messageformat-parser/lib/src/parser.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_7569__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_7569__(/*! ./types */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
+/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_7569__(/*! ./parser */ "../../../node_modules/intl-messageformat-parser/lib/src/parser.js");
 
 
 
@@ -17349,20 +18149,20 @@ function normalizeHashtagInPlural(els) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat-parser/lib/src/parser.js":
-/*!*************************************************************************!*
+/*!*************************************************************************!*\
   !*** ../../../node_modules/intl-messageformat-parser/lib/src/parser.js ***!
   \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_10383__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_10425__) => {
 
 "use strict";
-__nested_webpack_require_10383__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_10383__.d(__webpack_exports__, {
-/* harmony export */   "SyntaxError": () => /* binding */ SyntaxError,
-/* harmony export */   "pegParse": () => /* binding */ pegParse
+__nested_webpack_require_10425__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_10425__.d(__webpack_exports__, {
+/* harmony export */   "SyntaxError": () => (/* binding */ SyntaxError),
+/* harmony export */   "pegParse": () => (/* binding */ pegParse)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_10383__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_10383__(/*! ./types */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
-/* harmony import */ var _skeleton__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_10383__(/*! ./skeleton */ "../../../node_modules/intl-messageformat-parser/lib/src/skeleton.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_10425__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_10425__(/*! ./types */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
+/* harmony import */ var _skeleton__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_10425__(/*! ./skeleton */ "../../../node_modules/intl-messageformat-parser/lib/src/skeleton.js");
 // @ts-nocheck
 
 // @generated
@@ -20479,18 +21279,18 @@ var pegParse = peg$parse;
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat-parser/lib/src/skeleton.js":
-/*!***************************************************************************!*
+/*!***************************************************************************!*\
   !*** ../../../node_modules/intl-messageformat-parser/lib/src/skeleton.js ***!
   \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_124215__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_124262__) => {
 
 "use strict";
-__nested_webpack_require_124215__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_124215__.d(__webpack_exports__, {
-/* harmony export */   "parseDateTimeSkeleton": () => /* binding */ parseDateTimeSkeleton,
-/* harmony export */   "parseNumberSkeleton": () => /* binding */ parseNumberSkeleton
+__nested_webpack_require_124262__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_124262__.d(__webpack_exports__, {
+/* harmony export */   "parseDateTimeSkeleton": () => (/* binding */ parseDateTimeSkeleton),
+/* harmony export */   "parseNumberSkeleton": () => (/* binding */ parseNumberSkeleton)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_124215__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_124262__(/*! tslib */ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js");
 
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
@@ -20618,6 +21418,8 @@ function icuUnitToEcma(unit) {
 }
 var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
 var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
+var INTEGER_WIDTH_REGEX = /(\*)(0+)|(#+)(0+)|(0+)/g;
+var CONCISE_INTEGER_WIDTH_REGEX = /^(0+)$/;
 function parseSignificantPrecision(str) {
     var result = {};
     str.replace(SIGNIFICANT_PRECISION_REGEX, function (_, g1, g2) {
@@ -20651,32 +21453,70 @@ function parseSign(str) {
                 signDisplay: 'auto',
             };
         case 'sign-accounting':
+        case '()':
             return {
                 currencySign: 'accounting',
             };
         case 'sign-always':
+        case '+!':
             return {
                 signDisplay: 'always',
             };
         case 'sign-accounting-always':
+        case '()!':
             return {
                 signDisplay: 'always',
                 currencySign: 'accounting',
             };
         case 'sign-except-zero':
+        case '+?':
             return {
                 signDisplay: 'exceptZero',
             };
         case 'sign-accounting-except-zero':
+        case '()?':
             return {
                 signDisplay: 'exceptZero',
                 currencySign: 'accounting',
             };
         case 'sign-never':
+        case '+_':
             return {
                 signDisplay: 'never',
             };
     }
+}
+function parseConciseScientificAndEngineeringStem(stem) {
+    // Engineering
+    var result;
+    if (stem[0] === 'E' && stem[1] === 'E') {
+        result = {
+            notation: 'engineering',
+        };
+        stem = stem.slice(2);
+    }
+    else if (stem[0] === 'E') {
+        result = {
+            notation: 'scientific',
+        };
+        stem = stem.slice(1);
+    }
+    if (result) {
+        var signDisplay = stem.slice(0, 2);
+        if (signDisplay === '+!') {
+            result.signDisplay = 'always';
+            stem = stem.slice(2);
+        }
+        else if (signDisplay === '+?') {
+            result.signDisplay = 'exceptZero';
+            stem = stem.slice(2);
+        }
+        if (!CONCISE_INTEGER_WIDTH_REGEX.test(stem)) {
+            throw new Error('Malformed concise eng/scientific notation');
+        }
+        result.minimumIntegerDigits = stem.length;
+    }
+    return result;
 }
 function parseNotationOptions(opt) {
     var result = {};
@@ -20695,13 +21535,19 @@ function parseNumberSkeleton(tokens) {
         var token = tokens_1[_i];
         switch (token.stem) {
             case 'percent':
+            case '%':
                 result.style = 'percent';
+                continue;
+            case '%x100':
+                result.style = 'percent';
+                result.scale = 100;
                 continue;
             case 'currency':
                 result.style = 'currency';
                 result.currency = token.options[0];
                 continue;
             case 'group-off':
+            case ',_':
                 result.useGrouping = false;
                 continue;
             case 'precision-integer':
@@ -20709,14 +21555,17 @@ function parseNumberSkeleton(tokens) {
                 result.maximumFractionDigits = 0;
                 continue;
             case 'measure-unit':
+            case 'unit':
                 result.style = 'unit';
                 result.unit = icuUnitToEcma(token.options[0]);
                 continue;
             case 'compact-short':
+            case 'K':
                 result.notation = 'compact';
                 result.compactDisplay = 'short';
                 continue;
             case 'compact-long':
+            case 'KK':
                 result.notation = 'compact';
                 result.compactDisplay = 'long';
                 continue;
@@ -20745,11 +21594,37 @@ function parseNumberSkeleton(tokens) {
             case 'unit-width-iso-code':
                 result.currencyDisplay = 'symbol';
                 continue;
+            case 'scale':
+                result.scale = parseFloat(token.options[0]);
+                continue;
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+            case 'integer-width':
+                if (token.options.length > 1) {
+                    throw new RangeError('integer-width stems only accept a single optional option');
+                }
+                token.options[0].replace(INTEGER_WIDTH_REGEX, function (_, g1, g2, g3, g4, g5) {
+                    if (g1) {
+                        result.minimumIntegerDigits = g2.length;
+                    }
+                    else if (g3 && g4) {
+                        throw new Error('We currently do not support maximum integer digits');
+                    }
+                    else if (g5) {
+                        throw new Error('We currently do not support exact integer digits');
+                    }
+                    return '';
+                });
+                continue;
         }
-        // Precision
-        // https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#fraction-precision
-        // precision-integer case
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+        if (CONCISE_INTEGER_WIDTH_REGEX.test(token.stem)) {
+            result.minimumIntegerDigits = token.stem.length;
+            continue;
+        }
         if (FRACTION_PRECISION_REGEX.test(token.stem)) {
+            // Precision
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#fraction-precision
+            // precision-integer case
             if (token.options.length > 1) {
                 throw new RangeError('Fraction-precision stems only accept a single optional option');
             }
@@ -20778,6 +21653,7 @@ function parseNumberSkeleton(tokens) {
             }
             continue;
         }
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
         if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
             result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), parseSignificantPrecision(token.stem));
             continue;
@@ -20785,6 +21661,10 @@ function parseNumberSkeleton(tokens) {
         var signOpts = parseSign(token.stem);
         if (signOpts) {
             result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), signOpts);
+        }
+        var conciseScientificAndEngineeringOpts = parseConciseScientificAndEngineeringStem(token.stem);
+        if (conciseScientificAndEngineeringOpts) {
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), conciseScientificAndEngineeringOpts);
         }
     }
     return result;
@@ -20794,29 +21674,29 @@ function parseNumberSkeleton(tokens) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat-parser/lib/src/types.js":
-/*!************************************************************************!*
+/*!************************************************************************!*\
   !*** ../../../node_modules/intl-messageformat-parser/lib/src/types.js ***!
   \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_137153__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_140303__) => {
 
 "use strict";
-__nested_webpack_require_137153__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_137153__.d(__webpack_exports__, {
-/* harmony export */   "TYPE": () => /* binding */ TYPE,
-/* harmony export */   "SKELETON_TYPE": () => /* binding */ SKELETON_TYPE,
-/* harmony export */   "isLiteralElement": () => /* binding */ isLiteralElement,
-/* harmony export */   "isArgumentElement": () => /* binding */ isArgumentElement,
-/* harmony export */   "isNumberElement": () => /* binding */ isNumberElement,
-/* harmony export */   "isDateElement": () => /* binding */ isDateElement,
-/* harmony export */   "isTimeElement": () => /* binding */ isTimeElement,
-/* harmony export */   "isSelectElement": () => /* binding */ isSelectElement,
-/* harmony export */   "isPluralElement": () => /* binding */ isPluralElement,
-/* harmony export */   "isPoundElement": () => /* binding */ isPoundElement,
-/* harmony export */   "isTagElement": () => /* binding */ isTagElement,
-/* harmony export */   "isNumberSkeleton": () => /* binding */ isNumberSkeleton,
-/* harmony export */   "isDateTimeSkeleton": () => /* binding */ isDateTimeSkeleton,
-/* harmony export */   "createLiteralElement": () => /* binding */ createLiteralElement,
-/* harmony export */   "createNumberElement": () => /* binding */ createNumberElement
+__nested_webpack_require_140303__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_140303__.d(__webpack_exports__, {
+/* harmony export */   "TYPE": () => (/* binding */ TYPE),
+/* harmony export */   "SKELETON_TYPE": () => (/* binding */ SKELETON_TYPE),
+/* harmony export */   "isLiteralElement": () => (/* binding */ isLiteralElement),
+/* harmony export */   "isArgumentElement": () => (/* binding */ isArgumentElement),
+/* harmony export */   "isNumberElement": () => (/* binding */ isNumberElement),
+/* harmony export */   "isDateElement": () => (/* binding */ isDateElement),
+/* harmony export */   "isTimeElement": () => (/* binding */ isTimeElement),
+/* harmony export */   "isSelectElement": () => (/* binding */ isSelectElement),
+/* harmony export */   "isPluralElement": () => (/* binding */ isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* binding */ isPoundElement),
+/* harmony export */   "isTagElement": () => (/* binding */ isTagElement),
+/* harmony export */   "isNumberSkeleton": () => (/* binding */ isNumberSkeleton),
+/* harmony export */   "isDateTimeSkeleton": () => (/* binding */ isDateTimeSkeleton),
+/* harmony export */   "createLiteralElement": () => (/* binding */ createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* binding */ createNumberElement)
 /* harmony export */ });
 var TYPE;
 (function (TYPE) {
@@ -20917,37 +21797,38 @@ function createNumberElement(value, style) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js":
-/*!***************************************************************************************!*
+/*!***************************************************************************************!*\
   !*** ../../../node_modules/intl-messageformat-parser/node_modules/tslib/tslib.es6.js ***!
   \***************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_141186__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_144367__) => {
 
 "use strict";
-__nested_webpack_require_141186__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_141186__.d(__webpack_exports__, {
-/* harmony export */   "__extends": () => /* binding */ __extends,
-/* harmony export */   "__assign": () => /* binding */ __assign,
-/* harmony export */   "__rest": () => /* binding */ __rest,
-/* harmony export */   "__decorate": () => /* binding */ __decorate,
-/* harmony export */   "__param": () => /* binding */ __param,
-/* harmony export */   "__metadata": () => /* binding */ __metadata,
-/* harmony export */   "__awaiter": () => /* binding */ __awaiter,
-/* harmony export */   "__generator": () => /* binding */ __generator,
-/* harmony export */   "__createBinding": () => /* binding */ __createBinding,
-/* harmony export */   "__exportStar": () => /* binding */ __exportStar,
-/* harmony export */   "__values": () => /* binding */ __values,
-/* harmony export */   "__read": () => /* binding */ __read,
-/* harmony export */   "__spread": () => /* binding */ __spread,
-/* harmony export */   "__spreadArrays": () => /* binding */ __spreadArrays,
-/* harmony export */   "__await": () => /* binding */ __await,
-/* harmony export */   "__asyncGenerator": () => /* binding */ __asyncGenerator,
-/* harmony export */   "__asyncDelegator": () => /* binding */ __asyncDelegator,
-/* harmony export */   "__asyncValues": () => /* binding */ __asyncValues,
-/* harmony export */   "__makeTemplateObject": () => /* binding */ __makeTemplateObject,
-/* harmony export */   "__importStar": () => /* binding */ __importStar,
-/* harmony export */   "__importDefault": () => /* binding */ __importDefault,
-/* harmony export */   "__classPrivateFieldGet": () => /* binding */ __classPrivateFieldGet,
-/* harmony export */   "__classPrivateFieldSet": () => /* binding */ __classPrivateFieldSet
+__nested_webpack_require_144367__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_144367__.d(__webpack_exports__, {
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__values": () => (/* binding */ __values),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__spreadArray": () => (/* binding */ __spreadArray),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet)
 /* harmony export */ });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -20973,6 +21854,8 @@ var extendStatics = function(d, b) {
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -21095,19 +21978,27 @@ function __read(o, n) {
     return ar;
 }
 
+/** @deprecated */
 function __spread() {
     for (var ar = [], i = 0; i < arguments.length; i++)
         ar = ar.concat(__read(arguments[i]));
     return ar;
 }
 
+/** @deprecated */
 function __spreadArrays() {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
         for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
             r[k] = a[j];
     return r;
-};
+}
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
 
 function __await(v) {
     return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -21181,28 +22072,28 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat/lib/index.js":
-/*!*************************************************************!*
+/*!*************************************************************!*\
   !*** ../../../node_modules/intl-messageformat/lib/index.js ***!
   \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_153944__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157591__) => {
 
 "use strict";
-__nested_webpack_require_153944__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_153944__.d(__webpack_exports__, {
-/* harmony export */   "PART_TYPE": () => /* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.PART_TYPE,
-/* harmony export */   "formatToParts": () => /* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.formatToParts,
-/* harmony export */   "isFormatXMLElementFn": () => /* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.isFormatXMLElementFn,
-/* harmony export */   "IntlMessageFormat": () => /* reexport safe */ _src_core__WEBPACK_IMPORTED_MODULE_1__.IntlMessageFormat,
-/* harmony export */   "ErrorCode": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.ErrorCode,
-/* harmony export */   "FormatError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.FormatError,
-/* harmony export */   "InvalidValueError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueError,
-/* harmony export */   "InvalidValueTypeError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueTypeError,
-/* harmony export */   "MissingValueError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.MissingValueError,
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+__nested_webpack_require_157591__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_157591__.d(__webpack_exports__, {
+/* harmony export */   "PART_TYPE": () => (/* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.PART_TYPE),
+/* harmony export */   "formatToParts": () => (/* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.formatToParts),
+/* harmony export */   "isFormatXMLElementFn": () => (/* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.isFormatXMLElementFn),
+/* harmony export */   "IntlMessageFormat": () => (/* reexport safe */ _src_core__WEBPACK_IMPORTED_MODULE_1__.IntlMessageFormat),
+/* harmony export */   "ErrorCode": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.ErrorCode),
+/* harmony export */   "FormatError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.FormatError),
+/* harmony export */   "InvalidValueError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueError),
+/* harmony export */   "InvalidValueTypeError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueTypeError),
+/* harmony export */   "MissingValueError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.MissingValueError),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _src_core__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_153944__(/*! ./src/core */ "../../../node_modules/intl-messageformat/lib/src/core.js");
-/* harmony import */ var _src_formatters__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_153944__(/*! ./src/formatters */ "../../../node_modules/intl-messageformat/lib/src/formatters.js");
-/* harmony import */ var _src_error__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_153944__(/*! ./src/error */ "../../../node_modules/intl-messageformat/lib/src/error.js");
+/* harmony import */ var _src_core__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157591__(/*! ./src/core */ "../../../node_modules/intl-messageformat/lib/src/core.js");
+/* harmony import */ var _src_formatters__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157591__(/*! ./src/formatters */ "../../../node_modules/intl-messageformat/lib/src/formatters.js");
+/* harmony import */ var _src_error__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157591__(/*! ./src/error */ "../../../node_modules/intl-messageformat/lib/src/error.js");
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
@@ -21218,21 +22109,21 @@ See the accompanying LICENSE file for terms.
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat/lib/src/core.js":
-/*!****************************************************************!*
+/*!****************************************************************!*\
   !*** ../../../node_modules/intl-messageformat/lib/src/core.js ***!
   \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_156460__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_160128__) => {
 
 "use strict";
-__nested_webpack_require_156460__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_156460__.d(__webpack_exports__, {
-/* harmony export */   "IntlMessageFormat": () => /* binding */ IntlMessageFormat
+__nested_webpack_require_160128__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_160128__.d(__webpack_exports__, {
+/* harmony export */   "IntlMessageFormat": () => (/* binding */ IntlMessageFormat)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_156460__(/*! tslib */ "../../../node_modules/intl-messageformat/node_modules/tslib/tslib.es6.js");
-/* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_156460__(/*! intl-messageformat-parser */ "../../../node_modules/intl-messageformat-parser/lib/index.js");
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_156460__(/*! fast-memoize */ "../../../node_modules/fast-memoize/src/index.js");
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_156460__.n(fast_memoize__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _formatters__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_156460__(/*! ./formatters */ "../../../node_modules/intl-messageformat/lib/src/formatters.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_160128__(/*! tslib */ "../../../node_modules/intl-messageformat/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_160128__(/*! intl-messageformat-parser */ "../../../node_modules/intl-messageformat-parser/lib/index.js");
+/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_160128__(/*! fast-memoize */ "../../../node_modules/fast-memoize/src/index.js");
+/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_160128__.n(fast_memoize__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _formatters__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_160128__(/*! ./formatters */ "../../../node_modules/intl-messageformat/lib/src/formatters.js");
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
@@ -21465,21 +22356,21 @@ var IntlMessageFormat = /** @class */ (function () {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat/lib/src/error.js":
-/*!*****************************************************************!*
+/*!*****************************************************************!*\
   !*** ../../../node_modules/intl-messageformat/lib/src/error.js ***!
   \*****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166218__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169889__) => {
 
 "use strict";
-__nested_webpack_require_166218__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_166218__.d(__webpack_exports__, {
-/* harmony export */   "ErrorCode": () => /* binding */ ErrorCode,
-/* harmony export */   "FormatError": () => /* binding */ FormatError,
-/* harmony export */   "InvalidValueError": () => /* binding */ InvalidValueError,
-/* harmony export */   "InvalidValueTypeError": () => /* binding */ InvalidValueTypeError,
-/* harmony export */   "MissingValueError": () => /* binding */ MissingValueError
+__nested_webpack_require_169889__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_169889__.d(__webpack_exports__, {
+/* harmony export */   "ErrorCode": () => (/* binding */ ErrorCode),
+/* harmony export */   "FormatError": () => (/* binding */ FormatError),
+/* harmony export */   "InvalidValueError": () => (/* binding */ InvalidValueError),
+/* harmony export */   "InvalidValueTypeError": () => (/* binding */ InvalidValueTypeError),
+/* harmony export */   "MissingValueError": () => (/* binding */ MissingValueError)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166218__(/*! tslib */ "../../../node_modules/intl-messageformat/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169889__(/*! tslib */ "../../../node_modules/intl-messageformat/node_modules/tslib/tslib.es6.js");
 
 var ErrorCode;
 (function (ErrorCode) {
@@ -21533,20 +22424,20 @@ var MissingValueError = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat/lib/src/formatters.js":
-/*!**********************************************************************!*
+/*!**********************************************************************!*\
   !*** ../../../node_modules/intl-messageformat/lib/src/formatters.js ***!
   \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169600__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_173282__) => {
 
 "use strict";
-__nested_webpack_require_169600__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_169600__.d(__webpack_exports__, {
-/* harmony export */   "PART_TYPE": () => /* binding */ PART_TYPE,
-/* harmony export */   "isFormatXMLElementFn": () => /* binding */ isFormatXMLElementFn,
-/* harmony export */   "formatToParts": () => /* binding */ formatToParts
+__nested_webpack_require_173282__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_173282__.d(__webpack_exports__, {
+/* harmony export */   "PART_TYPE": () => (/* binding */ PART_TYPE),
+/* harmony export */   "isFormatXMLElementFn": () => (/* binding */ isFormatXMLElementFn),
+/* harmony export */   "formatToParts": () => (/* binding */ formatToParts)
 /* harmony export */ });
-/* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169600__(/*! intl-messageformat-parser */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
-/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169600__(/*! ./error */ "../../../node_modules/intl-messageformat/lib/src/error.js");
+/* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_173282__(/*! intl-messageformat-parser */ "../../../node_modules/intl-messageformat-parser/lib/src/types.js");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_173282__(/*! ./error */ "../../../node_modules/intl-messageformat/lib/src/error.js");
 
 
 var PART_TYPE;
@@ -21665,6 +22556,11 @@ originalMessage) {
                 : (0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton)(el.style)
                     ? el.style.parsedOptions
                     : undefined;
+            if (style && style.scale) {
+                value =
+                    value *
+                        (style.scale || 1);
+            }
             result.push({
                 type: 0 /* literal */,
                 value: formatters
@@ -21724,37 +22620,38 @@ originalMessage) {
 /***/ }),
 
 /***/ "../../../node_modules/intl-messageformat/node_modules/tslib/tslib.es6.js":
-/*!********************************************************************************!*
+/*!********************************************************************************!*\
   !*** ../../../node_modules/intl-messageformat/node_modules/tslib/tslib.es6.js ***!
   \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_178198__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_182037__) => {
 
 "use strict";
-__nested_webpack_require_178198__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_178198__.d(__webpack_exports__, {
-/* harmony export */   "__extends": () => /* binding */ __extends,
-/* harmony export */   "__assign": () => /* binding */ __assign,
-/* harmony export */   "__rest": () => /* binding */ __rest,
-/* harmony export */   "__decorate": () => /* binding */ __decorate,
-/* harmony export */   "__param": () => /* binding */ __param,
-/* harmony export */   "__metadata": () => /* binding */ __metadata,
-/* harmony export */   "__awaiter": () => /* binding */ __awaiter,
-/* harmony export */   "__generator": () => /* binding */ __generator,
-/* harmony export */   "__createBinding": () => /* binding */ __createBinding,
-/* harmony export */   "__exportStar": () => /* binding */ __exportStar,
-/* harmony export */   "__values": () => /* binding */ __values,
-/* harmony export */   "__read": () => /* binding */ __read,
-/* harmony export */   "__spread": () => /* binding */ __spread,
-/* harmony export */   "__spreadArrays": () => /* binding */ __spreadArrays,
-/* harmony export */   "__await": () => /* binding */ __await,
-/* harmony export */   "__asyncGenerator": () => /* binding */ __asyncGenerator,
-/* harmony export */   "__asyncDelegator": () => /* binding */ __asyncDelegator,
-/* harmony export */   "__asyncValues": () => /* binding */ __asyncValues,
-/* harmony export */   "__makeTemplateObject": () => /* binding */ __makeTemplateObject,
-/* harmony export */   "__importStar": () => /* binding */ __importStar,
-/* harmony export */   "__importDefault": () => /* binding */ __importDefault,
-/* harmony export */   "__classPrivateFieldGet": () => /* binding */ __classPrivateFieldGet,
-/* harmony export */   "__classPrivateFieldSet": () => /* binding */ __classPrivateFieldSet
+__nested_webpack_require_182037__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_182037__.d(__webpack_exports__, {
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__values": () => (/* binding */ __values),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__spreadArray": () => (/* binding */ __spreadArray),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet)
 /* harmony export */ });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -21780,6 +22677,8 @@ var extendStatics = function(d, b) {
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -21902,19 +22801,27 @@ function __read(o, n) {
     return ar;
 }
 
+/** @deprecated */
 function __spread() {
     for (var ar = [], i = 0; i < arguments.length; i++)
         ar = ar.concat(__read(arguments[i]));
     return ar;
 }
 
+/** @deprecated */
 function __spreadArrays() {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
         for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
             r[k] = a[j];
     return r;
-};
+}
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
 
 function __await(v) {
     return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -21988,19 +22895,19 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 /***/ }),
 
 /***/ "../index.js":
-/*!*******************!*
+/*!*******************!*\
   !*** ../index.js ***!
   \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190788__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_195093__) => {
 
 "use strict";
-__nested_webpack_require_190788__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_190788__.d(__webpack_exports__, {
-/* harmony export */   "L10n": () => /* reexport safe */ _l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default,
-/* harmony export */   "MessageBundle": () => /* reexport safe */ _l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_1__.default
+__nested_webpack_require_195093__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_195093__.d(__webpack_exports__, {
+/* harmony export */   "L10n": () => (/* reexport safe */ _l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.default),
+/* harmony export */   "MessageBundle": () => (/* reexport safe */ _l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_1__.default)
 /* harmony export */ });
-/* harmony import */ var _l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190788__(/*! @l10n/l10n.js */ "./l10n.js");
-/* harmony import */ var _l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190788__(/*! @l10n/message-bundle.js */ "./message-bundle.js");
+/* harmony import */ var _l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_195093__(/*! @l10n/l10n.js */ "./l10n.js");
+/* harmony import */ var _l10n_message_bundle_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_195093__(/*! @l10n/message-bundle.js */ "./message-bundle.js");
 
 
 
@@ -22009,17 +22916,17 @@ __nested_webpack_require_190788__.r(__webpack_exports__);
 /***/ }),
 
 /***/ "./l10n.js":
-/*!*****************!*
+/*!*****************!*\
   !*** ./l10n.js ***!
   \*****************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_191636__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_195946__) => {
 
 "use strict";
-__nested_webpack_require_191636__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_191636__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ L10n
+__nested_webpack_require_195946__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_195946__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ L10n)
 /* harmony export */ });
-/* harmony import */ var _l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_191636__(/*! @l10n/message-bundle */ "./message-bundle.js");
+/* harmony import */ var _l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_195946__(/*! @l10n/message-bundle */ "./message-bundle.js");
 
 
 /**
@@ -22126,17 +23033,17 @@ class L10n {
 /***/ }),
 
 /***/ "./message-bundle.js":
-/*!***************************!*
+/*!***************************!*\
   !*** ./message-bundle.js ***!
   \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_195431__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_199744__) => {
 
 "use strict";
-__nested_webpack_require_195431__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_195431__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ MessageBundle
+__nested_webpack_require_199744__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_199744__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ MessageBundle)
 /* harmony export */ });
-/* harmony import */ var _l10n_message_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_195431__(/*! @l10n/message.js */ "./message.js");
+/* harmony import */ var _l10n_message_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_199744__(/*! @l10n/message.js */ "./message.js");
 
 // TODO: Deal with situations when message is not available, but is requested
 
@@ -22317,17 +23224,17 @@ class MessageBundle {
 /***/ }),
 
 /***/ "./message.js":
-/*!********************!*
+/*!********************!*\
   !*** ./message.js ***!
   \********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_202052__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_206368__) => {
 
 "use strict";
-__nested_webpack_require_202052__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_202052__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Message
+__nested_webpack_require_206368__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_206368__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Message)
 /* harmony export */ });
-/* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_202052__(/*! intl-messageformat */ "../../../node_modules/intl-messageformat/lib/index.js");
+/* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_206368__(/*! intl-messageformat */ "../../../node_modules/intl-messageformat/lib/index.js");
 
 
 /**
@@ -22414,7 +23321,7 @@ class Message {
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_205207__(moduleId) {
+/******/ 	function __nested_webpack_require_209525__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -22427,7 +23334,7 @@ class Message {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_205207__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_209525__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -22437,11 +23344,11 @@ class Message {
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_205207__.n = (module) => {
+/******/ 		__nested_webpack_require_209525__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
-/******/ 			__nested_webpack_require_205207__.d(getter, { a: getter });
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nested_webpack_require_209525__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -22449,9 +23356,9 @@ class Message {
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_205207__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_209525__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_205207__.o(definition, key) && !__nested_webpack_require_205207__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_209525__.o(definition, key) && !__nested_webpack_require_209525__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -22460,13 +23367,13 @@ class Message {
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_205207__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__nested_webpack_require_209525__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_205207__.r = (exports) => {
+/******/ 		__nested_webpack_require_209525__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -22478,7 +23385,7 @@ class Message {
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_205207__("../index.js");
+/******/ 	return __nested_webpack_require_209525__("../index.js");
 /******/ })()
 ;
 });
@@ -22833,24 +23740,24 @@ module.exports.strategies = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SKELETON_TYPE": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.SKELETON_TYPE,
-/* harmony export */   "TYPE": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.TYPE,
-/* harmony export */   "createLiteralElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createLiteralElement,
-/* harmony export */   "createNumberElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createNumberElement,
-/* harmony export */   "isArgumentElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement,
-/* harmony export */   "isDateElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateElement,
-/* harmony export */   "isDateTimeSkeleton": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton,
-/* harmony export */   "isLiteralElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement,
-/* harmony export */   "isNumberElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberElement,
-/* harmony export */   "isNumberSkeleton": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton,
-/* harmony export */   "isPluralElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPluralElement,
-/* harmony export */   "isPoundElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPoundElement,
-/* harmony export */   "isSelectElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isSelectElement,
-/* harmony export */   "isTagElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTagElement,
-/* harmony export */   "isTimeElement": () => /* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTimeElement,
-/* harmony export */   "SyntaxError": () => /* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.SyntaxError,
-/* harmony export */   "pegParse": () => /* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse,
-/* harmony export */   "parse": () => /* binding */ parse
+/* harmony export */   "SKELETON_TYPE": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.SKELETON_TYPE),
+/* harmony export */   "TYPE": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.TYPE),
+/* harmony export */   "createLiteralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createNumberElement),
+/* harmony export */   "isArgumentElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement),
+/* harmony export */   "isDateElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateElement),
+/* harmony export */   "isDateTimeSkeleton": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton),
+/* harmony export */   "isLiteralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement),
+/* harmony export */   "isNumberElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberElement),
+/* harmony export */   "isNumberSkeleton": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton),
+/* harmony export */   "isPluralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPoundElement),
+/* harmony export */   "isSelectElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isSelectElement),
+/* harmony export */   "isTagElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTagElement),
+/* harmony export */   "isTimeElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTimeElement),
+/* harmony export */   "SyntaxError": () => (/* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.SyntaxError),
+/* harmony export */   "pegParse": () => (/* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse),
+/* harmony export */   "parse": () => (/* binding */ parse)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _src_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/parser */ "../node_modules/intl-messageformat-parser/lib/src/parser.js");
@@ -22882,7 +23789,7 @@ function parse(input, opts) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "normalizeHashtagInPlural": () => /* binding */ normalizeHashtagInPlural
+/* harmony export */   "normalizeHashtagInPlural": () => (/* binding */ normalizeHashtagInPlural)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
@@ -22941,8 +23848,8 @@ function normalizeHashtagInPlural(els) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SyntaxError": () => /* binding */ SyntaxError,
-/* harmony export */   "pegParse": () => /* binding */ pegParse
+/* harmony export */   "SyntaxError": () => (/* binding */ SyntaxError),
+/* harmony export */   "pegParse": () => (/* binding */ pegParse)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
@@ -26071,8 +26978,8 @@ var pegParse = peg$parse;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "parseDateTimeSkeleton": () => /* binding */ parseDateTimeSkeleton,
-/* harmony export */   "parseNumberSkeleton": () => /* binding */ parseNumberSkeleton
+/* harmony export */   "parseDateTimeSkeleton": () => (/* binding */ parseDateTimeSkeleton),
+/* harmony export */   "parseNumberSkeleton": () => (/* binding */ parseNumberSkeleton)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 
@@ -26202,6 +27109,8 @@ function icuUnitToEcma(unit) {
 }
 var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
 var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
+var INTEGER_WIDTH_REGEX = /(\*)(0+)|(#+)(0+)|(0+)/g;
+var CONCISE_INTEGER_WIDTH_REGEX = /^(0+)$/;
 function parseSignificantPrecision(str) {
     var result = {};
     str.replace(SIGNIFICANT_PRECISION_REGEX, function (_, g1, g2) {
@@ -26235,32 +27144,70 @@ function parseSign(str) {
                 signDisplay: 'auto',
             };
         case 'sign-accounting':
+        case '()':
             return {
                 currencySign: 'accounting',
             };
         case 'sign-always':
+        case '+!':
             return {
                 signDisplay: 'always',
             };
         case 'sign-accounting-always':
+        case '()!':
             return {
                 signDisplay: 'always',
                 currencySign: 'accounting',
             };
         case 'sign-except-zero':
+        case '+?':
             return {
                 signDisplay: 'exceptZero',
             };
         case 'sign-accounting-except-zero':
+        case '()?':
             return {
                 signDisplay: 'exceptZero',
                 currencySign: 'accounting',
             };
         case 'sign-never':
+        case '+_':
             return {
                 signDisplay: 'never',
             };
     }
+}
+function parseConciseScientificAndEngineeringStem(stem) {
+    // Engineering
+    var result;
+    if (stem[0] === 'E' && stem[1] === 'E') {
+        result = {
+            notation: 'engineering',
+        };
+        stem = stem.slice(2);
+    }
+    else if (stem[0] === 'E') {
+        result = {
+            notation: 'scientific',
+        };
+        stem = stem.slice(1);
+    }
+    if (result) {
+        var signDisplay = stem.slice(0, 2);
+        if (signDisplay === '+!') {
+            result.signDisplay = 'always';
+            stem = stem.slice(2);
+        }
+        else if (signDisplay === '+?') {
+            result.signDisplay = 'exceptZero';
+            stem = stem.slice(2);
+        }
+        if (!CONCISE_INTEGER_WIDTH_REGEX.test(stem)) {
+            throw new Error('Malformed concise eng/scientific notation');
+        }
+        result.minimumIntegerDigits = stem.length;
+    }
+    return result;
 }
 function parseNotationOptions(opt) {
     var result = {};
@@ -26279,13 +27226,19 @@ function parseNumberSkeleton(tokens) {
         var token = tokens_1[_i];
         switch (token.stem) {
             case 'percent':
+            case '%':
                 result.style = 'percent';
+                continue;
+            case '%x100':
+                result.style = 'percent';
+                result.scale = 100;
                 continue;
             case 'currency':
                 result.style = 'currency';
                 result.currency = token.options[0];
                 continue;
             case 'group-off':
+            case ',_':
                 result.useGrouping = false;
                 continue;
             case 'precision-integer':
@@ -26293,14 +27246,17 @@ function parseNumberSkeleton(tokens) {
                 result.maximumFractionDigits = 0;
                 continue;
             case 'measure-unit':
+            case 'unit':
                 result.style = 'unit';
                 result.unit = icuUnitToEcma(token.options[0]);
                 continue;
             case 'compact-short':
+            case 'K':
                 result.notation = 'compact';
                 result.compactDisplay = 'short';
                 continue;
             case 'compact-long':
+            case 'KK':
                 result.notation = 'compact';
                 result.compactDisplay = 'long';
                 continue;
@@ -26332,11 +27288,34 @@ function parseNumberSkeleton(tokens) {
             case 'scale':
                 result.scale = parseFloat(token.options[0]);
                 continue;
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+            case 'integer-width':
+                if (token.options.length > 1) {
+                    throw new RangeError('integer-width stems only accept a single optional option');
+                }
+                token.options[0].replace(INTEGER_WIDTH_REGEX, function (_, g1, g2, g3, g4, g5) {
+                    if (g1) {
+                        result.minimumIntegerDigits = g2.length;
+                    }
+                    else if (g3 && g4) {
+                        throw new Error('We currently do not support maximum integer digits');
+                    }
+                    else if (g5) {
+                        throw new Error('We currently do not support exact integer digits');
+                    }
+                    return '';
+                });
+                continue;
         }
-        // Precision
-        // https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#fraction-precision
-        // precision-integer case
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+        if (CONCISE_INTEGER_WIDTH_REGEX.test(token.stem)) {
+            result.minimumIntegerDigits = token.stem.length;
+            continue;
+        }
         if (FRACTION_PRECISION_REGEX.test(token.stem)) {
+            // Precision
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#fraction-precision
+            // precision-integer case
             if (token.options.length > 1) {
                 throw new RangeError('Fraction-precision stems only accept a single optional option');
             }
@@ -26365,6 +27344,7 @@ function parseNumberSkeleton(tokens) {
             }
             continue;
         }
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
         if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
             result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), parseSignificantPrecision(token.stem));
             continue;
@@ -26372,6 +27352,10 @@ function parseNumberSkeleton(tokens) {
         var signOpts = parseSign(token.stem);
         if (signOpts) {
             result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), signOpts);
+        }
+        var conciseScientificAndEngineeringOpts = parseConciseScientificAndEngineeringStem(token.stem);
+        if (conciseScientificAndEngineeringOpts) {
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), conciseScientificAndEngineeringOpts);
         }
     }
     return result;
@@ -26389,21 +27373,21 @@ function parseNumberSkeleton(tokens) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TYPE": () => /* binding */ TYPE,
-/* harmony export */   "SKELETON_TYPE": () => /* binding */ SKELETON_TYPE,
-/* harmony export */   "isLiteralElement": () => /* binding */ isLiteralElement,
-/* harmony export */   "isArgumentElement": () => /* binding */ isArgumentElement,
-/* harmony export */   "isNumberElement": () => /* binding */ isNumberElement,
-/* harmony export */   "isDateElement": () => /* binding */ isDateElement,
-/* harmony export */   "isTimeElement": () => /* binding */ isTimeElement,
-/* harmony export */   "isSelectElement": () => /* binding */ isSelectElement,
-/* harmony export */   "isPluralElement": () => /* binding */ isPluralElement,
-/* harmony export */   "isPoundElement": () => /* binding */ isPoundElement,
-/* harmony export */   "isTagElement": () => /* binding */ isTagElement,
-/* harmony export */   "isNumberSkeleton": () => /* binding */ isNumberSkeleton,
-/* harmony export */   "isDateTimeSkeleton": () => /* binding */ isDateTimeSkeleton,
-/* harmony export */   "createLiteralElement": () => /* binding */ createLiteralElement,
-/* harmony export */   "createNumberElement": () => /* binding */ createNumberElement
+/* harmony export */   "TYPE": () => (/* binding */ TYPE),
+/* harmony export */   "SKELETON_TYPE": () => (/* binding */ SKELETON_TYPE),
+/* harmony export */   "isLiteralElement": () => (/* binding */ isLiteralElement),
+/* harmony export */   "isArgumentElement": () => (/* binding */ isArgumentElement),
+/* harmony export */   "isNumberElement": () => (/* binding */ isNumberElement),
+/* harmony export */   "isDateElement": () => (/* binding */ isDateElement),
+/* harmony export */   "isTimeElement": () => (/* binding */ isTimeElement),
+/* harmony export */   "isSelectElement": () => (/* binding */ isSelectElement),
+/* harmony export */   "isPluralElement": () => (/* binding */ isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* binding */ isPoundElement),
+/* harmony export */   "isTagElement": () => (/* binding */ isTagElement),
+/* harmony export */   "isNumberSkeleton": () => (/* binding */ isNumberSkeleton),
+/* harmony export */   "isDateTimeSkeleton": () => (/* binding */ isDateTimeSkeleton),
+/* harmony export */   "createLiteralElement": () => (/* binding */ createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* binding */ createNumberElement)
 /* harmony export */ });
 var TYPE;
 (function (TYPE) {
@@ -26512,16 +27496,16 @@ function createNumberElement(value, style) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PART_TYPE": () => /* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.PART_TYPE,
-/* harmony export */   "formatToParts": () => /* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.formatToParts,
-/* harmony export */   "isFormatXMLElementFn": () => /* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.isFormatXMLElementFn,
-/* harmony export */   "IntlMessageFormat": () => /* reexport safe */ _src_core__WEBPACK_IMPORTED_MODULE_1__.IntlMessageFormat,
-/* harmony export */   "ErrorCode": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.ErrorCode,
-/* harmony export */   "FormatError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.FormatError,
-/* harmony export */   "InvalidValueError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueError,
-/* harmony export */   "InvalidValueTypeError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueTypeError,
-/* harmony export */   "MissingValueError": () => /* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.MissingValueError,
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "PART_TYPE": () => (/* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.PART_TYPE),
+/* harmony export */   "formatToParts": () => (/* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.formatToParts),
+/* harmony export */   "isFormatXMLElementFn": () => (/* reexport safe */ _src_formatters__WEBPACK_IMPORTED_MODULE_0__.isFormatXMLElementFn),
+/* harmony export */   "IntlMessageFormat": () => (/* reexport safe */ _src_core__WEBPACK_IMPORTED_MODULE_1__.IntlMessageFormat),
+/* harmony export */   "ErrorCode": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.ErrorCode),
+/* harmony export */   "FormatError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.FormatError),
+/* harmony export */   "InvalidValueError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueError),
+/* harmony export */   "InvalidValueTypeError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.InvalidValueTypeError),
+/* harmony export */   "MissingValueError": () => (/* reexport safe */ _src_error__WEBPACK_IMPORTED_MODULE_2__.MissingValueError),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _src_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/core */ "../node_modules/intl-messageformat/lib/src/core.js");
 /* harmony import */ var _src_formatters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/formatters */ "../node_modules/intl-messageformat/lib/src/formatters.js");
@@ -26549,7 +27533,7 @@ See the accompanying LICENSE file for terms.
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "IntlMessageFormat": () => /* binding */ IntlMessageFormat
+/* harmony export */   "IntlMessageFormat": () => (/* binding */ IntlMessageFormat)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 /* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! intl-messageformat-parser */ "../node_modules/intl-messageformat-parser/lib/index.js");
@@ -26796,11 +27780,11 @@ var IntlMessageFormat = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ErrorCode": () => /* binding */ ErrorCode,
-/* harmony export */   "FormatError": () => /* binding */ FormatError,
-/* harmony export */   "InvalidValueError": () => /* binding */ InvalidValueError,
-/* harmony export */   "InvalidValueTypeError": () => /* binding */ InvalidValueTypeError,
-/* harmony export */   "MissingValueError": () => /* binding */ MissingValueError
+/* harmony export */   "ErrorCode": () => (/* binding */ ErrorCode),
+/* harmony export */   "FormatError": () => (/* binding */ FormatError),
+/* harmony export */   "InvalidValueError": () => (/* binding */ InvalidValueError),
+/* harmony export */   "InvalidValueTypeError": () => (/* binding */ InvalidValueTypeError),
+/* harmony export */   "MissingValueError": () => (/* binding */ MissingValueError)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
 
@@ -26864,9 +27848,9 @@ var MissingValueError = /** @class */ (function (_super) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PART_TYPE": () => /* binding */ PART_TYPE,
-/* harmony export */   "isFormatXMLElementFn": () => /* binding */ isFormatXMLElementFn,
-/* harmony export */   "formatToParts": () => /* binding */ formatToParts
+/* harmony export */   "PART_TYPE": () => (/* binding */ PART_TYPE),
+/* harmony export */   "isFormatXMLElementFn": () => (/* binding */ isFormatXMLElementFn),
+/* harmony export */   "formatToParts": () => (/* binding */ formatToParts)
 /* harmony export */ });
 /* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat-parser */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "../node_modules/intl-messageformat/lib/src/error.js");
@@ -29121,30 +30105,30 @@ Stream.prototype.pipe = function(dest, options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__extends": () => /* binding */ __extends,
-/* harmony export */   "__assign": () => /* binding */ __assign,
-/* harmony export */   "__rest": () => /* binding */ __rest,
-/* harmony export */   "__decorate": () => /* binding */ __decorate,
-/* harmony export */   "__param": () => /* binding */ __param,
-/* harmony export */   "__metadata": () => /* binding */ __metadata,
-/* harmony export */   "__awaiter": () => /* binding */ __awaiter,
-/* harmony export */   "__generator": () => /* binding */ __generator,
-/* harmony export */   "__createBinding": () => /* binding */ __createBinding,
-/* harmony export */   "__exportStar": () => /* binding */ __exportStar,
-/* harmony export */   "__values": () => /* binding */ __values,
-/* harmony export */   "__read": () => /* binding */ __read,
-/* harmony export */   "__spread": () => /* binding */ __spread,
-/* harmony export */   "__spreadArrays": () => /* binding */ __spreadArrays,
-/* harmony export */   "__spreadArray": () => /* binding */ __spreadArray,
-/* harmony export */   "__await": () => /* binding */ __await,
-/* harmony export */   "__asyncGenerator": () => /* binding */ __asyncGenerator,
-/* harmony export */   "__asyncDelegator": () => /* binding */ __asyncDelegator,
-/* harmony export */   "__asyncValues": () => /* binding */ __asyncValues,
-/* harmony export */   "__makeTemplateObject": () => /* binding */ __makeTemplateObject,
-/* harmony export */   "__importStar": () => /* binding */ __importStar,
-/* harmony export */   "__importDefault": () => /* binding */ __importDefault,
-/* harmony export */   "__classPrivateFieldGet": () => /* binding */ __classPrivateFieldGet,
-/* harmony export */   "__classPrivateFieldSet": () => /* binding */ __classPrivateFieldSet
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__values": () => (/* binding */ __values),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__spreadArray": () => (/* binding */ __spreadArray),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet)
 /* harmony export */ });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -29652,7 +30636,7 @@ module.exports = v4;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ normalizeComponent
+/* harmony export */   "default": () => (/* binding */ normalizeComponent)
 /* harmony export */ });
 /* globals __VUE_SSR_CONTEXT__ */
 
@@ -29765,7 +30749,7 @@ function normalizeComponent (
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /*!
  * Vue.js v2.6.12
@@ -38209,20 +39193,30 @@ if (inBrowser) {
 
 /***/ }),
 
-/***/ "../node_modules/vuex/dist/vuex.common.js":
-/*!************************************************!*\
-  !*** ../node_modules/vuex/dist/vuex.common.js ***!
-  \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "../node_modules/vuex/dist/vuex.esm.js":
+/*!*********************************************!*\
+  !*** ../node_modules/vuex/dist/vuex.esm.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "Store": () => (/* binding */ Store),
+/* harmony export */   "createLogger": () => (/* binding */ createLogger),
+/* harmony export */   "createNamespacedHelpers": () => (/* binding */ createNamespacedHelpers),
+/* harmony export */   "install": () => (/* binding */ install),
+/* harmony export */   "mapActions": () => (/* binding */ mapActions),
+/* harmony export */   "mapGetters": () => (/* binding */ mapGetters),
+/* harmony export */   "mapMutations": () => (/* binding */ mapMutations),
+/* harmony export */   "mapState": () => (/* binding */ mapState)
+/* harmony export */ });
 /*!
- * vuex v3.6.0
- * (c) 2020 Evan You
+ * vuex v3.6.2
+ * (c) 2021 Evan You
  * @license MIT
  */
-
-
 function applyMixin (Vue) {
   var version = Number(Vue.version.split('.')[0]);
 
@@ -39185,7 +40179,7 @@ var mapState = normalizeNamespace(function (namespace, states) {
 /**
  * Reduce the code which written in Vue.js for committing the mutation
  * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
  * @return {Object}
  */
 var mapMutations = normalizeNamespace(function (namespace, mutations) {
@@ -39447,10 +40441,10 @@ function pad (num, maxLength) {
   return repeat('0', maxLength - num.toString().length) + num
 }
 
-var index_cjs = {
+var index = {
   Store: Store,
   install: install,
-  version: '3.6.0',
+  version: '3.6.2',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
@@ -39459,29 +40453,7 @@ var index_cjs = {
   createLogger: createLogger
 };
 
-module.exports = index_cjs;
-
-
-/***/ }),
-
-/***/ "./index.js":
-/*!******************!*\
-  !*** ./index.js ***!
-  \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Style": () => /* reexport default from dynamic */ _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default.a,
-/* harmony export */   "AppController": () => /* reexport safe */ _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__.default
-/* harmony export */ });
-/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/styles/style.scss */ "./styles/style.scss");
-/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/app-controller.js */ "./lib/controllers/app-controller.js");
-
-
-
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
 
 
 
@@ -39496,7 +40468,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignedGroupsController
+/* harmony export */   "default": () => (/* binding */ AlignedGroupsController)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
@@ -39559,6 +40531,8 @@ class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
   }
 
@@ -39798,6 +40772,10 @@ class AlignedGroupsController {
   getAmountOfSegments (segment) {
     return this.alignment.getAmountOfSegments(segment)
   }
+
+  getOpositeTokenTargetIdForScroll (token) {
+    return this.alignment.getOpositeTokenTargetIdForScroll(token)
+  }
 }
 
 
@@ -39812,12 +40790,11 @@ class AlignedGroupsController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AppController
+/* harmony export */   "default": () => (/* binding */ AppController)
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
 /* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.common.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
@@ -39923,8 +40900,8 @@ class AppController {
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use((vuex__WEBPACK_IMPORTED_MODULE_11___default()))
-    this.store = new (vuex__WEBPACK_IMPORTED_MODULE_11___default().Store)(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use(vuex__WEBPACK_IMPORTED_MODULE_11__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_11__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
   }
 
   /**
@@ -40006,11 +40983,19 @@ class AppController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ DownloadController
+/* harmony export */   "default": () => (/* binding */ DownloadController)
 /* harmony export */ });
 /* harmony import */ var _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/download/download-file-csv.js */ "./lib/download/download-file-csv.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/download/download-file-json.js */ "./lib/download/download-file-json.js");
+/* harmony import */ var _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/download/download-file-html.js */ "./lib/download/download-file-html.js");
+/* harmony import */ var _lib_download_html_template_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/download/html-template.json */ "./lib/download/html-template.json");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
+
+
+
 
 
 
@@ -40022,8 +41007,31 @@ class DownloadController {
    */
   static get downloadMethods () {
     return {
-      plainSourceDownloadAll: this.plainSourceDownloadAll,
-      plainSourceDownloadSingle: this.plainSourceDownloadSingle
+      jsonSimpleDownloadAll: {
+        method: this.jsonSimpleDownloadAll,
+        allTexts: true,
+        name: 'jsonSimpleDownloadAll',
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP'),
+        alignmentStarted: false
+      },
+      plainSourceDownloadAll: {
+        method: this.plainSourceDownloadAll,
+        // allTexts: true,
+        name: 'plainSourceDownloadAll',
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP'),
+        alignmentStarted: false
+      },
+      plainSourceDownloadSingle: { method: this.plainSourceDownloadSingle, allTexts: false },
+      htmlDownloadAll: {
+        method: this.htmlDownloadAll,
+        allTexts: true,
+        name: 'htmlDownloadAll',
+        label: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL'),
+        tooltip: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP'),
+        alignmentStarted: true
+      }
     }
   }
 
@@ -40035,12 +41043,12 @@ class DownloadController {
    */
   static download (downloadType, data) {
     if (this.downloadMethods[downloadType]) {
-      return this.downloadMethods[downloadType](data)
+      return this.downloadMethods[downloadType].method(data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_TYPE', { downloadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
     })
     return false
   }
@@ -40053,10 +41061,10 @@ class DownloadController {
    */
   static plainSourceDownloadAll (data) {
     if (!data.originDocSource || !data.targetDocSources) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
       })
       return false
     }
@@ -40088,24 +41096,50 @@ class DownloadController {
    * @return {Boolean} - true - download was done, false - not
    */
   static plainSourceDownloadSingle (data) {
-    if (!data.sourceText) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+    if (!data.docSource) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
       })
       return false
     }
 
     const fields = [
-      { header: 'HEADER: 1', direction: data.sourceText.direction, lang: data.sourceText.lang, sourceType: data.sourceText.sourceType },
-      { header: data.sourceText.text }
+      { header: 'HEADER: 1', direction: data.docSource.direction, lang: data.docSource.lang, sourceType: data.docSource.sourceType },
+      { header: data.docSource.text }
     ]
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const fileName = `alignment-${data.sourceText.lang}`
+    const fileName = `alignment-${data.docSource.lang}`
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
+  }
+
+  static jsonSimpleDownloadAll (data) {
+    let langs = [] // eslint-disable-line prefer-const
+
+    Object.values(data.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
+    return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
+  }
+
+  static htmlDownloadAll (data) {
+    const htmlTemplate = _lib_download_html_template_json__WEBPACK_IMPORTED_MODULE_3__
+    let layout = htmlTemplate.layout
+
+    htmlTemplate.params.forEach(param => {
+      const paramValue = data[param] || htmlTemplate[param]
+
+      if (paramValue) {
+        layout = layout.replaceAll(`{{${param}}}`, paramValue)
+      }
+    })
+
+    const fileName = `alignment-html-output-${data.langs.join('-')}`
+    return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__.default.download(layout, fileName)
   }
 }
 
@@ -40121,7 +41155,7 @@ class DownloadController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ HistoryController
+/* harmony export */   "default": () => (/* binding */ HistoryController)
 /* harmony export */ });
 class HistoryController {
   constructor (store) {
@@ -40234,7 +41268,7 @@ class HistoryController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ SettingsController
+/* harmony export */   "default": () => (/* binding */ SettingsController)
 /* harmony export */ });
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-data-models */ "../node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js");
 /* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
@@ -40421,6 +41455,14 @@ class SettingsController {
     if (sourceTextData.sourceType) {
       localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
+
+    if (sourceTextData.tokenization && localTextEditorOptions[sourceTextData.sourceType]) {
+      Object.keys(sourceTextData.tokenization).forEach(optItemName => {
+        if (localTextEditorOptions[sourceTextData.sourceType].items[optItemName]) {
+          localTextEditorOptions[sourceTextData.sourceType].items[optItemName].setValue(sourceTextData.tokenization[optItemName])
+        }
+      })
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 
@@ -40475,7 +41517,7 @@ SettingsController.evt = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TextsController
+/* harmony export */   "default": () => (/* binding */ TextsController)
 /* harmony export */ });
 /* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
 /* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
@@ -40613,11 +41655,20 @@ class TextsController {
     return null
   }
 
-  /**
-   * Parses data from file and updated source document texts in the alignment
-   * @param {String} fileData - a content of the uploaded file
-   */
-  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue) {
+  checkUploadedFileByExtension (extension, allTexts) {
+    if (!_lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isExtensionAvailable(extension, allTexts)) {
+      const availableExtensions = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.getAvailableExtensions(allTexts).join(', ')
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE', { extension, availableExtensions }),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+    return true
+  }
+
+  uploadData (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40626,8 +41677,26 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileAll'
 
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(extension)
+
+    const uploadPrepareMethods = {
+      plainSourceUploadAll: this.uploadDocSourceFromFileAll.bind(this),
+      jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
+    }
+
+    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+  }
+
+  uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
+    return _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+  }
+
+  /**
+   * Parses data from file and updated source document texts in the alignment
+   * @param {String} fileData - a content of the uploaded file
+   */
+  uploadDocSourceFromFileAll (fileData, tokenizerOptionValue, uploadType) {
     const tokenization = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(tokenizerOptionValue)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
@@ -40654,7 +41723,8 @@ class TextsController {
       })
       return
     }
-    const uploadType = 'plainSourceUploadFromFileSingle'
+
+    const uploadType = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineUploadTypeByExtension(fileData.extension, false)
 
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
@@ -40675,13 +41745,33 @@ class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData () {
-    const downloadType = 'plainSourceDownloadAll'
+  downloadData (downloadType, additional = {}) {
+    const downloadPrepareMethods = {
+      plainSourceDownloadAll: this.downloadShortData.bind(this),
+      jsonSimpleDownloadAll: this.downloadFullData.bind(this),
+      htmlDownloadAll: this.htmlDownloadAll.bind(this)
+    }
+
+    const result = downloadPrepareMethods[downloadType](downloadType, additional)
+
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+  }
+
+  downloadShortData (downloadType) {
     const data = {
       originDocSource: (this.originDocSource && this.originDocSource.fullyDefined) ? this.originDocSource : null,
       targetDocSources: this.targetDocSourceFullyDefined ? this.allTargetDocSources : null
     }
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, data)
+    return {
+      downloadType, data
+    }
+  }
+
+  downloadFullData (downloadType) {
+    const data = this.alignment.convertToJSON()
+    return {
+      downloadType, data
+    }
   }
 
   /**
@@ -40690,15 +41780,84 @@ class TextsController {
    */
   downloadSingleSourceText (textType, textId) {
     const downloadType = 'plainSourceDownloadSingle'
-    const sourceText = this.getDocSource(textType, textId)
+    const docSource = this.getDocSource(textType, textId)
 
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { sourceText })
+    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(downloadType, { docSource })
+  }
+
+  htmlDownloadAll (downloadType, additional) {
+    return {
+      downloadType,
+      data: {
+        theme: `alpheios-${additional.theme}`,
+        langs: this.collectLangsForFileName(),
+        fullData: this.prepareFullDataForHTMLOutput()
+      }
+    }
+  }
+
+  collectLangsForFileName () {
+    const langs = [this.alignment.origin.docSource.lang]
+    Object.values(this.alignment.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+    return langs
+  }
+
+  prepareFullDataForHTMLOutput () {
+    let targets = {} // eslint-disable-line prefer-const
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
+
+      targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
+    })
+
+    let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
+    origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
+    origin.segments.forEach(seg => {
+      seg.tokens.forEach(token => {
+        token.grouped = this.alignment.tokenIsGrouped(token)
+
+        if (token.grouped) {
+          const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+          if (!token.groupData) { token.groupData = [] }
+
+          tokenGroups.forEach(tokenGroup => {
+            token.groupData.push({
+              groupId: tokenGroup.id,
+              targetId: tokenGroup.targetId
+            })
+          })
+        }
+      })
+    })
+
+    this.alignment.allTargetTextsIds.forEach(targetId => {
+      targets[targetId].segments.forEach(seg => {
+        seg.tokens.forEach(token => {
+          token.grouped = this.alignment.tokenIsGrouped(token)
+          if (token.grouped) {
+            const tokenGroups = this.alignment.findAllAlignmentGroups(token)
+            if (!token.groupData) { token.groupData = [] }
+            tokenGroups.forEach(tokenGroup => {
+              token.groupData.push({
+                groupId: tokenGroup.id,
+                targetId: tokenGroup.targetId
+              })
+            })
+          }
+        })
+      })
+    })
+
+    return JSON.stringify({ origin, targets })
   }
 
   /**
    * Clear alignment and start over
    */
   startOver () {
+    this.alignment = null
     this.createAlignment()
   }
 
@@ -40726,6 +41885,10 @@ class TextsController {
   changeMetadataTerm () {
     this.store.commit('incrementAlignmentUpdated')
   }
+
+  get originDocSourceDefined () {
+    return this.alignment.originDocSourceDefined
+  }
 }
 
 
@@ -40740,7 +41903,7 @@ class TextsController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TokenizeController
+/* harmony export */   "default": () => (/* binding */ TokenizeController)
 /* harmony export */ });
 /* harmony import */ var _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/tokenizers/simple-local-tokenizer.js */ "./lib/tokenizers/simple-local-tokenizer.js");
 /* harmony import */ var _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/tokenizers/alpheios-remote-tokenizer.js */ "./lib/tokenizers/alpheios-remote-tokenizer.js");
@@ -40769,14 +41932,16 @@ class TokenizeController {
       simpleLocalTokenizer: {
         method: _lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default.tokenize.bind(_lib_tokenizers_simple_local_tokenizer_js__WEBPACK_IMPORTED_MODULE_0__.default),
         hasOptions: false,
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: _lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default.tokenize.bind(_lib_tokenizers_alpheios_remote_tokenizer_js__WEBPACK_IMPORTED_MODULE_1__.default),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
   }
@@ -40953,6 +42118,25 @@ class TokenizeController {
       return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
     }
   }
+
+  static getReIndexSentenceMethod (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer].reIndexSentence
+    }
+  }
+
+  static reIndexSentences (segment) {
+    let sentenceIndex = 1
+    for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
+      let token = segment.tokens[iTok] // eslint-disable-line prefer-const
+      token.sentenceIndex = sentenceIndex
+      const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]$/
+
+      if (sentenceEnds.test(token.word)) {
+        sentenceIndex++
+      }
+    }
+  }
 }
 
 
@@ -40967,7 +42151,7 @@ class TokenizeController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TokensEditController
+/* harmony export */   "default": () => (/* binding */ TokensEditController)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
@@ -41264,12 +42448,18 @@ class TokensEditController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ UploadController
+/* harmony export */   "default": () => (/* binding */ UploadController)
 /* harmony export */ });
-/* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
+/* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
+/* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
+/* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
+
+
+
+
 
 
 
@@ -41280,11 +42470,48 @@ class UploadController {
    * The list with registered variants of upload workflows
    * @return {Object} - each property is one of the defined upload method
    */
+
+  // plainSourceDownloadAll: { method: this.plainSourceDownloadAll, allTexts: true, name: 'plainSourceDownloadAll', label: 'Short to csv' },
   static get uploadMethods () {
     return {
-      plainSourceUploadFromFileAll: this.plainSourceUploadFromFileAll,
-      plainSourceUploadFromFileSingle: this.plainSourceUploadFromFileSingle
+      plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
+      plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
+      jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
     }
+  }
+
+  /**
+   * @param {String} extension - file extension
+   * @returns {Boolean} - true - could be uploaded, false - not
+   */
+  static isExtensionAvailable (extension, allTexts = true) {
+    return Object.values(this.uploadMethods).some(method => method.allTexts === allTexts && method.extensions.includes(extension))
+  }
+
+  /**
+   *
+   * @param {String} extension - file extension
+   * @param {Boolean} allTexts - true - global upload, false - local
+   * @returns {String} - upload type
+   */
+  static defineUploadTypeByExtension (extension, allTexts = true) {
+    return Object.keys(this.uploadMethods).find(methodName => this.uploadMethods[methodName].allTexts === allTexts && this.uploadMethods[methodName].extensions.includes(extension))
+  }
+
+  /**
+   * @param {Boolean} allTexts - true - from main menu, false - from local
+   * @returns {Array[String]} - array of file extensions
+   */
+  static getAvailableExtensions (allTexts = true) {
+    const availableExtensions = []
+    Object.values(this.uploadMethods).forEach(method => {
+      if (method.allTexts === allTexts) {
+        availableExtensions.push(...method.extensions)
+      }
+    })
+
+    return availableExtensions.filter((item, pos, self) => self.indexOf(item) === pos)
   }
 
   /**
@@ -41295,12 +42522,12 @@ class UploadController {
    */
   static upload (uploadType, data) {
     if (this.uploadMethods[uploadType]) {
-      return this.uploadMethods[uploadType](data)
+      return this.uploadMethods[uploadType].method(data)
     }
-    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+    console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }))
+    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_TYPE', { uploadType }),
+      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
     })
     return false
   }
@@ -41313,28 +42540,28 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {Object} - originDocSource {SourceText}, targetDocSource {SourceText}
    */
-  static plainSourceUploadFromFileAll ({ fileData, tokenization }) {
+  static plainSourceUploadAll ({ fileData, tokenization }) {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
-      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
       })
       return
     }
 
-    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileDataArr)
+    const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__.default.upload(fileDataArr)
 
     if (result && (result.length > 0)) {
       const finalResult = {}
 
-      finalResult.originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('origin', { tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+      finalResult.originDocSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', { tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
       finalResult.targetDocSources = []
 
       for (let i = 1; i < result.length; i++) {
-        finalResult.targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
+        finalResult.targetDocSources.push(_lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', { tokenization, text: result[i].text, direction: result[i].direction, lang: result[i].lang, sourceType: result[i].sourceType }))
       }
 
       return finalResult
@@ -41352,25 +42579,43 @@ class UploadController {
    *        {String} tokenization - tokenizer name (used for creating sourceText)
     * @return {SourceText}
    */
-  static plainSourceUploadFromFileSingle ({ fileData, textId, textType, tokenization }) {
-    if (fileData.filetext.indexOf('HEADER:') === 0) {
-      const fileDataArr = fileData.filetext.split(/\r\n|\r|\n/)
+  static plainSourceUploadSingle ({ fileData, textId, textType, tokenization }) {
+    if (fileData.text.indexOf('HEADER:') === 0) {
+      const fileDataArr = fileData.text.split(/\r\n|\r|\n/)
       if (fileDataArr.length < 2) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
-        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
-          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_2__.default.types.ERROR
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
         })
         return
       }
 
-      const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_3__.default.upload(fileDataArr)
+      const result = _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__.default.upload(fileDataArr)
 
-      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
+      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(textType, { textId, tokenization, text: result[0].text, direction: result[0].direction, lang: result[0].lang, sourceType: result[0].sourceType })
     } else {
-      const fileExtension = fileData.filename.split('.').pop()
+      const fileExtension = fileData.extension
       const sourceType = (fileExtension === 'xml') ? 'tei' : 'text'
-      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.filetext, sourceType })
+      return _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(textType, { textId, tokenization, text: fileData.text, sourceType, lang: fileData.lang })
+    }
+  }
+
+  static jsonSimpleUploadAll (fileData) {
+    const fileJSON = JSON.parse(fileData)
+    return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(fileJSON)
+  }
+
+  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams = {} } = {}) {
+    if (objType === 'collection') {
+      const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getCollection(linkData)
+      return content
+    } else if (objType === 'navigation') {
+      const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getNavigation(linkData)
+      return content
+    } else if (objType === 'document') {
+      const docXML = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getDocument(linkData, refParams)
+      return docXML
     }
   }
 }
@@ -41387,7 +42632,7 @@ class UploadController {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignmentGroupActions
+/* harmony export */   "default": () => (/* binding */ AlignmentGroupActions)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 
@@ -41404,7 +42649,7 @@ class AlignmentGroupActions {
   // calculated props
 
   get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
+    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
   }
 
   // checks
@@ -41485,7 +42730,7 @@ class AlignmentGroupActions {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token, targetId) {
-    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   // actions
@@ -41631,6 +42876,26 @@ class AlignmentGroupActions {
       result: true
     }
   }
+
+  convertToJSON () {
+    return {
+      segmentIndex: this.segmentIndex,
+      targetId: this.targetId,
+      origin: this.origin,
+      target: this.target
+    }
+  }
+
+  static convertFromJSON (data) {
+    const actions = new AlignmentGroupActions({
+      targetId: data.targetId
+    })
+    actions.segmentIndex = data.segmentIndex
+    actions.origin = data.origin
+    actions.target = data.target
+
+    return actions
+  }
 }
 
 
@@ -41645,9 +42910,11 @@ class AlignmentGroupActions {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TokensEditActions
+/* harmony export */   "default": () => (/* binding */ TokensEditActions)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+
 
 
 class TokensEditActions {
@@ -41740,7 +43007,9 @@ class TokensEditActions {
 
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.UPDATE, { wasIdWord: token.idWord, wasWord: token.word, newWord: word, newIdWord })
-    return token.update({ word, idWord: newIdWord })
+    token.update({ word, idWord: newIdWord })
+    this.reIndexSentence(segment)
+    return true
   }
 
   /**
@@ -41773,6 +43042,7 @@ class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(tokenResult, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, stepParams)
     segment.deleteToken(tokenIndex)
+    this.reIndexSentence(segment)
     return true
   }
 
@@ -41821,6 +43091,7 @@ class TokensEditActions {
     this.tokensEditHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.SPLIT, stepParams)
 
     segment.addNewToken(tokenIndex, newIdWord2, tokenWordParts[1])
+    this.reIndexSentence(segment)
     return true
   }
 
@@ -41887,6 +43158,8 @@ class TokensEditActions {
     this.tokensEditHistory.truncateSteps()
     this.tokensEditHistory.addStep(token, changeType, stepParams)
 
+    this.reIndexSentence(segment)
+    this.reIndexSentence(newSegment)
     return true
   }
 
@@ -41923,7 +43196,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedAddLineBreak (token) {
-    return !token.hasLineBreak
+    return !token.hasLineBreak && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -41932,7 +43205,7 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedRemoveLineBreak (token) {
-    return Boolean(token.hasLineBreak)
+    return Boolean(token.hasLineBreak) && Boolean(this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
   }
 
   /**
@@ -41941,7 +43214,9 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToNextSegment (token) {
-    return !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && Boolean(this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT))
+    const segment = this.getSegmentByToken(token)
+    const nextSegment = this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT)
+    return segment.tokens.length > 1 && !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && Boolean(nextSegment)
   }
 
   /**
@@ -41950,7 +43225,9 @@ class TokensEditActions {
    * @returns {Boolean}
    */
   allowedToPrevSegment (token) {
-    return !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && Boolean(this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV))
+    const segment = this.getSegmentByToken(token)
+    const prevSegment = this.getSegmentByToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV)
+    return segment.tokens.length > 1 && !this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && Boolean(prevSegment)
   }
 
   /**
@@ -41960,8 +43237,10 @@ class TokensEditActions {
    */
   allowedDelete (token) {
     const alignedText = this.getAlignedTextByToken(token)
-    return (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
-           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index))
+    const segment = this.getSegmentByToken(token)
+    return segment.tokens.length > 1 &&
+           ((!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) && (token.segmentIndex === alignedText.segments[0].index)) ||
+           (!this.getNextPrevToken(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.NEXT) && (token.segmentIndex === alignedText.segments[alignedText.segments.length - 1].index)))
   }
 
   /**
@@ -42000,7 +43279,14 @@ class TokensEditActions {
       createdTokens, segmentToInsert, insertType
     })
 
+    this.reIndexSentence(segmentToInsert)
     return true
+  }
+
+  reIndexSentence (segment) {
+    const alignedText = (segment.textType === 'origin') ? this.origin.alignedText : this.targets[segment.docSourceId].alignedText
+    const getReIndexSentenceMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.getReIndexSentenceMethod(alignedText.tokenization.tokenizer)
+    getReIndexSentenceMethod(segment)
   }
 
   /**
@@ -42011,20 +43297,35 @@ class TokensEditActions {
   deleteToken (token) {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
-    return segment.deleteToken(tokenIndex)
+
+    const deletedToken = segment.deleteToken(tokenIndex)
+    if (deletedToken) {
+      this.tokensEditHistory.truncateSteps()
+      this.tokensEditHistory.addStep(null, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.DELETE, {
+        segmentToDelete: segment, deleteIndex: tokenIndex, deletedToken
+      })
+
+      this.reIndexSentence(segment)
+      return true
+    }
+    return false
   }
 
   // history actions
 
   removeStepUpdate (step) {
+    const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
+    this.reIndexSentence(segment)
     return {
       result: true
     }
   }
 
   applyStepUpdate (step) {
+    const segment = this.getSegmentByToken(step.token)
     step.token.update({ word: step.params.newWord, idWord: step.params.newIdWord })
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42039,6 +43340,7 @@ class TokensEditActions {
     const insertPosition = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex : tokenIndex + 1
 
     segment.insertToken(step.params.mergedToken, insertPosition)
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42051,7 +43353,7 @@ class TokensEditActions {
     const tokenIndex = segment.getTokenIndex(step.token)
     const deleteIndex = (step.params.position === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? tokenIndex - 1 : tokenIndex + 1
     segment.deleteToken(deleteIndex)
-
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42063,7 +43365,7 @@ class TokensEditActions {
 
     step.token.update({ word: step.params.wasWord, idWord: step.params.wasIdWord })
     segment.deleteToken(tokenIndex + 1)
-
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42075,6 +43377,7 @@ class TokensEditActions {
 
     step.token.update({ word: step.params.newWord1, idWord: step.params.newIdWord1 })
     segment.addNewToken(tokenIndex, step.params.newIdWord2, step.params.newWord2)
+    this.reIndexSentence(segment)
     return {
       result: true
     }
@@ -42121,6 +43424,8 @@ class TokensEditActions {
     newSegment.deleteToken(step.params.newTokenIndex)
     wasSegment.insertToken(step.token, step.params.wasTokenIndex)
 
+    this.reIndexSentence(newSegment)
+    this.reIndexSentence(wasSegment)
     return {
       result: true
     }
@@ -42139,6 +43444,8 @@ class TokensEditActions {
     wasSegment.deleteToken(step.params.wasTokenIndex)
     newSegment.insertToken(step.token, step.params.newTokenIndex)
 
+    this.reIndexSentence(newSegment)
+    this.reIndexSentence(wasSegment)
     return {
       result: true
     }
@@ -42149,6 +43456,7 @@ class TokensEditActions {
       const tokenIndex = step.params.segmentToInsert.getTokenIndex(token)
       step.params.segmentToInsert.deleteToken(tokenIndex)
     })
+    this.reIndexSentence(step.params.segmentToInsert)
     return {
       result: true
     }
@@ -42159,6 +43467,23 @@ class TokensEditActions {
       const insertPosition = (step.params.insertType === 'start') ? 0 : step.params.segmentToInsert.tokens.length
       step.params.segmentToInsert.insertToken(token, insertPosition)
     })
+    this.reIndexSentence(step.params.segmentToInsert)
+    return {
+      result: true
+    }
+  }
+
+  removeStepDeleteToken (step) {
+    step.params.segmentToDelete.insertToken(step.params.deletedToken, step.params.deleteIndex)
+    this.reIndexSentence(step.params.segmentToDelete)
+    return {
+      result: true
+    }
+  }
+
+  applyStepDeleteToken (step) {
+    step.params.segmentToDelete.deleteToken(step.params.tokenIndex)
+    this.reIndexSentence(step.params.segmentToDelete)
     return {
       result: true
     }
@@ -42177,10 +43502,12 @@ class TokensEditActions {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignedText
+/* harmony export */   "default": () => (/* binding */ AlignedText)
 /* harmony export */ });
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/segment */ "./lib/data/segment.js");
+/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+
 
 
 
@@ -42213,6 +43540,11 @@ class AlignedText {
    */
   get segmentsAmount () {
     return this.segments ? this.segments.length : 0
+  }
+
+  updateLanguage (lang) {
+    this.lang = lang
+    this.segments.forEach(segment => segment.updateLanguage(lang))
   }
 
   /**
@@ -42263,6 +43595,48 @@ class AlignedText {
       indexWord
     })
   }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: data.textId,
+        textType: data.textType,
+        direction: data.direction,
+        lang: data.lang,
+        lansourceTypeg: data.sourceType,
+        tokenization: data.tokenization
+      }
+    }, data.tokenPrefix)
+    alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
+
+    return alignedText
+  }
+
+  convertForHTMLOutput () {
+    return {
+      dir: this.direction,
+      lang: this.lang,
+      langName: _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang).text,
+      segments: this.segments.map(seg => {
+        return {
+          tokens: seg.tokens.map(token => token.convertForHTMLOutput())
+        }
+      })
+    }
+  }
 }
 
 
@@ -42277,7 +43651,7 @@ class AlignedText {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignmentGroup
+/* harmony export */   "default": () => (/* binding */ AlignmentGroup)
 /* harmony export */ });
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
@@ -42295,18 +43669,19 @@ class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId) {
+  constructor (token, targetId, empty = false) {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
-
     this.alignmentGroupHistory = new _lib_data_history_alignment_group_history__WEBPACK_IMPORTED_MODULE_2__.default()
-    this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
-      targetId,
-      alignmentGroupHistory: this.alignmentGroupHistory
-    })
 
-    this.alignmentGroupHistory.allStepActions = this.allStepActions
+    if (!empty) {
+      this.alignmentGroupActions = new _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default({
+        targetId,
+        alignmentGroupHistory: this.alignmentGroupHistory
+      })
 
-    if (token) { this.add(token) }
+      this.alignmentGroupHistory.allStepActions = this.allStepActions
+      if (token) { this.add(token) }
+    }
   }
 
   // calculated props
@@ -42420,11 +43795,22 @@ class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
+  /**
+   *
+   * @param {Token} token
+   */
   updateFirstStepToken (token) {
     return this.alignmentGroupActions.updateFirstStepToken(token)
+  }
+
+  /**
+   * @returns {Boolean} true - if has tokens only from one text
+   */
+  get allTokensInTheStartingText () {
+    return ((this.origin.length === 0) || (this.target.length === 0)) && (this.groupLen > 0)
   }
 
   // actions
@@ -42483,6 +43869,23 @@ class AlignmentGroup {
       }
     }
   }
+
+  convertToJSON () {
+    return {
+      actions: this.alignmentGroupActions.convertToJSON()
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alGroup = new AlignmentGroup(null, null, true)
+
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
+  }
 }
 
 
@@ -42497,7 +43900,7 @@ class AlignmentGroup {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Alignment
+/* harmony export */   "default": () => (/* binding */ Alignment)
 /* harmony export */ });
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
@@ -42569,7 +43972,7 @@ class Alignment {
    * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
+    return this.originDocSourceDefined && this.origin.docSource.fullyDefined
   }
 
   /**
@@ -42578,6 +43981,10 @@ class Alignment {
    */
   get targetDocSourceFullyDefined () {
     return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+  }
+
+  get originDocSourceDefined () {
+    return Boolean(this.origin.docSource)
   }
 
   /**
@@ -42590,7 +43997,7 @@ class Alignment {
       return false
     }
 
-    if (!this.origin.docSource) {
+    if (!this.originDocSourceDefined) {
       if (docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default) {
         this.origin.docSource = docSource
       } else {
@@ -42598,6 +44005,9 @@ class Alignment {
       }
     } else {
       this.origin.docSource.update(docSource)
+      if (this.origin.alignedText) {
+        this.origin.alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -42611,9 +44021,9 @@ class Alignment {
   updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+        console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
         _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+          text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
           type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.ERROR
         })
       }
@@ -42629,6 +44039,9 @@ class Alignment {
       }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
+      if (this.targets[docSource.id].alignedText) {
+        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -42830,7 +44243,8 @@ class Alignment {
    * @returns {Boolean}
    */
   shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
-    return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
+    return this.tokenInActiveGroup(token, limitByTargetId) &&
+          (!this.tokenTheSameTextTypeAsStart(token) || (this.allTokensInTheStartingText))
   }
 
   /**
@@ -42839,6 +44253,13 @@ class Alignment {
    */
   get hasActiveAlignmentGroup () {
     return Boolean(this.activeAlignmentGroup)
+  }
+
+  /**
+   * @returns {Boolean} true - all in one starting text has only origin or target, false - has both origin and target
+   */
+  get allTokensInTheStartingText () {
+    return this.activeAlignmentGroup.allTokensInTheStartingText
   }
 
   /**
@@ -42909,10 +44330,12 @@ class Alignment {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
-      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
-        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
-        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.types.INFO
+      /*
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
+        type: NotificationSingleton.types.INFO
       })
+      */
       return true
     }
     return false
@@ -42927,6 +44350,13 @@ class Alignment {
   findAlignmentGroup (token, limitByTargetId = null) {
     if (this.tokenIsGrouped(token, limitByTargetId)) {
       return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token)) : null
+    }
+    return null
+  }
+
+  findAllAlignmentGroups (token) {
+    if (this.tokenIsGrouped(token)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(alGroup => alGroup.includesToken(token)) : []
     }
     return null
   }
@@ -43133,6 +44563,28 @@ class Alignment {
   clearHoverOnAlignmentGroups () {
     this.hoveredGroups = []
     return true
+  }
+
+  getOpositeTokenTargetIdForScroll (token) {
+    if (this.hoveredGroups.length > 0) {
+      const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+      const scrolledTargetsIds = []
+
+      const scrolldata = []
+
+      for (let i = 0; i < this.hoveredGroups.length; i++) {
+        const hoveredGroup = this.hoveredGroups[i]
+        if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+          scrolledTargetsIds.push(hoveredGroup.targetId)
+          scrolldata.push({
+            minOpositeTokenId: hoveredGroup[textTypeSeg].sort()[0],
+            targetId: hoveredGroup.targetId
+          })
+        }
+      }
+      return scrolldata
+    }
+    return {}
   }
 
   /**
@@ -43378,7 +44830,8 @@ class Alignment {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
       },
       apply: {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
@@ -43388,9 +44841,66 @@ class Alignment {
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
         [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions)
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
+        [_lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__.default.types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
       }
     }
+  }
+
+  convertToJSON () {
+    const origin = {
+      docSource: this.origin.docSource.convertToJSON(),
+      alignedText: this.origin.alignedText ? this.origin.alignedText.convertToJSON() : null
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToJSON(),
+        alignedText: this.targets[targetId].alignedText ? this.targets[targetId].alignedText.convertToJSON() : null
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+
+    return {
+      origin,
+      targets,
+      alignmentGroups,
+      activeAlignmentGroup: null
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignment = new Alignment()
+
+    alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
+
+    if (data.origin.alignedText) {
+      alignment.origin.alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.origin.alignedText)
+    }
+
+    Object.keys(data.targets).forEach(targetId => {
+      alignment.targets[targetId] = {
+        docSource: _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('target', data.targets[targetId].docSource)
+      }
+
+      if (data.targets[targetId].alignedText) {
+        alignment.targets[targetId].alignedText = _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(data.targets[targetId].alignedText)
+      }
+    })
+
+    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+
+    if (data.activeAlignmentGroup) {
+      alignment.activeAlignmentGroup = _lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(data.activeAlignmentGroup)
+    }
+
+    if (alignment.origin.alignedText) {
+      document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    }
+    return alignment
   }
 }
 
@@ -43406,7 +44916,7 @@ class Alignment {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignmentGroupHistory
+/* harmony export */   "default": () => (/* binding */ AlignmentGroupHistory)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
 /* harmony import */ var _lib_data_history_alignment_group_step_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/alignment-group-step.js */ "./lib/data/history/alignment-group-step.js");
@@ -43441,7 +44951,7 @@ class AlignmentGroupHistory extends _lib_data_history_editor_history__WEBPACK_IM
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlignmentGroupStep
+/* harmony export */   "default": () => (/* binding */ AlignmentGroupStep)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
 
@@ -43471,7 +44981,7 @@ class AlignmentGroupStep extends _lib_data_history_history_step__WEBPACK_IMPORTE
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ EditorHistory
+/* harmony export */   "default": () => (/* binding */ EditorHistory)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
@@ -43617,7 +45127,7 @@ class EditorHistory {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ HistoryStep
+/* harmony export */   "default": () => (/* binding */ HistoryStep)
 /* harmony export */ });
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
@@ -43698,7 +45208,7 @@ HistoryStep.directions = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TokensEditHistory
+/* harmony export */   "default": () => (/* binding */ TokensEditHistory)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_tokens_edit_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-step.js */ "./lib/data/history/tokens-edit-step.js");
 /* harmony import */ var _lib_data_history_editor_history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/history/editor-history */ "./lib/data/history/editor-history.js");
@@ -43724,7 +45234,7 @@ class TokensEditHistory extends _lib_data_history_editor_history__WEBPACK_IMPORT
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ TokensEditStep
+/* harmony export */   "default": () => (/* binding */ TokensEditStep)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_history_step__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step */ "./lib/data/history/history-step.js");
 
@@ -43754,7 +45264,7 @@ class TokensEditStep extends _lib_data_history_history_step__WEBPACK_IMPORTED_MO
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Langs
+/* harmony export */   "default": () => (/* binding */ Langs)
 /* harmony export */ });
 /* harmony import */ var _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/langs/langs-list.json */ "./lib/data/langs/langs-list.json");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
@@ -43786,7 +45296,7 @@ class Langs {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ MetadataTerm
+/* harmony export */   "default": () => (/* binding */ MetadataTerm)
 /* harmony export */ });
 class MetadataTerm {
   constructor (property, value) {
@@ -43836,6 +45346,18 @@ class MetadataTerm {
       this.value.splice(valueIndex, 1)
     }
   }
+
+  convertToJSON () {
+    return {
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromJSON (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value)
+  }
 }
 
 MetadataTerm.property = {
@@ -43846,7 +45368,8 @@ MetadataTerm.property = {
     multivalued: false,
     URI: 'http://purl.org/dc/terms/identifier',
     description: 'An unambiguous reference to the resource within a given context.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_IDENTIFIER',
+    order: 8
   },
   TITLE: {
     label: 'title',
@@ -43855,7 +45378,8 @@ MetadataTerm.property = {
     multivalued: false,
     URI: 'http://purl.org/dc/terms/title',
     description: 'A name given to the resource.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_TITLE',
+    order: 1
   },
   CREATOR: {
     label: 'creator',
@@ -43864,7 +45388,8 @@ MetadataTerm.property = {
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/creator',
     description: 'An entity primarily responsible for making the resource.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CREATOR',
+    order: 2
   },
   CONTRIBUTOR: {
     label: 'contributor',
@@ -43873,7 +45398,8 @@ MetadataTerm.property = {
     multivalued: true,
     URI: 'http://purl.org/dc/elements/1.1/contributor',
     description: 'An entity responsible for making contributions to the resource.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_CONTRIBUTOR',
+    order: 4
   },
   PUBLISHER: {
     label: 'publisher',
@@ -43882,7 +45408,8 @@ MetadataTerm.property = {
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/publisher',
     description: 'An entity responsible for making the resource available.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_PUBLISHER',
+    order: 5
   },
   DATE_COPYRIGHTED: {
     label: 'date copyrighted',
@@ -43891,7 +45418,8 @@ MetadataTerm.property = {
     multivalued: false,
     URI: 'http://purl.org/dc/terms/dateCopyrighted',
     description: 'Date of copyright of the resource.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED',
+    order: 3
   },
   SOURCE: {
     label: 'source',
@@ -43900,7 +45428,8 @@ MetadataTerm.property = {
     multivalued: false,
     URI: 'http://purl.org/dc/terms/source',
     description: 'A related resource from which the described resource is derived.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_SOURCE',
+    order: 6
   },
   DESCRIPTION: {
     label: 'description',
@@ -43909,7 +45438,8 @@ MetadataTerm.property = {
     multivalued: false,
     URI: 'http://purl.org/dc/elements/1.1/description',
     description: 'An account of the resource.',
-    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION'
+    descriptionl10n: 'METADATA_TERM_DESCRIPTION_DESCRIPTION',
+    order: 7
   }
 }
 
@@ -43925,13 +45455,13 @@ MetadataTerm.property = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Metadata
+/* harmony export */   "default": () => (/* binding */ Metadata)
 /* harmony export */ });
 /* harmony import */ var _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/metadata-term.js */ "./lib/data/metadata-term.js");
 
 
 class Metadata {
-  constructor (data) {
+  constructor () {
     this.properties = {}
   }
 
@@ -43973,6 +45503,25 @@ class Metadata {
     })
     return allMeta
   }
+
+  convertToJSON () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToJSON())
+    }
+  }
+
+  convertToJSONLine () {
+    return Object.values(this.properties).sort((a, b) => (a.property.order - b.property.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
+  }
+
+  static convertFromJSON (data) {
+    const metadata = new Metadata()
+    data.properties.forEach(prop => {
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(prop)
+      metadata.addProperty(metaItem.property, metaItem.value)
+    })
+    return metadata
+  }
 }
 
 
@@ -43987,19 +45536,26 @@ class Metadata {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Segment
+/* harmony export */   "default": () => (/* binding */ Segment)
 /* harmony export */ });
 /* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}, mapFields) {
+  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
     this.direction = direction
     this.docSourceId = docSourceId
-    this.checkAndUpdateTokens(tokens)
+
+    if (tokens) {
+      this.checkAndUpdateTokens(tokens)
+    }
+  }
+
+  updateLanguage (lang) {
+    this.lang = lang
   }
 
   /**
@@ -44008,8 +45564,7 @@ class Segment {
    */
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
-
-    this.lastTokenIdWord = this.tokens[this.tokens.length - 1].idWord
+    this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
   /**
@@ -44050,7 +45605,9 @@ class Segment {
    * @returns {Boolean}
    */
   deleteToken (tokenIndex) {
-    return this.tokens.splice(tokenIndex, 1)
+    const tokenToDelete = this.tokens[tokenIndex]
+    this.tokens.splice(tokenIndex, 1)
+    return tokenToDelete
   }
 
   /**
@@ -44069,7 +45626,7 @@ class Segment {
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
-    if (this.tokens.splice(tokenIndex + 1, 0, newToken)) {
+    if (this.insertToken(newToken, tokenIndex + 1)) {
       return newToken
     }
     return false
@@ -44082,6 +45639,46 @@ class Segment {
    */
   insertToken (token, index) {
     return this.tokens.splice(index, 0, token)
+  }
+
+  /**
+   * @returns { String } index
+   *          { String } textType - origin/target
+   *          { String } lang
+   *          { String } direction
+   *          { String } docSourceId
+   *          { Array[Object] } tokens - array of tokens converted to JSON
+   */
+  convertToJSON () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map(token => token.convertToJSON())
+    }
+  }
+
+  /**
+   * @param {Object} data
+   *        { String } index
+   *        { String } textType - origin/target
+   *        { String } lang
+   *        { String } direction
+   *        { String } docSourceId
+   *        { Array[Object] } tokens - array of tokens converted to JSON
+   * @returns { Segment }
+   */
+  static convertFromJSON (data) {
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(token))
+    })
   }
 }
 
@@ -44097,7 +45694,7 @@ class Segment {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ SourceText
+/* harmony export */   "default": () => (/* binding */ SourceText)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
@@ -44130,7 +45727,15 @@ class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
-    this.metadata = docSource && docSource.metadata ? new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata) : new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    if (docSource && docSource.metadata) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default) {
+        this.metadata = docSource.metadata
+      } else {
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata)
+      }
+    } else {
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+    }
   }
 
   get defaultDirection () {
@@ -44204,13 +45809,26 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization })
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(jsonData.metadata) : null
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
 
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
+
     return sourceText
+  }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      text: this.text,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToJSON()
+    }
   }
 }
 
@@ -44226,19 +45844,21 @@ class SourceText {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Token
+/* harmony export */   "default": () => (/* binding */ Token)
 /* harmony export */ });
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 
 
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
     this.beforeWord = beforeWord
     this.afterWord = afterWord
     this.hasLineBreak = hasLineBreak
+    this.sentenceIndex = sentenceIndex
+
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
   }
@@ -44303,6 +45923,67 @@ class Token {
     }
     return true
   }
+
+  /**
+   * @returns { String } textType - origin/target
+   *          { String } idWord
+   *          { String } word
+   *          { String } beforeWord
+   *          { String } afterWord
+   *          { Boolean } hasLineBreak
+   *          { Number } segmentIndex
+   *          { String } docSourceId
+   */
+  convertToJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex
+    }
+  }
+
+  /**
+   *
+   * @param { Object } data
+   *        { String } textType - origin/target
+   *        { String } idWord
+   *        { String } word
+   *        { String } beforeWord
+   *        { String } afterWord
+   *        { Boolean } hasLineBreak
+   *        { Number } segmentIndex
+   *        { String } docSourceId
+   * @returns { Token }
+   */
+  static convertFromJSON (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex
+    }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertForHTMLOutput () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      sentenceIndex: this.sentenceIndex
+    }
+  }
 }
 
 
@@ -44317,7 +45998,7 @@ class Token {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ DownloadFileCSV
+/* harmony export */   "default": () => (/* binding */ DownloadFileCSV)
 /* harmony export */ });
 const idForButton = 'alpheios-alignment-editor-app-container'
 
@@ -44355,6 +46036,76 @@ class DownloadFileCSV {
 
 /***/ }),
 
+/***/ "./lib/download/download-file-html.js":
+/*!********************************************!*\
+  !*** ./lib/download/download-file-html.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DownloadFileHTML)
+/* harmony export */ });
+const idForButton = 'alpheios-alignment-editor-app-container'
+
+class DownloadFileHTML {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([data], { type: 'text/html' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    document.getElementById(idForButton).appendChild(a)
+    a.click()
+    a.remove()
+    return true
+  }
+
+  static download (data, fileName) {
+    return this.downloadBlob(data, `${fileName}.html`)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/download/download-file-json.js":
+/*!********************************************!*\
+  !*** ./lib/download/download-file-json.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DownloadFileJSON)
+/* harmony export */ });
+const idForButton = 'alpheios-alignment-editor-app-container'
+
+class DownloadFileJSON {
+  static downloadBlob (data, filename) {
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+
+    a.href = url
+    a.download = filename || 'download'
+    document.getElementById(idForButton).appendChild(a)
+    a.click()
+    a.remove()
+    return true
+  }
+
+  static download (data, fileName) {
+    return this.downloadBlob(data, `${fileName}.json`)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/l10n/l10n-singleton.js":
 /*!************************************!*\
   !*** ./lib/l10n/l10n-singleton.js ***!
@@ -44364,7 +46115,7 @@ class DownloadFileCSV {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ L10nSingleton
+/* harmony export */   "default": () => (/* binding */ L10nSingleton)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n.js */ "./lib/l10n/l10n.js");
 /* istanbul ignore file */
@@ -44404,7 +46155,7 @@ class L10nSingleton extends _lib_l10n_l10n_js__WEBPACK_IMPORTED_MODULE_0__.defau
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ L10n
+/* harmony export */   "default": () => (/* binding */ L10n)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_message_bundle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message-bundle */ "./lib/l10n/message-bundle.js");
 /* istanbul ignore file */
@@ -44522,7 +46273,7 @@ class L10n {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ MessageBundle
+/* harmony export */   "default": () => (/* binding */ MessageBundle)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/message.js */ "./lib/l10n/message.js");
 /* istanbul ignore file */
@@ -44714,7 +46465,7 @@ class MessageBundle {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ Message
+/* harmony export */   "default": () => (/* binding */ Message)
 /* harmony export */ });
 /* harmony import */ var intl_messageformat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat */ "../node_modules/intl-messageformat/lib/index.js");
 /* istanbul ignore file */
@@ -44807,7 +46558,7 @@ class Message {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ NotificationSingleton
+/* harmony export */   "default": () => (/* binding */ NotificationSingleton)
 /* harmony export */ });
 let notificationModuleInstance
 
@@ -44869,9 +46620,36 @@ NotificationSingleton.types = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ StoreDefinition
+/* harmony export */   "default": () => (/* binding */ StoreDefinition)
 /* harmony export */ });
+/* harmony import */ var _package__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../package */ "../package.json");
+/* global BUILD_NAME */
+
+
 class StoreDefinition {
+  // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
+  static get libBuildName () {
+    return  true ? "development.20210303507" : 0
+  }
+
+  static get libName () {
+    return _package__WEBPACK_IMPORTED_MODULE_0__.libName
+  }
+
+  static get libVersion () {
+    return _package__WEBPACK_IMPORTED_MODULE_0__.version
+  }
+
+  static get libBuildNameForDisplay () {
+    // if the build number is already included in the package version then
+    // don't display it
+    if (this.libVersion && this.libVersion.indexOf(this.libBuildName) === -1) {
+      return `build ${this.libBuildName}`
+    } else {
+      return ''
+    }
+  }
+
   /**
    * Default definition for Vuex Store, used inside AppController
    * returns {Object} Vuex Store initializing parameters
@@ -44887,7 +46665,12 @@ class StoreDefinition {
         alignmentRestarted: 1,
         uploadCheck: 1,
         resetOptions: 1,
-        tokenUpdated: 1
+        tokenUpdated: 1,
+
+        libName: this.libName,
+        libVersion: this.libVersion,
+        libBuildName: this.libBuildName,
+        libBuildNameForDisplay: this.libBuildNameForDisplay
       },
       mutations: {
         incrementAlignmentUpdated (state) {
@@ -44950,7 +46733,7 @@ class StoreDefinition {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ AlpheiosRemoteTokenizer
+/* harmony export */   "default": () => (/* binding */ AlpheiosRemoteTokenizer)
 /* harmony export */ });
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__);
@@ -44985,6 +46768,7 @@ class AlpheiosRemoteTokenizer {
     if (adapterTokenizerRes.errors.length > 0) {
       adapterTokenizerRes.errors.forEach(error => {
         console.error(error)
+
         _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
           text: error.message,
           type: (error.statusCode && error.statusCode === 500) ? _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.SYSTEM_ERROR : _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
@@ -45009,13 +46793,23 @@ class AlpheiosRemoteTokenizer {
     for (let iSeg = 0; iSeg < segments.length; iSeg++) {
       let tokens = segments[iSeg].tokens // eslint-disable-line prefer-const
 
+      let sentenceIndex = 1
+
       for (let iTok = 0; iTok < tokens.length; iTok++) {
         let token = tokens[iTok] // eslint-disable-line prefer-const
         token.textType = textType
         token.word = token.text
         token.idWord = `${idPrefix}-${iSeg}-${iTok}`
+
         if (token.line_break_before === true && iTok > 0) {
           tokens[iTok - 1].hasLineBreak = true
+        }
+
+        token.sentenceIndex = sentenceIndex
+        const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]/
+
+        if (token.punct && sentenceEnds.test(token.word)) {
+          sentenceIndex++
         }
       }
     }
@@ -45036,7 +46830,7 @@ class AlpheiosRemoteTokenizer {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ SimpleLocalTokenizer
+/* harmony export */   "default": () => (/* binding */ SimpleLocalTokenizer)
 /* harmony export */ });
 class SimpleLocalTokenizer {
   /**
@@ -45200,6 +46994,125 @@ class SimpleLocalTokenizer {
 
 /***/ }),
 
+/***/ "./lib/upload/upload-dts-api.js":
+/*!**************************************!*\
+  !*** ./lib/upload/upload-dts-api.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ UploadDTSAPI)
+/* harmony export */ });
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
+
+const cachedContent = {}
+
+class UploadDTSAPI {
+  static get rootCollections () {
+    return [
+      { baseUrl: 'https://dts.alpheios.net/api/dts/', title: 'Alpheios DTS API', formattedTitle: 'Alpheios DTS API', type: 'collection', id: 'Alpheios DTS API', skipId: true },
+      { baseUrl: 'https://betamasaheft.eu/api/dts/', title: 'Beta maṣāḥǝft DTS API', formattedTitle: 'Beta maṣāḥǝft DTS API', type: 'collection', id: 'Beta maṣāḥǝft DTS API', skipId: true }
+    ]
+  }
+
+  static hasErrors (result) {
+    if (result.errors && result.errors.length > 0) {
+      result.errors.forEach(err => {
+        console.error(err)
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+          text: err.message,
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+        })
+      })
+
+      return true
+    }
+    return false
+  }
+
+  static async getCollection (linkData) {
+    if (cachedContent[linkData.id]) {
+      return cachedContent[linkData.id]
+    }
+
+    const data = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.dtsapiGroup.dtsapi({
+      method: 'getCollection',
+      params: {
+        baseUrl: linkData.baseUrl,
+        id: !linkData.skipId ? linkData.id : null
+      }
+    })
+
+    if (this.hasErrors(data)) { return }
+
+    cachedContent[linkData.id] = data.result.links
+    return data.result.links
+  }
+
+  static async getNavigation (linkData) {
+    if (cachedContent[linkData.id]) {
+      return cachedContent[linkData.id]
+    }
+
+    const data = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.dtsapiGroup.dtsapi({
+      method: 'getNavigation',
+      params: {
+        baseUrl: linkData.baseUrl,
+        id: linkData.id,
+        resource: linkData.resource
+      }
+    })
+
+    if (this.hasErrors(data)) { return }
+
+    cachedContent[linkData.id] = linkData.resource.refsLinks
+    return linkData.resource.refsLinks
+  }
+
+  static async getDocument (linkData, refParams) {
+    const data = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.dtsapiGroup.dtsapi({
+      method: 'getDocument',
+      params: {
+        baseUrl: linkData.baseUrl,
+        id: linkData.id,
+        refParams
+      }
+    })
+    if (this.hasErrors(data)) { return }
+
+    const xmlDoc = data.result
+    const parser = new DOMParser()
+    const dom = parser.parseFromString(xmlDoc, 'application/xml')
+    const check = dom.documentElement.nodeName === 'parsererror' ? null : dom.documentElement.nodeName
+    let lang
+    if (check) {
+      const body = dom.documentElement.getElementsByTagName('body')[0]
+      if (body) {
+        lang = body.getAttribute('xml:lang')
+      }
+
+      if (!lang) {
+        const divs = dom.documentElement.getElementsByTagName('div')
+        if (divs.length > 0) {
+          for (let i = 0; i < divs.length; i++) {
+            lang = divs[i].getAttribute('xml:lang')
+            if (lang) { break }
+          }
+        }
+      }
+    }
+    return { tei: xmlDoc, lang, extension: 'xml' }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/upload/upload-file-csv.js":
 /*!***************************************!*\
   !*** ./lib/upload/upload-file-csv.js ***!
@@ -45209,7 +47122,7 @@ class SimpleLocalTokenizer {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => /* binding */ UploadFileCSV
+/* harmony export */   "default": () => (/* binding */ UploadFileCSV)
 /* harmony export */ });
 class UploadFileCSV {
   static upload (fileDataArr, delimiter = '\t') {
@@ -45242,6 +47155,70 @@ class UploadFileCSV {
 
 /***/ }),
 
+/***/ "./lib/utility/scroll-utility.js":
+/*!***************************************!*\
+  !*** ./lib/utility/scroll-utility.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ScrollUtility)
+/* harmony export */ });
+class ScrollUtility {
+  static makeScrollTo (idElementBlock, idContainerBlock) {
+    const itemEl = document.getElementById(idElementBlock)
+    const containerEl = document.getElementById(idContainerBlock)
+
+    if (!itemEl || !containerEl) { return }
+
+    const pPos = containerEl.getBoundingClientRect()
+    const cPos = itemEl.getBoundingClientRect()
+
+    const visible = this.isElementInViewport(cPos, pPos)
+    if (!visible) {
+      const toTop = cPos.top - pPos.top + containerEl.scrollTop - 10
+      this.scrollTo(containerEl, toTop, 1)
+    }
+  }
+
+  static easeInOutQuad (t) {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+  }
+
+  static scrollTo (element, to, duration) {
+    const start = element.scrollTop
+    const change = to - start
+    const startTime = performance.now()
+    let now, elapsed, t
+
+    const animateScroll = () => {
+      now = performance.now()
+      elapsed = (now - startTime) / 1000
+      t = (elapsed / duration)
+
+      element.scrollTop = start + change * this.easeInOutQuad(t)
+
+      if (t < 1) window.requestAnimationFrame(animateScroll)
+    }
+    animateScroll()
+  }
+
+  static isElementInViewport (elPos, parentPos) {
+    const tolerance = 0.01
+
+    const visiblePixelX = Math.min(elPos.right, parentPos.right) - Math.max(elPos.left, parentPos.left)
+    const visiblePixelY = Math.min(elPos.bottom, parentPos.bottom) - Math.max(elPos.top, parentPos.top)
+    const visiblePercentageX = visiblePixelX / elPos.width * 100
+    const visiblePercentageY = visiblePixelY / elPos.height * 100
+    return (visiblePercentageX + tolerance > 100) && (visiblePercentageY + tolerance > 100)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./locales/locales.js":
 /*!****************************!*\
   !*** ./locales/locales.js ***!
@@ -45251,7 +47228,7 @@ class UploadFileCSV {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _locales_en_us_messages_common_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/locales/en-us/messages-common.json */ "./locales/en-us/messages-common.json");
 /* harmony import */ var _locales_en_us_messages_controllers_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/locales/en-us/messages-controllers.json */ "./locales/en-us/messages-controllers.json");
@@ -45344,7 +47321,7 @@ const availableMessages = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/segment-block.vue */ "./vue/align-editor/segment-block.vue");
 /* harmony import */ var _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/editor-tabs.vue */ "./vue/common/editor-tabs.vue");
@@ -45443,7 +47420,11 @@ __webpack_require__.r(__webpack_exports__);
      */
     currentTargetId () {
       return this.shownTabs.length === 1 ? this.shownTabs[0] : null
+    },
+    amountOfShownTabs () {
+      return this.shownTabs.length
     }
+
 
   },
   methods: {
@@ -45492,7 +47473,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-view-mode.vue */ "./vue/align-editor/align-editor-view-mode.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
@@ -45577,9 +47558,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token-block.vue */ "./vue/align-editor/token-block.vue");
+/* harmony import */ var _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/scroll-utility.js */ "./lib/utility/scroll-utility.js");
+/* harmony import */ var _inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/up-arrow.svg */ "./inline-icons/up-arrow.svg");
+/* harmony import */ var _inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/down-arrow.svg */ "./inline-icons/down-arrow.svg");
+/* harmony import */ var _inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -45601,13 +47587,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
+
+
+
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentBlock',
   components: {
-    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    upArrow: (_inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    downArrow: (_inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3___default())
   },
   props: {
     currentTargetId: {
@@ -45624,13 +47623,24 @@ __webpack_require__.r(__webpack_exports__);
       type: Boolean,
       required: false,
       default: false
+    },
+
+    amountOfShownTabs: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
     return {
       updated: 1,
       colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      heightStep: 20,
+      heightDelta: 0,
+      heightUpdated: 1,
+      showUpDown: false,
+      minMaxHeight: 500
     }
   },
   watch: {
@@ -45652,28 +47662,34 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} - lang code
      */
     lang () {
-      return this.segment.lang
+      return this.$store.state.alignmentUpdated && this.segment.lang
     },
     /**
      * @returns {String} css id for html layout
      */
     cssId () {
-      if (this.textType === 'target') {
-        return `alpheios-align-text-segment-${this.textType}-${this.targetId}-${this.segment.index}`
-      } else {
-        return `alpheios-align-text-segment-${this.textType}-${this.segment.index}`
-      }
+      return this.getCssId(this.textType, this.targetId, this.segment.index)
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
      * @returns {String}
      */
-    cssStyle () {
+    backgroundStyle () {
       if (this.textType === 'target') {
-        return `order: ${this.segment.index}; background: ${this.colors[this.targetIdIndex]};`
+         return `background: ${this.colors[this.targetIdIndex]};`
       } else {
-        return `order: ${this.segment.index}; background: ${this.originColor};`
+        return `background: ${this.originColor};`
       }
+    },
+    cssStyle () {
+      let result 
+      if (this.textType === 'target') {
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      } else {
+        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      }
+      // this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      return result
     },
     /**
      * Defines classes by textType and isLast flag
@@ -45708,9 +47724,31 @@ __webpack_require__.r(__webpack_exports__);
     },
     allTokens () {
       return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+    },
+    amountOfSegments () {
+      return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
+    },
+    containerHeight () {
+      return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 350
+    },
+    maxHeight () {
+      const minHeight = this.minMaxHeight * (this.textType === 'origin') ? this.amountOfShownTabs : 1
+      if (this.amountOfSegments === 1) {
+        return this.containerHeight + this.heightDelta
+      } 
+
+      const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
+      return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
     }
   },
   methods: {
+    getCssId (textType, targetId, segmentIndex) {
+      if (textType === 'target') {
+        return `alpheios-align-text-segment-${textType}-${targetId}-${segmentIndex}`
+      } else {
+        return `alpheios-align-text-segment-${textType}-${segmentIndex}`
+      }
+    },
     /**
      * Starts click token workflow
      * @param {Token}
@@ -45726,6 +47764,20 @@ __webpack_require__.r(__webpack_exports__);
      */
     addHoverToken (token) {
       this.$alignedGC.activateHoverOnAlignmentGroups(token, this.currentTargetId)
+      this.makeScroll(token)
+    },
+    makeScroll (token) {
+      const scrollData = this.$alignedGC.getOpositeTokenTargetIdForScroll(token)
+      if (scrollData.length > 0) {
+        const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+        
+        for (let i = 0; i < scrollData.length; i++) {
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const tokId = `token-${scrollData[i].minOpositeTokenId}`
+
+          _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.makeScrollTo(tokId, segId)
+        }
+      }
     },
     /**
      * Ends hover token workflow
@@ -45760,6 +47812,14 @@ __webpack_require__.r(__webpack_exports__);
      */
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
+    },
+    reduceHeight () {
+      this.heightDelta = this.heightDelta - this.heightStep
+      this.heightUpdated++
+    },
+    increaseHeight () {
+      this.heightDelta = this.heightDelta + this.heightStep
+      this.heightUpdated++
     }
   }
 
@@ -45777,7 +47837,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 //
 //
@@ -45840,10 +47900,13 @@ __webpack_require__.r(__webpack_exports__);
     }, 
     tokenAfterWord () {
       return this.$store.state.tokenUpdated && this.token.afterWord
+    },
+    elementId () {
+      return `token-${this.token.idWord}`
     }
   },
   methods: {
-    clickToken () {
+    clickToken (event) {
       this.$emit('click-token', this.token)
     },
     addHoverToken () {
@@ -45867,15 +47930,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
-/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
-/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
-/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
-/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
-/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
+/* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
+/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
+/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
+/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
+/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
+/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 //
 //
 //
@@ -45902,6 +47966,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -45916,12 +47982,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
-    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default
+    mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default
   },
   data () {
     return {
@@ -45940,15 +48006,25 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Starts download workflow
      */
-    downloadData () {
-      this.$textC.downloadData()
+    downloadData (downloadType) {
+      let additional = {}
+      if (downloadType === 'htmlDownloadAll') {
+        additional = {
+          theme: this.$settingsC.themeOptionValue
+        }
+      }
+      this.$textC.downloadData(downloadType, additional)
     },
 
     /**
     * Starts upload workflow
     */
-    uploadData (fileData) {
-      this.$textC.uploadDocSourceFromFileAll(fileData, this.$settingsC.tokenizerOptionValue)
+    uploadData (fileData, extension) {
+      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.startOver(alignment)
+      }
     },
     /**
      * Starts redo action
@@ -45988,16 +48064,36 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Clear and start alignment over
      */
-    startOver () {
-      this.$textC.startOver()
-      this.$historyC.startOver(this.$textC.alignment)
-      this.$alignedGC.startOver()
+
+    startOver (alignment) {
+      this.$alignedGC.alignment = null
+      this.$textC.alignment = null
+      this.$historyC.alignment = null
+      this.$tokensEC.alignment = null
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.$textC.alignment = alignment
+        this.$alignedGC.alignment = alignment
+      } else {
+        this.$textC.createAlignment()
+      }
+      
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.$tokensEC.loadAlignment(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
-      this.$textC.store.commit('incrementAlignmentRestarted')
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.$textC.store.commit('incrementUploadCheck')
+      } else {
+        this.$textC.store.commit('incrementAlignmentRestarted')
+      }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
       this.showTextEditor++
+
+      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.showAlignEditor++
+      }
     }
   }
 });
@@ -46014,7 +48110,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 //
 //
@@ -46080,6 +48176,49 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/modal.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/modal.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'Modal',
+  props: {
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js& ***!
@@ -46089,8 +48228,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -46158,6 +48298,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'Waiting'
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js& ***!
@@ -46167,9 +48331,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
+/* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -46216,11 +48387,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
+  components: {
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default
+  },
   props: {
     shownOptionsBlock: {
       type: Boolean,
@@ -46230,7 +48430,12 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       showUploadBlock: false,
+      showDownloadBlock: false,
+      currentDownloadType: null
     }
+  },
+  mounted () {  
+    this.currentDownloadType = this.downloadTypes.length > 0 ? this.downloadTypes[0].name : null
   },
   computed: {
     l10n () {
@@ -46245,6 +48450,9 @@ __webpack_require__.r(__webpack_exports__);
     redoAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
+    downloadAvailable () {
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.originDocSource)
+    },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
@@ -46253,6 +48461,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+    },
+    downloadTypes () {
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
     }
   },
   methods: {
@@ -46260,24 +48472,44 @@ __webpack_require__.r(__webpack_exports__);
      * Shows/Hides block with choose file input
      */
     uploadTexts () {
+      this.showDownloadBlock = false
       this.showUploadBlock = !this.showUploadBlock
+    },
+
+    downloadTexts () {
+      this.showUploadBlock = false
+      this.showDownloadBlock = !this.showDownloadBlock
     },
 
     /**
      * Creates FileReader and passes data from file to App component for parsing
      */
-    loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
+    loadTextFromFile() {
+      const file = this.$refs.fileupload.files[0]
+
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result)
+        this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
 
+    downloadTypeId (dTypeName) {
+      return `alpheios-main-menu-download-block__radio_${dTypeName}`
+    },
+
+    clearAll () {
       this.$refs.fileupload.value = ''
+      this.showUploadBlock = false
+      this.showDownloadBlock = false
+      this.$emit('clear-all')
     }
   }
 });
@@ -46294,7 +48526,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_0__);
@@ -46354,7 +48586,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
@@ -46571,10 +48803,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46617,6 +48855,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     appOptionItems () {
       return this.$store.state.optionsUpdated && this.$settingsC.options.app.items
+    },
+    versionData () {
+      return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
     }
   },
   methods: {
@@ -46638,9 +48879,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
 //
 //
 //
@@ -46662,11 +48904,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActionsMenuTextEditor',
+  components: {
+    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
   props: {
     textType: {
       type: String,
@@ -46680,7 +48933,13 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       showUploadBlock: false,
-      shownMetadataBlock: false
+      shownMetadataBlock: false,
+      showModal: false
+    }
+  },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.$refs.fileupload.value = ''
     }
   },
   computed: {
@@ -46719,15 +48978,24 @@ __webpack_require__.r(__webpack_exports__);
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', { filetext: e.target.result, filename: file.name })
+        this.$emit('upload-single', { text: e.target.result, extension })
         this.showUploadBlock = false
       }
       reader.readAsText(file)
 
       this.$refs.fileupload.value = ''
+    },
+
+    uploadFromDTSAPI (filedata) {
+      this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
+      this.showUploadBlock = false
     }
   }
 });
@@ -46744,7 +49012,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 //
@@ -46808,7 +49076,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 //
@@ -46873,9 +49141,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/metadata-term-block.vue */ "./vue/text-editor/metadata-term-block.vue");
+/* harmony import */ var _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/metadata-info.vue */ "./vue/text-editor/metadata-info.vue");
 //
 //
 //
@@ -46883,13 +49152,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MetadataBlock',
   components: {
-    metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
     textType: {
@@ -46926,6 +49198,50 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'MetadataInfo',
+  data () {
+    return {
+      showDetails: false
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    instructions () {
+      return this.l10n.getMsgS('METADATA_INSTRUCTIONS')
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-term-block.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-term-block.vue?vue&type=script&lang=js& ***!
@@ -46935,7 +49251,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
@@ -47033,7 +49349,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    changeMetadataItem () {
+    changeMetadataItem (typeEvent) {
+      if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
+      if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
+
       if (!this.value) { return }
 
       if (this.metadataTerm.template) {
@@ -47043,7 +49362,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.$textC.changeMetadataTerm()
 
-      if (this.metadataTerm.property.multivalued) { this.value = null }
+      if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
@@ -47067,19 +49386,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
+/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
 //
 //
 //
@@ -47108,8 +49426,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 
 
@@ -47140,16 +49456,20 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 0
+    },
+    clearFileInput: {
+      type: Number,
+      required: false
     }
   },
   components: {
-    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default
+    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default
   },
   data () {
     return {
@@ -47257,7 +49577,8 @@ __webpack_require__.r(__webpack_exports__);
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
@@ -47272,7 +49593,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     }
   },
   methods: {
@@ -47281,6 +49602,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -47356,7 +49678,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
@@ -47473,7 +49795,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
@@ -47566,6 +49888,290 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
+/* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'UploadDTSAPIBlock',
+  components: {
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__.default
+  },
+  props: {
+    showModal: {
+    type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  data () {
+    return {
+      homeLinks: [],
+      content: [],
+      contentUpdated: 1,
+      showWaiting: false,
+      breadcrumbs: [],
+      checkedRefs: [],
+      showDescriptionDetails: false
+    }
+  },
+  mounted () {
+    this.homeLinks = _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_2__.default.rootCollections
+    
+    this.breadcrumbs.push({ title: 'Home' })
+    this.updateContent(this.homeLinks, false)
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    title () {
+      return this.l10n.getMsgS('UPLOAD_DTSAPI_TITLE')
+    },
+    descriptionTitle () {
+      return this.l10n.getMsgS('UPLOAD_DTSAPI_DESCRIPTION_TITLE') 
+    },
+    descriptionDetails () {
+      return this.l10n.getMsgS('UPLOAD_DTSAPI_DESCRIPTION_DETAILS') 
+    },
+    
+    contentAvailable () {
+      return this.contentUpdated && Boolean(this.content) 
+    },
+    cssClasses () {
+      return {
+        'alpheios-editor-content-list__col2': this.content.length <= 20,
+        'alpheios-editor-content-list__col4': this.content.length > 20
+      }
+    },
+    uploadButtonDisabled () {
+      return this.contentUpdated && ((this.content.length === 0) || ((this.content.length > 0) && (this.content[0].type === 'Collection')) || (this.checkedRefs.length === 0))
+    },
+    showBreadcrumbs () {
+      return this.breadcrumbs.length > 1
+    },
+    showDescription () {
+      return this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1
+    }
+  },
+  methods: {
+    /**
+     * Defines css class for checkbox or simple link for refs
+     * @param {Object} crumb - single breadcrumb
+     *        {Array[Object]} content - saved content for the breadcrumb
+     *        {String} title
+     * @returns {Object} - :class definition
+     */
+    crumbClass (crumb) {
+      return {
+        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
+      }
+    },
+
+    /**
+     * Defines css id for each ref block in content
+     * @param {Number} refIndex - single breadcrumb
+     * @returns {String} - css id
+     */
+    contentRefId (refIndex) {
+      return `alpheios-editor-content-link-ref-${refIndex}`
+    },
+
+    /**
+     * Uploads content for the clicked breadcrumb
+     * @param {Object} crumb - single breadcrumb
+     *        {Array[Object]} content - saved content for the breadcrumb
+     *        {String} title
+     * @param {Number} crumbIndex - index of the given breadcrumb
+     */
+    clickCrumb (crumb, crumbIndex) {
+      this.clearContent(false)
+
+      this.updateContent(crumb.content)
+
+      this.breadcrumbs.splice(crumbIndex + 1)
+      crumb.content = undefined
+    },
+
+    /**
+     * Clears content block with/without showing waiting gif
+     * @param {Boolean} showWaiting - true - shows waiting gif
+     */
+    clearContent (showWaiting = true) {
+      this.content = []
+      this.checkedRefs = []
+      this.contentUpdated++
+      this.showWaiting = showWaiting
+    },
+
+    /**
+     * Updates content in the block 
+     * @param {Array[Object]} - content for updating content block
+     * @param {Boolean} showWaiting - true - shows waiting gif
+     */
+    updateContent (content = null, showWaiting = false) {
+      if (content) {
+        this.content.splice(0, this.content.length)
+        this.content.push(...content)
+      }
+      this.showWaiting = showWaiting
+      this.contentUpdated++
+    },
+
+    /**
+     * Updates breadcrumb
+     * @param {Object} linkData - clicked linkData for placing to breadcrumbs
+     *        {String} type - Collection/Navigation
+     *        {String} id - unique id for getting data from DTS API
+     *        {String} title - title for the link
+     */
+    updateBreadcrumbs(linkData) {
+      this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
+      this.breadcrumbs.push({ title: linkData.title })
+    },
+
+    /**
+     * Retrives a collection from DTS API and uploads to the modal
+     * @param {Object} linkData - clicked linkData for placing to breadcrumbs
+     *        {String} type - Collection/Navigation
+     *        {String} id - unique id for getting data from DTS API
+     *        {String} title - title for the link
+     *        {String} baseUrl - defines DTS API
+     */
+    async getCollection (linkData) {     
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+
+      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      this.updateContent(content)
+    },
+
+    async getNavigation (linkData) {     
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+      
+      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'navigation'})
+      this.updateContent(content)
+    },
+
+    /**
+     * Defines refParams for getting Document
+     * @returns {Object}
+     *          {String} ref - to get one passage by ref
+     *          {String} start - a starting passage for getting a range of passages
+     *          {String} end - an ending passage for getting a range of passages
+     */
+    defineRefParams () {
+      let refParams = {}
+
+      if (this.checkedRefs.length === 1) {
+        refParams = { ref: this.content[this.checkedRefs[0]].ref }
+      } else {
+        this.checkedRefs.sort((a, b) => a-b)
+        refParams = { start: this.content[this.checkedRefs[0]].ref, end: this.content[this.checkedRefs[this.checkedRefs.length-1]].ref }
+      }
+      return refParams
+    },
+
+    /**
+     * Retrives a XML Document from DTS API, closes the modal and uploads text to the text-editor-single
+     */
+    async getDocument () {
+      const linkData = this.content[this.checkedRefs[0]]
+
+      const refParams = this.defineRefParams()     
+      this.showWaiting = true
+
+      const result = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'document', refParams})
+
+      this.showWaiting = false
+      if (result) {
+        this.checkedRefs.splice(0, this.checkedRefs.length)
+
+        this.$emit('uploadFromDTSAPI', result)
+        this.$emit('closeModal')
+        return true
+      }
+    },
+
+    closeModal () {
+      this.checkedRefs.splice(0, this.checkedRefs.length)
+      this.$emit('closeModal')
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js& ***!
@@ -47575,7 +50181,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
@@ -47647,7 +50253,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/pen.svg */ "./inline-icons/pen.svg");
 /* harmony import */ var _inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_pen_svg__WEBPACK_IMPORTED_MODULE_0__);
@@ -47862,7 +50468,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
@@ -47925,8 +50531,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 //
 //
 //
@@ -47941,6 +50548,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'EmptyTokensInput',
@@ -47962,15 +50570,18 @@ __webpack_require__.r(__webpack_exports__);
     showDescription: {
       type: Boolean,
       required: false,
-      default: false
+      default: true
     }
   },
   data () {
     return {
-      tokensText: ''
+      tokensText: null
     }
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
     /**
      * Used for css id definition
      */
@@ -47979,13 +50590,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     itemId () {
       return `alpheios-alignment-editor-token-edit-empty-input__${this.textType}_${this.formattedTextId}_${this.inputType.replace(' ', '_')}`
+    },
+    descriptionText () {
+      return this.inputType === 'start' ? this.l10n.getMsgS('TOKENS_EDIT_INSERT_DESCRIPTION_START') :this.l10n.getMsgS('TOKENS_EDIT_INSERT_DESCRIPTION_END')
     }
   },
   methods: {
     insertTokens () {
       const result = this.$tokensEC.insertTokens(this.tokensText, this.textType, this.textId, this.inputType)
       if (result) {
-        this.tokensText = ''
+        this.tokensText = null
       }
     }
   }
@@ -48003,7 +50617,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _vue_tokens_editor_token_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/token-edit-block.vue */ "./vue/tokens-editor/token-edit-block.vue");
@@ -48108,9 +50722,7 @@ __webpack_require__.r(__webpack_exports__);
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null,
-      removeLineBreakIdWord: null,
-      
-      showDescription: true
+      removeLineBreakIdWord: null
     }
   },
   watch: {
@@ -48135,7 +50747,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} - lang code
      */
     lang () {
-      return this.segment.lang
+      return this.$store.state.alignmentUpdated && this.segment.lang
     },
     /**
      * @returns {String} css id for html layout
@@ -48216,28 +50828,36 @@ __webpack_require__.r(__webpack_exports__);
       this.showActionsMenuFlag = false
       this.deactivated++
     },
-    updateTokenWord (token) {
+    async clearPrevIdWord (token, typeName) {
+      if (token.idWord === this[typeName]) {
+        this[typeName] = null
+        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
+      }
+    },
+    async updateTokenWord (token) {
+      await this.clearPrevIdWord(token, 'updateTokenIdWord')
       this.updateTokenIdWord = token.idWord
     },
-    mergeToken (token, direction) {
+    async mergeToken (token, direction) {
       if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.PREV) {
+        await this.clearPrevIdWord(token, 'mergeTokenPrevIdWord')
         this.mergeTokenPrevIdWord = token.idWord
       }
       if (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_2__.default.directions.NEXT) {
+        await this.clearPrevIdWord(token, 'mergeTokenNextIdWord')
         this.mergeTokenNextIdWord = token.idWord
       }
     },
     async splitToken (token) {
-      if (token.idWord === this.splitTokenIdWord) {
-        this.splitTokenIdWord = null
-        await _vue_runtime__WEBPACK_IMPORTED_MODULE_4__.default.nextTick()
-      }
+      await this.clearPrevIdWord(token, 'splitTokenIdWord')
       this.splitTokenIdWord = token.idWord
     },
-    addLineBreak (token) {
+    async addLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.addLineBreakIdWord = token.idWord
     },
-    removeLineBreak (token) {
+    async removeLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {
@@ -48268,7 +50888,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
@@ -48477,7 +51097,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_tokens_editor_segment_edit_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/segment-edit-block.vue */ "./vue/tokens-editor/segment-edit-block.vue");
 /* harmony import */ var _vue_tokens_editor_actions_menu_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/tokens-editor/actions-menu-tokens-editor.vue */ "./vue/tokens-editor/actions-menu-tokens-editor.vue");
@@ -48539,6 +51159,11 @@ __webpack_require__.r(__webpack_exports__);
       blockTokensActionsFlag: 1
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.shownTabsInited = false
+    }
+  },
   computed: {
     /**
      * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
@@ -48548,12 +51173,12 @@ __webpack_require__.r(__webpack_exports__);
      */
     allTokenizedTargetTextsIds () {
       const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-      if (!this.shownTabsInited) {
+      if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+      return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
     },
 
     /**
@@ -48642,7 +51267,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor-inner-block.vue */ "./vue/tokens-editor/tokens-editor-inner-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
@@ -48674,10 +51299,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showTokensEditBlocks: true
+      showTokensEditBlocks: false,
+      renderTokensEditor: false
     }
   },
   watch: {
+    '$store.state.alignmentRestarted' () {
+      this.renderTokensEditor = false
+      this.showTokensEditBlocks = false
+    }
   },
   computed: {
     l10n () {
@@ -48696,6 +51326,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     toggleShowTokensEditBlocks () {
       this.showTokensEditBlocks = !this.showTokensEditBlocks
+      if (this.showTokensEditBlocks) {
+        this.renderTokensEditor = true
+      }
     }
   }
 });
@@ -48712,7 +51345,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=template&id=81e34bb4& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&");
 /* harmony import */ var _align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor-view-mode.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
@@ -48753,7 +51386,7 @@ component.options.__file = "vue/align-editor/align-editor-view-mode.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./align-editor.vue?vue&type=template&id=d51e2a30& */ "./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&");
 /* harmony import */ var _align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./align-editor.vue?vue&type=script&lang=js& */ "./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
@@ -48794,19 +51427,21 @@ component.options.__file = "vue/align-editor/align-editor.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./segment-block.vue?vue&type=template&id=c614d760& */ "./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&");
 /* harmony import */ var _segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./segment-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/segment-block.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _segment_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./segment-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.render,
   _segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -48833,7 +51468,7 @@ component.options.__file = "vue/align-editor/segment-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token-block.vue?vue&type=template&id=53b7c654& */ "./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&");
 /* harmony import */ var _token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token-block.vue?vue&type=script&lang=js& */ "./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
@@ -48874,7 +51509,7 @@ component.options.__file = "vue/align-editor/token-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.vue?vue&type=template&id=2307d2fa& */ "./vue/app.vue?vue&type=template&id=2307d2fa&");
 /* harmony import */ var _app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.vue?vue&type=script&lang=js& */ "./vue/app.vue?vue&type=script&lang=js&");
@@ -48915,7 +51550,7 @@ component.options.__file = "vue/app.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-tabs.vue?vue&type=template&id=6ce13a71& */ "./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71&");
 /* harmony import */ var _editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor-tabs.vue?vue&type=script&lang=js& */ "./vue/common/editor-tabs.vue?vue&type=script&lang=js&");
@@ -48947,6 +51582,45 @@ component.options.__file = "vue/common/editor-tabs.vue"
 
 /***/ }),
 
+/***/ "./vue/common/modal.vue":
+/*!******************************!*\
+  !*** ./vue/common/modal.vue ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal.vue?vue&type=template&id=4af3be00& */ "./vue/common/modal.vue?vue&type=template&id=4af3be00&");
+/* harmony import */ var _modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal.vue?vue&type=script&lang=js& */ "./vue/common/modal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.render,
+  _modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/common/modal.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/common/tooltip.vue":
 /*!********************************!*\
   !*** ./vue/common/tooltip.vue ***!
@@ -48956,7 +51630,7 @@ component.options.__file = "vue/common/editor-tabs.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tooltip.vue?vue&type=template&id=50461596& */ "./vue/common/tooltip.vue?vue&type=template&id=50461596&");
 /* harmony import */ var _tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tooltip.vue?vue&type=script&lang=js& */ "./vue/common/tooltip.vue?vue&type=script&lang=js&");
@@ -48988,6 +51662,47 @@ component.options.__file = "vue/common/tooltip.vue"
 
 /***/ }),
 
+/***/ "./vue/common/waiting.vue":
+/*!********************************!*\
+  !*** ./vue/common/waiting.vue ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./waiting.vue?vue&type=template&id=3a83a6e0& */ "./vue/common/waiting.vue?vue&type=template&id=3a83a6e0&");
+/* harmony import */ var _waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./waiting.vue?vue&type=script&lang=js& */ "./vue/common/waiting.vue?vue&type=script&lang=js&");
+/* harmony import */ var _waiting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./waiting.vue?vue&type=style&index=0&lang=scss& */ "./vue/common/waiting.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__.render,
+  _waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/common/waiting.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/main-menu.vue":
 /*!***************************!*\
   !*** ./vue/main-menu.vue ***!
@@ -48997,7 +51712,7 @@ component.options.__file = "vue/common/tooltip.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./main-menu.vue?vue&type=template&id=0482afe8& */ "./vue/main-menu.vue?vue&type=template&id=0482afe8&");
 /* harmony import */ var _main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main-menu.vue?vue&type=script&lang=js& */ "./vue/main-menu.vue?vue&type=script&lang=js&");
@@ -49038,7 +51753,7 @@ component.options.__file = "vue/main-menu.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./notification-bar.vue?vue&type=template&id=0bf96128& */ "./vue/notification-bar.vue?vue&type=template&id=0bf96128&");
 /* harmony import */ var _notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./notification-bar.vue?vue&type=script&lang=js& */ "./vue/notification-bar.vue?vue&type=script&lang=js&");
@@ -49079,7 +51794,7 @@ component.options.__file = "vue/notification-bar.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./option-item-block.vue?vue&type=template&id=b17943da& */ "./vue/options/option-item-block.vue?vue&type=template&id=b17943da&");
 /* harmony import */ var _option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./option-item-block.vue?vue&type=script&lang=js& */ "./vue/options/option-item-block.vue?vue&type=script&lang=js&");
@@ -49120,7 +51835,7 @@ component.options.__file = "vue/options/option-item-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./options-block.vue?vue&type=template&id=7e2b5386& */ "./vue/options/options-block.vue?vue&type=template&id=7e2b5386&");
 /* harmony import */ var _options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./options-block.vue?vue&type=script&lang=js& */ "./vue/options/options-block.vue?vue&type=script&lang=js&");
@@ -49161,7 +51876,7 @@ component.options.__file = "vue/options/options-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_menu_text_editor_vue_vue_type_template_id_04c0dab0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-menu-text-editor.vue?vue&type=template&id=04c0dab0& */ "./vue/text-editor/actions-menu-text-editor.vue?vue&type=template&id=04c0dab0&");
 /* harmony import */ var _actions_menu_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-menu-text-editor.vue?vue&type=script&lang=js& */ "./vue/text-editor/actions-menu-text-editor.vue?vue&type=script&lang=js&");
@@ -49202,7 +51917,7 @@ component.options.__file = "vue/text-editor/actions-menu-text-editor.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=template&id=417d0327& */ "./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
 /* harmony import */ var _direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./direction-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
@@ -49241,7 +51956,7 @@ component.options.__file = "vue/text-editor/direction-options-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=template&id=d0c3793c& */ "./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&");
 /* harmony import */ var _language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./language-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
@@ -49280,7 +51995,7 @@ component.options.__file = "vue/text-editor/language-options-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=template&id=afaf8a30& */ "./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&");
 /* harmony import */ var _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
@@ -49310,6 +52025,47 @@ component.options.__file = "vue/text-editor/metadata-block.vue"
 
 /***/ }),
 
+/***/ "./vue/text-editor/metadata-info.vue":
+/*!*******************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata-info.vue?vue&type=template&id=589c69a3& */ "./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&");
+/* harmony import */ var _metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata-info.vue?vue&type=script&lang=js& */ "./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&");
+/* harmony import */ var _metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata-info.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.render,
+  _metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/metadata-info.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/text-editor/metadata-term-block.vue":
 /*!*************************************************!*\
   !*** ./vue/text-editor/metadata-term-block.vue ***!
@@ -49319,7 +52075,7 @@ component.options.__file = "vue/text-editor/metadata-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata-term-block.vue?vue&type=template&id=b757cfbe& */ "./vue/text-editor/metadata-term-block.vue?vue&type=template&id=b757cfbe&");
 /* harmony import */ var _metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata-term-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/metadata-term-block.vue?vue&type=script&lang=js&");
@@ -49360,7 +52116,7 @@ component.options.__file = "vue/text-editor/metadata-term-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./text-editor-single-block.vue?vue&type=template&id=0567ab41& */ "./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&");
 /* harmony import */ var _text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./text-editor-single-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&");
@@ -49401,7 +52157,7 @@ component.options.__file = "vue/text-editor/text-editor-single-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./text-editor.vue?vue&type=template&id=6a45ae64& */ "./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64&");
 /* harmony import */ var _text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./text-editor.vue?vue&type=script&lang=js& */ "./vue/text-editor/text-editor.vue?vue&type=script&lang=js&");
@@ -49442,7 +52198,7 @@ component.options.__file = "vue/text-editor/text-editor.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tokenize-options-block.vue?vue&type=template&id=40c7ae05& */ "./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&");
 /* harmony import */ var _tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tokenize-options-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
@@ -49474,6 +52230,47 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/text-editor/upload-dtsapi-block.vue":
+/*!*************************************************!*\
+  !*** ./vue/text-editor/upload-dtsapi-block.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a& */ "./vue/text-editor/upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a&");
+/* harmony import */ var _upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./upload-dtsapi-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js&");
+/* harmony import */ var _upload_dtsapi_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__.render,
+  _upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/upload-dtsapi-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/tokens-editor/actions-button-token-edit.vue":
 /*!*********************************************************!*\
   !*** ./vue/tokens-editor/actions-button-token-edit.vue ***!
@@ -49483,7 +52280,7 @@ component.options.__file = "vue/text-editor/tokenize-options-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-button-token-edit.vue?vue&type=template&id=5edfbd93& */ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&");
 /* harmony import */ var _actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-button-token-edit.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&");
@@ -49524,7 +52321,7 @@ component.options.__file = "vue/tokens-editor/actions-button-token-edit.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=template&id=4505d046& */ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&");
 /* harmony import */ var _actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
@@ -49565,7 +52362,7 @@ component.options.__file = "vue/tokens-editor/actions-menu-token-edit.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions-menu-tokens-editor.vue?vue&type=template&id=69c97b70& */ "./vue/tokens-editor/actions-menu-tokens-editor.vue?vue&type=template&id=69c97b70&");
 /* harmony import */ var _actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions-menu-tokens-editor.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/actions-menu-tokens-editor.vue?vue&type=script&lang=js&");
@@ -49606,7 +52403,7 @@ component.options.__file = "vue/tokens-editor/actions-menu-tokens-editor.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./empty-tokens-input.vue?vue&type=template&id=5fdb8c3d& */ "./vue/tokens-editor/empty-tokens-input.vue?vue&type=template&id=5fdb8c3d&");
 /* harmony import */ var _empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./empty-tokens-input.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/empty-tokens-input.vue?vue&type=script&lang=js&");
@@ -49647,7 +52444,7 @@ component.options.__file = "vue/tokens-editor/empty-tokens-input.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=template&id=eba38d6c& */ "./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&");
 /* harmony import */ var _segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./segment-edit-block.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&");
@@ -49688,7 +52485,7 @@ component.options.__file = "vue/tokens-editor/segment-edit-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=template&id=98c65578& */ "./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578&");
 /* harmony import */ var _token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./token-edit-block.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&");
@@ -49729,7 +52526,7 @@ component.options.__file = "vue/tokens-editor/token-edit-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tokens-editor-inner-block.vue?vue&type=template&id=419ac493& */ "./vue/tokens-editor/tokens-editor-inner-block.vue?vue&type=template&id=419ac493&");
 /* harmony import */ var _tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tokens-editor-inner-block.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/tokens-editor-inner-block.vue?vue&type=script&lang=js&");
@@ -49770,7 +52567,7 @@ component.options.__file = "vue/tokens-editor/tokens-editor-inner-block.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tokens-editor.vue?vue&type=template&id=393827ec& */ "./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec&");
 /* harmony import */ var _tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tokens-editor.vue?vue&type=script&lang=js& */ "./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&");
@@ -49831,6 +52628,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************!*\
+  !*** ./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -49899,6 +52713,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/common/waiting.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************!*\
+  !*** ./vue/common/waiting.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./waiting.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -49989,6 +52820,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-info.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss&":
 /*!***********************************************************************************!*\
   !*** ./vue/text-editor/metadata-term-block.vue?vue&type=style&index=0&lang=scss& ***!
@@ -50052,6 +52900,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************!*\
+  !*** ./vue/text-editor/upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/upload-dtsapi-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -50202,7 +53067,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor-view-mode.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor-view-mode.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_view_mode_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50218,7 +53083,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./align-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/align-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_align_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50234,7 +53099,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/segment-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50250,7 +53115,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50266,7 +53131,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./app.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_app_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50282,10 +53147,26 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./editor-tabs.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/editor-tabs.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_editor_tabs_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/common/modal.vue?vue&type=script&lang=js&":
+/*!*******************************************************!*\
+  !*** ./vue/common/modal.vue?vue&type=script&lang=js& ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./modal.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/modal.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_modal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -50298,10 +53179,26 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tooltip.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/tooltip.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tooltip_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/common/waiting.vue?vue&type=script&lang=js&":
+/*!*********************************************************!*\
+  !*** ./vue/common/waiting.vue?vue&type=script&lang=js& ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./waiting.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/common/waiting.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_waiting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -50314,7 +53211,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./main-menu.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/main-menu.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_main_menu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50330,7 +53227,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./notification-bar.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/notification-bar.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_notification_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50346,7 +53243,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./option-item-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/option-item-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_option_item_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50362,7 +53259,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50378,7 +53275,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-text-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/actions-menu-text-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50394,7 +53291,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./direction-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50410,7 +53307,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./language-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_language_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50426,10 +53323,26 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-info.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-info.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_info_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -50442,7 +53355,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./metadata-term-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/metadata-term-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_metadata_term_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50458,7 +53371,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor-single-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor-single-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_single_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50474,7 +53387,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./text-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/text-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_text_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50490,10 +53403,26 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokenize-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/tokenize-options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokenize_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./upload-dtsapi-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/upload-dtsapi-block.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_upload_dtsapi_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -50506,7 +53435,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-button-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_button_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50522,7 +53451,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-token-edit.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_token_edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50538,7 +53467,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./actions-menu-tokens-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/actions-menu-tokens-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_actions_menu_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50554,7 +53483,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./empty-tokens-input.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/empty-tokens-input.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_empty_tokens_input_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50570,7 +53499,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./segment-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/segment-edit-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_segment_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50586,7 +53515,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-edit-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/token-edit-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_edit_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50602,7 +53531,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokens-editor-inner-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor-inner-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_inner_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50618,7 +53547,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./tokens-editor.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/tokens-editor/tokens-editor.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_tokens_editor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
@@ -50634,8 +53563,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_view_mode_vue_vue_type_template_id_81e34bb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor-view-mode.vue?vue&type=template&id=81e34bb4& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor-view-mode.vue?vue&type=template&id=81e34bb4&");
 
@@ -50651,8 +53580,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_align_editor_vue_vue_type_template_id_d51e2a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./align-editor.vue?vue&type=template&id=d51e2a30& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/align-editor.vue?vue&type=template&id=d51e2a30&");
 
@@ -50668,8 +53597,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_block_vue_vue_type_template_id_c614d760___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-block.vue?vue&type=template&id=c614d760& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/segment-block.vue?vue&type=template&id=c614d760&");
 
@@ -50685,8 +53614,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-block.vue?vue&type=template&id=53b7c654& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&");
 
@@ -50702,8 +53631,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_app_vue_vue_type_template_id_2307d2fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./app.vue?vue&type=template&id=2307d2fa& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&");
 
@@ -50719,10 +53648,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editor_tabs_vue_vue_type_template_id_6ce13a71___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./editor-tabs.vue?vue&type=template&id=6ce13a71& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/editor-tabs.vue?vue&type=template&id=6ce13a71&");
+
+
+/***/ }),
+
+/***/ "./vue/common/modal.vue?vue&type=template&id=4af3be00&":
+/*!*************************************************************!*\
+  !*** ./vue/common/modal.vue?vue&type=template&id=4af3be00& ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_modal_vue_vue_type_template_id_4af3be00___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./modal.vue?vue&type=template&id=4af3be00& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=template&id=4af3be00&");
 
 
 /***/ }),
@@ -50736,10 +53682,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tooltip_vue_vue_type_template_id_50461596___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tooltip.vue?vue&type=template&id=50461596& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=template&id=50461596&");
+
+
+/***/ }),
+
+/***/ "./vue/common/waiting.vue?vue&type=template&id=3a83a6e0&":
+/*!***************************************************************!*\
+  !*** ./vue/common/waiting.vue?vue&type=template&id=3a83a6e0& ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_waiting_vue_vue_type_template_id_3a83a6e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./waiting.vue?vue&type=template&id=3a83a6e0& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=template&id=3a83a6e0&");
 
 
 /***/ }),
@@ -50753,8 +53716,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_menu_vue_vue_type_template_id_0482afe8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./main-menu.vue?vue&type=template&id=0482afe8& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/main-menu.vue?vue&type=template&id=0482afe8&");
 
@@ -50770,8 +53733,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_notification_bar_vue_vue_type_template_id_0bf96128___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./notification-bar.vue?vue&type=template&id=0bf96128& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/notification-bar.vue?vue&type=template&id=0bf96128&");
 
@@ -50787,8 +53750,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_option_item_block_vue_vue_type_template_id_b17943da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./option-item-block.vue?vue&type=template&id=b17943da& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/option-item-block.vue?vue&type=template&id=b17943da&");
 
@@ -50804,8 +53767,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./options-block.vue?vue&type=template&id=7e2b5386& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386&");
 
@@ -50821,8 +53784,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_text_editor_vue_vue_type_template_id_04c0dab0___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_text_editor_vue_vue_type_template_id_04c0dab0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_text_editor_vue_vue_type_template_id_04c0dab0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_text_editor_vue_vue_type_template_id_04c0dab0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_text_editor_vue_vue_type_template_id_04c0dab0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-text-editor.vue?vue&type=template&id=04c0dab0& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/actions-menu-text-editor.vue?vue&type=template&id=04c0dab0&");
 
@@ -50838,8 +53801,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./direction-options-block.vue?vue&type=template&id=417d0327& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
 
@@ -50855,8 +53818,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_language_options_block_vue_vue_type_template_id_d0c3793c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./language-options-block.vue?vue&type=template&id=d0c3793c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&");
 
@@ -50872,10 +53835,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-block.vue?vue&type=template&id=afaf8a30& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&":
+/*!**************************************************************************!*\
+  !*** ./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_info_vue_vue_type_template_id_589c69a3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-info.vue?vue&type=template&id=589c69a3& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&");
 
 
 /***/ }),
@@ -50889,8 +53869,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_term_block_vue_vue_type_template_id_b757cfbe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-term-block.vue?vue&type=template&id=b757cfbe& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-term-block.vue?vue&type=template&id=b757cfbe&");
 
@@ -50906,8 +53886,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_single_block_vue_vue_type_template_id_0567ab41___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./text-editor-single-block.vue?vue&type=template&id=0567ab41& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor-single-block.vue?vue&type=template&id=0567ab41&");
 
@@ -50923,8 +53903,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_text_editor_vue_vue_type_template_id_6a45ae64___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./text-editor.vue?vue&type=template&id=6a45ae64& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/text-editor.vue?vue&type=template&id=6a45ae64&");
 
@@ -50940,10 +53920,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokenize_options_block_vue_vue_type_template_id_40c7ae05___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokenize-options-block.vue?vue&type=template&id=40c7ae05& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/tokenize-options-block.vue?vue&type=template&id=40c7ae05&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a&":
+/*!********************************************************************************!*\
+  !*** ./vue/text-editor/upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_upload_dtsapi_block_vue_vue_type_template_id_1afbfb3a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a&");
 
 
 /***/ }),
@@ -50957,8 +53954,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_button_token_edit_vue_vue_type_template_id_5edfbd93___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-button-token-edit.vue?vue&type=template&id=5edfbd93& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&");
 
@@ -50974,8 +53971,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_token_edit_vue_vue_type_template_id_4505d046___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-token-edit.vue?vue&type=template&id=4505d046& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-token-edit.vue?vue&type=template&id=4505d046&");
 
@@ -50991,8 +53988,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_actions_menu_tokens_editor_vue_vue_type_template_id_69c97b70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./actions-menu-tokens-editor.vue?vue&type=template&id=69c97b70& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-menu-tokens-editor.vue?vue&type=template&id=69c97b70&");
 
@@ -51008,8 +54005,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_empty_tokens_input_vue_vue_type_template_id_5fdb8c3d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./empty-tokens-input.vue?vue&type=template&id=5fdb8c3d& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/empty-tokens-input.vue?vue&type=template&id=5fdb8c3d&");
 
@@ -51025,8 +54022,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_segment_edit_block_vue_vue_type_template_id_eba38d6c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./segment-edit-block.vue?vue&type=template&id=eba38d6c& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/segment-edit-block.vue?vue&type=template&id=eba38d6c&");
 
@@ -51042,8 +54039,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_edit_block_vue_vue_type_template_id_98c65578___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-edit-block.vue?vue&type=template&id=98c65578& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/token-edit-block.vue?vue&type=template&id=98c65578&");
 
@@ -51059,8 +54056,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_inner_block_vue_vue_type_template_id_419ac493___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokens-editor-inner-block.vue?vue&type=template&id=419ac493& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor-inner-block.vue?vue&type=template&id=419ac493&");
 
@@ -51076,8 +54073,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.render,
-/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tokens_editor_vue_vue_type_template_id_393827ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tokens-editor.vue?vue&type=template&id=393827ec& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/tokens-editor.vue?vue&type=template&id=393827ec&");
 
@@ -51093,8 +54090,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51138,7 +54135,8 @@ var render = function() {
                   _c("segment-block", {
                     attrs: {
                       segment: segmentData.origin,
-                      currentTargetId: _vm.currentTargetId
+                      currentTargetId: _vm.currentTargetId,
+                      amountOfShownTabs: _vm.amountOfShownTabs
                     }
                   })
                 ],
@@ -51165,7 +54163,8 @@ var render = function() {
                     attrs: {
                       segment: segmentTarget,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
-                      currentTargetId: _vm.currentTargetId
+                      currentTargetId: _vm.currentTargetId,
+                      amountOfShownTabs: _vm.amountOfShownTabs
                     }
                   })
                 }),
@@ -51196,8 +54195,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51214,7 +54213,7 @@ var render = function() {
           expression: "showAlignEditor"
         }
       ],
-      staticClass: "alpheios-alignment-editor-container"
+      staticClass: "alpheios-alignment-editor-container  alpheios-tools-enabled"
     },
     [
       _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
@@ -51266,8 +54265,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51314,7 +54313,39 @@ var render = function() {
             ? _c("br")
             : _vm._e()
         ]
-      })
+      }),
+      _vm._v(" "),
+      _vm.showUpDown
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "alpheios-alignment-editor-align-text-segment__up-down",
+              style: _vm.backgroundStyle
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-align-text-segment-button",
+                  on: { click: _vm.reduceHeight }
+                },
+                [_c("up-arrow")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "alpheios-align-text-segment-button",
+                  on: { click: _vm.increaseHeight }
+                },
+                [_c("down-arrow")],
+                1
+              )
+            ]
+          )
+        : _vm._e()
     ],
     2
   )
@@ -51335,8 +54366,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51347,14 +54378,22 @@ var render = function() {
     {
       staticClass: "alpheios-token",
       class: _vm.tokenClasses,
-      attrs: { "data-type": _vm.token.textType, id: _vm.token.idWord },
+      attrs: { "data-type": _vm.token.textType, id: _vm.elementId },
       on: {
         click: function($event) {
-          $event.stopPropagation()
+          if (
+            $event.ctrlKey ||
+            $event.shiftKey ||
+            $event.altKey ||
+            $event.metaKey
+          ) {
+            return null
+          }
+          $event.preventDefault()
           return _vm.clickToken($event)
         },
         mouseover: _vm.addHoverToken,
-        mouseout: _vm.removeHoverToken
+        mouseleave: _vm.removeHoverToken
       }
     },
     [
@@ -51384,8 +54423,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51455,8 +54494,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51497,6 +54536,58 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=template&id=4af3be00&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/modal.vue?vue&type=template&id=4af3be00& ***!
+  \******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "alpheios-modal" } }, [
+    _c("div", { staticClass: "alpheios-modal-mask" }, [
+      _c("div", { staticClass: "alpheios-modal-wrapper" }, [
+        _c("div", { staticClass: "alpheios-modal-container" }, [
+          _c(
+            "div",
+            { staticClass: "alpheios-modal-header" },
+            [_vm._t("header")],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-modal-body" },
+            [_vm._t("body")],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-modal-footer" },
+            [_vm._t("footer")],
+            2
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=template&id=50461596&":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/tooltip.vue?vue&type=template&id=50461596& ***!
@@ -51506,8 +54597,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51533,7 +54624,8 @@ var render = function() {
           staticClass:
             "alpheios-tooltiptext alpheios-tooltiptext-span alpheios-text__smaller",
           class: _vm.directionClass,
-          style: _vm.additionalStyles
+          style: _vm.additionalStyles,
+          attrs: { dir: "ltr" }
         },
         [_vm._v("\n    " + _vm._s(_vm.tooltipText) + "\n  ")]
       )
@@ -51542,6 +54634,42 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=template&id=3a83a6e0&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/common/waiting.vue?vue&type=template&id=3a83a6e0& ***!
+  \********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alpheios-editor__waiting" }, [
+      _c("span", { staticClass: "alpheios-editor__waiting-gif" }, [
+        _c("img", { attrs: { src: "images/waiting.gif" } })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -51557,8 +54685,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51619,13 +54747,9 @@ var render = function() {
             staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: {
               id: "alpheios-main-menu-download",
-              disabled: !_vm.docSourceEditAvailable
+              disabled: !_vm.downloadAvailable
             },
-            on: {
-              click: function($event) {
-                return _vm.$emit("download-data")
-              }
-            }
+            on: { click: _vm.downloadTexts }
           },
           [
             _vm._v(
@@ -51729,11 +54853,7 @@ var render = function() {
           {
             staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
             attrs: { id: "alpheios-main-menu-clear-all" },
-            on: {
-              click: function($event) {
-                return _vm.$emit("clear-all")
-              }
-            }
+            on: { click: _vm.clearAll }
           },
           [
             _vm._v(
@@ -51760,11 +54880,118 @@ var render = function() {
           attrs: { id: "alpheios-main-menu-upload-block" }
         },
         [
-          _c("input", {
-            ref: "fileupload",
-            attrs: { type: "file" },
-            on: { change: _vm.loadTextFromFile }
-          })
+          _c("span", { staticClass: "alpheios-main-menu-upload-block_item" }, [
+            _c("input", { ref: "fileupload", attrs: { type: "file" } })
+          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
+            },
+            [_c("upload-icon", { on: { click: _vm.loadTextFromFile } })],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showDownloadBlock && _vm.downloadAvailable,
+              expression: "showDownloadBlock &&  downloadAvailable"
+            }
+          ],
+          staticClass: "alpheios-alignment-app-menu__download-block",
+          attrs: { id: "alpheios-main-menu-download-block" }
+        },
+        [
+          _c(
+            "p",
+            { staticClass: "alpheios-main-menu-download-block-radio-block" },
+            [
+              _vm._l(_vm.downloadTypes, function(dType) {
+                return _c(
+                  "span",
+                  {
+                    key: dType.name,
+                    staticClass:
+                      "alpheios-main-menu-download-block-radio-block_item"
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.currentDownloadType,
+                          expression: "currentDownloadType"
+                        }
+                      ],
+                      attrs: {
+                        type: "radio",
+                        id: _vm.downloadTypeId(dType.name)
+                      },
+                      domProps: {
+                        value: dType.name,
+                        checked: _vm._q(_vm.currentDownloadType, dType.name)
+                      },
+                      on: {
+                        change: function($event) {
+                          _vm.currentDownloadType = dType.name
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "tooltip",
+                      {
+                        attrs: {
+                          tooltipText: dType.tooltip,
+                          tooltipDirection: "top"
+                        }
+                      },
+                      [
+                        _c(
+                          "label",
+                          { attrs: { for: _vm.downloadTypeId(dType.name) } },
+                          [_vm._v(_vm._s(dType.label))]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-main-menu-download-block_item alpheios-token-edit-actions-button"
+                },
+                [
+                  _c("download-icon", {
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit(
+                          "download-data",
+                          _vm.currentDownloadType
+                        )
+                      }
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            2
+          )
         ]
       )
     ]
@@ -51786,8 +55013,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -51844,8 +55071,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52191,8 +55418,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52243,6 +55470,18 @@ var render = function() {
               )
             ]
           )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "alpheios-alignment-options__aboutcont" }, [
+          _c("h3", [
+            _vm._v(_vm._s(_vm.l10n.getMsgS("OPTIONS_BLOCK_INFO_ABOUT")))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-options__versiontext" },
+            [_vm._v("\n        " + _vm._s(_vm.versionData) + "\n      ")]
+          )
         ])
       ])
     ]
@@ -52264,96 +55503,126 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "alpheios-alignment-editor-actions-menu" }, [
-    _c(
-      "div",
-      { staticClass: "alpheios-alignment-editor-actions-menu__buttons" },
-      [
-        _c(
-          "button",
-          {
-            staticClass:
-              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-            attrs: {
-              id: "alpheios-actions-menu-button__download",
-              disabled: !_vm.docSourceEditAvailable
+  return _c(
+    "div",
+    { staticClass: "alpheios-alignment-editor-actions-menu" },
+    [
+      _c(
+        "div",
+        { staticClass: "alpheios-alignment-editor-actions-menu__buttons" },
+        [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: {
+                id: "alpheios-actions-menu-button__download",
+                disabled: !_vm.docSourceEditAvailable
+              },
+              on: { click: _vm.downloadSingle }
             },
-            on: { click: _vm.downloadSingle }
-          },
-          [
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.l10n.getMsgS("ACTIONS_DOWNLOAD_TITLE")) +
-                "\n    "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-            attrs: {
-              id: "alpheios-actions-menu-button__upload",
-              disabled: !_vm.docSourceEditAvailable
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.l10n.getMsgS("ACTIONS_DOWNLOAD_TITLE")) +
+                  "\n    "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: {
+                id: "alpheios-actions-menu-button__upload",
+                disabled: !_vm.docSourceEditAvailable
+              },
+              on: { click: _vm.uploadTexts }
             },
-            on: { click: _vm.uploadTexts }
-          },
-          [
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.l10n.getMsgS("ACTIONS_UPLOAD_TITLE")) +
-                "\n    "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-            attrs: {
-              id: "alpheios-actions-menu-button__metadata",
-              disabled: !_vm.metadataAvailable
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.l10n.getMsgS("ACTIONS_UPLOAD_TITLE")) +
+                  "\n    "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: {
+                id: "alpheios-actions-menu-button__metadata",
+                disabled: !_vm.metadataAvailable
+              },
+              on: { click: _vm.toggleMetadata }
             },
-            on: { click: _vm.toggleMetadata }
+            [_vm._v("\n        " + _vm._s(_vm.toggleMetadataTitle) + "\n    ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
+              expression: "showUploadBlock && docSourceEditAvailable"
+            }
+          ],
+          staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
+        },
+        [
+          _c("input", {
+            ref: "fileupload",
+            attrs: { type: "file" },
+            on: { change: _vm.loadTextFromFile }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__metadata" },
+              on: {
+                click: function($event) {
+                  _vm.showModal = true
+                }
+              }
+            },
+            [_vm._v("\n          DTSAPI\n      ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("upload-dtsapi-block", {
+        attrs: { showModal: _vm.showModal },
+        on: {
+          closeModal: function($event) {
+            _vm.showModal = false
           },
-          [_vm._v("\n        " + _vm._s(_vm.toggleMetadataTitle) + "\n    ")]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
-            expression: "showUploadBlock && docSourceEditAvailable"
-          }
-        ],
-        staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
-      },
-      [
-        _c("input", {
-          ref: "fileupload",
-          attrs: { type: "file" },
-          on: { change: _vm.loadTextFromFile }
-        })
-      ]
-    )
-  ])
+          uploadFromDTSAPI: _vm.uploadFromDTSAPI
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52371,8 +55640,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52424,8 +55693,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52478,8 +55747,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52489,19 +55758,78 @@ var render = function() {
     ? _c(
         "div",
         { staticClass: "alpheios-alignment-editor-metadata" },
-        _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
-          return _c("metadata-term-block", {
-            key: termIndex,
-            attrs: {
-              "text-type": _vm.textType,
-              "text-id": _vm.textId,
-              "metadata-term": metadataTerm
-            }
+        [
+          _c("metadata-info"),
+          _vm._v(" "),
+          _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
+            return _c("metadata-term-block", {
+              key: termIndex,
+              attrs: {
+                "text-type": _vm.textType,
+                "text-id": _vm.textId,
+                "metadata-term": metadataTerm
+              }
+            })
           })
-        }),
-        1
+        ],
+        2
       )
     : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=template&id=589c69a3& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "alpheios-alignment-editor-metadata__info" },
+    [
+      _c(
+        "p",
+        {
+          staticClass: "alpheios-alignment-editor-metadata__info-title",
+          on: {
+            click: function($event) {
+              _vm.showDetails = !_vm.showDetails
+            }
+          }
+        },
+        [_vm._v("\n        Instructions for metadata updates\n    ")]
+      ),
+      _vm._v(" "),
+      _c("div", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showDetails,
+            expression: "showDetails"
+          }
+        ],
+        staticClass: "alpheios-alignment-editor-metadata__info-details",
+        domProps: { innerHTML: _vm._s(_vm.instructions) }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52519,8 +55847,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52579,15 +55907,17 @@ var render = function() {
             attrs: { type: "text", id: _vm.itemId },
             domProps: { value: _vm.value },
             on: {
-              change: _vm.changeMetadataItem,
-              key: function($event) {
+              change: function($event) {
+                return _vm.changeMetadataItem("change")
+              },
+              keyup: function($event) {
                 if (
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                 ) {
                   return null
                 }
-                return _vm.changeMetadataItem($event)
+                return _vm.changeMetadataItem("enter")
               },
               input: function($event) {
                 if ($event.target.composing) {
@@ -52671,8 +56001,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52785,8 +56115,7 @@ var render = function() {
       _c("language-options-block", {
         attrs: {
           textType: _vm.textType,
-          localOptions: _vm.localTextEditorOptions,
-          disabled: !_vm.docSourceEditAvailable
+          localOptions: _vm.localTextEditorOptions
         },
         on: { updateText: _vm.updateText }
       }),
@@ -52820,8 +56149,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -52918,8 +56247,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53075,6 +56404,321 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/upload-dtsapi-block.vue?vue&type=template&id=1afbfb3a& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.showModal
+    ? _c("modal", {
+        on: {
+          close: function($event) {
+            return _vm.$emit("closeModal")
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "header",
+              fn: function() {
+                return [
+                  _c("p", { staticClass: "alpheios-editor-content-title" }, [
+                    _vm._v(_vm._s(_vm.title))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showBreadcrumbs,
+                          expression: "showBreadcrumbs"
+                        }
+                      ],
+                      staticClass: "alpheios-editor-content-breadcrumbs"
+                    },
+                    _vm._l(_vm.breadcrumbs, function(crumb, crumbIndex) {
+                      return _c(
+                        "li",
+                        {
+                          key: crumbIndex,
+                          class: _vm.crumbClass(crumb),
+                          on: {
+                            click: function($event) {
+                              return _vm.clickCrumb(crumb, crumbIndex)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n          " + _vm._s(crumb.title) + "\n        "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ]
+              },
+              proxy: true
+            },
+            _vm.contentAvailable
+              ? {
+                  key: "body",
+                  fn: function() {
+                    return [
+                      _c("waiting", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showWaiting,
+                            expression: "showWaiting"
+                          }
+                        ]
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.showDescription,
+                              expression: "showDescription"
+                            }
+                          ],
+                          staticClass: "alpheios-editor-content-description"
+                        },
+                        [
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "alpheios-editor-content-description__title",
+                              on: {
+                                click: function($event) {
+                                  _vm.showDescriptionDetails = !_vm.showDescriptionDetails
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n           " +
+                                  _vm._s(_vm.descriptionTitle) +
+                                  " \n        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("ul", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.showDescriptionDetails,
+                                expression: "showDescriptionDetails"
+                              }
+                            ],
+                            staticClass:
+                              "alpheios-editor-content-description__details",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.descriptionDetails)
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: !_vm.showWaiting,
+                              expression: "!showWaiting"
+                            }
+                          ],
+                          staticClass: "alpheios-editor-content-list",
+                          class: _vm.cssClasses
+                        },
+                        _vm._l(_vm.content, function(linkData, linkIndex) {
+                          return _c(
+                            "li",
+                            {
+                              key: linkIndex,
+                              staticClass: "alpheios-editor-content-link"
+                            },
+                            [
+                              linkData.type === "collection"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-link__text",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getCollection(linkData)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(linkData.formattedTitle))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "resource"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-link__text",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getNavigation(linkData)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(linkData.title))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "document"
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-link__checkbox"
+                                    },
+                                    [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.checkedRefs,
+                                            expression: "checkedRefs"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          id: _vm.contentRefId(linkIndex)
+                                        },
+                                        domProps: {
+                                          value: linkIndex,
+                                          checked: Array.isArray(
+                                            _vm.checkedRefs
+                                          )
+                                            ? _vm._i(
+                                                _vm.checkedRefs,
+                                                linkIndex
+                                              ) > -1
+                                            : _vm.checkedRefs
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.checkedRefs,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = linkIndex,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  (_vm.checkedRefs = $$a.concat(
+                                                    [$$v]
+                                                  ))
+                                              } else {
+                                                $$i > -1 &&
+                                                  (_vm.checkedRefs = $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1)))
+                                              }
+                                            } else {
+                                              _vm.checkedRefs = $$c
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        {
+                                          attrs: {
+                                            for: _vm.contentRefId(linkIndex)
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(linkData.ref))]
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ]
+                  },
+                  proxy: true
+                }
+              : null,
+            {
+              key: "footer",
+              fn: function() {
+                return [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                      attrs: { disabled: _vm.uploadButtonDisabled },
+                      on: { click: _vm.getDocument }
+                    },
+                    [_vm._v("Upload")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                      on: { click: _vm.closeModal }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ],
+          null,
+          true
+        )
+      })
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/tokens-editor/actions-button-token-edit.vue?vue&type=template&id=5edfbd93& ***!
@@ -53084,8 +56728,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53152,8 +56796,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53455,8 +57099,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53526,8 +57170,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53539,6 +57183,24 @@ var render = function() {
       staticClass: "alpheios-alignment-editor-token-edit-empty-input-container"
     },
     [
+      _c(
+        "p",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showDescription,
+              expression: "showDescription"
+            }
+          ],
+          staticClass:
+            "alpheios-alignment-editor-token-edit-empty-input-description",
+          attrs: { dir: "ltr" }
+        },
+        [_vm._v("\n      " + _vm._s(_vm.descriptionText) + "\n    ")]
+      ),
+      _vm._v(" "),
       _c("input", {
         directives: [
           {
@@ -53569,28 +57231,7 @@ var render = function() {
             _vm.tokensText = $event.target.value
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "p",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showDescription,
-              expression: "showDescription"
-            }
-          ],
-          staticClass:
-            "alpheios-alignment-editor-token-edit-empty-input-description"
-        },
-        [
-          _vm._v(
-            "\n      Words would be separated to tokens by spaces. Click Enter to insert tokens.\n    "
-          )
-        ]
-      )
+      })
     ]
   )
 }
@@ -53610,8 +57251,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53658,8 +57299,7 @@ var render = function() {
             attrs: {
               "text-type": _vm.textType,
               textId: _vm.targetId,
-              "input-type": "start",
-              "show-description": _vm.showDescription
+              "input-type": "start"
             }
           })
         : _vm._e(),
@@ -53740,8 +57380,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53860,8 +57500,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -53972,8 +57612,8 @@ render._withStripped = true
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* binding */ render,
-/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
 var render = function() {
   var _vm = this
@@ -54010,7 +57650,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.showAlignEditor
+      _vm.renderTokensEditor
         ? _c("tokens-editor-inner-block", {
             directives: [
               {
@@ -54063,6 +57703,80 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M176.42 880.5c0 11.046 8.954 20 20 20h507.67c11.046 0 20-8.954 20-20V232.49H176.42V880.5zm386.33-537.73h75V778.8h-75V342.77zm-150 0h75V778.8h-75V342.77zm-150 0h75V778.8h-75V342.77zM618.82 91.911V20c0-11.046-8.954-20-20-20H301.67c-11.046 0-20 8.954-20 20v96.911h-139.8c-11.046 0-20 8.954-20 20v50.576c0 11.045 8.954 20 20 20h616.75c11.046 0 20-8.955 20-20v-50.576c0-11.046-8.954-20-20-20h-139.8V91.912zm-75 20.889H356.67V75.001h187.15v37.801z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/down-arrow.svg":
+/*!*************************************!*\
+  !*** ./inline-icons/down-arrow.svg ***!
+  \*************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"16","height":"16","viewBox":"0 0 4.233 4.233","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.44 0v1.786H.001L1.06 3.01l1.058 1.223L3.176 3.01l1.058-1.224H2.887V0H1.44z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/download.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/download.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"224.26","height":"224.42","viewBox":"0 0 59.336 59.377","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.773 59.27C.985 58.98.19 58.03.033 57.197c-.183-.978.405-2.336 1.196-2.76.707-.378 56.208-.378 56.915 0 1.42.76 1.613 3.07.357 4.25l-.679.637-27.826.047c-15.304.026-28.005-.019-28.223-.1zm26.855-10.907c-.291-.13-3.595-3.319-7.342-7.085-6.713-6.748-6.813-6.865-6.813-7.947 0-1.502.823-2.433 2.327-2.635l1.136-.152 8.972 8.916V20.949c.001-17.093.036-18.582.464-19.436.903-1.808 3.22-2.042 4.406-.444.549.74.555.93.627 19.562l.073 18.815 4.443-4.415c4.76-4.731 4.999-4.875 6.661-4.015.968.5 1.318 1.141 1.318 2.417 0 .954-.316 1.315-6.948 7.961-5.983 5.995-7.076 6.979-7.871 7.083-.508.067-1.162.015-1.453-.115z"}})])
           )
         }
       }
@@ -54366,6 +58080,80 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/up-arrow.svg":
+/*!***********************************!*\
+  !*** ./inline-icons/up-arrow.svg ***!
+  \***********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"16","height":"16","viewBox":"0 0 4.233 4.233","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.44 4.23V2.444H.001L2.118-.003l2.117 2.447H2.887V4.23H1.44z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/upload.svg":
+/*!*********************************!*\
+  !*** ./inline-icons/upload.svg ***!
+  \*********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"224.26","height":"224.42","viewBox":"0 0 59.336 59.377","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M1.773.107C.985.4.19 1.347.033 2.181c-.183.98.405 2.337 1.196 2.76.707.379 56.208.379 56.915 0 1.42-.759 1.613-3.069.357-4.249l-.679-.638L29.996.007c-15.304-.026-28.005.02-28.223.1zm26.855 10.908c-.291.13-3.595 3.318-7.342 7.085-6.713 6.748-6.813 6.864-6.813 7.946 0 1.502.823 2.434 2.327 2.636l1.136.152 8.972-8.916V38.43c.001 17.093.036 18.582.464 19.436.903 1.808 3.22 2.042 4.406.444.549-.74.555-.93.627-19.562l.073-18.815 4.443 4.415c4.76 4.731 4.999 4.875 6.661 4.015.968-.5 1.318-1.142 1.318-2.417 0-.954-.316-1.315-6.948-7.961-5.983-5.995-7.076-6.979-7.871-7.083-.508-.067-1.162-.016-1.453.115z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/x-close.svg":
 /*!**********************************!*\
   !*** ./inline-icons/x-close.svg ***!
@@ -54403,6 +58191,17 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../package.json":
+/*!***********************!*\
+  !*** ../package.json ***!
+  \***********************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.1.0","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/alignment-group.test.js --coverage","test-d":"jest tests/targets-workflow.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.6","@babel/core":"^7.13.1","@babel/plugin-proposal-object-rest-spread":"^7.13.0","@babel/plugin-transform-modules-commonjs":"^7.13.0","@babel/plugin-transform-runtime":"^7.13.7","@babel/preset-env":"^7.13.5","@babel/register":"^7.13.0","@babel/runtime":"^7.13.7","@vue/test-utils":"^1.1.3","alpheios-core":"github:alpheios-project/alpheios-core","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.20.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.6.1","intl-messageformat":"^9.4.9","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.8","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","vue":"^2.6.12","vue-eslint-parser":"^7.5.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.2","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","webpack":"^5.24.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+
+/***/ }),
+
 /***/ "./lib/data/langs/langs-list.json":
 /*!****************************************!*\
   !*** ./lib/data/langs/langs-list.json ***!
@@ -54410,7 +58209,18 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value\":\"lat\",\"label\":\"Latin\"},{\"value\":\"grc\",\"label\":\"Greek (Ancient –1453)\"},{\"value\":\"ara\",\"label\":\"Arabic\"},{\"value\":\"zh\",\"label\":\"Chinese\"},{\"value\":\"afr\",\"label\":\"Afrikaans\"},{\"value\":\"akk\",\"label\":\"Akkadian\"},{\"value\":\"sqi\",\"label\":\"Albanian\"},{\"value\":\"amh\",\"label\":\"Amharic\"},{\"value\":\"arg\",\"label\":\"Aragonese\"},{\"value\":\"arc\",\"label\":\"Aramaic (Imperial- 700 BC–300 BC)\"},{\"value\":\"sam\",\"label\":\"Aramaic (Samaritan)\"},{\"value\":\"hye\",\"label\":\"Armenian\"},{\"value\":\"ast\",\"label\":\"Asturian\"},{\"value\":\"ave\",\"label\":\"Avestan\"},{\"value\":\"aze\",\"label\":\"Azerbaijani\"},{\"value\":\"eus\",\"label\":\"Basque\"},{\"value\":\"ben\",\"label\":\"Bengali\"},{\"value\":\"ber\",\"label\":\"Berber\"},{\"value\":\"bos\",\"label\":\"Bosnian\"},{\"value\":\"bre\",\"label\":\"Breton\"},{\"value\":\"bul\",\"label\":\"Bulgarian\"},{\"value\":\"chu\",\"label\":\"Bulgarian (Old, Old Church Slavonic)\"},{\"value\":\"mya\",\"label\":\"Burmese\"},{\"value\":\"cat\",\"label\":\"Catalan\"},{\"value\":\"chg\",\"label\":\"Chagatai\"},{\"value\":\"cop\",\"label\":\"Coptic\"},{\"value\":\"cor\",\"label\":\"Cornish\"},{\"value\":\"hrv\",\"label\":\"Croatian\"},{\"value\":\"ces\",\"label\":\"Czech\"},{\"value\":\"dan\",\"label\":\"Danish\"},{\"value\":\"nld\",\"label\":\"Dutch (Flemish)\"},{\"value\":\"dum\",\"label\":\"Dutch (Middle, 1050–1350)\"},{\"value\":\"egy\",\"label\":\"Egyptian (Ancient)\"},{\"value\":\"elx\",\"label\":\"Elamite\"},{\"value\":\"enm\",\"label\":\"English (Middle, 1100–1500)\"},{\"value\":\"ang\",\"label\":\"English (Old, 450–1100)\"},{\"value\":\"est\",\"label\":\"Estonian\"},{\"value\":\"fin\",\"label\":\"Finnish\"},{\"value\":\"fra\",\"label\":\"French\"},{\"value\":\"frm\",\"label\":\"French (Middle, 1400—1600)\"},{\"value\":\"fro\",\"label\":\"French (Old, 842—c. 1400)\"},{\"value\":\"gez\",\"label\":\"Ge'ez\"},{\"value\":\"kat\",\"label\":\"Georgian\"},{\"value\":\"nds\",\"label\":\"German (Low, Low Saxon)\"},{\"value\":\"gmh\",\"label\":\"German (Middle-High, 1050–1500)\"},{\"value\":\"goh\",\"label\":\"German (Old-High, 750–1050)\"},{\"value\":\"deu\",\"label\":\"German\"},{\"value\":\"got\",\"label\":\"Gothic\"},{\"value\":\"ell\",\"label\":\"Greek (Modern, 1453–)\"},{\"value\":\"guj\",\"label\":\"Gujarati\"},{\"value\":\"heb\",\"label\":\"Hebrew\"},{\"value\":\"hin\",\"label\":\"Hindi\"},{\"value\":\"hit\",\"label\":\"Hittite\"},{\"value\":\"hun\",\"label\":\"Hungarian\"},{\"value\":\"isl\",\"label\":\"Icelandic\"},{\"value\":\"ind\",\"label\":\"Indonesian\"},{\"value\":\"gle\",\"label\":\"Irish (Modern)\"},{\"value\":\"mga\",\"label\":\"Irish (Middle 900–1200)\"},{\"value\":\"sga\",\"label\":\"Irish (Old, to 900)\"},{\"value\":\"ita\",\"label\":\"Italian\"},{\"value\":\"jpn\",\"label\":\"Japanese\"},{\"value\":\"jav\",\"label\":\"Javanese\"},{\"value\":\"kan\",\"label\":\"Kannada\"},{\"value\":\"khm\",\"label\":\"Khmer (Central)\"},{\"value\":\"kor\",\"label\":\"Korean\"},{\"value\":\"kur\",\"label\":\"Kurdish\"},{\"value\":\"lad\",\"label\":\"Ladino\"},{\"value\":\"lit\",\"label\":\"Lithuanian\"},{\"value\":\"msa\",\"label\":\"Malay\"},{\"value\":\"mar\",\"label\":\"Marathi\"},{\"value\":\"new\",\"label\":\"Nepal Bhasa (Newari)\"},{\"value\":\"nep\",\"label\":\"Nepali\"},{\"value\":\"nwc\",\"label\":\"Newari\"},{\"value\":\"non\",\"label\":\"Norse (Old)\"},{\"value\":\"nor\",\"label\":\"Norwegian\"},{\"value\":\"nob\",\"label\":\"Norwegian (Bokmål)\"},{\"value\":\"nno\",\"label\":\"Norwegian (Nynorsk)\"},{\"value\":\"oss\",\"label\":\"Ossetian\"},{\"value\":\"pal\",\"label\":\"Pahlavi (Middle Persian)\"},{\"value\":\"pli\",\"label\":\"Pali\"},{\"value\":\"pus\",\"label\":\"Pashto\"},{\"value\":\"fas\",\"label\":\"Persian (Farsi)\"},{\"value\":\"peo\",\"label\":\"Persian (Old, 600–400 BC)\"},{\"value\":\"phn\",\"label\":\"Phoenician\"},{\"value\":\"pol\",\"label\":\"Polish\"},{\"value\":\"por\",\"label\":\"Portuguese\"},{\"value\":\"pra\",\"label\":\"Prakrit\"},{\"value\":\"pro\",\"label\":\"Provençal (Occitan, –1500)\"},{\"value\":\"pan\",\"label\":\"Punjabi (Panjabi)\"},{\"value\":\"raj\",\"label\":\"Rajasthani\"},{\"value\":\"ron\",\"label\":\"Romanian\"},{\"value\":\"rom\",\"label\":\"Romany\"},{\"value\":\"rus\",\"label\":\"Russian\"},{\"value\":\"san\",\"label\":\"Sanskrit\"},{\"value\":\"sco\",\"label\":\"Scots\"},{\"value\":\"gla\",\"label\":\"Scottish (Gaelic)\"},{\"value\":\"srp\",\"label\":\"Serbian\"},{\"value\":\"scn\",\"label\":\"Sicilian\"},{\"value\":\"snd\",\"label\":\"Sindhi\"},{\"value\":\"sin\",\"label\":\"Sinhalese (Sinhala)\"},{\"value\":\"slk\",\"label\":\"Slovak\"},{\"value\":\"slv\",\"label\":\"Slovenian\"},{\"value\":\"sog\",\"label\":\"Sogdian\"},{\"value\":\"spa\",\"label\":\"Spanish (Castilian)\"},{\"value\":\"sux\",\"label\":\"Sumerian\"},{\"value\":\"swa\",\"label\":\"Swahili\"},{\"value\":\"swe\",\"label\":\"Swedish\"},{\"value\":\"gsw\",\"label\":\"Swiss German (Alsatian)\"},{\"value\":\"syc\",\"label\":\"Syriac (Classical)\"},{\"value\":\"syr\",\"label\":\"Syriac (Northeastern, Neo-Aramaic)\"},{\"value\":\"tgl\",\"label\":\"Tagalog\"},{\"value\":\"tgk\",\"label\":\"Tajik\"},{\"value\":\"tam\",\"label\":\"Tamil\"},{\"value\":\"tat\",\"label\":\"Tatar\"},{\"value\":\"tel\",\"label\":\"Telugu\"},{\"value\":\"tha\",\"label\":\"Thai\"},{\"value\":\"bod\",\"label\":\"Tibetan\"},{\"value\":\"tur\",\"label\":\"Turkish (Modern)\"},{\"value\":\"ota\",\"label\":\"Turkish (Ottoman, 1500–1928)\"},{\"value\":\"tuk\",\"label\":\"Turkmen\"},{\"value\":\"uga\",\"label\":\"Ugaritic\"},{\"value\":\"ukr\",\"label\":\"Ukainian\"},{\"value\":\"urd\",\"label\":\"Urdu\"},{\"value\":\"uzb\",\"label\":\"Uzbek\"},{\"value\":\"vie\",\"label\":\"Vietnamese\"},{\"value\":\"wln\",\"label\":\"Walloon\"},{\"value\":\"cym\",\"label\":\"Welsh\"},{\"value\":\"yid\",\"label\":\"Yiddish\"}]");
+module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","label":"Latin"},{"value":"grc","label":"Greek (Ancient –1453)"},{"value":"ara","label":"Arabic"},{"value":"zh","label":"Chinese"},{"value":"afr","label":"Afrikaans"},{"value":"akk","label":"Akkadian"},{"value":"sqi","label":"Albanian"},{"value":"amh","label":"Amharic"},{"value":"arg","label":"Aragonese"},{"value":"arc","label":"Aramaic (Imperial- 700 BC–300 BC)"},{"value":"sam","label":"Aramaic (Samaritan)"},{"value":"hye","label":"Armenian"},{"value":"ast","label":"Asturian"},{"value":"ave","label":"Avestan"},{"value":"aze","label":"Azerbaijani"},{"value":"eus","label":"Basque"},{"value":"ben","label":"Bengali"},{"value":"ber","label":"Berber"},{"value":"bos","label":"Bosnian"},{"value":"bre","label":"Breton"},{"value":"bul","label":"Bulgarian"},{"value":"chu","label":"Bulgarian (Old, Old Church Slavonic)"},{"value":"mya","label":"Burmese"},{"value":"cat","label":"Catalan"},{"value":"chg","label":"Chagatai"},{"value":"cop","label":"Coptic"},{"value":"cor","label":"Cornish"},{"value":"hrv","label":"Croatian"},{"value":"ces","label":"Czech"},{"value":"dan","label":"Danish"},{"value":"nld","label":"Dutch (Flemish)"},{"value":"dum","label":"Dutch (Middle, 1050–1350)"},{"value":"egy","label":"Egyptian (Ancient)"},{"value":"elx","label":"Elamite"},{"value":"enm","label":"English (Middle, 1100–1500)"},{"value":"ang","label":"English (Old, 450–1100)"},{"value":"est","label":"Estonian"},{"value":"fin","label":"Finnish"},{"value":"fra","label":"French"},{"value":"frm","label":"French (Middle, 1400—1600)"},{"value":"fro","label":"French (Old, 842—c. 1400)"},{"value":"gez","label":"Ge\'ez"},{"value":"kat","label":"Georgian"},{"value":"nds","label":"German (Low, Low Saxon)"},{"value":"gmh","label":"German (Middle-High, 1050–1500)"},{"value":"goh","label":"German (Old-High, 750–1050)"},{"value":"deu","label":"German"},{"value":"got","label":"Gothic"},{"value":"ell","label":"Greek (Modern, 1453–)"},{"value":"guj","label":"Gujarati"},{"value":"heb","label":"Hebrew"},{"value":"hin","label":"Hindi"},{"value":"hit","label":"Hittite"},{"value":"hun","label":"Hungarian"},{"value":"isl","label":"Icelandic"},{"value":"ind","label":"Indonesian"},{"value":"gle","label":"Irish (Modern)"},{"value":"mga","label":"Irish (Middle 900–1200)"},{"value":"sga","label":"Irish (Old, to 900)"},{"value":"ita","label":"Italian"},{"value":"jpn","label":"Japanese"},{"value":"jav","label":"Javanese"},{"value":"kan","label":"Kannada"},{"value":"khm","label":"Khmer (Central)"},{"value":"kor","label":"Korean"},{"value":"kur","label":"Kurdish"},{"value":"lad","label":"Ladino"},{"value":"lit","label":"Lithuanian"},{"value":"msa","label":"Malay"},{"value":"mar","label":"Marathi"},{"value":"new","label":"Nepal Bhasa (Newari)"},{"value":"nep","label":"Nepali"},{"value":"nwc","label":"Newari"},{"value":"non","label":"Norse (Old)"},{"value":"nor","label":"Norwegian"},{"value":"nob","label":"Norwegian (Bokmål)"},{"value":"nno","label":"Norwegian (Nynorsk)"},{"value":"oss","label":"Ossetian"},{"value":"pal","label":"Pahlavi (Middle Persian)"},{"value":"pli","label":"Pali"},{"value":"pus","label":"Pashto"},{"value":"fas","label":"Persian (Farsi)"},{"value":"peo","label":"Persian (Old, 600–400 BC)"},{"value":"phn","label":"Phoenician"},{"value":"pol","label":"Polish"},{"value":"por","label":"Portuguese"},{"value":"pra","label":"Prakrit"},{"value":"pro","label":"Provençal (Occitan, –1500)"},{"value":"pan","label":"Punjabi (Panjabi)"},{"value":"raj","label":"Rajasthani"},{"value":"ron","label":"Romanian"},{"value":"rom","label":"Romany"},{"value":"rus","label":"Russian"},{"value":"san","label":"Sanskrit"},{"value":"sco","label":"Scots"},{"value":"gla","label":"Scottish (Gaelic)"},{"value":"srp","label":"Serbian"},{"value":"scn","label":"Sicilian"},{"value":"snd","label":"Sindhi"},{"value":"sin","label":"Sinhalese (Sinhala)"},{"value":"slk","label":"Slovak"},{"value":"slv","label":"Slovenian"},{"value":"sog","label":"Sogdian"},{"value":"spa","label":"Spanish (Castilian)"},{"value":"sux","label":"Sumerian"},{"value":"swa","label":"Swahili"},{"value":"swe","label":"Swedish"},{"value":"gsw","label":"Swiss German (Alsatian)"},{"value":"syc","label":"Syriac (Classical)"},{"value":"syr","label":"Syriac (Northeastern, Neo-Aramaic)"},{"value":"tgl","label":"Tagalog"},{"value":"tgk","label":"Tajik"},{"value":"tam","label":"Tamil"},{"value":"tat","label":"Tatar"},{"value":"tel","label":"Telugu"},{"value":"tha","label":"Thai"},{"value":"bod","label":"Tibetan"},{"value":"tur","label":"Turkish (Modern)"},{"value":"ota","label":"Turkish (Ottoman, 1500–1928)"},{"value":"tuk","label":"Turkmen"},{"value":"uga","label":"Ugaritic"},{"value":"ukr","label":"Ukainian"},{"value":"urd","label":"Urdu"},{"value":"uzb","label":"Uzbek"},{"value":"vie","label":"Vietnamese"},{"value":"wln","label":"Walloon"},{"value":"cym","label":"Welsh"},{"value":"yid","label":"Yiddish"}]');
+
+/***/ }),
+
+/***/ "./lib/download/html-template.json":
+/*!*****************************************!*\
+  !*** ./lib/download/html-template.json ***!
+  \*****************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"params":["theme","stylePath","jsPath","pageTitle","fullData"],"stylePath":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/style/style-alignment-editor-output.css","jsPath":"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/dist/output/alpheios-alignment-editor-output.js","pageTitle":"Alpheios Alignment Editor|Result","layout":"<!DOCTYPE html> <html class=\\"{{theme}}\\"> <head> <meta charset=\\"UTF-8\\"> <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\"> <title>{{pageTitle}}</title> <link rel=\\"icon\\" type=\\"image/x-icon\\" href=\\"https://alpheios-misc-dev.s3.us-east-2.amazonaws.com/alignment-editor/logo.ico\\"> <link rel=\\"stylesheet\\" href=\\"{{stylePath}}\\"/> <script src=\\"{{jsPath}}\\"></script> </head> <body class=\\"{{theme}}\\"> <div class=\\"container\\"> <div id=\\"alpheios-alignment-editor-output\\"></div> </div> <script> document.addEventListener(\\"DOMContentLoaded\\", function(event) { new window.AlignmentEditorOutput.Vue({ data: { fullData: {{fullData}} }, render: (h) => h(window.AlignmentEditorOutput.App)}).$mount(\'#alpheios-alignment-editor-output\') }) </script> </body> </html>"}');
 
 /***/ }),
 
@@ -54421,7 +58231,7 @@ module.exports = JSON.parse("[{\"value\":\"eng\",\"label\":\"English\"},{\"value
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a test message about a cookie.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\"}}");
+module.exports = JSON.parse('{"COOKIE_TEST_MESSAGE":{"message":"This is a test message about a cookie.","description":"A test message that is shown in a panel","component":"Panel"}}');
 
 /***/ }),
 
@@ -54432,7 +58242,7 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Alignment Groups\",\"description\":\"A heading for align editor\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ALIGN_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"}}");
+module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Define Alignment Groups","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
 
 /***/ }),
 
@@ -54443,7 +58253,7 @@ module.exports = JSON.parse("{\"ALIGN_EDITOR_HEADING\":{\"message\":\"Define Ali
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"message\":\"Tokenization was cancelled.\",\"description\":\"An error message for tokenization workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT\":{\"message\":\"Choose another token please - from the same segment, target text.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT\":{\"message\":\"Alignment doesn't have such tokens.\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\"},\"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX\":{\"message\":\"Passed index is out of the group list bounds - {index}\",\"description\":\"An error message for alignment workflow\",\"component\":\"Alignment\",\"params\":[\"index\"]},\"ALIGNMENT_GROUP_IS_COMPLETED\":{\"message\":\"Alignment group is finished and saved.\",\"description\":\"An info message that group is completed successfully\",\"component\":\"Alignment\"},\"ALIGNMENT_ORIGIN_NOT_TOKENIZED\":{\"message\":\"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\"},\"ALIGNMENT_TARGET_NOT_TOKENIZED\":{\"message\":\"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.\",\"description\":\"A error message - create aligned texts\",\"component\":\"Alignment\",\"params\":[\"textnum\"]},\"ALIGNMENT_GROUP_UNDO_ERROR\":{\"message\":\"There are no steps to be undone - only one step in history.\",\"description\":\"An error message for undo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_REDO_ERROR\":{\"message\":\"There are no steps to be redone - no steps forward in history.\",\"description\":\"An error message for redo workflow\",\"component\":\"AlignmentGroup\"},\"ALIGNMENT_GROUP_STEP_ERROR\":{\"message\":\"This type of steps {type} is not defined for undo/redo workflow\",\"description\":\"An error message for remove/apply step process\",\"component\":\"AlignmentGroup\",\"params\":[\"type\"]},\"SOURCE_TEXT_CONVERT_ERROR\":{\"message\":\"Json file doesn't have all obligatory fields. Source Text won't be created.\",\"description\":\"An error message for converting from JSON process\",\"component\":\"SourceText\"}}");
+module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message":"Tokenization was cancelled.","description":"An error message for tokenization workflow","component":"Alignment"},"ALIGNMENT_ERROR_ADD_TARGET_SOURCE":{"message":"First you should define origin source text.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT":{"message":"Choose another token please - from the same segment, target text.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT":{"message":"Alignment doesn\'t have such tokens.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX":{"message":"Passed index is out of the group list bounds - {index}","description":"An error message for alignment workflow","component":"Alignment","params":["index"]},"ALIGNMENT_GROUP_IS_COMPLETED":{"message":"Alignment group is finished and saved.","description":"An info message that group is completed successfully","component":"Alignment"},"ALIGNMENT_ORIGIN_NOT_TOKENIZED":{"message":"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.","description":"A error message - create aligned texts","component":"Alignment"},"ALIGNMENT_TARGET_NOT_TOKENIZED":{"message":"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.","description":"A error message - create aligned texts","component":"Alignment","params":["textnum"]},"ALIGNMENT_GROUP_UNDO_ERROR":{"message":"There are no steps to be undone - only one step in history.","description":"An error message for undo workflow","component":"AlignmentGroup"},"ALIGNMENT_GROUP_REDO_ERROR":{"message":"There are no steps to be redone - no steps forward in history.","description":"An error message for redo workflow","component":"AlignmentGroup"},"ALIGNMENT_GROUP_STEP_ERROR":{"message":"This type of steps {type} is not defined for undo/redo workflow","description":"An error message for remove/apply step process","component":"AlignmentGroup","params":["type"]},"SOURCE_TEXT_CONVERT_ERROR":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for converting from JSON process","component":"SourceText"}}');
 
 /***/ }),
 
@@ -54454,7 +58264,7 @@ module.exports = JSON.parse("{\"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED\":{\"mess
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Download type {downloadType} is not defined.\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\",\"params\":[\"downloadType\"]},\"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS\":{\"message\":\"You should define origin and target texts first\",\"description\":\"An error message for download process\",\"component\":\"DownloadController\"},\"TEXTS_CONTROLLER_EMPTY_FILE_DATA\":{\"message\":\"There is no data in file to upload\",\"description\":\"An error message for upload data from file.\",\"component\":\"TextsController\"},\"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP\":{\"message\":\"You should start from defining origin text first.\",\"description\":\"An error message creating alignment.\",\"component\":\"TextsController\"},\"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION\":{\"message\":\"Document source texts are not ready for tokenization.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS\":{\"message\":\"The tokenization process was cancelled because origin and target texts don't have the same amount of segments.\",\"description\":\"An error message creating alignment.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_STARTED\":{\"message\":\"Tokenization process has started.\",\"description\":\"An info message that is published before tokenization started.\",\"component\":\"AlignedGroupsController\"},\"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED\":{\"message\":\"Tokenization process has finished.\",\"description\":\"An info message that is published after tokenization finished.\",\"component\":\"AlignedGroupsController\"},\"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED\":{\"message\":\"Tokenizer method {tokenizer} is not registered\",\"description\":\"An error message for tokenization workflow\",\"component\":\"TokenizeController\",\"params\":[\"tokenizer\"]},\"UPLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"Upload type {uploadType} is not defined.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\",\"params\":[\"uploadType\"]},\"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT\":{\"message\":\"Uploaded file has wrong format for the type - plainSourceUploadFromFile.\",\"description\":\"An error message for upload workflow\",\"component\":\"UploadController\"},\"SETTINGS_CONTROLLER_NO_VALUES_CLASS\":{\"message\":\"There is no class for uploading settings values that is regestered as {className}\",\"description\":\"An error message for settings upload workflow\",\"component\":\"SettingsController\",\"params\":[\"className\"]},\"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR\":{\"message\":\"This token is inside created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokenEditController\"}}");
+module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define origin and target texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining origin text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because origin and target texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
 
 /***/ }),
 
@@ -54465,7 +58275,7 @@ module.exports = JSON.parse("{\"DOWNLOAD_CONTROLLER_ERROR_TYPE\":{\"message\":\"
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAT\":{\"message\":\"Latin\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GRC\":{\"message\":\"Greek (Ancient –1453)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARA\":{\"message\":\"Arabic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ZH\":{\"message\":\"Chinese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AFR\":{\"message\":\"Afrikaans\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AKK\":{\"message\":\"Akkadian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SQI\":{\"message\":\"Albanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AMH\":{\"message\":\"Amharic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARG\":{\"message\":\"Aragonese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ARC\":{\"message\":\"Aramaic (Imperial- 700 BC–300 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAM\":{\"message\":\"Aramaic (Samaritan)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HYE\":{\"message\":\"Armenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AST\":{\"message\":\"Asturian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AVE\":{\"message\":\"Avestan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_AZE\":{\"message\":\"Azerbaijani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EUS\":{\"message\":\"Basque\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BEN\":{\"message\":\"Bengali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BER\":{\"message\":\"Berber\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOS\":{\"message\":\"Bosnian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BRE\":{\"message\":\"Breton\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BUL\":{\"message\":\"Bulgarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHU\":{\"message\":\"Bulgarian (Old, Old Church Slavonic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MYA\":{\"message\":\"Burmese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CAT\":{\"message\":\"Catalan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CHG\":{\"message\":\"Chagatai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COP\":{\"message\":\"Coptic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_COR\":{\"message\":\"Cornish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HRV\":{\"message\":\"Croatian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CES\":{\"message\":\"Czech\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DAN\":{\"message\":\"Danish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NLD\":{\"message\":\"Dutch (Flemish)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DUM\":{\"message\":\"Dutch (Middle, 1050–1350)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EGY\":{\"message\":\"Egyptian (Ancient)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELX\":{\"message\":\"Elamite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ENM\":{\"message\":\"English (Middle, 1100–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ANG\":{\"message\":\"English (Old, 450–1100)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_EST\":{\"message\":\"Estonian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FIN\":{\"message\":\"Finnish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRA\":{\"message\":\"French\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRM\":{\"message\":\"French (Middle, 1400—1600)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FRO\":{\"message\":\"French (Old, 842—c. 1400)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GEZ\":{\"message\":\"Ge'ez\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAT\":{\"message\":\"Georgian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NDS\":{\"message\":\"German (Low, Low Saxon)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GMH\":{\"message\":\"German (Middle-High, 1050–1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOH\":{\"message\":\"German (Old-High, 750–1050)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_DEU\":{\"message\":\"German\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GOT\":{\"message\":\"Gothic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ELL\":{\"message\":\"Greek (Modern, 1453–)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GUJ\":{\"message\":\"Gujarati\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HEB\":{\"message\":\"Hebrew\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIN\":{\"message\":\"Hindi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HIT\":{\"message\":\"Hittite\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_HUN\":{\"message\":\"Hungarian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ISL\":{\"message\":\"Icelandic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_IND\":{\"message\":\"Indonesian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLE\":{\"message\":\"Irish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MGA\":{\"message\":\"Irish (Middle 900–1200)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SGA\":{\"message\":\"Irish (Old, to 900)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ITA\":{\"message\":\"Italian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JPN\":{\"message\":\"Japanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_JAV\":{\"message\":\"Javanese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KAN\":{\"message\":\"Kannada\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KHM\":{\"message\":\"Khmer (Central)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KOR\":{\"message\":\"Korean\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_KUR\":{\"message\":\"Kurdish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LAD\":{\"message\":\"Ladino\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_LIT\":{\"message\":\"Lithuanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MSA\":{\"message\":\"Malay\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_MAR\":{\"message\":\"Marathi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEW\":{\"message\":\"Nepal Bhasa (Newari)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NEP\":{\"message\":\"Nepali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NWC\":{\"message\":\"Newari\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NON\":{\"message\":\"Norse (Old)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOR\":{\"message\":\"Norwegian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NOB\":{\"message\":\"Norwegian (Bokmål)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_NNO\":{\"message\":\"Norwegian (Nynorsk)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OSS\":{\"message\":\"Ossetian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAL\":{\"message\":\"Pahlavi (Middle Persian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PLI\":{\"message\":\"Pali\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PUS\":{\"message\":\"Pashto\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_FAS\":{\"message\":\"Persian (Farsi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PEO\":{\"message\":\"Persian (Old, 600–400 BC)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PHN\":{\"message\":\"Phoenician\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POL\":{\"message\":\"Polish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_POR\":{\"message\":\"Portuguese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRA\":{\"message\":\"Prakrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PRO\":{\"message\":\"Provençal (Occitan, –1500)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_PAN\":{\"message\":\"Punjabi (Panjabi)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RAJ\":{\"message\":\"Rajasthani\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RON\":{\"message\":\"Romanian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_ROM\":{\"message\":\"Romany\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_RUS\":{\"message\":\"Russian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SAN\":{\"message\":\"Sanskrit\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCO\":{\"message\":\"Scots\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GLA\":{\"message\":\"Scottish (Gaelic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SRP\":{\"message\":\"Serbian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SCN\":{\"message\":\"Sicilian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SND\":{\"message\":\"Sindhi\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SIN\":{\"message\":\"Sinhalese (Sinhala)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLK\":{\"message\":\"Slovak\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SLV\":{\"message\":\"Slovenian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SOG\":{\"message\":\"Sogdian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SPA\":{\"message\":\"Spanish (Castilian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SUX\":{\"message\":\"Sumerian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWA\":{\"message\":\"Swahili\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SWE\":{\"message\":\"Swedish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_GSW\":{\"message\":\"Swiss German (Alsatian)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYC\":{\"message\":\"Syriac (Classical)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_SYR\":{\"message\":\"Syriac (Northeastern, Neo-Aramaic)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGL\":{\"message\":\"Tagalog\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TGK\":{\"message\":\"Tajik\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAM\":{\"message\":\"Tamil\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TAT\":{\"message\":\"Tatar\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TEL\":{\"message\":\"Telugu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_THA\":{\"message\":\"Thai\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_BOD\":{\"message\":\"Tibetan\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUR\":{\"message\":\"Turkish (Modern)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_OTA\":{\"message\":\"Turkish (Ottoman, 1500–1928)\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_TUK\":{\"message\":\"Turkmen\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UGA\":{\"message\":\"Ugaritic\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UKR\":{\"message\":\"Ukainian\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_URD\":{\"message\":\"Urdu\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_UZB\":{\"message\":\"Uzbek\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_VIE\":{\"message\":\"Vietnamese\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_WLN\":{\"message\":\"Walloon\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_CYM\":{\"message\":\"Welsh\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"},\"LANG_YID\":{\"message\":\"Yiddish\",\"description\":\"Language name for available languages list\",\"component\":\"TextEditor\"}}");
+module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"}}');
 
 /***/ }),
 
@@ -54476,7 +58286,7 @@ module.exports = JSON.parse("{\"LANG_ENG\":{\"message\":\"English\",\"descriptio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ALIGN_TITLE\":{\"message\":\"Align\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_ADD_TARGET_TITLE\":{\"message\":\"Add target\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_SHOW_OPTIONS_TITLE\":{\"message\":\"Show options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_HIDE_OPTIONS_TITLE\":{\"message\":\"Hide options\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"MAIN_MENU_CLEAR_TEXT\":{\"message\":\"Clear text\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Align","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add target","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Clear text","description":"Button in main menu","component":"MainMenu"}}');
 
 /***/ }),
 
@@ -54487,7 +58297,7 @@ module.exports = JSON.parse("{\"MAIN_MENU_DOWNLOAD_TITLE\":{\"message\":\"Downlo
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"Identifier\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_TITLE\":{\"message\":\"Title\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CREATOR\":{\"message\":\"Creator\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_CONTRIBUTOR\":{\"message\":\"Contributor\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_PUBLISHER\":{\"message\":\"Publisher\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DATE_COPYRIGHTED\":{\"message\":\"Date copyrighted\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_SOURCE\":{\"message\":\"Source\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_LABEL_DESCRIPTION\":{\"message\":\"Description\",\"description\":\"Metadata term label\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_IDENTIFIER\":{\"message\":\"An unambiguous reference to the resource within a given context.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_TITLE\":{\"message\":\"A name given to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CREATOR\":{\"message\":\"An entity primarily responsible for making the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_CONTRIBUTOR\":{\"message\":\"An entity responsible for making contributions to the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_PUBLISHER\":{\"message\":\"An entity responsible for making the resource available.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED\":{\"message\":\"Date of copyright of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_SOURCE\":{\"message\":\"A related resource from which the described resource is derived.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"},\"METADATA_TERM_DESCRIPTION_DESCRIPTION\":{\"message\":\"An account of the resource.\",\"description\":\"Metadata term description\",\"component\":\"MetadataTerm\"}}");
+module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Identifier","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_TITLE":{"message":"Title","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CREATOR":{"message":"Creator","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_CONTRIBUTOR":{"message":"Contributor","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_PUBLISHER":{"message":"Publisher","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DATE_COPYRIGHTED":{"message":"Copyright Date","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_SOURCE":{"message":"Source","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_LABEL_DESCRIPTION":{"message":"Description","description":"Metadata term label","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_IDENTIFIER":{"message":"An unambiguous reference to the resource within a given context.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_TITLE":{"message":"A name given to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CREATOR":{"message":"An entity primarily responsible for making the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_CONTRIBUTOR":{"message":"An entity responsible for making contributions to the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_PUBLISHER":{"message":"An entity responsible for making the resource available.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DATE_COPYRIGHTED":{"message":"Date of copyright of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_SOURCE":{"message":"A related resource from which the described resource is derived.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_TERM_DESCRIPTION_DESCRIPTION":{"message":"An account of the resource.","description":"Metadata term description","component":"MetadataTerm"},"METADATA_INSTRUCTIONS":{"message":"<p>There are two types of metadata - single valued and multivalued.</p><p><b>Single valued metadata</b> - simply type/edit/delete the value in the input field.</p><p><b>Multivalued metadata (Creator, Contributor)</b>:</p><ul><li>to add a new value - type value to the input field and press Enter; the value will be saved and visible under the input;</li><li>to delete a saved value - click the value and click trash icon;</li><li>to update a saved value - click the value, edit it in the input field and press Enter;</li></ul>","description":"Metadata update instructions","component":"MetadataBlock"}}');
 
 /***/ }),
 
@@ -54498,7 +58308,7 @@ module.exports = JSON.parse("{\"METADATA_TERM_LABEL_IDENTIFIER\":{\"message\":\"
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"OPTIONS_BLOCK_APPLICATION\":{\"message\":\"Application options\",\"description\":\"Fieldset inside options\",\"component\":\"OptionsBlock\"},\"OPTIONS_BLOCK_RESET_ALL\":{\"message\":\"Reset all\",\"description\":\"Button inside options\",\"component\":\"OptionsBlock\"}}");
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"}}');
 
 /***/ }),
 
@@ -54509,7 +58319,7 @@ module.exports = JSON.parse("{\"OPTIONS_BLOCK_APPLICATION\":{\"message\":\"Appli
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Origin and Target Texts\",\"description\":\"A heading for text editor\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"TextEditor\"},\"TEXT_EDITOR_TEXT_BLOCK_TITLE\":{\"message\":\"Enter Text in { textType } Language:\",\"description\":\"A tytle for text block area\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"RADIO_BLOCK_DIRECTION_LABEL\":{\"message\":\"Text Direction:\",\"description\":\"A label for text direction select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_LTR\":{\"message\":\"Left to Right\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_DIRECTION_RTL\":{\"message\":\"Right to Left\",\"description\":\"A label for text direction select option\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_AVA_LANGUAGE_TITLE\":{\"message\":\"{ textType } Language:\",\"description\":\"A title for available languages select\",\"component\":\"TextEditorSingleBlock\",\"params\":[\"textType\"]},\"TEXT_EDITOR_LANGUAGE_OTHER_LABEL\":{\"message\":\"Or Other Language:\",\"description\":\"A label for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION\":{\"message\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"description\":\"A description for other language text input\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_LABEL\":{\"message\":\"Text type:\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEXT\":{\"message\":\"Text\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"RADIO_BLOCK_TEXTSOURCETYPE_TEI\":{\"message\":\"TEI\",\"description\":\"A label for text type select\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS\":{\"message\":\"Tokenize options for Alpheios Remote Servise\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT\":{\"message\":\"TEXT\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI\":{\"message\":\"TEI\",\"description\":\"Fieldset inside options\",\"component\":\"TextEditorSingleBlock\"},\"ACTIONS_DOWNLOAD_TITLE\":{\"message\":\"Download\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_UPLOAD_TITLE\":{\"message\":\"Upload\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_METADATA_HIDE_TITLE\":{\"message\":\"Hide metadata\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"},\"ACTIONS_METADATA_SHOW_TITLE\":{\"message\":\"Show metadata\",\"description\":\"Button in main menu\",\"component\":\"MainMenu\"}}");
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Origin and Target Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"There are two ways to upload passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>If you choose one reference, only it will be uploaded.</li><li>If you choose more than one reference, a range would be uploaded - from minimum selected to the maximum selected. For example, you chose 2, 5, 8, then there will be uploaded a range from 2 to 8 references.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"}}');
 
 /***/ }),
 
@@ -54520,7 +58330,7 @@ module.exports = JSON.parse("{\"TEXT_EDITOR_HEADING\":{\"message\":\"Define Orig
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit tokens in Origin and Target texts\",\"description\":\"A heading for text editor\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_HIDE\":{\"message\":\"hide\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"TOKENS_EDITOR_SHOW\":{\"message\":\"show\",\"description\":\"A label for hide/show links\",\"component\":\"AlignEditor\"},\"ACTION_BUTTON_UPDATE_TOKEN\":{\"message\":\"Update a token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_LEFT\":{\"message\":\"Merge with a left token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_MERGE_RIGHT\":{\"message\":\"Merge with a right token\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_SPLIT_TOKEN\":{\"message\":\"Split a token to 2 tokens by space\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_ADD_LINEBREAK\":{\"message\":\"Add line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_REMOVE_LINEBREAK\":{\"message\":\"Remove line break after the token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"ACTION_BUTTON_DELETE\":{\"message\":\"Delete token.\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokenEdit\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP\":{\"message\":\"This token is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP\":{\"message\":\"The token that is the target of merging is inside a created alignment group, you should ungroup it first.\",\"description\":\"An error message for token edit workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_SPLIT_NO_SPACES\":{\"message\":\"The token word should have one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_SPLIT_SEVERAL_SPACES\":{\"message\":\"The token word should have only one space for split workflow.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK\":{\"message\":\"The token already has a line break.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_NEXT_SEGMENT\":{\"message\":\"Move the token to the next segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTION_BUTTON_TO_PREV_SEGMENT\":{\"message\":\"Move the token to the previous segment.\",\"description\":\"An error message for token edit workflow\",\"component\":\"TokensEditController\"},\"ACTIONS_UNDO_TITLE\":{\"message\":\"Undo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"ACTIONS_REDO_TITLE\":{\"message\":\"Redo\",\"description\":\"A label for action menu buttons\",\"component\":\"ActionsMenuTokensEditor\"},\"TOKENS_EDIT_UNDO_ERROR\":{\"message\":\"Nothing to undo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"},\"TOKENS_EDIT_REDO_ERROR\":{\"message\":\"Nothing to redo.\",\"description\":\"An error inside tokens edit history workflow\",\"component\":\"Alignment\"}}");
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit tokens in Origin and Target texts","description":"A heading for text editor","component":"AlignEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the target of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word should have one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"The token word should have only one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
 
 /***/ }),
 
@@ -54531,7 +58341,7 @@ module.exports = JSON.parse("{\"TOKENS_EDITOR_HEADING\":{\"message\":\"Edit toke
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"version\":\"1\",\"items\":{\"theme\":{\"defaultValue\":\"v1-theme\",\"labelText\":\"CSS Theme\",\"select\":true,\"values\":[{\"value\":\"standard-theme\",\"text\":\"Standard Theme\"},{\"value\":\"v1-theme\",\"text\":\"V1 Theme\"}]},\"tokenizer\":{\"defaultValue\":\"alpheiosRemoteTokenizer\",\"labelText\":\"Tokenizer service\",\"select\":true,\"values\":[{\"value\":\"alpheiosRemoteTokenizer\",\"text\":\"Alpheios Remote Tokenizer\"},{\"value\":\"simpleLocalTokenizer\",\"text\":\"Offline tokenizer\"}]},\"allowUpdateTokenWord\":{\"defaultValue\":false,\"labelText\":\"Allow update token word\",\"boolean\":true,\"values\":[{\"value\":true,\"text\":\"Yes\"},{\"value\":false,\"text\":\"No\"}]}}}");
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 
@@ -54542,7 +58352,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-app\",\"ver
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text\",\"version\":\"1\",\"items\":{\"sourceType\":{\"defaultValue\":\"text\",\"labelText\":\"Text Source Type\",\"radio\":true,\"values\":[{\"value\":\"text\",\"text\":\"Text\"},{\"value\":\"tei\",\"text\":\"TEI\"}]},\"direction\":{\"defaultValue\":\"ltr\",\"labelText\":\"Direction\",\"radio\":true,\"values\":[{\"value\":\"ltr\",\"text\":\"Left to Right\"},{\"value\":\"rtl\",\"text\":\"Right to Left\"}]},\"language\":{\"defaultValue\":\"eng\",\"labelsList\":{\"origin\":{\"selectLabel\":\"Origin Language:\",\"inputLabel\":\"Or Other Language:\"},\"target\":{\"selectLabel\":\"Target Language:\",\"inputLabel\":\"Or Other Language:\"}},\"description\":\"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages\",\"selectInput\":true,\"valuesArray\":\"Langs\"}}}");
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-source-text","version":"1","items":{"sourceType":{"defaultValue":"text","labelText":"Text Source Type","radio":true,"values":[{"value":"text","text":"Text"},{"value":"tei","text":"TEI"}]},"direction":{"defaultValue":"ltr","labelText":"Direction","radio":true,"values":[{"value":"ltr","text":"Left to Right"},{"value":"rtl","text":"Right to Left"}]},"language":{"defaultValue":"eng","labelsList":{"origin":{"selectLabel":"Origin Language:","inputLabel":"Or Other Language:"},"target":{"selectLabel":"Target Language:","inputLabel":"Or Other Language:"}},"description":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","selectInput":true,"valuesArray":"Langs"}}}');
 
 /***/ })
 
@@ -54577,8 +58387,8 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
 /******/ 		__webpack_require__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				() => module['default'] :
-/******/ 				() => module;
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
@@ -54610,7 +58420,7 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
@@ -54625,10 +58435,29 @@ module.exports = JSON.parse("{\"domain\":\"alpheios-alignment-editor-source-text
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// module exports must be returned from runtime so entry inlining is disabled
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__("./index.js");
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!******************!*\
+  !*** ./index.js ***!
+  \******************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Style": () => (/* reexport default from dynamic */ _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default.a),
+/* harmony export */   "AppController": () => (/* reexport safe */ _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__.default)
+/* harmony export */ });
+/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/styles/style.scss */ "./styles/style.scss");
+/* harmony import */ var _styles_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_styles_style_scss__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_controllers_app_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/app-controller.js */ "./lib/controllers/app-controller.js");
+
+
+
+
+
+})();
+
+window.AlignmentEditor = __webpack_exports__;
 /******/ })()
 ;
 //# sourceMappingURL=alpheios-alignment-editor.js.map

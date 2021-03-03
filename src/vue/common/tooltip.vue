@@ -5,6 +5,7 @@
           v-bind:class = "directionClass"
           v-bind:style = "additionalStyles"
           v-show = "tooltipText"
+          dir = "ltr"
     >
       {{ tooltipText }}
     </span>
@@ -81,6 +82,8 @@ export default {
       display: none;
       font-size: 12px;
       text-align: center;
+
+      text-transform: initial;
     }
   }
 

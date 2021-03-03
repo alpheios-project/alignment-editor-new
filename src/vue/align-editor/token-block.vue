@@ -1,8 +1,8 @@
 <template>
-    <span :data-type = "token.textType" :id = "token.idWord"
-          @click.stop = "clickToken"
+    <span :data-type = "token.textType" :id = "elementId"
+          @click.exact.prevent = "clickToken"
           @mouseover = "addHoverToken"
-          @mouseout = "removeHoverToken"
+          @mouseleave = "removeHoverToken"
           class = "alpheios-token"
           :class="tokenClasses"
     >
@@ -59,10 +59,13 @@ export default {
     }, 
     tokenAfterWord () {
       return this.$store.state.tokenUpdated && this.token.afterWord
+    },
+    elementId () {
+      return `token-${this.token.idWord}`
     }
   },
   methods: {
-    clickToken () {
+    clickToken (event) {
       this.$emit('click-token', this.token)
     },
     addHoverToken () {
@@ -81,6 +84,7 @@ export default {
             padding: 4px;
             border: 1px solid transparent;
             display: inline-block;
+            vertical-align: top;
 
             &:hover {
                 border-color: #FFC24F;

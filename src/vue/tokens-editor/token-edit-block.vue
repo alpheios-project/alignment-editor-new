@@ -199,13 +199,14 @@ export default {
 
   .alpheios-alignment-editor-token-edit__input-width-machine {
     display: inline-block;
-    vertical-align: baseline;
+    vertical-align: top;
     padding: 8px;
     visibility: hidden;
   }
  
   .alpheios-alignment-editor-token-edit-input-container {
     display: inline-block;
+    vertical-align: baseline;
     position: relative;
     padding: 4px;
   }
@@ -213,6 +214,7 @@ export default {
   .alpheios-alignment-editor-token-edit-input {
     position: absolute;
     width: 100%;
+    top: 0;
     left: 0;
     z-index: 10;
   }

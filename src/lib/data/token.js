@@ -1,13 +1,15 @@
 import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
     this.beforeWord = beforeWord
     this.afterWord = afterWord
     this.hasLineBreak = hasLineBreak
+    this.sentenceIndex = sentenceIndex
+
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
   }
@@ -71,5 +73,66 @@ export default class Token {
       })
     }
     return true
+  }
+
+  /**
+   * @returns { String } textType - origin/target
+   *          { String } idWord
+   *          { String } word
+   *          { String } beforeWord
+   *          { String } afterWord
+   *          { Boolean } hasLineBreak
+   *          { Number } segmentIndex
+   *          { String } docSourceId
+   */
+  convertToJSON () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex
+    }
+  }
+
+  /**
+   *
+   * @param { Object } data
+   *        { String } textType - origin/target
+   *        { String } idWord
+   *        { String } word
+   *        { String } beforeWord
+   *        { String } afterWord
+   *        { Boolean } hasLineBreak
+   *        { Number } segmentIndex
+   *        { String } docSourceId
+   * @returns { Token }
+   */
+  static convertFromJSON (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex
+    }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertForHTMLOutput () {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      sentenceIndex: this.sentenceIndex
+    }
   }
 }

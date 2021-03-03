@@ -17,7 +17,7 @@
       ></textarea>
 
       <language-options-block :textType = "textType"
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" 
       />
 
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions"
@@ -28,8 +28,6 @@
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import Langs from '@/lib/data/langs/langs.js'
-
 import DeleteIcon from '@/inline-icons/delete.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
@@ -58,6 +56,10 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    clearFileInput: {
+      type: Number,
+      required: false
     }
   },
   components: {
@@ -175,7 +177,8 @@ export default {
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
@@ -199,6 +202,7 @@ export default {
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -267,6 +271,7 @@ export default {
         textarea {
             width:100%;
             min-height: 300px;
+            font-size: inherit;
         }
 
         p {

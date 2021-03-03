@@ -1,0 +1,47 @@
+<template>
+    <div class="alpheios-alignment-editor-metadata__info">
+        <p class="alpheios-alignment-editor-metadata__info-title" @click = "showDetails=!showDetails">
+            Instructions for metadata updates
+        </p>
+        <div class="alpheios-alignment-editor-metadata__info-details" v-show = "showDetails" v-html="instructions">
+        </div>
+    </div>
+</template>
+<script>
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
+export default {
+  name: 'MetadataInfo',
+  data () {
+    return {
+      showDetails: false
+    }
+  },
+  computed: {
+    l10n () {
+      return L10nSingleton
+    },
+    instructions () {
+      return this.l10n.getMsgS('METADATA_INSTRUCTIONS')
+    }
+  }
+}
+</script>
+<style lang="scss">
+    .alpheios-alignment-editor-metadata__info-title {
+        cursor: pointer;
+        color: #90a959;
+        text-decoration: underline;
+        // background: #90a959;
+        // border-color: #6a9fb5;
+    }
+
+    .alpheios-alignment-editor-metadata__info-details {
+        border-bottom: 1px solid rgb(106, 159, 181);
+        padding-bottom: 10px;
+
+        p, ul {
+            margin: 0;
+        }
+    }
+</style>

@@ -100,5 +100,20 @@
     "message": "Show metadata",
     "description": "Button in main menu",
     "component": "MainMenu"
+  },
+  "UPLOAD_DTSAPI_TITLE": {
+    "message": "Upload texts from DTS API",
+    "description": "Title in upload bloc",
+    "component": "UploadDTSAPIBlock"
+  },
+  "UPLOAD_DTSAPI_DESCRIPTION_TITLE": {
+    "message": "There are two ways to upload passages:",
+    "description": "Description in upload bloc",
+    "component": "UploadDTSAPIBlock"
+  },
+  "UPLOAD_DTSAPI_DESCRIPTION_DETAILS": {
+    "message": "<li>If you choose one reference, only it will be uploaded.</li><li>If you choose more than one reference, a range would be uploaded - from minimum selected to the maximum selected. For example, you chose 2, 5, 8, then there will be uploaded a range from 2 to 8 references.</li>",
+    "description": "Description in upload bloc",
+    "component": "UploadDTSAPIBlock"
   }
 }

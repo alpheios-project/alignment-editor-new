@@ -17,7 +17,7 @@
             @moveToPrevSegment = "moveToPrevSegment"
             @deleteToken = "deleteToken"
         />
-        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" :show-description = "showDescription" v-if="segment.index === 1"/>
+        <empty-tokens-input :text-type = "textType" :textId="targetId" input-type="start" v-if="segment.index === 1"/>
 
         <template v-for = "(token, tokenIndex) in allTokens">
           <token-edit-block
@@ -96,9 +96,7 @@ export default {
       mergeTokenNextIdWord: null,
       splitTokenIdWord: null,
       addLineBreakIdWord: null,
-      removeLineBreakIdWord: null,
-      
-      showDescription: true
+      removeLineBreakIdWord: null
     }
   },
   watch: {
@@ -123,7 +121,7 @@ export default {
      * @returns {String} - lang code
      */
     lang () {
-      return this.segment.lang
+      return this.$store.state.alignmentUpdated && this.segment.lang
     },
     /**
      * @returns {String} css id for html layout
@@ -204,28 +202,36 @@ export default {
       this.showActionsMenuFlag = false
       this.deactivated++
     },
-    updateTokenWord (token) {
+    async clearPrevIdWord (token, typeName) {
+      if (token.idWord === this[typeName]) {
+        this[typeName] = null
+        await Vue.nextTick()
+      }
+    },
+    async updateTokenWord (token) {
+      await this.clearPrevIdWord(token, 'updateTokenIdWord')
       this.updateTokenIdWord = token.idWord
     },
-    mergeToken (token, direction) {
+    async mergeToken (token, direction) {
       if (direction === HistoryStep.directions.PREV) {
+        await this.clearPrevIdWord(token, 'mergeTokenPrevIdWord')
         this.mergeTokenPrevIdWord = token.idWord
       }
       if (direction === HistoryStep.directions.NEXT) {
+        await this.clearPrevIdWord(token, 'mergeTokenNextIdWord')
         this.mergeTokenNextIdWord = token.idWord
       }
     },
     async splitToken (token) {
-      if (token.idWord === this.splitTokenIdWord) {
-        this.splitTokenIdWord = null
-        await Vue.nextTick()
-      }
+      await this.clearPrevIdWord(token, 'splitTokenIdWord')
       this.splitTokenIdWord = token.idWord
     },
-    addLineBreak (token) {
+    async addLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.addLineBreakIdWord = token.idWord
     },
-    removeLineBreak (token) {
+    async removeLineBreak (token) {
+      await this.clearPrevIdWord(token, 'removeLineBreakIdWord')
       this.removeLineBreakIdWord = token.idWord
     },
     moveToNextSegment (token) {

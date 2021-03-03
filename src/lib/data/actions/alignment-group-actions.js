@@ -12,7 +12,7 @@ export default class AlignmentGroupActions {
   // calculated props
 
   get firstStepToken () {
-    return this.alignmentGroupHistory.firstStepToken
+    return this.alignmentGroupHistory ? this.alignmentGroupHistory.firstStepToken : null
   }
 
   // checks
@@ -93,7 +93,7 @@ export default class AlignmentGroupActions {
    * @returns {Boolean} true - if this is the first step, false - not
    */
   isFirstToken (token, targetId) {
-    return this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
+    return this.firstStepToken && this.hasTheSameTargetId(targetId) && this.includesToken(token) && (this.firstStepToken.idWord === token.idWord)
   }
 
   // actions
@@ -238,5 +238,25 @@ export default class AlignmentGroupActions {
     return {
       result: true
     }
+  }
+
+  convertToJSON () {
+    return {
+      segmentIndex: this.segmentIndex,
+      targetId: this.targetId,
+      origin: this.origin,
+      target: this.target
+    }
+  }
+
+  static convertFromJSON (data) {
+    const actions = new AlignmentGroupActions({
+      targetId: data.targetId
+    })
+    actions.segmentIndex = data.segmentIndex
+    actions.origin = data.origin
+    actions.target = data.target
+
+    return actions
   }
 }

@@ -58,7 +58,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get originDocSourceFullyDefined () {
-    return Boolean(this.origin.docSource) && this.origin.docSource.fullyDefined
+    return this.originDocSourceDefined && this.origin.docSource.fullyDefined
   }
 
   /**
@@ -67,6 +67,10 @@ export default class Alignment {
    */
   get targetDocSourceFullyDefined () {
     return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+  }
+
+  get originDocSourceDefined () {
+    return Boolean(this.origin.docSource)
   }
 
   /**
@@ -79,7 +83,7 @@ export default class Alignment {
       return false
     }
 
-    if (!this.origin.docSource) {
+    if (!this.originDocSourceDefined) {
       if (docSource instanceof SourceText) {
         this.origin.docSource = docSource
       } else {
@@ -87,6 +91,9 @@ export default class Alignment {
       }
     } else {
       this.origin.docSource.update(docSource)
+      if (this.origin.alignedText) {
+        this.origin.alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -100,9 +107,9 @@ export default class Alignment {
   updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
-        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'))
+        console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
         NotificationSingleton.addNotification({
-          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TO_ALIGNMENT'),
+          text: L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'),
           type: NotificationSingleton.types.ERROR
         })
       }
@@ -118,6 +125,9 @@ export default class Alignment {
       }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
+      if (this.targets[docSource.id].alignedText) {
+        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
+      }
     }
     return true
   }
@@ -319,7 +329,8 @@ export default class Alignment {
    * @returns {Boolean}
    */
   shouldRemoveFromAlignmentGroup (token, limitByTargetId = null) {
-    return this.tokenInActiveGroup(token, limitByTargetId) && !this.tokenTheSameTextTypeAsStart(token)
+    return this.tokenInActiveGroup(token, limitByTargetId) &&
+          (!this.tokenTheSameTextTypeAsStart(token) || (this.allTokensInTheStartingText))
   }
 
   /**
@@ -328,6 +339,13 @@ export default class Alignment {
    */
   get hasActiveAlignmentGroup () {
     return Boolean(this.activeAlignmentGroup)
+  }
+
+  /**
+   * @returns {Boolean} true - all in one starting text has only origin or target, false - has both origin and target
+   */
+  get allTokensInTheStartingText () {
+    return this.activeAlignmentGroup.allTokensInTheStartingText
   }
 
   /**
@@ -398,10 +416,12 @@ export default class Alignment {
     if (this.hasActiveAlignmentGroup && this.activeAlignmentGroup.couldBeFinished) {
       this.alignmentGroups.push(this.activeAlignmentGroup)
       this.activeAlignmentGroup = null
+      /*
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('ALIGNMENT_GROUP_IS_COMPLETED'),
         type: NotificationSingleton.types.INFO
       })
+      */
       return true
     }
     return false
@@ -416,6 +436,13 @@ export default class Alignment {
   findAlignmentGroup (token, limitByTargetId = null) {
     if (this.tokenIsGrouped(token, limitByTargetId)) {
       return (this.alignmentGroups.length > 0) ? this.alignmentGroups.find(alGroup => alGroup.hasTheSameTargetId(limitByTargetId) && alGroup.includesToken(token)) : null
+    }
+    return null
+  }
+
+  findAllAlignmentGroups (token) {
+    if (this.tokenIsGrouped(token)) {
+      return (this.alignmentGroups.length > 0) ? this.alignmentGroups.filter(alGroup => alGroup.includesToken(token)) : []
     }
     return null
   }
@@ -622,6 +649,28 @@ export default class Alignment {
   clearHoverOnAlignmentGroups () {
     this.hoveredGroups = []
     return true
+  }
+
+  getOpositeTokenTargetIdForScroll (token) {
+    if (this.hoveredGroups.length > 0) {
+      const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
+      const scrolledTargetsIds = []
+
+      const scrolldata = []
+
+      for (let i = 0; i < this.hoveredGroups.length; i++) {
+        const hoveredGroup = this.hoveredGroups[i]
+        if (!scrolledTargetsIds.includes(hoveredGroup.targetId)) {
+          scrolledTargetsIds.push(hoveredGroup.targetId)
+          scrolldata.push({
+            minOpositeTokenId: hoveredGroup[textTypeSeg].sort()[0],
+            targetId: hoveredGroup.targetId
+          })
+        }
+      }
+      return scrolldata
+    }
+    return {}
   }
 
   /**
@@ -867,7 +916,8 @@ export default class Alignment {
         [HistoryStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.removeStepRemoveLineBreak.bind(this.tokensEditActions),
         [HistoryStep.types.TO_PREV_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
         [HistoryStep.types.TO_NEXT_SEGMENT]: this.tokensEditActions.removeStepToOtherSegment.bind(this.tokensEditActions),
-        [HistoryStep.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions)
+        [HistoryStep.types.NEW]: this.tokensEditActions.removeStepInsertTokens.bind(this.tokensEditActions),
+        [HistoryStep.types.DELETE]: this.tokensEditActions.removeStepDeleteToken.bind(this.tokensEditActions)
       },
       apply: {
         [HistoryStep.types.UPDATE]: this.tokensEditActions.applyStepUpdate.bind(this.tokensEditActions),
@@ -877,8 +927,65 @@ export default class Alignment {
         [HistoryStep.types.REMOVE_LINE_BREAK]: this.tokensEditActions.applyStepRemoveLineBreak.bind(this.tokensEditActions),
         [HistoryStep.types.TO_PREV_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
         [HistoryStep.types.TO_NEXT_SEGMENT]: this.tokensEditActions.applyStepToOtherSegment.bind(this.tokensEditActions),
-        [HistoryStep.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions)
+        [HistoryStep.types.NEW]: this.tokensEditActions.applyStepInsertTokens.bind(this.tokensEditActions),
+        [HistoryStep.types.DELETE]: this.tokensEditActions.applyStepDeleteToken.bind(this.tokensEditActions)
       }
     }
+  }
+
+  convertToJSON () {
+    const origin = {
+      docSource: this.origin.docSource.convertToJSON(),
+      alignedText: this.origin.alignedText ? this.origin.alignedText.convertToJSON() : null
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToJSON(),
+        alignedText: this.targets[targetId].alignedText ? this.targets[targetId].alignedText.convertToJSON() : null
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
+
+    return {
+      origin,
+      targets,
+      alignmentGroups,
+      activeAlignmentGroup: null
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignment = new Alignment()
+
+    alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
+
+    if (data.origin.alignedText) {
+      alignment.origin.alignedText = AlignedText.convertFromJSON(data.origin.alignedText)
+    }
+
+    Object.keys(data.targets).forEach(targetId => {
+      alignment.targets[targetId] = {
+        docSource: SourceText.convertFromJSON('target', data.targets[targetId].docSource)
+      }
+
+      if (data.targets[targetId].alignedText) {
+        alignment.targets[targetId].alignedText = AlignedText.convertFromJSON(data.targets[targetId].alignedText)
+      }
+    })
+
+    data.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+
+    if (data.activeAlignmentGroup) {
+      alignment.activeAlignmentGroup = AlignmentGroup.convertFromJSON(data.activeAlignmentGroup)
+    }
+
+    if (alignment.origin.alignedText) {
+      document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    }
+    return alignment
   }
 }

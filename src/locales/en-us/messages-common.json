@@ -4,6 +4,11 @@
       "description": "An error message for tokenization workflow",
       "component": "Alignment"
     },
+    "ALIGNMENT_ERROR_ADD_TARGET_SOURCE": {
+      "message": "First you should define origin source text.",
+      "description": "An error message for alignment workflow",
+      "component": "Alignment"
+    },
     "ALIGNMENT_ERROR_ADD_TO_ALIGNMENT": {
       "message": "Choose another token please - from the same segment, target text.",
       "description": "An error message for alignment workflow",
@@ -53,7 +58,7 @@
       "params": ["type"]
     },
     "SOURCE_TEXT_CONVERT_ERROR": {
-      "message": "Json file doesn't have all obligatory fields. Source Text won't be created.",
+      "message": "The file doesn't have all the required fields. Text won't be created.",
       "description": "An error message for converting from JSON process",
       "component": "SourceText"
     }    

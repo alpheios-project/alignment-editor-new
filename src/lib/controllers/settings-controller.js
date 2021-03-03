@@ -177,6 +177,14 @@ export default class SettingsController {
     if (sourceTextData.sourceType) {
       localTextEditorOptions.sourceText.items.sourceType.setValue(sourceTextData.sourceType)
     }
+
+    if (sourceTextData.tokenization && localTextEditorOptions[sourceTextData.sourceType]) {
+      Object.keys(sourceTextData.tokenization).forEach(optItemName => {
+        if (localTextEditorOptions[sourceTextData.sourceType].items[optItemName]) {
+          localTextEditorOptions[sourceTextData.sourceType].items[optItemName].setValue(sourceTextData.tokenization[optItemName])
+        }
+      })
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 

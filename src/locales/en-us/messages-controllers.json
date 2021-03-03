@@ -11,7 +11,7 @@
         "component": "DownloadController"
     },
     "TEXTS_CONTROLLER_EMPTY_FILE_DATA": {
-        "message": "There is no data in file to upload",
+        "message": "The file doesn't have all the required fields. Text won't be created.",
         "description": "An error message for upload data from file.",
         "component": "TextsController"
     },
@@ -67,5 +67,41 @@
         "message": "This token is inside created alignment group, you should ungroup it first.",
         "description": "An error message for token edit workflow",
         "component": "TokenEditController"
+    },
+    "UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE": {
+        "message": "File extension {extension} is not supported. Use the following - {availableExtensions}.",
+        "description": "An error message for upload workflow",
+        "component": "TextsController",
+        "params": ["extension", "availableExtensions"]
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL": {
+        "message": "Short to tsv",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL": {
+        "message": "Full to json",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP": {
+        "message": "download only source texts without tokens and alignment groups",
+        "description": "Download type tooltip",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP": {
+        "message": "download source texts, tokens and segments, alignment groups",
+        "description": "Download type tooltip",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL": {
+        "message": "Html",
+        "description": "Download type label",
+        "component": "DownloadController"
+    },
+    "DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP": {
+        "message": "download html with alignment result",
+        "description": "Download type tooltip",
+        "component": "DownloadController"
     }
 }

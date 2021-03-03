@@ -15,15 +15,26 @@
         </button>
       </div>
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
-        <input type="file" @change="loadTextFromFile" ref="fileupload">
+        
+          <input type="file" @change="loadTextFromFile" ref="fileupload">
+
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
+              @click="showModal = true">
+              DTSAPI
+          </button>
       </div>
+      <upload-dtsapi-block :showModal="showModal" @closeModal = "showModal = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
     </div>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
 
 export default {
   name: 'ActionsMenuTextEditor',
+  components: {
+    uploadDtsapiBlock: UploadDTSAPIBlock
+  },
   props: {
     textType: {
       type: String,
@@ -37,7 +48,13 @@ export default {
   data () {
     return {
       showUploadBlock: false,
-      shownMetadataBlock: false
+      shownMetadataBlock: false,
+      showModal: false
+    }
+  },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.$refs.fileupload.value = ''
     }
   },
   computed: {
@@ -76,15 +93,24 @@ export default {
     loadTextFromFile(ev) {
       const file = ev.target.files[0]     
       if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit('upload-single', { filetext: e.target.result, filename: file.name })
+        this.$emit('upload-single', { text: e.target.result, extension })
         this.showUploadBlock = false
       }
       reader.readAsText(file)
 
       this.$refs.fileupload.value = ''
+    },
+
+    uploadFromDTSAPI (filedata) {
+      this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
+      this.showUploadBlock = false
     }
   }
 }

@@ -55,6 +55,11 @@ export default {
       blockTokensActionsFlag: 1
     }
   },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.shownTabsInited = false
+    }
+  },
   computed: {
     /**
      * Returns all targetIds; once it defines shownTabs - the list of active target tabs; 
@@ -64,12 +69,12 @@ export default {
      */
     allTokenizedTargetTextsIds () {
       const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-      if (!this.shownTabsInited) {
+      if (!this.shownTabsInited || (this.shownTabs.length === 0)) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+      return this.$store.state.alignmentUpdated  ? allTokenizedTargetTextsIds : []
     },
 
     /**
@@ -155,13 +160,8 @@ export default {
     color: #ae0000;
 
     .alpheios-alignment-editor-align-segment-data {
-      &:before,
-      &:after {
-        clear: both;
-        display: table;
-        content: '';
-      }
-
+      display: table;
+      width: 100%;
       background: #F8F8F8;
       border-bottom: 2px solid  #ddd;
 
@@ -182,7 +182,7 @@ export default {
 
     .alpheios-alignment-editor-align-segment-edit-data-item {
       width: 50%;
-      float: left;
+      display: table-cell;
 
       &.alpheios-alignment-editor-align-segment-data-target {
         border-left: 2px solid  #ddd;

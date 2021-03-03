@@ -18,14 +18,16 @@ export default class TokenizeController {
       simpleLocalTokenizer: {
         method: SimpleLocalTokenizer.tokenize.bind(SimpleLocalTokenizer),
         hasOptions: false,
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       },
       alpheiosRemoteTokenizer: {
         method: AlpheiosRemoteTokenizer.tokenize.bind(AlpheiosRemoteTokenizer),
         hasOptions: true,
         uploadOptionsMethod: this.uploadDefaultRemoteTokenizeOptions.bind(this),
         checkOptionsMethod: this.checkRemoteTokenizeOptionsMethod.bind(this),
-        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this)
+        getNextTokenIdWord: this.getNextTokenIdWordChangesType.bind(this),
+        reIndexSentence: this.reIndexSentences.bind(this)
       }
     }
   }
@@ -200,6 +202,25 @@ export default class TokenizeController {
       return `${tokenIdWordParts.slice(0, tokenIdWordParts.length - 1).join(divider)}-${finalIncrement}`
     } else {
       return `${tokenIdWord}-${changeLibrary[changeType]}${indexWord || ''}-1`
+    }
+  }
+
+  static getReIndexSentenceMethod (tokenizer) {
+    if (this.tokenizeMethods[tokenizer]) {
+      return this.tokenizeMethods[tokenizer].reIndexSentence
+    }
+  }
+
+  static reIndexSentences (segment) {
+    let sentenceIndex = 1
+    for (let iTok = 0; iTok < segment.tokens.length; iTok++) {
+      let token = segment.tokens[iTok] // eslint-disable-line prefer-const
+      token.sentenceIndex = sentenceIndex
+      const sentenceEnds = /[.;!?:\uff01\uff1f\uff1b\uff1a\u3002]$/
+
+      if (sentenceEnds.test(token.word)) {
+        sentenceIndex++
+      }
     }
   }
 }

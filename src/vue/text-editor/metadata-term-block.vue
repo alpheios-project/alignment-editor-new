@@ -12,8 +12,8 @@
               type="text"
               v-model="value"
               :id="itemId"
-              @change = "changeMetadataItem"
-              @key.enter = "changeMetadataItem"
+              @change = "changeMetadataItem('change')"
+              @keyup.enter = "changeMetadataItem('enter')"
           >
           <span :id="removeId" class="alpheios-alignment-editor-metadata-item__remove" v-show="showDeleteIcon" @click="clearValue">
             <delete-icon />
@@ -90,7 +90,10 @@ export default {
     }
   },
   methods: {
-    changeMetadataItem () {
+    changeMetadataItem (typeEvent) {
+      if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
+      if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
+
       if (!this.value) { return }
 
       if (this.metadataTerm.template) {
@@ -100,7 +103,7 @@ export default {
       }
       this.$textC.changeMetadataTerm()
 
-      if (this.metadataTerm.property.multivalued) { this.value = null }
+      if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]

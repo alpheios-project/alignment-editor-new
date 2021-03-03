@@ -1,0 +1,63 @@
+.alpheios-alignment-select {
+  font-family: 'Source Sans Pro', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 10px;
+  font: inherit;
+  text-transform: none;
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #757575;
+  padding: 8px 10px;
+  background: #fff;
+  color: #757575;
+  -webkit-appearance: none;
+
+  &:not([multiple]):not([size]) {
+    height: 42px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  &:not(select) {
+    line-height: 42px;
+  }
+
+  &[multiple],
+  &[size] {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    vertical-align: top;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #fff;
+    color: #909090;
+  }
+
+  &:not([multiple]):not([size]) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 20px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    background-size: 24px;
+  }
+
+  &:not([multiple]):not([size])::-ms-expand {
+    display: none;
+  }
+
+  &:not([multiple]):not([size]) option {
+    color: #757575;
+  }
+
+  &:not([multiple]):not([size]):disabled {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+  }
+}

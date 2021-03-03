@@ -6,7 +6,7 @@
       </h2>
     </div>
 
-    <tokens-editor-inner-block v-show="showTokensEditBlocks" v-if="showAlignEditor"/>
+    <tokens-editor-inner-block v-show="showTokensEditBlocks" v-if="renderTokensEditor"/>
     
   </div>
 </template>
@@ -26,10 +26,15 @@ export default {
   },
   data () {
     return {
-      showTokensEditBlocks: true
+      showTokensEditBlocks: false,
+      renderTokensEditor: false
     }
   },
   watch: {
+    '$store.state.alignmentRestarted' () {
+      this.renderTokensEditor = false
+      this.showTokensEditBlocks = false
+    }
   },
   computed: {
     l10n () {
@@ -48,6 +53,9 @@ export default {
   methods: {
     toggleShowTokensEditBlocks () {
       this.showTokensEditBlocks = !this.showTokensEditBlocks
+      if (this.showTokensEditBlocks) {
+        this.renderTokensEditor = true
+      }
     }
   }
 }

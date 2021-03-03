@@ -9,18 +9,19 @@ export default class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId) {
+  constructor (token, targetId, empty = false) {
     this.id = uuidv4()
-
     this.alignmentGroupHistory = new AlignmentGroupHistory()
-    this.alignmentGroupActions = new AlignmentGroupActions({
-      targetId,
-      alignmentGroupHistory: this.alignmentGroupHistory
-    })
 
-    this.alignmentGroupHistory.allStepActions = this.allStepActions
+    if (!empty) {
+      this.alignmentGroupActions = new AlignmentGroupActions({
+        targetId,
+        alignmentGroupHistory: this.alignmentGroupHistory
+      })
 
-    if (token) { this.add(token) }
+      this.alignmentGroupHistory.allStepActions = this.allStepActions
+      if (token) { this.add(token) }
+    }
   }
 
   // calculated props
@@ -134,11 +135,22 @@ export default class AlignmentGroup {
    * @returns {Boolean} true - if the same type, false - if not
    */
   tokenTheSameTextTypeAsStart (token) {
-    return this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
+    return this.firstStepToken && this.alignmentGroupHistory.steps.length > 0 && this.firstStepToken.textType === token.textType
   }
 
+  /**
+   *
+   * @param {Token} token
+   */
   updateFirstStepToken (token) {
     return this.alignmentGroupActions.updateFirstStepToken(token)
+  }
+
+  /**
+   * @returns {Boolean} true - if has tokens only from one text
+   */
+  get allTokensInTheStartingText () {
+    return ((this.origin.length === 0) || (this.target.length === 0)) && (this.groupLen > 0)
   }
 
   // actions
@@ -196,5 +208,22 @@ export default class AlignmentGroup {
         [HistoryStep.types.MERGE]: this.alignmentGroupActions.applyStepMerge.bind(this.alignmentGroupActions)
       }
     }
+  }
+
+  convertToJSON () {
+    return {
+      actions: this.alignmentGroupActions.convertToJSON()
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alGroup = new AlignmentGroup(null, null, true)
+
+    alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
   }
 }

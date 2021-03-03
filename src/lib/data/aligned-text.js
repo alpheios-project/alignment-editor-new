@@ -1,5 +1,6 @@
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import Segment from '@/lib/data/segment'
+import Langs from '@/lib/data/langs/langs'
 
 export default class AlignedText {
   /**
@@ -30,6 +31,11 @@ export default class AlignedText {
    */
   get segmentsAmount () {
     return this.segments ? this.segments.length : 0
+  }
+
+  updateLanguage (lang) {
+    this.lang = lang
+    this.segments.forEach(segment => segment.updateLanguage(lang))
   }
 
   /**
@@ -79,5 +85,47 @@ export default class AlignedText {
       changeType,
       indexWord
     })
+  }
+
+  convertToJSON () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  static convertFromJSON (data) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: data.textId,
+        textType: data.textType,
+        direction: data.direction,
+        lang: data.lang,
+        lansourceTypeg: data.sourceType,
+        tokenization: data.tokenization
+      }
+    }, data.tokenPrefix)
+    alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))
+
+    return alignedText
+  }
+
+  convertForHTMLOutput () {
+    return {
+      dir: this.direction,
+      lang: this.lang,
+      langName: Langs.all.find(langData => langData.value === this.lang).text,
+      segments: this.segments.map(seg => {
+        return {
+          tokens: seg.tokens.map(token => token.convertForHTMLOutput())
+        }
+      })
+    }
   }
 }
