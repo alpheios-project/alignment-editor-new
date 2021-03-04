@@ -238,8 +238,8 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 }
 .alpheios-v1-theme .alpheios-al-editor-view-equivalence .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected:hover {
   color: #000;
-  border-color: #FFd740;
-  background: gray;
+  border-color: gray;
+  background: #FFd740;
 }
 
 body, html {
