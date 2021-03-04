@@ -20,6 +20,17 @@
         @change = "changeOption"
     >
 
+    <input
+        class="alpheios-alignment-input alpheios-alignment-option-item__control"
+        type="number"
+        v-if="optionType === 'number'"
+        :min="optionItem.minValue"
+        :max="optionItem.maxValue"
+        v-model="selected"
+        :id="itemId" :disabled="disabled"
+        @change = "changeOption"
+    >
+
     <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'">
       <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption">
       <label :for="itemId">{{ checkboxLabel }}
@@ -132,6 +143,7 @@ export default {
       if (this.optionItem.radio) { return 'radio' }
       if (this.optionItem.select) { return 'select' }
       if (this.optionItem.selectInput) { return 'selectInput' }
+      if (this.optionItem.number) { return 'number' }
       
       return 'text'
     },
