@@ -51,4 +51,13 @@
         }
     }
 
+    .alpheios-al-editor-view-equivalence {
+        .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected {
+          &:hover {
+            color: map.get($theme, 'align-editor-text-color-active-hover');
+            border-color: map.get($theme, 'align-editor-text-background-color-active-hover');
+            background: map.get($theme, 'align-editor-text-border-color-active-hover');
+          }
+        }
+    }
 }
