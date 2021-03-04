@@ -4,7 +4,10 @@
           :id = "cssId" :style="cssStyle"
           :dir = "dir" :lang = "lang"
       >
-        <lang-name-bar :langName = "langName" v-show="showLangName" :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"/>
+        <lang-name-bar :langName = "langName" v-show="showLangName" 
+                       :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"
+                       :showData = "showDataLangNameBar"
+        />
 
           <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
               <token-block :key = "tokenIndex" :token="token" 
@@ -87,6 +90,9 @@ export default {
     cssStyle () {
       return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px; padding-top: ${this.paddingTop}px;`
     },
+    showDataLangNameBar () {
+      return this.segIndex === 0
+    }
   },
   methods: {
     isShownTab (targetId) {

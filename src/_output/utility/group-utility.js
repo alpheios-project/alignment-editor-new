@@ -35,7 +35,6 @@ export default class GroupUtility {
 
   static alignmentGroups (fullData, view = 'full', sentenceCount = 0) {
     let allG = {} // eslint-disable-line prefer-const
-
     fullData.origin.segments.forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
@@ -69,47 +68,50 @@ export default class GroupUtility {
 
     if (view === 'sentence') {
       // collect sentence data
-
-      this.allTargetTextsIds(fullData).forEach(targetId => {
-        if (fullData.targets[targetId].segments) {
-          fullData.targets[targetId].segments.forEach(segment => {
-            const startedGroups = []
-
-            segment.tokens.forEach((token, tokenIndex) => {
-              if (token.grouped) {
-                token.groupData.forEach(groupDataItem => {
-                  // if it is the first token in group
-                  if (!startedGroups.includes(groupDataItem.groupId)) {
-                    startedGroups.push(groupDataItem.groupId)
-                    const currentSentenceIndex = token.sentenceIndex
-
-                    allG[groupDataItem.groupId].targetSentence = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
-                    allG[groupDataItem.groupId].targetSentence.push(token)
-                  } else {
-                    allG[groupDataItem.groupId].targetSentence.push(token)
-
-                    // it is the last token
-                  }
-                  const lastTarget = allG[groupDataItem.groupId].target[allG[groupDataItem.groupId].target.length - 1].idWord
-                  if (lastTarget === token.idWord) {
-                    const currentSentenceIndex = token.sentenceIndex
-                    allG[groupDataItem.groupId].targetSentence = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
-
-                    startedGroups.splice(startedGroups.indexOf(groupDataItem.groupId), 1)
-                  }
-                })
-              } else {
-                startedGroups.forEach(groupId => {
-                  allG[groupId].targetSentence.push(token)
-                })
-              }
-            })
-          })
-        }
-      })
+      this.collectSentences(fullData, sentenceCount, allG)
     }
 
     return allG
+  }
+
+  static collectSentences (fullData, sentenceCount, allG) {
+    this.allTargetTextsIds(fullData).forEach(targetId => {
+      if (fullData.targets[targetId].segments) {
+        fullData.targets[targetId].segments.forEach(segment => {
+          const startedGroups = []
+
+          segment.tokens.forEach((token, tokenIndex) => {
+            if (token.grouped) {
+              token.groupData.forEach(groupDataItem => {
+                // if it is the first token in group
+                if (!startedGroups.includes(groupDataItem.groupId)) {
+                  startedGroups.push(groupDataItem.groupId)
+                  const currentSentenceIndex = token.sentenceIndex
+
+                  allG[groupDataItem.groupId].targetSentence = this.collectPrevTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+                  allG[groupDataItem.groupId].targetSentence.push(token)
+                } else {
+                  allG[groupDataItem.groupId].targetSentence.push(token)
+
+                  // it is the last token
+                }
+                const lastTarget = allG[groupDataItem.groupId].target[allG[groupDataItem.groupId].target.length - 1].idWord
+                if (lastTarget === token.idWord) {
+                  const currentSentenceIndex = token.sentenceIndex
+                  allG[groupDataItem.groupId].targetSentence = this.collectNextTokensInSentence(segment, tokenIndex, currentSentenceIndex, sentenceCount, allG[groupDataItem.groupId].targetSentence)
+
+                  startedGroups.splice(startedGroups.indexOf(groupDataItem.groupId), 1)
+                }
+              })
+            } else {
+              startedGroups.forEach(groupId => {
+                allG[groupId].targetSentence.push(token)
+              })
+            }
+          })
+        })
+      }
+    })
   }
 
   static collectPrevTokensInSentence (segment, tokenIndex, currentSentenceIndex, sentenceCount, target) {
@@ -149,5 +151,22 @@ export default class GroupUtility {
       }
     }
     return target
+  }
+
+  static tokensEquivalentGroups (fullData) {
+    let tokensEq = {} // eslint-disable-line prefer-const
+    fullData.origin.segments.forEach((segment, segIndex) => {
+      segment.tokens.forEach(token => {
+        if (token.grouped) {
+          token.groupData.forEach(groupDataItem => {
+            if (!tokensEq[token.word]) { tokensEq[token.word] = { allIds: [], allGroupIds: [] } }
+            tokensEq[token.word].allIds.push(token.idWord)
+            tokensEq[token.word].allGroupIds.push(groupDataItem.groupId)
+          })
+        }
+      })
+    })
+
+    return tokensEq
   }
 }
