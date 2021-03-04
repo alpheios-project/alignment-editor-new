@@ -46651,7 +46651,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "development.20210304503" : 0
+    return  true ? "i61-max-characters-fixes.20210304510" : 0
   }
 
   static get libName () {
@@ -48674,6 +48674,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48749,6 +48760,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.optionItem.radio) { return 'radio' }
       if (this.optionItem.select) { return 'select' }
       if (this.optionItem.selectInput) { return 'selectInput' }
+      if (this.optionItem.number) { return 'number' }
       
       return 'text'
     },
@@ -55229,6 +55241,38 @@ var render = function() {
             })
           : _vm._e(),
         _vm._v(" "),
+        _vm.optionType === "number"
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selected,
+                  expression: "selected"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-input alpheios-alignment-option-item__control",
+              attrs: {
+                type: "number",
+                min: _vm.optionItem.minValue,
+                max: _vm.optionItem.maxValue,
+                id: _vm.itemId,
+                disabled: _vm.disabled
+              },
+              domProps: { value: _vm.selected },
+              on: {
+                change: _vm.changeOption,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.selected = $event.target.value
+                }
+              }
+            })
+          : _vm._e(),
+        _vm._v(" "),
         _vm.optionType === "boolean"
           ? _c(
               "div",
@@ -58416,7 +58460,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit tokens in
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text","number":true,"minValue":1,"maxValue":50000,"values":[]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]}}}');
 
 /***/ }),
 
