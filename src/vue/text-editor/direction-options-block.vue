@@ -48,5 +48,9 @@ export default {
 }
 </script>
 <style lang="scss">
-
+.alpheios-alignment-editor-text-blocks-single-direction-options {
+  .alpheios-alignment-option-item {
+    margin-bottom: 10px;
+  }
+}
 </style>

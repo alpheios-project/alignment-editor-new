@@ -43,6 +43,10 @@ export default class SettingsController {
     return this.options.app && this.options.app.items.tokenizer ? this.options.app.items.tokenizer.currentValue : ''
   }
 
+  get maxCharactersPerTextValue () {
+    return this.options.app && this.options.app.items.maxCharactersPerText ? this.options.app.items.maxCharactersPerText.currentValue : 5000
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */
@@ -122,10 +126,6 @@ export default class SettingsController {
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     }
-    if (optionNameParts[2] === 'tokenizer') {
-      this.store.commit('incrementTokenizerUpdated')
-    }
-
     this.store.commit('incrementOptionsUpdated')
   }
 
