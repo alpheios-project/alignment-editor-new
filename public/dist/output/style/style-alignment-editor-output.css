@@ -298,7 +298,7 @@ body, html {
   margin: 0;
   display: inline-block;
   position: absolute;
-  min-height: 30px;
+  min-height: 20px;
   overflow-y: hidden;
   border-bottom: 0;
   top: 0;
