@@ -33,6 +33,7 @@
             <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
             <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
             <al-groups-view-sentence :full-data="$parent.fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
+            <al-groups-view-equivalence :full-data="$parent.fullData" v-if="viewType === 'viewEquivalence'" />
         </div>
             
     </div>
@@ -41,20 +42,23 @@
 import AlGroupsViewFull from '@/_output/vue/al-groups-view-full.vue'
 import AlGroupsViewShort from '@/_output/vue/al-groups-view-short.vue'
 import AlGroupsViewSentence from '@/_output/vue/al-groups-view-sentence.vue'
+import AlGroupsViewEquivalence from '@/_output/vue/al-groups-view-equivalence.vue'
 
 export default {
   name: 'App',
   components: {
     alGroupsViewFull: AlGroupsViewFull,
     alGroupsViewShort: AlGroupsViewShort,
-    alGroupsViewSentence: AlGroupsViewSentence
+    alGroupsViewSentence: AlGroupsViewSentence,
+    alGroupsViewEquivalence: AlGroupsViewEquivalence
   },
   data () {
     return {
       allViewTypes: [
-        { value: 'viewFull', label: 'Full view'},
-        { value: 'viewShort', label: 'Short view'},
-        { value: 'viewSentence', label: 'Sentence view'}
+        { value: 'viewFull', label: 'Full'},
+        { value: 'viewShort', label: 'Short'},
+        { value: 'viewEquivalence', label: 'Equivalence'},
+        { value: 'viewSentence', label: 'Sentence'}
       ],
       viewType: 'viewFull',
       sentenceCount: 0

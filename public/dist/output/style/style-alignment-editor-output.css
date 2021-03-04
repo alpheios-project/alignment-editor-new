@@ -298,6 +298,7 @@ body, html {
   margin: 0;
   display: inline-block;
   position: absolute;
+  min-height: 20px;
   overflow-y: hidden;
   border-bottom: 0;
   top: 0;
@@ -492,6 +493,61 @@ body, html {
   padding: 0 15px;
   margin: 0;
   color: #666666;
+}
+.alpheios-al-editor-table-view {
+  display: table;
+  width: 100%;
+  vertical-align: top;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-all-origins {
+  width: 70%;
+  display: table-cell;
+  vertical-align: top;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target {
+  width: 30%;
+  display: table-cell;
+  vertical-align: top;
+  border-left: 1px solid #ddd;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-segment-block-text {
+  border-bottom: none;
+  padding: 0;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block {
+  background: #F8F8F8;
+  border-bottom: 2px solid #ddd;
+}
+.alpheios-al-editor-table-view .alpheios-al-editor-segment-block.alpheios-al-editor-segment-block-last {
+  border-bottom-color: transparent;
+}
+.alpheios-al-editor-target-hovered-block .alpheios-al-editor-target-hovered-block__metadata {
+  padding: 0 15px;
+  margin: 0;
+  color: #666666;
+}
+.alpheios-al-editor-target-hovered-block .alpheios-al-editor-target-hovered-block_tokens {
+  padding: 0 10px;
+}
+.alpheios-al-editor-target-hovered-block {
+  position: relative;
+  padding: 30px 10px 10px;
+}
+.alpheios-al-editor-target-hovered-block .alpheios-al-editor-segment-block-text__langname {
+  position: absolute;
+  overflow-y: hidden;
+  border-bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  padding: 5px;
+  font-size: 90%;
+  background: #185F6D;
+  color: #fff;
+  z-index: 100;
 }
 .alpheios-alignment-editor-container {
   padding: 15px 15px 0;

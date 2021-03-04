@@ -3,8 +3,9 @@
       <span class="alpheios-al-editor-segment-cell-target-row__metadata"
             :class = "{ 'alpheios-al-editor-segment-cell-target-row__metadata-full': showFullMetadata }"
             @click = "toggleMetadata"
+            v-show = "showData"
       >{{ metadata }}</span>
-      <span class="alpheios-al-editor-segment-cell-target-row__langname">{{ langName }}</span>
+      <span class="alpheios-al-editor-segment-cell-target-row__langname" v-show = "showData">{{ langName }}</span>
     </p>
 </template>
 <script>
@@ -20,6 +21,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    showData: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -41,6 +47,7 @@ export default {
         margin: 0;
         display: inline-block;
         position: absolute;
+        min-height: 20px;
 
         overflow-y: hidden;
         border-bottom: 0;

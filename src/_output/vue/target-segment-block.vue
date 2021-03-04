@@ -3,7 +3,10 @@
         :id = "cssId" :style="cssStyle"
         :class = "cssClass" :dir = "dir" :lang = "lang"
     >
-        <lang-name-bar :langName = "langName" :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight" />
+        <lang-name-bar :langName = "langName" :metadata = "metadata" 
+                       :showData = "showDataLangNameBar"
+                       @updateMetadataHeight = "updateMetadataHeight" 
+        />
         <template v-for = "(token, tokenIndex) in segmentData.tokens">
             <token-block :key = "tokenIndex" :token="token" 
                             :selected = "selectedToken(token)"
@@ -102,6 +105,9 @@ export default {
       classes[`alpheios-align-text-segment-target-last`] = this.isLast
       return classes
     },
+    showDataLangNameBar () {
+      return this.segIndex === 0
+    }
   },
   methods: {
     isShownTab () {
