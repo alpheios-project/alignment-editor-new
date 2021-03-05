@@ -173,22 +173,22 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 .alpheios-standard-theme .alpheios-header .alpheios-header-logo .alpheios-logo-2 {
   display: none;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner {
+.alpheios-standard-theme .alpheios-al-editor-container-inner {
   color: #212529;
   background: #F8F8F8;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data {
+.alpheios-standard-theme .alpheios-al-editor-container-inner .alpheios-alignment-editor-align-segment-data {
   border-bottom-color: #ddd;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+.alpheios-standard-theme .alpheios-al-editor-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left-color: #ddd;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
-  color: #212529;
-  border-color: #BCE5F0;
-  background: #BCE5F0;
+.alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
+  color: #282828;
+  border-color: transparent;
+  background: transparent;
 }
-.alpheios-standard-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-selected {
+.alpheios-standard-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected {
   color: #fff;
   border-color: #F27431;
   background: #F27431;
@@ -216,22 +216,22 @@ input.alpheios-alignment-input::-ms-input-placeholder {
 .alpheios-v1-theme .alpheios-header .alpheios-header-logo .alpheios-logo-2 {
   display: inline-block;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner {
+.alpheios-v1-theme .alpheios-al-editor-container-inner {
   color: #ae0000;
   background: #F8F8F8;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data {
+.alpheios-v1-theme .alpheios-al-editor-container-inner .alpheios-alignment-editor-align-segment-data {
   border-bottom-color: #000;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
+.alpheios-v1-theme .alpheios-al-editor-container-inner .alpheios-alignment-editor-align-segment-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left-color: #000;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-grouped {
+.alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
   color: #282828;
   border-color: transparent;
   background: transparent;
 }
-.alpheios-v1-theme .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-text-segment span.alpheios-token.alpheios-token-selected {
+.alpheios-v1-theme .alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected {
   color: #000;
   border-color: transparent;
   background: #ffd740;
@@ -349,15 +349,18 @@ body, html {
   border: 1px solid transparent;
   display: inline-block;
   vertical-align: top;
-}
-.alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-grouped {
-  border-color: #BCE5F0;
-  background: #BCE5F0;
-}
-.alpheios-al-editor-container-inner span.alpheios-token.alpheios-token-selected {
-  border-color: #F27431;
-  background: #F27431;
-  color: #fff;
+  /*
+            &.alpheios-token-grouped {
+              border-color: #BCE5F0;
+              background: #BCE5F0;
+            }
+
+            &.alpheios-token-selected {
+              border-color: #F27431;
+              background: #F27431;
+              color: #fff;
+            }
+  */
 }
 .alpheios-al-editor-segment-block-text {
   position: relative;

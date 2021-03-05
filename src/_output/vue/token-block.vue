@@ -47,7 +47,7 @@ export default {
           border: 1px solid transparent;
           display: inline-block;
           vertical-align: top;
-
+/*
           &.alpheios-token-grouped {
             border-color: #BCE5F0;
             background: #BCE5F0;
@@ -58,6 +58,7 @@ export default {
             background: #F27431;
             color: #fff;
           }
+*/
       }
   }
 </style>
