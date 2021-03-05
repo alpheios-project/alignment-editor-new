@@ -308,7 +308,7 @@ body, html {
   margin: 0;
   display: inline-block;
   position: absolute;
-  min-height: 20px;
+  min-height: 2px;
   overflow-y: hidden;
   border-bottom: 0;
   top: 0;
@@ -316,7 +316,7 @@ body, html {
   left: 0;
   margin: 0;
   padding: 0;
-  padding: 5px;
+  padding: 0px;
   font-size: 90%;
   background: #185F6D;
   color: #fff;
@@ -326,20 +326,22 @@ body, html {
   display: inline-block;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: calc(100% - 200px);
+  width: calc(100% - 210px);
   cursor: pointer;
   text-align: left;
   vertical-align: top;
   overflow: hidden;
+  padding: 5px;
 }
 .alpheios-al-editor-segment-cell-target-row__bar .alpheios-al-editor-segment-cell-target-row__metadata.alpheios-al-editor-segment-cell-target-row__metadata-full {
   white-space: initial;
 }
 .alpheios-al-editor-segment-cell-target-row__bar .alpheios-al-editor-segment-cell-target-row__langname {
   display: inline-block;
-  width: 180px;
+  width: 160px;
   text-align: right;
   vertical-align: top;
+  padding: 5px;
 }
 .alpheios-al-editor-container-inner span.alpheios-token {
   cursor: pointer;
@@ -359,8 +361,11 @@ body, html {
 }
 .alpheios-al-editor-segment-block-text {
   position: relative;
-  padding: 30px 10px 10px;
+  padding: 10px;
   overflow-y: scroll;
+}
+.alpheios-al-editor-segment-block-text.alpheios-align-text-segment-origin-0 {
+  padding-top: 30px;
 }
 .alpheios-al-editor-segment-block-text.alpheios-al-editor-segment-block-text__no-langname {
   padding: 10px;
@@ -380,6 +385,9 @@ body, html {
   background: #185F6D;
   color: #fff;
   z-index: 100;
+}
+.alpheios-al-editor-segment-cell-target-row.alpheios-align-text-segment-target-0.alpheios-al-editor-segment-cell-target-row {
+  padding-top: 30px;
 }
 .alpheios-al-editor-container-inner {
   margin-top: 15px;
@@ -418,7 +426,6 @@ body, html {
 }
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
   position: relative;
-  padding-top: 30px;
 }
 .alpheios-al-editor-table-view {
   display: table;

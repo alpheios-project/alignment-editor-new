@@ -211,6 +211,6 @@ export default {
 
   .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
     position: relative;
-    padding-top: 30px;
+    // padding-top: 30px;
   }
 </style>
