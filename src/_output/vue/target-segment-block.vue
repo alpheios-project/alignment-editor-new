@@ -88,7 +88,8 @@ export default {
   },
   data () {
     return {
-      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff']
+      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      paddingTop: null
     }
   },
   computed: {
@@ -96,7 +97,11 @@ export default {
       return `alpheios-align-text-segment-target-${this.targetId}-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+      let styles = `order: ${this.segIndex}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+      if (this.paddingTop) {
+        styles = `${styles} padding-top: ${this.paddingTop}px;`
+      }
+      return styles
     },
     cssClass () {
       let classes = {}

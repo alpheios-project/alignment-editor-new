@@ -8740,6 +8740,7 @@ class GroupUtility {
 
     // collect all targets in groups
     this.allTargetTextsIds(fullData).forEach(targetId => {
+      const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
       if (fullData.targets[targetId].segments) {
         fullData.targets[targetId].segments.forEach(segment => {
@@ -8747,6 +8748,7 @@ class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
+                if (!allG[groupDataItem.groupId].langName) { allG[groupDataItem.groupId].langName = langName }
                 const tokenData = view === 'full' ? token.idWord : token
                 allG[groupDataItem.groupId].target.push(tokenData)
               })
@@ -8843,17 +8845,44 @@ class GroupUtility {
     return target
   }
 
-  static tokensEquivalentGroups (fullData) {
+  static tokensEquivalentGroups (fullData, allGroups) {
     let tokensEq = {} // eslint-disable-line prefer-const
     fullData.origin.segments.forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
-            if (!tokensEq[token.word]) { tokensEq[token.word] = { allIds: [], allGroupIds: [] } }
+            if (!tokensEq[token.word]) { tokensEq[token.word] = { allIds: [], allGroupIds: [], targets: {} } }
             tokensEq[token.word].allIds.push(token.idWord)
             tokensEq[token.word].allGroupIds.push(groupDataItem.groupId)
+
+            if (!tokensEq[token.word].targets[groupDataItem.targetId]) {
+              tokensEq[token.word].targets[groupDataItem.targetId] = {
+                langName: allGroups[groupDataItem.groupId].langName,
+                metadata: allGroups[groupDataItem.groupId].metadata,
+                targets: []
+              }
+            }
+            tokensEq[token.word].targets[groupDataItem.targetId].targets.push(allGroups[groupDataItem.groupId].target)
           })
         }
+      })
+    })
+
+    // collapse the same
+    Object.values(tokensEq).forEach(tokenWordData => {
+      Object.values(tokenWordData.targets).forEach(targetIdData => {
+        let filteredTargets = {} // eslint-disable-line prefer-const
+
+        targetIdData.targets.forEach(targetData => {
+          const keyWords = targetData.map(targetItem => targetItem.word).join('_')
+          if (!filteredTargets[keyWords]) {
+            filteredTargets[keyWords] = { count: 1, target: targetData }
+          } else {
+            filteredTargets[keyWords].count++
+          }
+        })
+
+        targetIdData.filteredTargets = filteredTargets
       })
     })
 
@@ -8941,7 +8970,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/vue/token-block.vue */ "./_output/vue/token-block.vue");
 /* harmony import */ var _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/origin-segment-block.vue */ "./_output/vue/origin-segment-block.vue");
-/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
+/* harmony import */ var _output_vue_lang_name_bar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/lang-name-bar.vue */ "./_output/vue/lang-name-bar.vue");
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
 //
@@ -8983,6 +9013,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -8993,7 +9028,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'AlGroupsViewEquivalence',
   components: {
     tokenBlock: _output_vue_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    originSegmentBlock: _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    originSegmentBlock: _output_vue_origin_segment_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    langNameBar: _output_vue_lang_name_bar_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
     fullData: {
@@ -9004,30 +9040,21 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       hoveredOriginGroupsId: null,
-      hoveredTargetsGroupsId: null,
+      hoveredTargetsData: null,
       updateHovered: 1
     }
   },
   computed: {
     allOriginSegments () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.allOriginSegments(this.fullData)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.allOriginSegments(this.fullData)
     },
     allAlGroups () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.alignmentGroups(this.fullData, 'equivalence')
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.alignmentGroups(this.fullData, 'equivalence')
     },
     tokensEqGroups () {
-      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.tokensEquivalentGroups(this.fullData)
+      return _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.tokensEquivalentGroups(this.fullData, this.allAlGroups)
     },
-    hoveredTargetTokens () {
-      return this.updateHovered && this.hoveredTargetsGroupsId && 
-            Object.keys(this.allAlGroups).filter(groupId => this.hoveredTargetsGroupsId.includes(groupId)).map(groupId => {
-              return {
-                metadata: this.allAlGroups[groupId].metadata,
-                target: this.allAlGroups[groupId].target,
-                targetId: this.allAlGroups[groupId].targetId
-              }
-            })
-    },
+
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
@@ -9047,11 +9074,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     addHoverToken (token) {
       const hoveredOriginGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      const hoveredTargetsGroupsId = token.grouped ? this.tokensEqGroups[token.word].allGroupIds : null
 
-      if (hoveredTargetsGroupsId) {
+      const hoveredTargetsData = token.grouped ? this.tokensEqGroups[token.word].targets : null
+
+      if (hoveredTargetsData) {
         this.hoveredOriginGroupsId = hoveredOriginGroupsId
-        this.hoveredTargetsGroupsId = hoveredTargetsGroupsId
+        this.hoveredTargetsData = hoveredTargetsData
         this.updateHovered++
       }
     },
@@ -9059,9 +9087,6 @@ __webpack_require__.r(__webpack_exports__);
     removeHoverToken (token) {
       // this.hoveredGroupsId = null
       // this.updateHovered++
-    },
-    targetLangName (hoveredTargetTokens) {
-      return this.fullData.targets[hoveredTargetTokens.targetId].langName
     }
   }
 });
@@ -9893,7 +9918,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      paddingTop: null
     }
   },
   computed: {
@@ -9901,7 +9927,11 @@ __webpack_require__.r(__webpack_exports__);
       return `alpheios-align-text-segment-origin-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+      let styles = `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+      if (this.paddingTop) {
+        styles = `${styles} padding-top: ${this.paddingTop}px;`
+      }
+      return styles
     },
     showDataLangNameBar () {
       return this.segIndex === 0
@@ -10038,7 +10068,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff']
+      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
+      paddingTop: null
     }
   },
   computed: {
@@ -10046,7 +10077,11 @@ __webpack_require__.r(__webpack_exports__);
       return `alpheios-align-text-segment-target-${this.targetId}-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+      let styles = `order: ${this.segIndex}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
+      if (this.paddingTop) {
+        styles = `${styles} padding-top: ${this.paddingTop}px;`
+      }
+      return styles
     },
     cssClass () {
       let classes = {}
@@ -11123,20 +11158,20 @@ var render = function() {
                     "alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target"
                 },
                 [
-                  _vm.hoveredTargetTokens
+                  _vm.hoveredTargetsData
                     ? _c(
                         "div",
                         {
                           staticClass: "alpheios-al-editor-segment-block-text"
                         },
-                        _vm._l(_vm.hoveredTargetTokens, function(
-                          hoveredGroupData,
-                          hoveredGroupDataIndex
+                        _vm._l(_vm.hoveredTargetsData, function(
+                          hoveredTargetsDataItem,
+                          hoveredTargetsDataItemIndex
                         ) {
                           return _c(
                             "div",
                             {
-                              key: hoveredGroupDataIndex,
+                              key: hoveredTargetsDataItemIndex,
                               staticClass:
                                 "alpheios-al-editor-target-hovered-block"
                             },
@@ -11149,36 +11184,54 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    _vm._s(_vm.targetLangName(hoveredGroupData))
+                                    _vm._s(hoveredTargetsDataItem.langName)
                                   )
                                 ]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "alpheios-al-editor-target-hovered-block_tokens"
-                                },
-                                [
-                                  _vm._l(hoveredGroupData.target, function(
-                                    token,
-                                    tokenIndex
-                                  ) {
-                                    return [
-                                      _c("token-block", {
-                                        key: tokenIndex,
-                                        attrs: { token: token }
+                              _vm._l(
+                                hoveredTargetsDataItem.filteredTargets,
+                                function(targetsRow, targetsRowIndex) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      key: targetsRowIndex,
+                                      staticClass:
+                                        "alpheios-al-editor-target-hovered-block_tokens"
+                                    },
+                                    [
+                                      _vm._l(targetsRow.target, function(
+                                        token,
+                                        tokenIndex
+                                      ) {
+                                        return [
+                                          _c("token-block", {
+                                            key: tokenIndex,
+                                            attrs: { token: token }
+                                          })
+                                        ]
                                       }),
                                       _vm._v(" "),
-                                      token.hasLineBreak ? _c("br") : _vm._e()
-                                    ]
-                                  })
-                                ],
-                                2
+                                      targetsRow.count > 1
+                                        ? _c(
+                                            "span",
+                                            { staticClass: "alpheios-token" },
+                                            [
+                                              _vm._v(
+                                                " (" +
+                                                  _vm._s(targetsRow.count) +
+                                                  ")"
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    2
+                                  )
+                                }
                               ),
                               _vm._v(" "),
-                              hoveredGroupData.metadata
+                              hoveredTargetsDataItem.metadata
                                 ? _c(
                                     "p",
                                     {
@@ -11188,13 +11241,16 @@ var render = function() {
                                     [
                                       _vm._v(
                                         "\n                    " +
-                                          _vm._s(hoveredGroupData.metadata) +
+                                          _vm._s(
+                                            hoveredTargetsDataItem.metadata
+                                          ) +
                                           "\n                  "
                                       )
                                     ]
                                   )
                                 : _vm._e()
-                            ]
+                            ],
+                            2
                           )
                         }),
                         0

@@ -79,7 +79,8 @@ export default {
   },
   data () {
     return {
-      originColor: '#F8F8F8'
+      originColor: '#F8F8F8',
+      paddingTop: null
     }
   },
   computed: {
@@ -87,7 +88,11 @@ export default {
       return `alpheios-align-text-segment-origin-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+      let styles = `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+      if (this.paddingTop) {
+        styles = `${styles} padding-top: ${this.paddingTop}px;`
+      }
+      return styles
     },
     showDataLangNameBar () {
       return this.segIndex === 0
