@@ -50,6 +50,7 @@ export default class GroupUtility {
 
     // collect all targets in groups
     this.allTargetTextsIds(fullData).forEach(targetId => {
+      const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
       if (fullData.targets[targetId].segments) {
         fullData.targets[targetId].segments.forEach(segment => {
@@ -57,6 +58,7 @@ export default class GroupUtility {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
                 if (!allG[groupDataItem.groupId].metadata) { allG[groupDataItem.groupId].metadata = metadata }
+                if (!allG[groupDataItem.groupId].langName) { allG[groupDataItem.groupId].langName = langName }
                 const tokenData = view === 'full' ? token.idWord : token
                 allG[groupDataItem.groupId].target.push(tokenData)
               })
@@ -153,17 +155,44 @@ export default class GroupUtility {
     return target
   }
 
-  static tokensEquivalentGroups (fullData) {
+  static tokensEquivalentGroups (fullData, allGroups) {
     let tokensEq = {} // eslint-disable-line prefer-const
     fullData.origin.segments.forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
-            if (!tokensEq[token.word]) { tokensEq[token.word] = { allIds: [], allGroupIds: [] } }
+            if (!tokensEq[token.word]) { tokensEq[token.word] = { allIds: [], allGroupIds: [], targets: {} } }
             tokensEq[token.word].allIds.push(token.idWord)
             tokensEq[token.word].allGroupIds.push(groupDataItem.groupId)
+
+            if (!tokensEq[token.word].targets[groupDataItem.targetId]) {
+              tokensEq[token.word].targets[groupDataItem.targetId] = {
+                langName: allGroups[groupDataItem.groupId].langName,
+                metadata: allGroups[groupDataItem.groupId].metadata,
+                targets: []
+              }
+            }
+            tokensEq[token.word].targets[groupDataItem.targetId].targets.push(allGroups[groupDataItem.groupId].target)
           })
         }
+      })
+    })
+
+    // collapse the same
+    Object.values(tokensEq).forEach(tokenWordData => {
+      Object.values(tokenWordData.targets).forEach(targetIdData => {
+        let filteredTargets = {} // eslint-disable-line prefer-const
+
+        targetIdData.targets.forEach(targetData => {
+          const keyWords = targetData.map(targetItem => targetItem.word).join('_')
+          if (!filteredTargets[keyWords]) {
+            filteredTargets[keyWords] = { count: 1, target: targetData }
+          } else {
+            filteredTargets[keyWords].count++
+          }
+        })
+
+        targetIdData.filteredTargets = filteredTargets
       })
     })
 
