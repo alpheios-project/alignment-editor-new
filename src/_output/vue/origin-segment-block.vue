@@ -1,10 +1,13 @@
 <template>
       <div class = "alpheios-al-editor-segment-block-text" 
-          :class = "{ 'alpheios-al-editor-segment-block-text__no-langname': !showLangName }"
+          :class = "cssClass"
           :id = "cssId" :style="cssStyle"
           :dir = "dir" :lang = "lang"
       >
-        <lang-name-bar :langName = "langName" v-show="showLangName" :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"/>
+        <lang-name-bar :langName = "langName" v-show="showLangName" 
+                       :metadata = "metadata" @updateMetadataHeight = "updateMetadataHeight"
+                       :showData = "showDataLangNameBar"
+        />
 
           <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
               <token-block :key = "tokenIndex" :token="token" 
@@ -76,8 +79,7 @@ export default {
   },
   data () {
     return {
-      originColor: '#F8F8F8',
-      paddingTop: 30
+      originColor: '#F8F8F8'
     }
   },
   computed: {
@@ -85,8 +87,17 @@ export default {
       return `alpheios-align-text-segment-origin-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px; padding-top: ${this.paddingTop}px;`
+      return `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
     },
+    showDataLangNameBar () {
+      return this.segIndex === 0
+    },
+    cssClass () {
+      return {
+        'alpheios-al-editor-segment-block-text__no-langname': !this.showLangName,
+        [`alpheios-align-text-segment-origin-${this.segIndex}`]: true
+      }
+    }
   },
   methods: {
     isShownTab (targetId) {
@@ -110,8 +121,12 @@ export default {
 <style lang="scss">
   .alpheios-al-editor-segment-block-text {
     position: relative;
-    padding: 30px 10px 10px;
+    padding: 10px;
     overflow-y: scroll;
+
+    &.alpheios-align-text-segment-origin-0 {
+      padding-top: 30px;
+    }
 
     &.alpheios-al-editor-segment-block-text__no-langname {
       padding: 10px;

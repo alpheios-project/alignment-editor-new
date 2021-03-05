@@ -113,7 +113,7 @@ export default {
       return this.breadcrumbs.length > 1
     },
     showDescription () {
-      return this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1
+      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
     }
   },
   methods: {
