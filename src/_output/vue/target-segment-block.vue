@@ -88,8 +88,7 @@ export default {
   },
   data () {
     return {
-      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
-      paddingTop: 30
+      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff']
     }
   },
   computed: {
@@ -97,12 +96,13 @@ export default {
       return `alpheios-align-text-segment-target-${this.targetId}-${this.segIndex}`
     },
     cssStyle () {
-      return `order: ${this.segIndex}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px; padding-top: ${this.paddingTop}px;`
+      return `order: ${this.segIndex}; background: ${this.colors[this.targetIdIndex]}; max-height: ${this.maxHeight}px;`
     },
     cssClass () {
       let classes = {}
       classes[`alpheios-align-text-segment-target`] = true
       classes[`alpheios-align-text-segment-target-last`] = this.isLast
+      classes[`alpheios-align-text-segment-target-${this.segIndex}`] = true
       return classes
     },
     showDataLangNameBar () {
@@ -128,3 +128,10 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .alpheios-al-editor-segment-cell-target-row {
+    &.alpheios-align-text-segment-target-0.alpheios-al-editor-segment-cell-target-row {
+      padding-top: 30px;
+    }
+  }
+</style>
