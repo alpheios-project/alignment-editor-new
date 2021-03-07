@@ -1,6 +1,6 @@
 {
   "name": "alpheios-alignment-editor",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "libName": "Alpheios Translation Alignment editor",
   "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
   "main": "src/index.js",
@@ -15,7 +15,7 @@
     "test-a": "jest tests/lib/controllers/upload-controller.test.js",
     "test-b": "jest tests/vue/align-editor/segment-block.test.js --coverage",
     "test-c": "jest tests/lib/data/alignment-group.test.js --coverage",
-    "test-d": "jest tests/targets-workflow.test.js --coverage",
+    "test-d": "jest tests/_output/utility/group-utility.test.js --coverage",
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
     "dev": "npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"
   },
@@ -104,6 +104,7 @@
     },
     "moduleNameMapper": {
       "^@[/](.+)": "<rootDir>/src/$1",
+      "^@tests[/](.+)": "<rootDir>/tests/$1",
       "^@vue-runtime$": "vue/dist/vue.runtime.common.js",
       "alpheios-client-adapters": "<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js",
       "alpheios-data-models": "<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js",
