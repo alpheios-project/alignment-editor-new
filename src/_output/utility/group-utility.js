@@ -1,12 +1,31 @@
 export default class GroupUtility {
+  /**
+   * 
+   * @param {Object} fullData - json object with full alignment data for output
+   * @returns {Array[String]} - array of targetId
+   */
   static allTargetTextsIds (fullData) {
     return Object.keys(fullData.targets)
   }
 
+  /**
+   * 
+   * @param {Array[String]} shownTabs - array of targetId that is visible on the screen
+   * @param {String} targetId 
+   * @returns {Boolean} - true - targetId is visible, false - otherwise
+   */
   static isShownTab (shownTabs, targetId) {
     return shownTabs.includes(targetId)
   }
 
+  /**
+   * 
+   * @param {Object} fullData - json object with full alignment data for output
+   * @returns {Array[Object]} - data with origin segments
+   *          {Number} index - segment index
+   *          {Object} segment - segment data
+   *          {Object} targets - empty object
+   */
   static allOriginSegments (fullData) {
     let allS = [] // eslint-disable-line prefer-const
 
