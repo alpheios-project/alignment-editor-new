@@ -220,9 +220,9 @@ describe('download-controller.test.js', () => {
 
     // const result = DownloadController.jsonSimpleDownloadAll(alignment)
 
-    console.info('1.', alignment)
+    // console.info('1.', alignment)
 
-    console.info('2.', alignment.convertToJSON())
+    // console.info('2.', alignment.convertToJSON())
 
     /***********Conversion */
     // console.info('3.', Alignment.convertFromJSON(alignment.convertToJSON()))
