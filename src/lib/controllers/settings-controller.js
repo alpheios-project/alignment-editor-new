@@ -47,6 +47,10 @@ export default class SettingsController {
     return this.options.app && this.options.app.items.maxCharactersPerText ? this.options.app.items.maxCharactersPerText.currentValue : 5000
   }
 
+  get useSpecificEnglishTokenizer () {
+    return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */

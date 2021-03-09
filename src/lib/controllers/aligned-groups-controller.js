@@ -14,7 +14,7 @@ export default class AlignedGroupsController {
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
-  async createAlignedTexts (alignment) {
+  async createAlignedTexts (alignment, useSpecificEnglishTokenizer = false) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       NotificationSingleton.addNotification({
@@ -31,7 +31,7 @@ export default class AlignedGroupsController {
       type: NotificationSingleton.types.INFO
     })
 
-    const resultAlignment = await this.alignment.createAlignedTexts()
+    const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
 
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),

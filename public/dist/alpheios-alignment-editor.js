@@ -40498,7 +40498,7 @@ class AlignedGroupsController {
    * @param {Alignment} alignment
    * @return {Boolean} result, true - aligned texts were created, false - were not
    */
-  async createAlignedTexts (alignment) {
+  async createAlignedTexts (alignment, useSpecificEnglishTokenizer = false) {
     if (!alignment || !alignment.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
@@ -40515,7 +40515,7 @@ class AlignedGroupsController {
       type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
     })
 
-    const resultAlignment = await this.alignment.createAlignedTexts()
+    const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
 
     _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
       text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
@@ -41350,6 +41350,10 @@ class SettingsController {
 
   get maxCharactersPerTextValue () {
     return this.options.app && this.options.app.items.maxCharactersPerText ? this.options.app.items.maxCharactersPerText.currentValue : 5000
+  }
+
+  get useSpecificEnglishTokenizer () {
+    return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
   }
 
   /**
@@ -43582,9 +43586,9 @@ class AlignedText {
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
    */
-  async tokenize (docSource) {
+  async tokenize (docSource, useSpecificEnglishTokenizer = false) {
     const tokenizeMethod = _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.getTokenizer(docSource.tokenization.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix)
+    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
       this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
@@ -44115,7 +44119,7 @@ class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts () {
+  async createAlignedTexts (useSpecificEnglishTokenizer = false) {
     if (!this.readyForTokenize) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_5__.default.addNotification({
@@ -44126,14 +44130,14 @@ class Alignment {
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText()
+      const originResult = await this.createOriginAlignedText(useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i)
+        const targetResult = await this.createTargetAlignedText(id, i, useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -44141,13 +44145,13 @@ class Alignment {
     return true
   }
 
-  async createOriginAlignedText () {
+  async createOriginAlignedText (useSpecificEnglishTokenizer = false) {
     this.origin.alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
     })
 
-    const result = await this.origin.alignedText.tokenize(this.origin.docSource)
+    const result = await this.origin.alignedText.tokenize(this.origin.docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
@@ -44160,13 +44164,13 @@ class Alignment {
     return true
   }
 
-  async createTargetAlignedText (targetId, index) {
+  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer = false) {
     this.targets[targetId].alignedText = new _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default({
       docSource: this.targets[targetId].docSource,
       tokenPrefix: (index + 2)
     })
 
-    const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource)
+    const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
@@ -46668,7 +46672,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i271-date-time-file-name.20210309515" : 0
+    return  true ? "i269-english-tokenizer-option.20210309536" : 0
   }
 
   static get libName () {
@@ -46791,11 +46795,15 @@ class AlpheiosRemoteTokenizer {
      * @param {String} idPrefix - prefix for creating tokens idWord
      * @returns {[Objects]} - array of token-like objects, would be converted to Tokens outside
      */
-  static async tokenize (docSource, idPrefix) {
+  static async tokenize (docSource, idPrefix, useSpecificEnglishTokenizer = false) {
     const textFormatted = docSource.text.split(/[ \r\t\f]*\n[ \r\t\f]*/).join('\n')
 
+    let lang = docSource.lang
+    if (lang === 'eng' && !useSpecificEnglishTokenizer) {
+      lang = 'foo'
+    }
     const fetchOptions = Object.assign({
-      lang: docSource.lang,
+      lang,
       sourceType: docSource.sourceType,
       direction: docSource.direction
     }, docSource.tokenization)
@@ -48085,7 +48093,7 @@ __webpack_require__.r(__webpack_exports__);
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
       if (result) {
         this.hideTextEditor++
         this.showAlignEditor++
@@ -58477,7 +58485,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit tokens in
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 
