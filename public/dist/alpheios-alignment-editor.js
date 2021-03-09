@@ -41063,6 +41063,17 @@ class DownloadController {
     return false
   }
 
+  static timeNow () {
+    const month = (((this.getMonth() + 1) < 10) ? '0' : '') + (this.getMonth() + 1)
+    const day = ((this.getDate() < 10) ? '0' : '') + this.getDate()
+
+    const hours = ((this.getHours() < 10) ? '0' : '') + this.getHours()
+    const minutes = ((this.getMinutes() < 10) ? '0' : '') + this.getMinutes()
+    // const seconds = ((this.getSeconds() < 10) ? '0' : '') + this.getSeconds()
+
+    return `${month}-${day}_${hours}-${minutes}`
+  }
+
   /**
    * Executes download workflow for downloading: one origin, each target text - only source state
    * Data.originDocSource and data.targetDocSource - are obligatory data
@@ -41095,7 +41106,8 @@ class DownloadController {
       if (!langs.includes(targetText.lang)) { langs.push(targetText.lang) }
     })
 
-    const fileName = `alignment-${data.originDocSource.lang}-${langs.join('-')}`
+    const now = DownloadController.timeNow.bind(new Date())()
+    const fileName = `${now}-alignment-${data.originDocSource.lang}-${langs.join('-')}`
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
   }
@@ -41122,7 +41134,8 @@ class DownloadController {
 
     const exportFields = ['header', 'direction', 'lang', 'sourceType']
 
-    const fileName = `alignment-${data.docSource.lang}`
+    const now = DownloadController.timeNow.bind(new Date())()
+    const fileName = `${now}-alignment-${data.docSource.lang}`
     return _lib_download_download_file_csv_js__WEBPACK_IMPORTED_MODULE_0__.default.download(fields, exportFields, fileName)
   }
 
@@ -41132,7 +41145,9 @@ class DownloadController {
     Object.values(data.targets).forEach(target => {
       langs.push(target.docSource.lang)
     })
-    const fileName = `full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
+
+    const now = DownloadController.timeNow.bind(new Date())()
+    const fileName = `${now}-full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
     return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
   }
 
@@ -41148,7 +41163,9 @@ class DownloadController {
       }
     })
 
-    const fileName = `alignment-html-output-${data.langs.join('-')}`
+    const now = DownloadController.timeNow.bind(new Date())()
+
+    const fileName = `${now}-alignment-html-output-${data.langs.join('-')}`
     return _lib_download_download_file_html_js__WEBPACK_IMPORTED_MODULE_2__.default.download(layout, fileName)
   }
 }
@@ -46651,7 +46668,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "docs-tests-2.20210308677" : 0
+    return  true ? "i271-date-time-file-name.20210309515" : 0
   }
 
   static get libName () {
@@ -55634,7 +55651,7 @@ var render = function() {
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
               attrs: {
                 id: "alpheios-actions-menu-button__download",
-                disabled: !_vm.docSourceEditAvailable
+                disabled: !_vm.metadataAvailable
               },
               on: { click: _vm.downloadSingle }
             },
