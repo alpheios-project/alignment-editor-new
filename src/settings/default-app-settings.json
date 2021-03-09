@@ -54,6 +54,21 @@
       "minValue": 1,
       "maxValue": 50000,
       "values": []
+    },
+    "useSpecificEnglishTokenizer": {
+      "defaultValue": false,
+      "labelText": "Use language specific tokenizer for English",
+      "boolean": true,
+      "values": [
+        {
+          "value": true,
+          "text": "Yes"
+        },
+        {
+          "value": false,
+          "text": "No"
+        }
+      ]
     }
   }
 }
