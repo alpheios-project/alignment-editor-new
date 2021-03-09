@@ -2,7 +2,7 @@
     <div class="alpheios-alignment-editor-actions-menu">
       <div class="alpheios-alignment-editor-actions-menu__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__download"
-            @click="downloadSingle" :disabled="!docSourceEditAvailable" >
+            @click="downloadSingle" :disabled="!metadataAvailable" >
             {{ l10n.getMsgS('ACTIONS_DOWNLOAD_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__upload"
