@@ -1,5 +1,5 @@
 <template>
-    <div class="alpheios-al-editor-container alpheios-al-editor-view-short" v-if="fullData">
+    <div class="alpheios-al-editor-container alpheios-al-editor-view-equivalence" v-if="fullData">
         
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-table-view">
 
@@ -8,30 +8,34 @@
                 v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
                 :class = "{ 'alpheios-al-editor-segment-block-last': segIndex === allOriginSegments.length - 1 }"
             >
-              <origin-segment-block
-                :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
+              <segment-block textType = "origin"
+                :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
                 :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
-                :hoveredGroupsId = "hoveredGroupsId"
+                :hoveredGroupsId = "hoveredOriginGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div>
           </div>
 
             <div class="alpheios-al-editor-segment-block alpheios-al-editor-segment-block-target" >
-                <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetTokens" >
+                <div class="alpheios-al-editor-segment-block-text" v-if="hoveredTargetsData" >
 
                   <div class="alpheios-al-editor-target-hovered-block"
-                    v-for = "(hoveredGroupData, hoveredGroupDataIndex) in hoveredTargetTokens" :key=" hoveredGroupDataIndex">
-                      <span class="alpheios-al-editor-segment-block-text__langname">{{ targetLangName(hoveredGroupData) }}</span>
-                      <div class="alpheios-al-editor-target-hovered-block_tokens">
-                        <template v-for = "(token, tokenIndex) in hoveredGroupData.target">
+                       v-for = "(hoveredTargetsDataItem, hoveredTargetsDataItemIndex) in hoveredTargetsData" :key=" hoveredTargetsDataItemIndex">
+                      
+                      <span class="alpheios-al-editor-segment-block-text__langname">{{ hoveredTargetsDataItem.langName }}</span>
+                      <div class="alpheios-al-editor-target-hovered-block_tokens" 
+                           v-for = "(targetsRow, targetsRowIndex) in hoveredTargetsDataItem.filteredTargets"
+                           :key = "targetsRowIndex"
+                      >
+                        <template v-for = "(token, tokenIndex) in targetsRow.target">
                             <token-block :key = "tokenIndex" :token="token" />
-                            <br v-if="token.hasLineBreak" />
                         </template>
+                        <span class="alpheios-token" v-if="targetsRow.count > 1"> ({{ targetsRow.count }})</span>
                       </div>
-                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredGroupData.metadata">
-                        {{ hoveredGroupData.metadata }}
+                      <p class="alpheios-al-editor-target-hovered-block__metadata" v-if="hoveredTargetsDataItem.metadata">
+                        {{ hoveredTargetsDataItem.metadata }}
                       </p>
                   </div>
                 </div>
@@ -41,15 +45,17 @@
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
-import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
+import SegmentBlock from '@/_output/vue/segment-block.vue'
+import LangNameBar from '@/_output/vue/lang-name-bar.vue'
 
 import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
-  name: 'AlGroupsViewShort',
+  name: 'AlGroupsViewEquivalence',
   components: {
     tokenBlock: TokenBlock,
-    originSegmentBlock: OriginSegmentBlock
+    segmentBlock: SegmentBlock,
+    langNameBar: LangNameBar
   },
   props: {
     fullData: {
@@ -59,7 +65,8 @@ export default {
   },
   data () {
     return {
-      hoveredGroupsId: null,
+      hoveredOriginGroupsId: null,
+      hoveredTargetsData: null,
       updateHovered: 1
     }
   },
@@ -68,18 +75,12 @@ export default {
       return GroupUtility.allOriginSegments(this.fullData)
     },
     allAlGroups () {
-      return GroupUtility.alignmentGroups(this.fullData, 'short')
+      return GroupUtility.alignmentGroups(this.fullData, 'equivalence')
     },
-    hoveredTargetTokens () {
-      return this.updateHovered && this.hoveredGroupsId && 
-            Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
-              return {
-                metadata: this.allAlGroups[groupId].metadata,
-                target: this.allAlGroups[groupId].target,
-                targetId: this.allAlGroups[groupId].targetId
-              }
-            })
+    tokensEqGroups () {
+      return GroupUtility.tokensEquivalentGroups(this.fullData, this.allAlGroups)
     },
+
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
     },
@@ -97,21 +98,14 @@ export default {
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
-    groupedToken (token) {
-      return token.grouped
-    },
-    isTokenInHovered (token) {
-      return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
-    },
-
-    selectedToken (token) {
-      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
-    },
-
     addHoverToken (token) {
-      const hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
-      if (hoveredGroupsId) {
-        this.hoveredGroupsId = hoveredGroupsId
+      const hoveredOriginGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
+
+      const hoveredTargetsData = token.grouped ? this.tokensEqGroups[token.word].targets : null
+
+      if (hoveredTargetsData) {
+        this.hoveredOriginGroupsId = hoveredOriginGroupsId
+        this.hoveredTargetsData = hoveredTargetsData
         this.updateHovered++
       }
     },
@@ -119,9 +113,6 @@ export default {
     removeHoverToken (token) {
       // this.hoveredGroupsId = null
       // this.updateHovered++
-    },
-    targetLangName (hoveredTargetTokens) {
-      return this.fullData.targets[hoveredTargetTokens.targetId].langName
     }
   }
 }
@@ -197,4 +188,5 @@ export default {
       z-index: 100;
     }
   }
+
 </style>

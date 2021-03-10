@@ -256,6 +256,10 @@ body, html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.alpheios-app-container {
+  min-width: 1000px;
+}
+
 .alpheios-header {
   overflow: hidden;
   background-color: #6e6e6e;
@@ -362,18 +366,18 @@ body, html {
             }
   */
 }
-.alpheios-al-editor-segment-block-text {
+.alpheios-al-editor-segment-cell-origin-row {
   position: relative;
   padding: 10px;
   overflow-y: scroll;
 }
-.alpheios-al-editor-segment-block-text.alpheios-align-text-segment-origin-0 {
+.alpheios-al-editor-segment-cell-origin-row.alpheios-align-text-segment-origin-0 {
   padding-top: 30px;
 }
-.alpheios-al-editor-segment-block-text.alpheios-al-editor-segment-block-text__no-langname {
+.alpheios-al-editor-segment-cell-origin-row.alpheios-al-editor-segment-block-text__no-langname {
   padding: 10px;
 }
-.alpheios-al-editor-segment-block-text .alpheios-al-editor-segment-block-text__langname {
+.alpheios-al-editor-segment-cell-origin-row .alpheios-al-editor-segment-block-text__langname {
   position: absolute;
   overflow-y: hidden;
   border-bottom: 0;
@@ -407,13 +411,15 @@ body, html {
   border-bottom-color: transparent;
 }
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
-  border-bottom: 2px solid #e3e3e3;
   padding: 10px;
   max-height: 400px;
   overflow-y: scroll;
-}
-.alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row.alpheios-align-text-segment-origin, .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row.alpheios-align-text-segment-target-last {
-  border-bottom: 2px solid transparent;
+  /*
+  &.alpheios-align-text-segment-origin,
+  &.alpheios-align-text-segment-target-last {
+    border-bottom: 2px solid  transparent;
+  }
+  */
 }
 .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell.alpheios-al-editor-segment-cell-target {
   border-left: 2px solid #ddd;
@@ -485,26 +491,26 @@ body, html {
   color: #fff;
   z-index: 100;
 }
-.alpheios-al-editor-table-view {
+.alpheios-al-editor-view-sentence .alpheios-al-editor-table-view {
   display: table;
   width: 100%;
 }
-.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-all-origins {
+.alpheios-al-editor-view-sentence .alpheios-al-editor-table-view .alpheios-al-editor-segment-block-all-origins {
   width: 50%;
   display: table-cell;
 }
-.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target {
+.alpheios-al-editor-view-sentence .alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target {
   width: 50%;
   display: table-cell;
 }
-.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-segment-block-text {
+.alpheios-al-editor-view-sentence .alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-segment-block-text {
   border-bottom: none;
   overflow: initial;
 }
-.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-target-hovered-block {
+.alpheios-al-editor-view-sentence .alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-target-hovered-block {
   padding: 35px 0 10px;
 }
-.alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-target-hovered-block__tokens {
+.alpheios-al-editor-view-sentence .alpheios-al-editor-table-view .alpheios-al-editor-segment-block-target .alpheios-al-editor-target-hovered-block__tokens {
   padding: 0 10px 10px;
   overflow-y: scroll;
   max-height: 400px;
@@ -569,12 +575,40 @@ body, html {
   color: #fff;
   z-index: 100;
 }
+.alpheios-al-editor-view-columns .alpheios-al-editor-container-inner {
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  background: #F8F8F8;
+  color: #ae0000;
+}
+.alpheios-al-editor-view-columns .alpheios-al-editor-container-inner .alpheios-al-editor-segment-row {
+  background: #F8F8F8;
+  border-bottom: 2px solid #185F6D;
+}
+.alpheios-al-editor-view-columns .alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell.alpheios-al-editor-segment-cell-target {
+  border-left: 2px solid #ddd;
+}
+.alpheios-al-editor-container-inner .alpheios-al-editor-segment-cell-target-row {
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.alpheios-al-editor-view-columns .alpheios-al-editor-container-inner .alpheios-al-editor-segment-row {
+  width: 100%;
+  display: table;
+}
+.alpheios-al-editor-view-columns .alpheios-al-editor-container-inner .alpheios-al-editor-segment-row .alpheios-al-editor-segment-row-cell {
+  display: table-cell;
+  vertical-align: top;
+  width: 33.33%;
+}
 .alpheios-alignment-editor-container {
-  padding: 15px 15px 0;
+  padding: 15px;
   height: calc(100% - 110px);
 }
 .alpheios-alignment-radio-block {
-  margin: 0 10px;
+  margin: 0 10px 10px;
 }
 .alpheios-alignment-radio-block span {
   display: inline-block;

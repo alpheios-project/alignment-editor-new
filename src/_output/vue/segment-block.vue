@@ -9,7 +9,7 @@
                        :showData = "showDataLangNameBar"
         />
 
-          <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
+          <template v-for = "(token, tokenIndex) in segmentData.tokens">
               <token-block :key = "tokenIndex" :token="token" 
                               :selected = "selectedToken(token)"
                               :grouped = "groupedToken(token)"
@@ -26,12 +26,16 @@ import TokenBlock from '@/_output/vue/token-block.vue'
 import LangNameBar from '@/_output/vue/lang-name-bar.vue'
 
 export default {
-  name: 'OriginSegmentBlock',
+  name: 'SegmentBlock',
   components: {
     tokenBlock: TokenBlock,
     langNameBar: LangNameBar
   },
   props: {
+    textType: {
+      type: String,
+      required: true
+    },
     segmentData: {
       type: Object,
       required: true
@@ -75,20 +79,37 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    targetIdIndex: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    isLast: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    changeColor: {
+      type: String,
+      required: false,
+      default: 'byTargetId'
     }
   },
   data () {
     return {
-      originColor: '#F8F8F8',
+      colors: ['#F8F8F8', '#e3e3e3', '#FFEFDB', '#dbffef', '#efdbff', '#fdffdb', '#ffdddb', '#dbebff'],
       paddingTop: null
     }
   },
   computed: {
     cssId () {
-      return `alpheios-align-text-segment-origin-${this.segIndex}`
+      return `alpheios-align-text-segment-${this.textType}-${this.segIndex}`
     },
     cssStyle () {
-      let styles = `order: ${this.segIndex}; background: ${this.originColor}; max-height: ${this.maxHeight}px;`
+      const colors = this.changeColor === 'byTargetId' ? `background: ${this.colors[this.targetIdIndex]};` : `background: transparent;`
+      let styles = `order: ${this.segIndex}; ${colors} max-height: ${this.maxHeight}px;`
+
       if (this.paddingTop) {
         styles = `${styles} padding-top: ${this.paddingTop}px;`
       }
@@ -100,13 +121,16 @@ export default {
     cssClass () {
       return {
         'alpheios-al-editor-segment-block-text__no-langname': !this.showLangName,
-        [`alpheios-align-text-segment-origin-${this.segIndex}`]: true
+        [`alpheios-align-text-segment-${this.textType}-${this.segIndex}`]: true,
+        [`alpheios-al-editor-segment-cell-${this.textType}-row`]: true,
+        [`alpheios-align-text-segment-${this.textType}`]: true,
+        [`alpheios-align-text-segment-${this.textType}-last`]: this.isLast
       }
     }
   },
   methods: {
     isShownTab (targetId) {
-      return this.shownTabs.includes(targetId)
+      return this.shownTabs.length === 0 || this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
@@ -124,7 +148,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-al-editor-segment-block-text {
+  .alpheios-al-editor-segment-cell-origin-row {
     position: relative;
     padding: 10px;
     overflow-y: scroll;
@@ -153,6 +177,12 @@ export default {
       background: #185F6D;
       color: #fff;
       z-index: 100;
+    }
+  }
+
+  .alpheios-al-editor-segment-cell-target-row {
+    &.alpheios-align-text-segment-target-0.alpheios-al-editor-segment-cell-target-row {
+      padding-top: 30px;
     }
   }
 </style>
