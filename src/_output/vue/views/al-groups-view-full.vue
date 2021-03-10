@@ -3,6 +3,7 @@
         <editor-tabs 
             v-if="allTargetTextsIds.length > 1"
             :tabs = "allTargetTextsIds" @selectTab = "selectTab"
+            :tabsTooltips = "targetDataForTabs"
         />
 
         <div class ="alpheios-al-editor-container-inner alpheios-al-editor-segment-view">
@@ -78,6 +79,9 @@ export default {
     },
     allTargetTextsIds () {
       return GroupUtility.allTargetTextsIds(this.fullData)
+    },
+    targetDataForTabs () {
+      return GroupUtility.targetDataForTabs(this.fullData)
     },
     alGroups () {
       return GroupUtility.alignmentGroups(this.fullData, 'full')

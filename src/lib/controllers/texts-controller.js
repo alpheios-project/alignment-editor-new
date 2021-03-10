@@ -356,6 +356,10 @@ export default class TextsController {
     return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
   }
 
+  getTargetDataForTabs (targetIds) {
+    return this.alignment ? this.alignment.getTargetDataForTabs(targetIds) : []
+  }
+
   /**
    * A simple event for any change in metadata
    */

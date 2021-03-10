@@ -33,6 +33,10 @@ export default class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
+  get langName () {
+    return Langs.all.find(langData => langData.value === this.lang).text
+  }
+
   updateLanguage (lang) {
     this.lang = lang
     this.segments.forEach(segment => segment.updateLanguage(lang))
@@ -120,7 +124,7 @@ export default class AlignedText {
     return {
       dir: this.direction,
       lang: this.lang,
-      langName: Langs.all.find(langData => langData.value === this.lang).text,
+      langName: this.langName,
       segments: this.segments.map(seg => {
         return {
           tokens: seg.tokens.map(token => token.convertForHTMLOutput())

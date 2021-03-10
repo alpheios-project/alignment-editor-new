@@ -708,6 +708,19 @@ export default class Alignment {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
   }
 
+  getTargetDataForTabs (targetIds) {
+    const dataForTabs = {}
+    targetIds.forEach(targetId => {
+      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+
+      const metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
+      if (metadata) {
+        dataForTabs[targetId] = `${dataForTabs[targetId]} ${metadata}`
+      }
+    })
+    return dataForTabs
+  }
+
   /**
    *
    * @param {Segment} segment

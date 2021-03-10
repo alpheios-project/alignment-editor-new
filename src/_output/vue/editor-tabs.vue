@@ -1,20 +1,41 @@
 <template>
     <div class="alpheios-alignment-editor-align-target-tabs" v-if="tabs.length > 1">
-      <span class="alpheios-alignment-editor-align-target-tab-item"
-            :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] && tabsStates[index].active }"
-            v-for="(tabData, index) in tabs" :key="index" 
-            @click="selectTab(tabData, index)">
-        {{ index + 1 }}
-      </span>
+      <template v-for="(tabData, index) in tabs" >
+        <tooltip :tooltipText = "tabsTooltips[tabData]" tooltipDirection = "top" v-if="tabsTooltips[tabData]" :key="index">
+          <span class="alpheios-alignment-editor-align-target-tab-item"
+                :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] && tabsStates[index].active }"
+                
+                @click="selectTab(tabData, index)">
+            {{ index + 1 }}
+          </span>
+        </tooltip>
+
+        <span class="alpheios-alignment-editor-align-target-tab-item" v-else :key="index" 
+              :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] && tabsStates[index].active }"
+              
+              @click="selectTab(tabData, index)">
+          {{ index + 1 }}
+        </span>
+      </template>
     </div>
 </template>
 <script>
+import Tooltip from '@/_output/vue/tooltip.vue'
+
 export default {
   name: 'EditorTabs',
+  components: {
+    tooltip: Tooltip
+  },
   props: {
     tabs: {
       type: Array,
       required: true
+    },
+    tabsTooltips: {
+      type: Object,
+      required: false,
+      default: () => { return {} }
     }
   },
   data () {

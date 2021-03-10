@@ -4,6 +4,7 @@
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
+      :tabsTooltips = "$textC.getTargetDataForTabs(allTokenizedTargetTextsIds)"
     />
     
     <div class ="alpheios-alignment-editor-tokens-edit-editor-container-inner">
