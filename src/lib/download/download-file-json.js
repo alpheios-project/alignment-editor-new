@@ -15,6 +15,7 @@ export default class DownloadFileJSON {
   }
 
   static download (data, fileName) {
+    console.info('download', fileName)
     return this.downloadBlob(data, `${fileName}.json`)
   }
 }
