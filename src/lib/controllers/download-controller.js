@@ -68,7 +68,7 @@ export default class DownloadController {
     const minutes = ((this.getMinutes() < 10) ? '0' : '') + this.getMinutes()
     // const seconds = ((this.getSeconds() < 10) ? '0' : '') + this.getSeconds()
 
-    return `${month}-${day}_${hours}-${minutes}`
+    return `${day}-${month}_${hours}-${minutes}`
   }
 
   /**
