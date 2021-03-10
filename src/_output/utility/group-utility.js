@@ -54,12 +54,59 @@ export default class GroupUtility {
     this.allTargetTextsIds(fullData).forEach(targetId => {
       const targetSegments = fullData.targets[targetId].segments
 
-      if (targetSegments && this.isShownTab(shownTabs, targetId)) {
+      if (targetSegments && (!shownTabs || this.isShownTab(shownTabs, targetId))) {
         targetSegments.forEach((segment, indexS) => {
           allS[indexS].targets[targetId] = segment
         })
       }
     })
+
+    return allS
+  }
+
+  static segmentsForColumns (fullData, columns = 3) {
+    const allS = []
+    fullData.origin.segments.forEach((segment, indexS) => {
+      segment.textType = 'origin'
+
+      const segmentRows = []
+      const textsInsegmentCount = this.allTargetTextsIds(fullData).length + 1
+
+      for (let i = 1; i <= Math.ceil(textsInsegmentCount / columns); i++) {
+        segmentRows.push([])
+      }
+
+      segmentRows[0][0] = segment
+      allS.push({
+        index: indexS,
+        segmentRows
+      })
+    })
+
+    this.allTargetTextsIds(fullData).forEach((targetId, targetIdIndex) => {
+      const targetSegments = fullData.targets[targetId].segments
+      const segmentRowIndex = Math.floor((targetIdIndex + 1) / columns)
+      const segmentCellIndex = (targetIdIndex + 1) % columns
+
+      if (targetSegments) {
+        targetSegments.forEach((segment, indexS) => {
+          segment.textType = 'target'
+          segment.targetId = targetId
+          allS[indexS].segmentRows[segmentRowIndex][segmentCellIndex] = segment
+        })
+      }
+    })
+
+    for (let i = 0; i < allS.length; i++) {
+      const allSSegment = allS[i]
+      const lastIndex = allSSegment.segmentRows.length - 1
+      const currentLength = allSSegment.segmentRows[lastIndex].length
+
+      for (let j = currentLength; j < columns; j++) {
+        allSSegment.segmentRows[lastIndex].push([])
+      }
+    }
+
     return allS
   }
 

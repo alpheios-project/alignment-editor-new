@@ -1,5 +1,5 @@
 <template>
-      <div class = "alpheios-al-editor-segment-block-text" 
+      <div class = "alpheios-al-editor-segment-cell-origin-row alpheios-al-editor-segment-block-text" 
           :class = "cssClass"
           :id = "cssId" :style="cssStyle"
           :dir = "dir" :lang = "lang"
@@ -9,7 +9,7 @@
                        :showData = "showDataLangNameBar"
         />
 
-          <template v-for = "(token, tokenIndex) in segmentData.origin.tokens">
+          <template v-for = "(token, tokenIndex) in segmentData.tokens">
               <token-block :key = "tokenIndex" :token="token" 
                               :selected = "selectedToken(token)"
                               :grouped = "groupedToken(token)"
@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     isShownTab (targetId) {
-      return this.shownTabs.includes(targetId)
+      return this.shownTabs.length === 0 || this.shownTabs.includes(targetId)
     },
     groupedToken (token) {
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
@@ -124,7 +124,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-al-editor-segment-block-text {
+  .alpheios-al-editor-segment-cell-origin-row {
     position: relative;
     padding: 10px;
     overflow-y: scroll;

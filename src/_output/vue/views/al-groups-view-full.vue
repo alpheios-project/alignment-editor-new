@@ -12,8 +12,8 @@
                 :class = "{ 'alpheios-al-editor-segment-row-last': segIndex === allShownSegments.length - 1 }"
             >
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin" >
-              <origin-segment-block
-                :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
+              <segment-block textType = "origin"
+                :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
                 :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
@@ -22,7 +22,7 @@
             </div><!-- alpheios-al-editor-segment-cell -->
 
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-target">
-              <target-segment-block
+              <segment-block textType = "target"
                 v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
                 :targetId = "targetId" :segIndex = "segIndex" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
                 :langName = "fullData.targets[targetId].langName" :metadata = "fullData.targets[targetId].metadata" 
@@ -41,8 +41,9 @@
 import EditorTabs from '@/_output/vue/editor-tabs.vue'
 import LangNameBar from '@/_output/vue/lang-name-bar.vue'
 
-import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
-import TargetSegmentBlock from '@/_output/vue/target-segment-block.vue'
+// import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
+// import TargetSegmentBlock from '@/_output/vue/target-segment-block.vue'
+import SegmentBlock from '@/_output/vue/segment-block.vue'
 
 import ScrollUtility from '@/lib/utility/scroll-utility.js'
 import GroupUtility from '@/_output/utility/group-utility.js'
@@ -51,8 +52,7 @@ export default {
   name: 'AlGroupsViewFull',
   components: {
     editorTabs: EditorTabs,
-    originSegmentBlock: OriginSegmentBlock,
-    targetSegmentBlock: TargetSegmentBlock,
+    segmentBlock: SegmentBlock,
     langNameBar: LangNameBar
   },
   props: {
@@ -177,15 +177,16 @@ export default {
     }    
 
     .alpheios-al-editor-segment-cell-target-row {
-      border-bottom: 2px solid  #e3e3e3;
+      //border-bottom: 2px solid  #e3e3e3;
       padding: 10px; 
       max-height: 400px;
       overflow-y: scroll;
-
+      /*
       &.alpheios-align-text-segment-origin,
       &.alpheios-align-text-segment-target-last {
         border-bottom: 2px solid  transparent;
       }
+      */
     }
 
     .alpheios-al-editor-segment-cell {
