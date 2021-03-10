@@ -8,6 +8,21 @@ export default class GroupUtility {
     return Object.keys(fullData.targets)
   }
 
+  static targetDataForTabs (fullData) {
+    const allTargetIds = this.allTargetTextsIds(fullData)
+
+    const dataForTabs = {}
+    allTargetIds.forEach(targetId => {
+      dataForTabs[targetId] = fullData.targets[targetId].langName
+
+      const metadata = fullData.targets[targetId].metadata
+      if (metadata) {
+        dataForTabs[targetId] = `${dataForTabs[targetId]} ${metadata}`
+      }
+    })
+    return dataForTabs
+  }
+
   /**
    *
    * @param {Array[String]} shownTabs - array of targetId that is visible on the screen

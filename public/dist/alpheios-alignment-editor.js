@@ -41914,6 +41914,10 @@ class TextsController {
     return this.alignment ? this.alignment.allTokenizedTargetTextsIds : []
   }
 
+  getTargetDataForTabs (targetIds) {
+    return this.alignment ? this.alignment.getTargetDataForTabs(targetIds) : []
+  }
+
   /**
    * A simple event for any change in metadata
    */
@@ -43577,6 +43581,10 @@ class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
+  get langName () {
+    return _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang).text
+  }
+
   updateLanguage (lang) {
     this.lang = lang
     this.segments.forEach(segment => segment.updateLanguage(lang))
@@ -43664,7 +43672,7 @@ class AlignedText {
     return {
       dir: this.direction,
       lang: this.lang,
-      langName: _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang).text,
+      langName: this.langName,
       segments: this.segments.map(seg => {
         return {
           tokens: seg.tokens.map(token => token.convertForHTMLOutput())
@@ -44655,6 +44663,19 @@ class Alignment {
    */
   get allTokenizedTargetTextsIds () {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
+  }
+
+  getTargetDataForTabs (targetIds) {
+    const dataForTabs = {}
+    targetIds.forEach(targetId => {
+      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+
+      const metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
+      if (metadata) {
+        dataForTabs[targetId] = `${dataForTabs[targetId]} ${metadata}`
+      }
+    })
+    return dataForTabs
   }
 
   /**
@@ -46142,7 +46163,6 @@ class DownloadFileJSON {
   }
 
   static download (data, fileName) {
-    console.info('download', fileName)
     return this.downloadBlob(data, `${fileName}.json`)
   }
 }
@@ -46673,7 +46693,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i271-fix-date-time.20210310629" : 0
+    return  true ? "development.20210310667" : 0
   }
 
   static get libName () {
@@ -47377,6 +47397,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_segment_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/segment-block.vue */ "./vue/align-editor/segment-block.vue");
 /* harmony import */ var _vue_common_editor_tabs_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/editor-tabs.vue */ "./vue/common/editor-tabs.vue");
+//
 //
 //
 //
@@ -48164,6 +48185,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48175,12 +48206,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'EditorTabs',
+  components: {
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
   props: {
     tabs: {
       type: Array,
       required: true
+    },
+    tabsTooltips: {
+      type: Object,
+      required: false,
+      default: () => { return {} }
     }
   },
   data () {
@@ -51220,6 +51261,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -54206,7 +54248,12 @@ var render = function() {
     [
       _vm.allTokenizedTargetTextsIds.length > 1
         ? _c("editor-tabs", {
-            attrs: { tabs: _vm.allTokenizedTargetTextsIds },
+            attrs: {
+              tabs: _vm.allTokenizedTargetTextsIds,
+              tabsTooltips: _vm.$textC.getTargetDataForTabs(
+                _vm.allTokenizedTargetTextsIds
+              )
+            },
             on: { selectTab: _vm.selectTab }
           })
         : _vm._e(),
@@ -54608,27 +54655,63 @@ var render = function() {
     ? _c(
         "div",
         { staticClass: "alpheios-alignment-editor-align-target-tabs" },
-        _vm._l(_vm.tabs, function(tabData, index) {
-          return _c(
-            "span",
-            {
-              key: index,
-              staticClass: "alpheios-alignment-editor-align-target-tab-item",
-              class: {
-                "alpheios-alignment-editor-align-target-tab-item-active":
-                  _vm.tabsStatesFinal[index] &&
-                  _vm.tabsStatesFinal[index].active
-              },
-              on: {
-                click: function($event) {
-                  return _vm.selectTab(tabData, index)
-                }
-              }
-            },
-            [_vm._v("\n    " + _vm._s(index + 1) + "\n  ")]
-          )
-        }),
-        0
+        [
+          _vm._l(_vm.tabs, function(tabData, index) {
+            return [
+              _vm.tabsTooltips[tabData]
+                ? _c(
+                    "tooltip",
+                    {
+                      key: index,
+                      attrs: {
+                        tooltipText: _vm.tabsTooltips[tabData],
+                        tooltipDirection: "top"
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "alpheios-alignment-editor-align-target-tab-item",
+                          class: {
+                            "alpheios-alignment-editor-align-target-tab-item-active":
+                              _vm.tabsStatesFinal[index] &&
+                              _vm.tabsStatesFinal[index].active
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.selectTab(tabData, index)
+                            }
+                          }
+                        },
+                        [_vm._v("\n        " + _vm._s(index + 1) + "\n      ")]
+                      )
+                    ]
+                  )
+                : _c(
+                    "span",
+                    {
+                      key: index,
+                      staticClass:
+                        "alpheios-alignment-editor-align-target-tab-item",
+                      class: {
+                        "alpheios-alignment-editor-align-target-tab-item-active":
+                          _vm.tabsStatesFinal[index] &&
+                          _vm.tabsStatesFinal[index].active
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.selectTab(tabData, index)
+                        }
+                      }
+                    },
+                    [_vm._v("\n      " + _vm._s(index + 1) + "\n    ")]
+                  )
+            ]
+          })
+        ],
+        2
       )
     : _vm._e()
 }
@@ -57662,7 +57745,12 @@ var render = function() {
       _vm._v(" "),
       _vm.allTokenizedTargetTextsIds.length > 1
         ? _c("editor-tabs", {
-            attrs: { tabs: _vm.allTokenizedTargetTextsIds },
+            attrs: {
+              tabs: _vm.allTokenizedTargetTextsIds,
+              tabsTooltips: _vm.$textC.getTargetDataForTabs(
+                _vm.allTokenizedTargetTextsIds
+              )
+            },
             on: { selectTab: _vm.selectTab }
           })
         : _vm._e(),
