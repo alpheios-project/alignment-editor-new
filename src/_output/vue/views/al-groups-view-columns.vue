@@ -189,7 +189,7 @@ export default {
         display: table-cell;
         vertical-align: top;
         width: 33.33%;
-        border-right: 2px solid #ddd;
+        border-right: 2px solid #d8d8d8;
       }
     }
   }
