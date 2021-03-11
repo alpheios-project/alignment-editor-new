@@ -41845,10 +41845,13 @@ class TextsController {
       targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
 
       targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
+      targets[targetId].metadataShort = this.alignment.targets[targetId].docSource.metadata.convertToShortJSONLine()
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
     origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
+    origin.metadataShort = this.alignment.origin.docSource.metadata.convertToShortJSONLine()
+
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
         token.grouped = this.alignment.tokenIsGrouped(token)
@@ -44670,9 +44673,9 @@ class Alignment {
     targetIds.forEach(targetId => {
       dataForTabs[targetId] = this.targets[targetId].alignedText.langName
 
-      const metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
+      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
       if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} ${metadata}`
+        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
       }
     })
     return dataForTabs
@@ -45572,6 +45575,13 @@ class Metadata {
 
   convertToJSONLine () {
     return Object.values(this.properties).sort((a, b) => (a.property.order - b.property.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
+  }
+
+  convertToShortJSONLine () {
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED']
+    const propsValues = propsToShow.map(prop => this.getPropertyValue(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property[prop])).filter(value => value)
+
+    return propsValues.length > 0 ? propsValues.join('; ') : ''
   }
 
   static convertFromJSON (data) {
@@ -46693,7 +46703,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "development.20210310667" : 0
+    return  true ? "i277-tooltips-for-tabs-2.20210311302" : 0
   }
 
   static get libName () {

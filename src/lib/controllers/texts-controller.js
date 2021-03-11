@@ -287,10 +287,13 @@ export default class TextsController {
       targets[targetId] = this.alignment.targets[targetId].alignedText.convertForHTMLOutput()
 
       targets[targetId].metadata = this.alignment.targets[targetId].docSource.metadata.convertToJSONLine()
+      targets[targetId].metadataShort = this.alignment.targets[targetId].docSource.metadata.convertToShortJSONLine()
     })
 
     let origin = this.alignment.origin.alignedText.convertForHTMLOutput() // eslint-disable-line prefer-const
     origin.metadata = this.alignment.origin.docSource.metadata.convertToJSONLine()
+    origin.metadataShort = this.alignment.origin.docSource.metadata.convertToShortJSONLine()
+
     origin.segments.forEach(seg => {
       seg.tokens.forEach(token => {
         token.grouped = this.alignment.tokenIsGrouped(token)

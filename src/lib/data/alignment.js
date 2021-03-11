@@ -713,9 +713,9 @@ export default class Alignment {
     targetIds.forEach(targetId => {
       dataForTabs[targetId] = this.targets[targetId].alignedText.langName
 
-      const metadata = this.targets[targetId].docSource.metadata.convertToJSONLine()
+      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
       if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} ${metadata}`
+        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
       }
     })
     return dataForTabs
