@@ -8715,9 +8715,9 @@ class GroupUtility {
     allTargetIds.forEach(targetId => {
       dataForTabs[targetId] = fullData.targets[targetId].langName
 
-      const metadata = fullData.targets[targetId].metadata
+      const metadata = fullData.targets[targetId].metadataShort
       if (metadata) {
-        dataForTabs[targetId] = `${dataForTabs[targetId]} ${metadata}`
+        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
       }
     })
     return dataForTabs

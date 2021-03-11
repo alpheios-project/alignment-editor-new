@@ -54,6 +54,13 @@ export default class Metadata {
     return Object.values(this.properties).sort((a, b) => (a.property.order - b.property.order)).map(metadataTerm => metadataTerm.getValue()).join('; ')
   }
 
+  convertToShortJSONLine () {
+    const propsToShow = ['TITLE', 'CREATOR', 'DATE_COPYRIGHTED']
+    const propsValues = propsToShow.map(prop => this.getPropertyValue(MetadataTerm.property[prop])).filter(value => value)
+
+    return propsValues.length > 0 ? propsValues.join('; ') : ''
+  }
+
   static convertFromJSON (data) {
     const metadata = new Metadata()
     data.properties.forEach(prop => {
