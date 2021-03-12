@@ -32,64 +32,78 @@ export default {
     langNameBar: LangNameBar
   },
   props: {
+    // origin or target
     textType: {
       type: String,
       required: true
     },
+    // segment data { tokens: [ { textType, idWord, word, sentenceIndex, grouped } ] }
     segmentData: {
       type: Object,
       required: true
     },
+    // segment index
     segIndex: {
       type: Number,
       required: true
     },
+    // max-height for segment cell div
     maxHeight: {
       type: Number,
       required: true
     },
+    // direction - used for HTML markup
     dir: {
       type: String,
       required: true
     },
+    // language - used for HTML markup - ISO 3 chars
     lang: {
       type: String,
       required: true
     },
+    // language name - full language name - used for lang bar
     langName: {
       type: String,
       required: true
     },
+    // metadata in one string to show in lang bar
     metadata: {
       type: String,
       required: false,
       defult: ''
     },
+    // visible tabs array
     shownTabs: {
       type: Array,
       required: false,
       default: () => { return [] }
     },
+    // array of alignmentGroupsId that are highlighted on token hover
     hoveredGroupsId: {
       type: Array,
       required: false,
       default: () => { return [] }
     },
+    // flag if languge name should be rendered in lang bar
     showLangName: {
       type: Boolean,
       required: false,
       default: true
     },
+    // index of targetId - used for color definition
     targetIdIndex: {
       type: Number,
       required: false,
       default: 0
     },
+    // check if this segment is last - used for css border-bottom
     isLast: {
       type: Boolean,
       required: false,
       default: false
     },
+    // there are two types of background - byTargetId - colors differ by targetId, bySegment - differs by segment (used for columns)
     changeColor: {
       type: String,
       required: false,
@@ -115,6 +129,9 @@ export default {
       }
       return styles
     },
+    /**
+     * Show data inside lang bar only for the first segment
+     */
     showDataLangNameBar () {
       return this.segIndex === 0
     },
@@ -129,15 +146,24 @@ export default {
     }
   },
   methods: {
+    /**
+     * Checks if translation with targetId is visible on the screen
+     */
     isShownTab (targetId) {
       return this.shownTabs.length === 0 || this.shownTabs.includes(targetId)
     },
+    /**
+     * Checks if the token is grouped and visible on the screen
+     */
     groupedToken (token) {
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
-    isTokenInHovered (token) {
+    isTokenInHoveredGroups (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
     },
+    /**
+     * Checks if token is grouped and selected
+     */
     selectedToken (token) {
       return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     },

@@ -43,6 +43,9 @@ export default {
       tabsStates: []
     }
   },
+  /**
+   * Inits tabStates from passed tabs
+   */
   mounted () {
     if (this.tabs.length > 0) {
       this.tabsStates = this.tabs.map((tab, index) => { 
