@@ -9197,6 +9197,7 @@ __webpack_require__.r(__webpack_exports__);
     alGroupsViewEquivalence: _output_vue_views_al_groups_view_equivalence_vue__WEBPACK_IMPORTED_MODULE_3__.default,
     alGroupsViewColumns: _output_vue_views_al_groups_view_columns_vue__WEBPACK_IMPORTED_MODULE_4__.default
   },
+  // fullData is passed via $parent
   data () {
     return {
       allViewTypes: [
@@ -9211,10 +9212,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Css id for display view select
+     * @param {String} value - display view
+     * @returns {String}
+     */
     itemIdWithValue (value) {
       return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
     },
 
+    /**
+     * Sets a limit for the sentence count typed manually - min 0
+     */
     checkSentenceCount () {
       if (this.sentenceCount < 0) { 
         this.sentenceCount = 0
@@ -9283,6 +9292,9 @@ __webpack_require__.r(__webpack_exports__);
       tabsStates: []
     }
   },
+  /**
+   * Inits tabStates from passed tabs
+   */
   mounted () {
     if (this.tabs.length > 0) {
       this.tabsStates = this.tabs.map((tab, index) => { 
@@ -9369,6 +9381,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Show/hide full metadata and emits an event to adapt padding-top for the cell
+     */
     async toggleMetadata () {
       this.showFullMetadata = !this.showFullMetadata
       await _vue_runtime__WEBPACK_IMPORTED_MODULE_0__.default.nextTick()
@@ -9427,64 +9442,78 @@ __webpack_require__.r(__webpack_exports__);
     langNameBar: _output_vue_lang_name_bar_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
+    // origin or target
     textType: {
       type: String,
       required: true
     },
+    // segment data { tokens: [ { textType, idWord, word, sentenceIndex, grouped } ] }
     segmentData: {
       type: Object,
       required: true
     },
+    // segment index
     segIndex: {
       type: Number,
       required: true
     },
+    // max-height for segment cell div
     maxHeight: {
       type: Number,
       required: true
     },
+    // direction - used for HTML markup
     dir: {
       type: String,
       required: true
     },
+    // language - used for HTML markup - ISO 3 chars
     lang: {
       type: String,
       required: true
     },
+    // language name - full language name - used for lang bar
     langName: {
       type: String,
       required: true
     },
+    // metadata in one string to show in lang bar
     metadata: {
       type: String,
       required: false,
       defult: ''
     },
+    // visible tabs array
     shownTabs: {
       type: Array,
       required: false,
       default: () => { return [] }
     },
+    // array of alignmentGroupsId that are highlighted on token hover
     hoveredGroupsId: {
       type: Array,
       required: false,
       default: () => { return [] }
     },
+    // flag if languge name should be rendered in lang bar
     showLangName: {
       type: Boolean,
       required: false,
       default: true
     },
+    // index of targetId - used for color definition
     targetIdIndex: {
       type: Number,
       required: false,
       default: 0
     },
+    // check if this segment is last - used for css border-bottom
     isLast: {
       type: Boolean,
       required: false,
       default: false
     },
+    // there are two types of background - byTargetId - colors differ by targetId, bySegment - differs by segment (used for columns)
     changeColor: {
       type: String,
       required: false,
@@ -9510,6 +9539,9 @@ __webpack_require__.r(__webpack_exports__);
       }
       return styles
     },
+    /**
+     * Show data inside lang bar only for the first segment
+     */
     showDataLangNameBar () {
       return this.segIndex === 0
     },
@@ -9524,15 +9556,24 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * Checks if translation with targetId is visible on the screen
+     */
     isShownTab (targetId) {
       return this.shownTabs.length === 0 || this.shownTabs.includes(targetId)
     },
+    /**
+     * Checks if the token is grouped and visible on the screen
+     */
     groupedToken (token) {
       return token.grouped && ((this.shownTabs.length === 0) || token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId)))
     },
-    isTokenInHovered (token) {
+    isTokenInHoveredGroups (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
     },
+    /**
+     * Checks if token is grouped and selected
+     */
     selectedToken (token) {
       return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     },

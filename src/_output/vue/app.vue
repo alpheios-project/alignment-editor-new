@@ -55,6 +55,7 @@ export default {
     alGroupsViewEquivalence: AlGroupsViewEquivalence,
     alGroupsViewColumns: AlGroupsViewColumns
   },
+  // fullData is passed via $parent
   data () {
     return {
       allViewTypes: [
@@ -69,10 +70,18 @@ export default {
     }
   },
   methods: {
+    /**
+     * Css id for display view select
+     * @param {String} value - display view
+     * @returns {String}
+     */
     itemIdWithValue (value) {
       return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
     },
 
+    /**
+     * Sets a limit for the sentence count typed manually - min 0
+     */
     checkSentenceCount () {
       if (this.sentenceCount < 0) { 
         this.sentenceCount = 0
