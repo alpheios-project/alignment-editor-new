@@ -5,7 +5,21 @@ export default class GroupUtility {
    * @returns {Array[String]} - array of targetId
    */
   static allTargetTextsIds (fullData) {
-    return Object.keys(fullData.targets)
+    const sortFn = (a, b) => {
+      if (fullData.targets[a].langName < fullData.targets[b].langName) { return -1 }
+      if (fullData.targets[a].langName > fullData.targets[b].langName) { return 1 }
+      return 0
+    }
+
+    return Object.keys(fullData.targets).sort(sortFn)
+  }
+
+  static allLanguagesTargets (fullData) {
+    return this.allTargetTextsIds(fullData).map(targetId => {
+      return {
+        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName
+      }
+    })
   }
 
   static targetDataForTabs (fullData) {
@@ -48,7 +62,7 @@ export default class GroupUtility {
       allS.push({
         index: indexS,
         origin: segment,
-        targets: {}
+        targets: []
       })
     })
     return allS
@@ -63,15 +77,14 @@ export default class GroupUtility {
    *          {Object} segment - segment data
    *          {Object} targets - target segments grouped by targetId
    */
-  static allShownSegments (fullData, shownTabs) {
+  static allShownSegments (fullData, languageTargetIds) {
     const allS = this.allOriginSegments(fullData)
 
-    this.allTargetTextsIds(fullData).forEach(targetId => {
+    languageTargetIds.forEach(targetId => {
       const targetSegments = fullData.targets[targetId].segments
-
-      if (targetSegments && (!shownTabs || this.isShownTab(shownTabs, targetId))) {
+      if (targetSegments) {
         targetSegments.forEach((segment, indexS) => {
-          allS[indexS].targets[targetId] = segment
+          allS[indexS].targets.push({ targetId, segment })
         })
       }
     })
@@ -79,13 +92,13 @@ export default class GroupUtility {
     return allS
   }
 
-  static segmentsForColumns (fullData, columns = 3) {
+  static segmentsForColumns (fullData, languageTargetIds, columns = 3) {
     const allS = []
     fullData.origin.segments.forEach((segment, indexS) => {
       segment.textType = 'origin'
 
       const segmentRows = []
-      const textsInsegmentCount = this.allTargetTextsIds(fullData).length + 1
+      const textsInsegmentCount = languageTargetIds.length + 1
 
       for (let i = 1; i <= Math.ceil(textsInsegmentCount / columns); i++) {
         segmentRows.push([])
@@ -98,7 +111,7 @@ export default class GroupUtility {
       })
     })
 
-    this.allTargetTextsIds(fullData).forEach((targetId, targetIdIndex) => {
+    languageTargetIds.forEach((targetId, targetIdIndex) => {
       const targetSegments = fullData.targets[targetId].segments
       const segmentRowIndex = Math.floor((targetIdIndex + 1) / columns)
       const segmentCellIndex = (targetIdIndex + 1) % columns
@@ -312,7 +325,7 @@ export default class GroupUtility {
    *              {Number} count - amount of occurance of the group (compared by words)
    *              {Array[Object]} - target - target part of alignment groups (tokens from the first occurance)
    */
-  static tokensEquivalentGroups (fullData, allGroups) {
+  static tokensEquivalentGroups (fullData, allGroups, languageTargetIds) {
     let tokensEq = {} // eslint-disable-line prefer-const
     fullData.origin.segments.forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
@@ -322,14 +335,16 @@ export default class GroupUtility {
             tokensEq[token.word].allIds.push(token.idWord)
             tokensEq[token.word].allGroupIds.push(groupDataItem.groupId)
 
-            if (!tokensEq[token.word].targets[groupDataItem.targetId]) {
-              tokensEq[token.word].targets[groupDataItem.targetId] = {
-                langName: allGroups[groupDataItem.groupId].langName,
-                metadata: allGroups[groupDataItem.groupId].metadata,
-                targets: []
+            if (languageTargetIds.includes(groupDataItem.targetId)) {
+              if (!tokensEq[token.word].targets[groupDataItem.targetId]) {
+                tokensEq[token.word].targets[groupDataItem.targetId] = {
+                  langName: allGroups[groupDataItem.groupId].langName,
+                  metadata: allGroups[groupDataItem.groupId].metadata,
+                  targets: []
+                }
               }
+              tokensEq[token.word].targets[groupDataItem.targetId].targets.push(allGroups[groupDataItem.groupId].target)
             }
-            tokensEq[token.word].targets[groupDataItem.targetId].targets.push(allGroups[groupDataItem.groupId].target)
           })
         }
       })

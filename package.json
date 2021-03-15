@@ -92,6 +92,7 @@
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.12",
     "vue-template-loader": "^1.1.0",
+    "vuedraggable": "^2.24.3",
     "webpack": "^5.24.1",
     "webpack-bundle-analyzer": "^3.9.0",
     "webpack-cleanup-plugin": "^0.5.1",

@@ -26,22 +26,24 @@
                       @change="checkSentenceCount"
                       :id="itemIdWithValue('sentenceCount')"
                   >
-                  <label :for="itemIdWithValue('sentenceCount')">sentences around</label>
+                  <label :for="itemIdWithValue('sentenceCount')" >sentences around</label>
                 </span>
             </p>
 
-            <languages-block :full-data="fullData" />
+            <languages-block :fullData="fullData" @changeLanguageOrder = "changeLanguageOrder" />
 
-            <al-groups-view-full :full-data="fullData" v-if="viewType === 'viewFull'" />
-            <al-groups-view-columns :full-data="fullData" v-if="viewType === 'view3Columns'" />
-            <al-groups-view-short :full-data="fullData" v-if="viewType === 'viewShort'" />
-            <al-groups-view-sentence :full-data="fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
-            <al-groups-view-equivalence :full-data="fullData" v-if="viewType === 'viewEquivalence'" />
+            <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
+            <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
+            <al-groups-view-short :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewShort'" />
+            <al-groups-view-sentence :fullData="fullData" :languageTargetIds = "languageTargetIds"  :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
+            <al-groups-view-equivalence :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewEquivalence'" />
         </div>
             
     </div>
 </template>
 <script>
+import GroupUtility from '@/_output/utility/group-utility.js'
+
 import LanguagesBlock from '@/_output/vue/languages-block.vue'
 
 import AlGroupsViewFull from '@/_output/vue/views/al-groups-view-full.vue'
@@ -75,12 +77,15 @@ export default {
       languagesList: []
     }
   },
-  mounted() {
-    console.info('fullData', this.fullData)
+  created() {
+    this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
   },
   computed: {
     fullData () {
       return this.$parent.fullData
+    },
+    languageTargetIds () {
+      return this.languagesList.map(langData => langData.targetId)
     }
   },
   methods: {
@@ -100,6 +105,12 @@ export default {
       if (this.sentenceCount < 0) { 
         this.sentenceCount = 0
       }
+    },
+
+    changeLanguageOrder (langList) {
+      this.languagesList.sort((a, b) => {
+        return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
+      })
     }
   }
 }

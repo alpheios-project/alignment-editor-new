@@ -43,6 +43,11 @@ export default {
       tabsStates: []
     }
   },
+  watch: {
+    tabs () {
+      this.tabsStates.forEach((tab, tabIndex) => tab.active = (tabIndex === 0))
+    }
+  },
   /**
    * Inits tabStates from passed tabs
    */
@@ -84,6 +89,7 @@ export default {
 <style lang="scss">
   .alpheios-alignment-editor-align-target-tabs {
     padding-left: 51%;
+    padding-top: 10px;
   }
   .alpheios-alignment-editor-align-target-tab-item {
     cursor: pointer;

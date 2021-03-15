@@ -11,7 +11,7 @@
                   :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                   :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
                   :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
-                  :hoveredGroupsId = "hoveredGroupsId"
+                  :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
                   @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
                 />
               </div>
@@ -63,6 +63,10 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    languageTargetIds: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -96,22 +100,31 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'sentence', this.sentenceCount)
     },
     hoveredTargetTokens () {
-      return this.updateHovered && this.hoveredGroupsId && 
-            Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
+      if (this.updateHovered && this.hoveredGroupsId) {
+        const allHoveredTargetTokens = Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
                 targetSentence: this.allAlGroups[groupId].targetSentence,
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
+        return allHoveredTargetTokens.filter(groupData => this.languageTargetIds.includes(groupData.targetId)).sort((a, b) => {
+          return this.languageTargetIds.indexOf(a.targetId) - this.languageTargetIds.indexOf(b.targetId)
+        })
+      }
+
+      return []
     }
   },
   methods: {
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
+    isShownTab (targetId) {
+      return this.languageTargetIds.includes(targetId)
+    },
     groupedToken (token) {
-      return token.grouped
+      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
     },
     isTokenInHovered (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
@@ -121,24 +134,11 @@ export default {
       return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
     },
 
-    async addHoverToken (token) {
+    addHoverToken (token) {
       const hoveredGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
       if (hoveredGroupsId) {
         this.hoveredGroupsId = hoveredGroupsId
         this.updateHovered++
-        
-        await Vue.nextTick()
-        this.makeScroll(token)
-      }
-    },
-    
-    makeScroll (token) {
-      if (this.hoveredGroupsId) {
-        const hoveredGroupData = this.hoveredTargetTokens[0]
-        const minOpositeTokenId = hoveredGroupData.targetSentence.find(targetToken => targetToken.grouped).idWord
-
-        const segId = this.getTargetSegId(0)
-        ScrollUtility.makeScrollTo(`token-${minOpositeTokenId}`, segId)
       }
     },
 

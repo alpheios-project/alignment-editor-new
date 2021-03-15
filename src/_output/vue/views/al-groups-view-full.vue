@@ -1,8 +1,8 @@
 <template>
     <div class="alpheios-al-editor-container alpheios-al-editor-view-full" v-if="fullData">
         <editor-tabs 
-            v-if="allTargetTextsIds.length > 1"
-            :tabs = "allTargetTextsIds" @selectTab = "selectTab"
+            v-if="languageTargetIds.length > 1"
+            :tabs = "languageTargetIds" @selectTab = "selectTab"
             :tabsTooltips = "targetDataForTabs"
         />
 
@@ -24,12 +24,13 @@
 
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-target">
               <segment-block textType = "target"
-                v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target', segIndex, targetId)"
-                :targetId = "targetId" :segIndex = "segIndex" :dir = "fullData.targets[targetId].dir" :lang = "fullData.targets[targetId].lang"
-                :langName = "fullData.targets[targetId].langName" :metadata = "fullData.targets[targetId].metadata" 
-                :segmentData = "segmentTarget" :targetIdIndex = "targetIdIndex(targetId)" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
-                :isLast = "isLast(targetId)" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
-                v-show="isShownTab(targetId)"
+                v-for="(segmentTarget, targetIndex) in getSegmentData(segIndex)" :key="getIndex('target', segIndex, segmentTarget.targetId)"
+                :targetId = "segmentTarget.targetId" :segIndex = "segIndex" 
+                :dir = "fullData.targets[segmentTarget.targetId].dir" :lang = "fullData.targets[segmentTarget.targetId].lang"
+                :langName = "fullData.targets[segmentTarget.targetId].langName" :metadata = "fullData.targets[segmentTarget.targetId].metadata" 
+                :segmentData = "segmentTarget.segment" :targetIdIndex = "targetIndex" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
+                :isLast = "targetIndex === segmentData.targets.length - 1" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
+                v-show="isShownTab(segmentTarget.targetId)"
               />
             </div><!-- alpheios-al-editor-segment-cell -->
 
@@ -42,8 +43,6 @@
 import EditorTabs from '@/_output/vue/editor-tabs.vue'
 import LangNameBar from '@/_output/vue/lang-name-bar.vue'
 
-// import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
-// import TargetSegmentBlock from '@/_output/vue/target-segment-block.vue'
 import SegmentBlock from '@/_output/vue/segment-block.vue'
 
 import ScrollUtility from '@/lib/utility/scroll-utility.js'
@@ -60,6 +59,10 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    languageTargetIds: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -70,15 +73,19 @@ export default {
       shownTabs: []
     }
   },
+  watch: {
+    languageTargetIds () {
+      this.shownTabs.splice(0, this.shownTabs.length)
+      this.shownTabs.push(this.languageTargetIds[0])
+    }
+  },
   mounted () {
-    this.shownTabs = this.allTargetTextsIds.slice(0, 1)
+    this.shownTabs.splice(0, this.shownTabs.length)
+    this.shownTabs.push(this.languageTargetIds[0])
   },
   computed: {
     allShownSegments () {
-      return GroupUtility.allShownSegments(this.fullData, this.shownTabs)
-    },
-    allTargetTextsIds () {
-      return GroupUtility.allTargetTextsIds(this.fullData)
+      return GroupUtility.allShownSegments(this.fullData, this.languageTargetIds)
     },
     targetDataForTabs () {
       return GroupUtility.targetDataForTabs(this.fullData)
@@ -87,7 +94,7 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'full')
     },
     orderedTargetsId () {
-      return this.allTargetTextsIds.filter(targetId => this.shownTabs.includes(targetId))
+      return this.languageTargetIds.filter(targetId => this.shownTabs.includes(targetId))
     },
     lastTargetId () {
       return this.orderedTargetsId[this.orderedTargetsId.length - 1]
@@ -105,6 +112,9 @@ export default {
     }
   },
   methods: {
+    getSegmentData (segIndex) {
+      return this.allShownSegments[segIndex].targets
+    },
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
@@ -116,7 +126,7 @@ export default {
       }
     },
     targetIdIndex (targetId) {
-      return targetId ? this.allTargetTextsIds.indexOf(targetId) : null
+      return targetId ? this.languageTargetIds.indexOf(targetId) : null
     },
     addHoverToken (token) {
       this.hoveredGroupsId = token.grouped ? token.groupData.filter(groupDataItem => this.shownTabs.includes(groupDataItem.targetId)).map(groupDataItem => groupDataItem.groupId) : null
@@ -148,7 +158,8 @@ export default {
     },
     selectTab (targetId) {
       if ((this.shownTabs.length > 1) && this.shownTabs.includes(targetId)) {
-        this.shownTabs = this.shownTabs.filter(innerTargetId => innerTargetId !== targetId)
+        this.shownTabs.splice(this.shownTabs.indexOf(targetId), 1)
+
       } else if (!this.shownTabs.includes(targetId)) {
         this.shownTabs.push(targetId)
       }     

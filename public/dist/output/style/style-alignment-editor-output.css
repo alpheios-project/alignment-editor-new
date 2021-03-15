@@ -290,6 +290,16 @@ body, html {
 .alpheios-container-inner {
   padding: 0 10px;
 }
+.alpheios-al-editor-languages-list {
+  padding: 5px 10px;
+}
+.alpheios-al-editor-languages-list-item {
+  display: inline-block;
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+}
 .alpheios-tooltip {
   position: relative;
   display: inline-block;
@@ -452,6 +462,7 @@ body, html {
 }
 .alpheios-alignment-editor-align-target-tabs {
   padding-left: 51%;
+  padding-top: 10px;
 }
 .alpheios-alignment-editor-align-target-tab-item {
   cursor: pointer;

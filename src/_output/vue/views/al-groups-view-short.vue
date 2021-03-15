@@ -12,7 +12,7 @@
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
                 :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
-                :hoveredGroupsId = "hoveredGroupsId"
+                :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div>
@@ -55,6 +55,10 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    languageTargetIds: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -71,14 +75,21 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'short')
     },
     hoveredTargetTokens () {
-      return this.updateHovered && this.hoveredGroupsId && 
-            Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
+      if (this.updateHovered && this.hoveredGroupsId) {
+        const allHoveredTargetTokens = Object.keys(this.allAlGroups).filter(groupId => this.hoveredGroupsId.includes(groupId)).map(groupId => {
               return {
                 metadata: this.allAlGroups[groupId].metadata,
                 target: this.allAlGroups[groupId].target,
                 targetId: this.allAlGroups[groupId].targetId
               }
             })
+        return allHoveredTargetTokens.filter(groupData => this.languageTargetIds.includes(groupData.targetId)).sort((a, b) => {
+          return this.languageTargetIds.indexOf(a.targetId) - this.languageTargetIds.indexOf(b.targetId)
+        })
+      }
+
+      return []
+            
     },
     containerHeight () {
       return (window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight) - 150
@@ -97,9 +108,13 @@ export default {
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
-    groupedToken (token) {
-      return token.grouped
+    isShownTab (targetId) {
+      return this.languageTargetIds.includes(targetId)
     },
+    groupedToken (token) {
+      return token.grouped && token.groupData.some(groupdataItem => this.isShownTab(groupdataItem.targetId))
+    },
+
     isTokenInHovered (token) {
       return token.groupData.some(groupDataItem => this.hoveredGroupsId.includes(groupDataItem.groupId) ) 
     },

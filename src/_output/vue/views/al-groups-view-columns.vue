@@ -23,7 +23,7 @@
                     :lang = "getProp('lang', segmentSingle.textType, segmentSingle.targetId)"
                     :langName = "getProp('langName', segmentSingle.textType, segmentSingle.targetId)"
                     :metadata = "getProp('metadata', segmentSingle.textType, segmentSingle.targetId)"
-                    :hoveredGroupsId = "hoveredGroupsId"
+                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
                     @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
 
                     :targetIdIndex = "targetIdIndex(segmentSingle.targetId)"
@@ -59,6 +59,10 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    languageTargetIds: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -71,7 +75,7 @@ export default {
   },
   computed: {
     segmentsForColumns () {
-      return GroupUtility.segmentsForColumns(this.fullData)
+      return GroupUtility.segmentsForColumns(this.fullData, this.languageTargetIds)
     },
     allTargetTextsIds () {
       return GroupUtility.allTargetTextsIds(this.fullData)
