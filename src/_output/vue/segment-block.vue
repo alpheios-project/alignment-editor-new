@@ -165,7 +165,7 @@ export default {
      * Checks if token is grouped and selected
      */
     selectedToken (token) {
-      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHovered(token)
+      return this.hoveredGroupsId && (this.hoveredGroupsId.length > 0) && this.groupedToken(token) && this.isTokenInHoveredGroups(token)
     },
     updateMetadataHeight (height) {
       this.paddingTop = height

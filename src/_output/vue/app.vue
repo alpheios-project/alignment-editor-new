@@ -30,16 +30,20 @@
                 </span>
             </p>
 
-            <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
-            <al-groups-view-columns :full-data="$parent.fullData" v-if="viewType === 'view3Columns'" />
-            <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
-            <al-groups-view-sentence :full-data="$parent.fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
-            <al-groups-view-equivalence :full-data="$parent.fullData" v-if="viewType === 'viewEquivalence'" />
+            <languages-block :full-data="fullData" />
+
+            <al-groups-view-full :full-data="fullData" v-if="viewType === 'viewFull'" />
+            <al-groups-view-columns :full-data="fullData" v-if="viewType === 'view3Columns'" />
+            <al-groups-view-short :full-data="fullData" v-if="viewType === 'viewShort'" />
+            <al-groups-view-sentence :full-data="fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
+            <al-groups-view-equivalence :full-data="fullData" v-if="viewType === 'viewEquivalence'" />
         </div>
             
     </div>
 </template>
 <script>
+import LanguagesBlock from '@/_output/vue/languages-block.vue'
+
 import AlGroupsViewFull from '@/_output/vue/views/al-groups-view-full.vue'
 import AlGroupsViewShort from '@/_output/vue/views/al-groups-view-short.vue'
 import AlGroupsViewSentence from '@/_output/vue/views/al-groups-view-sentence.vue'
@@ -49,13 +53,14 @@ import AlGroupsViewColumns from '@/_output/vue/views/al-groups-view-columns.vue'
 export default {
   name: 'App',
   components: {
+    languagesBlock: LanguagesBlock,
+
     alGroupsViewFull: AlGroupsViewFull,
     alGroupsViewShort: AlGroupsViewShort,
     alGroupsViewSentence: AlGroupsViewSentence,
     alGroupsViewEquivalence: AlGroupsViewEquivalence,
     alGroupsViewColumns: AlGroupsViewColumns
   },
-  // fullData is passed via $parent
   data () {
     return {
       allViewTypes: [
@@ -66,7 +71,16 @@ export default {
         { value: 'viewSentence', label: 'Sentence'}
       ],
       viewType: 'viewFull',
-      sentenceCount: 0
+      sentenceCount: 0,
+      languagesList: []
+    }
+  },
+  mounted() {
+    console.info('fullData', this.fullData)
+  },
+  computed: {
+    fullData () {
+      return this.$parent.fullData
     }
   },
   methods: {
