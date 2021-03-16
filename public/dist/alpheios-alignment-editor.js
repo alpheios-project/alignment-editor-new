@@ -46196,7 +46196,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "docs-tests-03-12.20210312653" : 0
+    return  true ? "small-fix.20210316542" : 0
   }
 
   static get libName () {
