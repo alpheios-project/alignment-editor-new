@@ -75,13 +75,11 @@ export default {
   },
   watch: {
     languageTargetIds () {
-      this.shownTabs.splice(0, this.shownTabs.length)
-      this.shownTabs.push(this.languageTargetIds[0])
+      this.initShownTabs()
     }
   },
   mounted () {
-    this.shownTabs.splice(0, this.shownTabs.length)
-    this.shownTabs.push(this.languageTargetIds[0])
+    this.initShownTabs()
   },
   computed: {
     allShownSegments () {
@@ -112,6 +110,10 @@ export default {
     }
   },
   methods: {
+    initShownTabs () {
+      this.shownTabs.splice(0, this.shownTabs.length)
+      this.shownTabs.push(this.languageTargetIds[0])
+    },
     getSegmentData (segIndex) {
       return this.allShownSegments[segIndex].targets
     },
