@@ -11,13 +11,14 @@
           v-for="langData in languagesList"
           :key="langData.lang"
           :class="langClasses(langData)"
+          @click = "toggleLangDataVisibility(langData)"
         >
           {{ langData.langName }}
 
-          <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="langData.hidden" @click="showLangData(langData)">
+          <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="langData.hidden">
             <hide-icon />
           </span>
-          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!langData.hidden" @click="hideLangData(langData)">
+          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!langData.hidden">
             <show-icon />
           </span>
         </div>
@@ -67,13 +68,8 @@ export default {
       }
     },
 
-    showLangData (langData) {
-      langData.hidden = false
-      this.$emit('updateVisibility', langData)
-    },
-
-    hideLangData (langData) {
-      langData.hidden = true
+    toggleLangDataVisibility (langData) {
+      langData.hidden = !langData.hidden
       this.$emit('updateVisibility', langData)
     }
   }

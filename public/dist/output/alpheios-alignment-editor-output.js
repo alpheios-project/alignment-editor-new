@@ -13229,6 +13229,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -13272,13 +13273,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    showLangData (langData) {
-      langData.hidden = false
-      this.$emit('updateVisibility', langData)
-    },
-
-    hideLangData (langData) {
-      langData.hidden = true
+    toggleLangDataVisibility (langData) {
+      langData.hidden = !langData.hidden
       this.$emit('updateVisibility', langData)
     }
   }
@@ -15946,7 +15942,15 @@ var render = function() {
         _vm._l(_vm.languagesList, function(langData) {
           return _c(
             "div",
-            { key: langData.lang, class: _vm.langClasses(langData) },
+            {
+              key: langData.lang,
+              class: _vm.langClasses(langData),
+              on: {
+                click: function($event) {
+                  return _vm.toggleLangDataVisibility(langData)
+                }
+              }
+            },
             [
               _vm._v("\n      " + _vm._s(langData.langName) + "\n\n      "),
               _c(
@@ -15961,12 +15965,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive",
-                  on: {
-                    click: function($event) {
-                      return _vm.showLangData(langData)
-                    }
-                  }
+                    "alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive"
                 },
                 [_c("hide-icon")],
                 1
@@ -15984,12 +15983,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "alpheios-icon-button alpheios-al-editor-languages-show",
-                  on: {
-                    click: function($event) {
-                      return _vm.hideLangData(langData)
-                    }
-                  }
+                    "alpheios-icon-button alpheios-al-editor-languages-show"
                 },
                 [_c("show-icon")],
                 1
