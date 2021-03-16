@@ -8,23 +8,35 @@
         @end="endDrag"
       >
         <div
-          class="alpheios-al-editor-languages-list-item"
           v-for="langData in languagesList"
           :key="langData.lang"
+          :class="langClasses(langData)"
         >
           {{ langData.langName }}
+
+          <span class="alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive" v-show="langData.hidden" @click="showLangData(langData)">
+            <hide-icon />
+          </span>
+          <span class="alpheios-icon-button alpheios-al-editor-languages-show" v-show="!langData.hidden" @click="hideLangData(langData)">
+            <show-icon />
+          </span>
         </div>
       </draggable>
     </div>
 </template>
 <script>
-import Draggable from "@vuedraggable"
+import ShowIcon from '@/_output/inline-icons/show.svg'
+import HideIcon from '@/_output/inline-icons/hide.svg'
+
+import Draggable from '@vuedraggable'
 import GroupUtility from '@/_output/utility/group-utility.js'
 
 export default {
   name: 'LanguagesBlock',
   components: {
-    draggable: Draggable
+    draggable: Draggable,
+    hideIcon: HideIcon,
+    showIcon: ShowIcon
   },
   props: {
     fullData: {
@@ -46,6 +58,23 @@ export default {
       this.dragging = false
       const langsList = this.languagesList.map(langData => langData.targetId)
       this.$emit('changeLanguageOrder', langsList)
+    },
+
+    langClasses (langData) {
+      return {
+        'alpheios-al-editor-languages-list-item': true,
+        'alpheios-al-editor-languages-list-item__inactive': langData.hidden
+      }
+    },
+
+    showLangData (langData) {
+      langData.hidden = false
+      this.$emit('updateVisibility', langData)
+    },
+
+    hideLangData (langData) {
+      langData.hidden = true
+      this.$emit('updateVisibility', langData)
     }
   }
 }
@@ -61,5 +90,13 @@ export default {
     background: #fff;
     padding: 5px 10px;
     cursor: pointer;
+  }
+
+  .alpheios-icon-button {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 5px;
   }
 </style>

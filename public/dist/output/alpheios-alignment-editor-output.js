@@ -12455,7 +12455,7 @@ class GroupUtility {
   static allLanguagesTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName
+        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName, hidden: true
       }
     })
   }
@@ -12982,7 +12982,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$parent.fullData
     },
     languageTargetIds () {
-      return this.languagesList.map(langData => langData.targetId)
+      return this.languagesList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     }
   },
   methods: {
@@ -13008,6 +13008,11 @@ __webpack_require__.r(__webpack_exports__);
       this.languagesList.sort((a, b) => {
         return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
       })
+    },
+
+    updateVisibility (langData) {
+      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
+      console.info('this.languagesList - ', this.languagesList)
     }
   }
 });
@@ -13191,9 +13196,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vuedraggable */ "../node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
-/* harmony import */ var _vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
+/* harmony import */ var _output_inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/inline-icons/show.svg */ "./_output/inline-icons/show.svg");
+/* harmony import */ var _output_inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_output_inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _output_inline_icons_hide_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/inline-icons/hide.svg */ "./_output/inline-icons/hide.svg");
+/* harmony import */ var _output_inline_icons_hide_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_output_inline_icons_hide_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _vuedraggable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vuedraggable */ "../node_modules/vuedraggable/dist/vuedraggable.umd.min.js");
+/* harmony import */ var _vuedraggable__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_vuedraggable__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
 //
 //
 //
@@ -13213,6 +13222,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 
@@ -13220,7 +13239,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LanguagesBlock',
   components: {
-    draggable: (_vuedraggable__WEBPACK_IMPORTED_MODULE_0___default())
+    draggable: (_vuedraggable__WEBPACK_IMPORTED_MODULE_2___default()),
+    hideIcon: (_output_inline_icons_hide_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    showIcon: (_output_inline_icons_show_svg__WEBPACK_IMPORTED_MODULE_0___default())
   },
   props: {
     fullData: {
@@ -13235,13 +13256,30 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created() {
-    this.languagesList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.allLanguagesTargets(this.fullData)
+    this.languagesList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.allLanguagesTargets(this.fullData)
   },
   methods: {
     endDrag (e) {
       this.dragging = false
       const langsList = this.languagesList.map(langData => langData.targetId)
       this.$emit('changeLanguageOrder', langsList)
+    },
+
+    langClasses (langData) {
+      return {
+        'alpheios-al-editor-languages-list-item': true,
+        'alpheios-al-editor-languages-list-item__inactive': langData.hidden
+      }
+    },
+
+    showLangData (langData) {
+      langData.hidden = false
+      this.$emit('updateVisibility', langData)
+    },
+
+    hideLangData (langData) {
+      langData.hidden = true
+      this.$emit('updateVisibility', langData)
     }
   }
 });
@@ -15629,7 +15667,10 @@ var render = function() {
         _vm._v(" "),
         _c("languages-block", {
           attrs: { fullData: _vm.fullData },
-          on: { changeLanguageOrder: _vm.changeLanguageOrder }
+          on: {
+            changeLanguageOrder: _vm.changeLanguageOrder,
+            updateVisibility: _vm.updateVisibility
+          }
         }),
         _vm._v(" "),
         _vm.viewType === "viewFull"
@@ -15903,11 +15944,55 @@ var render = function() {
         _vm._l(_vm.languagesList, function(langData) {
           return _c(
             "div",
-            {
-              key: langData.lang,
-              staticClass: "alpheios-al-editor-languages-list-item"
-            },
-            [_vm._v("\n      " + _vm._s(langData.langName) + "\n    ")]
+            { key: langData.lang, class: _vm.langClasses(langData) },
+            [
+              _vm._v("\n      " + _vm._s(langData.langName) + "\n\n      "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: langData.hidden,
+                      expression: "langData.hidden"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-icon-button alpheios-al-editor-languages-hide alpheios-icon-button__inactive",
+                  on: {
+                    click: function($event) {
+                      return _vm.showLangData(langData)
+                    }
+                  }
+                },
+                [_c("hide-icon")],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !langData.hidden,
+                      expression: "!langData.hidden"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-icon-button alpheios-al-editor-languages-show",
+                  on: {
+                    click: function($event) {
+                      return _vm.hideLangData(langData)
+                    }
+                  }
+                },
+                [_c("show-icon")],
+                1
+              )
+            ]
           )
         }),
         0
@@ -16923,6 +17008,80 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./_output/inline-icons/hide.svg":
+/*!***************************************!*\
+  !*** ./_output/inline-icons/hide.svg ***!
+  \***************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 60 60","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M51.462 21.96c-11.89-11.888-31.233-11.888-43.122 0L.4 29.9l8.137 8.139c5.944 5.944 13.752 8.917 21.561 8.917s15.616-2.972 21.561-8.917l7.941-7.941zm-1.218 14.665c-11.108 11.108-29.183 11.108-40.292 0L3.228 29.9l6.527-6.527c11.109-11.108 29.184-11.108 40.293 0l6.723 6.724z"}}),_c('path',{attrs:{"d":"M28.971 21.97c-3.86 0-7 3.14-7 7a1 1 0 002 0c0-2.757 2.243-5 5-5a1 1 0 000-2z"}}),_c('path',{attrs:{"d":"M29.971 16.97c-7.168 0-13 5.832-13 13s5.832 13 13 13 13-5.832 13-13-5.83-13-13-13zm0 24c-6.065 0-11-4.935-11-11s4.935-11 11-11 11 4.935 11 11-4.933 11-11 11z"}}),_c('path',{staticStyle:{"font-feature-settings":"normal","font-variant-alternates":"normal","font-variant-caps":"normal","font-variant-east-asian":"normal","font-variant-ligatures":"normal","font-variant-numeric":"normal","font-variant-position":"normal","font-variation-settings":"normal","inline-size":"0","isolation":"auto","mix-blend-mode":"normal","shape-margin":"0","shape-padding":"0","text-decoration-color":"#000","text-decoration-line":"none","text-decoration-style":"solid","text-indent":"0","text-orientation":"mixed","text-transform":"none","white-space":"normal"},attrs:{"d":"M7.184 5.989a.874.878 0 00-.589.256.874.878 0 000 1.242l45.989 46.156a.874.878 0 001.236 0 .874.878 0 000-1.24L7.832 6.245a.874.878 0 00-.649-.256z","color":"#000"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./_output/inline-icons/show.svg":
+/*!***************************************!*\
+  !*** ./_output/inline-icons/show.svg ***!
+  \***************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 60 60","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M51.462 21.96c-11.89-11.888-31.233-11.888-43.122 0L.4 29.9l8.137 8.139c5.944 5.944 13.752 8.917 21.561 8.917s15.616-2.972 21.561-8.917l7.941-7.941zm-1.218 14.665c-11.108 11.108-29.183 11.108-40.292 0L3.228 29.9l6.527-6.527c11.109-11.108 29.184-11.108 40.293 0l6.723 6.724z"}}),_c('path',{attrs:{"d":"M28.971 21.97c-3.86 0-7 3.14-7 7a1 1 0 002 0c0-2.757 2.243-5 5-5a1 1 0 000-2z"}}),_c('path',{attrs:{"d":"M29.971 16.97c-7.168 0-13 5.832-13 13s5.832 13 13 13 13-5.832 13-13-5.83-13-13-13zm0 24c-6.065 0-11-4.935-11-11s4.935-11 11-11 11 4.935 11 11-4.933 11-11 11z"}})])
+          )
+        }
+      }
+    
 
 /***/ })
 

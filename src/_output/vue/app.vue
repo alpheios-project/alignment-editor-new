@@ -30,7 +30,7 @@
                 </span>
             </p>
 
-            <languages-block :fullData="fullData" @changeLanguageOrder = "changeLanguageOrder" />
+            <languages-block :fullData="fullData" @changeLanguageOrder = "changeLanguageOrder" @updateVisibility = "updateVisibility"/>
 
             <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
             <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
@@ -85,7 +85,7 @@ export default {
       return this.$parent.fullData
     },
     languageTargetIds () {
-      return this.languagesList.map(langData => langData.targetId)
+      return this.languagesList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     }
   },
   methods: {
@@ -111,6 +111,11 @@ export default {
       this.languagesList.sort((a, b) => {
         return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
       })
+    },
+
+    updateVisibility (langData) {
+      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
+      console.info('this.languagesList - ', this.languagesList)
     }
   }
 }

@@ -60,4 +60,36 @@
           }
         }
     }
+
+    .alpheios-al-editor-languages-list-item__inactive {
+        color: map.get($theme, 'icon-link-color-inactive');
+    }
+    
+    .alpheios-icon-button { 
+        // border-color: map.get($theme, 'main-menu-border-color');
+        // background: map.get($theme, 'main-menu-background-color');
+        svg {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          vertical-align: top;
+
+          fill: map.get($theme, 'icon-link-color');
+          stroke: map.get($theme, 'icon-link-color');
+        }
+
+        &:hover {
+            svg {
+              fill: map.get($theme, 'icon-link-color-hover');
+              stroke: map.get($theme, 'icon-link-color-hover');
+            }
+        }
+
+        &.alpheios-icon-button__inactive {
+            svg {
+              fill: map.get($theme, 'icon-link-color-inactive');
+              stroke: map.get($theme, 'icon-link-color-inactive');
+            }
+        }
+    }
 }

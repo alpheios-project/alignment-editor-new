@@ -17,7 +17,7 @@ export default class GroupUtility {
   static allLanguagesTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName
+        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName, hidden: true
       }
     })
   }
