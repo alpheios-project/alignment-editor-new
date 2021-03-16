@@ -12440,7 +12440,7 @@ class GroupUtility {
   /**
    *
    * @param {Object} fullData - json object with full alignment data for output
-   * @returns {Array[String]} - array of targetId
+   * @returns {Array[String]} - array of targetIds
    */
   static allTargetTextsIds (fullData) {
     const sortFn = (a, b) => {
@@ -12452,6 +12452,15 @@ class GroupUtility {
     return Object.keys(fullData.targets).sort(sortFn)
   }
 
+  /**
+   *
+   * @param {Object} fullData - json object with full alignment data for output
+   * @returns {Array{Object}}
+   *                {String} - targetId
+   *                {String} - lang - language code
+   *                {String} - langName - language name
+   *                {Boolean} - hidden - visibility flag
+   */
   static allLanguagesTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
@@ -12460,6 +12469,11 @@ class GroupUtility {
     })
   }
 
+  /**
+   *
+   * @param {Object} fullData - json object with full alignment data for output
+   * @returns {Object} - key - targetId, value - LangName - Short metadata (Title, creator, date copyrighted)
+   */
   static targetDataForTabs (fullData) {
     const allTargetIds = this.allTargetTextsIds(fullData)
 
@@ -12530,6 +12544,18 @@ class GroupUtility {
     return allS
   }
 
+  /**
+   *
+   * @param {Object} fullData - json object with full alignment data for output
+   * @param {Array[String]} languageTargetIds - array of shown targetIds
+   * @param {Number} columns - amount of columns
+   * @returns {Array[Object]}
+   *                {Number} index - segment inde
+   *                {Array[Array{Object}]} segmentRows[segmentRowIndex][segmentCellIndex] - table of segments
+   *                            {String} textType - origin/target
+   *                            {String} targetId - only for target
+   *                            {Array[Object]} tokens
+   */
   static segmentsForColumns (fullData, languageTargetIds, columns = 3) {
     const allS = []
     fullData.origin.segments.forEach((segment, indexS) => {
