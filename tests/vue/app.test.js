@@ -54,7 +54,7 @@ describe('app.test.js', () => {
 
   it('1 App - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(App)
-    expect(cmp.isVueInstance()).toBeTruthy()
+    expect(cmp.vm).toBeTruthy()
   })
 
   it('2 App - should contain MainMenu, TextEditor, AlignEditor', () => {

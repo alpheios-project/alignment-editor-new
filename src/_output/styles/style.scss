@@ -18,6 +18,9 @@ body, html {
     font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.alpheios-app-container {
+    min-width: 1000px;
+}
 
 .alpheios-header {
     overflow: hidden;
@@ -49,6 +52,7 @@ body, html {
         font-weight: normal;
     }
 }
+
 
 .alpheios-container-inner {
     padding: 0 10px;

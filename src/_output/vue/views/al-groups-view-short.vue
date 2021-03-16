@@ -8,8 +8,8 @@
                 v-for="(segmentData, segIndex) in allOriginSegments" :key="getIndex('origin', segIndex)"
                 :class = "{ 'alpheios-al-editor-segment-block-last': segIndex === allOriginSegments.length - 1 }"
             >
-              <origin-segment-block
-                :segmentData = "segmentData" :segIndex = "segIndex" :maxHeight = "maxHeight"
+              <segment-block textType = "origin"
+                :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
                 :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
                 :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
                 :hoveredGroupsId = "hoveredGroupsId"
@@ -41,7 +41,7 @@
 </template>
 <script>
 import TokenBlock from '@/_output/vue/token-block.vue'
-import OriginSegmentBlock from '@/_output/vue/origin-segment-block.vue'
+import SegmentBlock from '@/_output/vue/segment-block.vue'
 
 import GroupUtility from '@/_output/utility/group-utility.js'
 
@@ -49,7 +49,7 @@ export default {
   name: 'AlGroupsViewShort',
   components: {
     tokenBlock: TokenBlock,
-    originSegmentBlock: OriginSegmentBlock
+    segmentBlock: SegmentBlock
   },
   props: {
     fullData: {

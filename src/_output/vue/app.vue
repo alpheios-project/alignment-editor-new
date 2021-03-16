@@ -31,6 +31,7 @@
             </p>
 
             <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
+            <al-groups-view-columns :full-data="$parent.fullData" v-if="viewType === 'view3Columns'" />
             <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
             <al-groups-view-sentence :full-data="$parent.fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
             <al-groups-view-equivalence :full-data="$parent.fullData" v-if="viewType === 'viewEquivalence'" />
@@ -39,10 +40,11 @@
     </div>
 </template>
 <script>
-import AlGroupsViewFull from '@/_output/vue/al-groups-view-full.vue'
-import AlGroupsViewShort from '@/_output/vue/al-groups-view-short.vue'
-import AlGroupsViewSentence from '@/_output/vue/al-groups-view-sentence.vue'
-import AlGroupsViewEquivalence from '@/_output/vue/al-groups-view-equivalence.vue'
+import AlGroupsViewFull from '@/_output/vue/views/al-groups-view-full.vue'
+import AlGroupsViewShort from '@/_output/vue/views/al-groups-view-short.vue'
+import AlGroupsViewSentence from '@/_output/vue/views/al-groups-view-sentence.vue'
+import AlGroupsViewEquivalence from '@/_output/vue/views/al-groups-view-equivalence.vue'
+import AlGroupsViewColumns from '@/_output/vue/views/al-groups-view-columns.vue'
 
 export default {
   name: 'App',
@@ -50,12 +52,15 @@ export default {
     alGroupsViewFull: AlGroupsViewFull,
     alGroupsViewShort: AlGroupsViewShort,
     alGroupsViewSentence: AlGroupsViewSentence,
-    alGroupsViewEquivalence: AlGroupsViewEquivalence
+    alGroupsViewEquivalence: AlGroupsViewEquivalence,
+    alGroupsViewColumns: AlGroupsViewColumns
   },
+  // fullData is passed via $parent
   data () {
     return {
       allViewTypes: [
         { value: 'viewFull', label: 'Full'},
+        { value: 'view3Columns', label: '3 columns'},
         { value: 'viewShort', label: 'Short'},
         { value: 'viewEquivalence', label: 'Equivalence'},
         { value: 'viewSentence', label: 'Sentence'}
@@ -65,10 +70,18 @@ export default {
     }
   },
   methods: {
+    /**
+     * Css id for display view select
+     * @param {String} value - display view
+     * @returns {String}
+     */
     itemIdWithValue (value) {
       return `alpheios-alignment-radio-block__${value.toLowerCase().replace(' ', '_')}`
     },
 
+    /**
+     * Sets a limit for the sentence count typed manually - min 0
+     */
     checkSentenceCount () {
       if (this.sentenceCount < 0) { 
         this.sentenceCount = 0
@@ -79,12 +92,12 @@ export default {
 </script>
 <style lang="scss">
     .alpheios-alignment-editor-container {
-        padding: 15px 15px 0;
+        padding: 15px;
         height: calc(100% - 110px);
     }
 
     .alpheios-alignment-radio-block {
-        margin: 0 10px;
+        margin: 0 10px 10px;
         span {
             display: inline-block;
             margin-right: 20px;

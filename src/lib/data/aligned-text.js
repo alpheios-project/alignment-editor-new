@@ -33,6 +33,10 @@ export default class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
+  get langName () {
+    return Langs.all.find(langData => langData.value === this.lang).text
+  }
+
   updateLanguage (lang) {
     this.lang = lang
     this.segments.forEach(segment => segment.updateLanguage(lang))
@@ -42,9 +46,9 @@ export default class AlignedText {
    * Creates tokens bazed on defined method
    * @param {SourceText} docSource
    */
-  async tokenize (docSource) {
+  async tokenize (docSource, useSpecificEnglishTokenizer = false) {
     const tokenizeMethod = TokenizeController.getTokenizer(docSource.tokenization.tokenizer)
-    const result = await tokenizeMethod(docSource, this.tokenPrefix)
+    const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
       this.segments = result.segments.map(segment => new Segment({
@@ -120,7 +124,7 @@ export default class AlignedText {
     return {
       dir: this.direction,
       lang: this.lang,
-      langName: Langs.all.find(langData => langData.value === this.lang).text,
+      langName: this.langName,
       segments: this.segments.map(seg => {
         return {
           tokens: seg.tokens.map(token => token.convertForHTMLOutput())

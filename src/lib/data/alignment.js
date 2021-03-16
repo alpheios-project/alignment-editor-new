@@ -170,7 +170,7 @@ export default class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts () {
+  async createAlignedTexts (useSpecificEnglishTokenizer = false) {
     if (!this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({
@@ -181,14 +181,14 @@ export default class Alignment {
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText()
+      const originResult = await this.createOriginAlignedText(useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i)
+        const targetResult = await this.createTargetAlignedText(id, i, useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -196,13 +196,13 @@ export default class Alignment {
     return true
   }
 
-  async createOriginAlignedText () {
+  async createOriginAlignedText (useSpecificEnglishTokenizer = false) {
     this.origin.alignedText = new AlignedText({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
     })
 
-    const result = await this.origin.alignedText.tokenize(this.origin.docSource)
+    const result = await this.origin.alignedText.tokenize(this.origin.docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ORIGIN_NOT_TOKENIZED'))
@@ -215,13 +215,13 @@ export default class Alignment {
     return true
   }
 
-  async createTargetAlignedText (targetId, index) {
+  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer = false) {
     this.targets[targetId].alignedText = new AlignedText({
       docSource: this.targets[targetId].docSource,
       tokenPrefix: (index + 2)
     })
 
-    const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource)
+    const result = await this.targets[targetId].alignedText.tokenize(this.targets[targetId].docSource, useSpecificEnglishTokenizer)
 
     if (!result) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_TARGET_NOT_TOKENIZED', { textnum: (index + 1) }))
@@ -706,6 +706,19 @@ export default class Alignment {
    */
   get allTokenizedTargetTextsIds () {
     return Object.keys(this.targets).filter(targetId => Boolean(this.targets[targetId].alignedText))
+  }
+
+  getTargetDataForTabs (targetIds) {
+    const dataForTabs = {}
+    targetIds.forEach(targetId => {
+      dataForTabs[targetId] = this.targets[targetId].alignedText.langName
+
+      const metadata = this.targets[targetId].docSource.metadata.convertToShortJSONLine()
+      if (metadata) {
+        dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
+      }
+    })
+    return dataForTabs
   }
 
   /**

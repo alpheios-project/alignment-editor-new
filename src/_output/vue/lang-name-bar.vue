@@ -34,6 +34,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * Show/hide full metadata and emits an event to adapt padding-top for the cell
+     */
     async toggleMetadata () {
       this.showFullMetadata = !this.showFullMetadata
       await Vue.nextTick()
