@@ -30,7 +30,8 @@
                 </span>
             </p>
 
-            <languages-block :fullData="fullData" @changeLanguageOrder = "changeLanguageOrder" @updateVisibility = "updateVisibility"/>
+            <languages-block :fullData="fullData" v-if="languagesList.length > 1"
+                @changeLanguageOrder = "changeLanguageOrder" @updateVisibility = "updateVisibility"/>
 
             <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
             <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
@@ -115,7 +116,6 @@ export default {
 
     updateVisibility (langData) {
       this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
-      console.info('this.languagesList - ', this.languagesList)
     }
   }
 }

@@ -12455,7 +12455,7 @@ class GroupUtility {
   static allLanguagesTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName, hidden: true
+        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName, hidden: false
       }
     })
   }
@@ -12938,6 +12938,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -13012,7 +13013,6 @@ __webpack_require__.r(__webpack_exports__);
 
     updateVisibility (langData) {
       this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
-      console.info('this.languagesList - ', this.languagesList)
     }
   }
 });
@@ -15665,13 +15665,15 @@ var render = function() {
           2
         ),
         _vm._v(" "),
-        _c("languages-block", {
-          attrs: { fullData: _vm.fullData },
-          on: {
-            changeLanguageOrder: _vm.changeLanguageOrder,
-            updateVisibility: _vm.updateVisibility
-          }
-        }),
+        _vm.languagesList.length > 1
+          ? _c("languages-block", {
+              attrs: { fullData: _vm.fullData },
+              on: {
+                changeLanguageOrder: _vm.changeLanguageOrder,
+                updateVisibility: _vm.updateVisibility
+              }
+            })
+          : _vm._e(),
         _vm._v(" "),
         _vm.viewType === "viewFull"
           ? _c("al-groups-view-full", {
