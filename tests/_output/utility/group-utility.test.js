@@ -23,7 +23,7 @@ describe('group-utility.test.js', () => {
 
   it('1 GroupUtility - allTargetTextsIds extracts all targetIds', async () => {
     const fullData = new SourceData(TestData)
-    expect(GroupUtility.allTargetTextsIds(fullData)).toEqual(['5f40214e-ce53-4d7b-91c3-e8d857b466b8', '9a0ca81c-816f-4040-9b4f-c7bde4e19925'])
+    expect(GroupUtility.allTargetTextsIds(fullData)).toEqual(['9a0ca81c-816f-4040-9b4f-c7bde4e19925', '5f40214e-ce53-4d7b-91c3-e8d857b466b8'])
   })
 
   it('2 GroupUtility - isShownTab checks if targetId is in shownTabs', async () => {

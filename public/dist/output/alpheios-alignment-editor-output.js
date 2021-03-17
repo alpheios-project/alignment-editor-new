@@ -12488,13 +12488,7 @@ class GroupUtility {
    * @returns {Array[String]} - array of targetIds
    */
   static allTargetTextsIds (fullData) {
-    const sortFn = (a, b) => {
-      if (fullData.getLangName('target', a) < fullData.getLangName('target', b)) { return -1 }
-      if (fullData.getLangName('target', a) > fullData.getLangName('target', b)) { return 1 }
-      return 0
-    }
-
-    return Object.keys(fullData.targets).sort(sortFn)
+    return Object.keys(fullData.targets)
   }
 
   /**
