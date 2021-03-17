@@ -16,7 +16,7 @@ import Vue from '@vue-runtime'
 let appC
 
 describe('app.test.js', () => {
-  // console.error = function () {}
+  console.error = function () {}
   console.log = function () {}
   console.warn = function () {}
 
@@ -38,7 +38,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -61,7 +61,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -86,7 +86,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -111,7 +111,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -136,7 +136,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -161,7 +161,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -186,7 +186,7 @@ describe('app.test.js', () => {
     }).vm
 
     let cmp = shallowMount(App, {
-      created() {
+      beforeCreate() {
         this.$parent = ParentVm
       }
     })
@@ -199,4 +199,5 @@ describe('app.test.js', () => {
     await cmp.setData({ sentenceCount: 2 })
     expect(cmp.vm.sentenceCount).toEqual(2)
   })
+
 })

@@ -26,20 +26,28 @@
                       @change="checkSentenceCount"
                       :id="itemIdWithValue('sentenceCount')"
                   >
-                  <label :for="itemIdWithValue('sentenceCount')">sentences around</label>
+                  <label :for="itemIdWithValue('sentenceCount')" >sentences around</label>
                 </span>
             </p>
 
-            <al-groups-view-full :full-data="$parent.fullData" v-if="viewType === 'viewFull'" />
-            <al-groups-view-columns :full-data="$parent.fullData" v-if="viewType === 'view3Columns'" />
-            <al-groups-view-short :full-data="$parent.fullData" v-if="viewType === 'viewShort'" />
-            <al-groups-view-sentence :full-data="$parent.fullData" :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
-            <al-groups-view-equivalence :full-data="$parent.fullData" v-if="viewType === 'viewEquivalence'" />
+            <languages-block :fullData="fullData" v-if="languagesList.length > 1"
+                @changeLanguageOrder = "changeLanguageOrder" @updateVisibility = "updateVisibility"/>
+
+            <al-groups-view-full :fullData="fullData" :languageTargetIds = "languageTargetIds" v-if="viewType === 'viewFull'" />
+            <al-groups-view-columns :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'view3Columns'" />
+            <al-groups-view-short :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewShort'" />
+            <al-groups-view-sentence :fullData="fullData" :languageTargetIds = "languageTargetIds"  :sentence-count = "sentenceCount" v-if="viewType === 'viewSentence'" />
+            <al-groups-view-equivalence :fullData="fullData" :languageTargetIds = "languageTargetIds"  v-if="viewType === 'viewEquivalence'" />
         </div>
             
     </div>
 </template>
 <script>
+import GroupUtility from '@/_output/utility/group-utility.js'
+import SourceData from '@/_output/data/source-data.js'
+
+import LanguagesBlock from '@/_output/vue/languages-block.vue'
+
 import AlGroupsViewFull from '@/_output/vue/views/al-groups-view-full.vue'
 import AlGroupsViewShort from '@/_output/vue/views/al-groups-view-short.vue'
 import AlGroupsViewSentence from '@/_output/vue/views/al-groups-view-sentence.vue'
@@ -49,13 +57,14 @@ import AlGroupsViewColumns from '@/_output/vue/views/al-groups-view-columns.vue'
 export default {
   name: 'App',
   components: {
+    languagesBlock: LanguagesBlock,
+
     alGroupsViewFull: AlGroupsViewFull,
     alGroupsViewShort: AlGroupsViewShort,
     alGroupsViewSentence: AlGroupsViewSentence,
     alGroupsViewEquivalence: AlGroupsViewEquivalence,
     alGroupsViewColumns: AlGroupsViewColumns
   },
-  // fullData is passed via $parent
   data () {
     return {
       allViewTypes: [
@@ -66,7 +75,19 @@ export default {
         { value: 'viewSentence', label: 'Sentence'}
       ],
       viewType: 'viewFull',
-      sentenceCount: 0
+      sentenceCount: 0,
+      languagesList: []
+    }
+  },
+  created() {
+    this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
+  },
+  computed: {
+    fullData () {
+      return new SourceData(this.$parent.fullData)
+    },
+    languageTargetIds () {
+      return this.languagesList.filter(langData => !langData.hidden).map(langData => langData.targetId)
     }
   },
   methods: {
@@ -86,6 +107,16 @@ export default {
       if (this.sentenceCount < 0) { 
         this.sentenceCount = 0
       }
+    },
+
+    changeLanguageOrder (langList) {
+      this.languagesList.sort((a, b) => {
+        return langList.indexOf(a.targetId) - langList.indexOf(b.targetId)
+      })
+    },
+
+    updateVisibility (langData) {
+      this.languagesList.find(curLangData => curLangData.lang === langData.lang).hidden = langData.hidden
     }
   }
 }

@@ -19,11 +19,11 @@
                   <segment-block v-if="segmentSingle.textType"
                     :textType = "segmentSingle.textType" 
                     :segmentData = "segmentSingle" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                    :dir = "getProp('dir', segmentSingle.textType, segmentSingle.targetId, segmentSingle)"
-                    :lang = "getProp('lang', segmentSingle.textType, segmentSingle.targetId)"
-                    :langName = "getProp('langName', segmentSingle.textType, segmentSingle.targetId)"
-                    :metadata = "getProp('metadata', segmentSingle.textType, segmentSingle.targetId)"
-                    :hoveredGroupsId = "hoveredGroupsId"
+                    :dir = "fullData.getDir(segmentSingle.textType, segmentSingle.targetId)"
+                    :lang = "fullData.getLang(segmentSingle.textType, segmentSingle.targetId)"
+                    :langName = "fullData.getLangName(segmentSingle.textType, segmentSingle.targetId)"
+                    :metadata = "fullData.getMetadata(segmentSingle.textType, segmentSingle.targetId)"
+                    :hoveredGroupsId = "hoveredGroupsId" :shownTabs = "languageTargetIds"
                     @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
 
                     :targetIdIndex = "targetIdIndex(segmentSingle.targetId)"
@@ -59,6 +59,10 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    languageTargetIds: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -71,7 +75,7 @@ export default {
   },
   computed: {
     segmentsForColumns () {
-      return GroupUtility.segmentsForColumns(this.fullData)
+      return GroupUtility.segmentsForColumns(this.fullData, this.languageTargetIds)
     },
     allTargetTextsIds () {
       return GroupUtility.allTargetTextsIds(this.fullData)
@@ -137,11 +141,6 @@ export default {
     isLast(targetId) {
       return targetId === this.lastTargetId
     },
-
-    getProp (propName, textType, targetId, segmentSingle) {
-      return textType === 'origin' ? this.fullData.origin[propName] : this.fullData.targets[targetId][propName]
-    },
-
     rowColor(segIndex) {
       return `background: ${this.colors[segIndex]};`
     }

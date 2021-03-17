@@ -108,6 +108,11 @@ export default {
       type: String,
       required: false,
       default: 'byTargetId'
+    },
+    targetId: {
+      type: String,
+      required: false,
+      default: 'byTargetId'
     }
   },
   data () {
@@ -118,7 +123,7 @@ export default {
   },
   computed: {
     cssId () {
-      return `alpheios-align-text-segment-${this.textType}-${this.segIndex}`
+      return `alpheios-align-text-segment-${this.textType}-${this.segIndex}-${this.targetId}`
     },
     cssStyle () {
       const colors = this.changeColor === 'byTargetId' ? `background: ${this.colors[this.targetIdIndex]};` : `background: transparent;`

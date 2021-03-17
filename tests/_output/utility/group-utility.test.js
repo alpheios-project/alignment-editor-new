@@ -3,6 +3,7 @@
 
 import TestData from '@tests/_output/utility/test-data.json'
 import GroupUtility from '@/_output/utility/group-utility.js'
+import SourceData from '@/_output/data/source-data.js'
 
 describe('group-utility.test.js', () => {
   console.error = function () {}
@@ -21,7 +22,7 @@ describe('group-utility.test.js', () => {
   })
 
   it('1 GroupUtility - allTargetTextsIds extracts all targetIds', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     expect(GroupUtility.allTargetTextsIds(fullData)).toEqual(['9a0ca81c-816f-4040-9b4f-c7bde4e19925', '5f40214e-ce53-4d7b-91c3-e8d857b466b8'])
   })
 
@@ -31,25 +32,25 @@ describe('group-utility.test.js', () => {
   })
 
   it('3 GroupUtility - allOriginSegments extracts all segments from origin', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     const allOriginSegments = GroupUtility.allOriginSegments(fullData)
 
     expect(allOriginSegments.length).toEqual(3)
     
     expect(allOriginSegments[0].index).toEqual(0)
-    expect(allOriginSegments[0].targets).toEqual({})
+    expect(allOriginSegments[0].targets).toEqual([])
     
     expect(allOriginSegments[0].origin).toEqual({ tokens: expect.any(Array) })
     expect(allOriginSegments[0].origin.tokens.length).toEqual(7)
 
     expect(allOriginSegments[1].index).toEqual(1)
-    expect(allOriginSegments[1].targets).toEqual({})
+    expect(allOriginSegments[1].targets).toEqual([])
 
     expect(allOriginSegments[1].origin).toEqual({ tokens: expect.any(Array) })
     expect(allOriginSegments[1].origin.tokens.length).toEqual(6)
 
     expect(allOriginSegments[2].index).toEqual(2)
-    expect(allOriginSegments[2].targets).toEqual({})
+    expect(allOriginSegments[2].targets).toEqual([])
 
     expect(allOriginSegments[2].origin).toEqual({ tokens: expect.any(Array) })
     expect(allOriginSegments[2].origin.tokens.length).toEqual(7)
@@ -57,7 +58,7 @@ describe('group-utility.test.js', () => {
 
   
   it('4 GroupUtility - allShownSegments extracts all segments from origin', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     // console.info('fullData', fullData)
 
     const allShownSegments1 = GroupUtility.allShownSegments(fullData, ['9a0ca81c-816f-4040-9b4f-c7bde4e19925'])
@@ -70,29 +71,38 @@ describe('group-utility.test.js', () => {
     expect(allShownSegments1[0].origin).toEqual({ tokens: expect.any(Array) })
     expect(allShownSegments1[0].origin.tokens.length).toEqual(7)
 
-    expect(allShownSegments1[0].targets).toEqual({
-      '9a0ca81c-816f-4040-9b4f-c7bde4e19925': {
-        tokens: expect.any(Array)
+    expect(allShownSegments1[0].targets).toEqual([
+      {
+        targetId: '9a0ca81c-816f-4040-9b4f-c7bde4e19925',
+        segment: {
+          tokens: expect.any(Array)
+        }
       }
-    })
-    expect(allShownSegments1[0].targets['9a0ca81c-816f-4040-9b4f-c7bde4e19925'].tokens.length).toEqual(4)
+    ])
+    expect(allShownSegments1[0].targets[0].segment.tokens.length).toEqual(4)
 
     const allShownSegments2 = GroupUtility.allShownSegments(fullData, ['9a0ca81c-816f-4040-9b4f-c7bde4e19925', '5f40214e-ce53-4d7b-91c3-e8d857b466b8'])
 
-    expect(allShownSegments2[0].targets).toEqual({
-      '9a0ca81c-816f-4040-9b4f-c7bde4e19925': {
-        tokens: expect.any(Array)
+    expect(allShownSegments2[0].targets).toEqual([
+      {
+        targetId: '9a0ca81c-816f-4040-9b4f-c7bde4e19925',
+        segment: {
+          tokens: expect.any(Array)
+        }
       },
-      '5f40214e-ce53-4d7b-91c3-e8d857b466b8': {
-        tokens: expect.any(Array)
+      {
+        targetId: '5f40214e-ce53-4d7b-91c3-e8d857b466b8',
+        segment: {
+          tokens: expect.any(Array)
+        }
       }
-    })
-    expect(allShownSegments2[0].targets['9a0ca81c-816f-4040-9b4f-c7bde4e19925'].tokens.length).toEqual(4)
-    expect(allShownSegments2[0].targets['5f40214e-ce53-4d7b-91c3-e8d857b466b8'].tokens.length).toEqual(4)
+    ])
+    expect(allShownSegments2[0].targets[0].segment.tokens.length).toEqual(4)
+    expect(allShownSegments2[0].targets[1].segment.tokens.length).toEqual(4)
   })
 
   it('5 GroupUtility - alignmentGroups converts fullData to alignment groups array - full', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     // console.info('fullData', fullData)
 
     const allGroups = GroupUtility.alignmentGroups(fullData)
@@ -123,7 +133,7 @@ describe('group-utility.test.js', () => {
   })
 
   it('6 GroupUtility - alignmentGroups converts fullData to alignment groups array - short = equivalence', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     // console.info('fullData', fullData)
 
     const allGroupsShort = GroupUtility.alignmentGroups(fullData, 'short')
@@ -174,7 +184,7 @@ describe('group-utility.test.js', () => {
   })
 
   it('7 GroupUtility - alignmentGroups converts fullData to alignment groups array - sentence = short before collectSentences ', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     // console.info('fullData', fullData)
 
     const allGroupsShort = GroupUtility.alignmentGroups(fullData, 'short')
@@ -200,7 +210,7 @@ describe('group-utility.test.js', () => {
   })
 
   it('8 GroupUtility - collectSentences completes targetSentence with an array of tokens of collected sentence ', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     const allGroupsSentence = GroupUtility.alignmentGroups(fullData, 'sentence')
 
     expect(allGroupsSentence['0a0c90fc-8219-4b01-93ad-c9a464f3d18b'].targetSentence).toEqual([
@@ -248,7 +258,7 @@ describe('group-utility.test.js', () => {
   })
 
   it('9 GroupUtility - collectPrevTokensInSentence collects tokens before given based on sentence count ', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     
     const allGroupsShort = GroupUtility.alignmentGroups(fullData, 'short') // it is the same as sentence before collectSentences
 
@@ -276,7 +286,7 @@ describe('group-utility.test.js', () => {
   })
 
   it('10 GroupUtility - collectNextTokensInSentence collects tokens after given based on sentence count ', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     
     const allGroupsShort = GroupUtility.alignmentGroups(fullData, 'short') // it is the same as sentence before collectSentences
 
@@ -318,11 +328,13 @@ describe('group-utility.test.js', () => {
   })
 
   it('11 GroupUtility - tokensEquivalentGroups collects alignment groups in the format for equivalence view', async () => {
-    const fullData = TestData
+    const fullData = new SourceData(TestData)
     
     const allGroupsEquivalence = GroupUtility.alignmentGroups(fullData, 'equivalence')
     
-    const tokensEquivalentGroups = GroupUtility.tokensEquivalentGroups(fullData, allGroupsEquivalence)
+    const alltargetIds = GroupUtility.allTargetTextsIds(fullData)
+
+    const tokensEquivalentGroups = GroupUtility.tokensEquivalentGroups(fullData, allGroupsEquivalence, alltargetIds)
 
     expect(Object.keys(tokensEquivalentGroups)).toEqual(['and', 'Pannonii'])
 

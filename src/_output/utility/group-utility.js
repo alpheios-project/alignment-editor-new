@@ -2,20 +2,42 @@ export default class GroupUtility {
   /**
    *
    * @param {Object} fullData - json object with full alignment data for output
-   * @returns {Array[String]} - array of targetId
+   * @returns {Array[String]} - array of targetIds
    */
   static allTargetTextsIds (fullData) {
     return Object.keys(fullData.targets)
   }
 
+  /**
+   *
+   * @param {Object} fullData - json object with full alignment data for output
+   * @returns {Array{Object}}
+   *                {String} - targetId
+   *                {String} - lang - language code
+   *                {String} - langName - language name
+   *                {Boolean} - hidden - visibility flag
+   */
+  static allLanguagesTargets (fullData) {
+    return this.allTargetTextsIds(fullData).map(targetId => {
+      return {
+        targetId, lang: fullData.getLang('target', targetId), langName: fullData.getLangName('target', targetId), hidden: false
+      }
+    })
+  }
+
+  /**
+   *
+   * @param {Object} fullData - json object with full alignment data for output
+   * @returns {Object} - key - targetId, value - LangName - Short metadata (Title, creator, date copyrighted)
+   */
   static targetDataForTabs (fullData) {
     const allTargetIds = this.allTargetTextsIds(fullData)
 
     const dataForTabs = {}
     allTargetIds.forEach(targetId => {
-      dataForTabs[targetId] = fullData.targets[targetId].langName
+      dataForTabs[targetId] = fullData.getLangName('target', targetId)
 
-      const metadata = fullData.targets[targetId].metadataShort
+      const metadata = fullData.getMetadataShort('target', targetId)
       if (metadata) {
         dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
       }
@@ -44,11 +66,11 @@ export default class GroupUtility {
   static allOriginSegments (fullData) {
     let allS = [] // eslint-disable-line prefer-const
 
-    fullData.origin.segments.forEach((segment, indexS) => {
+    fullData.getSegments('origin').forEach((segment, indexS) => {
       allS.push({
         index: indexS,
         origin: segment,
-        targets: {}
+        targets: []
       })
     })
     return allS
@@ -57,21 +79,20 @@ export default class GroupUtility {
   /**
    *
    * @param {Object} fullData - json object with full alignment data for output
-   * @param {Array[String]} shownTabs - array of targetId that is visible on the screen
+   * @param {Array[String]} languageTargetIds - array of targetId that is visible on the screen
    * @returns {Array[Object]} - data with origin and target segments shown on the screen
    *          {Number} index - segment index
    *          {Object} segment - segment data
    *          {Object} targets - target segments grouped by targetId
    */
-  static allShownSegments (fullData, shownTabs) {
+  static allShownSegments (fullData, languageTargetIds) {
     const allS = this.allOriginSegments(fullData)
 
-    this.allTargetTextsIds(fullData).forEach(targetId => {
-      const targetSegments = fullData.targets[targetId].segments
-
-      if (targetSegments && (!shownTabs || this.isShownTab(shownTabs, targetId))) {
+    languageTargetIds.forEach(targetId => {
+      const targetSegments = fullData.getSegments('target', targetId)
+      if (targetSegments) {
         targetSegments.forEach((segment, indexS) => {
-          allS[indexS].targets[targetId] = segment
+          allS[indexS].targets.push({ targetId, segment })
         })
       }
     })
@@ -79,13 +100,25 @@ export default class GroupUtility {
     return allS
   }
 
-  static segmentsForColumns (fullData, columns = 3) {
+  /**
+   *
+   * @param {Object} fullData - json object with full alignment data for output
+   * @param {Array[String]} languageTargetIds - array of shown targetIds
+   * @param {Number} columns - number of columns
+   * @returns {Array[Object]}
+   *                {Number} index - segment index
+   *                {Array[Array{Object}]} segmentRows[segmentRowIndex][segmentCellIndex] - table of segments
+   *                            {String} textType - origin/target
+   *                            {String} targetId - only for target
+   *                            {Array[Object]} tokens
+   */
+  static segmentsForColumns (fullData, languageTargetIds, columns = 3) {
     const allS = []
-    fullData.origin.segments.forEach((segment, indexS) => {
+    fullData.getSegments('origin').forEach((segment, indexS) => {
       segment.textType = 'origin'
 
       const segmentRows = []
-      const textsInsegmentCount = this.allTargetTextsIds(fullData).length + 1
+      const textsInsegmentCount = languageTargetIds.length + 1
 
       for (let i = 1; i <= Math.ceil(textsInsegmentCount / columns); i++) {
         segmentRows.push([])
@@ -98,8 +131,8 @@ export default class GroupUtility {
       })
     })
 
-    this.allTargetTextsIds(fullData).forEach((targetId, targetIdIndex) => {
-      const targetSegments = fullData.targets[targetId].segments
+    languageTargetIds.forEach((targetId, targetIdIndex) => {
+      const targetSegments = fullData.getSegments('target', targetId)
       const segmentRowIndex = Math.floor((targetIdIndex + 1) / columns)
       const segmentCellIndex = (targetIdIndex + 1) % columns
 
@@ -142,7 +175,7 @@ export default class GroupUtility {
   static alignmentGroups (fullData, view = 'full', sentenceCount = 0) {
     let allG = {} // eslint-disable-line prefer-const
 
-    fullData.origin.segments.forEach((segment, segIndex) => {
+    fullData.getSegments('origin').forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
@@ -160,8 +193,9 @@ export default class GroupUtility {
       const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
 
-      if (fullData.targets[targetId].segments) {
-        fullData.targets[targetId].segments.forEach(segment => {
+      const targetSegments = fullData.getSegments('target', targetId)
+      if (targetSegments) {
+        targetSegments.forEach(segment => {
           segment.tokens.forEach(token => {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
@@ -189,7 +223,7 @@ export default class GroupUtility {
    * Completes targetSentence with an array of tokens of collected sentence
    *
    * @param {Object} fullData - json object with full alignment data for output
-   * @param {Number} sentenceCount  - amount of sentence before/after the current sentence; sentences between the first word in the group
+   * @param {Number} sentenceCount  - number of sentences before/after the current sentence; sentences between the first word in the group
    *                                  and the last included by default (even when sentence = 0)
    * @param {Object} allG - allGroups from alignmentGroups
    *           {String} targetId
@@ -203,8 +237,10 @@ export default class GroupUtility {
    */
   static collectSentences (fullData, sentenceCount, allG) {
     this.allTargetTextsIds(fullData).forEach(targetId => {
-      if (fullData.targets[targetId].segments) {
-        fullData.targets[targetId].segments.forEach(segment => {
+      const targetSegments = fullData.getSegments('target', targetId)
+
+      if (targetSegments) {
+        targetSegments.forEach(segment => {
           const startedGroups = []
 
           segment.tokens.forEach((token, tokenIndex) => {
@@ -247,7 +283,7 @@ export default class GroupUtility {
    *         {Array[Object]} segment.tokens
    * @param {Number} tokenIndex - token index BEFORE what we would collect tokens in a sentence
    * @param {Number} currentSentenceIndex - sentenceIndex for the current sentenece
-   * @param {Number} sentenceCount - amount sentences that would be collected before currentSentenceIndex
+   * @param {Number} sentenceCount - number of sentences that would be collected before currentSentenceIndex
    * @param {Array} target - empty array that would be filled with tokens, that are previous to the tokenIndex
    * @returns {Array[Object]} -  array of collected tokens
    */
@@ -276,7 +312,7 @@ export default class GroupUtility {
    *         {Array[Object]} segment.tokens
    * @param {Number} tokenIndex - token index AFTER what we would collect tokens in a sentence
    * @param {Number} currentSentenceIndex - sentenceIndex for the current sentenece
-   * @param {Number} sentenceCount - amount sentences that would be collected before currentSentenceIndex
+   * @param {Number} sentenceCount - number of sentences that would be collected before currentSentenceIndex
    * @param {Array} target - empty array that would be filled with tokens, that are previous to the tokenIndex
    * @returns {Array[Object]} -  array of collected tokens
    */
@@ -304,17 +340,18 @@ export default class GroupUtility {
    *
    * @param {Object} fullData - json object with full alignment data for output
    * @param {Array[Object]} allGroups - all groups from alignmentGroups method
+   * @param {Array[String]} languageTargetIds - array of visible targetIds
    * @returns {Object} - groups by equivalence - keys: words
    *           {Array[String]} allIds - origin tokens idWords for the current word
    *           {Array[String]} allGroupIds - all groupIds with this origin word
    *           {Array[Array[Object]]} targets - array of targets tokens for this word from alignment groups, each alignment group = each element from array
    *           {Array[Object]} filtered targets
-   *              {Number} count - amount of occurance of the group (compared by words)
+   *              {Number} count - number of occurance of the group (compared by words)
    *              {Array[Object]} - target - target part of alignment groups (tokens from the first occurance)
    */
-  static tokensEquivalentGroups (fullData, allGroups) {
+  static tokensEquivalentGroups (fullData, allGroups, languageTargetIds) {
     let tokensEq = {} // eslint-disable-line prefer-const
-    fullData.origin.segments.forEach((segment, segIndex) => {
+    fullData.getSegments('origin').forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
@@ -322,14 +359,16 @@ export default class GroupUtility {
             tokensEq[token.word].allIds.push(token.idWord)
             tokensEq[token.word].allGroupIds.push(groupDataItem.groupId)
 
-            if (!tokensEq[token.word].targets[groupDataItem.targetId]) {
-              tokensEq[token.word].targets[groupDataItem.targetId] = {
-                langName: allGroups[groupDataItem.groupId].langName,
-                metadata: allGroups[groupDataItem.groupId].metadata,
-                targets: []
+            if (languageTargetIds.includes(groupDataItem.targetId)) {
+              if (!tokensEq[token.word].targets[groupDataItem.targetId]) {
+                tokensEq[token.word].targets[groupDataItem.targetId] = {
+                  langName: allGroups[groupDataItem.groupId].langName,
+                  metadata: allGroups[groupDataItem.groupId].metadata,
+                  targets: []
+                }
               }
+              tokensEq[token.word].targets[groupDataItem.targetId].targets.push(allGroups[groupDataItem.groupId].target)
             }
-            tokensEq[token.word].targets[groupDataItem.targetId].targets.push(allGroups[groupDataItem.groupId].target)
           })
         }
       })
