@@ -57,8 +57,10 @@ export default {
   methods: {
     endDrag (e) {
       this.dragging = false
-      const langsList = this.languagesList.map(langData => langData.targetId)
-      this.$emit('changeLanguageOrder', langsList)
+      if (e.oldDraggableIndex !== e.newDraggableIndex) {
+        const langsList = this.languagesList.map(langData => langData.targetId)
+        this.$emit('changeLanguageOrder', langsList)
+      }
     },
 
     langClasses (langData) {

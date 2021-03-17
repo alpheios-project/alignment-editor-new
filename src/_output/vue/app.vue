@@ -80,7 +80,6 @@ export default {
     }
   },
   created() {
-    console.info(this.fullData)
     this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
   },
   computed: {

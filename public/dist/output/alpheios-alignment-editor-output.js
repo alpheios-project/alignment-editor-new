@@ -12562,7 +12562,7 @@ class GroupUtility {
   /**
    *
    * @param {Object} fullData - json object with full alignment data for output
-   * @param {Array[String]} shownTabs - array of targetId that is visible on the screen
+   * @param {Array[String]} languageTargetIds - array of targetId that is visible on the screen
    * @returns {Array[Object]} - data with origin and target segments shown on the screen
    *          {Number} index - segment index
    *          {Object} segment - segment data
@@ -12587,9 +12587,9 @@ class GroupUtility {
    *
    * @param {Object} fullData - json object with full alignment data for output
    * @param {Array[String]} languageTargetIds - array of shown targetIds
-   * @param {Number} columns - amount of columns
+   * @param {Number} columns - number of columns
    * @returns {Array[Object]}
-   *                {Number} index - segment inde
+   *                {Number} index - segment index
    *                {Array[Array{Object}]} segmentRows[segmentRowIndex][segmentCellIndex] - table of segments
    *                            {String} textType - origin/target
    *                            {String} targetId - only for target
@@ -12706,7 +12706,7 @@ class GroupUtility {
    * Completes targetSentence with an array of tokens of collected sentence
    *
    * @param {Object} fullData - json object with full alignment data for output
-   * @param {Number} sentenceCount  - amount of sentence before/after the current sentence; sentences between the first word in the group
+   * @param {Number} sentenceCount  - number of sentences before/after the current sentence; sentences between the first word in the group
    *                                  and the last included by default (even when sentence = 0)
    * @param {Object} allG - allGroups from alignmentGroups
    *           {String} targetId
@@ -12766,7 +12766,7 @@ class GroupUtility {
    *         {Array[Object]} segment.tokens
    * @param {Number} tokenIndex - token index BEFORE what we would collect tokens in a sentence
    * @param {Number} currentSentenceIndex - sentenceIndex for the current sentenece
-   * @param {Number} sentenceCount - amount sentences that would be collected before currentSentenceIndex
+   * @param {Number} sentenceCount - number of sentences that would be collected before currentSentenceIndex
    * @param {Array} target - empty array that would be filled with tokens, that are previous to the tokenIndex
    * @returns {Array[Object]} -  array of collected tokens
    */
@@ -12795,7 +12795,7 @@ class GroupUtility {
    *         {Array[Object]} segment.tokens
    * @param {Number} tokenIndex - token index AFTER what we would collect tokens in a sentence
    * @param {Number} currentSentenceIndex - sentenceIndex for the current sentenece
-   * @param {Number} sentenceCount - amount sentences that would be collected before currentSentenceIndex
+   * @param {Number} sentenceCount - number of sentences that would be collected before currentSentenceIndex
    * @param {Array} target - empty array that would be filled with tokens, that are previous to the tokenIndex
    * @returns {Array[Object]} -  array of collected tokens
    */
@@ -12823,12 +12823,13 @@ class GroupUtility {
    *
    * @param {Object} fullData - json object with full alignment data for output
    * @param {Array[Object]} allGroups - all groups from alignmentGroups method
+   * @param {Array[String]} languageTargetIds - array of visible targetIds
    * @returns {Object} - groups by equivalence - keys: words
    *           {Array[String]} allIds - origin tokens idWords for the current word
    *           {Array[String]} allGroupIds - all groupIds with this origin word
    *           {Array[Array[Object]]} targets - array of targets tokens for this word from alignment groups, each alignment group = each element from array
    *           {Array[Object]} filtered targets
-   *              {Number} count - amount of occurance of the group (compared by words)
+   *              {Number} count - number of occurance of the group (compared by words)
    *              {Array[Object]} - target - target part of alignment groups (tokens from the first occurance)
    */
   static tokensEquivalentGroups (fullData, allGroups, languageTargetIds) {
@@ -13046,7 +13047,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created() {
-    console.info(this.fullData)
     this.languagesList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_0__.default.allLanguagesTargets(this.fullData)
   },
   computed: {
@@ -13332,9 +13332,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     endDrag (e) {
+      console.info('endDrag', e)
       this.dragging = false
-      const langsList = this.languagesList.map(langData => langData.targetId)
-      this.$emit('changeLanguageOrder', langsList)
+      if (e.oldDraggableIndex !== e.newDraggableIndex) {
+        const langsList = this.languagesList.map(langData => langData.targetId)
+        this.$emit('changeLanguageOrder', langsList)
+      }
     },
 
     langClasses (langData) {
@@ -13978,14 +13981,16 @@ __webpack_require__.r(__webpack_exports__);
       if (hoveredOriginGroupsId) {
         const hoveredTargetsDataObj = token.grouped ? this.tokensEqGroups[token.word].targets : null
 
-        const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
-          return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
-        })
-        const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
+        if (hoveredTargetsDataObj) {
+          const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
+            return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
+          })
+          const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
 
-        this.hoveredOriginGroupsId = hoveredOriginGroupsId
-        this.hoveredTargetsData = hoveredTargetsData
-        this.updateHovered++
+          this.hoveredOriginGroupsId = hoveredOriginGroupsId
+          this.hoveredTargetsData = hoveredTargetsData
+          this.updateHovered++
+        }
       }
     },
 

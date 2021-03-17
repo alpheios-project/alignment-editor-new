@@ -109,14 +109,16 @@ export default {
       if (hoveredOriginGroupsId) {
         const hoveredTargetsDataObj = token.grouped ? this.tokensEqGroups[token.word].targets : null
 
-        const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
-          return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
-        })
-        const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
+        if (hoveredTargetsDataObj) {
+          const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
+            return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
+          })
+          const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
 
-        this.hoveredOriginGroupsId = hoveredOriginGroupsId
-        this.hoveredTargetsData = hoveredTargetsData
-        this.updateHovered++
+          this.hoveredOriginGroupsId = hoveredOriginGroupsId
+          this.hoveredTargetsData = hoveredTargetsData
+          this.updateHovered++
+        }
       }
     },
 
