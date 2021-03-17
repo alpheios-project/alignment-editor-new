@@ -107,6 +107,7 @@
       "^@[/](.+)": "<rootDir>/src/$1",
       "^@tests[/](.+)": "<rootDir>/tests/$1",
       "^@vue-runtime$": "vue/dist/vue.runtime.common.js",
+      "^@vuedraggable": "<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js",
       "alpheios-client-adapters": "<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js",
       "alpheios-data-models": "<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js",
       "alpheios-l10n": "<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"
