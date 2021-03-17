@@ -13150,7 +13150,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     tabs () {
-      this.tabsStates.forEach((tab, tabIndex) => tab.active = (tabIndex === 0))
+      this.tabsStates.splice(0, this.tabsStates.length)
+      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
     }
   },
   /**
@@ -13158,9 +13159,7 @@ __webpack_require__.r(__webpack_exports__);
    */
   mounted () {
     if (this.tabs.length > 0) {
-      this.tabsStates = this.tabs.map((tab, index) => { 
-        return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
-      })
+      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
     }
   },
   computed: {
@@ -13171,7 +13170,7 @@ __webpack_require__.r(__webpack_exports__);
      * @param {Number} - index order of targetId
      */
     couldBeSelected (index) {
-      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
+      return !((this.tabsStates.filter(state => state).length === 1) && (this.tabsStates[index]))
     },
 
     /**
@@ -13185,7 +13184,7 @@ __webpack_require__.r(__webpack_exports__);
         return
       }
       
-      this.tabsStates[index].active = !this.tabsStates[index].active
+      this.tabsStates.splice(index, 1, !this.tabsStates[index])
       this.$emit('selectTab', tabData)
     }
   }
@@ -15868,8 +15867,7 @@ var render = function() {
                             "alpheios-alignment-editor-align-target-tab-item",
                           class: {
                             "alpheios-alignment-editor-align-target-tab-item-active":
-                              _vm.tabsStates[index] &&
-                              _vm.tabsStates[index].active
+                              _vm.tabsStates[index]
                           },
                           on: {
                             click: function($event) {
@@ -15889,7 +15887,7 @@ var render = function() {
                         "alpheios-alignment-editor-align-target-tab-item",
                       class: {
                         "alpheios-alignment-editor-align-target-tab-item-active":
-                          _vm.tabsStates[index] && _vm.tabsStates[index].active
+                          _vm.tabsStates[index]
                       },
                       on: {
                         click: function($event) {

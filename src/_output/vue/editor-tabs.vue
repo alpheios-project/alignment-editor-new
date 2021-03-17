@@ -3,7 +3,7 @@
       <template v-for="(tabData, index) in tabs" >
         <tooltip :tooltipText = "tabsTooltips[tabData]" tooltipDirection = "top" v-if="tabsTooltips[tabData]" :key="index">
           <span class="alpheios-alignment-editor-align-target-tab-item"
-                :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] && tabsStates[index].active }"
+                :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] }"
                 
                 @click="selectTab(tabData, index)">
             {{ index + 1 }}
@@ -11,7 +11,7 @@
         </tooltip>
 
         <span class="alpheios-alignment-editor-align-target-tab-item" v-else :key="index" 
-              :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index] && tabsStates[index].active }"
+              :class="{ 'alpheios-alignment-editor-align-target-tab-item-active': tabsStates[index]  }"
               
               @click="selectTab(tabData, index)">
           {{ index + 1 }}
@@ -45,7 +45,8 @@ export default {
   },
   watch: {
     tabs () {
-      this.tabsStates.forEach((tab, tabIndex) => tab.active = (tabIndex === 0))
+      this.tabsStates.splice(0, this.tabsStates.length)
+      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
     }
   },
   /**
@@ -53,9 +54,7 @@ export default {
    */
   mounted () {
     if (this.tabs.length > 0) {
-      this.tabsStates = this.tabs.map((tab, index) => { 
-        return { active: this.tabsStates.length === 0 ? index === 0 : Boolean(this.tabsStates[index]) && this.tabsStates[index].active }
-      })
+      this.tabs.forEach((tab, index) => this.tabsStates.push(index === 0))
     }
   },
   computed: {
@@ -66,7 +65,7 @@ export default {
      * @param {Number} - index order of targetId
      */
     couldBeSelected (index) {
-      return !((this.tabsStates.filter(state => state.active).length === 1) && (this.tabsStates[index].active))
+      return !((this.tabsStates.filter(state => state).length === 1) && (this.tabsStates[index]))
     },
 
     /**
@@ -80,7 +79,7 @@ export default {
         return
       }
       
-      this.tabsStates[index].active = !this.tabsStates[index].active
+      this.tabsStates.splice(index, 1, !this.tabsStates[index])
       this.$emit('selectTab', tabData)
     }
   }
