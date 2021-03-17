@@ -13332,7 +13332,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     endDrag (e) {
-      console.info('endDrag', e)
       this.dragging = false
       if (e.oldDraggableIndex !== e.newDraggableIndex) {
         const langsList = this.languagesList.map(langData => langData.targetId)
