@@ -44,6 +44,7 @@
 </template>
 <script>
 import GroupUtility from '@/_output/utility/group-utility.js'
+import SourceData from '@/_output/data/source-data.js'
 
 import LanguagesBlock from '@/_output/vue/languages-block.vue'
 
@@ -79,11 +80,12 @@ export default {
     }
   },
   created() {
+    console.info(this.fullData)
     this.languagesList = GroupUtility.allLanguagesTargets(this.fullData)
   },
   computed: {
     fullData () {
-      return this.$parent.fullData
+      return new SourceData(this.$parent.fullData)
     },
     languageTargetIds () {
       return this.languagesList.filter(langData => !langData.hidden).map(langData => langData.targetId)

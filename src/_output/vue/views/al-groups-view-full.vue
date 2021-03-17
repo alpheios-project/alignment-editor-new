@@ -15,8 +15,8 @@
             <div class="alpheios-al-editor-segment-cell alpheios-al-editor-segment-cell-origin" >
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
-                :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
+                :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
+                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
                 :shownTabs = "shownTabs" :hoveredGroupsId = "hoveredGroupsId"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
@@ -26,8 +26,8 @@
               <segment-block textType = "target"
                 v-for="(segmentTarget, targetIndex) in getSegmentData(segIndex)" :key="getIndex('target', segIndex, segmentTarget.targetId)"
                 :targetId = "segmentTarget.targetId" :segIndex = "segIndex" 
-                :dir = "fullData.targets[segmentTarget.targetId].dir" :lang = "fullData.targets[segmentTarget.targetId].lang"
-                :langName = "fullData.targets[segmentTarget.targetId].langName" :metadata = "fullData.targets[segmentTarget.targetId].metadata" 
+                :dir = "fullData.getDir('target', segmentTarget.targetId)" :lang = "fullData.getLang('target', segmentTarget.targetId)" 
+                :langName = "fullData.getLangName('target', segmentTarget.targetId)" :metadata = "fullData.getMetadata('target', segmentTarget.targetId)"
                 :segmentData = "segmentTarget.segment" :targetIdIndex = "targetIndex" :maxHeight = "maxHeight" :hoveredGroupsId = "hoveredGroupsId"
                 :isLast = "targetIndex === segmentData.targets.length - 1" @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
                 v-show="isShownTab(segmentTarget.targetId)"

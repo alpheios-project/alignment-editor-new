@@ -6,8 +6,8 @@ export default class GroupUtility {
    */
   static allTargetTextsIds (fullData) {
     const sortFn = (a, b) => {
-      if (fullData.targets[a].langName < fullData.targets[b].langName) { return -1 }
-      if (fullData.targets[a].langName > fullData.targets[b].langName) { return 1 }
+      if (fullData.getLangName('target', a) < fullData.getLangName('target', b)) { return -1 }
+      if (fullData.getLangName('target', a) > fullData.getLangName('target', b)) { return 1 }
       return 0
     }
 
@@ -26,7 +26,7 @@ export default class GroupUtility {
   static allLanguagesTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName, hidden: false
+        targetId, lang: fullData.getLang('target', targetId), langName: fullData.getLangName('target', targetId), hidden: false
       }
     })
   }
@@ -41,9 +41,9 @@ export default class GroupUtility {
 
     const dataForTabs = {}
     allTargetIds.forEach(targetId => {
-      dataForTabs[targetId] = fullData.targets[targetId].langName
+      dataForTabs[targetId] = fullData.getLangName('target', targetId)
 
-      const metadata = fullData.targets[targetId].metadataShort
+      const metadata = fullData.getMetadataShort('target', targetId)
       if (metadata) {
         dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
       }
@@ -72,7 +72,7 @@ export default class GroupUtility {
   static allOriginSegments (fullData) {
     let allS = [] // eslint-disable-line prefer-const
 
-    fullData.origin.segments.forEach((segment, indexS) => {
+    fullData.getSegments('origin').forEach((segment, indexS) => {
       allS.push({
         index: indexS,
         origin: segment,
@@ -95,7 +95,7 @@ export default class GroupUtility {
     const allS = this.allOriginSegments(fullData)
 
     languageTargetIds.forEach(targetId => {
-      const targetSegments = fullData.targets[targetId].segments
+      const targetSegments = fullData.getSegments('target', targetId)
       if (targetSegments) {
         targetSegments.forEach((segment, indexS) => {
           allS[indexS].targets.push({ targetId, segment })
@@ -120,7 +120,7 @@ export default class GroupUtility {
    */
   static segmentsForColumns (fullData, languageTargetIds, columns = 3) {
     const allS = []
-    fullData.origin.segments.forEach((segment, indexS) => {
+    fullData.getSegments('origin').forEach((segment, indexS) => {
       segment.textType = 'origin'
 
       const segmentRows = []
@@ -138,7 +138,7 @@ export default class GroupUtility {
     })
 
     languageTargetIds.forEach((targetId, targetIdIndex) => {
-      const targetSegments = fullData.targets[targetId].segments
+      const targetSegments = fullData.getSegments('target', targetId)
       const segmentRowIndex = Math.floor((targetIdIndex + 1) / columns)
       const segmentCellIndex = (targetIdIndex + 1) % columns
 
@@ -181,7 +181,7 @@ export default class GroupUtility {
   static alignmentGroups (fullData, view = 'full', sentenceCount = 0) {
     let allG = {} // eslint-disable-line prefer-const
 
-    fullData.origin.segments.forEach((segment, segIndex) => {
+    fullData.getSegments('origin').forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
@@ -199,8 +199,9 @@ export default class GroupUtility {
       const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
 
-      if (fullData.targets[targetId].segments) {
-        fullData.targets[targetId].segments.forEach(segment => {
+      const targetSegments = fullData.getSegments('target', targetId)
+      if (targetSegments) {
+        targetSegments.forEach(segment => {
           segment.tokens.forEach(token => {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
@@ -242,8 +243,10 @@ export default class GroupUtility {
    */
   static collectSentences (fullData, sentenceCount, allG) {
     this.allTargetTextsIds(fullData).forEach(targetId => {
-      if (fullData.targets[targetId].segments) {
-        fullData.targets[targetId].segments.forEach(segment => {
+      const targetSegments = fullData.getSegments('target', targetId)
+
+      if (targetSegments) {
+        targetSegments.forEach(segment => {
           const startedGroups = []
 
           segment.tokens.forEach((token, tokenIndex) => {
@@ -353,7 +356,7 @@ export default class GroupUtility {
    */
   static tokensEquivalentGroups (fullData, allGroups, languageTargetIds) {
     let tokensEq = {} // eslint-disable-line prefer-const
-    fullData.origin.segments.forEach((segment, segIndex) => {
+    fullData.getSegments('origin').forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {

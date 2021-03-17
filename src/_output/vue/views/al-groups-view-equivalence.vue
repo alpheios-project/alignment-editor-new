@@ -10,8 +10,8 @@
             >
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
-                :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
+                :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
+                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
                 :hoveredGroupsId = "hoveredOriginGroupsId" :shownTabs = "languageTargetIds"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />

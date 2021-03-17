@@ -12425,6 +12425,51 @@ if (inBrowser) {
 
 /***/ }),
 
+/***/ "./_output/data/source-data.js":
+/*!*************************************!*\
+  !*** ./_output/data/source-data.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ SourceData)
+/* harmony export */ });
+class SourceData {
+  constructor (fullData) {
+    this.origin = fullData.origin
+    this.targets = fullData.targets
+  }
+
+  getDir (textType, targetId) {
+    return textType === 'origin' ? this.origin.dir : this.targets[targetId].dir
+  }
+
+  getLang (textType, targetId) {
+    return textType === 'origin' ? this.origin.lang : this.targets[targetId].lang
+  }
+
+  getLangName (textType, targetId) {
+    return textType === 'origin' ? this.origin.langName : this.targets[targetId].langName
+  }
+
+  getMetadata (textType, targetId) {
+    return textType === 'origin' ? this.origin.metadata : this.targets[targetId].metadata
+  }
+
+  getMetadataShort (textType, targetId) {
+    return textType === 'origin' ? this.origin.metadataShort : this.targets[targetId].metadataShort
+  }
+
+  getSegments (textType, targetId) {
+    return textType === 'origin' ? this.origin.segments : this.targets[targetId].segments
+  }
+}
+
+
+/***/ }),
+
 /***/ "./_output/utility/group-utility.js":
 /*!******************************************!*\
   !*** ./_output/utility/group-utility.js ***!
@@ -12444,8 +12489,8 @@ class GroupUtility {
    */
   static allTargetTextsIds (fullData) {
     const sortFn = (a, b) => {
-      if (fullData.targets[a].langName < fullData.targets[b].langName) { return -1 }
-      if (fullData.targets[a].langName > fullData.targets[b].langName) { return 1 }
+      if (fullData.getLangName('target', a) < fullData.getLangName('target', b)) { return -1 }
+      if (fullData.getLangName('target', a) > fullData.getLangName('target', b)) { return 1 }
       return 0
     }
 
@@ -12464,7 +12509,7 @@ class GroupUtility {
   static allLanguagesTargets (fullData) {
     return this.allTargetTextsIds(fullData).map(targetId => {
       return {
-        targetId, lang: fullData.targets[targetId].lang, langName: fullData.targets[targetId].langName, hidden: false
+        targetId, lang: fullData.getLang('target', targetId), langName: fullData.getLangName('target', targetId), hidden: false
       }
     })
   }
@@ -12479,9 +12524,9 @@ class GroupUtility {
 
     const dataForTabs = {}
     allTargetIds.forEach(targetId => {
-      dataForTabs[targetId] = fullData.targets[targetId].langName
+      dataForTabs[targetId] = fullData.getLangName('target', targetId)
 
-      const metadata = fullData.targets[targetId].metadataShort
+      const metadata = fullData.getMetadataShort('target', targetId)
       if (metadata) {
         dataForTabs[targetId] = `${dataForTabs[targetId]} - ${metadata}`
       }
@@ -12510,7 +12555,7 @@ class GroupUtility {
   static allOriginSegments (fullData) {
     let allS = [] // eslint-disable-line prefer-const
 
-    fullData.origin.segments.forEach((segment, indexS) => {
+    fullData.getSegments('origin').forEach((segment, indexS) => {
       allS.push({
         index: indexS,
         origin: segment,
@@ -12533,7 +12578,7 @@ class GroupUtility {
     const allS = this.allOriginSegments(fullData)
 
     languageTargetIds.forEach(targetId => {
-      const targetSegments = fullData.targets[targetId].segments
+      const targetSegments = fullData.getSegments('target', targetId)
       if (targetSegments) {
         targetSegments.forEach((segment, indexS) => {
           allS[indexS].targets.push({ targetId, segment })
@@ -12558,7 +12603,7 @@ class GroupUtility {
    */
   static segmentsForColumns (fullData, languageTargetIds, columns = 3) {
     const allS = []
-    fullData.origin.segments.forEach((segment, indexS) => {
+    fullData.getSegments('origin').forEach((segment, indexS) => {
       segment.textType = 'origin'
 
       const segmentRows = []
@@ -12576,7 +12621,7 @@ class GroupUtility {
     })
 
     languageTargetIds.forEach((targetId, targetIdIndex) => {
-      const targetSegments = fullData.targets[targetId].segments
+      const targetSegments = fullData.getSegments('target', targetId)
       const segmentRowIndex = Math.floor((targetIdIndex + 1) / columns)
       const segmentCellIndex = (targetIdIndex + 1) % columns
 
@@ -12619,7 +12664,7 @@ class GroupUtility {
   static alignmentGroups (fullData, view = 'full', sentenceCount = 0) {
     let allG = {} // eslint-disable-line prefer-const
 
-    fullData.origin.segments.forEach((segment, segIndex) => {
+    fullData.getSegments('origin').forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
@@ -12637,8 +12682,9 @@ class GroupUtility {
       const langName = fullData.targets[targetId].langName
       const metadata = fullData.targets[targetId].metadata
 
-      if (fullData.targets[targetId].segments) {
-        fullData.targets[targetId].segments.forEach(segment => {
+      const targetSegments = fullData.getSegments('target', targetId)
+      if (targetSegments) {
+        targetSegments.forEach(segment => {
           segment.tokens.forEach(token => {
             if (token.grouped) {
               token.groupData.forEach(groupDataItem => {
@@ -12680,8 +12726,10 @@ class GroupUtility {
    */
   static collectSentences (fullData, sentenceCount, allG) {
     this.allTargetTextsIds(fullData).forEach(targetId => {
-      if (fullData.targets[targetId].segments) {
-        fullData.targets[targetId].segments.forEach(segment => {
+      const targetSegments = fullData.getSegments('target', targetId)
+
+      if (targetSegments) {
+        targetSegments.forEach(segment => {
           const startedGroups = []
 
           segment.tokens.forEach((token, tokenIndex) => {
@@ -12791,7 +12839,7 @@ class GroupUtility {
    */
   static tokensEquivalentGroups (fullData, allGroups, languageTargetIds) {
     let tokensEq = {} // eslint-disable-line prefer-const
-    fullData.origin.segments.forEach((segment, segIndex) => {
+    fullData.getSegments('origin').forEach((segment, segIndex) => {
       segment.tokens.forEach(token => {
         if (token.grouped) {
           token.groupData.forEach(groupDataItem => {
@@ -12915,12 +12963,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/_output/utility/group-utility.js */ "./_output/utility/group-utility.js");
-/* harmony import */ var _output_vue_languages_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/vue/languages-block.vue */ "./_output/vue/languages-block.vue");
-/* harmony import */ var _output_vue_views_al_groups_view_full_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-full.vue */ "./_output/vue/views/al-groups-view-full.vue");
-/* harmony import */ var _output_vue_views_al_groups_view_short_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-short.vue */ "./_output/vue/views/al-groups-view-short.vue");
-/* harmony import */ var _output_vue_views_al_groups_view_sentence_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-sentence.vue */ "./_output/vue/views/al-groups-view-sentence.vue");
-/* harmony import */ var _output_vue_views_al_groups_view_equivalence_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-equivalence.vue */ "./_output/vue/views/al-groups-view-equivalence.vue");
-/* harmony import */ var _output_vue_views_al_groups_view_columns_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-columns.vue */ "./_output/vue/views/al-groups-view-columns.vue");
+/* harmony import */ var _output_data_source_data_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/_output/data/source-data.js */ "./_output/data/source-data.js");
+/* harmony import */ var _output_vue_languages_block_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/_output/vue/languages-block.vue */ "./_output/vue/languages-block.vue");
+/* harmony import */ var _output_vue_views_al_groups_view_full_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-full.vue */ "./_output/vue/views/al-groups-view-full.vue");
+/* harmony import */ var _output_vue_views_al_groups_view_short_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-short.vue */ "./_output/vue/views/al-groups-view-short.vue");
+/* harmony import */ var _output_vue_views_al_groups_view_sentence_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-sentence.vue */ "./_output/vue/views/al-groups-view-sentence.vue");
+/* harmony import */ var _output_vue_views_al_groups_view_equivalence_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-equivalence.vue */ "./_output/vue/views/al-groups-view-equivalence.vue");
+/* harmony import */ var _output_vue_views_al_groups_view_columns_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/_output/vue/views/al-groups-view-columns.vue */ "./_output/vue/views/al-groups-view-columns.vue");
 //
 //
 //
@@ -12965,6 +13014,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -12979,13 +13029,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'App',
   components: {
-    languagesBlock: _output_vue_languages_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    languagesBlock: _output_vue_languages_block_vue__WEBPACK_IMPORTED_MODULE_2__.default,
 
-    alGroupsViewFull: _output_vue_views_al_groups_view_full_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    alGroupsViewShort: _output_vue_views_al_groups_view_short_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    alGroupsViewSentence: _output_vue_views_al_groups_view_sentence_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    alGroupsViewEquivalence: _output_vue_views_al_groups_view_equivalence_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    alGroupsViewColumns: _output_vue_views_al_groups_view_columns_vue__WEBPACK_IMPORTED_MODULE_6__.default
+    alGroupsViewFull: _output_vue_views_al_groups_view_full_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    alGroupsViewShort: _output_vue_views_al_groups_view_short_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    alGroupsViewSentence: _output_vue_views_al_groups_view_sentence_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    alGroupsViewEquivalence: _output_vue_views_al_groups_view_equivalence_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    alGroupsViewColumns: _output_vue_views_al_groups_view_columns_vue__WEBPACK_IMPORTED_MODULE_7__.default
   },
   data () {
     return {
@@ -13002,11 +13052,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created() {
+    console.info(this.fullData)
     this.languagesList = _output_utility_group_utility_js__WEBPACK_IMPORTED_MODULE_0__.default.allLanguagesTargets(this.fullData)
   },
   computed: {
     fullData () {
-      return this.$parent.fullData
+      return new _output_data_source_data_js__WEBPACK_IMPORTED_MODULE_1__.default(this.$parent.fullData)
     },
     languageTargetIds () {
       return this.languagesList.filter(langData => !langData.hidden).map(langData => langData.targetId)
@@ -13797,11 +13848,6 @@ __webpack_require__.r(__webpack_exports__);
     isLast(targetId) {
       return targetId === this.lastTargetId
     },
-
-    getProp (propName, textType, targetId, segmentSingle) {
-      return textType === 'origin' ? this.fullData.origin[propName] : this.fullData.targets[targetId][propName]
-    },
-
     rowColor(segIndex) {
       return `background: ${this.colors[segIndex]};`
     }
@@ -14482,7 +14528,7 @@ __webpack_require__.r(__webpack_exports__);
       // this.updateHovered++
     },
     targetLangName (hoveredTargetTokens) {
-      return this.fullData.targets[hoveredTargetTokens.targetId].langName
+      return this.fullData.getLangName('target', hoveredTargetTokens.targetId)
     }
   }
 });
@@ -16282,24 +16328,19 @@ var render = function() {
                                         segmentData: segmentSingle,
                                         segIndex: segIndex,
                                         maxHeight: _vm.maxHeight,
-                                        dir: _vm.getProp(
-                                          "dir",
-                                          segmentSingle.textType,
-                                          segmentSingle.targetId,
-                                          segmentSingle
-                                        ),
-                                        lang: _vm.getProp(
-                                          "lang",
+                                        dir: _vm.fullData.getDir(
                                           segmentSingle.textType,
                                           segmentSingle.targetId
                                         ),
-                                        langName: _vm.getProp(
-                                          "langName",
+                                        lang: _vm.fullData.getLang(
                                           segmentSingle.textType,
                                           segmentSingle.targetId
                                         ),
-                                        metadata: _vm.getProp(
-                                          "metadata",
+                                        langName: _vm.fullData.getLangName(
+                                          segmentSingle.textType,
+                                          segmentSingle.targetId
+                                        ),
+                                        metadata: _vm.fullData.getMetadata(
                                           segmentSingle.textType,
                                           segmentSingle.targetId
                                         ),
@@ -16395,10 +16436,10 @@ var render = function() {
                           segmentData: segmentData.origin,
                           segIndex: segIndex,
                           maxHeight: _vm.maxHeight,
-                          dir: _vm.fullData.origin.dir,
-                          lang: _vm.fullData.origin.lang,
-                          langName: _vm.fullData.origin.langName,
-                          metadata: _vm.fullData.origin.metadata,
+                          dir: _vm.fullData.getDir("origin"),
+                          lang: _vm.fullData.getLang("origin"),
+                          langName: _vm.fullData.getLangName("origin"),
+                          metadata: _vm.fullData.getMetadata("origin"),
                           hoveredGroupsId: _vm.hoveredOriginGroupsId,
                           shownTabs: _vm.languageTargetIds
                         },
@@ -16599,10 +16640,10 @@ var render = function() {
                           segmentData: segmentData.origin,
                           segIndex: segIndex,
                           maxHeight: _vm.maxHeight,
-                          dir: _vm.fullData.origin.dir,
-                          lang: _vm.fullData.origin.lang,
-                          langName: _vm.fullData.origin.langName,
-                          metadata: _vm.fullData.origin.metadata,
+                          dir: _vm.fullData.getDir("origin"),
+                          lang: _vm.fullData.getLang("origin"),
+                          langName: _vm.fullData.getLangName("origin"),
+                          metadata: _vm.fullData.getMetadata("origin"),
                           shownTabs: _vm.shownTabs,
                           hoveredGroupsId: _vm.hoveredGroupsId
                         },
@@ -16643,15 +16684,22 @@ var render = function() {
                           textType: "target",
                           targetId: segmentTarget.targetId,
                           segIndex: segIndex,
-                          dir: _vm.fullData.targets[segmentTarget.targetId].dir,
-                          lang:
-                            _vm.fullData.targets[segmentTarget.targetId].lang,
-                          langName:
-                            _vm.fullData.targets[segmentTarget.targetId]
-                              .langName,
-                          metadata:
-                            _vm.fullData.targets[segmentTarget.targetId]
-                              .metadata,
+                          dir: _vm.fullData.getDir(
+                            "target",
+                            segmentTarget.targetId
+                          ),
+                          lang: _vm.fullData.getLang(
+                            "target",
+                            segmentTarget.targetId
+                          ),
+                          langName: _vm.fullData.getLangName(
+                            "target",
+                            segmentTarget.targetId
+                          ),
+                          metadata: _vm.fullData.getMetadata(
+                            "target",
+                            segmentTarget.targetId
+                          ),
                           segmentData: segmentTarget.segment,
                           targetIdIndex: targetIndex,
                           maxHeight: _vm.maxHeight,
@@ -16736,10 +16784,10 @@ var render = function() {
                           segmentData: segmentData.origin,
                           segIndex: segIndex,
                           maxHeight: _vm.maxHeight,
-                          dir: _vm.fullData.origin.dir,
-                          lang: _vm.fullData.origin.lang,
-                          langName: _vm.fullData.origin.langName,
-                          metadata: _vm.fullData.origin.metadata,
+                          dir: _vm.fullData.getDir("origin"),
+                          lang: _vm.fullData.getLang("origin"),
+                          langName: _vm.fullData.getLangName("origin"),
+                          metadata: _vm.fullData.getMetadata("origin"),
                           hoveredGroupsId: _vm.hoveredGroupsId,
                           shownTabs: _vm.languageTargetIds
                         },
@@ -16917,10 +16965,10 @@ var render = function() {
                           segmentData: segmentData.origin,
                           segIndex: segIndex,
                           maxHeight: _vm.maxHeight,
-                          dir: _vm.fullData.origin.dir,
-                          lang: _vm.fullData.origin.lang,
-                          langName: _vm.fullData.origin.langName,
-                          metadata: _vm.fullData.origin.metadata,
+                          dir: _vm.fullData.getDir("origin"),
+                          lang: _vm.fullData.getLang("origin"),
+                          langName: _vm.fullData.getLangName("origin"),
+                          metadata: _vm.fullData.getMetadata("origin"),
                           hoveredGroupsId: _vm.hoveredGroupsId,
                           shownTabs: _vm.languageTargetIds
                         },
