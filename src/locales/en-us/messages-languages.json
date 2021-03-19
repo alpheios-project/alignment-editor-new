@@ -633,7 +633,7 @@
     },
 
     "LANG_UKR": {
-      "message": "Ukainian",
+      "message": "Ukrainian",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },

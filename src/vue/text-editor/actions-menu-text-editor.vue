@@ -2,7 +2,7 @@
     <div class="alpheios-alignment-editor-actions-menu">
       <div class="alpheios-alignment-editor-actions-menu__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__download"
-            @click="downloadSingle" :disabled="!metadataAvailable" >
+            @click="downloadSingle" :disabled="!downloadAvailable" >
             {{ l10n.getMsgS('ACTIONS_DOWNLOAD_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__upload"
@@ -63,6 +63,10 @@ export default {
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    downloadAvailable () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(docSource) && (docSource.text)
     },
     metadataAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))

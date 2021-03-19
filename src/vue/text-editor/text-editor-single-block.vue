@@ -222,7 +222,6 @@ export default {
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -242,18 +241,16 @@ export default {
      * Emits update-text event with data from properties
      */
     updateText () {
-      if (this.text) {
-        const params = {
-          text: this.text,
-          direction: this.direction,
-          lang: this.language,
-          id: this.textId,
-          sourceType: this.sourceType,
-          tokenization: this.tokenization
-        }
-
-        this.$textC[this.updateTextMethod](params, this.textId)  
+      const params = {
+        text: this.text,
+        direction: this.direction,
+        lang: this.language,
+        id: this.textId,
+        sourceType: this.sourceType,
+        tokenization: this.tokenization
       }
+
+      this.$textC[this.updateTextMethod](params, this.textId)  
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
