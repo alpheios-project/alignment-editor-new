@@ -43078,7 +43078,8 @@ class AlignedText {
   }
 
   get langName () {
-    return _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang).text
+    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
+    return langData ? langData.text : this.lang
   }
 
   updateLanguage (lang) {
@@ -46196,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i296-download-wrong-lang.20210319327" : 0
+    return  true ? "i296-download-wrong-lang.20210319360" : 0
   }
 
   static get libName () {
