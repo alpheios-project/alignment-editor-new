@@ -45334,7 +45334,7 @@ class SourceText {
    * @param {String} docSource.lang
    */
   update (docSource) {
-    this.text = docSource.text ? docSource.text : this.text
+    this.text = docSource.text
     this.direction = docSource.direction ? docSource.direction : this.direction
     this.lang = docSource.lang ? docSource.lang : this.lang
 
@@ -46197,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i296-download-wrong-lang.20210319360" : 0
+    return  true ? "i296-download-wrong-lang.20210319376" : 0
   }
 
   static get libName () {
@@ -48558,6 +48558,10 @@ __webpack_require__.r(__webpack_exports__);
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
+    downloadAvailable () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return Boolean(this.$store.state.alignmentUpdated) && Boolean(docSource) && (docSource.text)
+    },
     metadataAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
     },
@@ -49231,7 +49235,6 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -49251,18 +49254,16 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     updateText () {
-      if (this.text) {
-        const params = {
-          text: this.text,
-          direction: this.direction,
-          lang: this.language,
-          id: this.textId,
-          sourceType: this.sourceType,
-          tokenization: this.tokenization
-        }
-
-        this.$textC[this.updateTextMethod](params, this.textId)  
+      const params = {
+        text: this.text,
+        direction: this.direction,
+        lang: this.language,
+        id: this.textId,
+        sourceType: this.sourceType,
+        tokenization: this.tokenization
       }
+
+      this.$textC[this.updateTextMethod](params, this.textId)  
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
@@ -55247,7 +55248,7 @@ var render = function() {
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
               attrs: {
                 id: "alpheios-actions-menu-button__download",
-                disabled: !_vm.metadataAvailable
+                disabled: !_vm.downloadAvailable
               },
               on: { click: _vm.downloadSingle }
             },
