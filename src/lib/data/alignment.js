@@ -154,6 +154,10 @@ export default class Alignment {
     return this.origin.docSource ? this.origin.docSource : null
   }
 
+  get originDocSourceHasText () {
+    return this.originDocSource && Boolean(this.originDocSource.text)
+  }
+
   /**
    * @returns { SourceText | null } target docSource
    */
