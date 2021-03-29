@@ -89,6 +89,10 @@ export default class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  get originDocSourceHasText () {
+    return this.alignment ? this.alignment.originDocSourceHasText : null
+  }
+
   /**
    * @returns {Array[String]} - all ids from target source texts
    */

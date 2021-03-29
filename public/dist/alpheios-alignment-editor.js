@@ -41140,6 +41140,10 @@ class TextsController {
     return this.alignment ? this.alignment.originDocSource : null
   }
 
+  get originDocSourceHasText () {
+    return this.alignment ? this.alignment.originDocSourceHasText : null
+  }
+
   /**
    * @returns {Array[String]} - all ids from target source texts
    */
@@ -43495,11 +43499,11 @@ class Alignment {
    * @returns {Boolean}
    */
   get readyForTokenize () {
-    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.allSourceTextTokenized
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.alignmentGroupsWorkflowAvailable
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
+    return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
   }
 
   /**
@@ -43606,6 +43610,10 @@ class Alignment {
    */
   get originDocSource () {
     return this.origin.docSource ? this.origin.docSource : null
+  }
+
+  get originDocSourceHasText () {
+    return this.originDocSource && Boolean(this.originDocSource.text)
   }
 
   /**
@@ -46197,7 +46205,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i296-download-wrong-lang.20210319376" : 0
+    return  true ? "i153-errors-fix.20210329617" : 0
   }
 
   static get libName () {
@@ -48048,7 +48056,7 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     downloadAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.originDocSource)
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
