@@ -43495,11 +43495,11 @@ class Alignment {
    * @returns {Boolean}
    */
   get readyForTokenize () {
-    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.allSourceTextTokenized
+    return this.originDocSourceFullyDefined && this.targetDocSourceFullyDefined && !this.alignmentGroupsWorkflowAvailable
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
+    return this.origin.docSource && (Object.values(this.targets).length > 0) && this.origin.docSource.checkSize(maxCharactersPerTextValue) && Object.values(this.targets).every(target => target.docSource.checkSize(maxCharactersPerTextValue))
   }
 
   /**
@@ -46197,7 +46197,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i296-download-wrong-lang.20210319376" : 0
+    return  true ? "i153-errors-fix.20210329398" : 0
   }
 
   static get libName () {
