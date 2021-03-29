@@ -16,7 +16,7 @@
          :class = "charactersClasses">
          {{ charactersText }}
       </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText" 
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
 
@@ -240,17 +240,19 @@ export default {
     /**
      * Emits update-text event with data from properties
      */
-    updateText () {
-      const params = {
-        text: this.text,
-        direction: this.direction,
-        lang: this.language,
-        id: this.textId,
-        sourceType: this.sourceType,
-        tokenization: this.tokenization
-      }
+    updateText (updatePlace) {
+      if ((updatePlace === 'text') || (this.text)) {
+        const params = {
+          text: this.text,
+          direction: this.direction,
+          lang: this.language,
+          id: this.textId,
+          sourceType: this.sourceType,
+          tokenization: this.tokenization
+        }
 
-      this.$textC[this.updateTextMethod](params, this.textId)  
+        this.$textC[this.updateTextMethod](params, this.textId)  
+      }
     },
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)

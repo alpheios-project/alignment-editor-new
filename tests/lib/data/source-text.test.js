@@ -145,4 +145,5 @@ describe('source-text.test.js', () => {
 
     expect(sourceText.getMetadataValue(MetadataTerm.property.CREATOR)).toEqual(['The first creator', 'The second creator'])
   })
+
 })
