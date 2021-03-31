@@ -60,12 +60,12 @@
       "component": "Alignment"
     },
     "TOKENS_EDIT_SPLIT_NO_SPACES": {
-      "message": "The token word should have one space for split workflow.",
+      "message": "The token word must contain at least one space for split workflow.",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
     },
     "TOKENS_EDIT_SPLIT_SEVERAL_SPACES": {
-      "message": "The token word should have only one space for split workflow.",
+      "message": "Only one space is allowed for split workflow.",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
     },
