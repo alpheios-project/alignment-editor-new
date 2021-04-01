@@ -34,7 +34,8 @@ export default class AlignedText {
   }
 
   get langName () {
-    return Langs.all.find(langData => langData.value === this.lang).text
+    const langData = Langs.all.find(langData => langData.value === this.lang)
+    return langData ? langData.text : this.lang
   }
 
   updateLanguage (lang) {

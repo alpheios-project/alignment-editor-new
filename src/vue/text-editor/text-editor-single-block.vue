@@ -16,7 +16,7 @@
          :class = "charactersClasses">
          {{ charactersText }}
       </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText" 
+      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
                  :disabled="!docSourceEditAvailable" >
       ></textarea>
 
@@ -222,7 +222,6 @@ export default {
      */
     updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -241,8 +240,8 @@ export default {
     /**
      * Emits update-text event with data from properties
      */
-    updateText () {
-      if (this.text) {
+    updateText (updatePlace) {
+      if ((updatePlace === 'text') || (this.text)) {
         const params = {
           text: this.text,
           direction: this.direction,

@@ -10,9 +10,9 @@
             >
               <segment-block textType = "origin"
                 :segmentData = "segmentData.origin" :segIndex = "segIndex" :maxHeight = "maxHeight"
-                :dir = "fullData.origin.dir" :lang = "fullData.origin.lang" 
-                :langName = "fullData.origin.langName" :metadata = "fullData.origin.metadata"
-                :hoveredGroupsId = "hoveredOriginGroupsId"
+                :dir = "fullData.getDir('origin')" :lang = "fullData.getLang('origin')" 
+                :langName = "fullData.getLangName('origin')" :metadata = "fullData.getMetadata('origin')"
+                :hoveredGroupsId = "hoveredOriginGroupsId" :shownTabs = "languageTargetIds"
                 @addHoverToken = "addHoverToken" @removeHoverToken = "removeHoverToken"
               />
             </div>
@@ -61,6 +61,10 @@ export default {
     fullData: {
       type: Object,
       required: true
+    },
+    languageTargetIds: {
+      type: Array,
+      required: true
     }
   },
   data () {
@@ -78,7 +82,7 @@ export default {
       return GroupUtility.alignmentGroups(this.fullData, 'equivalence')
     },
     tokensEqGroups () {
-      return GroupUtility.tokensEquivalentGroups(this.fullData, this.allAlGroups)
+      return GroupUtility.tokensEquivalentGroups(this.fullData, this.allAlGroups, this.languageTargetIds)
     },
 
     containerHeight () {
@@ -98,15 +102,23 @@ export default {
     getIndex (textType, index, additionalIndex = 0) {
       return additionalIndex ? `${textType}-${index}-${additionalIndex}` : `${textType}-${index}`
     },
+    
     addHoverToken (token) {
       const hoveredOriginGroupsId = token.grouped ? token.groupData.map(groupDataItem => groupDataItem.groupId) : null
 
-      const hoveredTargetsData = token.grouped ? this.tokensEqGroups[token.word].targets : null
+      if (hoveredOriginGroupsId) {
+        const hoveredTargetsDataObj = token.grouped ? this.tokensEqGroups[token.word].targets : null
 
-      if (hoveredTargetsData) {
-        this.hoveredOriginGroupsId = hoveredOriginGroupsId
-        this.hoveredTargetsData = hoveredTargetsData
-        this.updateHovered++
+        if (hoveredTargetsDataObj) {
+          const hoveredTargetsKeys = Object.keys(hoveredTargetsDataObj).sort((a, b) => {
+            return this.languageTargetIds.indexOf(a) - this.languageTargetIds.indexOf(b)
+          })
+          const hoveredTargetsData = hoveredTargetsKeys.map(targetId => hoveredTargetsDataObj[targetId])
+
+          this.hoveredOriginGroupsId = hoveredOriginGroupsId
+          this.hoveredTargetsData = hoveredTargetsData
+          this.updateHovered++
+        }
       }
     },
 

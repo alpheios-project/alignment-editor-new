@@ -86,9 +86,9 @@ export default class UploadController {
     const fileDataArr = fileData.split(/\r\n|\r|\n/)
 
     if (fileDataArr.length < 2) {
-      console.error(L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'))
+      console.error(L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'))
       NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT'),
+        text: L10nSingleton.getMsgS('SOURCE_TEXT_CONVERT_ERROR'),
         type: NotificationSingleton.types.ERROR
       })
       return

@@ -58,7 +58,7 @@
       "params": ["type"]
     },
     "SOURCE_TEXT_CONVERT_ERROR": {
-      "message": "The file doesn't have all the required fields. Text won't be created.",
+      "message": "The file doesn't have all required fields. Text won't be created.",
       "description": "An error message for converting from JSON process",
       "component": "SourceText"
     }    

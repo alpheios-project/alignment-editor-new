@@ -108,7 +108,7 @@ export default {
       return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
     },
     downloadAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.originDocSource)
+      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted

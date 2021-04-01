@@ -6,7 +6,7 @@
     <title>Alpheios Alignment Editor</title>
     <link rel="icon" type="image/x-icon" href="logo.ico">
     <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/alpheios-components@3.3.3-20210122585/dist/style/style-components.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/alpheios-components@3.3.3-incr-3.3.x.20210331255/dist/style/style-components.min.css" />
     <link rel="stylesheet" href="dist/style/style-alignment-editor.css"/>
     
     <script src="dist/alpheios-alignment-editor.js"></script>
@@ -31,10 +31,10 @@
             return  (event.metaKey || event.ctrlKey || event.keyCode == 91 || event.keyCode == 224)
           }
 
-          import ('https://cdn.jsdelivr.net/npm/alpheios-embedded@3.3.1-20200821383/dist/alpheios-embedded.min.js').then(embedLib => {
+          import ('https://cdn.jsdelivr.net/npm/alpheios-embedded@3.3.1-incr-3.3.x.20210331295/dist/alpheios-embedded.min.js').then(embedLib => {
             window.AlpheiosEmbed.importDependencies({ 
               mode: 'custom',
-              libs: { components: 'https://cdn.jsdelivr.net/npm/alpheios-components@3.3.3-20210122585/dist/alpheios-components.min.js' },
+              libs: { components: 'https://cdn.jsdelivr.net/npm/alpheios-components@3.3.3-incr-3.3.x.20210331255/dist/alpheios-components.min.js' },
             }).then(Embedded => {
               embed = new Embedded(
                 {

@@ -18,7 +18,8 @@ export default class SourceText {
   constructor (textType, docSource, targetId) {
     this.id = targetId || uuidv4()
     this.textType = textType
-    this.text = docSource ? docSource.text : ''
+
+    this.text = docSource && docSource.text ? docSource.text : ''
     this.direction = docSource && docSource.direction ? docSource.direction : this.defaultDirection
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
@@ -67,7 +68,9 @@ export default class SourceText {
    * @param {String} docSource.lang
    */
   update (docSource) {
-    this.text = docSource.text ? docSource.text : this.text
+    if (docSource.text !== undefined) {
+      this.text = docSource.text
+    }
     this.direction = docSource.direction ? docSource.direction : this.direction
     this.lang = docSource.lang ? docSource.lang : this.lang
 
@@ -111,8 +114,8 @@ export default class SourceText {
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? Metadata.convertFromJSON(jsonData.metadata) : null
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
 
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
