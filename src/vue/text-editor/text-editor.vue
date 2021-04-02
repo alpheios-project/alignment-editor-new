@@ -1,10 +1,8 @@
 <template>
   <div class="alpheios-alignment-editor-container">
-      <h2>{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-header__show-label" @click="toggleShowTextsBlocks">{{ showTextsBlocksLabel }}</span>)
-      </h2>
+      <h2>{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} </h2>
 
-      <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" v-show="showTextsBlocks">
+      <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
         <div class="alpheios-alignment-editor-text-blocks-container-inner">
 
           <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-origin-container">
@@ -37,30 +35,12 @@ export default {
     textEditorSingleBlock: TextEditorSingleBlock
   },
   props: {  
-    hideEditor: {
-      type: Number,
-      required: false
-    },
-    showEditor: {
-      type: Number,
-      required: false
-    }
   },
   data () {
     return {
-      showTextsBlocks: true
     }
   },
   watch: {
-    /**
-     * Catches property's change from parent component
-     */
-    hideEditor () {
-      this.showTextsBlocks = false
-    },
-    showEditor () {
-      this.showTextsBlocks = true
-    }
   },
   /**
    * I placed an empty alignment here for now, because it is the first point where it should be existed.
@@ -82,20 +62,11 @@ export default {
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
-    showTextsBlocksLabel () {
-      return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
-    },
     l10n () {
       return L10nSingleton
     }
   },
   methods: {
-    /**
-     * Toggle show/hide texts blocks
-     */
-    toggleShowTextsBlocks () {
-      this.showTextsBlocks = !this.showTextsBlocks
-    }
   }
 }
 </script>

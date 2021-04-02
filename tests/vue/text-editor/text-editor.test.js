@@ -71,35 +71,6 @@ describe('text-editor.test.js', () => {
     expect(cmp.vm.$historyC.alignment).toEqual(expect.any(Alignment))
   })
 
-  it('4 TextEditor - showTextsBlocks defines visibiity for text blocks and could be changed using props from parent', async () => {
-    let cmp = shallowMount(TextEditor, { 
-      store: appC.store,
-      localVue 
-    })
-
-    expect(cmp.vm.showTextsBlocks).toBeTruthy()
-    expect(cmp.find('#alpheios-text-editor-blocks-container').isVisible()).toBeTruthy()
-
-    cmp.setProps({'hideEditor': 2})
-    
-    await Vue.nextTick()
-    expect(cmp.vm.showTextsBlocks).toBeFalsy()
-    expect(cmp.find('#alpheios-text-editor-blocks-container').isVisible()).toBeFalsy()
-  })
-
-  it('5 TextEditor - showTextsBlocksLabel has show if blocks are hidden and hide otherwise, using toggleShowTextsBlocks method', () => {
-    let cmp = shallowMount(TextEditor, { 
-      store: appC.store,
-      localVue 
-    })
-
-    expect(cmp.vm.showTextsBlocks).toBeTruthy()
-    expect(cmp.vm.showTextsBlocksLabel).toEqual(expect.stringContaining('hide'))
-
-    cmp.vm.toggleShowTextsBlocks()
-    expect(cmp.vm.showTextsBlocks).toBeFalsy()
-    expect(cmp.vm.showTextsBlocksLabel).toEqual(expect.stringContaining('show'))
-  })
 
 
 })

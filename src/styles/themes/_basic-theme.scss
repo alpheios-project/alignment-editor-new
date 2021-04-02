@@ -195,4 +195,39 @@
     .alpheios-alignment-editor-token-edit-empty-input-description {
         color:map.get($theme, 'tokens-edit-description-text-color');
     }
+
+    .alpheios-alignment-app-menu {
+        background-color: map.get($theme, 'header-background-color');
+    }
+
+    .alpheios-app-menu-link {
+        color: map.get($theme, 'menu-text-color');
+        &:hover {
+            color: map.get($theme, 'menu-text-color-hover');
+        }
+        &:disabled {
+            color: map.get($theme, 'menu-text-color-disabled');
+        }
+    }
+
+    .alpheios-fileupload-filename {
+        color: map.get($theme, 'menu-text-color');
+    }
+
+    .alpheios-alignment-app-menu-close-icon {
+        svg {
+          fill: map.get($theme, 'menu-text-color');
+          stroke: map.get($theme, 'menu-text-color');
+        }
+        &:hover svg {
+          fill: map.get($theme, 'menu-text-color-hover');
+          stroke: map.get($theme, 'menu-text-color-hover');
+        }
+    }
+
+    .alpheios-main-menu-download-block-radio-block_item {
+        label {
+            color: map.get($theme, 'menu-text-color');
+        }
+    }
 }
