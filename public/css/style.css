@@ -17,10 +17,10 @@ body, html {
     background-color: #6e6e6e;
     color: #FFFFFF;
 
-    padding: 10px 10px 10px 25px;
+    padding: 10px 10px 10px 45px;
 }
 .container-inner {
-    padding: 0 10px;
+    padding: 0 10px 0 35px;
 }
 
 .header-logo img {

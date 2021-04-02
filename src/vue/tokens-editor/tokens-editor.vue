@@ -1,12 +1,10 @@
 <template>
-  <div class="alpheios-alignment-editor-container" v-show="showAlignEditor">
+  <div class="alpheios-alignment-editor-container">
     <div class="alpheios-alignment-editor-header">
-      <h2>{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }} 
-        (<span class="alpheios-alignment-editor-header__show-label" @click="toggleShowTokensEditBlocks">{{ showTokenEditBlocksLabel }}</span>)
-      </h2>
+      <h2>{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }}</h2>
     </div>
 
-    <tokens-editor-inner-block v-show="showTokensEditBlocks" v-if="renderTokensEditor"/>
+    <tokens-editor-inner-block v-if="renderTokensEditor"/>
     
   </div>
 </template>
@@ -23,40 +21,33 @@ export default {
     TokensEditorInnerBlock: TokensEditInnerBlock
   },
   props: {
+    renderEditor: {
+      type: Number,
+      required: true
+    }
   },
   data () {
     return {
-      showTokensEditBlocks: false,
       renderTokensEditor: false
     }
   },
   watch: {
     '$store.state.alignmentRestarted' () {
       this.renderTokensEditor = false
-      this.showTokensEditBlocks = false
+    },
+    'renderEditor' () {
+      if (this.alignmentStared) { this.renderTokensEditor = true }
     }
   },
   computed: {
     l10n () {
       return L10nSingleton
     },
-    /**
-     * Checks if there are enough data for rendering editors
-     */
-    showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
-    },
-    showTokenEditBlocksLabel () {
-      return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')
+    alignmentStared ()  {
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
-    toggleShowTokensEditBlocks () {
-      this.showTokensEditBlocks = !this.showTokensEditBlocks
-      if (this.showTokensEditBlocks) {
-        this.renderTokensEditor = true
-      }
-    }
   }
 }
 </script>

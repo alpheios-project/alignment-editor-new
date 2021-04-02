@@ -84,6 +84,7 @@ export default {
       text-align: center;
 
       text-transform: initial;
+      white-space: normal;
     }
   }
 

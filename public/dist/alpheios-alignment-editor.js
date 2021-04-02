@@ -46208,7 +46208,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i153-update-messages.20210331618" : 0
+    return  true ? "i86-left-side-menu.20210402541" : 0
   }
 
   static get libName () {
@@ -47074,8 +47074,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -47089,48 +47087,22 @@ __webpack_require__.r(__webpack_exports__);
     alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
-    showEditor: {
-      type: Number,
-      required: true
-    }
   },
   data () {
     return {
-      showAlignBlocks: false
     }
   },
   watch: {
-    /**
-     * Controlls if showEditor changes, then showAlignBlocs would be set to truth
-     */
-    showEditor () {
-      this.showAlignBlocks = true
-    }
   },
   computed: {
-    /**
-     * Defines label show/hide texts block depending on showAlignBlocks
-     */
-    showAlignBlocksLabel () {
-      return this.showAlignBlocks ? this.l10n.getMsgS('ALIGN_EDITOR_HIDE') : this.l10n.getMsgS('ALIGN_EDITOR_SHOW')
-    },
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
-    /**
-     * Checks if there are enough data for rendering editors
-     */
-    showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+    renderAlignEditor ()  {
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
-    /**
-     * Toggle showAlignBlocks to change visibility for aligned blocks
-     */
-    toggleShowAlignBlocks () {
-      this.showAlignBlocks = !this.showAlignBlocks
-    }
   }
 });
 
@@ -47528,6 +47500,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
 /* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
 /* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
+/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_8__);
 //
 //
 //
@@ -47554,6 +47528,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -47575,20 +47556,21 @@ __webpack_require__.r(__webpack_exports__);
     alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
     tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
     notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    navbarIcon: (_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_8___default())
   },
   data () {
-    return {
-      hideTextEditor: 1,
-      showTextEditor: 1,
-      showAlignEditor: 1,
-      shownOptionsBlock: false
+    return {     
+      shownOptionsBlock: false,
+      showSourceTextEditorBlock: true,
+      showAlignmentGroupsEditorBlock: false,
+      showTokensEditorBlock: false,
+
+      menuShow: 1,
+      renderTokensEditor: 1
     }
   },
   computed: {
-    alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
-    }
   },
   methods: {
     /**
@@ -47632,8 +47614,7 @@ __webpack_require__.r(__webpack_exports__);
     async alignTexts () {
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
       if (result) {
-        this.hideTextEditor++
-        this.showAlignEditor++
+        this.showAlignmentGroupsEditor()
       }
     },
     /**
@@ -47641,14 +47622,41 @@ __webpack_require__.r(__webpack_exports__);
      */
     addTarget () {
       this.$textC.updateTargetDocSource()
-      this.showTextEditor++
+      this.showSourceTextEditor()
     },
     /**
      * Show options block
      */
-    toggleOptions () {
-      this.shownOptionsBlock = !this.shownOptionsBlock
+    showOptions () {
+      this.shownOptionsBlock = true
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = false
     },
+
+    showSourceTextEditor () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = true
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = false
+    },
+
+    showAlignmentGroupsEditor () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = true
+      this.showTokensEditorBlock = false
+    },
+
+    showTokensEditor () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = true
+
+      this.renderTokensEditor++
+    },
+
     /**
      * Clear and start alignment over
      */
@@ -47677,10 +47685,10 @@ __webpack_require__.r(__webpack_exports__);
       }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
-      this.showTextEditor++
-
-      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
-        this.showAlignEditor++
+      if ((alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) && alignment.hasOriginAlignedTexts) {
+        this.showAlignmentGroupsEditor()
+      } else {
+        this.showSourceTextEditor()
       }
     }
   }
@@ -47943,12 +47951,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
-/* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
-/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
-/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
-/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/upload.svg */ "./inline-icons/upload.svg");
+/* harmony import */ var _inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48025,25 +48060,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MainMenu',
   components: {
-    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_3___default()),
-    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    uploadIcon: (_inline_icons_upload_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_4___default()),
     tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default
   },
   props: {
-    shownOptionsBlock: {
-      type: Boolean,
+    menuShow: {
+      type: Number,
       required: true
     }
   },
   data () {
     return {
+      menuShown: false,
       showUploadBlock: false,
       showDownloadBlock: false,
-      currentDownloadType: null
+      currentDownloadType: null,
+      uploadFileName: null
     }
   },
   mounted () {  
     this.currentDownloadType = this.downloadTypes.length > 0 ? this.downloadTypes[0].name : null
+  },
+  watch: {
+    menuShow () {
+      this.menuShown = true
+    }
   },
   computed: {
     l10n () {
@@ -48053,10 +48096,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     },
     undoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable && this.$historyC.undoAvailable
+      return this.alignEditAvailable && this.$historyC.undoAvailable
     },
     redoAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$alignedGC.alignmentGroupsWorkflowAvailable  && this.$historyC.redoAvailable
+      return this.alignEditAvailable && this.$historyC.redoAvailable
     },
     downloadAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.originDocSourceHasText
@@ -48064,8 +48107,8 @@ __webpack_require__.r(__webpack_exports__);
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
-    toggleOptionsTitle () {
-      return this.shownOptionsBlock ? this.l10n.getMsgS('MAIN_MENU_HIDE_OPTIONS_TITLE') : this.l10n.getMsgS('MAIN_MENU_SHOW_OPTIONS_TITLE')
+    alignEditAvailable () {
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
@@ -48093,7 +48136,7 @@ __webpack_require__.r(__webpack_exports__);
      * Creates FileReader and passes data from file to App component for parsing
      */
     loadTextFromFile() {
-      const file = this.$refs.fileupload.files[0]
+      const file = this.$refs.alpheiosfileupload.files[0]
 
       if (!file) { return }
       const extension = file.name.split('.').pop()
@@ -48105,6 +48148,7 @@ __webpack_require__.r(__webpack_exports__);
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
+        this.closeMenu()
       }
       reader.readAsText(file)
     },
@@ -48114,10 +48158,68 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     clearAll () {
-      this.$refs.fileupload.value = ''
+      this.$refs.alpheiosfileupload.value = ''
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+      this.closeMenu()
+    },
+    
+    closeMenu () {
+      this.menuShown = false
+    },
+
+    addTarget () {
+      this.$emit('add-target')
+      this.closeMenu()
+    },
+
+    alignTexts () {
+      this.$emit('align-texts')
+      this.closeMenu()
+    },
+
+    undoAction () {
+      this.$emit('undo-action')
+      this.closeMenu()
+    },
+
+    redoAction () {
+      this.$emit('redo-action')
+      this.closeMenu()
+    },
+
+    downloadData () {
+      this.$emit('download-data', this.currentDownloadType)
+      this.showDownloadBlock = false
+      this.closeMenu()
+    },
+
+    changeFileUpload () {
+      const file = this.$refs.alpheiosfileupload.files[0]
+
+      if (!file) { return }
+      this.uploadFileName = file.name
+    },
+
+    showOptions () {
+      this.$emit('showOptions')
+      this.closeMenu()
+    },
+
+    showSourceTextEditor () {
+      this.$emit('showSourceTextEditor')
+      this.closeMenu()
+    },
+
+    showAlignmentGroupsEditor () {
+      this.$emit('showAlignmentGroupsEditor')
+      this.closeMenu()
+    },
+
+    showTokensEditor () {
+      this.$emit('showTokensEditor')
+      this.closeMenu()
     }
   }
 });
@@ -49352,8 +49454,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -49364,30 +49464,12 @@ __webpack_require__.r(__webpack_exports__);
     textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {  
-    hideEditor: {
-      type: Number,
-      required: false
-    },
-    showEditor: {
-      type: Number,
-      required: false
-    }
   },
   data () {
     return {
-      showTextsBlocks: true
     }
   },
   watch: {
-    /**
-     * Catches property's change from parent component
-     */
-    hideEditor () {
-      this.showTextsBlocks = false
-    },
-    showEditor () {
-      this.showTextsBlocks = true
-    }
   },
   /**
    * I placed an empty alignment here for now, because it is the first point where it should be existed.
@@ -49409,20 +49491,11 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
-    showTextsBlocksLabel () {
-      return this.showTextsBlocks ? this.l10n.getMsgS('TEXT_EDITOR_HIDE') : this.l10n.getMsgS('TEXT_EDITOR_SHOW')
-    },
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     }
   },
   methods: {
-    /**
-     * Toggle show/hide texts blocks
-     */
-    toggleShowTextsBlocks () {
-      this.showTextsBlocks = !this.showTextsBlocks
-    }
   }
 });
 
@@ -50925,8 +50998,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -50940,40 +51011,33 @@ __webpack_require__.r(__webpack_exports__);
     TokensEditorInnerBlock: _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
+    renderEditor: {
+      type: Number,
+      required: true
+    }
   },
   data () {
     return {
-      showTokensEditBlocks: false,
       renderTokensEditor: false
     }
   },
   watch: {
     '$store.state.alignmentRestarted' () {
       this.renderTokensEditor = false
-      this.showTokensEditBlocks = false
+    },
+    'renderEditor' () {
+      if (this.alignmentStared) { this.renderTokensEditor = true }
     }
   },
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
-    /**
-     * Checks if there are enough data for rendering editors
-     */
-    showAlignEditor () {
-      return this.$store.state.alignmentRestarted && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
-    },
-    showTokenEditBlocksLabel () {
-      return this.showTokensEditBlocks ? this.l10n.getMsgS('TOKENS_EDITOR_HIDE') : this.l10n.getMsgS('TOKENS_EDITOR_SHOW')
+    alignmentStared ()  {
+      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
-    toggleShowTokensEditBlocks () {
-      this.showTokensEditBlocks = !this.showTokensEditBlocks
-      if (this.showTokensEditBlocks) {
-        this.renderTokensEditor = true
-      }
-    }
   }
 });
 
@@ -53873,46 +53937,14 @@ var render = function() {
   return _c(
     "div",
     {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.showAlignEditor,
-          expression: "showAlignEditor"
-        }
-      ],
       staticClass: "alpheios-alignment-editor-container  alpheios-tools-enabled"
     },
     [
       _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
-        _c("h2", [
-          _vm._v(
-            _vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")) + " \n      ("
-          ),
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-alignment-editor-header__show-label",
-              on: { click: _vm.toggleShowAlignBlocks }
-            },
-            [_vm._v(_vm._s(_vm.showAlignBlocksLabel))]
-          ),
-          _vm._v(")\n    ")
-        ])
+        _c("h2", [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")))])
       ]),
       _vm._v(" "),
-      _vm.showAlignEditor
-        ? _c("align-editor-view-mode", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showAlignBlocks,
-                expression: "showAlignBlocks"
-              }
-            ]
-          })
-        : _vm._e()
+      _vm.renderAlignEditor ? _c("align-editor-view-mode") : _vm._e()
     ],
     1
   )
@@ -54105,8 +54137,22 @@ var render = function() {
       attrs: { id: "alpheios-alignment-editor-app-container" }
     },
     [
+      _c(
+        "span",
+        {
+          staticClass: "alpheios-alignment-app-menu-open-icon",
+          on: {
+            click: function($event) {
+              _vm.menuShow++
+            }
+          }
+        },
+        [_c("navbar-icon")],
+        1
+      ),
+      _vm._v(" "),
       _c("main-menu", {
-        attrs: { shownOptionsBlock: _vm.shownOptionsBlock },
+        attrs: { menuShow: _vm.menuShow },
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
@@ -54114,8 +54160,11 @@ var render = function() {
           "redo-action": _vm.redoAction,
           "undo-action": _vm.undoAction,
           "add-target": _vm.addTarget,
-          "toggle-options": _vm.toggleOptions,
-          "clear-all": _vm.startOver
+          "clear-all": _vm.startOver,
+          showOptions: _vm.showOptions,
+          showSourceTextEditor: _vm.showSourceTextEditor,
+          showAlignmentGroupsEditor: _vm.showAlignmentGroupsEditor,
+          showTokensEditor: _vm.showTokensEditor
         }
       }),
       _vm._v(" "),
@@ -54133,15 +54182,38 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("text-editor", {
-        attrs: {
-          "hide-editor": _vm.hideTextEditor,
-          "show-editor": _vm.showTextEditor
-        }
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showSourceTextEditorBlock,
+            expression: "showSourceTextEditorBlock"
+          }
+        ]
       }),
       _vm._v(" "),
-      _c("align-editor", { attrs: { "show-editor": _vm.showAlignEditor } }),
+      _c("align-editor", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showAlignmentGroupsEditorBlock,
+            expression: "showAlignmentGroupsEditorBlock"
+          }
+        ]
+      }),
       _vm._v(" "),
-      _c("tokens-editor")
+      _c("tokens-editor", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTokensEditorBlock,
+            expression: "showTokensEditorBlock"
+          }
+        ],
+        attrs: { renderEditor: _vm.renderTokensEditor }
+      })
     ],
     1
   )
@@ -54396,310 +54468,380 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "alpheios-alignment-app-menu",
-      attrs: { id: "alpheios-main-menu" }
-    },
-    [
-      _c("div", { staticClass: "alpheios-alignment-app-menu__buttons" }, [
+  return _c("div", { attrs: { id: "alpheios-main-menu" } }, [
+    _c(
+      "div",
+      {
+        staticClass: "alpheios-alignment-app-menu",
+        class: { "alpheios-shown": _vm.menuShown }
+      },
+      [
         _c(
-          "button",
+          "span",
           {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: { id: "alpheios-main-menu-options" },
-            on: {
-              click: function($event) {
-                return _vm.$emit("toggle-options")
-              }
-            }
+            staticClass: "alpheios-alignment-app-menu-close-icon",
+            on: { click: _vm.closeMenu }
           },
-          [
-            _vm._v(
-              "\n              " + _vm._s(_vm.toggleOptionsTitle) + "\n      "
-            )
-          ]
+          [_c("x-close-icon")],
+          1
         ),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: {
-              id: "alpheios-main-menu-add-target",
-              disabled: !_vm.addTargetAvailable
-            },
-            on: {
-              click: function($event) {
-                return _vm.$emit("add-target")
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
-                "\n      "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: {
-              id: "alpheios-main-menu-download",
-              disabled: !_vm.downloadAvailable
-            },
-            on: { click: _vm.downloadTexts }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")) +
-                "\n      "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: {
-              id: "alpheios-main-menu-upload",
-              disabled: !_vm.docSourceEditAvailable
-            },
-            on: { click: _vm.uploadTexts }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")) +
-                "\n      "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: {
-              id: "alpheios-main-menu-align",
-              disabled: !_vm.alignAvailable
-            },
-            on: {
-              click: function($event) {
-                return _vm.$emit("align-texts")
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
-                "\n      "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: {
-              id: "alpheios-main-menu-undo",
-              disabled: !_vm.undoAvailable
-            },
-            on: {
-              click: function($event) {
-                return _vm.$emit("undo-action")
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UNDO_TITLE")) +
-                "\n      "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: {
-              id: "alpheios-main-menu-redo",
-              disabled: !_vm.redoAvailable
-            },
-            on: {
-              click: function($event) {
-                return _vm.$emit("redo-action")
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_REDO_TITLE")) +
-                "\n      "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "alpheios-editor-button-tertiary alpheios-menu-button",
-            attrs: { id: "alpheios-main-menu-clear-all" },
-            on: { click: _vm.clearAll }
-          },
-          [
-            _vm._v(
-              "\n              " +
-                _vm._s(_vm.l10n.getMsgS("MAIN_MENU_CLEAR_TEXT")) +
-                "\n      "
-            )
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
-              expression: "showUploadBlock &&  docSourceEditAvailable"
-            }
-          ],
-          staticClass: "alpheios-alignment-app-menu__upload-block",
-          attrs: { id: "alpheios-main-menu-upload-block" }
-        },
-        [
-          _c("span", { staticClass: "alpheios-main-menu-upload-block_item" }, [
-            _c("input", { ref: "fileupload", attrs: { type: "file" } })
-          ]),
-          _vm._v(" "),
+        _c("div", { staticClass: "alpheios-alignment-app-menu__buttons" }, [
           _c(
-            "span",
-            {
-              staticClass:
-                "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
-            },
-            [_c("upload-icon", { on: { click: _vm.loadTextFromFile } })],
-            1
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showDownloadBlock && _vm.downloadAvailable,
-              expression: "showDownloadBlock &&  downloadAvailable"
-            }
-          ],
-          staticClass: "alpheios-alignment-app-menu__download-block",
-          attrs: { id: "alpheios-main-menu-download-block" }
-        },
-        [
-          _c(
-            "p",
-            { staticClass: "alpheios-main-menu-download-block-radio-block" },
+            "div",
+            { staticClass: "alpheios-alignment-app-menu__buttons-blocks" },
             [
-              _vm._l(_vm.downloadTypes, function(dType) {
-                return _c(
-                  "span",
-                  {
-                    key: dType.name,
-                    staticClass:
-                      "alpheios-main-menu-download-block-radio-block_item"
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.currentDownloadType,
-                          expression: "currentDownloadType"
-                        }
-                      ],
-                      attrs: {
-                        type: "radio",
-                        id: _vm.downloadTypeId(dType.name)
-                      },
-                      domProps: {
-                        value: dType.name,
-                        checked: _vm._q(_vm.currentDownloadType, dType.name)
-                      },
-                      on: {
-                        change: function($event) {
-                          _vm.currentDownloadType = dType.name
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "tooltip",
-                      {
-                        attrs: {
-                          tooltipText: dType.tooltip,
-                          tooltipDirection: "top"
-                        }
-                      },
-                      [
-                        _c(
-                          "label",
-                          { attrs: { for: _vm.downloadTypeId(dType.name) } },
-                          [_vm._v(_vm._s(dType.label))]
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              }),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: { id: "alpheios-main-menu-options" },
+                  on: { click: _vm.showOptions }
+                },
+                [_vm._v("\n                Options\n        ")]
+              ),
               _vm._v(" "),
               _c(
-                "span",
+                "button",
                 {
-                  staticClass:
-                    "alpheios-main-menu-download-block_item alpheios-token-edit-actions-button"
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: { id: "alpheios-main-menu-source-editor" },
+                  on: { click: _vm.showSourceTextEditor }
+                },
+                [_vm._v("\n                Source Text Editor\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-alignment-groups-editor",
+                    disabled: !_vm.alignEditAvailable
+                  },
+                  on: { click: _vm.showAlignmentGroupsEditor }
+                },
+                [_vm._v("\n                Alignment Groups Editor\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-tokens-editor",
+                    disabled: !_vm.alignEditAvailable
+                  },
+                  on: { click: _vm.showTokensEditor }
+                },
+                [_vm._v("\n                Tokens Editor\n        ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "alpheios-alignment-app-menu__buttons-actions" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-add-target",
+                    disabled: !_vm.addTargetAvailable
+                  },
+                  on: { click: _vm.addTarget }
                 },
                 [
-                  _c("download-icon", {
-                    on: {
-                      click: function($event) {
-                        return _vm.$emit(
-                          "download-data",
-                          _vm.currentDownloadType
-                        )
-                      }
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ADD_TARGET_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-download",
+                    disabled: !_vm.downloadAvailable
+                  },
+                  on: { click: _vm.downloadTexts }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showDownloadBlock && _vm.downloadAvailable,
+                      expression: "showDownloadBlock &&  downloadAvailable"
                     }
-                  })
-                ],
-                1
+                  ],
+                  staticClass: "alpheios-alignment-app-menu__download-block",
+                  attrs: { id: "alpheios-main-menu-download-block" }
+                },
+                [
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-main-menu-download-block-radio-block"
+                    },
+                    _vm._l(_vm.downloadTypes, function(dType) {
+                      return _c(
+                        "span",
+                        {
+                          key: dType.name,
+                          staticClass:
+                            "alpheios-main-menu-download-block-radio-block_item"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.currentDownloadType,
+                                expression: "currentDownloadType"
+                              }
+                            ],
+                            attrs: {
+                              type: "radio",
+                              id: _vm.downloadTypeId(dType.name)
+                            },
+                            domProps: {
+                              value: dType.name,
+                              checked: _vm._q(
+                                _vm.currentDownloadType,
+                                dType.name
+                              )
+                            },
+                            on: {
+                              change: function($event) {
+                                _vm.currentDownloadType = dType.name
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "tooltip",
+                            {
+                              attrs: {
+                                tooltipText: dType.tooltip,
+                                tooltipDirection: "top-left"
+                              }
+                            },
+                            [
+                              _c(
+                                "label",
+                                {
+                                  attrs: { for: _vm.downloadTypeId(dType.name) }
+                                },
+                                [_vm._v(_vm._s(dType.label))]
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-main-menu-download-block_item alpheios-token-edit-actions-button"
+                    },
+                    [_c("download-icon", { on: { click: _vm.downloadData } })],
+                    1
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-upload",
+                    disabled: !_vm.docSourceEditAvailable
+                  },
+                  on: { click: _vm.uploadTexts }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UPLOAD_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
+                      expression: "showUploadBlock &&  docSourceEditAvailable"
+                    }
+                  ],
+                  staticClass: "alpheios-alignment-app-menu__upload-block",
+                  attrs: { id: "alpheios-main-menu-upload-block" }
+                },
+                [
+                  _c(
+                    "span",
+                    { staticClass: "alpheios-main-menu-upload-block_item" },
+                    [
+                      _c("input", {
+                        ref: "alpheiosfileupload",
+                        staticClass: "alpheios-fileupload",
+                        attrs: { type: "file", id: "alpheiosfileupload" },
+                        on: { change: _vm.changeFileUpload }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                          attrs: { for: "alpheiosfileupload" }
+                        },
+                        [_vm._v("Choose a file")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
+                    },
+                    [
+                      _c("upload-icon", { on: { click: _vm.loadTextFromFile } })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.uploadFileName
+                    ? _c("p", { staticClass: "alpheios-fileupload-filename" }, [
+                        _vm._v(_vm._s(_vm.uploadFileName))
+                      ])
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-align",
+                    disabled: !_vm.alignAvailable
+                  },
+                  on: { click: _vm.alignTexts }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-undo",
+                    disabled: !_vm.undoAvailable
+                  },
+                  on: { click: _vm.undoAction }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_UNDO_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: {
+                    id: "alpheios-main-menu-redo",
+                    disabled: !_vm.redoAvailable
+                  },
+                  on: { click: _vm.redoAction }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_REDO_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "alpheios-app-menu-link",
+                  attrs: { id: "alpheios-main-menu-clear-all" },
+                  on: { click: _vm.clearAll }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_CLEAR_TEXT")) +
+                      "\n        "
+                  )
+                ]
               )
-            ],
-            2
+            ]
           )
-        ]
-      )
-    ]
-  )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.menuShown,
+          expression: "menuShown"
+        }
+      ],
+      staticClass: "alpheios-app-black-screen"
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -55905,30 +56047,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "alpheios-alignment-editor-container" }, [
-    _c("h2", [
-      _vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")) + " \n      ("),
-      _c(
-        "span",
-        {
-          staticClass: "alpheios-alignment-editor-header__show-label",
-          on: { click: _vm.toggleShowTextsBlocks }
-        },
-        [_vm._v(_vm._s(_vm.showTextsBlocksLabel))]
-      ),
-      _vm._v(")\n    ")
-    ]),
+    _c("h2", [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")) + " ")]),
     _vm._v(" "),
     _c(
       "div",
       {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showTextsBlocks,
-            expression: "showTextsBlocks"
-          }
-        ],
         staticClass: "alpheios-alignment-editor-text-blocks-container",
         attrs: { id: "alpheios-text-editor-blocks-container" }
       },
@@ -57374,47 +57497,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.showAlignEditor,
-          expression: "showAlignEditor"
-        }
-      ],
-      staticClass: "alpheios-alignment-editor-container"
-    },
+    { staticClass: "alpheios-alignment-editor-container" },
     [
       _c("div", { staticClass: "alpheios-alignment-editor-header" }, [
-        _c("h2", [
-          _vm._v(
-            _vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_HEADING")) + " \n      ("
-          ),
-          _c(
-            "span",
-            {
-              staticClass: "alpheios-alignment-editor-header__show-label",
-              on: { click: _vm.toggleShowTokensEditBlocks }
-            },
-            [_vm._v(_vm._s(_vm.showTokenEditBlocksLabel))]
-          ),
-          _vm._v(")\n    ")
-        ])
+        _c("h2", [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_HEADING")))])
       ]),
       _vm._v(" "),
-      _vm.renderTokensEditor
-        ? _c("tokens-editor-inner-block", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.showTokensEditBlocks,
-                expression: "showTokensEditBlocks"
-              }
-            ]
-          })
-        : _vm._e()
+      _vm.renderTokensEditor ? _c("tokens-editor-inner-block") : _vm._e()
     ],
     1
   )
@@ -57641,6 +57730,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M256 0l8.065 4.373c8.958 4.858 12.816 8.845 17.926 18.529l3.449 6.54.392 46.397.393 46.4H245.12V40.32H40.32v450.56h204.8v-81.92h41.105l-.393 46.4-.392 46.398-3.45 6.54c-1.897 3.595-4.872 8.23-6.613 10.298-3.484 4.141-14.448 10.566-20.578 12.061-2.155.526-53.743.862-114.64.748L29.44 531.2l-6.537-3.449c-9.684-5.11-13.672-8.967-18.529-17.926L0 501.758V29.438l3.45-6.54C8.558 13.214 12.413 9.226 21.372 4.37L29.44-.004h113.28zm-80.119 163.22c2.167-.084 4.348.638 6.555 2.164 4.689 3.242 97.806 89.295 100.95 93.291 3.432 4.364 3.432 9.478 0 13.842-3.144 3.996-96.26 90.05-100.95 93.291-5.045 3.488-9.945 2.776-14.885-2.164l-4.352-4.352v-73.217h-32.766c-36.649 0-38.72-.399-45.066-8.718-2.804-3.677-3.447-5.872-3.447-11.76 0-6.006.627-8.065 3.687-12.076 6.107-8.007 8.236-8.405 44.91-8.405H163.2V171.9l4.352-4.351c2.779-2.779 5.544-4.22 8.33-4.328z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/navbar.svg":
+/*!*********************************!*\
+  !*** ./inline-icons/navbar.svg ***!
+  \*********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 30 20","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"fill-rule":"evenodd","clip-rule":"evenodd","d":"M0 1.707C0 .993.579.414 1.293.414h27.414a1.293 1.293 0 110 2.586H1.293A1.293 1.293 0 010 1.707zm0 8.276C0 9.269.579 8.69 1.293 8.69h27.414a1.293 1.293 0 110 2.586H1.293A1.293 1.293 0 010 9.983zm0 8.276c0-.715.579-1.294 1.293-1.294h27.414a1.293 1.293 0 010 2.587H1.293A1.293 1.293 0 010 18.259z"}})])
           )
         }
       }
@@ -57951,7 +58077,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.6","@babel/core":"^7.13.1","@babel/plugin-proposal-object-rest-spread":"^7.13.0","@babel/plugin-transform-modules-commonjs":"^7.13.0","@babel/plugin-transform-runtime":"^7.13.7","@babel/preset-env":"^7.13.5","@babel/register":"^7.13.0","@babel/runtime":"^7.13.7","@vue/test-utils":"^1.1.3","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.20.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.6.1","intl-messageformat":"^9.4.9","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.8","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","vue":"^2.6.12","vue-eslint-parser":"^7.5.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.2","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.24.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.2","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/app.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.6","@babel/core":"^7.13.1","@babel/plugin-proposal-object-rest-spread":"^7.13.0","@babel/plugin-transform-modules-commonjs":"^7.13.0","@babel/plugin-transform-runtime":"^7.13.7","@babel/preset-env":"^7.13.5","@babel/register":"^7.13.0","@babel/runtime":"^7.13.7","@vue/test-utils":"^1.1.3","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.20.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.6.1","intl-messageformat":"^9.4.9","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.8","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","vue":"^2.6.12","vue-eslint-parser":"^7.5.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.2","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.24.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

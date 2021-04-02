@@ -6,6 +6,7 @@ import App from '@/vue/app.vue'
 import MainMenu from '@/vue/main-menu.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
+import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
 import AppController from '@/lib/controllers/app-controller.js'
@@ -63,6 +64,8 @@ describe('app.test.js', () => {
     expect(cmp.findComponent(OptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TextEditor)).toBeTruthy()
     expect(cmp.findComponent(AlignEditor)).toBeTruthy()
+    expect(cmp.findComponent(TokensEditor)).toBeTruthy()
+    
   })
 
   it('3 App - downloadData - executes textC.downloadData', () => {
@@ -84,38 +87,22 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer', 'plainSourceUploadAll')
   })
 
-  it('5 App - alignTexts - executes $alignedGC.createAlignedTexts, and if successfull - hideTextEditorM, showAlignEditorM', async () => {
+  it('5 App - alignTexts - alignTexts - executes $alignedGC.createAlignedTexts, and if failed - no other methods', async () => {
     let cmp = shallowMount(App)
     expect(cmp.vm.$alignedGC).toEqual(expect.any(AlignedGroupsController))
 
+    jest.spyOn(cmp.vm, 'showAlignmentGroupsEditor')
     cmp.vm.$alignedGC.createAlignedTexts = jest.fn(() => true)
-    
-    expect(cmp.vm.hideTextEditor).toEqual(1)
-    expect(cmp.vm.showAlignEditor).toEqual(1)
-
-    await cmp.vm.alignTexts()
-    expect(cmp.vm.$alignedGC.createAlignedTexts).toHaveBeenCalled()
-    expect(cmp.vm.hideTextEditor).toEqual(2)
-    expect(cmp.vm.showAlignEditor).toEqual(2)
-  })
-
-  it('6 App - alignTexts - alignTexts - executes $alignedGC.createAlignedTexts, and if failed - no other methods', () => {
-    let cmp = shallowMount(App)
-    expect(cmp.vm.$alignedGC).toEqual(expect.any(AlignedGroupsController))
-
-    cmp.vm.$alignedGC.createAlignedTexts = jest.fn(() => false)
-    
-    expect(cmp.vm.hideTextEditor).toEqual(1)
-    expect(cmp.vm.showAlignEditor).toEqual(1)
 
     cmp.vm.alignTexts()
+
+    await Vue.nextTick()
     expect(cmp.vm.$alignedGC.createAlignedTexts).toHaveBeenCalled()
-    expect(cmp.vm.hideTextEditor).toEqual(1)
-    expect(cmp.vm.showAlignEditor).toEqual(1)
+    expect(cmp.vm.showAlignmentGroupsEditor).toHaveBeenCalled()
   })
 
 
-  it('7 App - undoAction - executes $historyC.undo', () => {
+  it('6 App - undoAction - executes $historyC.undo', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
@@ -125,7 +112,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.$historyC.undo).toHaveBeenCalled()
   })
 
-  it('8 App - redoAction - executes $historyC.redo', () => {
+  it('7 App - redoAction - executes $historyC.redo', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$historyC).toEqual(expect.any(HistoryController))
@@ -135,67 +122,134 @@ describe('app.test.js', () => {
     expect(cmp.vm.$historyC.redo).toHaveBeenCalled()
   })
 
-  it('9 App - addTarget - executes $textC.updateTargetDocSource', () => {
+  it('8 App - addTarget - executes $textC.updateTargetDocSource', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
     cmp.vm.$textC.updateTargetDocSource = jest.fn()
+    jest.spyOn(cmp.vm, 'showSourceTextEditor')
     
     cmp.vm.addTarget()
     expect(cmp.vm.$textC.updateTargetDocSource).toHaveBeenCalled()
+    expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
   })
 
-  it('10 App - alignEditorAvailable - updates visibility status for text and align editors', async () => {
-    let cmp = shallowMount(App, { 
-      store: appC.store,
-      localVue 
-    })
-    
-    expect(cmp.vm.$store.state.alignmentUpdated).toEqual(1)
-    expect(cmp.vm.$alignedGC.alignmentGroupsWorkflowStarted).toBeFalsy()
-    expect(cmp.vm.alignEditorAvailable).toBeFalsy() // alignment workflow didn't start
-
-    const originDocSource = new SourceText('origin', {
-      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-
-    const targetDocSource1 = new SourceText('target', {
-      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-
-    const targetDocSource2 = new SourceText('target', {
-      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
-    })
-
-    let alignment = new Alignment(originDocSource, targetDocSource1)
-    alignment.updateTargetDocSource(targetDocSource2)
-    await cmp.vm.$alignedGC.createAlignedTexts(alignment)
-    
-    expect(cmp.vm.$store.state.alignmentUpdated).toEqual(2)
-
-    expect(cmp.vm.$alignedGC.alignmentGroupsWorkflowStarted).toBeTruthy()
-    expect(cmp.vm.alignEditorAvailable).toBeTruthy() // alignment workflow started
-    
-  })
-
-  it('11 App - toggleOptions - shows/hide options block', async () => {
-    let cmp = shallowMount(App, { 
-      store: appC.store,
-      localVue 
-    })
+  it('9 App - showOptions - sets visible only options block', async () => {
+    let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    cmp.vm.toggleOptions()
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
+
+    cmp.vm.showOptions()
 
     await Vue.nextTick()
 
     expect(cmp.vm.shownOptionsBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
+
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
   })
 
-  it.skip('12 App - startOver - starts alignment process from the beginning', async () => {
+  it('10 App - showSourceTextEditor - sets visible only TextEditor block', async () => {
+    let cmp = shallowMount(App)
+    cmp.vm.showOptions()
+
+    await Vue.nextTick()
+
+    expect(cmp.vm.shownOptionsBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
+
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
+
+    cmp.vm.showSourceTextEditor()
+
+    await Vue.nextTick()
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
+
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
+  })
+
+  it('11 App - showAlignmentGroupsEditor - sets visible only AlignEditor block', async () => {
+    let cmp = shallowMount(App)
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
+
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
+
+    cmp.vm.showAlignmentGroupsEditor()
+
+    await Vue.nextTick()
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeTruthy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
+
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
+  })
+
+  it('12 App - showTokensEditor - sets visible only TokensEditor block', async () => {
+    let cmp = shallowMount(App)
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
+
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
+
+    cmp.vm.showTokensEditor()
+
+    await Vue.nextTick()
+
+    expect(cmp.vm.shownOptionsBlock).toBeFalsy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
+    expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
+    expect(cmp.vm.showTokensEditorBlock).toBeTruthy()
+
+    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TokensEditor).isVisible()).toBeTruthy()
+  })
+
+  it('13 App - startOver - starts alignment process from the beginning', async () => {
     let cmp = shallowMount(App, { 
       store: appC.store,
       localVue 
@@ -218,17 +272,17 @@ describe('app.test.js', () => {
     await cmp.vm.$alignedGC.createAlignedTexts(alignment)
 
     // decided to start over
-    jest.spyOn(cmp.vm.$textC, 'startOver')
-    jest.spyOn(cmp.vm.$alignedGC, 'startOver')
-    jest.spyOn(cmp.vm.$historyC, 'startOver')
+    jest.spyOn(cmp.vm.$textC, 'createAlignment')
+    jest.spyOn(cmp.vm.$historyC, 'startTracking')
     jest.spyOn(NotificationSingleton, 'clearNotifications')
+    jest.spyOn(cmp.vm, 'showSourceTextEditor')
 
     cmp.vm.startOver()
 
-    expect(cmp.vm.$textC.startOver).toHaveBeenCalled()
-    expect(cmp.vm.$alignedGC.startOver).toHaveBeenCalled()
-    expect(cmp.vm.$historyC.startOver).toHaveBeenCalled()
+    expect(cmp.vm.$textC.createAlignment).toHaveBeenCalled()
+    expect(cmp.vm.$historyC.startTracking).toHaveBeenCalled()
     expect(NotificationSingleton.clearNotifications).toHaveBeenCalled()
+    expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
 
   })
 })

@@ -1,5 +1,8 @@
 <template>
   <div id="alpheios-alignment-editor-app-container" class="alpheios-alignment-editor-app-container">
+      <span class="alpheios-alignment-app-menu-open-icon" @click = "menuShow++">
+        <navbar-icon />
+      </span>
       <main-menu 
         @download-data = "downloadData"
         @upload-data = "uploadData"
@@ -7,20 +10,22 @@
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
-        @toggle-options = "toggleOptions"
         @clear-all = "startOver"
-        :shownOptionsBlock = "shownOptionsBlock"
+
+        @showOptions = "showOptions"
+        @showSourceTextEditor = "showSourceTextEditor"
+        @showAlignmentGroupsEditor = "showAlignmentGroupsEditor"
+        @showTokensEditor = "showTokensEditor"
+
+        :menuShow = "menuShow"
       />
       <notification-bar />
       <options-block v-show="shownOptionsBlock" />
-      <text-editor 
-        :hide-editor = "hideTextEditor"
-        :show-editor = "showTextEditor"
+      <text-editor v-show="showSourceTextEditorBlock"
       />
-      <align-editor 
-        :show-editor = "showAlignEditor"
+      <align-editor v-show="showAlignmentGroupsEditorBlock"
       />
-      <tokens-editor 
+      <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor"
       />
   </div>
 </template>
@@ -37,6 +42,8 @@ import TokensEditor from '@/vue/tokens-editor/tokens-editor.vue'
 
 import OptionsBlock from '@/vue/options/options-block.vue'
 
+import NavbarIcon from '@/inline-icons/navbar.svg'
+
 export default {
   name: 'App',
   components: {
@@ -45,20 +52,21 @@ export default {
     alignEditor: AlignEditor,
     tokensEditor: TokensEditor,
     notificationBar: NotificationBar,
-    optionsBlock: OptionsBlock
+    optionsBlock: OptionsBlock,
+    navbarIcon: NavbarIcon
   },
   data () {
-    return {
-      hideTextEditor: 1,
-      showTextEditor: 1,
-      showAlignEditor: 1,
-      shownOptionsBlock: false
+    return {     
+      shownOptionsBlock: false,
+      showSourceTextEditorBlock: true,
+      showAlignmentGroupsEditorBlock: false,
+      showTokensEditorBlock: false,
+
+      menuShow: 1,
+      renderTokensEditor: 1
     }
   },
   computed: {
-    alignEditorAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
-    }
   },
   methods: {
     /**
@@ -102,8 +110,7 @@ export default {
     async alignTexts () {
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
       if (result) {
-        this.hideTextEditor++
-        this.showAlignEditor++
+        this.showAlignmentGroupsEditor()
       }
     },
     /**
@@ -111,14 +118,41 @@ export default {
      */
     addTarget () {
       this.$textC.updateTargetDocSource()
-      this.showTextEditor++
+      this.showSourceTextEditor()
     },
     /**
      * Show options block
      */
-    toggleOptions () {
-      this.shownOptionsBlock = !this.shownOptionsBlock
+    showOptions () {
+      this.shownOptionsBlock = true
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = false
     },
+
+    showSourceTextEditor () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = true
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = false
+    },
+
+    showAlignmentGroupsEditor () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = true
+      this.showTokensEditorBlock = false
+    },
+
+    showTokensEditor () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = true
+
+      this.renderTokensEditor++
+    },
+
     /**
      * Clear and start alignment over
      */
@@ -147,10 +181,10 @@ export default {
       }
       this.$textC.store.commit('incrementAlignmentUpdated')
 
-      this.showTextEditor++
-
-      if (alignment instanceof Alignment) {
-        this.showAlignEditor++
+      if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
+        this.showAlignmentGroupsEditor()
+      } else {
+        this.showSourceTextEditor()
       }
     }
   }
@@ -164,5 +198,22 @@ export default {
         margin: 0;
         padding: 0;
       }
+    }
+
+    .alpheios-alignment-app-menu-open-icon {
+        display: block;
+        position: fixed;
+        top: 25px;
+        left: 10px;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+
+
+        svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
     }
 </style> 
