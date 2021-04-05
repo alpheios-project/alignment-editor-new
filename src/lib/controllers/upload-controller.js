@@ -148,7 +148,7 @@ export default class UploadController {
     return Alignment.convertFromJSON(fileJSON)
   }
 
-  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams = {} } = {}) {
+  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
     if (objType === 'collection') {
       const content = await UploadDTSAPI.getCollection(linkData)
       return content
