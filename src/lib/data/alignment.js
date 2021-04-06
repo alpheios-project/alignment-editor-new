@@ -974,8 +974,8 @@ export default class Alignment {
     return {
       origin,
       targets,
-      alignmentGroups,
-      activeAlignmentGroup: null
+      alignmentGroups/*,
+      activeAlignmentGroup: null */
     }
   }
 

@@ -44462,8 +44462,8 @@ class Alignment {
     return {
       origin,
       targets,
-      alignmentGroups,
-      activeAlignmentGroup: null
+      alignmentGroups/*,
+      activeAlignmentGroup: null */
     }
   }
 
@@ -46238,7 +46238,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i286-dts-api.20210405684" : 0
+    return  true ? "add-json-specification.20210406376" : 0
   }
 
   static get libName () {
