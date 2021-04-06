@@ -2,9 +2,9 @@
 
 |                 |             |              |              |               | Type     | Description             |
 |-----------------|-------------|--------------|--------------|---------------|----------|-------------------------|
-| origin          |             |              |              |               | Object   | All data of origin text |
-|                 | docSource   |              |              |               | Object   | All data of origin source text |
-|                 |             | textId       |              |               | String   | Unique id of the origin text |
+| *origin*          |             |              |              |               | Object   | All data of origin text |
+|                 | *docSource*   |              |              |               | Object   | All data of origin source text |
+|                 |             | *textId*       |              |               | String   | Unique id of the origin text |
 |                 |             | text         |              |               | String   | Text |
 |                 |             | direction    |              |               | String   | Direction of the text (ltr/rtl) |
 |                 |             | lang         |              |               | String   | Lang code of the text (ISO-3) |
