@@ -1173,7 +1173,7 @@ button.alpheios-app-menu-link:-moz-focusring {
   width: 90%;
 }
 .alpheios-editor-content-breadcrumbs {
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   padding: 0;
 }
 .alpheios-editor-content-breadcrumbs li {
@@ -1201,6 +1201,20 @@ button.alpheios-app-menu-link:-moz-focusring {
   margin: 0 0 10px;
   padding: 0 20px 0;
   border-bottom: 2px solid #ddd;
+}
+.alpheios-editor-content-pagination {
+  margin-bottom: 10px;
+}
+.alpheios-editor-content-pagination-link {
+  padding: 5px;
+  background: #ddd;
+  cursor: pointer;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.alpheios-editor-content-pagination-text {
+  padding: 5px;
+  margin-right: 5px;
 }
 .alpheios-alignment-editor-actions-menu__buttons,
 .alpheios-alignment-editor-actions-menu__upload-block {

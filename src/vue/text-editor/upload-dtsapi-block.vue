@@ -19,16 +19,28 @@
                @click = "showDescriptionDetails = !showDescriptionDetails">
                {{ descriptionTitle }} 
             </p>
-            <ul v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details" v-html="descriptionDetails">
-            
-            </ul>
+            <div v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details" v-html="descriptionDetails"></div>
           </div>
+          
+          <div class="alpheios-editor-content-pagination" v-if="pagination" v-show="!showWaiting">
+            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.first)" v-if="showPaginationFirst">{{ pagination.first }}</span>
+            <span class="alpheios-editor-content-pagination-text" v-if="showPointsFirstPrevious">...</span>
+            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.previous)" v-if="showPaginationPrevious">{{ pagination.previous }}</span>
+            <span class="alpheios-editor-content-pagination-text" >{{ pagination.current }}</span>
+            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.next)" v-if="showPaginationNext">{{ pagination.next }}</span>
+            <span class="alpheios-editor-content-pagination-text" v-if="showPointsNextLast">...</span>
+            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.last)" v-if="showPaginationLast">{{ pagination.last }}</span>
+          </div>
+
           <ul class="alpheios-editor-content-list" :class = "cssClasses" v-show="!showWaiting">
+            <li v-if="showEntireDocument" class="alpheios-editor-content-link">
+              <span class="alpheios-editor-content-link__text" @click = "getEntireDocument">{{ l10n.getMsgS("UPLOAD_DTSAPI_ENTIRE_DOCUMENT") }}</span>
+            </li>
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
-              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.title }}</span>
-              <span v-if="linkData.type === 'resource'" class="alpheios-editor-content-link__text" @click = "getNavigation(linkData)">{{ linkData.title }}</span>
+              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)" v-html="linkData.title"></span>
+              <span v-if="linkData.type === 'resource'" class="alpheios-editor-content-link__text" @click = "getNavigation(linkData)" v-html="linkData.title"></span>
               
               <span v-if="linkData.type === 'document'" class="alpheios-editor-content-link__checkbox">
                 <input type="checkbox" :id="contentRefId(linkIndex)" :value="linkIndex" v-model="checkedRefs">
@@ -70,6 +82,7 @@ export default {
     return {
       homeLinks: [],
       content: [],
+      pagination: null,
       contentUpdated: 1,
       showWaiting: false,
       breadcrumbs: [],
@@ -114,6 +127,28 @@ export default {
     },
     showDescription () {
       return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
+    },
+    showEntireDocument () {
+      return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
+    },
+
+    showPaginationFirst () {
+      return this.pagination.first !== this.pagination.current
+    },
+    showPointsFirstPrevious () {
+      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
+    },
+    showPaginationPrevious () {
+      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
+    },
+    showPaginationNext () {
+      return this.pagination.next && (this.pagination.next !== this.pagination.last)
+    },
+    showPointsNextLast () {
+      return this.pagination.next && (this.pagination.next !== this.pagination.last)
+    },
+    showPaginationLast () {
+      return this.pagination.last !== this.pagination.current
     }
   },
   methods: {
@@ -173,9 +208,13 @@ export default {
      */
     updateContent (content = null, showWaiting = false) {
       if (content) {
+        const finalContent = content.links ? content.links : content
         this.content.splice(0, this.content.length)
-        this.content.push(...content)
+        this.content.push(...finalContent)
+
+        this.pagination = content.pagination ?  Object.assign({}, this.pagination, content.pagination) : null
       }
+
       this.showWaiting = showWaiting
       this.contentUpdated++
     },
@@ -188,8 +227,10 @@ export default {
      *        {String} title - title for the link
      */
     updateBreadcrumbs(linkData) {
-      this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-      this.breadcrumbs.push({ title: linkData.title })
+      if (linkData.title) {
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
+        this.breadcrumbs.push({ title: linkData.title })
+      }
     },
 
     /**
@@ -203,7 +244,6 @@ export default {
     async getCollection (linkData) {     
       this.updateBreadcrumbs(linkData)
       this.clearContent()
-
       const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'collection'})
       this.updateContent(content)
     },
@@ -256,9 +296,35 @@ export default {
       }
     },
 
+    async getEntireDocument () {
+      const linkData = this.content[0]
+      this.showWaiting = true
+
+      const result = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'document'})
+
+      this.showWaiting = false
+      if (result) {
+        this.$emit('uploadFromDTSAPI', result)
+        this.$emit('closeModal')
+        return true
+      }
+    },
+
     closeModal () {
       this.checkedRefs.splice(0, this.checkedRefs.length)
       this.$emit('closeModal')
+    },
+
+    async getPage (pageNum) {
+      const linkData = {
+        id: this.pagination.id,
+        baseUrl: this.pagination.baseUrl,
+        page: pageNum
+      }
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+      const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      this.updateContent(content)
     }
   }
 }
@@ -306,7 +372,7 @@ export default {
 }
 
 .alpheios-editor-content-breadcrumbs {
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   padding: 0;
 
   li {
@@ -343,5 +409,22 @@ export default {
     padding: 0 20px 0;
     border-bottom: 2px solid #ddd;
   }
+}
+
+.alpheios-editor-content-pagination {
+  margin-bottom: 10px;
+}
+
+.alpheios-editor-content-pagination-link {
+  padding: 5px;
+  background: #ddd;
+  cursor: pointer;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.alpheios-editor-content-pagination-text {
+  padding: 5px;
+  margin-right: 5px;
 }
 </style>

@@ -42175,7 +42175,7 @@ class UploadController {
     return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromJSON(fileJSON)
   }
 
-  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams = {} } = {}) {
+  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
     if (objType === 'collection') {
       const content = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getCollection(linkData)
       return content
@@ -46238,7 +46238,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "add-json-specification.20210406332" : 0
+    return  true ? "add-json-specification.20210406376" : 0
   }
 
   static get libName () {
@@ -46653,22 +46653,27 @@ class UploadDTSAPI {
   }
 
   static async getCollection (linkData) {
-    if (cachedContent[linkData.id]) {
-      return cachedContent[linkData.id]
+    const cachedIndex = linkData.page ? `${linkData.id}-${linkData.page}` : linkData.id
+
+    if (cachedContent[cachedIndex]) {
+      return cachedContent[cachedIndex]
     }
 
     const data = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.dtsapiGroup.dtsapi({
       method: 'getCollection',
       params: {
         baseUrl: linkData.baseUrl,
-        id: !linkData.skipId ? linkData.id : null
+        id: !linkData.skipId ? linkData.id : null,
+        page: linkData.page
       }
     })
 
     if (this.hasErrors(data)) { return }
 
-    cachedContent[linkData.id] = data.result.links
-    return data.result.links
+    const formattedPagination = data.result.pagination ? Object.assign({ id: data.result.id, baseUrl: data.result.baseUrl }, data.result.pagination) : null
+    cachedContent[cachedIndex] = { links: data.result.links, pagination: formattedPagination }
+
+    return { links: data.result.links, pagination: formattedPagination }
   }
 
   static async getNavigation (linkData) {
@@ -49696,6 +49701,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -49722,6 +49739,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       homeLinks: [],
       content: [],
+      pagination: null,
       contentUpdated: 1,
       showWaiting: false,
       breadcrumbs: [],
@@ -49766,6 +49784,28 @@ __webpack_require__.r(__webpack_exports__);
     },
     showDescription () {
       return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
+    },
+    showEntireDocument () {
+      return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
+    },
+
+    showPaginationFirst () {
+      return this.pagination.first !== this.pagination.current
+    },
+    showPointsFirstPrevious () {
+      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
+    },
+    showPaginationPrevious () {
+      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
+    },
+    showPaginationNext () {
+      return this.pagination.next && (this.pagination.next !== this.pagination.last)
+    },
+    showPointsNextLast () {
+      return this.pagination.next && (this.pagination.next !== this.pagination.last)
+    },
+    showPaginationLast () {
+      return this.pagination.last !== this.pagination.current
     }
   },
   methods: {
@@ -49825,9 +49865,13 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateContent (content = null, showWaiting = false) {
       if (content) {
+        const finalContent = content.links ? content.links : content
         this.content.splice(0, this.content.length)
-        this.content.push(...content)
+        this.content.push(...finalContent)
+
+        this.pagination = content.pagination ?  Object.assign({}, this.pagination, content.pagination) : null
       }
+
       this.showWaiting = showWaiting
       this.contentUpdated++
     },
@@ -49840,8 +49884,10 @@ __webpack_require__.r(__webpack_exports__);
      *        {String} title - title for the link
      */
     updateBreadcrumbs(linkData) {
-      this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-      this.breadcrumbs.push({ title: linkData.title })
+      if (linkData.title) {
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
+        this.breadcrumbs.push({ title: linkData.title })
+      }
     },
 
     /**
@@ -49855,7 +49901,6 @@ __webpack_require__.r(__webpack_exports__);
     async getCollection (linkData) {     
       this.updateBreadcrumbs(linkData)
       this.clearContent()
-
       const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'collection'})
       this.updateContent(content)
     },
@@ -49908,9 +49953,35 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
+    async getEntireDocument () {
+      const linkData = this.content[0]
+      this.showWaiting = true
+
+      const result = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'document'})
+
+      this.showWaiting = false
+      if (result) {
+        this.$emit('uploadFromDTSAPI', result)
+        this.$emit('closeModal')
+        return true
+      }
+    },
+
     closeModal () {
       this.checkedRefs.splice(0, this.checkedRefs.length)
       this.$emit('closeModal')
+    },
+
+    async getPage (pageNum) {
+      const linkData = {
+        id: this.pagination.id,
+        baseUrl: this.pagination.baseUrl,
+        page: pageNum
+      }
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+      const content = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      this.updateContent(content)
     }
   }
 });
@@ -56426,7 +56497,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c("ul", {
+                          _c("div", {
                             directives: [
                               {
                                 name: "show",
@@ -56444,6 +56515,127 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
+                      _vm.pagination
+                        ? _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.showWaiting,
+                                  expression: "!showWaiting"
+                                }
+                              ],
+                              staticClass: "alpheios-editor-content-pagination"
+                            },
+                            [
+                              _vm.showPaginationFirst
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-pagination-link",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getPage(
+                                            _vm.pagination.first
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.pagination.first))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.showPointsFirstPrevious
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-pagination-text"
+                                    },
+                                    [_vm._v("...")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.showPaginationPrevious
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-pagination-link",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getPage(
+                                            _vm.pagination.previous
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.pagination.previous))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "alpheios-editor-content-pagination-text"
+                                },
+                                [_vm._v(_vm._s(_vm.pagination.current))]
+                              ),
+                              _vm._v(" "),
+                              _vm.showPaginationNext
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-pagination-link",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getPage(
+                                            _vm.pagination.next
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.pagination.next))]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.showPointsNextLast
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-pagination-text"
+                                    },
+                                    [_vm._v("...")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.showPaginationLast
+                                ? _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-content-pagination-link",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.getPage(
+                                            _vm.pagination.last
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.pagination.last))]
+                                  )
+                                : _vm._e()
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "ul",
                         {
@@ -56458,120 +56650,150 @@ var render = function() {
                           staticClass: "alpheios-editor-content-list",
                           class: _vm.cssClasses
                         },
-                        _vm._l(_vm.content, function(linkData, linkIndex) {
-                          return _c(
-                            "li",
-                            {
-                              key: linkIndex,
-                              staticClass: "alpheios-editor-content-link"
-                            },
-                            [
-                              linkData.type === "collection"
-                                ? _c(
+                        [
+                          _vm.showEntireDocument
+                            ? _c(
+                                "li",
+                                { staticClass: "alpheios-editor-content-link" },
+                                [
+                                  _c(
                                     "span",
                                     {
                                       staticClass:
                                         "alpheios-editor-content-link__text",
+                                      on: { click: _vm.getEntireDocument }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.l10n.getMsgS(
+                                            "UPLOAD_DTSAPI_ENTIRE_DOCUMENT"
+                                          )
+                                        )
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(_vm.content, function(linkData, linkIndex) {
+                            return _c(
+                              "li",
+                              {
+                                key: linkIndex,
+                                staticClass: "alpheios-editor-content-link"
+                              },
+                              [
+                                linkData.type === "collection"
+                                  ? _c("span", {
+                                      staticClass:
+                                        "alpheios-editor-content-link__text",
+                                      domProps: {
+                                        innerHTML: _vm._s(linkData.title)
+                                      },
                                       on: {
                                         click: function($event) {
                                           return _vm.getCollection(linkData)
                                         }
                                       }
-                                    },
-                                    [_vm._v(_vm._s(linkData.title))]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              linkData.type === "resource"
-                                ? _c(
-                                    "span",
-                                    {
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                linkData.type === "resource"
+                                  ? _c("span", {
                                       staticClass:
                                         "alpheios-editor-content-link__text",
+                                      domProps: {
+                                        innerHTML: _vm._s(linkData.title)
+                                      },
                                       on: {
                                         click: function($event) {
                                           return _vm.getNavigation(linkData)
                                         }
                                       }
-                                    },
-                                    [_vm._v(_vm._s(linkData.title))]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              linkData.type === "document"
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-link__checkbox"
-                                    },
-                                    [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.checkedRefs,
-                                            expression: "checkedRefs"
-                                          }
-                                        ],
-                                        attrs: {
-                                          type: "checkbox",
-                                          id: _vm.contentRefId(linkIndex)
-                                        },
-                                        domProps: {
-                                          value: linkIndex,
-                                          checked: Array.isArray(
-                                            _vm.checkedRefs
-                                          )
-                                            ? _vm._i(
-                                                _vm.checkedRefs,
-                                                linkIndex
-                                              ) > -1
-                                            : _vm.checkedRefs
-                                        },
-                                        on: {
-                                          change: function($event) {
-                                            var $$a = _vm.checkedRefs,
-                                              $$el = $event.target,
-                                              $$c = $$el.checked ? true : false
-                                            if (Array.isArray($$a)) {
-                                              var $$v = linkIndex,
-                                                $$i = _vm._i($$a, $$v)
-                                              if ($$el.checked) {
-                                                $$i < 0 &&
-                                                  (_vm.checkedRefs = $$a.concat(
-                                                    [$$v]
-                                                  ))
+                                    })
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                linkData.type === "document"
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "alpheios-editor-content-link__checkbox"
+                                      },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.checkedRefs,
+                                              expression: "checkedRefs"
+                                            }
+                                          ],
+                                          attrs: {
+                                            type: "checkbox",
+                                            id: _vm.contentRefId(linkIndex)
+                                          },
+                                          domProps: {
+                                            value: linkIndex,
+                                            checked: Array.isArray(
+                                              _vm.checkedRefs
+                                            )
+                                              ? _vm._i(
+                                                  _vm.checkedRefs,
+                                                  linkIndex
+                                                ) > -1
+                                              : _vm.checkedRefs
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              var $$a = _vm.checkedRefs,
+                                                $$el = $event.target,
+                                                $$c = $$el.checked
+                                                  ? true
+                                                  : false
+                                              if (Array.isArray($$a)) {
+                                                var $$v = linkIndex,
+                                                  $$i = _vm._i($$a, $$v)
+                                                if ($$el.checked) {
+                                                  $$i < 0 &&
+                                                    (_vm.checkedRefs = $$a.concat(
+                                                      [$$v]
+                                                    ))
+                                                } else {
+                                                  $$i > -1 &&
+                                                    (_vm.checkedRefs = $$a
+                                                      .slice(0, $$i)
+                                                      .concat(
+                                                        $$a.slice($$i + 1)
+                                                      ))
+                                                }
                                               } else {
-                                                $$i > -1 &&
-                                                  (_vm.checkedRefs = $$a
-                                                    .slice(0, $$i)
-                                                    .concat($$a.slice($$i + 1)))
+                                                _vm.checkedRefs = $$c
                                               }
-                                            } else {
-                                              _vm.checkedRefs = $$c
                                             }
                                           }
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "label",
-                                        {
-                                          attrs: {
-                                            for: _vm.contentRefId(linkIndex)
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(linkData.ref))]
-                                      )
-                                    ]
-                                  )
-                                : _vm._e()
-                            ]
-                          )
-                        }),
-                        0
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "label",
+                                          {
+                                            attrs: {
+                                              for: _vm.contentRefId(linkIndex)
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(linkData.ref))]
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            )
+                          })
+                        ],
+                        2
                       )
                     ]
                   },
@@ -58228,7 +58450,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Origin and Target Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"There are two ways to upload passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Origin and Target Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"There are two ways to upload passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
 
 /***/ }),
 
