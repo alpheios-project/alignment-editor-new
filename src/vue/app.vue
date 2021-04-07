@@ -20,6 +20,7 @@
         :menuShow = "menuShow"
       />
       <notification-bar />
+      <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
       <options-block v-show="shownOptionsBlock" />
       <text-editor v-show="showSourceTextEditorBlock"
       />
@@ -34,6 +35,7 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import Alignment from '@/lib/data/alignment'
 
+import InitialScreen from '@/vue/initial-screen.vue'
 import MainMenu from '@/vue/main-menu.vue'
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -53,20 +55,26 @@ export default {
     tokensEditor: TokensEditor,
     notificationBar: NotificationBar,
     optionsBlock: OptionsBlock,
-    navbarIcon: NavbarIcon
+    navbarIcon: NavbarIcon,
+    initialScreen: InitialScreen
   },
   data () {
     return {     
+      showInitialScreenBlock: true,
       shownOptionsBlock: false,
-      showSourceTextEditorBlock: true,
+      showSourceTextEditorBlock: false,
       showAlignmentGroupsEditorBlock: false,
       showTokensEditorBlock: false,
 
+      pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1
     }
   },
   computed: {
+  },
+  mounted () {
+    this.showInitialScreen()
   },
   methods: {
     /**
@@ -128,6 +136,9 @@ export default {
       this.showSourceTextEditorBlock = false
       this.showAlignmentGroupsEditorBlock = false
       this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('options-page')
     },
 
     showSourceTextEditor () {
@@ -135,6 +146,9 @@ export default {
       this.showSourceTextEditorBlock = true
       this.showAlignmentGroupsEditorBlock = false
       this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('text-editor-page')
     },
 
     showAlignmentGroupsEditor () {
@@ -142,6 +156,9 @@ export default {
       this.showSourceTextEditorBlock = false
       this.showAlignmentGroupsEditorBlock = true
       this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('align-editor-page')
     },
 
     showTokensEditor () {
@@ -149,10 +166,30 @@ export default {
       this.showSourceTextEditorBlock = false
       this.showAlignmentGroupsEditorBlock = false
       this.showTokensEditorBlock = true
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('tokens-editor-page')
 
       this.renderTokensEditor++
     },
 
+    showInitialScreen () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = true
+
+      this.setPageClassToBody('initial-page')
+    },
+
+    setPageClassToBody (currentPageClass) {
+      this.pageClasses.forEach(pageClass => {
+        document.body.classList.remove(`alpheios-${pageClass}`)
+      })
+
+      document.body.classList.add(`alpheios-${currentPageClass}`)
+    },
     /**
      * Clear and start alignment over
      */
@@ -184,7 +221,7 @@ export default {
       if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
       } else {
-        this.showSourceTextEditor()
+        this.showInitialScreen()
       }
     }
   }

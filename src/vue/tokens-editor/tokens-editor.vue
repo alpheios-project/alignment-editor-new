@@ -1,8 +1,6 @@
 <template>
-  <div class="alpheios-alignment-editor-container">
-    <div class="alpheios-alignment-editor-header">
+  <div class="alpheios-alignment-tokens-editor-block alpheios-alignment-editor-container">
       <h2>{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }}</h2>
-    </div>
 
     <tokens-editor-inner-block v-if="renderTokensEditor"/>
     
@@ -52,7 +50,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-header {
-    margin: 15px 0;
+  .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
+    padding: 20px 10px 20px 35px;  
   }
+
 </style>

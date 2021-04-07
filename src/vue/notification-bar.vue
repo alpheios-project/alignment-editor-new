@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-notification-bar" id="alpheios-notification-bar">
+  <div class="alpheios-alignment-notification-bar" id="alpheios-notification-bar" v-if="messages && messages.length > 0">
       <div v-for="(message, mesIndex) in messages" :key="mesIndex"
            class="alpheios-alignment-notification-bar-message" :class="notificationClass(message)">
            {{ message.text }}
