@@ -60,6 +60,7 @@ export default {
 </script>
 <style lang="scss">
 .alpheios-alignment-options-block .alpheios-alignment-editor-container{
+  padding: 20px 10px 20px 35px;
   border-bottom: 5px solid #f8f8f8;
   border-top: 5px solid #f8f8f8;
 }

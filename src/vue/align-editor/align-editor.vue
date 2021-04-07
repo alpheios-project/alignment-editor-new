@@ -1,8 +1,6 @@
 <template>
-  <div class="alpheios-alignment-editor-container  alpheios-tools-enabled">
-    <div class="alpheios-alignment-editor-header">
+  <div class="alpheios-alignment-align-editor-block alpheios-alignment-editor-container  alpheios-tools-enabled">
       <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</h2>
-    </div>
     
     <align-editor-view-mode v-if="renderAlignEditor"/>   
   </div>
@@ -40,7 +38,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-header {
-    margin: 0 0 10px;
+  .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
+    padding: 20px 10px 20px 35px;  
   }
+
 </style>
