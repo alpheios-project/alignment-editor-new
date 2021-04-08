@@ -46258,7 +46258,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "several-fixes.20210408591" : 0
+    return  true ? "several-fixes.20210408644" : 0
   }
 
   static get libName () {
@@ -50017,7 +50017,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     crumbClass (crumb) {
       return {
-        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
+        'alpheios-editor-content-breadcrumbs__link': (Boolean(crumb.content) && crumb.content.length > 0) || (Boolean(crumb.content && crumb.content.links) && crumb.content.links.length > 0)
       }
     },
 
@@ -50084,8 +50084,13 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateBreadcrumbs(linkData) {
       if (linkData.title) {
-        this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-        this.breadcrumbs.push({ title: linkData.title })
+        let contentData = {
+          links: this.content,
+          pagination: this.pagination
+        }
+
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = contentData
+        this.breadcrumbs.push({ title: linkData.title, page: linkData.page })
       }
     },
 

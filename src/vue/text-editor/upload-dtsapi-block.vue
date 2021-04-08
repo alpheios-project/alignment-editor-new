@@ -161,7 +161,7 @@ export default {
      */
     crumbClass (crumb) {
       return {
-        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
+        'alpheios-editor-content-breadcrumbs__link': (Boolean(crumb.content) && crumb.content.length > 0) || (Boolean(crumb.content && crumb.content.links) && crumb.content.links.length > 0)
       }
     },
 
@@ -228,8 +228,13 @@ export default {
      */
     updateBreadcrumbs(linkData) {
       if (linkData.title) {
-        this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-        this.breadcrumbs.push({ title: linkData.title })
+        let contentData = {
+          links: this.content,
+          pagination: this.pagination
+        }
+
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = contentData
+        this.breadcrumbs.push({ title: linkData.title, page: linkData.page })
       }
     },
 
