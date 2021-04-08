@@ -1135,6 +1135,10 @@ button.alpheios-app-menu-link {
   border: 0;
   outline: 0;
 }
+button.alpheios-app-menu-link.alpheios-app-menu-link-current {
+  font-weight: bold;
+  text-shadow: 1px 1px #eee;
+}
 button.alpheios-app-menu-link::-moz-focus-inner {
   border-style: none;
   padding: 0;

@@ -46258,7 +46258,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "several-fixes.20210408384" : 0
+    return  true ? "several-fixes.20210408413" : 0
   }
 
   static get libName () {
@@ -47588,6 +47588,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -47626,7 +47627,8 @@ __webpack_require__.r(__webpack_exports__);
 
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
-      renderTokensEditor: 1
+      renderTokensEditor: 1,
+      updateCurrentPage: 'initial-screen'
     }
   },
   computed: {
@@ -47701,6 +47703,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('options-page')
+      this.updateCurrentPage = 'options-page'
     },
 
     showSourceTextEditor () {
@@ -47711,6 +47714,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('text-editor-page')
+      this.updateCurrentPage = 'text-editor-page'
     },
 
     showAlignmentGroupsEditor () {
@@ -47721,6 +47725,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('align-editor-page')
+      this.updateCurrentPage = 'align-editor-page'
     },
 
     showTokensEditor () {
@@ -47731,6 +47736,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('tokens-editor-page')
+      this.updateCurrentPage = 'tokens-editor-page'
 
       this.renderTokensEditor++
     },
@@ -47743,6 +47749,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = true
 
       this.setPageClassToBody('initial-page')
+      this.updateCurrentPage = 'initial-page'
     },
 
     setPageClassToBody (currentPageClass) {
@@ -48255,10 +48262,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -48280,6 +48283,11 @@ __webpack_require__.r(__webpack_exports__);
     menuShow: {
       type: Number,
       required: true
+    },
+    updateCurrentPage: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
@@ -48288,7 +48296,8 @@ __webpack_require__.r(__webpack_exports__);
       showUploadBlock: false,
       showDownloadBlock: false,
       currentDownloadType: null,
-      uploadFileName: null
+      uploadFileName: null,
+      currentPage: 'initial-page'
     }
   },
   mounted () {  
@@ -48297,6 +48306,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     menuShow () {
       this.menuShown = true
+    },
+    updateCurrentPage (value) {
+      this.currentPage = value
     }
   },
   computed: {
@@ -48359,6 +48371,7 @@ __webpack_require__.r(__webpack_exports__);
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
+        this.$refs.alpheiosfileupload.value = ''
         this.closeMenu()
       }
       reader.readAsText(file)
@@ -48373,6 +48386,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+      this.currentPage = 'initial-page'
       this.closeMenu()
     },
     
@@ -48415,21 +48429,25 @@ __webpack_require__.r(__webpack_exports__);
 
     showOptions () {
       this.$emit('showOptions')
+      this.currentPage = 'options-page'
       this.closeMenu()
     },
 
     showSourceTextEditor () {
       this.$emit('showSourceTextEditor')
+      this.currentPage = 'text-editor-page'
       this.closeMenu()
     },
 
     showAlignmentGroupsEditor () {
       this.$emit('showAlignmentGroupsEditor')
+      this.currentPage = 'align-editor-page'
       this.closeMenu()
     },
 
     showTokensEditor () {
       this.$emit('showTokensEditor')
+      this.currentPage = 'tokens-editor-page'
       this.closeMenu()
     }
   }
@@ -54517,7 +54535,10 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("main-menu", {
-        attrs: { menuShow: _vm.menuShow },
+        attrs: {
+          menuShow: _vm.menuShow,
+          updateCurrentPage: _vm.updateCurrentPage
+        },
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
@@ -55090,6 +55111,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "options-page"
+                  },
                   attrs: { id: "alpheios-main-menu-options" },
                   on: { click: _vm.showOptions }
                 },
@@ -55100,6 +55125,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "text-editor-page"
+                  },
                   attrs: { id: "alpheios-main-menu-source-editor" },
                   on: { click: _vm.showSourceTextEditor }
                 },
@@ -55110,6 +55139,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "align-editor-page"
+                  },
                   attrs: {
                     id: "alpheios-main-menu-alignment-groups-editor",
                     disabled: !_vm.alignEditAvailable
@@ -55123,6 +55156,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "tokens-editor-page"
+                  },
                   attrs: {
                     id: "alpheios-main-menu-tokens-editor",
                     disabled: !_vm.alignEditAvailable
@@ -55312,7 +55349,7 @@ var render = function() {
                         ref: "alpheiosfileupload",
                         staticClass: "alpheios-fileupload",
                         attrs: { type: "file", id: "alpheiosfileupload" },
-                        on: { change: _vm.changeFileUpload }
+                        on: { change: _vm.loadTextFromFile }
                       }),
                       _vm._v(" "),
                       _c(
@@ -55325,25 +55362,7 @@ var render = function() {
                         [_vm._v("Choose a file")]
                       )
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
-                    },
-                    [
-                      _c("upload-icon", { on: { click: _vm.loadTextFromFile } })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.uploadFileName
-                    ? _c("p", { staticClass: "alpheios-fileupload-filename" }, [
-                        _vm._v(_vm._s(_vm.uploadFileName))
-                      ])
-                    : _vm._e()
+                  )
                 ]
               ),
               _vm._v(" "),

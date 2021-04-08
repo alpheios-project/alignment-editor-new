@@ -6,19 +6,19 @@
       </span>
       <div class="alpheios-alignment-app-menu__buttons">
         <div class="alpheios-alignment-app-menu__buttons-blocks">
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-options" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-options" :class="{ 'alpheios-app-menu-link-current': currentPage === 'options-page' }"
                   @click="showOptions" >
                   Options
           </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-source-editor" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-source-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'text-editor-page' }"
                   @click="showSourceTextEditor" >
                   Source Text Editor
           </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-alignment-groups-editor" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-alignment-groups-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'align-editor-page' }"
                   @click="showAlignmentGroupsEditor" :disabled="!alignEditAvailable">
                   Alignment Groups Editor
           </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'tokens-editor-page' }"
                   @click="showTokensEditor" :disabled="!alignEditAvailable">
                   Tokens Editor
           </button>
@@ -55,13 +55,9 @@
 
           <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
             <span class="alpheios-main-menu-upload-block_item">
-              <input type="file" id = "alpheiosfileupload" ref="alpheiosfileupload" class="alpheios-fileupload" @change="changeFileUpload">
+              <input type="file" id = "alpheiosfileupload" ref="alpheiosfileupload" class="alpheios-fileupload" @change="loadTextFromFile">
               <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">Choose a file</label>
             </span>
-            <span class="alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button">
-              <upload-icon @click="loadTextFromFile"/>
-            </span>
-            <p class="alpheios-fileupload-filename" v-if="uploadFileName">{{ uploadFileName }}</p>
           </div>
 
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-align" 
@@ -109,6 +105,11 @@ export default {
     menuShow: {
       type: Number,
       required: true
+    },
+    updateCurrentPage: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
@@ -117,7 +118,8 @@ export default {
       showUploadBlock: false,
       showDownloadBlock: false,
       currentDownloadType: null,
-      uploadFileName: null
+      uploadFileName: null,
+      currentPage: 'initial-page'
     }
   },
   mounted () {  
@@ -126,6 +128,9 @@ export default {
   watch: {
     menuShow () {
       this.menuShown = true
+    },
+    updateCurrentPage (value) {
+      this.currentPage = value
     }
   },
   computed: {
@@ -188,6 +193,7 @@ export default {
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
+        this.$refs.alpheiosfileupload.value = ''
         this.closeMenu()
       }
       reader.readAsText(file)
@@ -202,6 +208,7 @@ export default {
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+      this.currentPage = 'initial-page'
       this.closeMenu()
     },
     
@@ -244,21 +251,25 @@ export default {
 
     showOptions () {
       this.$emit('showOptions')
+      this.currentPage = 'options-page'
       this.closeMenu()
     },
 
     showSourceTextEditor () {
       this.$emit('showSourceTextEditor')
+      this.currentPage = 'text-editor-page'
       this.closeMenu()
     },
 
     showAlignmentGroupsEditor () {
       this.$emit('showAlignmentGroupsEditor')
+      this.currentPage = 'align-editor-page'
       this.closeMenu()
     },
 
     showTokensEditor () {
       this.$emit('showTokensEditor')
+      this.currentPage = 'tokens-editor-page'
       this.closeMenu()
     }
   }
@@ -364,6 +375,11 @@ export default {
     background: transparent;
     border: 0;
     outline: 0;
+
+    &.alpheios-app-menu-link-current {
+      font-weight: bold;
+      text-shadow: 1px 1px #eee;
+    }
   }
 
   button.alpheios-app-menu-link::-moz-focus-inner {
