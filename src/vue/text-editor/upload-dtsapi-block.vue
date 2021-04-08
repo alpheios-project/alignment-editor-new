@@ -32,10 +32,10 @@
             <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.last)" v-if="showPaginationLast">{{ pagination.last }}</span>
           </div>
 
+          <div v-if="showEntireDocument" class="alpheios-editor-content-link">
+            <span class="alpheios-editor-content-link__text" @click = "getEntireDocument">{{ l10n.getMsgS("UPLOAD_DTSAPI_ENTIRE_DOCUMENT") }}</span>
+          </div>
           <ul class="alpheios-editor-content-list" :class = "cssClasses" v-show="!showWaiting">
-            <li v-if="showEntireDocument" class="alpheios-editor-content-link">
-              <span class="alpheios-editor-content-link__text" @click = "getEntireDocument">{{ l10n.getMsgS("UPLOAD_DTSAPI_ENTIRE_DOCUMENT") }}</span>
-            </li>
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
@@ -126,7 +126,7 @@ export default {
       return this.breadcrumbs.length > 1
     },
     showDescription () {
-      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
+      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') 
     },
     showEntireDocument () {
       return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
@@ -161,7 +161,7 @@ export default {
      */
     crumbClass (crumb) {
       return {
-        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
+        'alpheios-editor-content-breadcrumbs__link': (Boolean(crumb.content) && crumb.content.length > 0) || (Boolean(crumb.content && crumb.content.links) && crumb.content.links.length > 0)
       }
     },
 
@@ -228,8 +228,13 @@ export default {
      */
     updateBreadcrumbs(linkData) {
       if (linkData.title) {
-        this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-        this.breadcrumbs.push({ title: linkData.title })
+        let contentData = {
+          links: this.content,
+          pagination: this.pagination
+        }
+
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = contentData
+        this.breadcrumbs.push({ title: linkData.title, page: linkData.page })
       }
     },
 

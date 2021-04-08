@@ -25,7 +25,7 @@
       "component": "MainMenu"
     },
     "MAIN_MENU_ADD_TARGET_TITLE": {
-      "message": "Add target",
+      "message": "Add translation",
       "description": "Button in main menu",
       "component": "MainMenu"
     },

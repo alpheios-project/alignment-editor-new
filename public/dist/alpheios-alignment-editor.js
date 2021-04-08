@@ -46258,7 +46258,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i316-initial-screen.20210408  7" : 0
+    return  true ? "several-fixes.20210408658" : 0
   }
 
   static get libName () {
@@ -46712,8 +46712,11 @@ class UploadDTSAPI {
 
     if (this.hasErrors(data)) { return }
 
-    cachedContent[linkData.id] = linkData.resource.refsLinks
-    return linkData.resource.refsLinks
+    if (linkData.resource && linkData.resource.refs) {
+      cachedContent[linkData.id] = linkData.resource.refsLinks
+      return linkData.resource.refsLinks
+    }
+    return []
   }
 
   static async getDocument (linkData, refParams) {
@@ -47588,6 +47591,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -47626,7 +47630,8 @@ __webpack_require__.r(__webpack_exports__);
 
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
-      renderTokensEditor: 1
+      renderTokensEditor: 1,
+      updateCurrentPage: 'initial-screen'
     }
   },
   computed: {
@@ -47652,11 +47657,15 @@ __webpack_require__.r(__webpack_exports__);
     * Starts upload workflow
     */
     uploadData (fileData, extension) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+      if (fileData) {
+        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
-      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
-        this.startOver(alignment)
-      }
+        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+          return this.startOver(alignment)
+        }
+      } 
+      
+      this.showSourceTextEditor()
     },
     /**
      * Starts redo action
@@ -47697,6 +47706,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('options-page')
+      this.updateCurrentPage = 'options-page'
     },
 
     showSourceTextEditor () {
@@ -47707,6 +47717,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('text-editor-page')
+      this.updateCurrentPage = 'text-editor-page'
     },
 
     showAlignmentGroupsEditor () {
@@ -47717,6 +47728,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('align-editor-page')
+      this.updateCurrentPage = 'align-editor-page'
     },
 
     showTokensEditor () {
@@ -47727,6 +47739,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('tokens-editor-page')
+      this.updateCurrentPage = 'tokens-editor-page'
 
       this.renderTokensEditor++
     },
@@ -47739,6 +47752,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showInitialScreenBlock = true
 
       this.setPageClassToBody('initial-page')
+      this.updateCurrentPage = 'initial-page'
     },
 
     setPageClassToBody (currentPageClass) {
@@ -47778,6 +47792,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if ((alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
+      } else if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.showSourceTextEditor()
       } else {
         this.showInitialScreen()
       }
@@ -48124,14 +48140,16 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { 
+        this.$refs.alpheiosfileuploadpage.value = ''
+        return 
+      }
 
       const reader = new FileReader()
 
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
-        this.closeMenu()
       }
       reader.readAsText(file)
     }
@@ -48247,10 +48265,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -48272,6 +48286,11 @@ __webpack_require__.r(__webpack_exports__);
     menuShow: {
       type: Number,
       required: true
+    },
+    updateCurrentPage: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
@@ -48280,7 +48299,8 @@ __webpack_require__.r(__webpack_exports__);
       showUploadBlock: false,
       showDownloadBlock: false,
       currentDownloadType: null,
-      uploadFileName: null
+      uploadFileName: null,
+      currentPage: 'initial-page'
     }
   },
   mounted () {  
@@ -48289,6 +48309,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     menuShow () {
       this.menuShown = true
+    },
+    updateCurrentPage (value) {
+      this.currentPage = value
     }
   },
   computed: {
@@ -48351,6 +48374,7 @@ __webpack_require__.r(__webpack_exports__);
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
+        this.$refs.alpheiosfileupload.value = ''
         this.closeMenu()
       }
       reader.readAsText(file)
@@ -48365,6 +48389,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+      this.currentPage = 'initial-page'
       this.closeMenu()
     },
     
@@ -48407,21 +48432,25 @@ __webpack_require__.r(__webpack_exports__);
 
     showOptions () {
       this.$emit('showOptions')
+      this.currentPage = 'options-page'
       this.closeMenu()
     },
 
     showSourceTextEditor () {
       this.$emit('showSourceTextEditor')
+      this.currentPage = 'text-editor-page'
       this.closeMenu()
     },
 
     showAlignmentGroupsEditor () {
       this.$emit('showAlignmentGroupsEditor')
+      this.currentPage = 'align-editor-page'
       this.closeMenu()
     },
 
     showTokensEditor () {
       this.$emit('showTokensEditor')
+      this.currentPage = 'tokens-editor-page'
       this.closeMenu()
     }
   }
@@ -49474,7 +49503,12 @@ __webpack_require__.r(__webpack_exports__);
      * Formats textType
      */
     textTypeFormatted () {
-      return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
+      if (this.textType === 'origin') {
+        return 'Original'
+      }
+      if (this.textType === 'target') {
+        return 'Translation'
+      }
     },
     /**
      * Defines Title for the text block
@@ -49951,7 +49985,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.breadcrumbs.length > 1
     },
     showDescription () {
-      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
+      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') 
     },
     showEntireDocument () {
       return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
@@ -49986,7 +50020,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     crumbClass (crumb) {
       return {
-        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
+        'alpheios-editor-content-breadcrumbs__link': (Boolean(crumb.content) && crumb.content.length > 0) || (Boolean(crumb.content && crumb.content.links) && crumb.content.links.length > 0)
       }
     },
 
@@ -50053,8 +50087,13 @@ __webpack_require__.r(__webpack_exports__);
      */
     updateBreadcrumbs(linkData) {
       if (linkData.title) {
-        this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-        this.breadcrumbs.push({ title: linkData.title })
+        let contentData = {
+          links: this.content,
+          pagination: this.pagination
+        }
+
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = contentData
+        this.breadcrumbs.push({ title: linkData.title, page: linkData.page })
       }
     },
 
@@ -54509,7 +54548,10 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("main-menu", {
-        attrs: { menuShow: _vm.menuShow },
+        attrs: {
+          menuShow: _vm.menuShow,
+          updateCurrentPage: _vm.updateCurrentPage
+        },
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
@@ -55082,6 +55124,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "options-page"
+                  },
                   attrs: { id: "alpheios-main-menu-options" },
                   on: { click: _vm.showOptions }
                 },
@@ -55092,6 +55138,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "text-editor-page"
+                  },
                   attrs: { id: "alpheios-main-menu-source-editor" },
                   on: { click: _vm.showSourceTextEditor }
                 },
@@ -55102,6 +55152,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "align-editor-page"
+                  },
                   attrs: {
                     id: "alpheios-main-menu-alignment-groups-editor",
                     disabled: !_vm.alignEditAvailable
@@ -55115,6 +55169,10 @@ var render = function() {
                 "button",
                 {
                   staticClass: "alpheios-app-menu-link",
+                  class: {
+                    "alpheios-app-menu-link-current":
+                      _vm.currentPage === "tokens-editor-page"
+                  },
                   attrs: {
                     id: "alpheios-main-menu-tokens-editor",
                     disabled: !_vm.alignEditAvailable
@@ -55304,7 +55362,7 @@ var render = function() {
                         ref: "alpheiosfileupload",
                         staticClass: "alpheios-fileupload",
                         attrs: { type: "file", id: "alpheiosfileupload" },
-                        on: { change: _vm.changeFileUpload }
+                        on: { change: _vm.loadTextFromFile }
                       }),
                       _vm._v(" "),
                       _c(
@@ -55317,25 +55375,7 @@ var render = function() {
                         [_vm._v("Choose a file")]
                       )
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button"
-                    },
-                    [
-                      _c("upload-icon", { on: { click: _vm.loadTextFromFile } })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _vm.uploadFileName
-                    ? _c("p", { staticClass: "alpheios-fileupload-filename" }, [
-                        _vm._v(_vm._s(_vm.uploadFileName))
-                      ])
-                    : _vm._e()
+                  )
                 ]
               ),
               _vm._v(" "),
@@ -57135,6 +57175,32 @@ var render = function() {
                           )
                         : _vm._e(),
                       _vm._v(" "),
+                      _vm.showEntireDocument
+                        ? _c(
+                            "div",
+                            { staticClass: "alpheios-editor-content-link" },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "alpheios-editor-content-link__text",
+                                  on: { click: _vm.getEntireDocument }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "UPLOAD_DTSAPI_ENTIRE_DOCUMENT"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "ul",
                         {
@@ -57149,150 +57215,118 @@ var render = function() {
                           staticClass: "alpheios-editor-content-list",
                           class: _vm.cssClasses
                         },
-                        [
-                          _vm.showEntireDocument
-                            ? _c(
-                                "li",
-                                { staticClass: "alpheios-editor-content-link" },
-                                [
-                                  _c(
+                        _vm._l(_vm.content, function(linkData, linkIndex) {
+                          return _c(
+                            "li",
+                            {
+                              key: linkIndex,
+                              staticClass: "alpheios-editor-content-link"
+                            },
+                            [
+                              linkData.type === "collection"
+                                ? _c("span", {
+                                    staticClass:
+                                      "alpheios-editor-content-link__text",
+                                    domProps: {
+                                      innerHTML: _vm._s(linkData.title)
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getCollection(linkData)
+                                      }
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "resource"
+                                ? _c("span", {
+                                    staticClass:
+                                      "alpheios-editor-content-link__text",
+                                    domProps: {
+                                      innerHTML: _vm._s(linkData.title)
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getNavigation(linkData)
+                                      }
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "document"
+                                ? _c(
                                     "span",
                                     {
                                       staticClass:
-                                        "alpheios-editor-content-link__text",
-                                      on: { click: _vm.getEntireDocument }
+                                        "alpheios-editor-content-link__checkbox"
                                     },
                                     [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.l10n.getMsgS(
-                                            "UPLOAD_DTSAPI_ENTIRE_DOCUMENT"
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.checkedRefs,
+                                            expression: "checkedRefs"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          id: _vm.contentRefId(linkIndex)
+                                        },
+                                        domProps: {
+                                          value: linkIndex,
+                                          checked: Array.isArray(
+                                            _vm.checkedRefs
                                           )
-                                        )
+                                            ? _vm._i(
+                                                _vm.checkedRefs,
+                                                linkIndex
+                                              ) > -1
+                                            : _vm.checkedRefs
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.checkedRefs,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = linkIndex,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  (_vm.checkedRefs = $$a.concat(
+                                                    [$$v]
+                                                  ))
+                                              } else {
+                                                $$i > -1 &&
+                                                  (_vm.checkedRefs = $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1)))
+                                              }
+                                            } else {
+                                              _vm.checkedRefs = $$c
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        {
+                                          attrs: {
+                                            for: _vm.contentRefId(linkIndex)
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(linkData.ref))]
                                       )
                                     ]
                                   )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm._l(_vm.content, function(linkData, linkIndex) {
-                            return _c(
-                              "li",
-                              {
-                                key: linkIndex,
-                                staticClass: "alpheios-editor-content-link"
-                              },
-                              [
-                                linkData.type === "collection"
-                                  ? _c("span", {
-                                      staticClass:
-                                        "alpheios-editor-content-link__text",
-                                      domProps: {
-                                        innerHTML: _vm._s(linkData.title)
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getCollection(linkData)
-                                        }
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                linkData.type === "resource"
-                                  ? _c("span", {
-                                      staticClass:
-                                        "alpheios-editor-content-link__text",
-                                      domProps: {
-                                        innerHTML: _vm._s(linkData.title)
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getNavigation(linkData)
-                                        }
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                linkData.type === "document"
-                                  ? _c(
-                                      "span",
-                                      {
-                                        staticClass:
-                                          "alpheios-editor-content-link__checkbox"
-                                      },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.checkedRefs,
-                                              expression: "checkedRefs"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "checkbox",
-                                            id: _vm.contentRefId(linkIndex)
-                                          },
-                                          domProps: {
-                                            value: linkIndex,
-                                            checked: Array.isArray(
-                                              _vm.checkedRefs
-                                            )
-                                              ? _vm._i(
-                                                  _vm.checkedRefs,
-                                                  linkIndex
-                                                ) > -1
-                                              : _vm.checkedRefs
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$a = _vm.checkedRefs,
-                                                $$el = $event.target,
-                                                $$c = $$el.checked
-                                                  ? true
-                                                  : false
-                                              if (Array.isArray($$a)) {
-                                                var $$v = linkIndex,
-                                                  $$i = _vm._i($$a, $$v)
-                                                if ($$el.checked) {
-                                                  $$i < 0 &&
-                                                    (_vm.checkedRefs = $$a.concat(
-                                                      [$$v]
-                                                    ))
-                                                } else {
-                                                  $$i > -1 &&
-                                                    (_vm.checkedRefs = $$a
-                                                      .slice(0, $$i)
-                                                      .concat(
-                                                        $$a.slice($$i + 1)
-                                                      ))
-                                                }
-                                              } else {
-                                                _vm.checkedRefs = $$c
-                                              }
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "label",
-                                          {
-                                            attrs: {
-                                              for: _vm.contentRefId(linkIndex)
-                                            }
-                                          },
-                                          [_vm._v(_vm._s(linkData.ref))]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                : _vm._e()
+                            ]
+                          )
+                        }),
+                        0
                       )
                     ]
                   },
@@ -58884,7 +58918,7 @@ module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Define Alignmen
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message":"Tokenization was cancelled.","description":"An error message for tokenization workflow","component":"Alignment"},"ALIGNMENT_ERROR_ADD_TARGET_SOURCE":{"message":"First you should define origin source text.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT":{"message":"Choose another token please - from the same segment, target text.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT":{"message":"Alignment doesn\'t have such tokens.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX":{"message":"Passed index is out of the group list bounds - {index}","description":"An error message for alignment workflow","component":"Alignment","params":["index"]},"ALIGNMENT_GROUP_IS_COMPLETED":{"message":"Alignment group is finished and saved.","description":"An info message that group is completed successfully","component":"Alignment"},"ALIGNMENT_ORIGIN_NOT_TOKENIZED":{"message":"Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.","description":"A error message - create aligned texts","component":"Alignment"},"ALIGNMENT_TARGET_NOT_TOKENIZED":{"message":"Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.","description":"A error message - create aligned texts","component":"Alignment","params":["textnum"]},"ALIGNMENT_GROUP_UNDO_ERROR":{"message":"There are no steps to be undone - only one step in history.","description":"An error message for undo workflow","component":"AlignmentGroup"},"ALIGNMENT_GROUP_REDO_ERROR":{"message":"There are no steps to be redone - no steps forward in history.","description":"An error message for redo workflow","component":"AlignmentGroup"},"ALIGNMENT_GROUP_STEP_ERROR":{"message":"This type of steps {type} is not defined for undo/redo workflow","description":"An error message for remove/apply step process","component":"AlignmentGroup","params":["type"]},"SOURCE_TEXT_CONVERT_ERROR":{"message":"The file doesn\'t have all required fields. Text won\'t be created.","description":"An error message for converting from JSON process","component":"SourceText"}}');
+module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message":"Tokenization was cancelled.","description":"An error message for tokenization workflow","component":"Alignment"},"ALIGNMENT_ERROR_ADD_TARGET_SOURCE":{"message":"First you should define original source text.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_ADD_TO_ALIGNMENT":{"message":"Choose another token please - from the same segment, translations text.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_REMOVE_FROM_ALIGNMENT":{"message":"Alignment doesn\'t have such tokens.","description":"An error message for alignment workflow","component":"Alignment"},"ALIGNMENT_ERROR_ACTIVATE_BY_INDEX":{"message":"Passed index is out of the group list bounds - {index}","description":"An error message for alignment workflow","component":"Alignment","params":["index"]},"ALIGNMENT_GROUP_IS_COMPLETED":{"message":"Alignment group is finished and saved.","description":"An info message that group is completed successfully","component":"Alignment"},"ALIGNMENT_ORIGIN_NOT_TOKENIZED":{"message":"Original source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.","description":"A error message - create aligned texts","component":"Alignment"},"ALIGNMENT_TARGET_NOT_TOKENIZED":{"message":"Translations source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.","description":"A error message - create aligned texts","component":"Alignment","params":["textnum"]},"ALIGNMENT_GROUP_UNDO_ERROR":{"message":"There are no steps to be undone - only one step in history.","description":"An error message for undo workflow","component":"AlignmentGroup"},"ALIGNMENT_GROUP_REDO_ERROR":{"message":"There are no steps to be redone - no steps forward in history.","description":"An error message for redo workflow","component":"AlignmentGroup"},"ALIGNMENT_GROUP_STEP_ERROR":{"message":"This type of steps {type} is not defined for undo/redo workflow","description":"An error message for remove/apply step process","component":"AlignmentGroup","params":["type"]},"SOURCE_TEXT_CONVERT_ERROR":{"message":"The file doesn\'t have all required fields. Text won\'t be created.","description":"An error message for converting from JSON process","component":"SourceText"}}');
 
 /***/ }),
 
@@ -58895,7 +58929,7 @@ module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define origin and target texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining origin text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because origin and target texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
+module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translations texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translations texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
 
 /***/ }),
 
@@ -58917,7 +58951,7 @@ module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Lan
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Align","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add target","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Clear text","description":"Button in main menu","component":"MainMenu"}}');
+module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Align","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"Clear text","description":"Button in main menu","component":"MainMenu"}}');
 
 /***/ }),
 
@@ -58950,7 +58984,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Origin and Target Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"There are two ways to upload passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original and Translations Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or just one or several passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
 
 /***/ }),
 
@@ -58961,7 +58995,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Origin an
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit tokens in Origin and Target texts","description":"A heading for text editor","component":"AlignEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the target of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit tokens in Original and Translations texts","description":"A heading for text editor","component":"AlignEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the translation of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
 
 /***/ }),
 

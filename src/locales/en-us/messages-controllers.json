@@ -6,7 +6,7 @@
         "params": ["downloadType"]
     },
     "DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS": {
-        "message": "You should define origin and target texts first",
+        "message": "You should define original and translations texts first",
         "description": "An error message for download process",
         "component": "DownloadController"
     },
@@ -16,7 +16,7 @@
         "component": "TextsController"
     },
     "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
-        "message": "You should start from defining origin text first.",
+        "message": "You should start from defining original text first.",
         "description": "An error message creating alignment.",
         "component": "TextsController"
     },
@@ -26,7 +26,7 @@
         "component": "AlignedGroupsController"
     },
     "ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS": {
-        "message": "The tokenization process was cancelled because origin and target texts don't have the same amount of segments.",
+        "message": "The tokenization process was cancelled because original and translations texts don't have the same amount of segments.",
         "description": "An error message creating alignment.",
         "component": "AlignedGroupsController"
     },

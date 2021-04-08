@@ -145,7 +145,12 @@ export default {
      * Formats textType
      */
     textTypeFormatted () {
-      return this.textType.charAt(0).toUpperCase() + this.textType.slice(1)
+      if (this.textType === 'origin') {
+        return 'Original'
+      }
+      if (this.textType === 'target') {
+        return 'Translation'
+      }
     },
     /**
      * Defines Title for the text block

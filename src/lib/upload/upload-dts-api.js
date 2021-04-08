@@ -65,8 +65,11 @@ export default class UploadDTSAPI {
 
     if (this.hasErrors(data)) { return }
 
-    cachedContent[linkData.id] = linkData.resource.refsLinks
-    return linkData.resource.refsLinks
+    if (linkData.resource && linkData.resource.refs) {
+      cachedContent[linkData.id] = linkData.resource.refsLinks
+      return linkData.resource.refsLinks
+    }
+    return []
   }
 
   static async getDocument (linkData, refParams) {

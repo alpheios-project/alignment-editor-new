@@ -1135,6 +1135,10 @@ button.alpheios-app-menu-link {
   border: 0;
   outline: 0;
 }
+button.alpheios-app-menu-link.alpheios-app-menu-link-current {
+  font-weight: bold;
+  text-shadow: 1px 1px #eee;
+}
 button.alpheios-app-menu-link::-moz-focus-inner {
   border-style: none;
   padding: 0;
@@ -1169,6 +1173,7 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
+  margin-left: 30px;
 }
 .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message {
   padding: 10px 30px 10px 10px;
@@ -1190,8 +1195,8 @@ button.alpheios-app-menu-link:-moz-focusring {
   height: 20px;
 }
 .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error {
-  background: rgba(198, 6, 35, 0.31);
-  color: #c60623;
+  background: rgba(198, 6, 35, 0.6);
+  color: #fff;
   border-color: #c60623;
 }
 .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___system_error .alpheios-alignment-notification-bar__close-btn {
@@ -1207,8 +1212,8 @@ button.alpheios-app-menu-link:-moz-focusring {
   stroke: #d1374e;
 }
 .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error {
-  background: rgba(198, 73, 6, 0.31);
-  color: #C64906;
+  background: rgba(198, 73, 6, 0.6);
+  color: #fff;
   border-color: #C64906;
 }
 .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___error .alpheios-alignment-notification-bar__close-btn {
@@ -1535,7 +1540,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   width: auto;
 }
 .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 35px;
+  padding: 20px 10px 20px 40px;
 }
 .alpheios-alignment-editor-text-blocks-container-inner:before, .alpheios-alignment-editor-text-blocks-container-inner:after {
   content: "";
@@ -1674,7 +1679,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: table-cell;
 }
 .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 35px;
+  padding: 20px 10px 20px 40px;
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;
@@ -1789,10 +1794,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   border-left: 2px solid #ddd;
 }
 .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 35px;
+  padding: 20px 10px 20px 40px;
 }
 .alpheios-alignment-options-block .alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 35px;
+  padding: 20px 10px 20px 40px;
   border-bottom: 5px solid #f8f8f8;
   border-top: 5px solid #f8f8f8;
 }

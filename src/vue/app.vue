@@ -18,6 +18,7 @@
         @showTokensEditor = "showTokensEditor"
 
         :menuShow = "menuShow"
+        :updateCurrentPage = "updateCurrentPage"
       />
       <notification-bar />
       <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
@@ -68,7 +69,8 @@ export default {
 
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
-      renderTokensEditor: 1
+      renderTokensEditor: 1,
+      updateCurrentPage: 'initial-screen'
     }
   },
   computed: {
@@ -94,11 +96,15 @@ export default {
     * Starts upload workflow
     */
     uploadData (fileData, extension) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+      if (fileData) {
+        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
-      if (alignment instanceof Alignment) {
-        this.startOver(alignment)
-      }
+        if (alignment instanceof Alignment) {
+          return this.startOver(alignment)
+        }
+      } 
+      
+      this.showSourceTextEditor()
     },
     /**
      * Starts redo action
@@ -139,6 +145,7 @@ export default {
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('options-page')
+      this.updateCurrentPage = 'options-page'
     },
 
     showSourceTextEditor () {
@@ -149,6 +156,7 @@ export default {
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('text-editor-page')
+      this.updateCurrentPage = 'text-editor-page'
     },
 
     showAlignmentGroupsEditor () {
@@ -159,6 +167,7 @@ export default {
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('align-editor-page')
+      this.updateCurrentPage = 'align-editor-page'
     },
 
     showTokensEditor () {
@@ -169,6 +178,7 @@ export default {
       this.showInitialScreenBlock = false
 
       this.setPageClassToBody('tokens-editor-page')
+      this.updateCurrentPage = 'tokens-editor-page'
 
       this.renderTokensEditor++
     },
@@ -181,6 +191,7 @@ export default {
       this.showInitialScreenBlock = true
 
       this.setPageClassToBody('initial-page')
+      this.updateCurrentPage = 'initial-page'
     },
 
     setPageClassToBody (currentPageClass) {
@@ -220,6 +231,8 @@ export default {
 
       if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
+      } else if (alignment instanceof Alignment) {
+        this.showSourceTextEditor()
       } else {
         this.showInitialScreen()
       }
