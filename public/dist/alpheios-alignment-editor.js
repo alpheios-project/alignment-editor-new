@@ -46258,7 +46258,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "several-fixes.20210408646" : 0
+    return  true ? "several-fixes.20210408658" : 0
   }
 
   static get libName () {
@@ -46712,8 +46712,11 @@ class UploadDTSAPI {
 
     if (this.hasErrors(data)) { return }
 
-    cachedContent[linkData.id] = linkData.resource.refsLinks
-    return linkData.resource.refsLinks
+    if (linkData.resource && linkData.resource.refs) {
+      cachedContent[linkData.id] = linkData.resource.refsLinks
+      return linkData.resource.refsLinks
+    }
+    return []
   }
 
   static async getDocument (linkData, refParams) {
@@ -49982,7 +49985,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.breadcrumbs.length > 1
     },
     showDescription () {
-      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
+      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') 
     },
     showEntireDocument () {
       return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
@@ -57172,6 +57175,32 @@ var render = function() {
                           )
                         : _vm._e(),
                       _vm._v(" "),
+                      _vm.showEntireDocument
+                        ? _c(
+                            "div",
+                            { staticClass: "alpheios-editor-content-link" },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "alpheios-editor-content-link__text",
+                                  on: { click: _vm.getEntireDocument }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "UPLOAD_DTSAPI_ENTIRE_DOCUMENT"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "ul",
                         {
@@ -57186,150 +57215,118 @@ var render = function() {
                           staticClass: "alpheios-editor-content-list",
                           class: _vm.cssClasses
                         },
-                        [
-                          _vm.showEntireDocument
-                            ? _c(
-                                "li",
-                                { staticClass: "alpheios-editor-content-link" },
-                                [
-                                  _c(
+                        _vm._l(_vm.content, function(linkData, linkIndex) {
+                          return _c(
+                            "li",
+                            {
+                              key: linkIndex,
+                              staticClass: "alpheios-editor-content-link"
+                            },
+                            [
+                              linkData.type === "collection"
+                                ? _c("span", {
+                                    staticClass:
+                                      "alpheios-editor-content-link__text",
+                                    domProps: {
+                                      innerHTML: _vm._s(linkData.title)
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getCollection(linkData)
+                                      }
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "resource"
+                                ? _c("span", {
+                                    staticClass:
+                                      "alpheios-editor-content-link__text",
+                                    domProps: {
+                                      innerHTML: _vm._s(linkData.title)
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.getNavigation(linkData)
+                                      }
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              linkData.type === "document"
+                                ? _c(
                                     "span",
                                     {
                                       staticClass:
-                                        "alpheios-editor-content-link__text",
-                                      on: { click: _vm.getEntireDocument }
+                                        "alpheios-editor-content-link__checkbox"
                                     },
                                     [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.l10n.getMsgS(
-                                            "UPLOAD_DTSAPI_ENTIRE_DOCUMENT"
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.checkedRefs,
+                                            expression: "checkedRefs"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "checkbox",
+                                          id: _vm.contentRefId(linkIndex)
+                                        },
+                                        domProps: {
+                                          value: linkIndex,
+                                          checked: Array.isArray(
+                                            _vm.checkedRefs
                                           )
-                                        )
+                                            ? _vm._i(
+                                                _vm.checkedRefs,
+                                                linkIndex
+                                              ) > -1
+                                            : _vm.checkedRefs
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$a = _vm.checkedRefs,
+                                              $$el = $event.target,
+                                              $$c = $$el.checked ? true : false
+                                            if (Array.isArray($$a)) {
+                                              var $$v = linkIndex,
+                                                $$i = _vm._i($$a, $$v)
+                                              if ($$el.checked) {
+                                                $$i < 0 &&
+                                                  (_vm.checkedRefs = $$a.concat(
+                                                    [$$v]
+                                                  ))
+                                              } else {
+                                                $$i > -1 &&
+                                                  (_vm.checkedRefs = $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1)))
+                                              }
+                                            } else {
+                                              _vm.checkedRefs = $$c
+                                            }
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        {
+                                          attrs: {
+                                            for: _vm.contentRefId(linkIndex)
+                                          }
+                                        },
+                                        [_vm._v(_vm._s(linkData.ref))]
                                       )
                                     ]
                                   )
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _vm._l(_vm.content, function(linkData, linkIndex) {
-                            return _c(
-                              "li",
-                              {
-                                key: linkIndex,
-                                staticClass: "alpheios-editor-content-link"
-                              },
-                              [
-                                linkData.type === "collection"
-                                  ? _c("span", {
-                                      staticClass:
-                                        "alpheios-editor-content-link__text",
-                                      domProps: {
-                                        innerHTML: _vm._s(linkData.title)
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getCollection(linkData)
-                                        }
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                linkData.type === "resource"
-                                  ? _c("span", {
-                                      staticClass:
-                                        "alpheios-editor-content-link__text",
-                                      domProps: {
-                                        innerHTML: _vm._s(linkData.title)
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getNavigation(linkData)
-                                        }
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                linkData.type === "document"
-                                  ? _c(
-                                      "span",
-                                      {
-                                        staticClass:
-                                          "alpheios-editor-content-link__checkbox"
-                                      },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.checkedRefs,
-                                              expression: "checkedRefs"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "checkbox",
-                                            id: _vm.contentRefId(linkIndex)
-                                          },
-                                          domProps: {
-                                            value: linkIndex,
-                                            checked: Array.isArray(
-                                              _vm.checkedRefs
-                                            )
-                                              ? _vm._i(
-                                                  _vm.checkedRefs,
-                                                  linkIndex
-                                                ) > -1
-                                              : _vm.checkedRefs
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              var $$a = _vm.checkedRefs,
-                                                $$el = $event.target,
-                                                $$c = $$el.checked
-                                                  ? true
-                                                  : false
-                                              if (Array.isArray($$a)) {
-                                                var $$v = linkIndex,
-                                                  $$i = _vm._i($$a, $$v)
-                                                if ($$el.checked) {
-                                                  $$i < 0 &&
-                                                    (_vm.checkedRefs = $$a.concat(
-                                                      [$$v]
-                                                    ))
-                                                } else {
-                                                  $$i > -1 &&
-                                                    (_vm.checkedRefs = $$a
-                                                      .slice(0, $$i)
-                                                      .concat(
-                                                        $$a.slice($$i + 1)
-                                                      ))
-                                                }
-                                              } else {
-                                                _vm.checkedRefs = $$c
-                                              }
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "label",
-                                          {
-                                            attrs: {
-                                              for: _vm.contentRefId(linkIndex)
-                                            }
-                                          },
-                                          [_vm._v(_vm._s(linkData.ref))]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ]
-                            )
-                          })
-                        ],
-                        2
+                                : _vm._e()
+                            ]
+                          )
+                        }),
+                        0
                       )
                     ]
                   },
