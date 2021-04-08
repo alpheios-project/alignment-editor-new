@@ -94,11 +94,15 @@ export default {
     * Starts upload workflow
     */
     uploadData (fileData, extension) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+      if (fileData) {
+        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
-      if (alignment instanceof Alignment) {
-        this.startOver(alignment)
-      }
+        if (alignment instanceof Alignment) {
+          return this.startOver(alignment)
+        }
+      } 
+      
+      this.showSourceTextEditor()
     },
     /**
      * Starts redo action
@@ -220,6 +224,8 @@ export default {
 
       if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
+      } else if (alignment instanceof Alignment) {
+        this.showSourceTextEditor()
       } else {
         this.showInitialScreen()
       }

@@ -46258,7 +46258,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i316-initial-screen.20210408  7" : 0
+    return  true ? "several-fixes.20210408384" : 0
   }
 
   static get libName () {
@@ -47652,11 +47652,15 @@ __webpack_require__.r(__webpack_exports__);
     * Starts upload workflow
     */
     uploadData (fileData, extension) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+      if (fileData) {
+        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
-      if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
-        this.startOver(alignment)
-      }
+        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+          return this.startOver(alignment)
+        }
+      } 
+      
+      this.showSourceTextEditor()
     },
     /**
      * Starts redo action
@@ -47778,6 +47782,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if ((alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
+      } else if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+        this.showSourceTextEditor()
       } else {
         this.showInitialScreen()
       }
@@ -48124,14 +48130,16 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { 
+        this.$refs.alpheiosfileuploadpage.value = ''
+        return 
+      }
 
       const reader = new FileReader()
 
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
-        this.closeMenu()
       }
       reader.readAsText(file)
     }

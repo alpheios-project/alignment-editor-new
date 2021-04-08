@@ -72,7 +72,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {
-    padding: 20px 10px 20px 35px;  
+    padding: 20px 10px 20px 40px;  
   }
     .alpheios-alignment-editor-text-blocks-container-inner {
       &:before,

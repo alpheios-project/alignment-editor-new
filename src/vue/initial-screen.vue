@@ -79,14 +79,16 @@ export default {
       if (!file) { return }
       const extension = file.name.split('.').pop()
 
-      if (!this.$textC.checkUploadedFileByExtension(extension)) { return }
+      if (!this.$textC.checkUploadedFileByExtension(extension)) { 
+        this.$refs.alpheiosfileuploadpage.value = ''
+        return 
+      }
 
       const reader = new FileReader()
 
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
-        this.closeMenu()
       }
       reader.readAsText(file)
     }
@@ -96,7 +98,6 @@ export default {
 <style lang="scss">
 
 .alpheios-alignment-editor-initial-screen__intro {
-    // background-image: url("../../public/images/books.png");
     background-repeat: repeat-y;
     background-position: 98% 20%;
     background-size: 20% auto;
