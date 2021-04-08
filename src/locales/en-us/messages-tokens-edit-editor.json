@@ -1,6 +1,6 @@
 {
     "TOKENS_EDITOR_HEADING": {
-      "message": "Edit tokens in Origin and Target texts",
+      "message": "Edit tokens in Original and Translations texts",
       "description": "A heading for text editor",
       "component": "AlignEditor"
     },
@@ -55,7 +55,7 @@
       "component": "TokensEditController"
     },
     "TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP": {
-      "message": "The token that is the target of merging is inside a created alignment group, you should ungroup it first.",
+      "message": "The token that is the translation of merging is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",
       "component": "Alignment"
     },

@@ -1,6 +1,6 @@
 {
   "TEXT_EDITOR_HEADING": {
-    "message": "Define Origin and Target Texts",
+    "message": "Define Original and Translations Texts",
     "description": "A heading for text editor",
     "component": "TextEditor"
   },
