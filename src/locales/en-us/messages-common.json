@@ -10,7 +10,7 @@
       "component": "Alignment"
     },
     "ALIGNMENT_ERROR_ADD_TO_ALIGNMENT": {
-      "message": "Choose another token please - from the same segment, translations text.",
+      "message": "Choose another token please - from the same segment, translation text.",
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },
@@ -36,7 +36,7 @@
       "component": "Alignment"
     },
     "ALIGNMENT_TARGET_NOT_TOKENIZED": {
-      "message": "Translations source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "message": "Translation source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
       "description": "A error message - create aligned texts",
       "component": "Alignment",
       "params": ["textnum"]

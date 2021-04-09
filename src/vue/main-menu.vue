@@ -280,7 +280,7 @@ export default {
       height: 100%; 
       width: 250px; 
       position: fixed; 
-      z-index: 100;
+      z-index: 10000;
       top: 0; 
       left: -250px;
       background-color: #e0e0e0; 

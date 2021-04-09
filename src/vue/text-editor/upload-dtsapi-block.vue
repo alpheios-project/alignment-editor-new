@@ -22,17 +22,14 @@
             <div v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details" v-html="descriptionDetails"></div>
           </div>
           
-          <div class="alpheios-editor-content-pagination" v-if="pagination" v-show="!showWaiting">
-            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.first)" v-if="showPaginationFirst">{{ pagination.first }}</span>
-            <span class="alpheios-editor-content-pagination-text" v-if="showPointsFirstPrevious">...</span>
-            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.previous)" v-if="showPaginationPrevious">{{ pagination.previous }}</span>
-            <span class="alpheios-editor-content-pagination-text" >{{ pagination.current }}</span>
-            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.next)" v-if="showPaginationNext">{{ pagination.next }}</span>
-            <span class="alpheios-editor-content-pagination-text" v-if="showPointsNextLast">...</span>
-            <span class="alpheios-editor-content-pagination-link" @click = "getPage(pagination.last)" v-if="showPaginationLast">{{ pagination.last }}</span>
-          </div>
+          <dts-api-pagination v-if="pagination" v-show="!showWaiting"
+            :first = "pagination.first"  :previous = "pagination.previous"
+            :last = "pagination.last"    :next = "pagination.next"
+            :current = "pagination.current"
+            @getPage = "getPage"
+          />
 
-          <div v-if="showEntireDocument" class="alpheios-editor-content-link">
+          <div v-if="showEntireDocument" class="alpheios-editor-content-link" v-show="!showWaiting">
             <span class="alpheios-editor-content-link__text" @click = "getEntireDocument">{{ l10n.getMsgS("UPLOAD_DTSAPI_ENTIRE_DOCUMENT") }}</span>
           </div>
           <ul class="alpheios-editor-content-list" :class = "cssClasses" v-show="!showWaiting">
@@ -61,6 +58,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
 
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
+import DtsApiPagination from '@/vue/text-editor/dts-api-pagination.vue'
 import Modal from '@/vue/common/modal.vue'
 import Waiting from '@/vue/common/waiting.vue'
 
@@ -69,7 +67,8 @@ export default {
   name: 'UploadDTSAPIBlock',
   components: {
     modal: Modal,
-    waiting: Waiting
+    waiting: Waiting,
+    dtsApiPagination: DtsApiPagination
   },
   props: {
     showModal: {
@@ -130,25 +129,6 @@ export default {
     },
     showEntireDocument () {
       return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
-    },
-
-    showPaginationFirst () {
-      return this.pagination.first !== this.pagination.current
-    },
-    showPointsFirstPrevious () {
-      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
-    },
-    showPaginationPrevious () {
-      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
-    },
-    showPaginationNext () {
-      return this.pagination.next && (this.pagination.next !== this.pagination.last)
-    },
-    showPointsNextLast () {
-      return this.pagination.next && (this.pagination.next !== this.pagination.last)
-    },
-    showPaginationLast () {
-      return this.pagination.last !== this.pagination.current
     }
   },
   methods: {
@@ -414,22 +394,5 @@ export default {
     padding: 0 20px 0;
     border-bottom: 2px solid #ddd;
   }
-}
-
-.alpheios-editor-content-pagination {
-  margin-bottom: 10px;
-}
-
-.alpheios-editor-content-pagination-link {
-  padding: 5px;
-  background: #ddd;
-  cursor: pointer;
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-.alpheios-editor-content-pagination-text {
-  padding: 5px;
-  margin-right: 5px;
 }
 </style>

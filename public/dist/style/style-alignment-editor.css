@@ -1054,7 +1054,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   height: 100%;
   width: 250px;
   position: fixed;
-  z-index: 100;
+  z-index: 10000;
   top: 0;
   left: -250px;
   background-color: #e0e0e0;
@@ -1285,6 +1285,27 @@ button.alpheios-app-menu-link:-moz-focusring {
   font-size: 90%;
   color: #888;
 }
+.alpheios-editor-content-pagination {
+  margin-bottom: 10px;
+}
+.alpheios-editor-content-pagination-link {
+  padding: 5px;
+  background: #ddd;
+  cursor: pointer;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.alpheios-editor-content-pagination-text {
+  padding: 5px;
+  margin-right: 5px;
+}
+.alpheios-editor-content-pagination-span {
+  display: inline-block;
+}
+.alpheios-editor-content-pagination-go-to input.alpheios-alignment-editor-pagination-go-to {
+  display: inline-block;
+  width: 150px;
+}
 .alpheios-editor__waiting {
   text-align: center;
 }
@@ -1362,20 +1383,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   margin: 0 0 10px;
   padding: 0 20px 0;
   border-bottom: 2px solid #ddd;
-}
-.alpheios-editor-content-pagination {
-  margin-bottom: 10px;
-}
-.alpheios-editor-content-pagination-link {
-  padding: 5px;
-  background: #ddd;
-  cursor: pointer;
-  margin-right: 5px;
-  font-weight: bold;
-}
-.alpheios-editor-content-pagination-text {
-  padding: 5px;
-  margin-right: 5px;
 }
 .alpheios-alignment-editor-actions-menu__buttons,
 .alpheios-alignment-editor-actions-menu__upload-block {
