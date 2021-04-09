@@ -161,6 +161,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/dts-api-pagination.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/dts-api-pagination.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
@@ -46258,7 +46268,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "several-fixes-2.20210409359" : 0
+    return  true ? "several-fixes-2.20210409391" : 0
   }
 
   static get libName () {
@@ -49025,6 +49035,108 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'UploadDTSAPIBlock',
+  props: {
+    first: {
+      type: Number,
+      required: true
+    },
+    previous: {
+      type: Number,
+      required: false
+    },
+    next: {
+      type: Number,
+      required: false
+    },
+    last: {
+      type: Number,
+      required: true
+    },
+    current: {
+      type: Number,
+      required: true
+    }
+  },
+  data () {
+    return {
+      goToValue: null
+    }
+  },
+  computed: {
+    showPaginationFirst () {
+      return this.first !== this.current
+    },
+    showPointsFirstPrevious () {
+      return this.previous && (this.first !== this.previous)
+    },
+    showPaginationPrevious () {
+      return this.previous && (this.first !== this.previous)
+    },
+    showPaginationNext () {
+      return this.next && (this.next !== this.last)
+    },
+    showPointsNextLast () {
+      return this.next && (this.next !== this.last)
+    },
+    showPaginationLast () {
+      return this.last !== this.current
+    }
+  },
+  methods: {
+    getPage (pageNum) {
+      this.$emit('getPage', pageNum)
+    },
+    goToPage () {
+      if ((this.goToValue >= this.first) && (this.goToValue <= this.last) && (this.goToValue !== this.current)) {
+        this.$emit('getPage', this.goToValue)
+      }
+    }
+  }
+});
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/language-options-block.vue?vue&type=script&lang=js& ***!
@@ -49855,8 +49967,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/upload-controller.js */ "./lib/controllers/upload-controller.js");
 /* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
-/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
-/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+/* harmony import */ var _vue_text_editor_dts_api_pagination_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/text-editor/dts-api-pagination.vue */ "./vue/text-editor/dts-api-pagination.vue");
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
 //
 //
 //
@@ -49912,9 +50025,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
+
 
 
 
@@ -49927,8 +50038,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UploadDTSAPIBlock',
   components: {
-    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_4__.default
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    dtsApiPagination: _vue_text_editor_dts_api_pagination_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   props: {
     showModal: {
@@ -49989,25 +50101,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     showEntireDocument () {
       return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
-    },
-
-    showPaginationFirst () {
-      return this.pagination.first !== this.pagination.current
-    },
-    showPointsFirstPrevious () {
-      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
-    },
-    showPaginationPrevious () {
-      return this.pagination.previous && (this.pagination.first !== this.pagination.previous)
-    },
-    showPaginationNext () {
-      return this.pagination.next && (this.pagination.next !== this.pagination.last)
-    },
-    showPointsNextLast () {
-      return this.pagination.next && (this.pagination.next !== this.pagination.last)
-    },
-    showPaginationLast () {
-      return this.pagination.last !== this.pagination.current
     }
   },
   methods: {
@@ -52004,6 +52097,47 @@ component.options.__file = "vue/text-editor/direction-options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/text-editor/dts-api-pagination.vue":
+/*!************************************************!*\
+  !*** ./vue/text-editor/dts-api-pagination.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dts-api-pagination.vue?vue&type=template&id=4e177450& */ "./vue/text-editor/dts-api-pagination.vue?vue&type=template&id=4e177450&");
+/* harmony import */ var _dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dts-api-pagination.vue?vue&type=script&lang=js& */ "./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js&");
+/* harmony import */ var _dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dts-api-pagination.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/dts-api-pagination.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__.render,
+  _dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/text-editor/dts-api-pagination.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/text-editor/language-options-block.vue":
 /*!****************************************************!*\
   !*** ./vue/text-editor/language-options-block.vue ***!
@@ -52911,6 +53045,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/text-editor/dts-api-pagination.vue?vue&type=style&index=0&lang=scss&":
+/*!**********************************************************************************!*\
+  !*** ./vue/text-editor/dts-api-pagination.vue?vue&type=style&index=0&lang=scss& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./dts-api-pagination.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/dts-api-pagination.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************!*\
   !*** ./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
@@ -53402,6 +53553,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./direction-options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/direction-options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_direction_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./dts-api-pagination.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/dts-api-pagination.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_dts_api_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -53929,6 +54096,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_direction_options_block_vue_vue_type_template_id_417d0327___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./direction-options-block.vue?vue&type=template&id=417d0327& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/direction-options-block.vue?vue&type=template&id=417d0327&");
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/dts-api-pagination.vue?vue&type=template&id=4e177450&":
+/*!*******************************************************************************!*\
+  !*** ./vue/text-editor/dts-api-pagination.vue?vue&type=template&id=4e177450& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_template_id_4e177450___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./dts-api-pagination.vue?vue&type=template&id=4e177450& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/dts-api-pagination.vue?vue&type=template&id=4e177450&");
 
 
 /***/ }),
@@ -56191,6 +56375,179 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/dts-api-pagination.vue?vue&type=template&id=4e177450&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/dts-api-pagination.vue?vue&type=template&id=4e177450& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "alpheios-editor-content-pagination" }, [
+    _vm.showPaginationFirst
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-link",
+            on: {
+              click: function($event) {
+                return _vm.getPage(_vm.first)
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.first))]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showPointsFirstPrevious
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-text"
+          },
+          [_vm._v("...")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showPaginationPrevious
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-link",
+            on: {
+              click: function($event) {
+                return _vm.getPage(_vm.previous)
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.previous))]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "span",
+      {
+        staticClass:
+          "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-text"
+      },
+      [_vm._v(_vm._s(_vm.current))]
+    ),
+    _vm._v(" "),
+    _vm.showPaginationNext
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-link",
+            on: {
+              click: function($event) {
+                return _vm.getPage(_vm.next)
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.next))]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showPointsNextLast
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-text"
+          },
+          [_vm._v("...")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showPaginationLast
+      ? _c(
+          "span",
+          {
+            staticClass:
+              "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-link",
+            on: {
+              click: function($event) {
+                return _vm.getPage(_vm.last)
+              }
+            }
+          },
+          [_vm._v(_vm._s(_vm.last))]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "span",
+      {
+        staticClass:
+          "alpheios-editor-content-pagination-span alpheios-editor-content-pagination-go-to"
+      },
+      [
+        _c(
+          "label",
+          { staticClass: "alpheios-alignment-editor-metadata-item__label" },
+          [_vm._v("go to the page:")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.goToValue,
+              expression: "goToValue"
+            }
+          ],
+          staticClass:
+            "alpheios-alignment-input alpheios-alignment-editor-pagination-go-to",
+          attrs: {
+            type: "number",
+            id: "alpheios-alignment-editor-pagination-go-to-input",
+            placeholder: "Go to the page",
+            min: _vm.first,
+            max: _vm.last
+          },
+          domProps: { value: _vm.goToValue },
+          on: {
+            keyup: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
+              return _vm.goToPage($event)
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.goToValue = $event.target.value
+            }
+          }
+        })
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/language-options-block.vue?vue&type=template&id=d0c3793c& ***!
@@ -57055,6 +57412,27 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _vm.pagination
+                        ? _c("dts-api-pagination", {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: !_vm.showWaiting,
+                                expression: "!showWaiting"
+                              }
+                            ],
+                            attrs: {
+                              first: _vm.pagination.first,
+                              previous: _vm.pagination.previous,
+                              last: _vm.pagination.last,
+                              next: _vm.pagination.next,
+                              current: _vm.pagination.current
+                            },
+                            on: { getPage: _vm.getPage }
+                          })
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.showEntireDocument
                         ? _c(
                             "div",
                             {
@@ -57066,119 +57444,8 @@ var render = function() {
                                   expression: "!showWaiting"
                                 }
                               ],
-                              staticClass: "alpheios-editor-content-pagination"
+                              staticClass: "alpheios-editor-content-link"
                             },
-                            [
-                              _vm.showPaginationFirst
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-pagination-link",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getPage(
-                                            _vm.pagination.first
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.pagination.first))]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.showPointsFirstPrevious
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-pagination-text"
-                                    },
-                                    [_vm._v("...")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.showPaginationPrevious
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-pagination-link",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getPage(
-                                            _vm.pagination.previous
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.pagination.previous))]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "alpheios-editor-content-pagination-text"
-                                },
-                                [_vm._v(_vm._s(_vm.pagination.current))]
-                              ),
-                              _vm._v(" "),
-                              _vm.showPaginationNext
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-pagination-link",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getPage(
-                                            _vm.pagination.next
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.pagination.next))]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.showPointsNextLast
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-pagination-text"
-                                    },
-                                    [_vm._v("...")]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _vm.showPaginationLast
-                                ? _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "alpheios-editor-content-pagination-link",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.getPage(
-                                            _vm.pagination.last
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.pagination.last))]
-                                  )
-                                : _vm._e()
-                            ]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.showEntireDocument
-                        ? _c(
-                            "div",
-                            { staticClass: "alpheios-editor-content-link" },
                             [
                               _c(
                                 "span",
@@ -58984,7 +59251,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original and Translation Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or just one or several passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original and Translation Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
 
 /***/ }),
 

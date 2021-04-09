@@ -107,7 +107,7 @@
     "component": "UploadDTSAPIBlock"
   },
   "UPLOAD_DTSAPI_DESCRIPTION_TITLE": {
-    "message": "You can either upload the entire document or just one or several passages:",
+    "message": "You can either upload the entire document or selected passages:",
     "description": "Description in upload bloc",
     "component": "UploadDTSAPIBlock"
   },
