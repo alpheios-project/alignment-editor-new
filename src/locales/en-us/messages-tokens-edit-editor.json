@@ -1,6 +1,6 @@
 {
     "TOKENS_EDITOR_HEADING": {
-      "message": "Edit tokens in Original and Translations texts",
+      "message": "Edit tokens in Original and Translation texts",
       "description": "A heading for text editor",
       "component": "AlignEditor"
     },
