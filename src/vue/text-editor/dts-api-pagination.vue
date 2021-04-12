@@ -9,13 +9,12 @@
         <span class="alpheios-editor-content-pagination-span alpheios-editor-content-pagination-link" @click = "getPage(last)" v-if="showPaginationLast">{{ last }}</span>
 
         <span class="alpheios-editor-content-pagination-span alpheios-editor-content-pagination-go-to">
-          <label class="alpheios-alignment-editor-metadata-item__label">go to the page:</label>
+          <label class="alpheios-alignment-editor-metadata-item__label">{{ l10n.getMsgS('UPLOAD_DTSAPI_GO_TO_PAGE') }}</label>
           <input
               class="alpheios-alignment-input alpheios-alignment-editor-pagination-go-to"
               type="number"
               v-model="goToValue"
               id="alpheios-alignment-editor-pagination-go-to-input"
-              placeholder ="Go to the page"
               @keyup.enter = "goToPage"
               :min = "first"
               :max = "last"
@@ -54,6 +53,9 @@ export default {
     }
   },
   computed: {
+    l10n () {
+      return L10nSingleton
+    },
     showPaginationFirst () {
       return this.first !== this.current
     },

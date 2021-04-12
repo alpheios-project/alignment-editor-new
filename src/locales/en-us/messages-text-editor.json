@@ -120,5 +120,10 @@
     "message": "Entire document",
     "description": "Title in upload block",
     "component": "UploadDTSAPIBlock"
+  },
+  "UPLOAD_DTSAPI_GO_TO_PAGE": {
+    "message": "go to",
+    "description": "Title in upload block",
+    "component": "UploadDTSAPIBlock"
   }
 }
