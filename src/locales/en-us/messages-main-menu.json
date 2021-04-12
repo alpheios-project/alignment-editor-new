@@ -40,7 +40,7 @@
       "component": "MainMenu"
     },
     "MAIN_MENU_CLEAR_TEXT": {
-      "message": "Clear text",
+      "message": "New Alignment",
       "description": "Button in main menu",
       "component": "MainMenu"
     }

@@ -231,10 +231,8 @@ export default {
 
       if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
-      } else if (alignment instanceof Alignment) {
-        this.showSourceTextEditor()
       } else {
-        this.showInitialScreen()
+        this.showSourceTextEditor()
       }
     }
   }
