@@ -23,6 +23,8 @@
     </div>
 </template>
 <script>
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+
 export default {
   name: 'UploadDTSAPIBlock',
   props: {
