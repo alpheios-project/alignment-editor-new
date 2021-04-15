@@ -34,6 +34,8 @@ export default class SourceText {
     } else {
       this.metadata = new Metadata()
     }
+
+    this.detectedLang = false
   }
 
   get defaultDirection () {
@@ -76,6 +78,15 @@ export default class SourceText {
 
     this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
     this.tokenization = Object.assign({}, docSource.tokenization)
+  }
+
+  updateDetectedLang (langData) {
+    this.lang = langData.lang
+    this.detectedLang = true
+  }
+
+  get readyForLangDetection () {
+    return this.text && (this.text.length > 5) && !this.detectedLang
   }
 
   /**

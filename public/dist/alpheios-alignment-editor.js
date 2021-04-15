@@ -38961,6 +38961,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
 /* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+
 
 
 class DetectTextController {
@@ -38972,7 +38974,22 @@ class DetectTextController {
       }
     })
 
+    console.info('sourceText - ', sourceText)
     console.info('adapterDetectLangRes - ', adapterDetectLangRes)
+
+    if (adapterDetectLangRes.errors.length > 0) {
+      adapterDetectLangRes.errors.forEach(error => {
+        console.log(error)
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+          text: error.message,
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+        })
+      })
+      return
+    }
+    return {
+      lang: adapterDetectLangRes.result
+    }
   }
 }
 
@@ -39592,32 +39609,42 @@ class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} originDocSource
    */
-  updateOriginDocSource (originDocSource) {
+  async updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
       this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
 
-    if (this.originDocSource && this.originDocSource.text) {
-      _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.alignment.origin.docSource)
+    if (this.originDocSource && this.originDocSource.readyForLangDetection) {
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.originDocSource)
+      this.originDocSource.updateDetectedLang(langData)
+      this.store.commit('incrementUploadCheck')
+    } else {
+      this.store.commit('incrementAlignmentUpdated')
     }
-    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
    * Uploads target source document to the alignment object.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource, targetId) {
+  async updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
         type: 'error'
       })
+      return
+    }
+    this.alignment.updateTargetDocSource(targetDocSource, targetId)
+
+    if (this.targetDocSource(targetId) && this.targetDocSource(targetId).readyForLangDetection) {
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(targetId))
+      this.targetDocSource(targetId).updateDetectedLang(langData)
+      this.store.commit('incrementUploadCheck')
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource, targetId)
       this.store.commit('incrementAlignmentUpdated')
     }
   }
@@ -43819,6 +43846,8 @@ class SourceText {
     } else {
       this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
     }
+
+    this.detectedLang = false
   }
 
   get defaultDirection () {
@@ -43861,6 +43890,15 @@ class SourceText {
 
     this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
     this.tokenization = Object.assign({}, docSource.tokenization)
+  }
+
+  updateDetectedLang (langData) {
+    this.lang = langData.lang
+    this.detectedLang = true
+  }
+
+  get readyForLangDetection () {
+    return this.text && (this.text.length > 5) && !this.detectedLang
   }
 
   /**
@@ -44718,7 +44756,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210415636" : 0
+    return  true ? "i327-new-text-editor-screen.20210415661" : 0
   }
 
   static get libName () {
@@ -48031,7 +48069,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     async '$store.state.resetOptions' () {
       await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
-      this.updateText()
+      await this.updateText()
     }
   },
   computed: {
@@ -48148,12 +48186,12 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Updates sourceText properties from textController
      */
-    updateFromExternal () {
+    async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
-        this.updateText()
+        await this.updateText()
       }
     },
 
@@ -48168,7 +48206,7 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Emits update-text event with data from properties
      */
-    updateText (updatePlace) {
+    async updateText (updatePlace) {
       if ((updatePlace === 'text') || (this.text)) {
         const params = {
           text: this.text,
@@ -48179,7 +48217,7 @@ __webpack_require__.r(__webpack_exports__);
           tokenization: this.tokenization
         }
 
-        this.$textC[this.updateTextMethod](params, this.textId)  
+        await this.$textC[this.updateTextMethod](params, this.textId)  
       }
     },
     deleteText () {
@@ -48193,7 +48231,7 @@ __webpack_require__.r(__webpack_exports__);
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
 
-      this.updateText()
+      await this.updateText()
     },
 
     /**

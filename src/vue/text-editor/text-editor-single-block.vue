@@ -108,7 +108,7 @@ export default {
     },
     async '$store.state.resetOptions' () {
       await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
-      this.updateText()
+      await this.updateText()
     }
   },
   computed: {
@@ -225,12 +225,12 @@ export default {
     /**
      * Updates sourceText properties from textController
      */
-    updateFromExternal () {
+    async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
-        this.updateText()
+        await this.updateText()
       }
     },
 
@@ -245,7 +245,7 @@ export default {
     /**
      * Emits update-text event with data from properties
      */
-    updateText (updatePlace) {
+    async updateText (updatePlace) {
       if ((updatePlace === 'text') || (this.text)) {
         const params = {
           text: this.text,
@@ -256,7 +256,7 @@ export default {
           tokenization: this.tokenization
         }
 
-        this.$textC[this.updateTextMethod](params, this.textId)  
+        await this.$textC[this.updateTextMethod](params, this.textId)  
       }
     },
     deleteText () {
@@ -270,7 +270,7 @@ export default {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
 
-      this.updateText()
+      await this.updateText()
     },
 
     /**

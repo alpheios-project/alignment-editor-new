@@ -38,32 +38,42 @@ export default class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} originDocSource
    */
-  updateOriginDocSource (originDocSource) {
+  async updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
       this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
 
-    if (this.originDocSource && this.originDocSource.text) {
-      DetectTextController.detectTextProperties(this.alignment.origin.docSource)
+    if (this.originDocSource && this.originDocSource.readyForLangDetection) {
+      const langData = await DetectTextController.detectTextProperties(this.originDocSource)
+      this.originDocSource.updateDetectedLang(langData)
+      this.store.commit('incrementUploadCheck')
+    } else {
+      this.store.commit('incrementAlignmentUpdated')
     }
-    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
    * Uploads target source document to the alignment object.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource, targetId) {
+  async updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
         type: 'error'
       })
+      return
+    }
+    this.alignment.updateTargetDocSource(targetDocSource, targetId)
+
+    if (this.targetDocSource(targetId) && this.targetDocSource(targetId).readyForLangDetection) {
+      const langData = await DetectTextController.detectTextProperties(this.targetDocSource(targetId))
+      this.targetDocSource(targetId).updateDetectedLang(langData)
+      this.store.commit('incrementUploadCheck')
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource, targetId)
       this.store.commit('incrementAlignmentUpdated')
     }
   }
