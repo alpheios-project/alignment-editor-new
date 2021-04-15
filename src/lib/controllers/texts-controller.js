@@ -5,6 +5,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -42,6 +43,10 @@ export default class TextsController {
       this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
+    }
+
+    if (this.originDocSource && this.originDocSource.text) {
+      DetectTextController.detectTextProperties(this.alignment.origin.docSource)
     }
     this.store.commit('incrementAlignmentUpdated')
   }

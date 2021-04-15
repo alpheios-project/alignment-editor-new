@@ -311,6 +311,2019 @@
 
 /***/ }),
 
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/error.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/error.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ErrorKind = void 0;
+var ErrorKind;
+(function (ErrorKind) {
+    /** Argument is unclosed (e.g. `{0`) */
+    ErrorKind[ErrorKind["EXPECT_ARGUMENT_CLOSING_BRACE"] = 1] = "EXPECT_ARGUMENT_CLOSING_BRACE";
+    /** Argument is empty (e.g. `{}`). */
+    ErrorKind[ErrorKind["EMPTY_ARGUMENT"] = 2] = "EMPTY_ARGUMENT";
+    /** Argument is malformed (e.g. `{foo!}``) */
+    ErrorKind[ErrorKind["MALFORMED_ARGUMENT"] = 3] = "MALFORMED_ARGUMENT";
+    /** Expect an argument type (e.g. `{foo,}`) */
+    ErrorKind[ErrorKind["EXPECT_ARGUMENT_TYPE"] = 4] = "EXPECT_ARGUMENT_TYPE";
+    /** Unsupported argument type (e.g. `{foo,foo}`) */
+    ErrorKind[ErrorKind["INVALID_ARGUMENT_TYPE"] = 5] = "INVALID_ARGUMENT_TYPE";
+    /** Expect an argument style (e.g. `{foo, number, }`) */
+    ErrorKind[ErrorKind["EXPECT_ARGUMENT_STYLE"] = 6] = "EXPECT_ARGUMENT_STYLE";
+    /** The number skeleton is invalid. */
+    ErrorKind[ErrorKind["INVALID_NUMBER_SKELETON"] = 7] = "INVALID_NUMBER_SKELETON";
+    /** The date time skeleton is invalid. */
+    ErrorKind[ErrorKind["INVALID_DATE_TIME_SKELETON"] = 8] = "INVALID_DATE_TIME_SKELETON";
+    /** Exepct a number skeleton following the `::` (e.g. `{foo, number, ::}`) */
+    ErrorKind[ErrorKind["EXPECT_NUMBER_SKELETON"] = 9] = "EXPECT_NUMBER_SKELETON";
+    /** Exepct a date time skeleton following the `::` (e.g. `{foo, date, ::}`) */
+    ErrorKind[ErrorKind["EXPECT_DATE_TIME_SKELETON"] = 10] = "EXPECT_DATE_TIME_SKELETON";
+    /** Unmatched apostrophes in the argument style (e.g. `{foo, number, 'test`) */
+    ErrorKind[ErrorKind["UNCLOSED_QUOTE_IN_ARGUMENT_STYLE"] = 11] = "UNCLOSED_QUOTE_IN_ARGUMENT_STYLE";
+    /** Missing select argument options (e.g. `{foo, select}`) */
+    ErrorKind[ErrorKind["EXPECT_SELECT_ARGUMENT_OPTIONS"] = 12] = "EXPECT_SELECT_ARGUMENT_OPTIONS";
+    /** Expecting an offset value in `plural` or `selectordinal` argument (e.g `{foo, plural, offset}`) */
+    ErrorKind[ErrorKind["EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE"] = 13] = "EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE";
+    /** Offset value in `plural` or `selectordinal` is invalid (e.g. `{foo, plural, offset: x}`) */
+    ErrorKind[ErrorKind["INVALID_PLURAL_ARGUMENT_OFFSET_VALUE"] = 14] = "INVALID_PLURAL_ARGUMENT_OFFSET_VALUE";
+    /** Expecting a selector in `select` argument (e.g `{foo, select}`) */
+    ErrorKind[ErrorKind["EXPECT_SELECT_ARGUMENT_SELECTOR"] = 15] = "EXPECT_SELECT_ARGUMENT_SELECTOR";
+    /** Expecting a selector in `plural` or `selectordinal` argument (e.g `{foo, plural}`) */
+    ErrorKind[ErrorKind["EXPECT_PLURAL_ARGUMENT_SELECTOR"] = 16] = "EXPECT_PLURAL_ARGUMENT_SELECTOR";
+    /** Expecting a message fragment after the `select` selector (e.g. `{foo, select, apple}`) */
+    ErrorKind[ErrorKind["EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT"] = 17] = "EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT";
+    /**
+     * Expecting a message fragment after the `plural` or `selectordinal` selector
+     * (e.g. `{foo, plural, one}`)
+     */
+    ErrorKind[ErrorKind["EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT"] = 18] = "EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT";
+    /** Selector in `plural` or `selectordinal` is malformed (e.g. `{foo, plural, =x {#}}`) */
+    ErrorKind[ErrorKind["INVALID_PLURAL_ARGUMENT_SELECTOR"] = 19] = "INVALID_PLURAL_ARGUMENT_SELECTOR";
+    /**
+     * Duplicate selectors in `plural` or `selectordinal` argument.
+     * (e.g. {foo, plural, one {#} one {#}})
+     */
+    ErrorKind[ErrorKind["DUPLICATE_PLURAL_ARGUMENT_SELECTOR"] = 20] = "DUPLICATE_PLURAL_ARGUMENT_SELECTOR";
+    /** Duplicate selectors in `select` argument.
+     * (e.g. {foo, select, apple {apple} apple {apple}})
+     */
+    ErrorKind[ErrorKind["DUPLICATE_SELECT_ARGUMENT_SELECTOR"] = 21] = "DUPLICATE_SELECT_ARGUMENT_SELECTOR";
+    /** Plural or select argument option must have `other` clause. */
+    ErrorKind[ErrorKind["MISSING_OTHER_CLAUSE"] = 22] = "MISSING_OTHER_CLAUSE";
+    /** The tag is malformed. (e.g. `<bold!>foo</bold!>) */
+    ErrorKind[ErrorKind["INVALID_TAG"] = 23] = "INVALID_TAG";
+    /** The tag name is invalid. (e.g. `<123>foo</123>`) */
+    ErrorKind[ErrorKind["INVALID_TAG_NAME"] = 25] = "INVALID_TAG_NAME";
+    /** The closing tag does not match the opening tag. (e.g. `<bold>foo</italic>`) */
+    ErrorKind[ErrorKind["UNMATCHED_CLOSING_TAG"] = 26] = "UNMATCHED_CLOSING_TAG";
+    /** The opening tag has unmatched closing tag. (e.g. `<bold>foo`) */
+    ErrorKind[ErrorKind["UNCLOSED_TAG"] = 27] = "UNCLOSED_TAG";
+})(ErrorKind = exports.ErrorKind || (exports.ErrorKind = {}));
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/index.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/index.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parse = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+var error_1 = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/error.js");
+var parser_1 = __webpack_require__(/*! ./parser */ "../node_modules/@formatjs/icu-messageformat-parser/parser.js");
+var types_1 = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js");
+function pruneLocation(els) {
+    els.forEach(function (el) {
+        delete el.location;
+        if (types_1.isSelectElement(el) || types_1.isPluralElement(el)) {
+            for (var k in el.options) {
+                delete el.options[k].location;
+                pruneLocation(el.options[k].value);
+            }
+        }
+        else if (types_1.isNumberElement(el) && types_1.isNumberSkeleton(el.style)) {
+            delete el.style.location;
+        }
+        else if ((types_1.isDateElement(el) || types_1.isTimeElement(el)) &&
+            types_1.isDateTimeSkeleton(el.style)) {
+            delete el.style.location;
+        }
+        else if (types_1.isTagElement(el)) {
+            pruneLocation(el.children);
+        }
+    });
+}
+function parse(message, opts) {
+    if (opts === void 0) { opts = {}; }
+    opts = tslib_1.__assign({ shouldParseSkeletons: true }, opts);
+    var result = new parser_1.Parser(message, opts).parse();
+    if (result.err) {
+        var error = SyntaxError(error_1.ErrorKind[result.err.kind]);
+        // @ts-expect-error Assign to error object
+        error.location = result.err.location;
+        // @ts-expect-error Assign to error object
+        error.originalMessage = result.err.message;
+        throw error;
+    }
+    if (!(opts === null || opts === void 0 ? void 0 : opts.captureLocation)) {
+        pruneLocation(result.val);
+    }
+    return result.val;
+}
+exports.parse = parse;
+tslib_1.__exportStar(__webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js"), exports);
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/parser.js":
+/*!********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/parser.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Parser = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+var error_1 = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/error.js");
+var types_1 = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js");
+var regex_generated_1 = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js");
+var icu_skeleton_parser_1 = __webpack_require__(/*! @formatjs/icu-skeleton-parser */ "../node_modules/@formatjs/icu-skeleton-parser/index.js");
+function createLocation(start, end) {
+    return { start: start, end: end };
+}
+// #region Ponyfills
+// Consolidate these variables up top for easier toggling during debugging
+var hasNativeStartsWith = !!String.prototype.startsWith;
+var hasNativeFromCodePoint = !!String.fromCodePoint;
+var hasNativeFromEntries = !!Object.fromEntries;
+var hasNativeCodePointAt = !!String.prototype.codePointAt;
+var hasTrimStart = !!String.prototype.trimStart;
+var hasTrimEnd = !!String.prototype.trimEnd;
+var hasNativeIsSafeInteger = !!Number.isSafeInteger;
+var isSafeInteger = hasNativeIsSafeInteger
+    ? Number.isSafeInteger
+    : function (n) {
+        return (typeof n === 'number' &&
+            isFinite(n) &&
+            Math.floor(n) === n &&
+            Math.abs(n) <= 0x1fffffffffffff);
+    };
+// IE11 does not support y and u.
+var REGEX_SUPPORTS_U_AND_Y = true;
+try {
+    RE('([^\\p{White_Space}\\p{Pattern_Syntax}]*)', 'yu');
+}
+catch (_) {
+    REGEX_SUPPORTS_U_AND_Y = false;
+}
+var startsWith = hasNativeStartsWith
+    ? // Native
+        function startsWith(s, search, position) {
+            return s.startsWith(search, position);
+        }
+    : // For IE11
+        function startsWith(s, search, position) {
+            return s.slice(position, position + search.length) === search;
+        };
+var fromCodePoint = hasNativeFromCodePoint
+    ? String.fromCodePoint
+    : // IE11
+        function fromCodePoint() {
+            var codePoints = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                codePoints[_i] = arguments[_i];
+            }
+            var elements = '';
+            var length = codePoints.length;
+            var i = 0;
+            var code;
+            while (length > i) {
+                code = codePoints[i++];
+                if (code > 0x10ffff)
+                    throw RangeError(code + ' is not a valid code point');
+                elements +=
+                    code < 0x10000
+                        ? String.fromCharCode(code)
+                        : String.fromCharCode(((code -= 0x10000) >> 10) + 0xd800, (code % 0x400) + 0xdc00);
+            }
+            return elements;
+        };
+var fromEntries = 
+// native
+hasNativeFromEntries
+    ? Object.fromEntries
+    : // Ponyfill
+        function fromEntries(entries) {
+            var obj = {};
+            for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
+                var _a = entries_1[_i], k = _a[0], v = _a[1];
+                obj[k] = v;
+            }
+            return obj;
+        };
+var codePointAt = hasNativeCodePointAt
+    ? // Native
+        function codePointAt(s, index) {
+            return s.codePointAt(index);
+        }
+    : // IE 11
+        function codePointAt(s, index) {
+            var size = s.length;
+            if (index < 0 || index >= size) {
+                return undefined;
+            }
+            var first = s.charCodeAt(index);
+            var second;
+            return first < 0xd800 ||
+                first > 0xdbff ||
+                index + 1 === size ||
+                (second = s.charCodeAt(index + 1)) < 0xdc00 ||
+                second > 0xdfff
+                ? first
+                : ((first - 0xd800) << 10) + (second - 0xdc00) + 0x10000;
+        };
+var trimStart = hasTrimStart
+    ? // Native
+        function trimStart(s) {
+            return s.trimStart();
+        }
+    : // Ponyfill
+        function trimStart(s) {
+            return s.replace(regex_generated_1.SPACE_SEPARATOR_START_REGEX, '');
+        };
+var trimEnd = hasTrimEnd
+    ? // Native
+        function trimEnd(s) {
+            return s.trimEnd();
+        }
+    : // Ponyfill
+        function trimEnd(s) {
+            return s.replace(regex_generated_1.SPACE_SEPARATOR_END_REGEX, '');
+        };
+// Prevent minifier to translate new RegExp to literal form that might cause syntax error on IE11.
+function RE(s, flag) {
+    return new RegExp(s, flag);
+}
+// #endregion
+var matchIdentifierAtIndex;
+if (REGEX_SUPPORTS_U_AND_Y) {
+    // Native
+    var IDENTIFIER_PREFIX_RE_1 = RE('([^\\p{White_Space}\\p{Pattern_Syntax}]*)', 'yu');
+    matchIdentifierAtIndex = function matchIdentifierAtIndex(s, index) {
+        var _a;
+        IDENTIFIER_PREFIX_RE_1.lastIndex = index;
+        var match = IDENTIFIER_PREFIX_RE_1.exec(s);
+        return (_a = match[1]) !== null && _a !== void 0 ? _a : '';
+    };
+}
+else {
+    // IE11
+    matchIdentifierAtIndex = function matchIdentifierAtIndex(s, index) {
+        var match = [];
+        while (true) {
+            var c = codePointAt(s, index);
+            if (c === undefined || _isWhiteSpace(c) || _isPatternSyntax(c)) {
+                break;
+            }
+            match.push(c);
+            index += c >= 0x10000 ? 2 : 1;
+        }
+        return fromCodePoint.apply(void 0, match);
+    };
+}
+var Parser = /** @class */ (function () {
+    function Parser(message, options) {
+        if (options === void 0) { options = {}; }
+        this.message = message;
+        this.position = { offset: 0, line: 1, column: 1 };
+        this.ignoreTag = !!options.ignoreTag;
+        this.requiresOtherClause = !!options.requiresOtherClause;
+        this.shouldParseSkeletons = !!options.shouldParseSkeletons;
+    }
+    Parser.prototype.parse = function () {
+        if (this.offset() !== 0) {
+            throw Error('parser can only be used once');
+        }
+        return this.parseMessage(0, '', false);
+    };
+    Parser.prototype.parseMessage = function (nestingLevel, parentArgType, expectingCloseTag) {
+        var elements = [];
+        while (!this.isEOF()) {
+            var char = this.char();
+            if (char === 123 /* `{` */) {
+                var result = this.parseArgument(nestingLevel, expectingCloseTag);
+                if (result.err) {
+                    return result;
+                }
+                elements.push(result.val);
+            }
+            else if (char === 125 /* `}` */ && nestingLevel > 0) {
+                break;
+            }
+            else if (char === 35 /* `#` */ &&
+                (parentArgType === 'plural' || parentArgType === 'selectordinal')) {
+                var position = this.clonePosition();
+                this.bump();
+                elements.push({
+                    type: types_1.TYPE.pound,
+                    location: createLocation(position, this.clonePosition()),
+                });
+            }
+            else if (char === 60 /* `<` */ &&
+                !this.ignoreTag &&
+                this.peek() === 47 // char code for '/'
+            ) {
+                if (expectingCloseTag) {
+                    break;
+                }
+                else {
+                    return this.error(error_1.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(this.clonePosition(), this.clonePosition()));
+                }
+            }
+            else if (char === 60 /* `<` */ &&
+                !this.ignoreTag &&
+                _isAlpha(this.peek() || 0)) {
+                var result = this.parseTag(nestingLevel, parentArgType);
+                if (result.err) {
+                    return result;
+                }
+                elements.push(result.val);
+            }
+            else {
+                var result = this.parseLiteral(nestingLevel, parentArgType);
+                if (result.err) {
+                    return result;
+                }
+                elements.push(result.val);
+            }
+        }
+        return { val: elements, err: null };
+    };
+    /**
+     * A tag name must start with an ASCII lower/upper case letter. The grammar is based on the
+     * [custom element name][] except that a dash is NOT always mandatory and uppercase letters
+     * are accepted:
+     *
+     * ```
+     * tag ::= "<" tagName (whitespace)* "/>" | "<" tagName (whitespace)* ">" message "</" tagName (whitespace)* ">"
+     * tagName ::= [a-z] (PENChar)*
+     * PENChar ::=
+     *     "-" | "." | [0-9] | "_" | [a-z] | [A-Z] | #xB7 | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x37D] |
+     *     [#x37F-#x1FFF] | [#x200C-#x200D] | [#x203F-#x2040] | [#x2070-#x218F] | [#x2C00-#x2FEF] |
+     *     [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
+     * ```
+     *
+     * [custom element name]: https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
+     * NOTE: We're a bit more lax here since HTML technically does not allow uppercase HTML element but we do
+     * since other tag-based engines like React allow it
+     */
+    Parser.prototype.parseTag = function (nestingLevel, parentArgType) {
+        var startPosition = this.clonePosition();
+        this.bump(); // `<`
+        var tagName = this.parseTagName();
+        this.bumpSpace();
+        if (this.bumpIf('/>')) {
+            // Self closing tag
+            return {
+                val: {
+                    type: types_1.TYPE.literal,
+                    value: "<" + tagName + "/>",
+                    location: createLocation(startPosition, this.clonePosition()),
+                },
+                err: null,
+            };
+        }
+        else if (this.bumpIf('>')) {
+            var childrenResult = this.parseMessage(nestingLevel + 1, parentArgType, true);
+            if (childrenResult.err) {
+                return childrenResult;
+            }
+            var children = childrenResult.val;
+            // Expecting a close tag
+            var endTagStartPosition = this.clonePosition();
+            if (this.bumpIf('</')) {
+                if (this.isEOF() || !_isAlpha(this.char())) {
+                    return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
+                }
+                var closingTagNameStartPosition = this.clonePosition();
+                var closingTagName = this.parseTagName();
+                if (tagName !== closingTagName) {
+                    return this.error(error_1.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(closingTagNameStartPosition, this.clonePosition()));
+                }
+                this.bumpSpace();
+                if (!this.bumpIf('>')) {
+                    return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
+                }
+                return {
+                    val: {
+                        type: types_1.TYPE.tag,
+                        value: tagName,
+                        children: children,
+                        location: createLocation(startPosition, this.clonePosition()),
+                    },
+                    err: null,
+                };
+            }
+            else {
+                return this.error(error_1.ErrorKind.UNCLOSED_TAG, createLocation(startPosition, this.clonePosition()));
+            }
+        }
+        else {
+            return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(startPosition, this.clonePosition()));
+        }
+    };
+    /**
+     * This method assumes that the caller has peeked ahead for the first tag character.
+     */
+    Parser.prototype.parseTagName = function () {
+        var startOffset = this.offset();
+        this.bump(); // the first tag name character
+        while (!this.isEOF() && _isPotentialElementNameChar(this.char())) {
+            this.bump();
+        }
+        return this.message.slice(startOffset, this.offset());
+    };
+    Parser.prototype.parseLiteral = function (nestingLevel, parentArgType) {
+        var start = this.clonePosition();
+        var value = '';
+        while (true) {
+            var parseQuoteResult = this.tryParseQuote(parentArgType);
+            if (parseQuoteResult) {
+                value += parseQuoteResult;
+                continue;
+            }
+            var parseUnquotedResult = this.tryParseUnquoted(nestingLevel, parentArgType);
+            if (parseUnquotedResult) {
+                value += parseUnquotedResult;
+                continue;
+            }
+            var parseLeftAngleResult = this.tryParseLeftAngleBracket();
+            if (parseLeftAngleResult) {
+                value += parseLeftAngleResult;
+                continue;
+            }
+            break;
+        }
+        var location = createLocation(start, this.clonePosition());
+        return {
+            val: { type: types_1.TYPE.literal, value: value, location: location },
+            err: null,
+        };
+    };
+    Parser.prototype.tryParseLeftAngleBracket = function () {
+        if (!this.isEOF() &&
+            this.char() === 60 /* `<` */ &&
+            (this.ignoreTag ||
+                // If at the opening tag or closing tag position, bail.
+                !_isAlphaOrSlash(this.peek() || 0))) {
+            this.bump(); // `<`
+            return '<';
+        }
+        return null;
+    };
+    /**
+     * Starting with ICU 4.8, an ASCII apostrophe only starts quoted text if it immediately precedes
+     * a character that requires quoting (that is, "only where needed"), and works the same in
+     * nested messages as on the top level of the pattern. The new behavior is otherwise compatible.
+     */
+    Parser.prototype.tryParseQuote = function (parentArgType) {
+        if (this.isEOF() || this.char() !== 39 /* `'` */) {
+            return null;
+        }
+        // Parse escaped char following the apostrophe, or early return if there is no escaped char.
+        // Check if is valid escaped character
+        switch (this.peek()) {
+            case 39 /* `'` */:
+                // double quote, should return as a single quote.
+                this.bump();
+                this.bump();
+                return "'";
+            // '{', '<', '>', '}'
+            case 123:
+            case 60:
+            case 62:
+            case 125:
+                break;
+            case 35: // '#'
+                if (parentArgType === 'plural' || parentArgType === 'selectordinal') {
+                    break;
+                }
+                return null;
+            default:
+                return null;
+        }
+        this.bump(); // apostrophe
+        var codePoints = [this.char()]; // escaped char
+        this.bump();
+        // read chars until the optional closing apostrophe is found
+        while (!this.isEOF()) {
+            var ch = this.char();
+            if (ch === 39 /* `'` */) {
+                if (this.peek() === 39 /* `'` */) {
+                    codePoints.push(39);
+                    // Bump one more time because we need to skip 2 characters.
+                    this.bump();
+                }
+                else {
+                    // Optional closing apostrophe.
+                    this.bump();
+                    break;
+                }
+            }
+            else {
+                codePoints.push(ch);
+            }
+            this.bump();
+        }
+        return fromCodePoint.apply(void 0, codePoints);
+    };
+    Parser.prototype.tryParseUnquoted = function (nestingLevel, parentArgType) {
+        if (this.isEOF()) {
+            return null;
+        }
+        var ch = this.char();
+        if (ch === 60 /* `<` */ ||
+            ch === 123 /* `{` */ ||
+            (ch === 35 /* `#` */ &&
+                (parentArgType === 'plural' || parentArgType === 'selectordinal')) ||
+            (ch === 125 /* `}` */ && nestingLevel > 0)) {
+            return null;
+        }
+        else {
+            this.bump();
+            return fromCodePoint(ch);
+        }
+    };
+    Parser.prototype.parseArgument = function (nestingLevel, expectingCloseTag) {
+        var openingBracePosition = this.clonePosition();
+        this.bump(); // `{`
+        this.bumpSpace();
+        if (this.isEOF()) {
+            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+        }
+        if (this.char() === 125 /* `}` */) {
+            this.bump();
+            return this.error(error_1.ErrorKind.EMPTY_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+        }
+        // argument name
+        var value = this.parseIdentifierIfPossible().value;
+        if (!value) {
+            return this.error(error_1.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+        }
+        this.bumpSpace();
+        if (this.isEOF()) {
+            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+        }
+        switch (this.char()) {
+            // Simple argument: `{name}`
+            case 125 /* `}` */: {
+                this.bump(); // `}`
+                return {
+                    val: {
+                        type: types_1.TYPE.argument,
+                        // value does not include the opening and closing braces.
+                        value: value,
+                        location: createLocation(openingBracePosition, this.clonePosition()),
+                    },
+                    err: null,
+                };
+            }
+            // Argument with options: `{name, format, ...}`
+            case 44 /* `,` */: {
+                this.bump(); // `,`
+                this.bumpSpace();
+                if (this.isEOF()) {
+                    return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+                }
+                return this.parseArgumentOptions(nestingLevel, expectingCloseTag, value, openingBracePosition);
+            }
+            default:
+                return this.error(error_1.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+        }
+    };
+    /**
+     * Advance the parser until the end of the identifier, if it is currently on
+     * an identifier character. Return an empty string otherwise.
+     */
+    Parser.prototype.parseIdentifierIfPossible = function () {
+        var startingPosition = this.clonePosition();
+        var startOffset = this.offset();
+        var value = matchIdentifierAtIndex(this.message, startOffset);
+        var endOffset = startOffset + value.length;
+        this.bumpTo(endOffset);
+        var endPosition = this.clonePosition();
+        var location = createLocation(startingPosition, endPosition);
+        return { value: value, location: location };
+    };
+    Parser.prototype.parseArgumentOptions = function (nestingLevel, expectingCloseTag, value, openingBracePosition) {
+        var _a;
+        // Parse this range:
+        // {name, type, style}
+        //        ^---^
+        var typeStartPosition = this.clonePosition();
+        var argType = this.parseIdentifierIfPossible().value;
+        var typeEndPosition = this.clonePosition();
+        switch (argType) {
+            case '':
+                // Expecting a style string number, date, time, plural, selectordinal, or select.
+                return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
+            case 'number':
+            case 'date':
+            case 'time': {
+                // Parse this range:
+                // {name, number, style}
+                //              ^-------^
+                this.bumpSpace();
+                var styleAndLocation = null;
+                if (this.bumpIf(',')) {
+                    this.bumpSpace();
+                    var styleStartPosition = this.clonePosition();
+                    var result = this.parseSimpleArgStyleIfPossible();
+                    if (result.err) {
+                        return result;
+                    }
+                    var style = trimEnd(result.val);
+                    if (style.length === 0) {
+                        return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_STYLE, createLocation(this.clonePosition(), this.clonePosition()));
+                    }
+                    var styleLocation = createLocation(styleStartPosition, this.clonePosition());
+                    styleAndLocation = { style: style, styleLocation: styleLocation };
+                }
+                var argCloseResult = this.tryParseArgumentClose(openingBracePosition);
+                if (argCloseResult.err) {
+                    return argCloseResult;
+                }
+                var location_1 = createLocation(openingBracePosition, this.clonePosition());
+                // Extract style or skeleton
+                if (styleAndLocation && startsWith(styleAndLocation === null || styleAndLocation === void 0 ? void 0 : styleAndLocation.style, '::', 0)) {
+                    // Skeleton starts with `::`.
+                    var skeleton = trimStart(styleAndLocation.style.slice(2));
+                    if (argType === 'number') {
+                        var result = this.parseNumberSkeletonFromString(skeleton, styleAndLocation.styleLocation);
+                        if (result.err) {
+                            return result;
+                        }
+                        return {
+                            val: { type: types_1.TYPE.number, value: value, location: location_1, style: result.val },
+                            err: null,
+                        };
+                    }
+                    else {
+                        if (skeleton.length === 0) {
+                            return this.error(error_1.ErrorKind.EXPECT_DATE_TIME_SKELETON, location_1);
+                        }
+                        var style = {
+                            type: types_1.SKELETON_TYPE.dateTime,
+                            pattern: skeleton,
+                            location: styleAndLocation.styleLocation,
+                            parsedOptions: this.shouldParseSkeletons
+                                ? icu_skeleton_parser_1.parseDateTimeSkeleton(skeleton)
+                                : {},
+                        };
+                        var type = argType === 'date' ? types_1.TYPE.date : types_1.TYPE.time;
+                        return {
+                            val: { type: type, value: value, location: location_1, style: style },
+                            err: null,
+                        };
+                    }
+                }
+                // Regular style or no style.
+                return {
+                    val: {
+                        type: argType === 'number'
+                            ? types_1.TYPE.number
+                            : argType === 'date'
+                                ? types_1.TYPE.date
+                                : types_1.TYPE.time,
+                        value: value,
+                        location: location_1,
+                        style: (_a = styleAndLocation === null || styleAndLocation === void 0 ? void 0 : styleAndLocation.style) !== null && _a !== void 0 ? _a : null,
+                    },
+                    err: null,
+                };
+            }
+            case 'plural':
+            case 'selectordinal':
+            case 'select': {
+                // Parse this range:
+                // {name, plural, options}
+                //              ^---------^
+                var typeEndPosition_1 = this.clonePosition();
+                this.bumpSpace();
+                if (!this.bumpIf(',')) {
+                    return this.error(error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_OPTIONS, createLocation(typeEndPosition_1, tslib_1.__assign({}, typeEndPosition_1)));
+                }
+                this.bumpSpace();
+                // Parse offset:
+                // {name, plural, offset:1, options}
+                //                ^-----^
+                //
+                // or the first option:
+                //
+                // {name, plural, one {...} other {...}}
+                //                ^--^
+                var identifierAndLocation = this.parseIdentifierIfPossible();
+                var pluralOffset = 0;
+                if (argType !== 'select' && identifierAndLocation.value === 'offset') {
+                    if (!this.bumpIf(':')) {
+                        return this.error(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, createLocation(this.clonePosition(), this.clonePosition()));
+                    }
+                    this.bumpSpace();
+                    var result = this.tryParseDecimalInteger(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, error_1.ErrorKind.INVALID_PLURAL_ARGUMENT_OFFSET_VALUE);
+                    if (result.err) {
+                        return result;
+                    }
+                    // Parse another identifier for option parsing
+                    this.bumpSpace();
+                    identifierAndLocation = this.parseIdentifierIfPossible();
+                    pluralOffset = result.val;
+                }
+                var optionsResult = this.tryParsePluralOrSelectOptions(nestingLevel, argType, expectingCloseTag, identifierAndLocation);
+                if (optionsResult.err) {
+                    return optionsResult;
+                }
+                var argCloseResult = this.tryParseArgumentClose(openingBracePosition);
+                if (argCloseResult.err) {
+                    return argCloseResult;
+                }
+                var location_2 = createLocation(openingBracePosition, this.clonePosition());
+                if (argType === 'select') {
+                    return {
+                        val: {
+                            type: types_1.TYPE.select,
+                            value: value,
+                            options: fromEntries(optionsResult.val),
+                            location: location_2,
+                        },
+                        err: null,
+                    };
+                }
+                else {
+                    return {
+                        val: {
+                            type: types_1.TYPE.plural,
+                            value: value,
+                            options: fromEntries(optionsResult.val),
+                            offset: pluralOffset,
+                            pluralType: argType === 'plural' ? 'cardinal' : 'ordinal',
+                            location: location_2,
+                        },
+                        err: null,
+                    };
+                }
+            }
+            default:
+                return this.error(error_1.ErrorKind.INVALID_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
+        }
+    };
+    Parser.prototype.tryParseArgumentClose = function (openingBracePosition) {
+        // Parse: {value, number, ::currency/GBP }
+        //
+        if (this.isEOF() || this.char() !== 125 /* `}` */) {
+            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+        }
+        this.bump(); // `}`
+        return { val: true, err: null };
+    };
+    /**
+     * See: https://github.com/unicode-org/icu/blob/af7ed1f6d2298013dc303628438ec4abe1f16479/icu4c/source/common/messagepattern.cpp#L659
+     */
+    Parser.prototype.parseSimpleArgStyleIfPossible = function () {
+        var nestedBraces = 0;
+        var startPosition = this.clonePosition();
+        while (!this.isEOF()) {
+            var ch = this.char();
+            switch (ch) {
+                case 39 /* `'` */: {
+                    // Treat apostrophe as quoting but include it in the style part.
+                    // Find the end of the quoted literal text.
+                    this.bump();
+                    var apostrophePosition = this.clonePosition();
+                    if (!this.bumpUntil("'")) {
+                        return this.error(error_1.ErrorKind.UNCLOSED_QUOTE_IN_ARGUMENT_STYLE, createLocation(apostrophePosition, this.clonePosition()));
+                    }
+                    this.bump();
+                    break;
+                }
+                case 123 /* `{` */: {
+                    nestedBraces += 1;
+                    this.bump();
+                    break;
+                }
+                case 125 /* `}` */: {
+                    if (nestedBraces > 0) {
+                        nestedBraces -= 1;
+                    }
+                    else {
+                        return {
+                            val: this.message.slice(startPosition.offset, this.offset()),
+                            err: null,
+                        };
+                    }
+                    break;
+                }
+                default:
+                    this.bump();
+                    break;
+            }
+        }
+        return {
+            val: this.message.slice(startPosition.offset, this.offset()),
+            err: null,
+        };
+    };
+    Parser.prototype.parseNumberSkeletonFromString = function (skeleton, location) {
+        var tokens = [];
+        try {
+            tokens = icu_skeleton_parser_1.parseNumberSkeletonFromString(skeleton);
+        }
+        catch (e) {
+            return this.error(error_1.ErrorKind.INVALID_NUMBER_SKELETON, location);
+        }
+        return {
+            val: {
+                type: types_1.SKELETON_TYPE.number,
+                tokens: tokens,
+                location: location,
+                parsedOptions: this.shouldParseSkeletons
+                    ? icu_skeleton_parser_1.parseNumberSkeleton(tokens)
+                    : {},
+            },
+            err: null,
+        };
+    };
+    /**
+     * @param nesting_level The current nesting level of messages.
+     *     This can be positive when parsing message fragment in select or plural argument options.
+     * @param parent_arg_type The parent argument's type.
+     * @param parsed_first_identifier If provided, this is the first identifier-like selector of
+     *     the argument. It is a by-product of a previous parsing attempt.
+     * @param expecting_close_tag If true, this message is directly or indirectly nested inside
+     *     between a pair of opening and closing tags. The nested message will not parse beyond
+     *     the closing tag boundary.
+     */
+    Parser.prototype.tryParsePluralOrSelectOptions = function (nestingLevel, parentArgType, expectCloseTag, parsedFirstIdentifier) {
+        var _a;
+        var hasOtherClause = false;
+        var options = [];
+        var parsedSelectors = new Set();
+        var selector = parsedFirstIdentifier.value, selectorLocation = parsedFirstIdentifier.location;
+        // Parse:
+        // one {one apple}
+        // ^--^
+        while (true) {
+            if (selector.length === 0) {
+                var startPosition = this.clonePosition();
+                if (parentArgType !== 'select' && this.bumpIf('=')) {
+                    // Try parse `={number}` selector
+                    var result = this.tryParseDecimalInteger(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, error_1.ErrorKind.INVALID_PLURAL_ARGUMENT_SELECTOR);
+                    if (result.err) {
+                        return result;
+                    }
+                    selectorLocation = createLocation(startPosition, this.clonePosition());
+                    selector = this.message.slice(startPosition.offset, this.offset());
+                }
+                else {
+                    break;
+                }
+            }
+            // Duplicate selector clauses
+            if (parsedSelectors.has(selector)) {
+                return this.error(parentArgType === 'select'
+                    ? error_1.ErrorKind.DUPLICATE_SELECT_ARGUMENT_SELECTOR
+                    : error_1.ErrorKind.DUPLICATE_PLURAL_ARGUMENT_SELECTOR, selectorLocation);
+            }
+            if (selector === 'other') {
+                hasOtherClause = true;
+            }
+            // Parse:
+            // one {one apple}
+            //     ^----------^
+            this.bumpSpace();
+            var openingBracePosition = this.clonePosition();
+            if (!this.bumpIf('{')) {
+                return this.error(parentArgType === 'select'
+                    ? error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT
+                    : error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT, createLocation(this.clonePosition(), this.clonePosition()));
+            }
+            var fragmentResult = this.parseMessage(nestingLevel + 1, parentArgType, expectCloseTag);
+            if (fragmentResult.err) {
+                return fragmentResult;
+            }
+            var argCloseResult = this.tryParseArgumentClose(openingBracePosition);
+            if (argCloseResult.err) {
+                return argCloseResult;
+            }
+            options.push([
+                selector,
+                {
+                    value: fragmentResult.val,
+                    location: createLocation(openingBracePosition, this.clonePosition()),
+                },
+            ]);
+            // Keep track of the existing selectors
+            parsedSelectors.add(selector);
+            // Prep next selector clause.
+            this.bumpSpace();
+            (_a = this.parseIdentifierIfPossible(), selector = _a.value, selectorLocation = _a.location);
+        }
+        if (options.length === 0) {
+            return this.error(parentArgType === 'select'
+                ? error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR
+                : error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, createLocation(this.clonePosition(), this.clonePosition()));
+        }
+        if (this.requiresOtherClause && !hasOtherClause) {
+            return this.error(error_1.ErrorKind.MISSING_OTHER_CLAUSE, createLocation(this.clonePosition(), this.clonePosition()));
+        }
+        return { val: options, err: null };
+    };
+    Parser.prototype.tryParseDecimalInteger = function (expectNumberError, invalidNumberError) {
+        var sign = 1;
+        var startingPosition = this.clonePosition();
+        if (this.bumpIf('+')) {
+        }
+        else if (this.bumpIf('-')) {
+            sign = -1;
+        }
+        var hasDigits = false;
+        var decimal = 0;
+        while (!this.isEOF()) {
+            var ch = this.char();
+            if (ch >= 48 /* `0` */ && ch <= 57 /* `9` */) {
+                hasDigits = true;
+                decimal = decimal * 10 + (ch - 48);
+                this.bump();
+            }
+            else {
+                break;
+            }
+        }
+        var location = createLocation(startingPosition, this.clonePosition());
+        if (!hasDigits) {
+            return this.error(expectNumberError, location);
+        }
+        decimal *= sign;
+        if (!isSafeInteger(decimal)) {
+            return this.error(invalidNumberError, location);
+        }
+        return { val: decimal, err: null };
+    };
+    Parser.prototype.offset = function () {
+        return this.position.offset;
+    };
+    Parser.prototype.isEOF = function () {
+        return this.offset() === this.message.length;
+    };
+    Parser.prototype.clonePosition = function () {
+        // This is much faster than `Object.assign` or spread.
+        return {
+            offset: this.position.offset,
+            line: this.position.line,
+            column: this.position.column,
+        };
+    };
+    /**
+     * Return the code point at the current position of the parser.
+     * Throws if the index is out of bound.
+     */
+    Parser.prototype.char = function () {
+        var offset = this.position.offset;
+        if (offset >= this.message.length) {
+            throw Error('out of bound');
+        }
+        var code = codePointAt(this.message, offset);
+        if (code === undefined) {
+            throw Error("Offset " + offset + " is at invalid UTF-16 code unit boundary");
+        }
+        return code;
+    };
+    Parser.prototype.error = function (kind, location) {
+        return {
+            val: null,
+            err: {
+                kind: kind,
+                message: this.message,
+                location: location,
+            },
+        };
+    };
+    /** Bump the parser to the next UTF-16 code unit. */
+    Parser.prototype.bump = function () {
+        if (this.isEOF()) {
+            return;
+        }
+        var code = this.char();
+        if (code === 10 /* '\n' */) {
+            this.position.line += 1;
+            this.position.column = 1;
+            this.position.offset += 1;
+        }
+        else {
+            this.position.column += 1;
+            // 0 ~ 0x10000 -> unicode BMP, otherwise skip the surrogate pair.
+            this.position.offset += code < 0x10000 ? 1 : 2;
+        }
+    };
+    /**
+     * If the substring starting at the current position of the parser has
+     * the given prefix, then bump the parser to the character immediately
+     * following the prefix and return true. Otherwise, don't bump the parser
+     * and return false.
+     */
+    Parser.prototype.bumpIf = function (prefix) {
+        if (startsWith(this.message, prefix, this.offset())) {
+            for (var i = 0; i < prefix.length; i++) {
+                this.bump();
+            }
+            return true;
+        }
+        return false;
+    };
+    /**
+     * Bump the parser until the pattern character is found and return `true`.
+     * Otherwise bump to the end of the file and return `false`.
+     */
+    Parser.prototype.bumpUntil = function (pattern) {
+        var currentOffset = this.offset();
+        var index = this.message.indexOf(pattern, currentOffset);
+        if (index >= 0) {
+            this.bumpTo(index);
+            return true;
+        }
+        else {
+            this.bumpTo(this.message.length);
+            return false;
+        }
+    };
+    /**
+     * Bump the parser to the target offset.
+     * If target offset is beyond the end of the input, bump the parser to the end of the input.
+     */
+    Parser.prototype.bumpTo = function (targetOffset) {
+        if (this.offset() > targetOffset) {
+            throw Error("targetOffset " + targetOffset + " must be greater than or equal to the current offset " + this.offset());
+        }
+        targetOffset = Math.min(targetOffset, this.message.length);
+        while (true) {
+            var offset = this.offset();
+            if (offset === targetOffset) {
+                break;
+            }
+            if (offset > targetOffset) {
+                throw Error("targetOffset " + targetOffset + " is at invalid UTF-16 code unit boundary");
+            }
+            this.bump();
+            if (this.isEOF()) {
+                break;
+            }
+        }
+    };
+    /** advance the parser through all whitespace to the next non-whitespace code unit. */
+    Parser.prototype.bumpSpace = function () {
+        while (!this.isEOF() && _isWhiteSpace(this.char())) {
+            this.bump();
+        }
+    };
+    /**
+     * Peek at the *next* Unicode codepoint in the input without advancing the parser.
+     * If the input has been exhausted, then this returns null.
+     */
+    Parser.prototype.peek = function () {
+        if (this.isEOF()) {
+            return null;
+        }
+        var code = this.char();
+        var offset = this.offset();
+        var nextCode = this.message.charCodeAt(offset + (code >= 0x10000 ? 2 : 1));
+        return nextCode !== null && nextCode !== void 0 ? nextCode : null;
+    };
+    return Parser;
+}());
+exports.Parser = Parser;
+/**
+ * This check if codepoint is alphabet (lower & uppercase)
+ * @param codepoint
+ * @returns
+ */
+function _isAlpha(codepoint) {
+    return ((codepoint >= 97 && codepoint <= 122) ||
+        (codepoint >= 65 && codepoint <= 90));
+}
+function _isAlphaOrSlash(codepoint) {
+    return _isAlpha(codepoint) || codepoint === 47; /* '/' */
+}
+/** See `parseTag` function docs. */
+function _isPotentialElementNameChar(c) {
+    return (c === 45 /* '-' */ ||
+        c === 46 /* '.' */ ||
+        (c >= 48 && c <= 57) /* 0..9 */ ||
+        c === 95 /* '_' */ ||
+        (c >= 97 && c <= 122) /** a..z */ ||
+        (c >= 65 && c <= 90) /* A..Z */ ||
+        c == 0xb7 ||
+        (c >= 0xc0 && c <= 0xd6) ||
+        (c >= 0xd8 && c <= 0xf6) ||
+        (c >= 0xf8 && c <= 0x37d) ||
+        (c >= 0x37f && c <= 0x1fff) ||
+        (c >= 0x200c && c <= 0x200d) ||
+        (c >= 0x203f && c <= 0x2040) ||
+        (c >= 0x2070 && c <= 0x218f) ||
+        (c >= 0x2c00 && c <= 0x2fef) ||
+        (c >= 0x3001 && c <= 0xd7ff) ||
+        (c >= 0xf900 && c <= 0xfdcf) ||
+        (c >= 0xfdf0 && c <= 0xfffd) ||
+        (c >= 0x10000 && c <= 0xeffff));
+}
+/**
+ * Code point equivalent of regex `\p{White_Space}`.
+ * From: https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt
+ */
+function _isWhiteSpace(c) {
+    return ((c >= 0x0009 && c <= 0x000d) ||
+        c === 0x0020 ||
+        c === 0x0085 ||
+        (c >= 0x200e && c <= 0x200f) ||
+        c === 0x2028 ||
+        c === 0x2029);
+}
+/**
+ * Code point equivalent of regex `\p{Pattern_Syntax}`.
+ * See https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt
+ */
+function _isPatternSyntax(c) {
+    return ((c >= 0x0021 && c <= 0x0023) ||
+        c === 0x0024 ||
+        (c >= 0x0025 && c <= 0x0027) ||
+        c === 0x0028 ||
+        c === 0x0029 ||
+        c === 0x002a ||
+        c === 0x002b ||
+        c === 0x002c ||
+        c === 0x002d ||
+        (c >= 0x002e && c <= 0x002f) ||
+        (c >= 0x003a && c <= 0x003b) ||
+        (c >= 0x003c && c <= 0x003e) ||
+        (c >= 0x003f && c <= 0x0040) ||
+        c === 0x005b ||
+        c === 0x005c ||
+        c === 0x005d ||
+        c === 0x005e ||
+        c === 0x0060 ||
+        c === 0x007b ||
+        c === 0x007c ||
+        c === 0x007d ||
+        c === 0x007e ||
+        c === 0x00a1 ||
+        (c >= 0x00a2 && c <= 0x00a5) ||
+        c === 0x00a6 ||
+        c === 0x00a7 ||
+        c === 0x00a9 ||
+        c === 0x00ab ||
+        c === 0x00ac ||
+        c === 0x00ae ||
+        c === 0x00b0 ||
+        c === 0x00b1 ||
+        c === 0x00b6 ||
+        c === 0x00bb ||
+        c === 0x00bf ||
+        c === 0x00d7 ||
+        c === 0x00f7 ||
+        (c >= 0x2010 && c <= 0x2015) ||
+        (c >= 0x2016 && c <= 0x2017) ||
+        c === 0x2018 ||
+        c === 0x2019 ||
+        c === 0x201a ||
+        (c >= 0x201b && c <= 0x201c) ||
+        c === 0x201d ||
+        c === 0x201e ||
+        c === 0x201f ||
+        (c >= 0x2020 && c <= 0x2027) ||
+        (c >= 0x2030 && c <= 0x2038) ||
+        c === 0x2039 ||
+        c === 0x203a ||
+        (c >= 0x203b && c <= 0x203e) ||
+        (c >= 0x2041 && c <= 0x2043) ||
+        c === 0x2044 ||
+        c === 0x2045 ||
+        c === 0x2046 ||
+        (c >= 0x2047 && c <= 0x2051) ||
+        c === 0x2052 ||
+        c === 0x2053 ||
+        (c >= 0x2055 && c <= 0x205e) ||
+        (c >= 0x2190 && c <= 0x2194) ||
+        (c >= 0x2195 && c <= 0x2199) ||
+        (c >= 0x219a && c <= 0x219b) ||
+        (c >= 0x219c && c <= 0x219f) ||
+        c === 0x21a0 ||
+        (c >= 0x21a1 && c <= 0x21a2) ||
+        c === 0x21a3 ||
+        (c >= 0x21a4 && c <= 0x21a5) ||
+        c === 0x21a6 ||
+        (c >= 0x21a7 && c <= 0x21ad) ||
+        c === 0x21ae ||
+        (c >= 0x21af && c <= 0x21cd) ||
+        (c >= 0x21ce && c <= 0x21cf) ||
+        (c >= 0x21d0 && c <= 0x21d1) ||
+        c === 0x21d2 ||
+        c === 0x21d3 ||
+        c === 0x21d4 ||
+        (c >= 0x21d5 && c <= 0x21f3) ||
+        (c >= 0x21f4 && c <= 0x22ff) ||
+        (c >= 0x2300 && c <= 0x2307) ||
+        c === 0x2308 ||
+        c === 0x2309 ||
+        c === 0x230a ||
+        c === 0x230b ||
+        (c >= 0x230c && c <= 0x231f) ||
+        (c >= 0x2320 && c <= 0x2321) ||
+        (c >= 0x2322 && c <= 0x2328) ||
+        c === 0x2329 ||
+        c === 0x232a ||
+        (c >= 0x232b && c <= 0x237b) ||
+        c === 0x237c ||
+        (c >= 0x237d && c <= 0x239a) ||
+        (c >= 0x239b && c <= 0x23b3) ||
+        (c >= 0x23b4 && c <= 0x23db) ||
+        (c >= 0x23dc && c <= 0x23e1) ||
+        (c >= 0x23e2 && c <= 0x2426) ||
+        (c >= 0x2427 && c <= 0x243f) ||
+        (c >= 0x2440 && c <= 0x244a) ||
+        (c >= 0x244b && c <= 0x245f) ||
+        (c >= 0x2500 && c <= 0x25b6) ||
+        c === 0x25b7 ||
+        (c >= 0x25b8 && c <= 0x25c0) ||
+        c === 0x25c1 ||
+        (c >= 0x25c2 && c <= 0x25f7) ||
+        (c >= 0x25f8 && c <= 0x25ff) ||
+        (c >= 0x2600 && c <= 0x266e) ||
+        c === 0x266f ||
+        (c >= 0x2670 && c <= 0x2767) ||
+        c === 0x2768 ||
+        c === 0x2769 ||
+        c === 0x276a ||
+        c === 0x276b ||
+        c === 0x276c ||
+        c === 0x276d ||
+        c === 0x276e ||
+        c === 0x276f ||
+        c === 0x2770 ||
+        c === 0x2771 ||
+        c === 0x2772 ||
+        c === 0x2773 ||
+        c === 0x2774 ||
+        c === 0x2775 ||
+        (c >= 0x2794 && c <= 0x27bf) ||
+        (c >= 0x27c0 && c <= 0x27c4) ||
+        c === 0x27c5 ||
+        c === 0x27c6 ||
+        (c >= 0x27c7 && c <= 0x27e5) ||
+        c === 0x27e6 ||
+        c === 0x27e7 ||
+        c === 0x27e8 ||
+        c === 0x27e9 ||
+        c === 0x27ea ||
+        c === 0x27eb ||
+        c === 0x27ec ||
+        c === 0x27ed ||
+        c === 0x27ee ||
+        c === 0x27ef ||
+        (c >= 0x27f0 && c <= 0x27ff) ||
+        (c >= 0x2800 && c <= 0x28ff) ||
+        (c >= 0x2900 && c <= 0x2982) ||
+        c === 0x2983 ||
+        c === 0x2984 ||
+        c === 0x2985 ||
+        c === 0x2986 ||
+        c === 0x2987 ||
+        c === 0x2988 ||
+        c === 0x2989 ||
+        c === 0x298a ||
+        c === 0x298b ||
+        c === 0x298c ||
+        c === 0x298d ||
+        c === 0x298e ||
+        c === 0x298f ||
+        c === 0x2990 ||
+        c === 0x2991 ||
+        c === 0x2992 ||
+        c === 0x2993 ||
+        c === 0x2994 ||
+        c === 0x2995 ||
+        c === 0x2996 ||
+        c === 0x2997 ||
+        c === 0x2998 ||
+        (c >= 0x2999 && c <= 0x29d7) ||
+        c === 0x29d8 ||
+        c === 0x29d9 ||
+        c === 0x29da ||
+        c === 0x29db ||
+        (c >= 0x29dc && c <= 0x29fb) ||
+        c === 0x29fc ||
+        c === 0x29fd ||
+        (c >= 0x29fe && c <= 0x2aff) ||
+        (c >= 0x2b00 && c <= 0x2b2f) ||
+        (c >= 0x2b30 && c <= 0x2b44) ||
+        (c >= 0x2b45 && c <= 0x2b46) ||
+        (c >= 0x2b47 && c <= 0x2b4c) ||
+        (c >= 0x2b4d && c <= 0x2b73) ||
+        (c >= 0x2b74 && c <= 0x2b75) ||
+        (c >= 0x2b76 && c <= 0x2b95) ||
+        c === 0x2b96 ||
+        (c >= 0x2b97 && c <= 0x2bff) ||
+        (c >= 0x2e00 && c <= 0x2e01) ||
+        c === 0x2e02 ||
+        c === 0x2e03 ||
+        c === 0x2e04 ||
+        c === 0x2e05 ||
+        (c >= 0x2e06 && c <= 0x2e08) ||
+        c === 0x2e09 ||
+        c === 0x2e0a ||
+        c === 0x2e0b ||
+        c === 0x2e0c ||
+        c === 0x2e0d ||
+        (c >= 0x2e0e && c <= 0x2e16) ||
+        c === 0x2e17 ||
+        (c >= 0x2e18 && c <= 0x2e19) ||
+        c === 0x2e1a ||
+        c === 0x2e1b ||
+        c === 0x2e1c ||
+        c === 0x2e1d ||
+        (c >= 0x2e1e && c <= 0x2e1f) ||
+        c === 0x2e20 ||
+        c === 0x2e21 ||
+        c === 0x2e22 ||
+        c === 0x2e23 ||
+        c === 0x2e24 ||
+        c === 0x2e25 ||
+        c === 0x2e26 ||
+        c === 0x2e27 ||
+        c === 0x2e28 ||
+        c === 0x2e29 ||
+        (c >= 0x2e2a && c <= 0x2e2e) ||
+        c === 0x2e2f ||
+        (c >= 0x2e30 && c <= 0x2e39) ||
+        (c >= 0x2e3a && c <= 0x2e3b) ||
+        (c >= 0x2e3c && c <= 0x2e3f) ||
+        c === 0x2e40 ||
+        c === 0x2e41 ||
+        c === 0x2e42 ||
+        (c >= 0x2e43 && c <= 0x2e4f) ||
+        (c >= 0x2e50 && c <= 0x2e51) ||
+        c === 0x2e52 ||
+        (c >= 0x2e53 && c <= 0x2e7f) ||
+        (c >= 0x3001 && c <= 0x3003) ||
+        c === 0x3008 ||
+        c === 0x3009 ||
+        c === 0x300a ||
+        c === 0x300b ||
+        c === 0x300c ||
+        c === 0x300d ||
+        c === 0x300e ||
+        c === 0x300f ||
+        c === 0x3010 ||
+        c === 0x3011 ||
+        (c >= 0x3012 && c <= 0x3013) ||
+        c === 0x3014 ||
+        c === 0x3015 ||
+        c === 0x3016 ||
+        c === 0x3017 ||
+        c === 0x3018 ||
+        c === 0x3019 ||
+        c === 0x301a ||
+        c === 0x301b ||
+        c === 0x301c ||
+        c === 0x301d ||
+        (c >= 0x301e && c <= 0x301f) ||
+        c === 0x3020 ||
+        c === 0x3030 ||
+        c === 0xfd3e ||
+        c === 0xfd3f ||
+        (c >= 0xfe45 && c <= 0xfe46));
+}
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js":
+/*!*****************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.WHITE_SPACE_REGEX = exports.SPACE_SEPARATOR_END_REGEX = exports.SPACE_SEPARATOR_START_REGEX = void 0;
+// @generated from regex-gen.ts
+exports.SPACE_SEPARATOR_START_REGEX = /^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]*/i;
+exports.SPACE_SEPARATOR_END_REGEX = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]*$/i;
+exports.WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/types.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/types.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.createNumberElement = exports.createLiteralElement = exports.isDateTimeSkeleton = exports.isNumberSkeleton = exports.isTagElement = exports.isPoundElement = exports.isPluralElement = exports.isSelectElement = exports.isTimeElement = exports.isDateElement = exports.isNumberElement = exports.isArgumentElement = exports.isLiteralElement = exports.SKELETON_TYPE = exports.TYPE = void 0;
+var TYPE;
+(function (TYPE) {
+    /**
+     * Raw text
+     */
+    TYPE[TYPE["literal"] = 0] = "literal";
+    /**
+     * Variable w/o any format, e.g `var` in `this is a {var}`
+     */
+    TYPE[TYPE["argument"] = 1] = "argument";
+    /**
+     * Variable w/ number format
+     */
+    TYPE[TYPE["number"] = 2] = "number";
+    /**
+     * Variable w/ date format
+     */
+    TYPE[TYPE["date"] = 3] = "date";
+    /**
+     * Variable w/ time format
+     */
+    TYPE[TYPE["time"] = 4] = "time";
+    /**
+     * Variable w/ select format
+     */
+    TYPE[TYPE["select"] = 5] = "select";
+    /**
+     * Variable w/ plural format
+     */
+    TYPE[TYPE["plural"] = 6] = "plural";
+    /**
+     * Only possible within plural argument.
+     * This is the `#` symbol that will be substituted with the count.
+     */
+    TYPE[TYPE["pound"] = 7] = "pound";
+    /**
+     * XML-like tag
+     */
+    TYPE[TYPE["tag"] = 8] = "tag";
+})(TYPE = exports.TYPE || (exports.TYPE = {}));
+var SKELETON_TYPE;
+(function (SKELETON_TYPE) {
+    SKELETON_TYPE[SKELETON_TYPE["number"] = 0] = "number";
+    SKELETON_TYPE[SKELETON_TYPE["dateTime"] = 1] = "dateTime";
+})(SKELETON_TYPE = exports.SKELETON_TYPE || (exports.SKELETON_TYPE = {}));
+/**
+ * Type Guards
+ */
+function isLiteralElement(el) {
+    return el.type === TYPE.literal;
+}
+exports.isLiteralElement = isLiteralElement;
+function isArgumentElement(el) {
+    return el.type === TYPE.argument;
+}
+exports.isArgumentElement = isArgumentElement;
+function isNumberElement(el) {
+    return el.type === TYPE.number;
+}
+exports.isNumberElement = isNumberElement;
+function isDateElement(el) {
+    return el.type === TYPE.date;
+}
+exports.isDateElement = isDateElement;
+function isTimeElement(el) {
+    return el.type === TYPE.time;
+}
+exports.isTimeElement = isTimeElement;
+function isSelectElement(el) {
+    return el.type === TYPE.select;
+}
+exports.isSelectElement = isSelectElement;
+function isPluralElement(el) {
+    return el.type === TYPE.plural;
+}
+exports.isPluralElement = isPluralElement;
+function isPoundElement(el) {
+    return el.type === TYPE.pound;
+}
+exports.isPoundElement = isPoundElement;
+function isTagElement(el) {
+    return el.type === TYPE.tag;
+}
+exports.isTagElement = isTagElement;
+function isNumberSkeleton(el) {
+    return !!(el && typeof el === 'object' && el.type === SKELETON_TYPE.number);
+}
+exports.isNumberSkeleton = isNumberSkeleton;
+function isDateTimeSkeleton(el) {
+    return !!(el && typeof el === 'object' && el.type === SKELETON_TYPE.dateTime);
+}
+exports.isDateTimeSkeleton = isDateTimeSkeleton;
+function createLiteralElement(value) {
+    return {
+        type: TYPE.literal,
+        value: value,
+    };
+}
+exports.createLiteralElement = createLiteralElement;
+function createNumberElement(value, style) {
+    return {
+        type: TYPE.number,
+        value: value,
+        style: style,
+    };
+}
+exports.createNumberElement = createNumberElement;
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/date-time.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/date-time.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseDateTimeSkeleton = void 0;
+/**
+ * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
+ * with some tweaks
+ */
+var DATE_TIME_REGEX = /(?:[Eec]{1,6}|G{1,5}|[Qq]{1,5}|(?:[yYur]+|U{1,5})|[ML]{1,5}|d{1,2}|D{1,3}|F{1}|[abB]{1,5}|[hkHK]{1,2}|w{1,2}|W{1}|m{1,2}|s{1,2}|[zZOvVxX]{1,4})(?=([^']*'[^']*')*[^']*$)/g;
+/**
+ * Parse Date time skeleton into Intl.DateTimeFormatOptions
+ * Ref: https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * @public
+ * @param skeleton skeleton string
+ */
+function parseDateTimeSkeleton(skeleton) {
+    var result = {};
+    skeleton.replace(DATE_TIME_REGEX, function (match) {
+        var len = match.length;
+        switch (match[0]) {
+            // Era
+            case 'G':
+                result.era = len === 4 ? 'long' : len === 5 ? 'narrow' : 'short';
+                break;
+            // Year
+            case 'y':
+                result.year = len === 2 ? '2-digit' : 'numeric';
+                break;
+            case 'Y':
+            case 'u':
+            case 'U':
+            case 'r':
+                throw new RangeError('`Y/u/U/r` (year) patterns are not supported, use `y` instead');
+            // Quarter
+            case 'q':
+            case 'Q':
+                throw new RangeError('`q/Q` (quarter) patterns are not supported');
+            // Month
+            case 'M':
+            case 'L':
+                result.month = ['numeric', '2-digit', 'short', 'long', 'narrow'][len - 1];
+                break;
+            // Week
+            case 'w':
+            case 'W':
+                throw new RangeError('`w/W` (week) patterns are not supported');
+            case 'd':
+                result.day = ['numeric', '2-digit'][len - 1];
+                break;
+            case 'D':
+            case 'F':
+            case 'g':
+                throw new RangeError('`D/F/g` (day) patterns are not supported, use `d` instead');
+            // Weekday
+            case 'E':
+                result.weekday = len === 4 ? 'short' : len === 5 ? 'narrow' : 'short';
+                break;
+            case 'e':
+                if (len < 4) {
+                    throw new RangeError('`e..eee` (weekday) patterns are not supported');
+                }
+                result.weekday = ['short', 'long', 'narrow', 'short'][len - 4];
+                break;
+            case 'c':
+                if (len < 4) {
+                    throw new RangeError('`c..ccc` (weekday) patterns are not supported');
+                }
+                result.weekday = ['short', 'long', 'narrow', 'short'][len - 4];
+                break;
+            // Period
+            case 'a': // AM, PM
+                result.hour12 = true;
+                break;
+            case 'b': // am, pm, noon, midnight
+            case 'B': // flexible day periods
+                throw new RangeError('`b/B` (period) patterns are not supported, use `a` instead');
+            // Hour
+            case 'h':
+                result.hourCycle = 'h12';
+                result.hour = ['numeric', '2-digit'][len - 1];
+                break;
+            case 'H':
+                result.hourCycle = 'h23';
+                result.hour = ['numeric', '2-digit'][len - 1];
+                break;
+            case 'K':
+                result.hourCycle = 'h11';
+                result.hour = ['numeric', '2-digit'][len - 1];
+                break;
+            case 'k':
+                result.hourCycle = 'h24';
+                result.hour = ['numeric', '2-digit'][len - 1];
+                break;
+            case 'j':
+            case 'J':
+            case 'C':
+                throw new RangeError('`j/J/C` (hour) patterns are not supported, use `h/H/K/k` instead');
+            // Minute
+            case 'm':
+                result.minute = ['numeric', '2-digit'][len - 1];
+                break;
+            // Second
+            case 's':
+                result.second = ['numeric', '2-digit'][len - 1];
+                break;
+            case 'S':
+            case 'A':
+                throw new RangeError('`S/A` (second) patterns are not supported, use `s` instead');
+            // Zone
+            case 'z': // 1..3, 4: specific non-location format
+                result.timeZoneName = len < 4 ? 'short' : 'long';
+                break;
+            case 'Z': // 1..3, 4, 5: The ISO8601 varios formats
+            case 'O': // 1, 4: miliseconds in day short, long
+            case 'v': // 1, 4: generic non-location format
+            case 'V': // 1, 2, 3, 4: time zone ID or city
+            case 'X': // 1, 2, 3, 4: The ISO8601 varios formats
+            case 'x': // 1, 2, 3, 4: The ISO8601 varios formats
+                throw new RangeError('`Z/O/v/V/X/x` (timeZone) patterns are not supported, use `z` instead');
+        }
+        return '';
+    });
+    return result;
+}
+exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/index.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/index.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+tslib_1.__exportStar(__webpack_require__(/*! ./date-time */ "../node_modules/@formatjs/icu-skeleton-parser/date-time.js"), exports);
+tslib_1.__exportStar(__webpack_require__(/*! ./number */ "../node_modules/@formatjs/icu-skeleton-parser/number.js"), exports);
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/number.js":
+/*!***************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/number.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseNumberSkeleton = exports.parseNumberSkeletonFromString = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+var regex_generated_1 = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js");
+function parseNumberSkeletonFromString(skeleton) {
+    if (skeleton.length === 0) {
+        throw new Error('Number skeleton cannot be empty');
+    }
+    // Parse the skeleton
+    var stringTokens = skeleton
+        .split(regex_generated_1.WHITE_SPACE_REGEX)
+        .filter(function (x) { return x.length > 0; });
+    var tokens = [];
+    for (var _i = 0, stringTokens_1 = stringTokens; _i < stringTokens_1.length; _i++) {
+        var stringToken = stringTokens_1[_i];
+        var stemAndOptions = stringToken.split('/');
+        if (stemAndOptions.length === 0) {
+            throw new Error('Invalid number skeleton');
+        }
+        var stem = stemAndOptions[0], options = stemAndOptions.slice(1);
+        for (var _a = 0, options_1 = options; _a < options_1.length; _a++) {
+            var option = options_1[_a];
+            if (option.length === 0) {
+                throw new Error('Invalid number skeleton');
+            }
+        }
+        tokens.push({ stem: stem, options: options });
+    }
+    return tokens;
+}
+exports.parseNumberSkeletonFromString = parseNumberSkeletonFromString;
+function icuUnitToEcma(unit) {
+    return unit.replace(/^(.*?)-/, '');
+}
+var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
+var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
+var INTEGER_WIDTH_REGEX = /(\*)(0+)|(#+)(0+)|(0+)/g;
+var CONCISE_INTEGER_WIDTH_REGEX = /^(0+)$/;
+function parseSignificantPrecision(str) {
+    var result = {};
+    str.replace(SIGNIFICANT_PRECISION_REGEX, function (_, g1, g2) {
+        // @@@ case
+        if (typeof g2 !== 'string') {
+            result.minimumSignificantDigits = g1.length;
+            result.maximumSignificantDigits = g1.length;
+        }
+        // @@@+ case
+        else if (g2 === '+') {
+            result.minimumSignificantDigits = g1.length;
+        }
+        // .### case
+        else if (g1[0] === '#') {
+            result.maximumSignificantDigits = g1.length;
+        }
+        // .@@## or .@@@ case
+        else {
+            result.minimumSignificantDigits = g1.length;
+            result.maximumSignificantDigits =
+                g1.length + (typeof g2 === 'string' ? g2.length : 0);
+        }
+        return '';
+    });
+    return result;
+}
+function parseSign(str) {
+    switch (str) {
+        case 'sign-auto':
+            return {
+                signDisplay: 'auto',
+            };
+        case 'sign-accounting':
+        case '()':
+            return {
+                currencySign: 'accounting',
+            };
+        case 'sign-always':
+        case '+!':
+            return {
+                signDisplay: 'always',
+            };
+        case 'sign-accounting-always':
+        case '()!':
+            return {
+                signDisplay: 'always',
+                currencySign: 'accounting',
+            };
+        case 'sign-except-zero':
+        case '+?':
+            return {
+                signDisplay: 'exceptZero',
+            };
+        case 'sign-accounting-except-zero':
+        case '()?':
+            return {
+                signDisplay: 'exceptZero',
+                currencySign: 'accounting',
+            };
+        case 'sign-never':
+        case '+_':
+            return {
+                signDisplay: 'never',
+            };
+    }
+}
+function parseConciseScientificAndEngineeringStem(stem) {
+    // Engineering
+    var result;
+    if (stem[0] === 'E' && stem[1] === 'E') {
+        result = {
+            notation: 'engineering',
+        };
+        stem = stem.slice(2);
+    }
+    else if (stem[0] === 'E') {
+        result = {
+            notation: 'scientific',
+        };
+        stem = stem.slice(1);
+    }
+    if (result) {
+        var signDisplay = stem.slice(0, 2);
+        if (signDisplay === '+!') {
+            result.signDisplay = 'always';
+            stem = stem.slice(2);
+        }
+        else if (signDisplay === '+?') {
+            result.signDisplay = 'exceptZero';
+            stem = stem.slice(2);
+        }
+        if (!CONCISE_INTEGER_WIDTH_REGEX.test(stem)) {
+            throw new Error('Malformed concise eng/scientific notation');
+        }
+        result.minimumIntegerDigits = stem.length;
+    }
+    return result;
+}
+function parseNotationOptions(opt) {
+    var result = {};
+    var signOpts = parseSign(opt);
+    if (signOpts) {
+        return signOpts;
+    }
+    return result;
+}
+/**
+ * https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#skeleton-stems-and-options
+ */
+function parseNumberSkeleton(tokens) {
+    var result = {};
+    for (var _i = 0, tokens_1 = tokens; _i < tokens_1.length; _i++) {
+        var token = tokens_1[_i];
+        switch (token.stem) {
+            case 'percent':
+            case '%':
+                result.style = 'percent';
+                continue;
+            case '%x100':
+                result.style = 'percent';
+                result.scale = 100;
+                continue;
+            case 'currency':
+                result.style = 'currency';
+                result.currency = token.options[0];
+                continue;
+            case 'group-off':
+            case ',_':
+                result.useGrouping = false;
+                continue;
+            case 'precision-integer':
+            case '.':
+                result.maximumFractionDigits = 0;
+                continue;
+            case 'measure-unit':
+            case 'unit':
+                result.style = 'unit';
+                result.unit = icuUnitToEcma(token.options[0]);
+                continue;
+            case 'compact-short':
+            case 'K':
+                result.notation = 'compact';
+                result.compactDisplay = 'short';
+                continue;
+            case 'compact-long':
+            case 'KK':
+                result.notation = 'compact';
+                result.compactDisplay = 'long';
+                continue;
+            case 'scientific':
+                result = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, result), { notation: 'scientific' }), token.options.reduce(function (all, opt) { return (tslib_1.__assign(tslib_1.__assign({}, all), parseNotationOptions(opt))); }, {}));
+                continue;
+            case 'engineering':
+                result = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, result), { notation: 'engineering' }), token.options.reduce(function (all, opt) { return (tslib_1.__assign(tslib_1.__assign({}, all), parseNotationOptions(opt))); }, {}));
+                continue;
+            case 'notation-simple':
+                result.notation = 'standard';
+                continue;
+            // https://github.com/unicode-org/icu/blob/master/icu4c/source/i18n/unicode/unumberformatter.h
+            case 'unit-width-narrow':
+                result.currencyDisplay = 'narrowSymbol';
+                result.unitDisplay = 'narrow';
+                continue;
+            case 'unit-width-short':
+                result.currencyDisplay = 'code';
+                result.unitDisplay = 'short';
+                continue;
+            case 'unit-width-full-name':
+                result.currencyDisplay = 'name';
+                result.unitDisplay = 'long';
+                continue;
+            case 'unit-width-iso-code':
+                result.currencyDisplay = 'symbol';
+                continue;
+            case 'scale':
+                result.scale = parseFloat(token.options[0]);
+                continue;
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+            case 'integer-width':
+                if (token.options.length > 1) {
+                    throw new RangeError('integer-width stems only accept a single optional option');
+                }
+                token.options[0].replace(INTEGER_WIDTH_REGEX, function (_, g1, g2, g3, g4, g5) {
+                    if (g1) {
+                        result.minimumIntegerDigits = g2.length;
+                    }
+                    else if (g3 && g4) {
+                        throw new Error('We currently do not support maximum integer digits');
+                    }
+                    else if (g5) {
+                        throw new Error('We currently do not support exact integer digits');
+                    }
+                    return '';
+                });
+                continue;
+        }
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
+        if (CONCISE_INTEGER_WIDTH_REGEX.test(token.stem)) {
+            result.minimumIntegerDigits = token.stem.length;
+            continue;
+        }
+        if (FRACTION_PRECISION_REGEX.test(token.stem)) {
+            // Precision
+            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#fraction-precision
+            // precision-integer case
+            if (token.options.length > 1) {
+                throw new RangeError('Fraction-precision stems only accept a single optional option');
+            }
+            token.stem.replace(FRACTION_PRECISION_REGEX, function (_, g1, g2, g3, g4, g5) {
+                // .000* case (before ICU67 it was .000+)
+                if (g2 === '*') {
+                    result.minimumFractionDigits = g1.length;
+                }
+                // .### case
+                else if (g3 && g3[0] === '#') {
+                    result.maximumFractionDigits = g3.length;
+                }
+                // .00## case
+                else if (g4 && g5) {
+                    result.minimumFractionDigits = g4.length;
+                    result.maximumFractionDigits = g4.length + g5.length;
+                }
+                else {
+                    result.minimumFractionDigits = g1.length;
+                    result.maximumFractionDigits = g1.length;
+                }
+                return '';
+            });
+            if (token.options.length) {
+                result = tslib_1.__assign(tslib_1.__assign({}, result), parseSignificantPrecision(token.options[0]));
+            }
+            continue;
+        }
+        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
+        if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
+            result = tslib_1.__assign(tslib_1.__assign({}, result), parseSignificantPrecision(token.stem));
+            continue;
+        }
+        var signOpts = parseSign(token.stem);
+        if (signOpts) {
+            result = tslib_1.__assign(tslib_1.__assign({}, result), signOpts);
+        }
+        var conciseScientificAndEngineeringOpts = parseConciseScientificAndEngineeringStem(token.stem);
+        if (conciseScientificAndEngineeringOpts) {
+            result = tslib_1.__assign(tslib_1.__assign({}, result), conciseScientificAndEngineeringOpts);
+        }
+    }
+    return result;
+}
+exports.parseNumberSkeleton = parseNumberSkeleton;
+
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.WHITE_SPACE_REGEX = void 0;
+// @generated from regex-gen.ts
+exports.WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
+
+
+/***/ }),
+
 /***/ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js":
 /*!***********************************************************************************************!*\
   !*** ../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js ***!
@@ -3513,20 +5526,122 @@ class AlpheiosConcordanceAdapter extends _clAdapters_adapters_base_adapter__WEBP
 
 /***/ }),
 
+/***/ "./adapters/detectlang/adapter.js":
+/*!****************************************!*\
+  !*** ./adapters/detectlang/adapter.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_116746__) => {
+
+"use strict";
+__nested_webpack_require_116746__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_116746__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DetectLangAdapter)
+/* harmony export */ });
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_config_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/detectlang/config.json */ "./adapters/detectlang/config.json");
+/* harmony import */ var _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_116746__(/*! @clAdapters/adapters/detectlang/langs-list.json */ "./adapters/detectlang/langs-list.json");
+
+
+
+
+class DetectLangAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__.default {
+  /**
+   *
+   * @param {Object} config - properties for the adapter
+   */
+  constructor (config = {}) {
+    super()
+    this.config = this.uploadConfig(config, _clAdapters_adapters_detectlang_config_json__WEBPACK_IMPORTED_MODULE_1__)
+    this.sourceData = config.sourceData
+  }
+
+  /**
+   *
+   * @param {String} text - text for analysis
+   * @returns {String} - langCode ISO-3 - a detected language
+   */
+  async getDetectedLangsList (text) {
+    try {
+      const requestParams = {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${this.config.api}` }
+      }
+
+      const url = this.getUrl(text)
+      if (!url) {
+        this.addError(this.l10n.getMsg('DETECT_LANG_URL_ERROR'))
+        return
+      }
+
+      let langsData
+      if (this.sourceData) {
+        langsData = this.sourceData
+      } else {
+        langsData = await this.fetch(url, { requestParams })
+      }
+      return this.chooseOneLanguage(langsData)
+    } catch (error) {
+      this.addError(this.l10n.getMsg('DETECT_LANG_FETCH_ERROR', { message: error.message }))
+    }
+  }
+
+  /**
+   *
+   * @param {String} text - text for analysis
+   * @returns {String} - constructed URL
+   */
+  getUrl (text) {
+    if (text) {
+      return `${this.config.baseurl}?q=${encodeURIComponent(text)}`
+    }
+    return null
+  }
+
+  /**
+   * The remote service returns the following format
+   * { data: {
+        detections: [
+          { language: 'en', isReliable: true, confidence: 3.36 },
+          { language: 'pt', isReliable: false, confidence: 3.36 },
+          { language: 'eu', isReliable: false, confidence: 3.36 }
+        ]
+      }}
+   * We need return only one the most reliable languageCode in ISO-3 format
+   * @param {Object} langsData
+   * @returns {String|null} lang code in ISO-3
+   */
+  chooseOneLanguage (langsData) {
+    if (langsData && langsData.data && langsData.data.detections && langsData.data.detections.length > 0) {
+      const reliableLangs = langsData.data.detections
+        .filter(langItem => langItem.isReliable)
+      if (reliableLangs) {
+        const lang = reliableLangs.sort((a, b) => a.confidence.localeCompare(b.confidence, undefined, { numeric: true }))
+          .reverse()[0].language
+
+        return _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__[lang] ? _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__[lang].langCode : lang
+      }
+    }
+    return null
+  }
+}
+
+
+/***/ }),
+
 /***/ "./adapters/dtsapi/adapter.js":
 /*!************************************!*\
   !*** ./adapters/dtsapi/adapter.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_116730__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_120464__) => {
 
 "use strict";
-__nested_webpack_require_116730__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_116730__.d(__webpack_exports__, {
+__nested_webpack_require_120464__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_120464__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DTSAPIAdapter)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_116730__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_116730__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_116730__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_120464__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_120464__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_120464__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -3718,19 +5833,19 @@ class DTSAPIAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_
 /*!**************************************!*\
   !*** ./adapters/lexicons/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_123173__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_126907__) => {
 
 "use strict";
-__nested_webpack_require_123173__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_123173__.d(__webpack_exports__, {
+__nested_webpack_require_126907__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_126907__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_123173__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_123173__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_123173__(/*! papaparse */ "papaparse");
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_123173__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_123173__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_123173__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_126907__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_126907__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_126907__(/*! papaparse */ "papaparse");
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_126907__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_126907__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_126907__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
 
 
 
@@ -4279,17 +6394,17 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!*************************************!*\
   !*** ./adapters/logeion/adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_146623__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150357__) => {
 
 "use strict";
-__nested_webpack_require_146623__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_146623__.d(__webpack_exports__, {
+__nested_webpack_require_150357__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_150357__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_146623__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_146623__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_146623__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_146623__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150357__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150357__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150357__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150357__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -4396,17 +6511,17 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /*!******************************************!*\
   !*** ./adapters/tokenization/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_151209__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_154943__) => {
 
 "use strict";
-__nested_webpack_require_151209__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_151209__.d(__webpack_exports__, {
+__nested_webpack_require_154943__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_154943__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_151209__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_151209__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_151209__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_151209__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_154943__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_154943__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_154943__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_154943__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -4580,17 +6695,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*!******************************************!*\
   !*** ./adapters/translations/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_157457__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_161191__) => {
 
 "use strict";
-__nested_webpack_require_157457__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_157457__.d(__webpack_exports__, {
+__nested_webpack_require_161191__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_161191__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157457__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_157457__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_157457__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_157457__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161191__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161191__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_161191__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_161191__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -4719,19 +6834,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*!***********************************!*\
   !*** ./adapters/tufts/adapter.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_163037__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166771__) => {
 
 "use strict";
-__nested_webpack_require_163037__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_163037__.d(__webpack_exports__, {
+__nested_webpack_require_166771__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_166771__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_163037__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_163037__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_163037__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_163037__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_163037__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_163037__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166771__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_166771__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166771__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_166771__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_166771__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_166771__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 
 
 
@@ -4850,16 +6965,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*!*******************************************!*\
   !*** ./adapters/tufts/engine/aramorph.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_169039__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172773__) => {
 
 "use strict";
-__nested_webpack_require_169039__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_169039__.d(__webpack_exports__, {
+__nested_webpack_require_172773__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_172773__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169039__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169039__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_169039__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172773__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172773__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172773__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4874,16 +6989,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!***************************************!*\
   !*** ./adapters/tufts/engine/hazm.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_170328__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_174062__) => {
 
 "use strict";
-__nested_webpack_require_170328__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_170328__.d(__webpack_exports__, {
+__nested_webpack_require_174062__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_174062__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_170328__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_170328__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_170328__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_174062__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_174062__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_174062__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4901,16 +7016,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*!**********************************************!*\
   !*** ./adapters/tufts/engine/morpheusgrc.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_171847__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175581__) => {
 
 "use strict";
-__nested_webpack_require_171847__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_171847__.d(__webpack_exports__, {
+__nested_webpack_require_175581__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_175581__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_171847__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_171847__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_171847__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175581__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175581__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175581__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -4979,16 +7094,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!****************************************!*\
   !*** ./adapters/tufts/engine/sedra.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_176840__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180574__) => {
 
 "use strict";
-__nested_webpack_require_176840__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_176840__.d(__webpack_exports__, {
+__nested_webpack_require_180574__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180574__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_176840__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_176840__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_176840__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180574__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180574__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180574__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -5031,16 +7146,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!*****************************************!*\
   !*** ./adapters/tufts/engine/traces.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_179322__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183056__) => {
 
 "use strict";
-__nested_webpack_require_179322__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_179322__.d(__webpack_exports__, {
+__nested_webpack_require_183056__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_183056__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_179322__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_179322__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_179322__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183056__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183056__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183056__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -5055,16 +7170,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!********************************************!*\
   !*** ./adapters/tufts/engine/whitakers.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180627__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_184361__) => {
 
 "use strict";
-__nested_webpack_require_180627__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180627__.d(__webpack_exports__, {
+__nested_webpack_require_184361__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_184361__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180627__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180627__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180627__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_184361__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_184361__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_184361__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -5188,21 +7303,21 @@ data.setLemmaParser(function (lemma) {
 /*!***************************************!*\
   !*** ./adapters/tufts/engines-set.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_186868__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190602__) => {
 
 "use strict";
-__nested_webpack_require_186868__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_186868__.d(__webpack_exports__, {
+__nested_webpack_require_190602__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_190602__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186868__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186868__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186868__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186868__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186868__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_186868__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_186868__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_186868__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190602__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190602__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190602__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190602__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190602__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190602__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190602__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_190602__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -5253,26 +7368,28 @@ class EnginesSet {
 /*!****************************!*\
   !*** ./client-adapters.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190422__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_194156__) => {
 
 "use strict";
-__nested_webpack_require_190422__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_190422__.d(__webpack_exports__, {
+__nested_webpack_require_194156__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_194156__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_190422__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_190422__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_190422__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_194156__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_194156__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_194156__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+
 
 
 
@@ -5298,10 +7415,10 @@ class ClientAdapters {
   */
   static init () {
     if (cachedConfig.size === 0) {
-      for (const category in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__) {
+      for (const category in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__) {
         let adapters = {} // eslint-disable-line prefer-const
-        for (const adapterKey in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__[category]) {
-          const adapterData = _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_12__[category][adapterKey]
+        for (const adapterKey in _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__[category]) {
+          const adapterData = _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__[category][adapterKey]
 
           adapters[adapterKey] = {
             adapter: ClientAdapters[adapterData.adapter],
@@ -5368,6 +7485,11 @@ class ClientAdapters {
     return cachedAdaptersList.get('dtsapiGroup')
   }
 
+  static get detectlangGroup () {
+    ClientAdapters.init()
+    return cachedAdaptersList.get('detectlangGroup')
+  }
+
   /**
   * This method checks if given method is registered in config for category.adapterName
   * @param {String} category - category name - morphology, lemmatranslation, lexicon
@@ -5376,7 +7498,7 @@ class ClientAdapters {
   */
   static checkMethod (category, adapterName, methodName) {
     if (!cachedConfig.get(category)[adapterName].methods.includes(methodName)) {
-      throw new _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_10__.default(category, adapterName, methodName)
+      throw new _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__.default(category, adapterName, methodName)
     }
   }
 
@@ -5392,7 +7514,7 @@ class ClientAdapters {
       cachedConfig.get(category)[adapterName].params[methodName].forEach(paramName => {
         // Param values other than `undefined` such as `null` or empty strings could be valid values
         if (params && typeof params[paramName] === 'undefined') {
-          throw new _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_11__.default(category, adapterName, methodName, paramName)
+          throw new _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__.default(category, adapterName, methodName, paramName)
         }
       })
     }
@@ -5702,6 +7824,10 @@ class ClientAdapters {
     return null
   }
 
+  /**
+   * It is used for getting TEI texts from DTS API
+   * @param {Object} options
+   */
   static async dtsApiMethod (options) {
     ClientAdapters.checkMethodParam('dtsapiGroup', 'dtsapi', options)
 
@@ -5728,6 +7854,27 @@ class ClientAdapters {
       return { result: res, errors: localDTSAPIAdapter.errors }
     }
   }
+
+  /**
+   * It is used for detecting language by text
+   * @param {Object} options
+   */
+  static async detectLangMethod (options) {
+    ClientAdapters.checkMethodParam('detectlangGroup', 'detectlang', options)
+
+    const localDetectLangAdapter = new _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__.default({
+      category: 'detectlangGroup',
+      adapterName: 'detectlang',
+      method: options.method,
+      clientId: options.clientId,
+      sourceData: options.params.sourceData
+    })
+
+    if (options.method === 'getDetectedLangsList') {
+      const res = await localDetectLangAdapter.getDetectedLangsList(options.params.text)
+      return { result: res, errors: localDetectLangAdapter.errors }
+    }
+  }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ClientAdapters);
@@ -5739,11 +7886,11 @@ class ClientAdapters {
 /*!*********************************!*\
   !*** ./errors/adapter-error.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_212181__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217093__) => {
 
 "use strict";
-__nested_webpack_require_212181__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_212181__.d(__webpack_exports__, {
+__nested_webpack_require_217093__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217093__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class AdapterError extends Error {
@@ -5786,11 +7933,11 @@ class AdapterError extends Error {
 /*!***********************************!*\
   !*** ./errors/adapter-warning.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_213701__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218613__) => {
 
 "use strict";
-__nested_webpack_require_213701__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_213701__.d(__webpack_exports__, {
+__nested_webpack_require_218613__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_218613__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AdapterWarning)
 /* harmony export */ });
 /**
@@ -5823,11 +7970,11 @@ class AdapterWarning extends Error {
 /*!*******************************************!*\
   !*** ./errors/no-required-param-error.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_215218__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220130__) => {
 
 "use strict";
-__nested_webpack_require_215218__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_215218__.d(__webpack_exports__, {
+__nested_webpack_require_220130__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220130__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -5850,11 +7997,11 @@ class NoRequiredParamError extends Error {
 /*!********************************!*\
   !*** ./errors/remote-error.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_216192__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221104__) => {
 
 "use strict";
-__nested_webpack_require_216192__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_216192__.d(__webpack_exports__, {
+__nested_webpack_require_221104__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221104__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ RemoteError)
 /* harmony export */ });
 class RemoteError extends Error {
@@ -5881,11 +8028,11 @@ class RemoteError extends Error {
 /*!**************************************!*\
   !*** ./errors/wrong-method-error.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217160__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222072__) => {
 
 "use strict";
-__nested_webpack_require_217160__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_217160__.d(__webpack_exports__, {
+__nested_webpack_require_222072__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222072__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -5907,18 +8054,18 @@ class WrongMethodError extends Error {
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217986__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222898__) => {
 
 "use strict";
-__nested_webpack_require_217986__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_217986__.d(__webpack_exports__, {
+__nested_webpack_require_222898__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222898__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => (/* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default),
 /* harmony export */   "AdapterError": () => (/* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default),
 /* harmony export */   "RemoteError": () => (/* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_217986__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_217986__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_217986__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222898__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222898__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_222898__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 
 
 
@@ -5932,15 +8079,15 @@ __nested_webpack_require_217986__.r(__webpack_exports__);
 /*!****************************!*\
   !*** ./locales/locales.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_219324__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224236__) => {
 
 "use strict";
-__nested_webpack_require_219324__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_219324__.d(__webpack_exports__, {
+__nested_webpack_require_224236__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_224236__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_219324__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_219324__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224236__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224236__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -5960,15 +8107,15 @@ __nested_webpack_require_219324__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./transformers/alpheios-lexicon-transformer.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220453__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225365__) => {
 
 "use strict";
-__nested_webpack_require_220453__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_220453__.d(__webpack_exports__, {
+__nested_webpack_require_225365__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_225365__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220453__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_220453__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225365__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_225365__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /**
@@ -6286,15 +8433,15 @@ class AlpheiosLexiconTransformer {
 /*!*******************************************!*\
   !*** ./transformers/import-morph-data.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_234759__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_239671__) => {
 
 "use strict";
-__nested_webpack_require_234759__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_234759__.d(__webpack_exports__, {
+__nested_webpack_require_239671__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_239671__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_234759__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_234759__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_239671__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_239671__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -6588,7 +8735,7 @@ class ImportMorphData {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"morphology\":{\"alpheiosTreebank\":{\"adapter\":\"tbAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"wordref\"]}},\"arethusaTreebank\":{\"adapter\":\"arethusaAdapter\",\"methods\":[\"getHomonym\",\"refreshView\",\"gotoSentence\",\"findWord\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\",\"provider\",\"sentenceId\",\"wordId\"],\"refreshView\":[\"provider\"],\"gotoSentence\":[\"provider\",\"sentenceId\",\"wordIds\"],\"findWord\":[\"provider\",\"word\",\"prefix\",\"suffix\",\"sentenceId\"]}},\"tufts\":{\"adapter\":\"maAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"]}},\"chineseloc\":{\"adapter\":\"chineseAdapter\",\"methods\":[\"getHomonym\",\"loadData\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"],\"loadData\":[\"timeout\"]}}},\"lexicon\":{\"alpheios\":{\"adapter\":\"lexicons\",\"methods\":[\"fetchShortDefs\",\"fetchFullDefs\",\"checkCachedData\",\"getConfig\"],\"params\":{\"fetchShortDefs\":[\"homonym\",\"opts\"],\"fetchFullDefs\":[\"homonym\",\"opts\"],\"checkCachedData\":[\"url\",\"externalData\"],\"getConfig\":[]}}},\"lemmatranslation\":{\"alpheios\":{\"adapter\":\"lemmaTranslations\",\"methods\":\"fetchTranslations\",\"params\":{\"fetchTranslations\":[\"homonym\",\"browserLang\"]}}},\"wordusageExamples\":{\"concordance\":{\"adapter\":\"wordUsageExamples\",\"methods\":[\"getAuthorsWorks\",\"getWordUsageExamples\"],\"params\":{\"getAuthorsWorks\":[],\"getWordUsageExamples\":[\"homonym\"]}}},\"autocompleteWords\":{\"logeion\":{\"adapter\":\"autoCompleteWords\",\"methods\":\"getWords\",\"params\":{\"getWords\":[\"text\",\"lang\",\"fetchOptions\"]}}},\"tokenizationGroup\":{\"alpheios\":{\"adapter\":\"tokenizationMethod\",\"methods\":[\"getTokens\",\"getConfig\"],\"params\":{\"getTokens\":[\"text\"],\"getConfig\":[\"storage\"]}}},\"dtsapiGroup\":{\"dtsapi\":{\"adapter\":\"dtsApiMethod\",\"methods\":[\"getCollection\",\"getNavigation\",\"getDocument\"],\"params\":{\"getCollection\":[\"baseUrl\"],\"getNavigation\":[\"baseUrl\",\"id\",\"resource\"],\"getDocument\":[\"baseUrl\",\"id\"]}}}}");
+module.exports = JSON.parse("{\"morphology\":{\"alpheiosTreebank\":{\"adapter\":\"tbAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"wordref\"]}},\"arethusaTreebank\":{\"adapter\":\"arethusaAdapter\",\"methods\":[\"getHomonym\",\"refreshView\",\"gotoSentence\",\"findWord\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\",\"provider\",\"sentenceId\",\"wordId\"],\"refreshView\":[\"provider\"],\"gotoSentence\":[\"provider\",\"sentenceId\",\"wordIds\"],\"findWord\":[\"provider\",\"word\",\"prefix\",\"suffix\",\"sentenceId\"]}},\"tufts\":{\"adapter\":\"maAdapter\",\"methods\":[\"getHomonym\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"]}},\"chineseloc\":{\"adapter\":\"chineseAdapter\",\"methods\":[\"getHomonym\",\"loadData\"],\"params\":{\"getHomonym\":[\"languageID\",\"word\"],\"loadData\":[\"timeout\"]}}},\"lexicon\":{\"alpheios\":{\"adapter\":\"lexicons\",\"methods\":[\"fetchShortDefs\",\"fetchFullDefs\",\"checkCachedData\",\"getConfig\"],\"params\":{\"fetchShortDefs\":[\"homonym\",\"opts\"],\"fetchFullDefs\":[\"homonym\",\"opts\"],\"checkCachedData\":[\"url\",\"externalData\"],\"getConfig\":[]}}},\"lemmatranslation\":{\"alpheios\":{\"adapter\":\"lemmaTranslations\",\"methods\":\"fetchTranslations\",\"params\":{\"fetchTranslations\":[\"homonym\",\"browserLang\"]}}},\"wordusageExamples\":{\"concordance\":{\"adapter\":\"wordUsageExamples\",\"methods\":[\"getAuthorsWorks\",\"getWordUsageExamples\"],\"params\":{\"getAuthorsWorks\":[],\"getWordUsageExamples\":[\"homonym\"]}}},\"autocompleteWords\":{\"logeion\":{\"adapter\":\"autoCompleteWords\",\"methods\":\"getWords\",\"params\":{\"getWords\":[\"text\",\"lang\",\"fetchOptions\"]}}},\"tokenizationGroup\":{\"alpheios\":{\"adapter\":\"tokenizationMethod\",\"methods\":[\"getTokens\",\"getConfig\"],\"params\":{\"getTokens\":[\"text\"],\"getConfig\":[\"storage\"]}}},\"dtsapiGroup\":{\"dtsapi\":{\"adapter\":\"dtsApiMethod\",\"methods\":[\"getCollection\",\"getNavigation\",\"getDocument\"],\"params\":{\"getCollection\":[\"baseUrl\"],\"getNavigation\":[\"baseUrl\",\"id\",\"resource\"],\"getDocument\":[\"baseUrl\",\"id\"]}}},\"detectlangGroup\":{\"detectlang\":{\"adapter\":\"detectLangMethod\",\"methods\":[\"getDetectedLangsList\"],\"params\":{\"getDetectedLangsList\":[\"text\"]}}}}");
 
 /***/ }),
 
@@ -6622,6 +8769,28 @@ module.exports = JSON.parse("{\"authors\":[{\"urn\":\"urn:cts:latinLit:phi2456\"
 
 "use strict";
 module.exports = JSON.parse("{\"url\":\"https://latin.packhum.org/rst/concordance/\",\"sourceTextUrl\":\"https://latin.packhum.org\",\"rights\":\"Word usage examples are provided by The Packard Humanities Institute (https://packhum.org/). They are to be used only for personal study and are subject to the “Fair Use” principles of U.S. Copyright law.\",\"maxResultsOverride\":10000000}");
+
+/***/ }),
+
+/***/ "./adapters/detectlang/config.json":
+/*!*****************************************!*\
+  !*** ./adapters/detectlang/config.json ***!
+  \*****************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"baseurl\":\"https://ws.detectlanguage.com/0.2/detect\",\"api\":\"30e63bcc426af7b7c650aab568ed9ad7\"}");
+
+/***/ }),
+
+/***/ "./adapters/detectlang/langs-list.json":
+/*!*********************************************!*\
+  !*** ./adapters/detectlang/langs-list.json ***!
+  \*********************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"aa\":{\"label\":\"Afar\",\"langCode\":\"aar\"},\"ab\":{\"label\":\"Abkhazian\",\"langCode\":\"abk\"},\"af\":{\"label\":\"Afrikaans\",\"langCode\":\"afr\"},\"ak\":{\"label\":\"Akan\",\"langCode\":\"aka\"},\"am\":{\"label\":\"Amharic\",\"langCode\":\"amh\"},\"ar\":{\"label\":\"Arabic\",\"langCode\":\"ara\"},\"as\":{\"label\":\"Assamese\",\"langCode\":\"asm\"},\"ay\":{\"label\":\"Aymara\",\"langCode\":\"aym\"},\"az\":{\"label\":\"Azerbaijani\",\"langCode\":\"aze\"},\"ba\":{\"label\":\"Bashkir\",\"langCode\":\"bak\"},\"be\":{\"label\":\"Belarusian\",\"langCode\":\"bel\"},\"bg\":{\"label\":\"Bulgarian\",\"langCode\":\"bul\"},\"bh\":{\"label\":\"Bihari\",\"langCode\":\"bih\"},\"bi\":{\"label\":\"Bislama\",\"langCode\":\"bis\"},\"bn\":{\"label\":\"Bengali\",\"langCode\":\"ben\"},\"bo\":{\"label\":\"Tibetan\",\"langCode\":\"bod\"},\"br\":{\"label\":\"Breton\",\"langCode\":\"bre\"},\"bs\":{\"label\":\"Bosnian\",\"langCode\":\"bos\"},\"bug\":{\"label\":\"Buginese\",\"langCode\":\"bug\"},\"ca\":{\"label\":\"Catalan\",\"langCode\":\"cat\"},\"ceb\":{\"label\":\"Cebuano\",\"langCode\":\"ceb\"},\"chr\":{\"label\":\"Cherokee\",\"langCode\":\"chr\"},\"co\":{\"label\":\"Corsican\",\"langCode\":\"cos\"},\"crs\":{\"label\":\"Seselwa\",\"langCode\":\"crs\"},\"cs\":{\"label\":\"Czech\",\"langCode\":\"ces\"},\"cy\":{\"label\":\"Welsh\",\"langCode\":\"cym\"},\"da\":{\"label\":\"Danish\",\"langCode\":\"dan\"},\"de\":{\"label\":\"German\",\"langCode\":\"deu\"},\"dv\":{\"label\":\"Dhivehi\",\"langCode\":\"div\"},\"dz\":{\"label\":\"Dzongkha\",\"langCode\":\"dzo\"},\"egy\":{\"label\":\"Egyptian\",\"langCode\":\"egy\"},\"el\":{\"label\":\"Greek\",\"langCode\":\"grc\"},\"en\":{\"label\":\"English\",\"langCode\":\"eng\"},\"eo\":{\"label\":\"Esperanto\",\"langCode\":\"epo\"},\"es\":{\"label\":\"Spanish\",\"langCode\":\"spa\"},\"et\":{\"label\":\"Estonian\",\"langCode\":\"est\"},\"eu\":{\"label\":\"Basque\",\"langCode\":\"eus\"},\"fa\":{\"label\":\"Persian\",\"langCode\":\"per\"},\"fi\":{\"label\":\"Finnish\",\"langCode\":\"fin\"},\"fj\":{\"label\":\"Fijian\",\"langCode\":\"fij\"},\"fo\":{\"label\":\"Faroese\",\"langCode\":\"fao\"},\"fr\":{\"label\":\"French\",\"langCode\":\"fra\"},\"fy\":{\"label\":\"Frisian\",\"langCode\":\"frr\"},\"ga\":{\"label\":\"Irish\",\"langCode\":\"gle\"},\"gd\":{\"label\":\"Scots Gaelic\",\"langCode\":\"gla\"},\"gl\":{\"label\":\"Galician\",\"langCode\":\"glg\"},\"gn\":{\"label\":\"Guarani\",\"langCode\":\"grn\"},\"got\":{\"label\":\"Gothic\",\"langCode\":\"got\"},\"gu\":{\"label\":\"Gujarati\",\"langCode\":\"guj\"},\"gv\":{\"label\":\"Manx\",\"langCode\":\"glv\"},\"ha\":{\"label\":\"Hausa\",\"langCode\":\"hau\"},\"haw\":{\"label\":\"Hawaiian\",\"langCode\":\"haw\"},\"hi\":{\"label\":\"Hindi\",\"langCode\":\"hin\"},\"hmn\":{\"label\":\"Hmong\",\"langCode\":\"hmn\"},\"hr\":{\"label\":\"Croatian\",\"langCode\":\"hrv\"},\"ht\":{\"label\":\"Haitian Creole\",\"langCode\":\"hat\"},\"hu\":{\"label\":\"Hungarian\",\"langCode\":\"hun\"},\"hy\":{\"label\":\"Armenian\",\"langCode\":\"hye\"},\"ia\":{\"label\":\"Interlingua\",\"langCode\":\"ina\"},\"id\":{\"label\":\"Indonesian\",\"langCode\":\"ind\"},\"ie\":{\"label\":\"Interlingue\",\"langCode\":\"ile\"},\"ig\":{\"label\":\"Igbo\",\"langCode\":\"ibo\"},\"ik\":{\"label\":\"Inupiaq\",\"langCode\":\"ipk\"},\"is\":{\"label\":\"Icelandic\",\"langCode\":\"isl\"},\"it\":{\"label\":\"Italian\",\"langCode\":\"ita\"},\"iu\":{\"label\":\"Inuktitut\",\"langCode\":\"iku\"},\"iw\":{\"label\":\"Hebrew\",\"langCode\":\"heb\"},\"ja\":{\"label\":\"Japanese\",\"langCode\":\"jpn\"},\"jw\":{\"label\":\"Javanese\",\"langCode\":\"jav\"},\"ka\":{\"label\":\"Georgian\",\"langCode\":\"kat\"},\"kha\":{\"label\":\"Khasi\",\"langCode\":\"kha\"},\"kk\":{\"label\":\"Kazakh\",\"langCode\":\"kaz\"},\"kl\":{\"label\":\"Greenlandic\",\"langCode\":\"kal\"},\"km\":{\"label\":\"Khmer\",\"langCode\":\"khm\"},\"kn\":{\"label\":\"Kannada\",\"langCode\":\"kan\"},\"ko\":{\"label\":\"Korean\",\"langCode\":\"kor\"},\"ks\":{\"label\":\"Kashmiri\",\"langCode\":\"kas\"},\"ku\":{\"label\":\"Kurdish\",\"langCode\":\"kur\"},\"ky\":{\"label\":\"Kyrgyz\",\"langCode\":\"kir\"},\"la\":{\"label\":\"Latin\",\"langCode\":\"lat\"},\"lb\":{\"label\":\"Luxembourgish\",\"langCode\":\"ltz\"},\"lg\":{\"label\":\"Ganda\",\"langCode\":\"lug\"},\"li\":{\"label\":\"Limbu\",\"langCode\":\"lim\"},\"ln\":{\"label\":\"Lingala\",\"langCode\":\"lin\"},\"lo\":{\"label\":\"Laothian\",\"langCode\":\"lao\"},\"lt\":{\"label\":\"Lithuanian\",\"langCode\":\"lit\"},\"lv\":{\"label\":\"Latvian\",\"langCode\":\"lav\"},\"mfe\":{\"label\":\"Mauritian Creole\",\"langCode\":\"mfe\"},\"mg\":{\"label\":\"Malagasy\",\"langCode\":\"mlg\"},\"mi\":{\"label\":\"Maori\",\"langCode\":\"mao\"},\"mk\":{\"label\":\"Macedonian\",\"langCode\":\"mac\"},\"ml\":{\"label\":\"Malayalam\",\"langCode\":\"mal\"},\"mn\":{\"label\":\"Mongolian\",\"langCode\":\"mon\"},\"mr\":{\"label\":\"Marathi\",\"langCode\":\"mar\"},\"ms\":{\"label\":\"Malay\",\"langCode\":\"msa\"},\"mt\":{\"label\":\"Maltese\",\"langCode\":\"mlt\"},\"my\":{\"label\":\"Burmese\",\"langCode\":\"mya\"},\"na\":{\"label\":\"Nauru\",\"langCode\":\"nau\"},\"ne\":{\"label\":\"Nepali\",\"langCode\":\"nep\"},\"nl\":{\"label\":\"Dutch\",\"langCode\":\"nld\"},\"no\":{\"label\":\"Norwegian\",\"langCode\":\"nor\"},\"nr\":{\"label\":\"Ndebele\",\"langCode\":\"nbl\"},\"nso\":{\"label\":\"Pedi\",\"langCode\":\"nso\"},\"ny\":{\"label\":\"Nyanja\",\"langCode\":\"nya\"},\"oc\":{\"label\":\"Occitan\",\"langCode\":\"oci\"},\"om\":{\"label\":\"Oromo\",\"langCode\":\"orm\"},\"or\":{\"label\":\"Oriya\",\"langCode\":\"ori\"},\"pa\":{\"label\":\"Punjabi\",\"langCode\":\"pan\"},\"pl\":{\"label\":\"Polish\",\"langCode\":\"pol\"},\"ps\":{\"label\":\"Pashto\",\"langCode\":\"pus\"},\"pt\":{\"label\":\"Portuguese\",\"langCode\":\"por\"},\"qu\":{\"label\":\"Quechua\",\"langCode\":\"que\"},\"rm\":{\"label\":\"Rhaeto Romance\",\"langCode\":\"roh\"},\"rn\":{\"label\":\"Rundi\",\"langCode\":\"run\"},\"ro\":{\"label\":\"Romanian\",\"langCode\":\"ron\"},\"ru\":{\"label\":\"Russian\",\"langCode\":\"rus\"},\"rw\":{\"label\":\"Kinyarwanda\",\"langCode\":\"kin\"},\"sa\":{\"label\":\"Sanskrit\",\"langCode\":\"san\"},\"sco\":{\"label\":\"Scots\",\"langCode\":\"sco\"},\"sd\":{\"label\":\"Sindhi\",\"langCode\":\"snd\"},\"sg\":{\"label\":\"Sango\",\"langCode\":\"sag\"},\"si\":{\"label\":\"Sinhalese\",\"langCode\":\"sin\"},\"sk\":{\"label\":\"Slovak\",\"langCode\":\"slk\"},\"sl\":{\"label\":\"Slovenian\",\"langCode\":\"slv\"},\"sm\":{\"label\":\"Samoan\",\"langCode\":\"smo\"},\"sn\":{\"label\":\"Shona\",\"langCode\":\"sna\"},\"so\":{\"label\":\"Somali\",\"langCode\":\"som\"},\"sq\":{\"label\":\"Albanian\",\"langCode\":\"sqi\"},\"sr\":{\"label\":\"Serbian\",\"langCode\":\"srp\"},\"ss\":{\"label\":\"Siswant\",\"langCode\":\"ssw\"},\"st\":{\"label\":\"Sesotho\",\"langCode\":\"sot\"},\"su\":{\"label\":\"Sundanese\",\"langCode\":\"sun\"},\"sv\":{\"label\":\"Swedish\",\"langCode\":\"swe\"},\"sw\":{\"label\":\"Swahili\",\"langCode\":\"swa\"},\"syr\":{\"label\":\"Syriac\",\"langCode\":\"syr\"},\"ta\":{\"label\":\"Tamil\",\"langCode\":\"tam\"},\"te\":{\"label\":\"Telugu\",\"langCode\":\"tel\"},\"tg\":{\"label\":\"Tajik\",\"langCode\":\"tgk\"},\"th\":{\"label\":\"Thai\",\"langCode\":\"tha\"},\"ti\":{\"label\":\"Tigrinya\",\"langCode\":\"tir\"},\"tk\":{\"label\":\"Turkmen\",\"langCode\":\"tuk\"},\"tl\":{\"label\":\"Tagalog\",\"langCode\":\"tgl\"},\"tlh\":{\"label\":\"Klingon\",\"langCode\":\"tlh\"},\"tn\":{\"label\":\"Tswana\",\"langCode\":\"tsn\"},\"to\":{\"label\":\"Tonga\",\"langCode\":\"tog\"},\"tr\":{\"label\":\"Turkish\",\"langCode\":\"tur\"},\"ts\":{\"label\":\"Tsonga\",\"langCode\":\"tso\"},\"tt\":{\"label\":\"Tatar\",\"langCode\":\"tat\"},\"ug\":{\"label\":\"Uighur\",\"langCode\":\"uig\"},\"uk\":{\"label\":\"Ukrainian\",\"langCode\":\"ukr\"},\"ur\":{\"label\":\"Urdu\",\"langCode\":\"urd\"},\"uz\":{\"label\":\"Uzbek\",\"langCode\":\"uzb\"},\"ve\":{\"label\":\"Venda\",\"langCode\":\"ven\"},\"vi\":{\"label\":\"Vietnamese\",\"langCode\":\"vie\"},\"vo\":{\"label\":\"Volapuk\",\"langCode\":\"vol\"},\"war\":{\"label\":\"Waray Philippines\",\"langCode\":\"war\"},\"wo\":{\"label\":\"Wolof\",\"langCode\":\"wol\"},\"xh\":{\"label\":\"Xhosa\",\"langCode\":\"xho\"},\"yi\":{\"label\":\"Yiddish\",\"langCode\":\"yid\"},\"yo\":{\"label\":\"Yoruba\",\"langCode\":\"yor\"},\"za\":{\"label\":\"Zhuang\",\"langCode\":\"zha\"},\"zh\":{\"label\":\"Chinese Simplified\",\"langCode\":\"zho\"},\"zh-Hant\":{\"label\":\"Chinese Traditional\",\"langCode\":\"zho\"},\"zu\":{\"label\":\"Zulu\",\"langCode\":\"zul\"}}");
 
 /***/ }),
 
@@ -6698,7 +8867,7 @@ module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a t
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a test message about a cookie.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\"},\"NUM_LINES_TEST_MESSAGE\":{\"message\":\"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\",\"params\":[\"numLines\"]},\"MORPH_TUFTS_NO_ENGINE_FOR_LANGUAGE\":{\"message\":\"There is no engine for the given languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no engine is found for given languageID\",\"component\":\"morphology.tufts\",\"params\":[\"languageID\"]},\"MORPH_NO_HOMONYM\":{\"message\":\"There is no homonym for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no homonym was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_TUFTS_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no data was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.tufts adapter - unknown\",\"component\":\"morphology.tufts\",\"params\":[\"message\"]},\"MORPH_TRANSFORM_NO_LANGUAGE\":{\"message\":\"No Language was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_LEMMA\":{\"message\":\"No Lemma was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_MAPPING_DATA\":{\"message\":\"No mapping data found for {language}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"language\"]},\"MORPH_TRANSFORM_INFLECTION_ERROR\":{\"message\":\"Error parsing inflection: {error}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"error\"]},\"BASIC_ADAPTER_NO_DATA_FROM_URL\":{\"message\":\"Remote service is unavailable - {url}\",\"description\":\"Error message for basic adapter - when no data was returned from the url\",\"component\":\"basic_adapter\",\"params\":[\"url\"]},\"BASIC_ADAPTER_EMPTY_URL\":{\"message\":\"Unable to get data from empty url\",\"description\":\"Error message for basic adapter - when empty url was given\",\"component\":\"basic_adapter\"},\"BASIC_ADAPTER_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"message\"]},\"BASIC_ADAPTER_URL_RESPONSE_FAILED\":{\"message\":\"Request doesn't return data - {statusCode}: {statusText}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"statusCode\",\"statusText\"]},\"MORPH_TREEBANK_MISSING_REF\":{\"message\":\"Reference is missing from treebank request = {request}\",\"description\":\"Missing reference in treebank request\",\"component\":\"morph.treebank\",\"params\":[\"request\"]},\"MORPH_TREEBANK_UNSUPPORTED_LANGUAGE\":{\"message\":\"Unsupported treebank language ${languageId}\",\"description\":\"Unsupported treebank language\",\"component\":\"morph.treebank\",\"params\":[\"languageId\"]},\"MORPH_TREEBANK_NO_URL\":{\"message\":\"There is a problem with creating url for the given word - {word}\",\"description\":\"Error message for morph.treebank - no url for fetching data from treebank\",\"component\":\"morph.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word}\",\"description\":\"Error message for morphology.treebank adapter - when no data was returned from the source\",\"component\":\"morphology.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.treebank adapter - unknown\",\"component\":\"morphology.treebank\",\"params\":[\"message\"]},\"TRANSLATION_INPUT_PREPARE_ERROR\":{\"message\":\"Some problems with preparing input for geting translations - {input}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - problems with input\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"input\"]},\"TRANSLATION_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - unknown\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"message\"]},\"TRANSLATION_INCORRECT_LEXEMES\":{\"message\":\"There is no correct homonym in input\",\"description\":\"Error message for lemmatranslation.alpheios adapter - no lexemes\",\"component\":\"lemmatranslation.alpheios\"},\"LEXICONS_NO_ALLOWED_URL\":{\"message\":\"There are no allowed urls in the options\",\"description\":\"Error message for lexicon.alpheios adapter - no urls were found in options\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_FAILED_CACHED_DATA\":{\"message\":\"There is a problem with catching data from lexicon source - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with getting cached data\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_FAILED_APPEND_DEFS\":{\"message\":\"There is a problem with updating definitions - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with updating definitions\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_NO_FULL_URL\":{\"message\":\"No full url is defined for definitions\",\"description\":\"Error message for lexicon.alpheios adapter - no full url is defined\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_NO_DATA_FROM_URL\":{\"message\":\"No data recieved from url - {url}\",\"description\":\"Error message for lexicon.alpheios adapter - no data from url\",\"component\":\"lexicon.alpheios\",\"params\":[\"url\"]},\"CONCORDANCE_AUTHOR_UPLOAD_ERROR\":{\"message\":\"Some problems with retrieving from author/textWork config file - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with uploading data from author-work config file\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"CONCORDANCE_WORD_USAGE_FETCH_ERROR\":{\"message\":\"Some problems with fetching word usage examples from concordance api - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with fetching word usage examples from concordance api\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"LOGEION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from logeion api - {message}\",\"description\":\"Error message for autoCompleteWords.logeion adapter - problems with fetching words from logeion api\",\"component\":\"autoCompleteWords.logeion\",\"params\":[\"message\"]},\"LOGEION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Logeion API request\",\"description\":\"Error message for autoCompleteWords.logeion adapter - no apikey and baseurl for Logeion API\",\"component\":\"autoCompleteWords.logeion\"},\"TOKENIZATION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from Alpheios Tokenization API - {message}\",\"description\":\"Error message for Alpheios Tokenization adapter - problems with fetching words from api\",\"component\":\"tokenizationGroup.alpheios\",\"params\":[\"message\"]},\"TOKENIZATION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Alpheios Tokenization API request\",\"description\":\"Error message - no apikey and baseurl for Alpheios Tokenization API\",\"component\":\"tokenizationGroup.alpheios\"},\"TOKENIZATION_AVAILABILITY_ERROR\":{\"message\":\"Tokenization service is not available for passed fetch parameters (language)\",\"description\":\"Error message - tokenization service doesn't support passed language\",\"component\":\"tokenizationGroup.alpheios\"},\"DTSAPI_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from DTS API - {message}\",\"description\":\"Error message for DTS API adapter - problems with fetching words from api\",\"component\":\"dtsapiGroup.general\",\"params\":[\"message\"]},\"DTSAPI_NO_OBLIGATORY_PROPS\":{\"message\":\"Not all obligatory parameters are defined for the method - {message}\",\"description\":\"Error message for DTS API adapter - problems with fetching words from api\",\"component\":\"dtsapiGroup.general\",\"params\":[\"message\"]}}");
+module.exports = JSON.parse("{\"COOKIE_TEST_MESSAGE\":{\"message\":\"This is a test message about a cookie.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\"},\"NUM_LINES_TEST_MESSAGE\":{\"message\":\"There {numLines, plural, =0 {are no lines} =1 {is one line} other {are # lines}}.\",\"description\":\"A test message that is shown in a panel\",\"component\":\"Panel\",\"params\":[\"numLines\"]},\"MORPH_TUFTS_NO_ENGINE_FOR_LANGUAGE\":{\"message\":\"There is no engine for the given languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no engine is found for given languageID\",\"component\":\"morphology.tufts\",\"params\":[\"languageID\"]},\"MORPH_NO_HOMONYM\":{\"message\":\"There is no homonym for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no homonym was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_TUFTS_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word} and languageID {languageID}\",\"description\":\"Error message for morphology.tufts adapter - when no data was returned from the source\",\"component\":\"morphology.tufts\",\"params\":[\"word\",\"languageID\"]},\"MORPH_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.tufts adapter - unknown\",\"component\":\"morphology.tufts\",\"params\":[\"message\"]},\"MORPH_TRANSFORM_NO_LANGUAGE\":{\"message\":\"No Language was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_LEMMA\":{\"message\":\"No Lemma was defined from json object\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\"},\"MORPH_TRANSFORM_NO_MAPPING_DATA\":{\"message\":\"No mapping data found for {language}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"language\"]},\"MORPH_TRANSFORM_INFLECTION_ERROR\":{\"message\":\"Error parsing inflection: {error}\",\"description\":\"Error message for morph.tufts adapter - transform problem\",\"component\":\"morphology.tufts\",\"params\":[\"error\"]},\"BASIC_ADAPTER_NO_DATA_FROM_URL\":{\"message\":\"Remote service is unavailable - {url}\",\"description\":\"Error message for basic adapter - when no data was returned from the url\",\"component\":\"basic_adapter\",\"params\":[\"url\"]},\"BASIC_ADAPTER_EMPTY_URL\":{\"message\":\"Unable to get data from empty url\",\"description\":\"Error message for basic adapter - when empty url was given\",\"component\":\"basic_adapter\"},\"BASIC_ADAPTER_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"message\"]},\"BASIC_ADAPTER_URL_RESPONSE_FAILED\":{\"message\":\"Request doesn't return data - {statusCode}: {statusText}\",\"description\":\"Error message for basic adapter - unknown\",\"component\":\"basic_adapter\",\"params\":[\"statusCode\",\"statusText\"]},\"MORPH_TREEBANK_MISSING_REF\":{\"message\":\"Reference is missing from treebank request = {request}\",\"description\":\"Missing reference in treebank request\",\"component\":\"morph.treebank\",\"params\":[\"request\"]},\"MORPH_TREEBANK_UNSUPPORTED_LANGUAGE\":{\"message\":\"Unsupported treebank language ${languageId}\",\"description\":\"Unsupported treebank language\",\"component\":\"morph.treebank\",\"params\":[\"languageId\"]},\"MORPH_TREEBANK_NO_URL\":{\"message\":\"There is a problem with creating url for the given word - {word}\",\"description\":\"Error message for morph.treebank - no url for fetching data from treebank\",\"component\":\"morph.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_NO_ANSWER_FOR_WORD\":{\"message\":\"There is no data from the source for the given word - {word}\",\"description\":\"Error message for morphology.treebank adapter - when no data was returned from the source\",\"component\":\"morphology.treebank\",\"params\":[\"word\"]},\"MORPH_TREEBANK_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for morph.treebank adapter - unknown\",\"component\":\"morphology.treebank\",\"params\":[\"message\"]},\"TRANSLATION_INPUT_PREPARE_ERROR\":{\"message\":\"Some problems with preparing input for geting translations - {input}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - problems with input\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"input\"]},\"TRANSLATION_UNKNOWN_ERROR\":{\"message\":\"Unknown error - {message}\",\"description\":\"Error message for lemmatranslation.alpheios adapter - unknown\",\"component\":\"lemmatranslation.alpheios\",\"params\":[\"message\"]},\"TRANSLATION_INCORRECT_LEXEMES\":{\"message\":\"There is no correct homonym in input\",\"description\":\"Error message for lemmatranslation.alpheios adapter - no lexemes\",\"component\":\"lemmatranslation.alpheios\"},\"LEXICONS_NO_ALLOWED_URL\":{\"message\":\"There are no allowed urls in the options\",\"description\":\"Error message for lexicon.alpheios adapter - no urls were found in options\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_FAILED_CACHED_DATA\":{\"message\":\"There is a problem with catching data from lexicon source - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with getting cached data\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_FAILED_APPEND_DEFS\":{\"message\":\"There is a problem with updating definitions - {message}\",\"description\":\"Error message for lexicon.alpheios adapter - some problems with updating definitions\",\"component\":\"lexicon.alpheios\",\"params\":[\"message\"]},\"LEXICONS_NO_FULL_URL\":{\"message\":\"No full url is defined for definitions\",\"description\":\"Error message for lexicon.alpheios adapter - no full url is defined\",\"component\":\"lexicon.alpheios\"},\"LEXICONS_NO_DATA_FROM_URL\":{\"message\":\"No data recieved from url - {url}\",\"description\":\"Error message for lexicon.alpheios adapter - no data from url\",\"component\":\"lexicon.alpheios\",\"params\":[\"url\"]},\"CONCORDANCE_AUTHOR_UPLOAD_ERROR\":{\"message\":\"Some problems with retrieving from author/textWork config file - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with uploading data from author-work config file\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"CONCORDANCE_WORD_USAGE_FETCH_ERROR\":{\"message\":\"Some problems with fetching word usage examples from concordance api - {message}\",\"description\":\"Error message for wordusageExamples.concordance adapter - problems with fetching word usage examples from concordance api\",\"component\":\"wordusageExamples.concordance\",\"params\":[\"message\"]},\"LOGEION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from logeion api - {message}\",\"description\":\"Error message for autoCompleteWords.logeion adapter - problems with fetching words from logeion api\",\"component\":\"autoCompleteWords.logeion\",\"params\":[\"message\"]},\"LOGEION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Logeion API request\",\"description\":\"Error message for autoCompleteWords.logeion adapter - no apikey and baseurl for Logeion API\",\"component\":\"autoCompleteWords.logeion\"},\"TOKENIZATION_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from Alpheios Tokenization API - {message}\",\"description\":\"Error message for Alpheios Tokenization adapter - problems with fetching words from api\",\"component\":\"tokenizationGroup.alpheios\",\"params\":[\"message\"]},\"TOKENIZATION_FETCH_OPTIONS_ERROR\":{\"message\":\"There are no fetch options for Alpheios Tokenization API request\",\"description\":\"Error message - no apikey and baseurl for Alpheios Tokenization API\",\"component\":\"tokenizationGroup.alpheios\"},\"TOKENIZATION_AVAILABILITY_ERROR\":{\"message\":\"Tokenization service is not available for passed fetch parameters (language)\",\"description\":\"Error message - tokenization service doesn't support passed language\",\"component\":\"tokenizationGroup.alpheios\"},\"DTSAPI_FETCH_ERROR\":{\"message\":\"Some problems with fetching words from DTS API - {message}\",\"description\":\"Error message for DTS API adapter - problems with fetching words from api\",\"component\":\"dtsapiGroup.general\",\"params\":[\"message\"]},\"DTSAPI_NO_OBLIGATORY_PROPS\":{\"message\":\"Not all obligatory parameters are defined for the method - {message}\",\"description\":\"Error message for DTS API adapter - problems with fetching words from api\",\"component\":\"dtsapiGroup.general\",\"params\":[\"message\"]},\"DETECT_LANG_URL_ERROR\":{\"message\":\"There are not enough parameters for detect language request\",\"description\":\"Error message - no apikey and baseurl for Alpheios Tokenization API\",\"component\":\"detectlangGroup.detectlang\"},\"DETECT_LANG_FETCH_ERROR\":{\"message\":\"Some problems with detection language request API - {message}\",\"description\":\"Error message for DetectLang adapter\",\"component\":\"detectlangGroup.detectlang\",\"params\":[\"message\"]}}");
 
 /***/ }),
 
@@ -6752,7 +8921,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_478708__(moduleId) {
+/******/ 	function __nested_webpack_require_493490__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -6765,7 +8934,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_478708__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_493490__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -6778,11 +8947,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_478708__.n = (module) => {
+/******/ 		__nested_webpack_require_493490__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_478708__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_493490__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -6790,9 +8959,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_478708__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_493490__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_478708__.o(definition, key) && !__nested_webpack_require_478708__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_493490__.o(definition, key) && !__nested_webpack_require_493490__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -6801,13 +8970,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_478708__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_493490__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_478708__.r = (exports) => {
+/******/ 		__nested_webpack_require_493490__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -6817,7 +8986,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_478708__.nmd = (module) => {
+/******/ 		__nested_webpack_require_493490__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -6828,7 +8997,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_478708__("./index.js");
+/******/ 	return __nested_webpack_require_493490__("./index.js");
 /******/ })()
 ;
 });
@@ -23284,3762 +25453,6 @@ module.exports.strategies = {
 
 /***/ }),
 
-/***/ "../node_modules/intl-messageformat-parser/lib/index.js":
-/*!**************************************************************!*\
-  !*** ../node_modules/intl-messageformat-parser/lib/index.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SKELETON_TYPE": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.SKELETON_TYPE),
-/* harmony export */   "TYPE": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.TYPE),
-/* harmony export */   "createLiteralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createLiteralElement),
-/* harmony export */   "createNumberElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.createNumberElement),
-/* harmony export */   "isArgumentElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement),
-/* harmony export */   "isDateElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateElement),
-/* harmony export */   "isDateTimeSkeleton": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton),
-/* harmony export */   "isLiteralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement),
-/* harmony export */   "isNumberElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberElement),
-/* harmony export */   "isNumberSkeleton": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton),
-/* harmony export */   "isPluralElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPluralElement),
-/* harmony export */   "isPoundElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isPoundElement),
-/* harmony export */   "isSelectElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isSelectElement),
-/* harmony export */   "isTagElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTagElement),
-/* harmony export */   "isTimeElement": () => (/* reexport safe */ _src_types__WEBPACK_IMPORTED_MODULE_0__.isTimeElement),
-/* harmony export */   "SyntaxError": () => (/* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.SyntaxError),
-/* harmony export */   "pegParse": () => (/* reexport safe */ _src_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse),
-/* harmony export */   "parse": () => (/* binding */ parse)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _src_parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/parser */ "../node_modules/intl-messageformat-parser/lib/src/parser.js");
-/* harmony import */ var _src_normalize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./src/normalize */ "../node_modules/intl-messageformat-parser/lib/src/normalize.js");
-/* harmony import */ var _src_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
-
-
-
-
-
-function parse(input, opts) {
-    opts = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({ normalizeHashtagInPlural: true, shouldParseSkeleton: true }, (opts || {}));
-    var els = (0,_src_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse)(input, opts);
-    if (opts.normalizeHashtagInPlural) {
-        (0,_src_normalize__WEBPACK_IMPORTED_MODULE_3__.normalizeHashtagInPlural)(els);
-    }
-    return els;
-}
-
-
-/***/ }),
-
-/***/ "../node_modules/intl-messageformat-parser/lib/src/normalize.js":
-/*!**********************************************************************!*\
-  !*** ../node_modules/intl-messageformat-parser/lib/src/normalize.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "normalizeHashtagInPlural": () => (/* binding */ normalizeHashtagInPlural)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
-/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parser */ "../node_modules/intl-messageformat-parser/lib/src/parser.js");
-
-
-
-var PLURAL_HASHTAG_REGEX = /(^|[^\\])#/g;
-/**
- * Whether to convert `#` in plural rule options
- * to `{var, number}`
- * @param el AST Element
- * @param pluralStack current plural stack
- */
-function normalizeHashtagInPlural(els) {
-    els.forEach(function (el) {
-        // If we're encountering a plural el
-        if (!(0,_types__WEBPACK_IMPORTED_MODULE_0__.isPluralElement)(el) && !(0,_types__WEBPACK_IMPORTED_MODULE_0__.isSelectElement)(el)) {
-            return;
-        }
-        // Go down the options and search for # in any literal element
-        Object.keys(el.options).forEach(function (id) {
-            var _a;
-            var opt = el.options[id];
-            // If we got a match, we have to split this
-            // and inject a NumberElement in the middle
-            var matchingLiteralElIndex = -1;
-            var literalEl = undefined;
-            for (var i = 0; i < opt.value.length; i++) {
-                var el_1 = opt.value[i];
-                if ((0,_types__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement)(el_1) && PLURAL_HASHTAG_REGEX.test(el_1.value)) {
-                    matchingLiteralElIndex = i;
-                    literalEl = el_1;
-                    break;
-                }
-            }
-            if (literalEl) {
-                var newValue = literalEl.value.replace(PLURAL_HASHTAG_REGEX, "$1{" + el.value + ", number}");
-                var newEls = (0,_parser__WEBPACK_IMPORTED_MODULE_1__.pegParse)(newValue);
-                (_a = opt.value).splice.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArrays)([matchingLiteralElIndex, 1], newEls));
-            }
-            normalizeHashtagInPlural(opt.value);
-        });
-    });
-}
-
-
-/***/ }),
-
-/***/ "../node_modules/intl-messageformat-parser/lib/src/parser.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/intl-messageformat-parser/lib/src/parser.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SyntaxError": () => (/* binding */ SyntaxError),
-/* harmony export */   "pegParse": () => (/* binding */ pegParse)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
-/* harmony import */ var _skeleton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./skeleton */ "../node_modules/intl-messageformat-parser/lib/src/skeleton.js");
-// @ts-nocheck
-
-// @generated
-
-
-var SyntaxError = /** @class */ (function (_super) {
-    (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__extends)(SyntaxError, _super);
-    function SyntaxError(message, expected, found, location) {
-        var _this = _super.call(this) || this;
-        _this.message = message;
-        _this.expected = expected;
-        _this.found = found;
-        _this.location = location;
-        _this.name = "SyntaxError";
-        if (typeof Error.captureStackTrace === "function") {
-            Error.captureStackTrace(_this, SyntaxError);
-        }
-        return _this;
-    }
-    SyntaxError.buildMessage = function (expected, found) {
-        function hex(ch) {
-            return ch.charCodeAt(0).toString(16).toUpperCase();
-        }
-        function literalEscape(s) {
-            return s
-                .replace(/\\/g, "\\\\")
-                .replace(/"/g, "\\\"")
-                .replace(/\0/g, "\\0")
-                .replace(/\t/g, "\\t")
-                .replace(/\n/g, "\\n")
-                .replace(/\r/g, "\\r")
-                .replace(/[\x00-\x0F]/g, function (ch) { return "\\x0" + hex(ch); })
-                .replace(/[\x10-\x1F\x7F-\x9F]/g, function (ch) { return "\\x" + hex(ch); });
-        }
-        function classEscape(s) {
-            return s
-                .replace(/\\/g, "\\\\")
-                .replace(/\]/g, "\\]")
-                .replace(/\^/g, "\\^")
-                .replace(/-/g, "\\-")
-                .replace(/\0/g, "\\0")
-                .replace(/\t/g, "\\t")
-                .replace(/\n/g, "\\n")
-                .replace(/\r/g, "\\r")
-                .replace(/[\x00-\x0F]/g, function (ch) { return "\\x0" + hex(ch); })
-                .replace(/[\x10-\x1F\x7F-\x9F]/g, function (ch) { return "\\x" + hex(ch); });
-        }
-        function describeExpectation(expectation) {
-            switch (expectation.type) {
-                case "literal":
-                    return "\"" + literalEscape(expectation.text) + "\"";
-                case "class":
-                    var escapedParts = expectation.parts.map(function (part) {
-                        return Array.isArray(part)
-                            ? classEscape(part[0]) + "-" + classEscape(part[1])
-                            : classEscape(part);
-                    });
-                    return "[" + (expectation.inverted ? "^" : "") + escapedParts + "]";
-                case "any":
-                    return "any character";
-                case "end":
-                    return "end of input";
-                case "other":
-                    return expectation.description;
-            }
-        }
-        function describeExpected(expected1) {
-            var descriptions = expected1.map(describeExpectation);
-            var i;
-            var j;
-            descriptions.sort();
-            if (descriptions.length > 0) {
-                for (i = 1, j = 1; i < descriptions.length; i++) {
-                    if (descriptions[i - 1] !== descriptions[i]) {
-                        descriptions[j] = descriptions[i];
-                        j++;
-                    }
-                }
-                descriptions.length = j;
-            }
-            switch (descriptions.length) {
-                case 1:
-                    return descriptions[0];
-                case 2:
-                    return descriptions[0] + " or " + descriptions[1];
-                default:
-                    return descriptions.slice(0, -1).join(", ")
-                        + ", or "
-                        + descriptions[descriptions.length - 1];
-            }
-        }
-        function describeFound(found1) {
-            return found1 ? "\"" + literalEscape(found1) + "\"" : "end of input";
-        }
-        return "Expected " + describeExpected(expected) + " but " + describeFound(found) + " found.";
-    };
-    return SyntaxError;
-}(Error));
-
-function peg$parse(input, options) {
-    options = options !== undefined ? options : {};
-    var peg$FAILED = {};
-    var peg$startRuleFunctions = { start: peg$parsestart };
-    var peg$startRuleFunction = peg$parsestart;
-    var peg$c0 = function () { return !ignoreTag; };
-    var peg$c1 = function (x) { return x; };
-    var peg$c2 = function () { return ignoreTag; };
-    var peg$c3 = "<";
-    var peg$c4 = peg$literalExpectation("<", false);
-    var peg$c5 = function (parts) {
-        return parts.join('');
-    };
-    var peg$c6 = function () { return '<'; };
-    var peg$c7 = function (messageText) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.literal, value: messageText }, insertLocation());
-    };
-    var peg$c8 = "#";
-    var peg$c9 = peg$literalExpectation("#", false);
-    var peg$c10 = function () {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.pound }, insertLocation());
-    };
-    var peg$c11 = peg$otherExpectation("tagElement");
-    var peg$c12 = function (open, children, close) {
-        if (open !== close) {
-            error("Mismatch tag \"" + open + "\" !== \"" + close + "\"", location());
-        }
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.tag, value: open, children: children }, insertLocation());
-    };
-    var peg$c13 = "/>";
-    var peg$c14 = peg$literalExpectation("/>", false);
-    var peg$c15 = function (value) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.literal, value: value.join('') }, insertLocation());
-    };
-    var peg$c16 = ">";
-    var peg$c17 = peg$literalExpectation(">", false);
-    var peg$c18 = function (tag) { return tag; };
-    var peg$c19 = "</";
-    var peg$c20 = peg$literalExpectation("</", false);
-    var peg$c21 = peg$otherExpectation("argumentElement");
-    var peg$c22 = "{";
-    var peg$c23 = peg$literalExpectation("{", false);
-    var peg$c24 = "}";
-    var peg$c25 = peg$literalExpectation("}", false);
-    var peg$c26 = function (value) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.argument, value: value }, insertLocation());
-    };
-    var peg$c27 = peg$otherExpectation("numberSkeletonId");
-    var peg$c28 = /^['\/{}]/;
-    var peg$c29 = peg$classExpectation(["'", "/", "{", "}"], false, false);
-    var peg$c30 = peg$anyExpectation();
-    var peg$c31 = peg$otherExpectation("numberSkeletonTokenOption");
-    var peg$c32 = "/";
-    var peg$c33 = peg$literalExpectation("/", false);
-    var peg$c34 = function (option) { return option; };
-    var peg$c35 = peg$otherExpectation("numberSkeletonToken");
-    var peg$c36 = function (stem, options) {
-        return { stem: stem, options: options };
-    };
-    var peg$c37 = function (tokens) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: 0 /* number */, tokens: tokens, parsedOptions: shouldParseSkeleton ? (0,_skeleton__WEBPACK_IMPORTED_MODULE_2__.parseNumberSkeleton)(tokens) : {} }, insertLocation());
-    };
-    var peg$c38 = "::";
-    var peg$c39 = peg$literalExpectation("::", false);
-    var peg$c40 = function (skeleton) { return skeleton; };
-    var peg$c41 = function () { messageCtx.push('numberArgStyle'); return true; };
-    var peg$c42 = function (style) {
-        messageCtx.pop();
-        return style.replace(/\s*$/, '');
-    };
-    var peg$c43 = ",";
-    var peg$c44 = peg$literalExpectation(",", false);
-    var peg$c45 = "number";
-    var peg$c46 = peg$literalExpectation("number", false);
-    var peg$c47 = function (value, type, style) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: type === 'number' ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.number : type === 'date' ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.date : _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.time, style: style && style[2], value: value }, insertLocation());
-    };
-    var peg$c48 = "'";
-    var peg$c49 = peg$literalExpectation("'", false);
-    var peg$c50 = /^[^']/;
-    var peg$c51 = peg$classExpectation(["'"], true, false);
-    var peg$c52 = /^[^a-zA-Z'{}]/;
-    var peg$c53 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
-    var peg$c54 = /^[a-zA-Z]/;
-    var peg$c55 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
-    var peg$c56 = function (pattern) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: 1 /* dateTime */, pattern: pattern, parsedOptions: shouldParseSkeleton ? (0,_skeleton__WEBPACK_IMPORTED_MODULE_2__.parseDateTimeSkeleton)(pattern) : {} }, insertLocation());
-    };
-    var peg$c57 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
-    var peg$c58 = "date";
-    var peg$c59 = peg$literalExpectation("date", false);
-    var peg$c60 = "time";
-    var peg$c61 = peg$literalExpectation("time", false);
-    var peg$c62 = "plural";
-    var peg$c63 = peg$literalExpectation("plural", false);
-    var peg$c64 = "selectordinal";
-    var peg$c65 = peg$literalExpectation("selectordinal", false);
-    var peg$c66 = "offset:";
-    var peg$c67 = peg$literalExpectation("offset:", false);
-    var peg$c68 = function (value, pluralType, offset, options) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.plural, pluralType: pluralType === 'plural' ? 'cardinal' : 'ordinal', value: value, offset: offset ? offset[2] : 0, options: options.reduce(function (all, _a) {
-                var id = _a.id, value = _a.value, optionLocation = _a.location;
-                if (id in all) {
-                    error("Duplicate option \"" + id + "\" in plural element: \"" + text() + "\"", location());
-                }
-                all[id] = {
-                    value: value,
-                    location: optionLocation
-                };
-                return all;
-            }, {}) }, insertLocation());
-    };
-    var peg$c69 = "select";
-    var peg$c70 = peg$literalExpectation("select", false);
-    var peg$c71 = function (value, options) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.select, value: value, options: options.reduce(function (all, _a) {
-                var id = _a.id, value = _a.value, optionLocation = _a.location;
-                if (id in all) {
-                    error("Duplicate option \"" + id + "\" in select element: \"" + text() + "\"", location());
-                }
-                all[id] = {
-                    value: value,
-                    location: optionLocation
-                };
-                return all;
-            }, {}) }, insertLocation());
-    };
-    var peg$c72 = "=";
-    var peg$c73 = peg$literalExpectation("=", false);
-    var peg$c74 = function (id) { messageCtx.push('select'); return true; };
-    var peg$c75 = function (id, value) {
-        messageCtx.pop();
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ id: id,
-            value: value }, insertLocation());
-    };
-    var peg$c76 = function (id) { messageCtx.push('plural'); return true; };
-    var peg$c77 = function (id, value) {
-        messageCtx.pop();
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ id: id,
-            value: value }, insertLocation());
-    };
-    var peg$c78 = peg$otherExpectation("whitespace");
-    var peg$c79 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
-    var peg$c80 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
-    var peg$c81 = peg$otherExpectation("syntax pattern");
-    var peg$c82 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
-    var peg$c83 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
-    var peg$c84 = peg$otherExpectation("optional whitespace");
-    var peg$c85 = peg$otherExpectation("number");
-    var peg$c86 = "-";
-    var peg$c87 = peg$literalExpectation("-", false);
-    var peg$c88 = function (negative, num) {
-        return num
-            ? negative
-                ? -num
-                : num
-            : 0;
-    };
-    var peg$c89 = peg$otherExpectation("apostrophe");
-    var peg$c90 = peg$otherExpectation("double apostrophes");
-    var peg$c91 = "''";
-    var peg$c92 = peg$literalExpectation("''", false);
-    var peg$c93 = function () { return "'"; };
-    var peg$c94 = function (escapedChar, quotedChars) {
-        return escapedChar + quotedChars.replace("''", "'");
-    };
-    var peg$c95 = function (x) {
-        return (x !== '<' &&
-            x !== '{' &&
-            !(isInPluralOption() && x === '#') &&
-            !(isNestedMessageText() && x === '}'));
-    };
-    var peg$c96 = "\n";
-    var peg$c97 = peg$literalExpectation("\n", false);
-    var peg$c98 = function (x) {
-        return x === '<' || x === '>' || x === '{' || x === '}' || (isInPluralOption() && x === '#');
-    };
-    var peg$c99 = peg$otherExpectation("argNameOrNumber");
-    var peg$c100 = peg$otherExpectation("validTag");
-    var peg$c101 = peg$otherExpectation("argNumber");
-    var peg$c102 = "0";
-    var peg$c103 = peg$literalExpectation("0", false);
-    var peg$c104 = function () { return 0; };
-    var peg$c105 = /^[1-9]/;
-    var peg$c106 = peg$classExpectation([["1", "9"]], false, false);
-    var peg$c107 = /^[0-9]/;
-    var peg$c108 = peg$classExpectation([["0", "9"]], false, false);
-    var peg$c109 = function (digits) {
-        return parseInt(digits.join(''), 10);
-    };
-    var peg$c110 = peg$otherExpectation("argName");
-    var peg$c111 = peg$otherExpectation("tagName");
-    var peg$currPos = 0;
-    var peg$savedPos = 0;
-    var peg$posDetailsCache = [{ line: 1, column: 1 }];
-    var peg$maxFailPos = 0;
-    var peg$maxFailExpected = [];
-    var peg$silentFails = 0;
-    var peg$result;
-    if (options.startRule !== undefined) {
-        if (!(options.startRule in peg$startRuleFunctions)) {
-            throw new Error("Can't start parsing from rule \"" + options.startRule + "\".");
-        }
-        peg$startRuleFunction = peg$startRuleFunctions[options.startRule];
-    }
-    function text() {
-        return input.substring(peg$savedPos, peg$currPos);
-    }
-    function location() {
-        return peg$computeLocation(peg$savedPos, peg$currPos);
-    }
-    function expected(description, location1) {
-        location1 = location1 !== undefined
-            ? location1
-            : peg$computeLocation(peg$savedPos, peg$currPos);
-        throw peg$buildStructuredError([peg$otherExpectation(description)], input.substring(peg$savedPos, peg$currPos), location1);
-    }
-    function error(message, location1) {
-        location1 = location1 !== undefined
-            ? location1
-            : peg$computeLocation(peg$savedPos, peg$currPos);
-        throw peg$buildSimpleError(message, location1);
-    }
-    function peg$literalExpectation(text1, ignoreCase) {
-        return { type: "literal", text: text1, ignoreCase: ignoreCase };
-    }
-    function peg$classExpectation(parts, inverted, ignoreCase) {
-        return { type: "class", parts: parts, inverted: inverted, ignoreCase: ignoreCase };
-    }
-    function peg$anyExpectation() {
-        return { type: "any" };
-    }
-    function peg$endExpectation() {
-        return { type: "end" };
-    }
-    function peg$otherExpectation(description) {
-        return { type: "other", description: description };
-    }
-    function peg$computePosDetails(pos) {
-        var details = peg$posDetailsCache[pos];
-        var p;
-        if (details) {
-            return details;
-        }
-        else {
-            p = pos - 1;
-            while (!peg$posDetailsCache[p]) {
-                p--;
-            }
-            details = peg$posDetailsCache[p];
-            details = {
-                line: details.line,
-                column: details.column
-            };
-            while (p < pos) {
-                if (input.charCodeAt(p) === 10) {
-                    details.line++;
-                    details.column = 1;
-                }
-                else {
-                    details.column++;
-                }
-                p++;
-            }
-            peg$posDetailsCache[pos] = details;
-            return details;
-        }
-    }
-    function peg$computeLocation(startPos, endPos) {
-        var startPosDetails = peg$computePosDetails(startPos);
-        var endPosDetails = peg$computePosDetails(endPos);
-        return {
-            start: {
-                offset: startPos,
-                line: startPosDetails.line,
-                column: startPosDetails.column
-            },
-            end: {
-                offset: endPos,
-                line: endPosDetails.line,
-                column: endPosDetails.column
-            }
-        };
-    }
-    function peg$fail(expected1) {
-        if (peg$currPos < peg$maxFailPos) {
-            return;
-        }
-        if (peg$currPos > peg$maxFailPos) {
-            peg$maxFailPos = peg$currPos;
-            peg$maxFailExpected = [];
-        }
-        peg$maxFailExpected.push(expected1);
-    }
-    function peg$buildSimpleError(message, location1) {
-        return new SyntaxError(message, [], "", location1);
-    }
-    function peg$buildStructuredError(expected1, found, location1) {
-        return new SyntaxError(SyntaxError.buildMessage(expected1, found), expected1, found, location1);
-    }
-    function peg$parsestart() {
-        var s0;
-        s0 = peg$parsemessage();
-        return s0;
-    }
-    function peg$parsemessage() {
-        var s0, s1;
-        s0 = [];
-        s1 = peg$parsemessageElement();
-        while (s1 !== peg$FAILED) {
-            s0.push(s1);
-            s1 = peg$parsemessageElement();
-        }
-        return s0;
-    }
-    function peg$parsemessageElement() {
-        var s0, s1, s2;
-        s0 = peg$currPos;
-        peg$savedPos = peg$currPos;
-        s1 = peg$c0();
-        if (s1) {
-            s1 = undefined;
-        }
-        else {
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsetagElement();
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c1(s2);
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        if (s0 === peg$FAILED) {
-            s0 = peg$parseliteralElement();
-            if (s0 === peg$FAILED) {
-                s0 = peg$parseargumentElement();
-                if (s0 === peg$FAILED) {
-                    s0 = peg$parsesimpleFormatElement();
-                    if (s0 === peg$FAILED) {
-                        s0 = peg$parsepluralElement();
-                        if (s0 === peg$FAILED) {
-                            s0 = peg$parseselectElement();
-                            if (s0 === peg$FAILED) {
-                                s0 = peg$parsepoundElement();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return s0;
-    }
-    function peg$parsemessageText() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        peg$savedPos = peg$currPos;
-        s1 = peg$c2();
-        if (s1) {
-            s1 = undefined;
-        }
-        else {
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = [];
-            s3 = peg$parsedoubleApostrophes();
-            if (s3 === peg$FAILED) {
-                s3 = peg$parsequotedString();
-                if (s3 === peg$FAILED) {
-                    s3 = peg$parseunquotedString();
-                    if (s3 === peg$FAILED) {
-                        if (input.charCodeAt(peg$currPos) === 60) {
-                            s3 = peg$c3;
-                            peg$currPos++;
-                        }
-                        else {
-                            s3 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c4);
-                            }
-                        }
-                    }
-                }
-            }
-            if (s3 !== peg$FAILED) {
-                while (s3 !== peg$FAILED) {
-                    s2.push(s3);
-                    s3 = peg$parsedoubleApostrophes();
-                    if (s3 === peg$FAILED) {
-                        s3 = peg$parsequotedString();
-                        if (s3 === peg$FAILED) {
-                            s3 = peg$parseunquotedString();
-                            if (s3 === peg$FAILED) {
-                                if (input.charCodeAt(peg$currPos) === 60) {
-                                    s3 = peg$c3;
-                                    peg$currPos++;
-                                }
-                                else {
-                                    s3 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c4);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                s2 = peg$FAILED;
-            }
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c5(s2);
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        if (s0 === peg$FAILED) {
-            s0 = peg$currPos;
-            s1 = [];
-            s2 = peg$parsedoubleApostrophes();
-            if (s2 === peg$FAILED) {
-                s2 = peg$parsequotedString();
-                if (s2 === peg$FAILED) {
-                    s2 = peg$parseunquotedString();
-                    if (s2 === peg$FAILED) {
-                        s2 = peg$parsenonTagStartingAngleBracket();
-                    }
-                }
-            }
-            if (s2 !== peg$FAILED) {
-                while (s2 !== peg$FAILED) {
-                    s1.push(s2);
-                    s2 = peg$parsedoubleApostrophes();
-                    if (s2 === peg$FAILED) {
-                        s2 = peg$parsequotedString();
-                        if (s2 === peg$FAILED) {
-                            s2 = peg$parseunquotedString();
-                            if (s2 === peg$FAILED) {
-                                s2 = peg$parsenonTagStartingAngleBracket();
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                s1 = peg$FAILED;
-            }
-            if (s1 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c5(s1);
-            }
-            s0 = s1;
-        }
-        return s0;
-    }
-    function peg$parsenonTagStartingAngleBracket() {
-        var s0, s1, s2;
-        s0 = peg$currPos;
-        s1 = peg$currPos;
-        peg$silentFails++;
-        s2 = peg$parseopeningTag();
-        if (s2 === peg$FAILED) {
-            s2 = peg$parseclosingTag();
-            if (s2 === peg$FAILED) {
-                s2 = peg$parseselfClosingTag();
-            }
-        }
-        peg$silentFails--;
-        if (s2 === peg$FAILED) {
-            s1 = undefined;
-        }
-        else {
-            peg$currPos = s1;
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            if (input.charCodeAt(peg$currPos) === 60) {
-                s2 = peg$c3;
-                peg$currPos++;
-            }
-            else {
-                s2 = peg$FAILED;
-                if (peg$silentFails === 0) {
-                    peg$fail(peg$c4);
-                }
-            }
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c6();
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parseliteralElement() {
-        var s0, s1;
-        s0 = peg$currPos;
-        s1 = peg$parsemessageText();
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c7(s1);
-        }
-        s0 = s1;
-        return s0;
-    }
-    function peg$parsepoundElement() {
-        var s0, s1;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 35) {
-            s1 = peg$c8;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c9);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c10();
-        }
-        s0 = s1;
-        return s0;
-    }
-    function peg$parsetagElement() {
-        var s0, s1, s2, s3;
-        peg$silentFails++;
-        s0 = peg$parseselfClosingTag();
-        if (s0 === peg$FAILED) {
-            s0 = peg$currPos;
-            s1 = peg$parseopeningTag();
-            if (s1 !== peg$FAILED) {
-                s2 = peg$parsemessage();
-                if (s2 !== peg$FAILED) {
-                    s3 = peg$parseclosingTag();
-                    if (s3 !== peg$FAILED) {
-                        peg$savedPos = s0;
-                        s1 = peg$c12(s1, s2, s3);
-                        s0 = s1;
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c11);
-            }
-        }
-        return s0;
-    }
-    function peg$parseselfClosingTag() {
-        var s0, s1, s2, s3, s4, s5;
-        s0 = peg$currPos;
-        s1 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 60) {
-            s2 = peg$c3;
-            peg$currPos++;
-        }
-        else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c4);
-            }
-        }
-        if (s2 !== peg$FAILED) {
-            s3 = peg$parsevalidTag();
-            if (s3 !== peg$FAILED) {
-                s4 = peg$parse_();
-                if (s4 !== peg$FAILED) {
-                    if (input.substr(peg$currPos, 2) === peg$c13) {
-                        s5 = peg$c13;
-                        peg$currPos += 2;
-                    }
-                    else {
-                        s5 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
-                        }
-                    }
-                    if (s5 !== peg$FAILED) {
-                        s2 = [s2, s3, s4, s5];
-                        s1 = s2;
-                    }
-                    else {
-                        peg$currPos = s1;
-                        s1 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s1;
-                    s1 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s1;
-                s1 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s1;
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c15(s1);
-        }
-        s0 = s1;
-        return s0;
-    }
-    function peg$parseopeningTag() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 60) {
-            s1 = peg$c3;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c4);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsevalidTag();
-            if (s2 !== peg$FAILED) {
-                if (input.charCodeAt(peg$currPos) === 62) {
-                    s3 = peg$c16;
-                    peg$currPos++;
-                }
-                else {
-                    s3 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c17);
-                    }
-                }
-                if (s3 !== peg$FAILED) {
-                    peg$savedPos = s0;
-                    s1 = peg$c18(s2);
-                    s0 = s1;
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parseclosingTag() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c19) {
-            s1 = peg$c19;
-            peg$currPos += 2;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c20);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsevalidTag();
-            if (s2 !== peg$FAILED) {
-                if (input.charCodeAt(peg$currPos) === 62) {
-                    s3 = peg$c16;
-                    peg$currPos++;
-                }
-                else {
-                    s3 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c17);
-                    }
-                }
-                if (s3 !== peg$FAILED) {
-                    peg$savedPos = s0;
-                    s1 = peg$c18(s2);
-                    s0 = s1;
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parseargumentElement() {
-        var s0, s1, s2, s3, s4, s5;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c22;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parse_();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parseargNameOrNumber();
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parse_();
-                    if (s4 !== peg$FAILED) {
-                        if (input.charCodeAt(peg$currPos) === 125) {
-                            s5 = peg$c24;
-                            peg$currPos++;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c25);
-                            }
-                        }
-                        if (s5 !== peg$FAILED) {
-                            peg$savedPos = s0;
-                            s1 = peg$c26(s3);
-                            s0 = s1;
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c21);
-            }
-        }
-        return s0;
-    }
-    function peg$parsenumberSkeletonId() {
-        var s0, s1, s2, s3, s4;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = [];
-        s2 = peg$currPos;
-        s3 = peg$currPos;
-        peg$silentFails++;
-        s4 = peg$parsewhiteSpace();
-        if (s4 === peg$FAILED) {
-            if (peg$c28.test(input.charAt(peg$currPos))) {
-                s4 = input.charAt(peg$currPos);
-                peg$currPos++;
-            }
-            else {
-                s4 = peg$FAILED;
-                if (peg$silentFails === 0) {
-                    peg$fail(peg$c29);
-                }
-            }
-        }
-        peg$silentFails--;
-        if (s4 === peg$FAILED) {
-            s3 = undefined;
-        }
-        else {
-            peg$currPos = s3;
-            s3 = peg$FAILED;
-        }
-        if (s3 !== peg$FAILED) {
-            if (input.length > peg$currPos) {
-                s4 = input.charAt(peg$currPos);
-                peg$currPos++;
-            }
-            else {
-                s4 = peg$FAILED;
-                if (peg$silentFails === 0) {
-                    peg$fail(peg$c30);
-                }
-            }
-            if (s4 !== peg$FAILED) {
-                s3 = [s3, s4];
-                s2 = s3;
-            }
-            else {
-                peg$currPos = s2;
-                s2 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s2;
-            s2 = peg$FAILED;
-        }
-        if (s2 !== peg$FAILED) {
-            while (s2 !== peg$FAILED) {
-                s1.push(s2);
-                s2 = peg$currPos;
-                s3 = peg$currPos;
-                peg$silentFails++;
-                s4 = peg$parsewhiteSpace();
-                if (s4 === peg$FAILED) {
-                    if (peg$c28.test(input.charAt(peg$currPos))) {
-                        s4 = input.charAt(peg$currPos);
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c29);
-                        }
-                    }
-                }
-                peg$silentFails--;
-                if (s4 === peg$FAILED) {
-                    s3 = undefined;
-                }
-                else {
-                    peg$currPos = s3;
-                    s3 = peg$FAILED;
-                }
-                if (s3 !== peg$FAILED) {
-                    if (input.length > peg$currPos) {
-                        s4 = input.charAt(peg$currPos);
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c30);
-                        }
-                    }
-                    if (s4 !== peg$FAILED) {
-                        s3 = [s3, s4];
-                        s2 = s3;
-                    }
-                    else {
-                        peg$currPos = s2;
-                        s2 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s2;
-                    s2 = peg$FAILED;
-                }
-            }
-        }
-        else {
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c27);
-            }
-        }
-        return s0;
-    }
-    function peg$parsenumberSkeletonTokenOption() {
-        var s0, s1, s2;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 47) {
-            s1 = peg$c32;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsenumberSkeletonId();
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c34(s2);
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c31);
-            }
-        }
-        return s0;
-    }
-    function peg$parsenumberSkeletonToken() {
-        var s0, s1, s2, s3, s4;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = peg$parse_();
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsenumberSkeletonId();
-            if (s2 !== peg$FAILED) {
-                s3 = [];
-                s4 = peg$parsenumberSkeletonTokenOption();
-                while (s4 !== peg$FAILED) {
-                    s3.push(s4);
-                    s4 = peg$parsenumberSkeletonTokenOption();
-                }
-                if (s3 !== peg$FAILED) {
-                    peg$savedPos = s0;
-                    s1 = peg$c36(s2, s3);
-                    s0 = s1;
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c35);
-            }
-        }
-        return s0;
-    }
-    function peg$parsenumberSkeleton() {
-        var s0, s1, s2;
-        s0 = peg$currPos;
-        s1 = [];
-        s2 = peg$parsenumberSkeletonToken();
-        if (s2 !== peg$FAILED) {
-            while (s2 !== peg$FAILED) {
-                s1.push(s2);
-                s2 = peg$parsenumberSkeletonToken();
-            }
-        }
-        else {
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c37(s1);
-        }
-        s0 = s1;
-        return s0;
-    }
-    function peg$parsenumberArgStyle() {
-        var s0, s1, s2;
-        s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c38) {
-            s1 = peg$c38;
-            peg$currPos += 2;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c39);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsenumberSkeleton();
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c40(s2);
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        if (s0 === peg$FAILED) {
-            s0 = peg$currPos;
-            peg$savedPos = peg$currPos;
-            s1 = peg$c41();
-            if (s1) {
-                s1 = undefined;
-            }
-            else {
-                s1 = peg$FAILED;
-            }
-            if (s1 !== peg$FAILED) {
-                s2 = peg$parsemessageText();
-                if (s2 !== peg$FAILED) {
-                    peg$savedPos = s0;
-                    s1 = peg$c42(s2);
-                    s0 = s1;
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        return s0;
-    }
-    function peg$parsenumberFormatElement() {
-        var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c22;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parse_();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parseargNameOrNumber();
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parse_();
-                    if (s4 !== peg$FAILED) {
-                        if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c43;
-                            peg$currPos++;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c44);
-                            }
-                        }
-                        if (s5 !== peg$FAILED) {
-                            s6 = peg$parse_();
-                            if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c45) {
-                                    s7 = peg$c45;
-                                    peg$currPos += 6;
-                                }
-                                else {
-                                    s7 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c46);
-                                    }
-                                }
-                                if (s7 !== peg$FAILED) {
-                                    s8 = peg$parse_();
-                                    if (s8 !== peg$FAILED) {
-                                        s9 = peg$currPos;
-                                        if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c43;
-                                            peg$currPos++;
-                                        }
-                                        else {
-                                            s10 = peg$FAILED;
-                                            if (peg$silentFails === 0) {
-                                                peg$fail(peg$c44);
-                                            }
-                                        }
-                                        if (s10 !== peg$FAILED) {
-                                            s11 = peg$parse_();
-                                            if (s11 !== peg$FAILED) {
-                                                s12 = peg$parsenumberArgStyle();
-                                                if (s12 !== peg$FAILED) {
-                                                    s10 = [s10, s11, s12];
-                                                    s9 = s10;
-                                                }
-                                                else {
-                                                    peg$currPos = s9;
-                                                    s9 = peg$FAILED;
-                                                }
-                                            }
-                                            else {
-                                                peg$currPos = s9;
-                                                s9 = peg$FAILED;
-                                            }
-                                        }
-                                        else {
-                                            peg$currPos = s9;
-                                            s9 = peg$FAILED;
-                                        }
-                                        if (s9 === peg$FAILED) {
-                                            s9 = null;
-                                        }
-                                        if (s9 !== peg$FAILED) {
-                                            s10 = peg$parse_();
-                                            if (s10 !== peg$FAILED) {
-                                                if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c24;
-                                                    peg$currPos++;
-                                                }
-                                                else {
-                                                    s11 = peg$FAILED;
-                                                    if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c25);
-                                                    }
-                                                }
-                                                if (s11 !== peg$FAILED) {
-                                                    peg$savedPos = s0;
-                                                    s1 = peg$c47(s3, s7, s9);
-                                                    s0 = s1;
-                                                }
-                                                else {
-                                                    peg$currPos = s0;
-                                                    s0 = peg$FAILED;
-                                                }
-                                            }
-                                            else {
-                                                peg$currPos = s0;
-                                                s0 = peg$FAILED;
-                                            }
-                                        }
-                                        else {
-                                            peg$currPos = s0;
-                                            s0 = peg$FAILED;
-                                        }
-                                    }
-                                    else {
-                                        peg$currPos = s0;
-                                        s0 = peg$FAILED;
-                                    }
-                                }
-                                else {
-                                    peg$currPos = s0;
-                                    s0 = peg$FAILED;
-                                }
-                            }
-                            else {
-                                peg$currPos = s0;
-                                s0 = peg$FAILED;
-                            }
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parsedateTimeSkeletonLiteral() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c48;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c49);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = [];
-            s3 = peg$parsedoubleApostrophes();
-            if (s3 === peg$FAILED) {
-                if (peg$c50.test(input.charAt(peg$currPos))) {
-                    s3 = input.charAt(peg$currPos);
-                    peg$currPos++;
-                }
-                else {
-                    s3 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c51);
-                    }
-                }
-            }
-            if (s3 !== peg$FAILED) {
-                while (s3 !== peg$FAILED) {
-                    s2.push(s3);
-                    s3 = peg$parsedoubleApostrophes();
-                    if (s3 === peg$FAILED) {
-                        if (peg$c50.test(input.charAt(peg$currPos))) {
-                            s3 = input.charAt(peg$currPos);
-                            peg$currPos++;
-                        }
-                        else {
-                            s3 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c51);
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                s2 = peg$FAILED;
-            }
-            if (s2 !== peg$FAILED) {
-                if (input.charCodeAt(peg$currPos) === 39) {
-                    s3 = peg$c48;
-                    peg$currPos++;
-                }
-                else {
-                    s3 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c49);
-                    }
-                }
-                if (s3 !== peg$FAILED) {
-                    s1 = [s1, s2, s3];
-                    s0 = s1;
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        if (s0 === peg$FAILED) {
-            s0 = [];
-            s1 = peg$parsedoubleApostrophes();
-            if (s1 === peg$FAILED) {
-                if (peg$c52.test(input.charAt(peg$currPos))) {
-                    s1 = input.charAt(peg$currPos);
-                    peg$currPos++;
-                }
-                else {
-                    s1 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c53);
-                    }
-                }
-            }
-            if (s1 !== peg$FAILED) {
-                while (s1 !== peg$FAILED) {
-                    s0.push(s1);
-                    s1 = peg$parsedoubleApostrophes();
-                    if (s1 === peg$FAILED) {
-                        if (peg$c52.test(input.charAt(peg$currPos))) {
-                            s1 = input.charAt(peg$currPos);
-                            peg$currPos++;
-                        }
-                        else {
-                            s1 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c53);
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                s0 = peg$FAILED;
-            }
-        }
-        return s0;
-    }
-    function peg$parsedateTimeSkeletonPattern() {
-        var s0, s1;
-        s0 = [];
-        if (peg$c54.test(input.charAt(peg$currPos))) {
-            s1 = input.charAt(peg$currPos);
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c55);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            while (s1 !== peg$FAILED) {
-                s0.push(s1);
-                if (peg$c54.test(input.charAt(peg$currPos))) {
-                    s1 = input.charAt(peg$currPos);
-                    peg$currPos++;
-                }
-                else {
-                    s1 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c55);
-                    }
-                }
-            }
-        }
-        else {
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parsedateTimeSkeleton() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        s1 = peg$currPos;
-        s2 = [];
-        s3 = peg$parsedateTimeSkeletonLiteral();
-        if (s3 === peg$FAILED) {
-            s3 = peg$parsedateTimeSkeletonPattern();
-        }
-        if (s3 !== peg$FAILED) {
-            while (s3 !== peg$FAILED) {
-                s2.push(s3);
-                s3 = peg$parsedateTimeSkeletonLiteral();
-                if (s3 === peg$FAILED) {
-                    s3 = peg$parsedateTimeSkeletonPattern();
-                }
-            }
-        }
-        else {
-            s2 = peg$FAILED;
-        }
-        if (s2 !== peg$FAILED) {
-            s1 = input.substring(s1, peg$currPos);
-        }
-        else {
-            s1 = s2;
-        }
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c56(s1);
-        }
-        s0 = s1;
-        return s0;
-    }
-    function peg$parsedateOrTimeArgStyle() {
-        var s0, s1, s2;
-        s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c38) {
-            s1 = peg$c38;
-            peg$currPos += 2;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c39);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsedateTimeSkeleton();
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c40(s2);
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        if (s0 === peg$FAILED) {
-            s0 = peg$currPos;
-            peg$savedPos = peg$currPos;
-            s1 = peg$c57();
-            if (s1) {
-                s1 = undefined;
-            }
-            else {
-                s1 = peg$FAILED;
-            }
-            if (s1 !== peg$FAILED) {
-                s2 = peg$parsemessageText();
-                if (s2 !== peg$FAILED) {
-                    peg$savedPos = s0;
-                    s1 = peg$c42(s2);
-                    s0 = s1;
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        return s0;
-    }
-    function peg$parsedateOrTimeFormatElement() {
-        var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c22;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parse_();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parseargNameOrNumber();
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parse_();
-                    if (s4 !== peg$FAILED) {
-                        if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c43;
-                            peg$currPos++;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c44);
-                            }
-                        }
-                        if (s5 !== peg$FAILED) {
-                            s6 = peg$parse_();
-                            if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 4) === peg$c58) {
-                                    s7 = peg$c58;
-                                    peg$currPos += 4;
-                                }
-                                else {
-                                    s7 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c59);
-                                    }
-                                }
-                                if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 4) === peg$c60) {
-                                        s7 = peg$c60;
-                                        peg$currPos += 4;
-                                    }
-                                    else {
-                                        s7 = peg$FAILED;
-                                        if (peg$silentFails === 0) {
-                                            peg$fail(peg$c61);
-                                        }
-                                    }
-                                }
-                                if (s7 !== peg$FAILED) {
-                                    s8 = peg$parse_();
-                                    if (s8 !== peg$FAILED) {
-                                        s9 = peg$currPos;
-                                        if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c43;
-                                            peg$currPos++;
-                                        }
-                                        else {
-                                            s10 = peg$FAILED;
-                                            if (peg$silentFails === 0) {
-                                                peg$fail(peg$c44);
-                                            }
-                                        }
-                                        if (s10 !== peg$FAILED) {
-                                            s11 = peg$parse_();
-                                            if (s11 !== peg$FAILED) {
-                                                s12 = peg$parsedateOrTimeArgStyle();
-                                                if (s12 !== peg$FAILED) {
-                                                    s10 = [s10, s11, s12];
-                                                    s9 = s10;
-                                                }
-                                                else {
-                                                    peg$currPos = s9;
-                                                    s9 = peg$FAILED;
-                                                }
-                                            }
-                                            else {
-                                                peg$currPos = s9;
-                                                s9 = peg$FAILED;
-                                            }
-                                        }
-                                        else {
-                                            peg$currPos = s9;
-                                            s9 = peg$FAILED;
-                                        }
-                                        if (s9 === peg$FAILED) {
-                                            s9 = null;
-                                        }
-                                        if (s9 !== peg$FAILED) {
-                                            s10 = peg$parse_();
-                                            if (s10 !== peg$FAILED) {
-                                                if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c24;
-                                                    peg$currPos++;
-                                                }
-                                                else {
-                                                    s11 = peg$FAILED;
-                                                    if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c25);
-                                                    }
-                                                }
-                                                if (s11 !== peg$FAILED) {
-                                                    peg$savedPos = s0;
-                                                    s1 = peg$c47(s3, s7, s9);
-                                                    s0 = s1;
-                                                }
-                                                else {
-                                                    peg$currPos = s0;
-                                                    s0 = peg$FAILED;
-                                                }
-                                            }
-                                            else {
-                                                peg$currPos = s0;
-                                                s0 = peg$FAILED;
-                                            }
-                                        }
-                                        else {
-                                            peg$currPos = s0;
-                                            s0 = peg$FAILED;
-                                        }
-                                    }
-                                    else {
-                                        peg$currPos = s0;
-                                        s0 = peg$FAILED;
-                                    }
-                                }
-                                else {
-                                    peg$currPos = s0;
-                                    s0 = peg$FAILED;
-                                }
-                            }
-                            else {
-                                peg$currPos = s0;
-                                s0 = peg$FAILED;
-                            }
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parsesimpleFormatElement() {
-        var s0;
-        s0 = peg$parsenumberFormatElement();
-        if (s0 === peg$FAILED) {
-            s0 = peg$parsedateOrTimeFormatElement();
-        }
-        return s0;
-    }
-    function peg$parsepluralElement() {
-        var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c22;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parse_();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parseargNameOrNumber();
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parse_();
-                    if (s4 !== peg$FAILED) {
-                        if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c43;
-                            peg$currPos++;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c44);
-                            }
-                        }
-                        if (s5 !== peg$FAILED) {
-                            s6 = peg$parse_();
-                            if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c62) {
-                                    s7 = peg$c62;
-                                    peg$currPos += 6;
-                                }
-                                else {
-                                    s7 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c63);
-                                    }
-                                }
-                                if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 13) === peg$c64) {
-                                        s7 = peg$c64;
-                                        peg$currPos += 13;
-                                    }
-                                    else {
-                                        s7 = peg$FAILED;
-                                        if (peg$silentFails === 0) {
-                                            peg$fail(peg$c65);
-                                        }
-                                    }
-                                }
-                                if (s7 !== peg$FAILED) {
-                                    s8 = peg$parse_();
-                                    if (s8 !== peg$FAILED) {
-                                        if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c43;
-                                            peg$currPos++;
-                                        }
-                                        else {
-                                            s9 = peg$FAILED;
-                                            if (peg$silentFails === 0) {
-                                                peg$fail(peg$c44);
-                                            }
-                                        }
-                                        if (s9 !== peg$FAILED) {
-                                            s10 = peg$parse_();
-                                            if (s10 !== peg$FAILED) {
-                                                s11 = peg$currPos;
-                                                if (input.substr(peg$currPos, 7) === peg$c66) {
-                                                    s12 = peg$c66;
-                                                    peg$currPos += 7;
-                                                }
-                                                else {
-                                                    s12 = peg$FAILED;
-                                                    if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c67);
-                                                    }
-                                                }
-                                                if (s12 !== peg$FAILED) {
-                                                    s13 = peg$parse_();
-                                                    if (s13 !== peg$FAILED) {
-                                                        s14 = peg$parsenumber();
-                                                        if (s14 !== peg$FAILED) {
-                                                            s12 = [s12, s13, s14];
-                                                            s11 = s12;
-                                                        }
-                                                        else {
-                                                            peg$currPos = s11;
-                                                            s11 = peg$FAILED;
-                                                        }
-                                                    }
-                                                    else {
-                                                        peg$currPos = s11;
-                                                        s11 = peg$FAILED;
-                                                    }
-                                                }
-                                                else {
-                                                    peg$currPos = s11;
-                                                    s11 = peg$FAILED;
-                                                }
-                                                if (s11 === peg$FAILED) {
-                                                    s11 = null;
-                                                }
-                                                if (s11 !== peg$FAILED) {
-                                                    s12 = peg$parse_();
-                                                    if (s12 !== peg$FAILED) {
-                                                        s13 = [];
-                                                        s14 = peg$parsepluralOption();
-                                                        if (s14 !== peg$FAILED) {
-                                                            while (s14 !== peg$FAILED) {
-                                                                s13.push(s14);
-                                                                s14 = peg$parsepluralOption();
-                                                            }
-                                                        }
-                                                        else {
-                                                            s13 = peg$FAILED;
-                                                        }
-                                                        if (s13 !== peg$FAILED) {
-                                                            s14 = peg$parse_();
-                                                            if (s14 !== peg$FAILED) {
-                                                                if (input.charCodeAt(peg$currPos) === 125) {
-                                                                    s15 = peg$c24;
-                                                                    peg$currPos++;
-                                                                }
-                                                                else {
-                                                                    s15 = peg$FAILED;
-                                                                    if (peg$silentFails === 0) {
-                                                                        peg$fail(peg$c25);
-                                                                    }
-                                                                }
-                                                                if (s15 !== peg$FAILED) {
-                                                                    peg$savedPos = s0;
-                                                                    s1 = peg$c68(s3, s7, s11, s13);
-                                                                    s0 = s1;
-                                                                }
-                                                                else {
-                                                                    peg$currPos = s0;
-                                                                    s0 = peg$FAILED;
-                                                                }
-                                                            }
-                                                            else {
-                                                                peg$currPos = s0;
-                                                                s0 = peg$FAILED;
-                                                            }
-                                                        }
-                                                        else {
-                                                            peg$currPos = s0;
-                                                            s0 = peg$FAILED;
-                                                        }
-                                                    }
-                                                    else {
-                                                        peg$currPos = s0;
-                                                        s0 = peg$FAILED;
-                                                    }
-                                                }
-                                                else {
-                                                    peg$currPos = s0;
-                                                    s0 = peg$FAILED;
-                                                }
-                                            }
-                                            else {
-                                                peg$currPos = s0;
-                                                s0 = peg$FAILED;
-                                            }
-                                        }
-                                        else {
-                                            peg$currPos = s0;
-                                            s0 = peg$FAILED;
-                                        }
-                                    }
-                                    else {
-                                        peg$currPos = s0;
-                                        s0 = peg$FAILED;
-                                    }
-                                }
-                                else {
-                                    peg$currPos = s0;
-                                    s0 = peg$FAILED;
-                                }
-                            }
-                            else {
-                                peg$currPos = s0;
-                                s0 = peg$FAILED;
-                            }
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parseselectElement() {
-        var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c22;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parse_();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parseargNameOrNumber();
-                if (s3 !== peg$FAILED) {
-                    s4 = peg$parse_();
-                    if (s4 !== peg$FAILED) {
-                        if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c43;
-                            peg$currPos++;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c44);
-                            }
-                        }
-                        if (s5 !== peg$FAILED) {
-                            s6 = peg$parse_();
-                            if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c69) {
-                                    s7 = peg$c69;
-                                    peg$currPos += 6;
-                                }
-                                else {
-                                    s7 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c70);
-                                    }
-                                }
-                                if (s7 !== peg$FAILED) {
-                                    s8 = peg$parse_();
-                                    if (s8 !== peg$FAILED) {
-                                        if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c43;
-                                            peg$currPos++;
-                                        }
-                                        else {
-                                            s9 = peg$FAILED;
-                                            if (peg$silentFails === 0) {
-                                                peg$fail(peg$c44);
-                                            }
-                                        }
-                                        if (s9 !== peg$FAILED) {
-                                            s10 = peg$parse_();
-                                            if (s10 !== peg$FAILED) {
-                                                s11 = [];
-                                                s12 = peg$parseselectOption();
-                                                if (s12 !== peg$FAILED) {
-                                                    while (s12 !== peg$FAILED) {
-                                                        s11.push(s12);
-                                                        s12 = peg$parseselectOption();
-                                                    }
-                                                }
-                                                else {
-                                                    s11 = peg$FAILED;
-                                                }
-                                                if (s11 !== peg$FAILED) {
-                                                    s12 = peg$parse_();
-                                                    if (s12 !== peg$FAILED) {
-                                                        if (input.charCodeAt(peg$currPos) === 125) {
-                                                            s13 = peg$c24;
-                                                            peg$currPos++;
-                                                        }
-                                                        else {
-                                                            s13 = peg$FAILED;
-                                                            if (peg$silentFails === 0) {
-                                                                peg$fail(peg$c25);
-                                                            }
-                                                        }
-                                                        if (s13 !== peg$FAILED) {
-                                                            peg$savedPos = s0;
-                                                            s1 = peg$c71(s3, s11);
-                                                            s0 = s1;
-                                                        }
-                                                        else {
-                                                            peg$currPos = s0;
-                                                            s0 = peg$FAILED;
-                                                        }
-                                                    }
-                                                    else {
-                                                        peg$currPos = s0;
-                                                        s0 = peg$FAILED;
-                                                    }
-                                                }
-                                                else {
-                                                    peg$currPos = s0;
-                                                    s0 = peg$FAILED;
-                                                }
-                                            }
-                                            else {
-                                                peg$currPos = s0;
-                                                s0 = peg$FAILED;
-                                            }
-                                        }
-                                        else {
-                                            peg$currPos = s0;
-                                            s0 = peg$FAILED;
-                                        }
-                                    }
-                                    else {
-                                        peg$currPos = s0;
-                                        s0 = peg$FAILED;
-                                    }
-                                }
-                                else {
-                                    peg$currPos = s0;
-                                    s0 = peg$FAILED;
-                                }
-                            }
-                            else {
-                                peg$currPos = s0;
-                                s0 = peg$FAILED;
-                            }
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parsepluralRuleSelectValue() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        s1 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 61) {
-            s2 = peg$c72;
-            peg$currPos++;
-        }
-        else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c73);
-            }
-        }
-        if (s2 !== peg$FAILED) {
-            s3 = peg$parsenumber();
-            if (s3 !== peg$FAILED) {
-                s2 = [s2, s3];
-                s1 = s2;
-            }
-            else {
-                peg$currPos = s1;
-                s1 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s1;
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        if (s0 === peg$FAILED) {
-            s0 = peg$parseargName();
-        }
-        return s0;
-    }
-    function peg$parseselectOption() {
-        var s0, s1, s2, s3, s4, s5, s6, s7;
-        s0 = peg$currPos;
-        s1 = peg$parse_();
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parseargName();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parse_();
-                if (s3 !== peg$FAILED) {
-                    if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c22;
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c23);
-                        }
-                    }
-                    if (s4 !== peg$FAILED) {
-                        peg$savedPos = peg$currPos;
-                        s5 = peg$c74(s2);
-                        if (s5) {
-                            s5 = undefined;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                        }
-                        if (s5 !== peg$FAILED) {
-                            s6 = peg$parsemessage();
-                            if (s6 !== peg$FAILED) {
-                                if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c24;
-                                    peg$currPos++;
-                                }
-                                else {
-                                    s7 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c25);
-                                    }
-                                }
-                                if (s7 !== peg$FAILED) {
-                                    peg$savedPos = s0;
-                                    s1 = peg$c75(s2, s6);
-                                    s0 = s1;
-                                }
-                                else {
-                                    peg$currPos = s0;
-                                    s0 = peg$FAILED;
-                                }
-                            }
-                            else {
-                                peg$currPos = s0;
-                                s0 = peg$FAILED;
-                            }
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parsepluralOption() {
-        var s0, s1, s2, s3, s4, s5, s6, s7;
-        s0 = peg$currPos;
-        s1 = peg$parse_();
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parsepluralRuleSelectValue();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$parse_();
-                if (s3 !== peg$FAILED) {
-                    if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c22;
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c23);
-                        }
-                    }
-                    if (s4 !== peg$FAILED) {
-                        peg$savedPos = peg$currPos;
-                        s5 = peg$c76(s2);
-                        if (s5) {
-                            s5 = undefined;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                        }
-                        if (s5 !== peg$FAILED) {
-                            s6 = peg$parsemessage();
-                            if (s6 !== peg$FAILED) {
-                                if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c24;
-                                    peg$currPos++;
-                                }
-                                else {
-                                    s7 = peg$FAILED;
-                                    if (peg$silentFails === 0) {
-                                        peg$fail(peg$c25);
-                                    }
-                                }
-                                if (s7 !== peg$FAILED) {
-                                    peg$savedPos = s0;
-                                    s1 = peg$c77(s2, s6);
-                                    s0 = s1;
-                                }
-                                else {
-                                    peg$currPos = s0;
-                                    s0 = peg$FAILED;
-                                }
-                            }
-                            else {
-                                peg$currPos = s0;
-                                s0 = peg$FAILED;
-                            }
-                        }
-                        else {
-                            peg$currPos = s0;
-                            s0 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parsewhiteSpace() {
-        var s0, s1;
-        peg$silentFails++;
-        if (peg$c79.test(input.charAt(peg$currPos))) {
-            s0 = input.charAt(peg$currPos);
-            peg$currPos++;
-        }
-        else {
-            s0 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c80);
-            }
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c78);
-            }
-        }
-        return s0;
-    }
-    function peg$parsepatternSyntax() {
-        var s0, s1;
-        peg$silentFails++;
-        if (peg$c82.test(input.charAt(peg$currPos))) {
-            s0 = input.charAt(peg$currPos);
-            peg$currPos++;
-        }
-        else {
-            s0 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c83);
-            }
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c81);
-            }
-        }
-        return s0;
-    }
-    function peg$parse_() {
-        var s0, s1, s2;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = [];
-        s2 = peg$parsewhiteSpace();
-        while (s2 !== peg$FAILED) {
-            s1.push(s2);
-            s2 = peg$parsewhiteSpace();
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c84);
-            }
-        }
-        return s0;
-    }
-    function peg$parsenumber() {
-        var s0, s1, s2;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 45) {
-            s1 = peg$c86;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c87);
-            }
-        }
-        if (s1 === peg$FAILED) {
-            s1 = null;
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parseargNumber();
-            if (s2 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c88(s1, s2);
-                s0 = s1;
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c85);
-            }
-        }
-        return s0;
-    }
-    function peg$parseapostrophe() {
-        var s0, s1;
-        peg$silentFails++;
-        if (input.charCodeAt(peg$currPos) === 39) {
-            s0 = peg$c48;
-            peg$currPos++;
-        }
-        else {
-            s0 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c49);
-            }
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c89);
-            }
-        }
-        return s0;
-    }
-    function peg$parsedoubleApostrophes() {
-        var s0, s1;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c91) {
-            s1 = peg$c91;
-            peg$currPos += 2;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c92);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c93();
-        }
-        s0 = s1;
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c90);
-            }
-        }
-        return s0;
-    }
-    function peg$parsequotedString() {
-        var s0, s1, s2, s3, s4, s5;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c48;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c49);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s2 = peg$parseescapedChar();
-            if (s2 !== peg$FAILED) {
-                s3 = peg$currPos;
-                s4 = [];
-                if (input.substr(peg$currPos, 2) === peg$c91) {
-                    s5 = peg$c91;
-                    peg$currPos += 2;
-                }
-                else {
-                    s5 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c92);
-                    }
-                }
-                if (s5 === peg$FAILED) {
-                    if (peg$c50.test(input.charAt(peg$currPos))) {
-                        s5 = input.charAt(peg$currPos);
-                        peg$currPos++;
-                    }
-                    else {
-                        s5 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c51);
-                        }
-                    }
-                }
-                while (s5 !== peg$FAILED) {
-                    s4.push(s5);
-                    if (input.substr(peg$currPos, 2) === peg$c91) {
-                        s5 = peg$c91;
-                        peg$currPos += 2;
-                    }
-                    else {
-                        s5 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c92);
-                        }
-                    }
-                    if (s5 === peg$FAILED) {
-                        if (peg$c50.test(input.charAt(peg$currPos))) {
-                            s5 = input.charAt(peg$currPos);
-                            peg$currPos++;
-                        }
-                        else {
-                            s5 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c51);
-                            }
-                        }
-                    }
-                }
-                if (s4 !== peg$FAILED) {
-                    s3 = input.substring(s3, peg$currPos);
-                }
-                else {
-                    s3 = s4;
-                }
-                if (s3 !== peg$FAILED) {
-                    if (input.charCodeAt(peg$currPos) === 39) {
-                        s4 = peg$c48;
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c49);
-                        }
-                    }
-                    if (s4 === peg$FAILED) {
-                        s4 = null;
-                    }
-                    if (s4 !== peg$FAILED) {
-                        peg$savedPos = s0;
-                        s1 = peg$c94(s2, s3);
-                        s0 = s1;
-                    }
-                    else {
-                        peg$currPos = s0;
-                        s0 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s0;
-                    s0 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s0;
-                s0 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-        }
-        return s0;
-    }
-    function peg$parseunquotedString() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        s1 = peg$currPos;
-        if (input.length > peg$currPos) {
-            s2 = input.charAt(peg$currPos);
-            peg$currPos++;
-        }
-        else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c30);
-            }
-        }
-        if (s2 !== peg$FAILED) {
-            peg$savedPos = peg$currPos;
-            s3 = peg$c95(s2);
-            if (s3) {
-                s3 = undefined;
-            }
-            else {
-                s3 = peg$FAILED;
-            }
-            if (s3 !== peg$FAILED) {
-                s2 = [s2, s3];
-                s1 = s2;
-            }
-            else {
-                peg$currPos = s1;
-                s1 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s1;
-            s1 = peg$FAILED;
-        }
-        if (s1 === peg$FAILED) {
-            if (input.charCodeAt(peg$currPos) === 10) {
-                s1 = peg$c96;
-                peg$currPos++;
-            }
-            else {
-                s1 = peg$FAILED;
-                if (peg$silentFails === 0) {
-                    peg$fail(peg$c97);
-                }
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        return s0;
-    }
-    function peg$parseescapedChar() {
-        var s0, s1, s2, s3;
-        s0 = peg$currPos;
-        s1 = peg$currPos;
-        if (input.length > peg$currPos) {
-            s2 = input.charAt(peg$currPos);
-            peg$currPos++;
-        }
-        else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c30);
-            }
-        }
-        if (s2 !== peg$FAILED) {
-            peg$savedPos = peg$currPos;
-            s3 = peg$c98(s2);
-            if (s3) {
-                s3 = undefined;
-            }
-            else {
-                s3 = peg$FAILED;
-            }
-            if (s3 !== peg$FAILED) {
-                s2 = [s2, s3];
-                s1 = s2;
-            }
-            else {
-                peg$currPos = s1;
-                s1 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s1;
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        return s0;
-    }
-    function peg$parseargNameOrNumber() {
-        var s0, s1;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = peg$parseargNumber();
-        if (s1 === peg$FAILED) {
-            s1 = peg$parseargName();
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c99);
-            }
-        }
-        return s0;
-    }
-    function peg$parsevalidTag() {
-        var s0, s1;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = peg$parseargNumber();
-        if (s1 === peg$FAILED) {
-            s1 = peg$parsetagName();
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c100);
-            }
-        }
-        return s0;
-    }
-    function peg$parseargNumber() {
-        var s0, s1, s2, s3, s4;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 48) {
-            s1 = peg$c102;
-            peg$currPos++;
-        }
-        else {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c103);
-            }
-        }
-        if (s1 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c104();
-        }
-        s0 = s1;
-        if (s0 === peg$FAILED) {
-            s0 = peg$currPos;
-            s1 = peg$currPos;
-            if (peg$c105.test(input.charAt(peg$currPos))) {
-                s2 = input.charAt(peg$currPos);
-                peg$currPos++;
-            }
-            else {
-                s2 = peg$FAILED;
-                if (peg$silentFails === 0) {
-                    peg$fail(peg$c106);
-                }
-            }
-            if (s2 !== peg$FAILED) {
-                s3 = [];
-                if (peg$c107.test(input.charAt(peg$currPos))) {
-                    s4 = input.charAt(peg$currPos);
-                    peg$currPos++;
-                }
-                else {
-                    s4 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c108);
-                    }
-                }
-                while (s4 !== peg$FAILED) {
-                    s3.push(s4);
-                    if (peg$c107.test(input.charAt(peg$currPos))) {
-                        s4 = input.charAt(peg$currPos);
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c108);
-                        }
-                    }
-                }
-                if (s3 !== peg$FAILED) {
-                    s2 = [s2, s3];
-                    s1 = s2;
-                }
-                else {
-                    peg$currPos = s1;
-                    s1 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s1;
-                s1 = peg$FAILED;
-            }
-            if (s1 !== peg$FAILED) {
-                peg$savedPos = s0;
-                s1 = peg$c109(s1);
-            }
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c101);
-            }
-        }
-        return s0;
-    }
-    function peg$parseargName() {
-        var s0, s1, s2, s3, s4;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = [];
-        s2 = peg$currPos;
-        s3 = peg$currPos;
-        peg$silentFails++;
-        s4 = peg$parsewhiteSpace();
-        if (s4 === peg$FAILED) {
-            s4 = peg$parsepatternSyntax();
-        }
-        peg$silentFails--;
-        if (s4 === peg$FAILED) {
-            s3 = undefined;
-        }
-        else {
-            peg$currPos = s3;
-            s3 = peg$FAILED;
-        }
-        if (s3 !== peg$FAILED) {
-            if (input.length > peg$currPos) {
-                s4 = input.charAt(peg$currPos);
-                peg$currPos++;
-            }
-            else {
-                s4 = peg$FAILED;
-                if (peg$silentFails === 0) {
-                    peg$fail(peg$c30);
-                }
-            }
-            if (s4 !== peg$FAILED) {
-                s3 = [s3, s4];
-                s2 = s3;
-            }
-            else {
-                peg$currPos = s2;
-                s2 = peg$FAILED;
-            }
-        }
-        else {
-            peg$currPos = s2;
-            s2 = peg$FAILED;
-        }
-        if (s2 !== peg$FAILED) {
-            while (s2 !== peg$FAILED) {
-                s1.push(s2);
-                s2 = peg$currPos;
-                s3 = peg$currPos;
-                peg$silentFails++;
-                s4 = peg$parsewhiteSpace();
-                if (s4 === peg$FAILED) {
-                    s4 = peg$parsepatternSyntax();
-                }
-                peg$silentFails--;
-                if (s4 === peg$FAILED) {
-                    s3 = undefined;
-                }
-                else {
-                    peg$currPos = s3;
-                    s3 = peg$FAILED;
-                }
-                if (s3 !== peg$FAILED) {
-                    if (input.length > peg$currPos) {
-                        s4 = input.charAt(peg$currPos);
-                        peg$currPos++;
-                    }
-                    else {
-                        s4 = peg$FAILED;
-                        if (peg$silentFails === 0) {
-                            peg$fail(peg$c30);
-                        }
-                    }
-                    if (s4 !== peg$FAILED) {
-                        s3 = [s3, s4];
-                        s2 = s3;
-                    }
-                    else {
-                        peg$currPos = s2;
-                        s2 = peg$FAILED;
-                    }
-                }
-                else {
-                    peg$currPos = s2;
-                    s2 = peg$FAILED;
-                }
-            }
-        }
-        else {
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c110);
-            }
-        }
-        return s0;
-    }
-    function peg$parsetagName() {
-        var s0, s1, s2, s3, s4;
-        peg$silentFails++;
-        s0 = peg$currPos;
-        s1 = [];
-        if (input.charCodeAt(peg$currPos) === 45) {
-            s2 = peg$c86;
-            peg$currPos++;
-        }
-        else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c87);
-            }
-        }
-        if (s2 === peg$FAILED) {
-            s2 = peg$currPos;
-            s3 = peg$currPos;
-            peg$silentFails++;
-            s4 = peg$parsewhiteSpace();
-            if (s4 === peg$FAILED) {
-                s4 = peg$parsepatternSyntax();
-            }
-            peg$silentFails--;
-            if (s4 === peg$FAILED) {
-                s3 = undefined;
-            }
-            else {
-                peg$currPos = s3;
-                s3 = peg$FAILED;
-            }
-            if (s3 !== peg$FAILED) {
-                if (input.length > peg$currPos) {
-                    s4 = input.charAt(peg$currPos);
-                    peg$currPos++;
-                }
-                else {
-                    s4 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c30);
-                    }
-                }
-                if (s4 !== peg$FAILED) {
-                    s3 = [s3, s4];
-                    s2 = s3;
-                }
-                else {
-                    peg$currPos = s2;
-                    s2 = peg$FAILED;
-                }
-            }
-            else {
-                peg$currPos = s2;
-                s2 = peg$FAILED;
-            }
-        }
-        if (s2 !== peg$FAILED) {
-            while (s2 !== peg$FAILED) {
-                s1.push(s2);
-                if (input.charCodeAt(peg$currPos) === 45) {
-                    s2 = peg$c86;
-                    peg$currPos++;
-                }
-                else {
-                    s2 = peg$FAILED;
-                    if (peg$silentFails === 0) {
-                        peg$fail(peg$c87);
-                    }
-                }
-                if (s2 === peg$FAILED) {
-                    s2 = peg$currPos;
-                    s3 = peg$currPos;
-                    peg$silentFails++;
-                    s4 = peg$parsewhiteSpace();
-                    if (s4 === peg$FAILED) {
-                        s4 = peg$parsepatternSyntax();
-                    }
-                    peg$silentFails--;
-                    if (s4 === peg$FAILED) {
-                        s3 = undefined;
-                    }
-                    else {
-                        peg$currPos = s3;
-                        s3 = peg$FAILED;
-                    }
-                    if (s3 !== peg$FAILED) {
-                        if (input.length > peg$currPos) {
-                            s4 = input.charAt(peg$currPos);
-                            peg$currPos++;
-                        }
-                        else {
-                            s4 = peg$FAILED;
-                            if (peg$silentFails === 0) {
-                                peg$fail(peg$c30);
-                            }
-                        }
-                        if (s4 !== peg$FAILED) {
-                            s3 = [s3, s4];
-                            s2 = s3;
-                        }
-                        else {
-                            peg$currPos = s2;
-                            s2 = peg$FAILED;
-                        }
-                    }
-                    else {
-                        peg$currPos = s2;
-                        s2 = peg$FAILED;
-                    }
-                }
-            }
-        }
-        else {
-            s1 = peg$FAILED;
-        }
-        if (s1 !== peg$FAILED) {
-            s0 = input.substring(s0, peg$currPos);
-        }
-        else {
-            s0 = s1;
-        }
-        peg$silentFails--;
-        if (s0 === peg$FAILED) {
-            s1 = peg$FAILED;
-            if (peg$silentFails === 0) {
-                peg$fail(peg$c111);
-            }
-        }
-        return s0;
-    }
-    var messageCtx = ['root'];
-    function isNestedMessageText() {
-        return messageCtx.length > 1;
-    }
-    function isInPluralOption() {
-        return messageCtx[messageCtx.length - 1] === 'plural';
-    }
-    function insertLocation() {
-        return options && options.captureLocation ? {
-            location: location()
-        } : {};
-    }
-    var ignoreTag = options && options.ignoreTag;
-    var shouldParseSkeleton = options && options.shouldParseSkeleton;
-    peg$result = peg$startRuleFunction();
-    if (peg$result !== peg$FAILED && peg$currPos === input.length) {
-        return peg$result;
-    }
-    else {
-        if (peg$result !== peg$FAILED && peg$currPos < input.length) {
-            peg$fail(peg$endExpectation());
-        }
-        throw peg$buildStructuredError(peg$maxFailExpected, peg$maxFailPos < input.length ? input.charAt(peg$maxFailPos) : null, peg$maxFailPos < input.length
-            ? peg$computeLocation(peg$maxFailPos, peg$maxFailPos + 1)
-            : peg$computeLocation(peg$maxFailPos, peg$maxFailPos));
-    }
-}
-var pegParse = peg$parse;
-
-
-/***/ }),
-
-/***/ "../node_modules/intl-messageformat-parser/lib/src/skeleton.js":
-/*!*********************************************************************!*\
-  !*** ../node_modules/intl-messageformat-parser/lib/src/skeleton.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "parseDateTimeSkeleton": () => (/* binding */ parseDateTimeSkeleton),
-/* harmony export */   "parseNumberSkeleton": () => (/* binding */ parseNumberSkeleton)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-
-/**
- * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
- * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
- * with some tweaks
- */
-var DATE_TIME_REGEX = /(?:[Eec]{1,6}|G{1,5}|[Qq]{1,5}|(?:[yYur]+|U{1,5})|[ML]{1,5}|d{1,2}|D{1,3}|F{1}|[abB]{1,5}|[hkHK]{1,2}|w{1,2}|W{1}|m{1,2}|s{1,2}|[zZOvVxX]{1,4})(?=([^']*'[^']*')*[^']*$)/g;
-/**
- * Parse Date time skeleton into Intl.DateTimeFormatOptions
- * Ref: https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
- * @public
- * @param skeleton skeleton string
- */
-function parseDateTimeSkeleton(skeleton) {
-    var result = {};
-    skeleton.replace(DATE_TIME_REGEX, function (match) {
-        var len = match.length;
-        switch (match[0]) {
-            // Era
-            case 'G':
-                result.era = len === 4 ? 'long' : len === 5 ? 'narrow' : 'short';
-                break;
-            // Year
-            case 'y':
-                result.year = len === 2 ? '2-digit' : 'numeric';
-                break;
-            case 'Y':
-            case 'u':
-            case 'U':
-            case 'r':
-                throw new RangeError('`Y/u/U/r` (year) patterns are not supported, use `y` instead');
-            // Quarter
-            case 'q':
-            case 'Q':
-                throw new RangeError('`q/Q` (quarter) patterns are not supported');
-            // Month
-            case 'M':
-            case 'L':
-                result.month = ['numeric', '2-digit', 'short', 'long', 'narrow'][len - 1];
-                break;
-            // Week
-            case 'w':
-            case 'W':
-                throw new RangeError('`w/W` (week) patterns are not supported');
-            case 'd':
-                result.day = ['numeric', '2-digit'][len - 1];
-                break;
-            case 'D':
-            case 'F':
-            case 'g':
-                throw new RangeError('`D/F/g` (day) patterns are not supported, use `d` instead');
-            // Weekday
-            case 'E':
-                result.weekday = len === 4 ? 'short' : len === 5 ? 'narrow' : 'short';
-                break;
-            case 'e':
-                if (len < 4) {
-                    throw new RangeError('`e..eee` (weekday) patterns are not supported');
-                }
-                result.weekday = ['short', 'long', 'narrow', 'short'][len - 4];
-                break;
-            case 'c':
-                if (len < 4) {
-                    throw new RangeError('`c..ccc` (weekday) patterns are not supported');
-                }
-                result.weekday = ['short', 'long', 'narrow', 'short'][len - 4];
-                break;
-            // Period
-            case 'a': // AM, PM
-                result.hour12 = true;
-                break;
-            case 'b': // am, pm, noon, midnight
-            case 'B': // flexible day periods
-                throw new RangeError('`b/B` (period) patterns are not supported, use `a` instead');
-            // Hour
-            case 'h':
-                result.hourCycle = 'h12';
-                result.hour = ['numeric', '2-digit'][len - 1];
-                break;
-            case 'H':
-                result.hourCycle = 'h23';
-                result.hour = ['numeric', '2-digit'][len - 1];
-                break;
-            case 'K':
-                result.hourCycle = 'h11';
-                result.hour = ['numeric', '2-digit'][len - 1];
-                break;
-            case 'k':
-                result.hourCycle = 'h24';
-                result.hour = ['numeric', '2-digit'][len - 1];
-                break;
-            case 'j':
-            case 'J':
-            case 'C':
-                throw new RangeError('`j/J/C` (hour) patterns are not supported, use `h/H/K/k` instead');
-            // Minute
-            case 'm':
-                result.minute = ['numeric', '2-digit'][len - 1];
-                break;
-            // Second
-            case 's':
-                result.second = ['numeric', '2-digit'][len - 1];
-                break;
-            case 'S':
-            case 'A':
-                throw new RangeError('`S/A` (second) patterns are not supported, use `s` instead');
-            // Zone
-            case 'z': // 1..3, 4: specific non-location format
-                result.timeZoneName = len < 4 ? 'short' : 'long';
-                break;
-            case 'Z': // 1..3, 4, 5: The ISO8601 varios formats
-            case 'O': // 1, 4: miliseconds in day short, long
-            case 'v': // 1, 4: generic non-location format
-            case 'V': // 1, 2, 3, 4: time zone ID or city
-            case 'X': // 1, 2, 3, 4: The ISO8601 varios formats
-            case 'x': // 1, 2, 3, 4: The ISO8601 varios formats
-                throw new RangeError('`Z/O/v/V/X/x` (timeZone) patterns are not supported, use `z` instead');
-        }
-        return '';
-    });
-    return result;
-}
-function icuUnitToEcma(unit) {
-    return unit.replace(/^(.*?)-/, '');
-}
-var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
-var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
-var INTEGER_WIDTH_REGEX = /(\*)(0+)|(#+)(0+)|(0+)/g;
-var CONCISE_INTEGER_WIDTH_REGEX = /^(0+)$/;
-function parseSignificantPrecision(str) {
-    var result = {};
-    str.replace(SIGNIFICANT_PRECISION_REGEX, function (_, g1, g2) {
-        // @@@ case
-        if (typeof g2 !== 'string') {
-            result.minimumSignificantDigits = g1.length;
-            result.maximumSignificantDigits = g1.length;
-        }
-        // @@@+ case
-        else if (g2 === '+') {
-            result.minimumSignificantDigits = g1.length;
-        }
-        // .### case
-        else if (g1[0] === '#') {
-            result.maximumSignificantDigits = g1.length;
-        }
-        // .@@## or .@@@ case
-        else {
-            result.minimumSignificantDigits = g1.length;
-            result.maximumSignificantDigits =
-                g1.length + (typeof g2 === 'string' ? g2.length : 0);
-        }
-        return '';
-    });
-    return result;
-}
-function parseSign(str) {
-    switch (str) {
-        case 'sign-auto':
-            return {
-                signDisplay: 'auto',
-            };
-        case 'sign-accounting':
-        case '()':
-            return {
-                currencySign: 'accounting',
-            };
-        case 'sign-always':
-        case '+!':
-            return {
-                signDisplay: 'always',
-            };
-        case 'sign-accounting-always':
-        case '()!':
-            return {
-                signDisplay: 'always',
-                currencySign: 'accounting',
-            };
-        case 'sign-except-zero':
-        case '+?':
-            return {
-                signDisplay: 'exceptZero',
-            };
-        case 'sign-accounting-except-zero':
-        case '()?':
-            return {
-                signDisplay: 'exceptZero',
-                currencySign: 'accounting',
-            };
-        case 'sign-never':
-        case '+_':
-            return {
-                signDisplay: 'never',
-            };
-    }
-}
-function parseConciseScientificAndEngineeringStem(stem) {
-    // Engineering
-    var result;
-    if (stem[0] === 'E' && stem[1] === 'E') {
-        result = {
-            notation: 'engineering',
-        };
-        stem = stem.slice(2);
-    }
-    else if (stem[0] === 'E') {
-        result = {
-            notation: 'scientific',
-        };
-        stem = stem.slice(1);
-    }
-    if (result) {
-        var signDisplay = stem.slice(0, 2);
-        if (signDisplay === '+!') {
-            result.signDisplay = 'always';
-            stem = stem.slice(2);
-        }
-        else if (signDisplay === '+?') {
-            result.signDisplay = 'exceptZero';
-            stem = stem.slice(2);
-        }
-        if (!CONCISE_INTEGER_WIDTH_REGEX.test(stem)) {
-            throw new Error('Malformed concise eng/scientific notation');
-        }
-        result.minimumIntegerDigits = stem.length;
-    }
-    return result;
-}
-function parseNotationOptions(opt) {
-    var result = {};
-    var signOpts = parseSign(opt);
-    if (signOpts) {
-        return signOpts;
-    }
-    return result;
-}
-/**
- * https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#skeleton-stems-and-options
- */
-function parseNumberSkeleton(tokens) {
-    var result = {};
-    for (var _i = 0, tokens_1 = tokens; _i < tokens_1.length; _i++) {
-        var token = tokens_1[_i];
-        switch (token.stem) {
-            case 'percent':
-            case '%':
-                result.style = 'percent';
-                continue;
-            case '%x100':
-                result.style = 'percent';
-                result.scale = 100;
-                continue;
-            case 'currency':
-                result.style = 'currency';
-                result.currency = token.options[0];
-                continue;
-            case 'group-off':
-            case ',_':
-                result.useGrouping = false;
-                continue;
-            case 'precision-integer':
-            case '.':
-                result.maximumFractionDigits = 0;
-                continue;
-            case 'measure-unit':
-            case 'unit':
-                result.style = 'unit';
-                result.unit = icuUnitToEcma(token.options[0]);
-                continue;
-            case 'compact-short':
-            case 'K':
-                result.notation = 'compact';
-                result.compactDisplay = 'short';
-                continue;
-            case 'compact-long':
-            case 'KK':
-                result.notation = 'compact';
-                result.compactDisplay = 'long';
-                continue;
-            case 'scientific':
-                result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), { notation: 'scientific' }), token.options.reduce(function (all, opt) { return ((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, all), parseNotationOptions(opt))); }, {}));
-                continue;
-            case 'engineering':
-                result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), { notation: 'engineering' }), token.options.reduce(function (all, opt) { return ((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, all), parseNotationOptions(opt))); }, {}));
-                continue;
-            case 'notation-simple':
-                result.notation = 'standard';
-                continue;
-            // https://github.com/unicode-org/icu/blob/master/icu4c/source/i18n/unicode/unumberformatter.h
-            case 'unit-width-narrow':
-                result.currencyDisplay = 'narrowSymbol';
-                result.unitDisplay = 'narrow';
-                continue;
-            case 'unit-width-short':
-                result.currencyDisplay = 'code';
-                result.unitDisplay = 'short';
-                continue;
-            case 'unit-width-full-name':
-                result.currencyDisplay = 'name';
-                result.unitDisplay = 'long';
-                continue;
-            case 'unit-width-iso-code':
-                result.currencyDisplay = 'symbol';
-                continue;
-            case 'scale':
-                result.scale = parseFloat(token.options[0]);
-                continue;
-            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
-            case 'integer-width':
-                if (token.options.length > 1) {
-                    throw new RangeError('integer-width stems only accept a single optional option');
-                }
-                token.options[0].replace(INTEGER_WIDTH_REGEX, function (_, g1, g2, g3, g4, g5) {
-                    if (g1) {
-                        result.minimumIntegerDigits = g2.length;
-                    }
-                    else if (g3 && g4) {
-                        throw new Error('We currently do not support maximum integer digits');
-                    }
-                    else if (g5) {
-                        throw new Error('We currently do not support exact integer digits');
-                    }
-                    return '';
-                });
-                continue;
-        }
-        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#integer-width
-        if (CONCISE_INTEGER_WIDTH_REGEX.test(token.stem)) {
-            result.minimumIntegerDigits = token.stem.length;
-            continue;
-        }
-        if (FRACTION_PRECISION_REGEX.test(token.stem)) {
-            // Precision
-            // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#fraction-precision
-            // precision-integer case
-            if (token.options.length > 1) {
-                throw new RangeError('Fraction-precision stems only accept a single optional option');
-            }
-            token.stem.replace(FRACTION_PRECISION_REGEX, function (_, g1, g2, g3, g4, g5) {
-                // .000* case (before ICU67 it was .000+)
-                if (g2 === '*') {
-                    result.minimumFractionDigits = g1.length;
-                }
-                // .### case
-                else if (g3 && g3[0] === '#') {
-                    result.maximumFractionDigits = g3.length;
-                }
-                // .00## case
-                else if (g4 && g5) {
-                    result.minimumFractionDigits = g4.length;
-                    result.maximumFractionDigits = g4.length + g5.length;
-                }
-                else {
-                    result.minimumFractionDigits = g1.length;
-                    result.maximumFractionDigits = g1.length;
-                }
-                return '';
-            });
-            if (token.options.length) {
-                result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), parseSignificantPrecision(token.options[0]));
-            }
-            continue;
-        }
-        // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
-        if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
-            result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), parseSignificantPrecision(token.stem));
-            continue;
-        }
-        var signOpts = parseSign(token.stem);
-        if (signOpts) {
-            result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), signOpts);
-        }
-        var conciseScientificAndEngineeringOpts = parseConciseScientificAndEngineeringStem(token.stem);
-        if (conciseScientificAndEngineeringOpts) {
-            result = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, result), conciseScientificAndEngineeringOpts);
-        }
-    }
-    return result;
-}
-
-
-/***/ }),
-
-/***/ "../node_modules/intl-messageformat-parser/lib/src/types.js":
-/*!******************************************************************!*\
-  !*** ../node_modules/intl-messageformat-parser/lib/src/types.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "TYPE": () => (/* binding */ TYPE),
-/* harmony export */   "SKELETON_TYPE": () => (/* binding */ SKELETON_TYPE),
-/* harmony export */   "isLiteralElement": () => (/* binding */ isLiteralElement),
-/* harmony export */   "isArgumentElement": () => (/* binding */ isArgumentElement),
-/* harmony export */   "isNumberElement": () => (/* binding */ isNumberElement),
-/* harmony export */   "isDateElement": () => (/* binding */ isDateElement),
-/* harmony export */   "isTimeElement": () => (/* binding */ isTimeElement),
-/* harmony export */   "isSelectElement": () => (/* binding */ isSelectElement),
-/* harmony export */   "isPluralElement": () => (/* binding */ isPluralElement),
-/* harmony export */   "isPoundElement": () => (/* binding */ isPoundElement),
-/* harmony export */   "isTagElement": () => (/* binding */ isTagElement),
-/* harmony export */   "isNumberSkeleton": () => (/* binding */ isNumberSkeleton),
-/* harmony export */   "isDateTimeSkeleton": () => (/* binding */ isDateTimeSkeleton),
-/* harmony export */   "createLiteralElement": () => (/* binding */ createLiteralElement),
-/* harmony export */   "createNumberElement": () => (/* binding */ createNumberElement)
-/* harmony export */ });
-var TYPE;
-(function (TYPE) {
-    /**
-     * Raw text
-     */
-    TYPE[TYPE["literal"] = 0] = "literal";
-    /**
-     * Variable w/o any format, e.g `var` in `this is a {var}`
-     */
-    TYPE[TYPE["argument"] = 1] = "argument";
-    /**
-     * Variable w/ number format
-     */
-    TYPE[TYPE["number"] = 2] = "number";
-    /**
-     * Variable w/ date format
-     */
-    TYPE[TYPE["date"] = 3] = "date";
-    /**
-     * Variable w/ time format
-     */
-    TYPE[TYPE["time"] = 4] = "time";
-    /**
-     * Variable w/ select format
-     */
-    TYPE[TYPE["select"] = 5] = "select";
-    /**
-     * Variable w/ plural format
-     */
-    TYPE[TYPE["plural"] = 6] = "plural";
-    /**
-     * Only possible within plural argument.
-     * This is the `#` symbol that will be substituted with the count.
-     */
-    TYPE[TYPE["pound"] = 7] = "pound";
-    /**
-     * XML-like tag
-     */
-    TYPE[TYPE["tag"] = 8] = "tag";
-})(TYPE || (TYPE = {}));
-var SKELETON_TYPE;
-(function (SKELETON_TYPE) {
-    SKELETON_TYPE[SKELETON_TYPE["number"] = 0] = "number";
-    SKELETON_TYPE[SKELETON_TYPE["dateTime"] = 1] = "dateTime";
-})(SKELETON_TYPE || (SKELETON_TYPE = {}));
-/**
- * Type Guards
- */
-function isLiteralElement(el) {
-    return el.type === TYPE.literal;
-}
-function isArgumentElement(el) {
-    return el.type === TYPE.argument;
-}
-function isNumberElement(el) {
-    return el.type === TYPE.number;
-}
-function isDateElement(el) {
-    return el.type === TYPE.date;
-}
-function isTimeElement(el) {
-    return el.type === TYPE.time;
-}
-function isSelectElement(el) {
-    return el.type === TYPE.select;
-}
-function isPluralElement(el) {
-    return el.type === TYPE.plural;
-}
-function isPoundElement(el) {
-    return el.type === TYPE.pound;
-}
-function isTagElement(el) {
-    return el.type === TYPE.tag;
-}
-function isNumberSkeleton(el) {
-    return !!(el && typeof el === 'object' && el.type === 0 /* number */);
-}
-function isDateTimeSkeleton(el) {
-    return !!(el && typeof el === 'object' && el.type === 1 /* dateTime */);
-}
-function createLiteralElement(value) {
-    return {
-        type: TYPE.literal,
-        value: value,
-    };
-}
-function createNumberElement(value, style) {
-    return {
-        type: TYPE.number,
-        value: value,
-        style: style,
-    };
-}
-
-
-/***/ }),
-
 /***/ "../node_modules/intl-messageformat/lib/index.js":
 /*!*******************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/index.js ***!
@@ -27088,11 +25501,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "IntlMessageFormat": () => (/* binding */ IntlMessageFormat)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! intl-messageformat-parser */ "../node_modules/intl-messageformat-parser/lib/index.js");
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fast-memoize */ "../node_modules/fast-memoize/src/index.js");
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(fast_memoize__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _formatters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./formatters */ "../node_modules/intl-messageformat/lib/src/formatters.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/index.js");
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fast-memoize */ "../node_modules/fast-memoize/src/index.js");
+/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fast_memoize__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _formatters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./formatters */ "../node_modules/intl-messageformat/lib/src/formatters.js");
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
 Copyrights licensed under the New BSD License.
@@ -27107,8 +25521,8 @@ function mergeConfig(c1, c2) {
     if (!c2) {
         return c1;
     }
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, (c1 || {})), (c2 || {})), Object.keys(c1).reduce(function (all, k) {
-        all[k] = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, c1[k]), (c2[k] || {}));
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, (c1 || {})), (c2 || {})), Object.keys(c1).reduce(function (all, k) {
+        all[k] = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, c1[k]), (c2[k] || {}));
         return all;
     }, {}));
 }
@@ -27119,7 +25533,7 @@ function mergeConfigs(defaultConfig, configs) {
     return Object.keys(defaultConfig).reduce(function (all, k) {
         all[k] = mergeConfig(defaultConfig[k], configs[k]);
         return all;
-    }, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, defaultConfig));
+    }, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, defaultConfig));
 }
 function createFastMemoizeCache(store) {
     return {
@@ -27139,7 +25553,7 @@ function createFastMemoizeCache(store) {
     };
 }
 // @ts-ignore this is to deal with rollup's default import shenanigans
-var _memoizeIntl = (fast_memoize__WEBPACK_IMPORTED_MODULE_0___default()) || fast_memoize__WEBPACK_IMPORTED_MODULE_0__;
+var _memoizeIntl = (fast_memoize__WEBPACK_IMPORTED_MODULE_1___default()) || fast_memoize__WEBPACK_IMPORTED_MODULE_1__;
 var memoizeIntl = _memoizeIntl;
 function createDefaultFormatters(cache) {
     if (cache === void 0) { cache = {
@@ -27154,7 +25568,7 @@ function createDefaultFormatters(cache) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return new ((_a = Intl.NumberFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArrays)([void 0], args)))();
+            return new ((_a = Intl.NumberFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.number),
             strategy: memoizeIntl.strategies.variadic,
@@ -27165,7 +25579,7 @@ function createDefaultFormatters(cache) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return new ((_a = Intl.DateTimeFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArrays)([void 0], args)))();
+            return new ((_a = Intl.DateTimeFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.dateTime),
             strategy: memoizeIntl.strategies.variadic,
@@ -27176,7 +25590,7 @@ function createDefaultFormatters(cache) {
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return new ((_a = Intl.PluralRules).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArrays)([void 0], args)))();
+            return new ((_a = Intl.PluralRules).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.pluralRules),
             strategy: memoizeIntl.strategies.variadic,
@@ -27200,7 +25614,7 @@ var IntlMessageFormat = /** @class */ (function () {
             }
             var result = parts.reduce(function (all, part) {
                 if (!all.length ||
-                    part.type !== 0 /* literal */ ||
+                    part.type !== _formatters__WEBPACK_IMPORTED_MODULE_3__.PART_TYPE.literal ||
                     typeof all[all.length - 1] !== 'string') {
                     all.push(part.value);
                 }
@@ -27215,7 +25629,7 @@ var IntlMessageFormat = /** @class */ (function () {
             return result;
         };
         this.formatToParts = function (values) {
-            return (0,_formatters__WEBPACK_IMPORTED_MODULE_2__.formatToParts)(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
+            return (0,_formatters__WEBPACK_IMPORTED_MODULE_3__.formatToParts)(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
         };
         this.resolvedOptions = function () { return ({
             locale: Intl.NumberFormat.supportedLocalesOf(_this.locales)[0],
@@ -27228,7 +25642,6 @@ var IntlMessageFormat = /** @class */ (function () {
             }
             // Parse string messages into an AST.
             this.ast = IntlMessageFormat.__parse(message, {
-                normalizeHashtagInPlural: false,
                 ignoreTag: opts === null || opts === void 0 ? void 0 : opts.ignoreTag,
             });
         }
@@ -27257,7 +25670,7 @@ var IntlMessageFormat = /** @class */ (function () {
         configurable: true
     });
     IntlMessageFormat.memoizedDefaultLocale = null;
-    IntlMessageFormat.__parse = intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_3__.parse;
+    IntlMessageFormat.__parse = _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.parse;
     // Default format options used as the prototype of the `formats` provided to the
     // constructor. These are used when constructing the internal Intl.NumberFormat
     // and Intl.DateTimeFormat instances.
@@ -27367,7 +25780,7 @@ var FormatError = /** @class */ (function (_super) {
 var InvalidValueError = /** @class */ (function (_super) {
     (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__extends)(InvalidValueError, _super);
     function InvalidValueError(variableId, value, options, originalMessage) {
-        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", "INVALID_VALUE" /* INVALID_VALUE */, originalMessage) || this;
+        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", ErrorCode.INVALID_VALUE, originalMessage) || this;
     }
     return InvalidValueError;
 }(FormatError));
@@ -27375,7 +25788,7 @@ var InvalidValueError = /** @class */ (function (_super) {
 var InvalidValueTypeError = /** @class */ (function (_super) {
     (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__extends)(InvalidValueTypeError, _super);
     function InvalidValueTypeError(value, type, originalMessage) {
-        return _super.call(this, "Value for \"" + value + "\" must be of type " + type, "INVALID_VALUE" /* INVALID_VALUE */, originalMessage) || this;
+        return _super.call(this, "Value for \"" + value + "\" must be of type " + type, ErrorCode.INVALID_VALUE, originalMessage) || this;
     }
     return InvalidValueTypeError;
 }(FormatError));
@@ -27383,7 +25796,7 @@ var InvalidValueTypeError = /** @class */ (function (_super) {
 var MissingValueError = /** @class */ (function (_super) {
     (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__extends)(MissingValueError, _super);
     function MissingValueError(variableId, originalMessage) {
-        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", "MISSING_VALUE" /* MISSING_VALUE */, originalMessage) || this;
+        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", ErrorCode.MISSING_VALUE, originalMessage) || this;
     }
     return MissingValueError;
 }(FormatError));
@@ -27405,7 +25818,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "isFormatXMLElementFn": () => (/* binding */ isFormatXMLElementFn),
 /* harmony export */   "formatToParts": () => (/* binding */ formatToParts)
 /* harmony export */ });
-/* harmony import */ var intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! intl-messageformat-parser */ "../node_modules/intl-messageformat-parser/lib/src/types.js");
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/index.js");
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "../node_modules/intl-messageformat/lib/src/error.js");
 
 
@@ -27421,8 +25835,8 @@ function mergeLiteral(parts) {
     return parts.reduce(function (all, part) {
         var lastPart = all[all.length - 1];
         if (!lastPart ||
-            lastPart.type !== 0 /* literal */ ||
-            part.type !== 0 /* literal */) {
+            lastPart.type !== PART_TYPE.literal ||
+            part.type !== PART_TYPE.literal) {
             all.push(part);
         }
         else {
@@ -27439,10 +25853,10 @@ function formatToParts(els, locales, formatters, formats, values, currentPluralV
 // For debugging
 originalMessage) {
     // Hot path for straight simple msg translations
-    if (els.length === 1 && (0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement)(els[0])) {
+    if (els.length === 1 && (0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement)(els[0])) {
         return [
             {
-                type: 0 /* literal */,
+                type: PART_TYPE.literal,
                 value: els[0].value,
             },
         ];
@@ -27451,19 +25865,19 @@ originalMessage) {
     for (var _i = 0, els_1 = els; _i < els_1.length; _i++) {
         var el = els_1[_i];
         // Exit early for string parts.
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isLiteralElement)(el)) {
             result.push({
-                type: 0 /* literal */,
+                type: PART_TYPE.literal,
                 value: el.value,
             });
             continue;
         }
         // TODO: should this part be literal type?
         // Replace `#` in plural rules with the actual numeric value.
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isPoundElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isPoundElement)(el)) {
             if (typeof currentPluralValue === 'number') {
                 result.push({
-                    type: 0 /* literal */,
+                    type: PART_TYPE.literal,
                     value: formatters.getNumberFormat(locales).format(currentPluralValue),
                 });
             }
@@ -27475,7 +25889,7 @@ originalMessage) {
             throw new _error__WEBPACK_IMPORTED_MODULE_1__.MissingValueError(varName, originalMessage);
         }
         var value = values[varName];
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isArgumentElement)(el)) {
             if (!value || typeof value === 'string' || typeof value === 'number') {
                 value =
                     typeof value === 'string' || typeof value === 'number'
@@ -27483,7 +25897,7 @@ originalMessage) {
                         : '';
             }
             result.push({
-                type: typeof value === 'string' ? 0 /* literal */ : 1 /* object */,
+                type: typeof value === 'string' ? PART_TYPE.literal : PART_TYPE.object,
                 value: value,
             });
             continue;
@@ -27491,38 +25905,38 @@ originalMessage) {
         // Recursively format plural and select parts' option — which can be a
         // nested pattern structure. The choosing of the option to use is
         // abstracted-by and delegated-to the part helper object.
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isDateElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isDateElement)(el)) {
             var style = typeof el.style === 'string'
                 ? formats.date[el.style]
-                : (0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton)(el.style)
+                : (0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton)(el.style)
                     ? el.style.parsedOptions
                     : undefined;
             result.push({
-                type: 0 /* literal */,
+                type: PART_TYPE.literal,
                 value: formatters
                     .getDateTimeFormat(locales, style)
                     .format(value),
             });
             continue;
         }
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isTimeElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isTimeElement)(el)) {
             var style = typeof el.style === 'string'
                 ? formats.time[el.style]
-                : (0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton)(el.style)
+                : (0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isDateTimeSkeleton)(el.style)
                     ? el.style.parsedOptions
                     : undefined;
             result.push({
-                type: 0 /* literal */,
+                type: PART_TYPE.literal,
                 value: formatters
                     .getDateTimeFormat(locales, style)
                     .format(value),
             });
             continue;
         }
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isNumberElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isNumberElement)(el)) {
             var style = typeof el.style === 'string'
                 ? formats.number[el.style]
-                : (0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton)(el.style)
+                : (0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isNumberSkeleton)(el.style)
                     ? el.style.parsedOptions
                     : undefined;
             if (style && style.scale) {
@@ -27531,14 +25945,14 @@ originalMessage) {
                         (style.scale || 1);
             }
             result.push({
-                type: 0 /* literal */,
+                type: PART_TYPE.literal,
                 value: formatters
                     .getNumberFormat(locales, style)
                     .format(value),
             });
             continue;
         }
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isTagElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isTagElement)(el)) {
             var children = el.children, value_1 = el.value;
             var formatFn = values[value_1];
             if (!isFormatXMLElementFn(formatFn)) {
@@ -27551,12 +25965,12 @@ originalMessage) {
             }
             result.push.apply(result, chunks.map(function (c) {
                 return {
-                    type: typeof c === 'string' ? 0 /* literal */ : 1 /* object */,
+                    type: typeof c === 'string' ? PART_TYPE.literal : PART_TYPE.object,
                     value: c,
                 };
             }));
         }
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isSelectElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isSelectElement)(el)) {
             var opt = el.options[value] || el.options.other;
             if (!opt) {
                 throw new _error__WEBPACK_IMPORTED_MODULE_1__.InvalidValueError(el.value, value, Object.keys(el.options), originalMessage);
@@ -27564,11 +25978,11 @@ originalMessage) {
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values));
             continue;
         }
-        if ((0,intl_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isPluralElement)(el)) {
+        if ((0,_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__.isPluralElement)(el)) {
             var opt = el.options["=" + value];
             if (!opt) {
                 if (!Intl.PluralRules) {
-                    throw new _error__WEBPACK_IMPORTED_MODULE_1__.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", "MISSING_INTL_API" /* MISSING_INTL_API */, originalMessage);
+                    throw new _error__WEBPACK_IMPORTED_MODULE_1__.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", _error__WEBPACK_IMPORTED_MODULE_1__.ErrorCode.MISSING_INTL_API, originalMessage);
                 }
                 var rule = formatters
                     .getPluralRules(locales, { type: el.pluralType })
@@ -29906,19 +28320,17 @@ function __importDefault(mod) {
     return (mod && mod.__esModule) ? mod : { default: mod };
 }
 
-function __classPrivateFieldGet(receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 }
 
-function __classPrivateFieldSet(receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 }
 
 
@@ -40537,6 +38949,37 @@ class AppController {
 
 /***/ }),
 
+/***/ "./lib/controllers/detect-text-controller.js":
+/*!***************************************************!*\
+  !*** ./lib/controllers/detect-text-controller.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DetectTextController)
+/* harmony export */ });
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class DetectTextController {
+  static async detectTextProperties (sourceText) {
+    const adapterDetectLangRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.detectlangGroup.detectlang({
+      method: 'getDetectedLangsList',
+      params: {
+        text: sourceText.text
+      }
+    })
+
+    console.info('adapterDetectLangRes - ', adapterDetectLangRes)
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/controllers/download-controller.js":
 /*!************************************************!*\
   !*** ./lib/controllers/download-controller.js ***!
@@ -41109,6 +39552,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+
 
 
 
@@ -41153,6 +39598,10 @@ class TextsController {
       this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
+    }
+
+    if (this.originDocSource && this.originDocSource.text) {
+      _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.alignment.origin.docSource)
     }
     this.store.commit('incrementAlignmentUpdated')
   }
@@ -43610,6 +42059,7 @@ class Alignment {
         this.origin.docSource = docSource
       } else {
         this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
+        console.info('origin docSource', docSource)
       }
     } else {
       this.origin.docSource.update(docSource)
@@ -43641,6 +42091,7 @@ class Alignment {
     if (!targetId || (docSource && !this.targets[docSource.id])) {
       if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
         docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
+        console.info('target docSource', docSource)
       }
       this.targets[docSource.id] = {
         docSource
@@ -46268,7 +44719,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "several-fixes-3.20210412382" : 0
+    return  true ? "i327-new-text-editor-screen.20210414668" : 0
   }
 
   static get libName () {
@@ -59132,7 +57583,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.2","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/app.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.6","@babel/core":"^7.13.1","@babel/plugin-proposal-object-rest-spread":"^7.13.0","@babel/plugin-transform-modules-commonjs":"^7.13.0","@babel/plugin-transform-runtime":"^7.13.7","@babel/preset-env":"^7.13.5","@babel/register":"^7.13.0","@babel/runtime":"^7.13.7","@vue/test-utils":"^1.1.3","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.20.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.6.1","intl-messageformat":"^9.4.9","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.8","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.5.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.2","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.24.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.2","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/app.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.7","@babel/core":"^7.13.15","@babel/plugin-proposal-object-rest-spread":"^7.13.8","@babel/plugin-transform-modules-commonjs":"^7.13.8","@babel/plugin-transform-runtime":"^7.13.15","@babel/preset-env":"^7.13.15","@babel/register":"^7.13.14","@babel/runtime":"^7.13.10","@vue/test-utils":"^1.1.4","alpheios-core":"github:alpheios-project/alpheios-core#i644-language-detect-adapter","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.24.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.7","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.8","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.32.0","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -59143,7 +57594,7 @@ module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","label":"Latin"},{"value":"grc","label":"Greek (Ancient –1453)"},{"value":"ara","label":"Arabic"},{"value":"zh","label":"Chinese"},{"value":"afr","label":"Afrikaans"},{"value":"akk","label":"Akkadian"},{"value":"sqi","label":"Albanian"},{"value":"amh","label":"Amharic"},{"value":"arg","label":"Aragonese"},{"value":"arc","label":"Aramaic (Imperial- 700 BC–300 BC)"},{"value":"sam","label":"Aramaic (Samaritan)"},{"value":"hye","label":"Armenian"},{"value":"ast","label":"Asturian"},{"value":"ave","label":"Avestan"},{"value":"aze","label":"Azerbaijani"},{"value":"eus","label":"Basque"},{"value":"ben","label":"Bengali"},{"value":"ber","label":"Berber"},{"value":"bos","label":"Bosnian"},{"value":"bre","label":"Breton"},{"value":"bul","label":"Bulgarian"},{"value":"chu","label":"Bulgarian (Old, Old Church Slavonic)"},{"value":"mya","label":"Burmese"},{"value":"cat","label":"Catalan"},{"value":"chg","label":"Chagatai"},{"value":"cop","label":"Coptic"},{"value":"cor","label":"Cornish"},{"value":"hrv","label":"Croatian"},{"value":"ces","label":"Czech"},{"value":"dan","label":"Danish"},{"value":"nld","label":"Dutch (Flemish)"},{"value":"dum","label":"Dutch (Middle, 1050–1350)"},{"value":"egy","label":"Egyptian (Ancient)"},{"value":"elx","label":"Elamite"},{"value":"enm","label":"English (Middle, 1100–1500)"},{"value":"ang","label":"English (Old, 450–1100)"},{"value":"est","label":"Estonian"},{"value":"fin","label":"Finnish"},{"value":"fra","label":"French"},{"value":"frm","label":"French (Middle, 1400—1600)"},{"value":"fro","label":"French (Old, 842—c. 1400)"},{"value":"gez","label":"Ge\'ez"},{"value":"kat","label":"Georgian"},{"value":"nds","label":"German (Low, Low Saxon)"},{"value":"gmh","label":"German (Middle-High, 1050–1500)"},{"value":"goh","label":"German (Old-High, 750–1050)"},{"value":"deu","label":"German"},{"value":"got","label":"Gothic"},{"value":"ell","label":"Greek (Modern, 1453–)"},{"value":"guj","label":"Gujarati"},{"value":"heb","label":"Hebrew"},{"value":"hin","label":"Hindi"},{"value":"hit","label":"Hittite"},{"value":"hun","label":"Hungarian"},{"value":"isl","label":"Icelandic"},{"value":"ind","label":"Indonesian"},{"value":"gle","label":"Irish (Modern)"},{"value":"mga","label":"Irish (Middle 900–1200)"},{"value":"sga","label":"Irish (Old, to 900)"},{"value":"ita","label":"Italian"},{"value":"jpn","label":"Japanese"},{"value":"jav","label":"Javanese"},{"value":"kan","label":"Kannada"},{"value":"khm","label":"Khmer (Central)"},{"value":"kor","label":"Korean"},{"value":"kur","label":"Kurdish"},{"value":"lad","label":"Ladino"},{"value":"lit","label":"Lithuanian"},{"value":"msa","label":"Malay"},{"value":"mar","label":"Marathi"},{"value":"new","label":"Nepal Bhasa (Newari)"},{"value":"nep","label":"Nepali"},{"value":"nwc","label":"Newari"},{"value":"non","label":"Norse (Old)"},{"value":"nor","label":"Norwegian"},{"value":"nob","label":"Norwegian (Bokmål)"},{"value":"nno","label":"Norwegian (Nynorsk)"},{"value":"oss","label":"Ossetian"},{"value":"pal","label":"Pahlavi (Middle Persian)"},{"value":"pli","label":"Pali"},{"value":"pus","label":"Pashto"},{"value":"fas","label":"Persian (Farsi)"},{"value":"peo","label":"Persian (Old, 600–400 BC)"},{"value":"phn","label":"Phoenician"},{"value":"pol","label":"Polish"},{"value":"por","label":"Portuguese"},{"value":"pra","label":"Prakrit"},{"value":"pro","label":"Provençal (Occitan, –1500)"},{"value":"pan","label":"Punjabi (Panjabi)"},{"value":"raj","label":"Rajasthani"},{"value":"ron","label":"Romanian"},{"value":"rom","label":"Romany"},{"value":"rus","label":"Russian"},{"value":"san","label":"Sanskrit"},{"value":"sco","label":"Scots"},{"value":"gla","label":"Scottish (Gaelic)"},{"value":"srp","label":"Serbian"},{"value":"scn","label":"Sicilian"},{"value":"snd","label":"Sindhi"},{"value":"sin","label":"Sinhalese (Sinhala)"},{"value":"slk","label":"Slovak"},{"value":"slv","label":"Slovenian"},{"value":"sog","label":"Sogdian"},{"value":"spa","label":"Spanish (Castilian)"},{"value":"sux","label":"Sumerian"},{"value":"swa","label":"Swahili"},{"value":"swe","label":"Swedish"},{"value":"gsw","label":"Swiss German (Alsatian)"},{"value":"syc","label":"Syriac (Classical)"},{"value":"syr","label":"Syriac (Northeastern, Neo-Aramaic)"},{"value":"tgl","label":"Tagalog"},{"value":"tgk","label":"Tajik"},{"value":"tam","label":"Tamil"},{"value":"tat","label":"Tatar"},{"value":"tel","label":"Telugu"},{"value":"tha","label":"Thai"},{"value":"bod","label":"Tibetan"},{"value":"tur","label":"Turkish (Modern)"},{"value":"ota","label":"Turkish (Ottoman, 1500–1928)"},{"value":"tuk","label":"Turkmen"},{"value":"uga","label":"Ugaritic"},{"value":"ukr","label":"Ukainian"},{"value":"urd","label":"Urdu"},{"value":"uzb","label":"Uzbek"},{"value":"vie","label":"Vietnamese"},{"value":"wln","label":"Walloon"},{"value":"cym","label":"Welsh"},{"value":"yid","label":"Yiddish"}]');
+module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","label":"Latin"},{"value":"grc","label":"Greek (Ancient –1453)"},{"value":"ara","label":"Arabic"},{"value":"zh","label":"Chinese"},{"value":"aka","label":"Abkhazian"},{"value":"aar","label":"Afar"},{"value":"abk","label":"Akan"},{"value":"afr","label":"Afrikaans"},{"value":"akk","label":"Akkadian"},{"value":"sqi","label":"Albanian"},{"value":"amh","label":"Amharic"},{"value":"arg","label":"Aragonese"},{"value":"arc","label":"Aramaic (Imperial- 700 BC–300 BC)"},{"value":"sam","label":"Aramaic (Samaritan)"},{"value":"hye","label":"Armenian"},{"value":"asm","label":"Assamese"},{"value":"ast","label":"Asturian"},{"value":"ave","label":"Avestan"},{"value":"aym","label":"Aymara"},{"value":"aze","label":"Azerbaijani"},{"value":"bak","label":"Bashkir"},{"value":"eus","label":"Basque"},{"value":"bel","label":"Belarusian"},{"value":"ben","label":"Bengali"},{"value":"ber","label":"Berber"},{"value":"bih","label":"Bihari"},{"value":"bos","label":"Bosnian"},{"value":"bre","label":"Breton"},{"value":"bul","label":"Bulgarian"},{"value":"bug","label":"Buginese"},{"value":"chu","label":"Bulgarian (Old, Old Church Slavonic)"},{"value":"mya","label":"Burmese"},{"value":"cat","label":"Catalan"},{"value":"ceb","label":"Cebuano"},{"value":"chg","label":"Chagatai"},{"value":"chr","label":"Cherokee"},{"value":"cop","label":"Coptic"},{"value":"cor","label":"Cornish"},{"value":"cos","label":"Corsican"},{"value":"hrv","label":"Croatian"},{"value":"ces","label":"Czech"},{"value":"dan","label":"Danish"},{"value":"div","label":"Dhivehi"},{"value":"nld","label":"Dutch (Flemish)"},{"value":"dum","label":"Dutch (Middle, 1050–1350)"},{"value":"dzo","label":"Dzongkha"},{"value":"egy","label":"Egyptian (Ancient)"},{"value":"elx","label":"Elamite"},{"value":"enm","label":"English (Middle, 1100–1500)"},{"value":"ang","label":"English (Old, 450–1100)"},{"value":"epo","label":"Esperanto"},{"value":"est","label":"Estonian"},{"value":"fao","label":"Faroese"},{"value":"fij","label":"Fijian"},{"value":"fin","label":"Finnish"},{"value":"fra","label":"French"},{"value":"frm","label":"French (Middle, 1400—1600)"},{"value":"fro","label":"French (Old, 842—c. 1400)"},{"value":"frr","label":"Frisian"},{"value":"glg","label":"Galician"},{"value":"lug","label":"Ganda"},{"value":"gez","label":"Ge\'ez"},{"value":"kat","label":"Georgian"},{"value":"nds","label":"German (Low, Low Saxon)"},{"value":"gmh","label":"German (Middle-High, 1050–1500)"},{"value":"goh","label":"German (Old-High, 750–1050)"},{"value":"deu","label":"German"},{"value":"got","label":"Gothic"},{"value":"ell","label":"Greek (Modern, 1453–)"},{"value":"kal","label":"Greenlandic"},{"value":"grn","label":"Guarani"},{"value":"guj","label":"Gujarati"},{"value":"hat","label":"Haitian Creole"},{"value":"hau","label":"Hausa"},{"value":"haw","label":"Hawaiian"},{"value":"heb","label":"Hebrew"},{"value":"hin","label":"Hindi"},{"value":"hit","label":"Hittite"},{"value":"hmn","label":"Hmong"},{"value":"hun","label":"Hungarian"},{"value":"isl","label":"Icelandic"},{"value":"ibo","label":"Igbo"},{"value":"ind","label":"Indonesian"},{"value":"ina","label":"Interlingua"},{"value":"ile","label":"Interlingue"},{"value":"iku","label":"Inuktitut"},{"value":"ipk","label":"Inupiaq"},{"value":"gle","label":"Irish (Modern)"},{"value":"mga","label":"Irish (Middle 900–1200)"},{"value":"sga","label":"Irish (Old, to 900)"},{"value":"ita","label":"Italian"},{"value":"jpn","label":"Japanese"},{"value":"jav","label":"Javanese"},{"value":"kan","label":"Kannada"},{"value":"kaz","label":"Kazakh"},{"value":"kas","label":"Kashmiri"},{"value":"kha","label":"Khasi"},{"value":"khm","label":"Khmer (Central)"},{"value":"kin","label":"Kinyarwanda"},{"value":"tlh","label":"Klingon"},{"value":"kor","label":"Korean"},{"value":"kur","label":"Kurdish"},{"value":"kir","label":"Kyrgyz"},{"value":"lad","label":"Ladino"},{"value":"lao","label":"Laothian"},{"value":"lav","label":"Latvian"},{"value":"lim","label":"Limbu"},{"value":"lin","label":"Lingala"},{"value":"lit","label":"Lithuanian"},{"value":"ltz","label":"Luxembourgish"},{"value":"mac","label":"Macedonian"},{"value":"msa","label":"Malay"},{"value":"mlg","label":"Malagasy"},{"value":"mlt","label":"Maltese"},{"value":"glv","label":"Manx"},{"value":"mao","label":"Maori"},{"value":"mar","label":"Marathi"},{"value":"mfe","label":"Mauritian Creole"},{"value":"mon","label":"Mongolian"},{"value":"nau","label":"Nauru"},{"value":"nbl","label":"Ndebele"},{"value":"new","label":"Nepal Bhasa (Newari)"},{"value":"nep","label":"Nepali"},{"value":"nwc","label":"Newari"},{"value":"non","label":"Norse (Old)"},{"value":"nor","label":"Norwegian"},{"value":"nob","label":"Norwegian (Bokmål)"},{"value":"nno","label":"Norwegian (Nynorsk)"},{"value":"nya","label":"Nyanja"},{"value":"oci","label":"Occitan"},{"value":"ori","label":"Oriya"},{"value":"orm","label":"Oromo"},{"value":"oss","label":"Ossetian"},{"value":"pal","label":"Pahlavi (Middle Persian)"},{"value":"pli","label":"Pali"},{"value":"pus","label":"Pashto"},{"value":"nso","label":"Pedi"},{"value":"fas","label":"Persian (Farsi)"},{"value":"peo","label":"Persian (Old, 600–400 BC)"},{"value":"phn","label":"Phoenician"},{"value":"pol","label":"Polish"},{"value":"por","label":"Portuguese"},{"value":"pra","label":"Prakrit"},{"value":"pro","label":"Provençal (Occitan, –1500)"},{"value":"pan","label":"Punjabi (Panjabi)"},{"value":"raj","label":"Rajasthani"},{"value":"que","label":"Quechua"},{"value":"roh","label":"Rhaeto Romance"},{"value":"ron","label":"Romanian"},{"value":"rom","label":"Romany"},{"value":"run","label":"Rundi"},{"value":"rus","label":"Russian"},{"value":"smo","label":"Samoan"},{"value":"sag","label":"Sango"},{"value":"san","label":"Sanskrit"},{"value":"sco","label":"Scots"},{"value":"gla","label":"Scottish (Gaelic)"},{"value":"srp","label":"Serbian"},{"value":"crs","label":"Seselwa"},{"value":"sot","label":"Sesotho"},{"value":"scn","label":"Sicilian"},{"value":"snd","label":"Sindhi"},{"value":"sin","label":"Sinhalese (Sinhala)"},{"value":"ssw","label":"Siswant"},{"value":"sna","label":"Shona"},{"value":"slk","label":"Slovak"},{"value":"slv","label":"Slovenian"},{"value":"sog","label":"Sogdian"},{"value":"som","label":"Somali"},{"value":"spa","label":"Spanish (Castilian)"},{"value":"sux","label":"Sumerian"},{"value":"sun","label":"Sundanese"},{"value":"swa","label":"Swahili"},{"value":"swe","label":"Swedish"},{"value":"gsw","label":"Swiss German (Alsatian)"},{"value":"syc","label":"Syriac (Classical)"},{"value":"syr","label":"Syriac (Northeastern, Neo-Aramaic)"},{"value":"tgl","label":"Tagalog"},{"value":"tgk","label":"Tajik"},{"value":"tam","label":"Tamil"},{"value":"tat","label":"Tatar"},{"value":"tel","label":"Telugu"},{"value":"tha","label":"Thai"},{"value":"bod","label":"Tibetan"},{"value":"tir","label":"Tigrinya"},{"value":"tsn","label":"Tswana"},{"value":"tog","label":"Tonga"},{"value":"tso","label":"Tsonga"},{"value":"tur","label":"Turkish (Modern)"},{"value":"ota","label":"Turkish (Ottoman, 1500–1928)"},{"value":"tuk","label":"Turkmen"},{"value":"uga","label":"Ugaritic"},{"value":"uig","label":"Uighur"},{"value":"ukr","label":"Ukainian"},{"value":"urd","label":"Urdu"},{"value":"uzb","label":"Uzbek"},{"value":"ven","label":"Venda"},{"value":"vie","label":"Vietnamese"},{"value":"vol","label":"Volapuk"},{"value":"wln","label":"Walloon"},{"value":"cym","label":"Welsh"},{"value":"wol","label":"Wolof"},{"value":"xho","label":"Xhosa"},{"value":"yid","label":"Yiddish"},{"value":"yor","label":"Yoruba"}]');
 
 /***/ }),
 
@@ -59209,7 +57660,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukrainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"}}');
+module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AAR":{"message":"Afar","description":"Language name for available languages list","component":"TextEditor"},"LANG_ABK":{"message":"Abkhazian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKA":{"message":"Akan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ASM":{"message":"Assamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AYM":{"message":"Aymara","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BAK":{"message":"Bashkir","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEL":{"message":"Belarusian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIH":{"message":"Bihari","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIS":{"message":"Bislama","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUG":{"message":"Buginese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CEB":{"message":"Cebuano","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHR":{"message":"Cherokee","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_COS":{"message":"Corsican","description":"Language name for available languages list","component":"TextEditor"},"LANG_CRS":{"message":"Seselwa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_DIV":{"message":"Dhivehi","description":"Language name for available languages list","component":"TextEditor"},"LANG_DZO":{"message":"Dzongkha","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_EPO":{"message":"Esperanto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAO":{"message":"Faroese","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIJ":{"message":"Fijian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRR":{"message":"Frisian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLG":{"message":"Galician","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRN":{"message":"Guarani","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAT":{"message":"Haitian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAU":{"message":"Hausa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAW":{"message":"Hawaiian","description":"Language name for available languages list","component":"TextEditor"},"LANG_HMN":{"message":"Hmong","description":"Language name for available languages list","component":"TextEditor"},"LANG_LUG":{"message":"Ganda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAL":{"message":"Greenlandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_IBO":{"message":"Igbo","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_INA":{"message":"Interlingua","description":"Language name for available languages list","component":"TextEditor"},"LANG_ILE":{"message":"Interlingue","description":"Language name for available languages list","component":"TextEditor"},"LANG_IPK":{"message":"Inupiaq","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAZ":{"message":"Kazakh","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAS":{"message":"Kashmiri","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIN":{"message":"Kinyarwanda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHA":{"message":"Khasi","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_TLH":{"message":"Klingon","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIR":{"message":"Kyrgyz","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAO":{"message":"Laothian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAV":{"message":"Latvian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIM":{"message":"Limbu","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIN":{"message":"Lingala","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LTZ":{"message":"Luxembourgish","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAC":{"message":"Macedonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLG":{"message":"Malagasy","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAL":{"message":"Malayalam","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLT":{"message":"Maltese","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAO":{"message":"Maori","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_MFE":{"message":"Mauritian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_MON":{"message":"Mongolian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NBL":{"message":"Ndebele","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NYA":{"message":"Nyanja","description":"Language name for available languages list","component":"TextEditor"},"LANG_OCI":{"message":"Occitan","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORI":{"message":"Oriya","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORM":{"message":"Oromo","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_NSO":{"message":"Pedi","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_QUE":{"message":"Quechua","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROH":{"message":"Rhaeto Romance","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUN":{"message":"Rundi","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SMO":{"message":"Samoan","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAG":{"message":"Sango","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOT":{"message":"Sesotho","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SSW":{"message":"Siswant","description":"Language name for available languages list","component":"TextEditor"},"LANG_SNA":{"message":"Shona","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOM":{"message":"Somali","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUN":{"message":"Sundanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TIR":{"message":"Tigrinya","description":"Language name for available languages list","component":"TextEditor"},"LANG_TOG":{"message":"Tonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSO":{"message":"Tsonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSN":{"message":"Tswana","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UIG":{"message":"Uighur","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukrainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VEN":{"message":"Venda","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_VOL":{"message":"Volapuk","description":"Language name for available languages list","component":"TextEditor"},"LANG_WAR":{"message":"Waray Philippines","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_WOL":{"message":"Wolof","description":"Language name for available languages list","component":"TextEditor"},"LANG_XHO":{"message":"Xhosa","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"},"LANG_YOR":{"message":"Yoruba","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHA":{"message":"Zhuang","description":"Language name for available languages list","component":"TextEditor"}}');
 
 /***/ }),
 
@@ -59298,8 +57749,9 @@ module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-source-text","
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {

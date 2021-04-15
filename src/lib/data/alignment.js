@@ -92,6 +92,7 @@ export default class Alignment {
         this.origin.docSource = docSource
       } else {
         this.origin.docSource = new SourceText('origin', docSource)
+        console.info('origin docSource', docSource)
       }
     } else {
       this.origin.docSource.update(docSource)
@@ -123,6 +124,7 @@ export default class Alignment {
     if (!targetId || (docSource && !this.targets[docSource.id])) {
       if (!(docSource instanceof SourceText)) {
         docSource = new SourceText('target', docSource, targetId)
+        console.info('target docSource', docSource)
       }
       this.targets[docSource.id] = {
         docSource
