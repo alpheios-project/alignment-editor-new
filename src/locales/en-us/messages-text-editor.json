@@ -1,6 +1,6 @@
 {
   "TEXT_EDITOR_HEADING": {
-    "message": "Define Original and Translation Texts",
+    "message": "Enter Texts",
     "description": "A heading for text editor",
     "component": "TextEditor"
   },
@@ -15,7 +15,7 @@
     "component": "TextEditor"
   },
   "TEXT_EDITOR_TEXT_BLOCK_TITLE": {
-    "message": "Enter Text in { textType } Language:",
+    "message": "{ textType } text:",
     "description": "A tytle for text block area",
     "component": "TextEditorSingleBlock",
     "params": ["textType"]
