@@ -38968,6 +38968,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class DetectTextController {
+  /**
+   * Checks if text is plain text or xml.
+   * If it is a plain text - than application will send a request to language detection API and defines direction from language.
+   * @param {SourceText} sourceText
+   * @returns {Object}
+   *          {String} sourceType - text/tei
+   *          {String} lang - only for text
+   *          {String} direction - only for text
+   */
   static async detectTextProperties (sourceText) {
     const sourceType = this.checkXML(sourceText)
 
@@ -38994,11 +39003,16 @@ class DetectTextController {
     }
     return {
       lang: adapterDetectLangRes.result,
-      direction: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__.default.isRtl(adapterDetectLangRes.result),
+      direction: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__.default.defineDirection(adapterDetectLangRes.result),
       sourceType
     }
   }
 
+  /**
+   *
+   * @param {String} sourceText
+   * @returns {String} - tei/text
+   */
   static checkXML (sourceText) {
     const checkRegExp = new RegExp('^<tei[\\s\\S]*</tei[\\s\\S]*', 'i')
     return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
@@ -43394,10 +43408,12 @@ let allLangs = []
 const rtlLangs = []
 
 class Langs {
-  static defaultDirection () {
-    return 'ltr'
-  }
-
+  /**
+   * Uploads once language's list for options
+   * @returns {Array[Object]}
+   *          {String} value - lang code ISO 639-3
+   *          {String} label - language name
+   */
   static get all () {
     if (allLangs.length === 0) {
       allLangs = this.collectLangsData()
@@ -43405,13 +43421,23 @@ class Langs {
     return allLangs
   }
 
-  static isRtl (langCode) {
+  /**
+   * Uploads once rtl language's list. And defines direction by langCode.
+   * @returns {String} - rtl/ltr
+   */
+  static defineDirection (langCode) {
     if (rtlLangs.length === 0) {
       allLangs = this.collectLangsData()
     }
     return rtlLangs.includes(langCode) ? 'rtl' : 'ltr'
   }
 
+  /**
+   * Creates allLangs list and rtl langs list.
+   * @returns {Array[Object]}
+   *          {String} value - lang code ISO 639-3
+   *          {String} label - language name
+   */
   static collectLangsData () {
     return _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
@@ -44804,7 +44830,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210416618" : 0
+    return  true ? "i327-new-text-editor-screen.20210416644" : 0
   }
 
   static get libName () {
