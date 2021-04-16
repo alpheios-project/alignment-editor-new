@@ -39661,6 +39661,11 @@ class TextsController {
     }
   }
 
+  checkDetectedProps (textType, docSourceId) {
+    const docSource = textType === 'origin' ? this.originDocSource : this.targetDocSource(docSourceId)
+    return docSource.detectedLang
+  }
+
   /**
    * Delete target SourceText
    * @param {String} textType - target or origin
@@ -43925,6 +43930,10 @@ class SourceText {
 
     this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
     this.tokenization = Object.assign({}, docSource.tokenization)
+
+    if (this.text.length === 0) {
+      this.detectedLang = false
+    }
   }
 
   updateDetectedLang (langData) {
@@ -44795,7 +44804,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210416389" : 0
+    return  true ? "i327-new-text-editor-screen.20210416618" : 0
   }
 
   static get libName () {
@@ -47400,6 +47409,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -47417,7 +47427,12 @@ __webpack_require__.r(__webpack_exports__);
     textId: {
       type: String,
       required: false
-    }
+    },
+    onlyMetadata: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
   data () {
     return {
@@ -47690,6 +47705,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -47715,6 +47731,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
+      showLangLabel: false
     }
   },
   computed: {
@@ -48031,6 +48048,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48082,7 +48111,13 @@ __webpack_require__.r(__webpack_exports__);
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false
+      showMetadata: false,
+      showTypeUploadButtons: true,
+
+      showTypeTextBlock: false,
+      showTextProps: false,
+      showUploadMenu: false,
+      showOnlyMetadata: true
     }
   },
   /**
@@ -48112,6 +48147,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: {
+
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
     /**
      * Used for css id definition
      */
@@ -48158,10 +48197,6 @@ __webpack_require__.r(__webpack_exports__);
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-
-    l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
-    },
 
     /**
      * Defines if we have multiple targets then we need to show index of target text
@@ -48240,6 +48275,12 @@ __webpack_require__.r(__webpack_exports__);
     async restartTextEditor () {
         this.text = ''
         await this.prepareDefaultTextEditorOptions()
+
+        this.showTypeUploadButtons = true
+        this.showTypeTextBlock = false
+        this.showTextProps = false
+        this.showUploadMenu = false
+        this.showOnlyMetadata = true
     },
 
     /**
@@ -48257,6 +48298,10 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         await this.$textC[this.updateTextMethod](params, this.textId)  
+
+        if (this.$textC.checkDetectedProps(this.textType, this.textId)) {
+          this.showTextProps = true
+        }
       }
     },
     deleteText () {
@@ -48282,10 +48327,25 @@ __webpack_require__.r(__webpack_exports__);
         textId: this.textId,
         tokenization: this.tokenization
       })
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
     },
 
     toggleMetadata () {
       this.showMetadata = !this.showMetadata
+    },
+
+    selectTypeText () {
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
+      this.showTypeUploadButtons = false
+    },
+
+    selectUploadText () { 
+      this.showUploadMenu = true
+
+      this.showOnlyMetadata = false
+      this.showTypeUploadButtons = false
     }
   }
 });
@@ -54742,26 +54802,14 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: {
-                id: "alpheios-actions-menu-button__download",
-                disabled: !_vm.downloadAvailable
-              },
-              on: { click: _vm.downloadSingle }
-            },
-            [
-              _vm._v(
-                "\n        " +
-                  _vm._s(_vm.l10n.getMsgS("ACTIONS_DOWNLOAD_TITLE")) +
-                  "\n    "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.onlyMetadata,
+                  expression: "!onlyMetadata"
+                }
+              ],
               staticClass:
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
               attrs: {
@@ -54777,6 +54825,29 @@ var render = function() {
                   "\n    "
               )
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.onlyMetadata,
+                  expression: "!onlyMetadata"
+                }
+              ],
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__metadata" },
+              on: {
+                click: function($event) {
+                  _vm.showModal = true
+                }
+              }
+            },
+            [_vm._v("\n        DTSAPI\n    ")]
           ),
           _vm._v(" "),
           _c(
@@ -54813,22 +54884,7 @@ var render = function() {
             ref: "fileupload",
             attrs: { type: "file" },
             on: { change: _vm.loadTextFromFile }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: { id: "alpheios-actions-menu-button__metadata" },
-              on: {
-                click: function($event) {
-                  _vm.showModal = true
-                }
-              }
-            },
-            [_vm._v("\n          DTSAPI\n      ")]
-          )
+          })
         ]
       ),
       _vm._v(" "),
@@ -55113,6 +55169,7 @@ var render = function() {
                   optionItem: _vm.localOptions.sourceText.items.language,
                   emitUpdateData: true,
                   disabled: _vm.disabled,
+                  showLabelText: _vm.showLangLabel,
                   labelsListType: _vm.textType
                 },
                 on: { updateData: _vm.updateData }
@@ -55445,8 +55502,69 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showTypeUploadButtons,
+              expression: "showTypeUploadButtons"
+            }
+          ]
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__typetext" },
+              on: { click: _vm.selectTypeText }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("TEXT_SINGLE_TYPE_BUTTON")) +
+                  "\n      "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__uploadtext" },
+              on: { click: _vm.selectUploadText }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("TEXT_SINGLE_UPLOAD_BUTTON")) +
+                  "\n      "
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("actions-menu", {
-        attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTextProps || _vm.showUploadMenu,
+            expression: "showTextProps || showUploadMenu"
+          }
+        ],
+        attrs: {
+          "text-type": _vm.textType,
+          "text-id": _vm.textId,
+          onlyMetadata: _vm.showOnlyMetadata
+        },
         on: {
           "upload-single": _vm.uploadSingle,
           "toggle-metadata": _vm.toggleMetadata
@@ -55465,7 +55583,74 @@ var render = function() {
         attrs: { "text-type": _vm.textType, "text-id": _vm.textId }
       }),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showTypeTextBlock,
+              expression: "showTypeTextBlock"
+            }
+          ]
+        },
+        [
+          _c(
+            "p",
+            {
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__characters",
+              class: _vm.charactersClasses
+            },
+            [_vm._v("\n        " + _vm._s(_vm.charactersText) + "\n      ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "textarea",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.text,
+                  expression: "text"
+                }
+              ],
+              attrs: {
+                id: _vm.textareaId,
+                dir: _vm.direction,
+                tabindex: "2",
+                lang: _vm.language,
+                disabled: !_vm.docSourceEditAvailable
+              },
+              domProps: { value: _vm.text },
+              on: {
+                blur: function($event) {
+                  return _vm.updateText("text")
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.text = $event.target.value
+                }
+              }
+            },
+            [_vm._v("      >")]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("direction-options-block", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTextProps,
+            expression: "showTextProps"
+          }
+        ],
         attrs: {
           localOptions: _vm.localTextEditorOptions,
           disabled: !_vm.docSourceEditAvailable
@@ -55473,51 +55658,15 @@ var render = function() {
         on: { updateText: _vm.updateText }
       }),
       _vm._v(" "),
-      _c(
-        "p",
-        {
-          staticClass:
-            "alpheios-alignment-editor-text-blocks-single__characters",
-          class: _vm.charactersClasses
-        },
-        [_vm._v("\n       " + _vm._s(_vm.charactersText) + "\n    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "textarea",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.text,
-              expression: "text"
-            }
-          ],
-          attrs: {
-            id: _vm.textareaId,
-            dir: _vm.direction,
-            tabindex: "2",
-            lang: _vm.language,
-            disabled: !_vm.docSourceEditAvailable
-          },
-          domProps: { value: _vm.text },
-          on: {
-            blur: function($event) {
-              return _vm.updateText("text")
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.text = $event.target.value
-            }
-          }
-        },
-        [_vm._v("    >")]
-      ),
-      _vm._v(" "),
       _c("language-options-block", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTextProps,
+            expression: "showTextProps"
+          }
+        ],
         attrs: {
           textType: _vm.textType,
           localOptions: _vm.localTextEditorOptions
@@ -55527,6 +55676,14 @@ var render = function() {
       _vm._v(" "),
       _vm.$settingsC.hasTokenizerOptions
         ? _c("tokenize-options-block", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showTextProps,
+                expression: "showTextProps"
+              }
+            ],
             attrs: {
               localOptions: _vm.localTextEditorOptions,
               disabled: !_vm.docSourceEditAvailable
@@ -57780,7 +57937,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original and Translation Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original and Translation Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in a text","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Upload a text","description":"Title in text editor block","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 

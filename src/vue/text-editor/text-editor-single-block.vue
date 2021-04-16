@@ -5,30 +5,42 @@
           <delete-icon />
         </span>
       </p>
-      <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata"/>
+      <div v-show="showTypeUploadButtons">
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__typetext"
+            @click="selectTypeText">
+            {{ l10n.getMsgS('TEXT_SINGLE_TYPE_BUTTON') }}
+        </button>
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
+            @click="selectUploadText">
+            {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
+        </button>
+      </div>
       
+      <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
+                    :onlyMetadata = "showOnlyMetadata" v-show="showTextProps || showUploadMenu"/>      
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
-      <direction-options-block 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
-      />
-      <p class="alpheios-alignment-editor-text-blocks-single__characters" 
-         :class = "charactersClasses">
-         {{ charactersText }}
-      </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
-                 :disabled="!docSourceEditAvailable" >
-      ></textarea>
+      <div v-show="showTypeTextBlock">
+        <p class="alpheios-alignment-editor-text-blocks-single__characters" 
+          :class = "charactersClasses">
+          {{ charactersText }}
+        </p>
+        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
+                  :disabled="!docSourceEditAvailable" >
+        ></textarea>
+      </div>
 
+      <direction-options-block 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"  v-show="showTextProps" 
+      />
 
       <language-options-block :textType = "textType"
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" v-show="showTextProps"
       />
 
-      <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions"
+      <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
-
   </div>
 </template>
 <script>
@@ -82,7 +94,13 @@ export default {
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false
+      showMetadata: false,
+      showTypeUploadButtons: true,
+
+      showTypeTextBlock: false,
+      showTextProps: false,
+      showUploadMenu: false,
+      showOnlyMetadata: true
     }
   },
   /**
@@ -112,6 +130,10 @@ export default {
     }
   },
   computed: {
+
+    l10n () {
+      return L10nSingleton
+    },
     /**
      * Used for css id definition
      */
@@ -158,10 +180,6 @@ export default {
     textBlockTitle () {
       return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-
-    l10n () {
-      return L10nSingleton
-    },
 
     /**
      * Defines if we have multiple targets then we need to show index of target text
@@ -240,6 +258,12 @@ export default {
     async restartTextEditor () {
         this.text = ''
         await this.prepareDefaultTextEditorOptions()
+
+        this.showTypeUploadButtons = true
+        this.showTypeTextBlock = false
+        this.showTextProps = false
+        this.showUploadMenu = false
+        this.showOnlyMetadata = true
     },
 
     /**
@@ -257,6 +281,10 @@ export default {
         }
 
         await this.$textC[this.updateTextMethod](params, this.textId)  
+
+        if (this.$textC.checkDetectedProps(this.textType, this.textId)) {
+          this.showTextProps = true
+        }
       }
     },
     deleteText () {
@@ -282,10 +310,25 @@ export default {
         textId: this.textId,
         tokenization: this.tokenization
       })
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
     },
 
     toggleMetadata () {
       this.showMetadata = !this.showMetadata
+    },
+
+    selectTypeText () {
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
+      this.showTypeUploadButtons = false
+    },
+
+    selectUploadText () { 
+      this.showUploadMenu = true
+
+      this.showOnlyMetadata = false
+      this.showTypeUploadButtons = false
     }
   }
 }

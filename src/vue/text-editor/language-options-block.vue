@@ -4,6 +4,7 @@
             <option-item-block
               :optionItem = "localOptions.sourceText.items.language"
               :emitUpdateData = "true" :disabled="disabled"
+              :showLabelText = "showLangLabel"
               @updateData = "updateData" :labelsListType="textType" 
             />
         </fieldset>
@@ -34,6 +35,7 @@ export default {
   },
   data () {
     return {
+      showLangLabel: false
     }
   },
   computed: {

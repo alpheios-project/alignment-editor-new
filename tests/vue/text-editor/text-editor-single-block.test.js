@@ -125,8 +125,8 @@ describe('text-editor-single-block.test.js', () => {
           textId: 'targetIdTest'
         }
       })
-    expect(cmp.vm.textTypeFormatted).toEqual('Target')
-    expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Target'))
+    expect(cmp.vm.textTypeFormatted).toEqual('Translation')
+    expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Translation'))
   })
 
   it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
@@ -179,7 +179,7 @@ describe('text-editor-single-block.test.js', () => {
       }
     })
 
-    cmp.vm.text = 'some origin text'
+    cmp.vm.text = 'some'
 
     await cmp.vm.prepareDefaultTextEditorOptions()
     expect(cmp.vm.direction).toEqual('ltr')
@@ -190,10 +190,10 @@ describe('text-editor-single-block.test.js', () => {
     jest.spyOn(cmp.vm.$textC, 'updateTargetDocSource')
 
 
-    cmp.vm.updateText()
+    await cmp.vm.updateText()
 
     expect(cmp.vm.$textC.updateOriginDocSource).toHaveBeenCalledWith({
-      text: 'some origin text',
+      text: 'some',
       direction: 'ltr',
       lang: 'eng',
       sourceType: 'text',
@@ -222,8 +222,8 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.language).toEqual('eng')
     expect(cmp.vm.sourceType).toEqual('text')
 
-    cmp.vm.$textC.updateOriginDocSource({
-      text: 'Humano capiti cervicem pictor equinam',
+    await cmp.vm.$textC.updateOriginDocSource({
+      text: 'Huma',
       direction: 'rtl',
       lang: 'grc'
     })
@@ -231,7 +231,7 @@ describe('text-editor-single-block.test.js', () => {
 
     await Vue.nextTick()
 
-    expect(cmp.vm.text).toEqual('Humano capiti cervicem pictor equinam')
+    expect(cmp.vm.text).toEqual('Huma')
     expect(cmp.vm.direction).toEqual('rtl')
     expect(cmp.vm.language).toEqual('grc')
     expect(cmp.vm.sourceType).toEqual('text')

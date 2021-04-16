@@ -78,6 +78,11 @@ export default class TextsController {
     }
   }
 
+  checkDetectedProps (textType, docSourceId) {
+    const docSource = textType === 'origin' ? this.originDocSource : this.targetDocSource(docSourceId)
+    return docSource.detectedLang
+  }
+
   /**
    * Delete target SourceText
    * @param {String} textType - target or origin

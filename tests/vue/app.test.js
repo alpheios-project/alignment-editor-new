@@ -138,12 +138,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -197,12 +197,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -225,12 +225,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 

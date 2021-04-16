@@ -87,7 +87,7 @@
     "component": "MainMenu"
   },
   "ACTIONS_UPLOAD_TITLE": {
-    "message": "Upload",
+    "message": "Upload text",
     "description": "Button in main menu",
     "component": "MainMenu"
   },
@@ -125,5 +125,15 @@
     "message": "go to",
     "description": "Title in upload block",
     "component": "UploadDTSAPIBlock"
+  },
+  "TEXT_SINGLE_TYPE_BUTTON": {
+    "message": "Type/paste in a text",
+    "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
+  },
+  "TEXT_SINGLE_UPLOAD_BUTTON": {
+    "message": "Upload a text",
+    "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
   }
 }
