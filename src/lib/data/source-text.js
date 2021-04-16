@@ -81,7 +81,11 @@ export default class SourceText {
   }
 
   updateDetectedLang (langData) {
-    this.lang = langData.lang
+    this.sourceType = langData.sourceType
+    if (langData.lang) {
+      this.lang = langData.lang
+      this.direction = langData.direction
+    }
     this.detectedLang = true
   }
 

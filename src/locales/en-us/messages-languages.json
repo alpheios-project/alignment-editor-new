@@ -24,6 +24,11 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
+    "LANG_ZHO": {
+      "message": "Chinese",
+      "description": "Language name for available languages list",
+      "component": "TextEditor"
+    },
     "LANG_AAR": {
       "message": "Afar",
       "description": "Language name for available languages list",
@@ -709,6 +714,11 @@
     },
     "LANG_NSO": {
       "message": "Pedi",
+      "description": "Language name for available languages list",
+      "component": "TextEditor"
+    },
+    "LANG_PER": {
+      "message": "Persian",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },

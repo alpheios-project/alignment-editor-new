@@ -1,17 +1,21 @@
 import { ClientAdapters } from 'alpheios-client-adapters'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import Langs from '@/lib/data/langs/langs.js'
 
 export default class DetectTextController {
   static async detectTextProperties (sourceText) {
+    const sourceType = this.checkXML(sourceText)
+
+    if (sourceType === 'tei') {
+      return { sourceType }
+    }
+
     const adapterDetectLangRes = await ClientAdapters.detectlangGroup.detectlang({
       method: 'getDetectedLangsList',
       params: {
         text: sourceText.text
       }
     })
-
-    console.info('sourceText - ', sourceText)
-    console.info('adapterDetectLangRes - ', adapterDetectLangRes)
 
     if (adapterDetectLangRes.errors.length > 0) {
       adapterDetectLangRes.errors.forEach(error => {
@@ -24,7 +28,14 @@ export default class DetectTextController {
       return
     }
     return {
-      lang: adapterDetectLangRes.result
+      lang: adapterDetectLangRes.result,
+      direction: Langs.isRtl(adapterDetectLangRes.result),
+      sourceType
     }
+  }
+
+  static checkXML (sourceText) {
+    const checkRegExp = new RegExp('^<tei[\\s\\S]*</tei[\\s\\S]*', 'i')
+    return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
   }
 }
