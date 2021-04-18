@@ -178,7 +178,7 @@ export default {
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
+      return (this.textType === 'target') ? this.textTypeFormatted : this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
 
     /**

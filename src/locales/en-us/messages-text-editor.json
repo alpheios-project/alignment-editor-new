@@ -1,6 +1,6 @@
 {
   "TEXT_EDITOR_HEADING": {
-    "message": "Enter Texts",
+    "message": "Enter",
     "description": "A heading for text editor",
     "component": "TextEditor"
   },
@@ -127,12 +127,12 @@
     "component": "UploadDTSAPIBlock"
   },
   "TEXT_SINGLE_TYPE_BUTTON": {
-    "message": "Type/paste in a text",
+    "message": "Type/paste in",
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   },
   "TEXT_SINGLE_UPLOAD_BUTTON": {
-    "message": "Upload a text",
+    "message": "Upload",
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   }
