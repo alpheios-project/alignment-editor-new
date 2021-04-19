@@ -44864,7 +44864,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210419645" : 0
+    return  true ? "i327-new-text-editor-screen.20210419657" : 0
   }
 
   static get libName () {
@@ -47469,7 +47469,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -47493,6 +47492,11 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: false
     },
+    showUploadBlockFlag: {
+      type: Number,
+      required: false,
+      default: 1
+    }
   },
   data () {
     return {
@@ -47504,6 +47508,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     '$store.state.alignmentRestarted' () {
       this.$refs.fileupload.value = ''
+    },
+    'showUploadBlockFlag' () {
+      this.uploadTexts()
     }
   },
   computed: {
@@ -48177,7 +48184,8 @@ __webpack_require__.r(__webpack_exports__);
       showTypeTextBlock: false,
       showTextProps: false,
       showUploadMenu: false,
-      showOnlyMetadata: true
+      showOnlyMetadata: true,
+      showUploadBlockFlag: 1
     }
   },
   /**
@@ -48406,8 +48414,9 @@ __webpack_require__.r(__webpack_exports__);
 
     selectUploadText () { 
       this.showUploadMenu = true
+      this.showUploadBlockFlag++
 
-      this.showOnlyMetadata = false
+      this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
     }
   }
@@ -54893,29 +54902,6 @@ var render = function() {
           _c(
             "button",
             {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.onlyMetadata,
-                  expression: "!onlyMetadata"
-                }
-              ],
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: { id: "alpheios-actions-menu-button__metadata" },
-              on: {
-                click: function($event) {
-                  _vm.showModal = true
-                }
-              }
-            },
-            [_vm._v("\n        DTSAPI\n    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
               staticClass:
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
               attrs: {
@@ -54947,7 +54933,22 @@ var render = function() {
             ref: "fileupload",
             attrs: { type: "file" },
             on: { change: _vm.loadTextFromFile }
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__metadata" },
+              on: {
+                click: function($event) {
+                  _vm.showModal = true
+                }
+              }
+            },
+            [_vm._v("\n          DTSAPI\n      ")]
+          )
         ]
       ),
       _vm._v(" "),
@@ -55626,7 +55627,8 @@ var render = function() {
         attrs: {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
-          onlyMetadata: _vm.showOnlyMetadata
+          onlyMetadata: _vm.showOnlyMetadata,
+          showUploadBlockFlag: _vm.showUploadBlockFlag
         },
         on: {
           "upload-single": _vm.uploadSingle,

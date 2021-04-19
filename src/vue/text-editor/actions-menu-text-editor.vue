@@ -12,17 +12,16 @@
             {{ l10n.getMsgS('ACTIONS_UPLOAD_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
-            @click="showModal = true" v-show="!onlyMetadata">
-            DTSAPI
-        </button>
-        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
             @click="toggleMetadata" :disabled = "!metadataAvailable">
             {{ toggleMetadataTitle }}
         </button>
       </div>
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
-        
           <input type="file" @change="loadTextFromFile" ref="fileupload">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
+              @click="showModal = true">
+              DTSAPI
+          </button>
       </div>
       <upload-dtsapi-block :showModal="showModal" @closeModal = "showModal = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
     </div>
@@ -50,6 +49,11 @@ export default {
       required: false,
       default: false
     },
+    showUploadBlockFlag: {
+      type: Number,
+      required: false,
+      default: 1
+    }
   },
   data () {
     return {
@@ -61,6 +65,9 @@ export default {
   watch: {
     '$store.state.alignmentRestarted' () {
       this.$refs.fileupload.value = ''
+    },
+    'showUploadBlockFlag' () {
+      this.uploadTexts()
     }
   },
   computed: {

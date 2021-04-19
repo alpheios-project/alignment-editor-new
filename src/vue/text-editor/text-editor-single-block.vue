@@ -17,7 +17,7 @@
       </div>
       
       <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
-                    :onlyMetadata = "showOnlyMetadata" v-show="showTextProps || showUploadMenu"/>      
+                    :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" v-show="showTextProps || showUploadMenu"/>      
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
@@ -100,7 +100,8 @@ export default {
       showTypeTextBlock: false,
       showTextProps: false,
       showUploadMenu: false,
-      showOnlyMetadata: true
+      showOnlyMetadata: true,
+      showUploadBlockFlag: 1
     }
   },
   /**
@@ -329,8 +330,9 @@ export default {
 
     selectUploadText () { 
       this.showUploadMenu = true
+      this.showUploadBlockFlag++
 
-      this.showOnlyMetadata = false
+      this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
     }
   }
