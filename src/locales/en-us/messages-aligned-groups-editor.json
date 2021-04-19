@@ -1,6 +1,6 @@
 {
     "ALIGN_EDITOR_HEADING": {
-      "message": "Define Alignment Groups",
+      "message": "Align text",
       "description": "A heading for align editor",
       "component": "AlignEditor"
     },

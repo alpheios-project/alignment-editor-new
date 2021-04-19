@@ -110,7 +110,7 @@ export default {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
-    this.updateFromExternal()
+    await this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
@@ -118,8 +118,11 @@ export default {
         await this.prepareDefaultTextEditorOptions()
       }
     },
-    '$store.state.uploadCheck' () {
-      this.updateFromExternal()
+    async '$store.state.uploadCheck' () {
+      await this.updateFromExternal()
+      this.showTypeUploadButtons = false
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
@@ -362,6 +365,8 @@ export default {
 
     .alpheios-alignment-editor-text-blocks-single__title {
       position: relative;
+      font-size: 20px;
+      font-weight: bold;
     }
     .alpheios-alignment-editor-text-blocks-single__remove {
       display: inline-block;

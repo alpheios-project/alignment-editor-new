@@ -1,6 +1,6 @@
 <template>
   <div class="alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
-      <h2>{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} </h2>
+      <h2 class="alpheios-alignment-text-editor-block__header">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} </h2>
 
       <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
         <div class="alpheios-alignment-editor-text-blocks-container-inner">
@@ -71,6 +71,10 @@ export default {
 }
 </script>
 <style lang="scss">
+  .alpheios-alignment-text-editor-block__header {
+    font-size: 24px;
+  }
+
   .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {
     padding: 20px 10px 20px 40px;  
   }
