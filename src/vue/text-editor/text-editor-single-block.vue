@@ -121,9 +121,6 @@ export default {
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
-      this.showTypeUploadButtons = false
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
@@ -253,6 +250,10 @@ export default {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
+
+        this.showTypeUploadButtons = false
+        this.showTypeTextBlock = true
+        this.showOnlyMetadata = true
       }
     },
 

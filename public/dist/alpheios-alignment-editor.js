@@ -39697,11 +39697,10 @@ class TextsController {
       })
       return
     }
-    this.alignment.updateTargetDocSource(targetDocSource, targetId)
-
-    if (this.targetDocSource(targetId) && this.targetDocSource(targetId).readyForLangDetection) {
-      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(targetId))
-      this.targetDocSource(targetId).updateDetectedLang(langData)
+    const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
+    if (this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(newTargetId))
+      this.targetDocSource(newTargetId).updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
     } else {
       this.store.commit('incrementAlignmentUpdated')
@@ -39710,7 +39709,7 @@ class TextsController {
 
   checkDetectedProps (textType, docSourceId) {
     const docSource = textType === 'origin' ? this.originDocSource : this.targetDocSource(docSourceId)
-    return docSource.detectedLang
+    return Boolean(docSource.detectedLang)
   }
 
   /**
@@ -42181,6 +42180,7 @@ class Alignment {
       if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
         docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
       }
+
       this.targets[docSource.id] = {
         docSource
       }
@@ -42190,7 +42190,7 @@ class Alignment {
         this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
       }
     }
-    return true
+    return docSource.id
   }
 
   /**
@@ -44864,7 +44864,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210419657" : 0
+    return  true ? "i327-new-text-editor-screen.20210419676" : 0
   }
 
   static get libName () {
@@ -48205,9 +48205,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
-      this.showTypeUploadButtons = false
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
@@ -48337,6 +48334,10 @@ __webpack_require__.r(__webpack_exports__);
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
+
+        this.showTypeUploadButtons = false
+        this.showTypeTextBlock = true
+        this.showOnlyMetadata = true
       }
     },
 

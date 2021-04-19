@@ -67,11 +67,10 @@ export default class TextsController {
       })
       return
     }
-    this.alignment.updateTargetDocSource(targetDocSource, targetId)
-
-    if (this.targetDocSource(targetId) && this.targetDocSource(targetId).readyForLangDetection) {
-      const langData = await DetectTextController.detectTextProperties(this.targetDocSource(targetId))
-      this.targetDocSource(targetId).updateDetectedLang(langData)
+    const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
+    if (this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
+      const langData = await DetectTextController.detectTextProperties(this.targetDocSource(newTargetId))
+      this.targetDocSource(newTargetId).updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
     } else {
       this.store.commit('incrementAlignmentUpdated')
@@ -80,7 +79,7 @@ export default class TextsController {
 
   checkDetectedProps (textType, docSourceId) {
     const docSource = textType === 'origin' ? this.originDocSource : this.targetDocSource(docSourceId)
-    return docSource.detectedLang
+    return Boolean(docSource.detectedLang)
   }
 
   /**
