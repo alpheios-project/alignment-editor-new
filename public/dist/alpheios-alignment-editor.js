@@ -38967,7 +38967,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const detectedTexts = {}
+
 class DetectTextController {
+  /**
+   * This is a max amount of text that would be send to the detection service
+   */
+  static get maxAmountOfText () {
+    return 200
+  }
+
   /**
    * Checks if text is plain text or xml.
    * If it is a plain text - than application will send a request to language detection API and defines direction from language.
@@ -38978,22 +38987,24 @@ class DetectTextController {
    *          {String} direction - only for text
    */
   static async detectTextProperties (sourceText) {
+    if (this.isAlreadyDetected(sourceText)) { return }
     const sourceType = this.checkXML(sourceText)
 
     if (sourceType === 'tei') {
+      this.addToDetected(sourceText)
       return { sourceType }
     }
 
     const adapterDetectLangRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.detectlangGroup.detectlang({
       method: 'getDetectedLangsList',
       params: {
-        text: sourceText.text
+        text: sourceText.text.substr(0, this.maxAmountOfText)
       }
     })
 
     if (adapterDetectLangRes.errors.length > 0) {
       adapterDetectLangRes.errors.forEach(error => {
-        console.log(error)
+        console.error(error)
         _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
           text: error.message,
           type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
@@ -39001,6 +39012,7 @@ class DetectTextController {
       })
       return
     }
+    this.addToDetected(sourceText)
     return {
       lang: adapterDetectLangRes.result,
       direction: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__.default.defineDirection(adapterDetectLangRes.result),
@@ -39014,8 +39026,29 @@ class DetectTextController {
    * @returns {String} - tei/text
    */
   static checkXML (sourceText) {
-    const checkRegExp = new RegExp('^<tei[\\s\\S]*</tei[\\s\\S]*', 'i')
+    const checkRegExp = new RegExp('</[ ]*tei[ ]*>', 'i')
     return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
+  }
+
+  /**
+   * @param {SourceText} sourceText
+   */
+  static addToDetected (sourceText) {
+    detectedTexts[sourceText.id] = true
+  }
+
+  /**
+   * @param {SourceText} sourceText
+   */
+  static removeFromDetected (sourceText) {
+    detectedTexts[sourceText.id] = false
+  }
+
+  /**
+   * @param {SourceText} sourceText
+   */
+  static isAlreadyDetected (sourceText) {
+    return detectedTexts[sourceText.id]
   }
 }
 
@@ -43871,9 +43904,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+
 
 
 
@@ -43892,7 +43927,7 @@ class SourceText {
    * @param {String} targetId
    */
   constructor (textType, docSource, targetId) {
-    this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_2__.v4)()
+    this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_3__.v4)()
     this.textType = textType
 
     this.text = docSource && docSource.text ? docSource.text : ''
@@ -43902,16 +43937,14 @@ class SourceText {
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
     if (docSource && docSource.metadata) {
-      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default) {
         this.metadata = docSource.metadata
       } else {
-        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata)
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default(docSource.metadata)
       }
     } else {
-      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
     }
-
-    this.detectedLang = false
   }
 
   get defaultDirection () {
@@ -43956,7 +43989,7 @@ class SourceText {
     this.tokenization = Object.assign({}, docSource.tokenization)
 
     if (this.text.length === 0) {
-      this.detectedLang = false
+      _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.removeFromDetected(this)
     }
   }
 
@@ -43966,7 +43999,10 @@ class SourceText {
       this.lang = langData.lang
       this.direction = langData.direction
     }
-    this.detectedLang = true
+  }
+
+  get detectedLang () {
+    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isAlreadyDetected(this)
   }
 
   get readyForLangDetection () {
@@ -44008,7 +44044,7 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(jsonData.metadata) : null
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(jsonData.metadata) : null
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
     if (jsonData.textId) {
@@ -44828,7 +44864,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-labels-fix.20210418426" : 0
+    return  true ? "i327-new-text-editor-screen.20210419614" : 0
   }
 
   static get libName () {

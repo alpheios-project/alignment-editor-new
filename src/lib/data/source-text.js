@@ -1,5 +1,6 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 import { v4 as uuidv4 } from 'uuid'
 import Metadata from '@/lib/data/metadata.js'
@@ -34,8 +35,6 @@ export default class SourceText {
     } else {
       this.metadata = new Metadata()
     }
-
-    this.detectedLang = false
   }
 
   get defaultDirection () {
@@ -80,7 +79,7 @@ export default class SourceText {
     this.tokenization = Object.assign({}, docSource.tokenization)
 
     if (this.text.length === 0) {
-      this.detectedLang = false
+      DetectTextController.removeFromDetected(this)
     }
   }
 
@@ -90,7 +89,10 @@ export default class SourceText {
       this.lang = langData.lang
       this.direction = langData.direction
     }
-    this.detectedLang = true
+  }
+
+  get detectedLang () {
+    return DetectTextController.isAlreadyDetected(this)
   }
 
   get readyForLangDetection () {
