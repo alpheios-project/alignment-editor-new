@@ -124,6 +124,7 @@ export default {
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
+      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
     },
     async '$store.state.resetOptions' () {
       await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)

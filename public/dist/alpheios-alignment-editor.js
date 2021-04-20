@@ -44864,7 +44864,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210419676" : 0
+    return  true ? "i327-new-text-editor-screen.20210420304" : 0
   }
 
   static get libName () {
@@ -48208,6 +48208,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
+      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
     },
     async '$store.state.resetOptions' () {
       await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
