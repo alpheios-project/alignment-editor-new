@@ -44864,7 +44864,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210420545" : 0
+    return  true ? "i327-new-text-editor-screen.20210420551" : 0
   }
 
   static get libName () {
@@ -48393,12 +48393,12 @@ __webpack_require__.r(__webpack_exports__);
           tokenization: this.tokenization
         }
 
-        if (this.text.length === 0) {
+        if ((this.text.length === 0) && this.textId) {
           this.$textC.removeDetectedFlag(this.textType, this.textId)
         }
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
-        if (this.$textC.checkDetectedProps(this.textType, this.textId)) {
+        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text.length > 0)) {
           this.showTextProps = true
           this.showClearTextFlag++ 
         }

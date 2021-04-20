@@ -291,12 +291,12 @@ export default {
           tokenization: this.tokenization
         }
 
-        if (this.text.length === 0) {
+        if ((this.text.length === 0) && this.textId) {
           this.$textC.removeDetectedFlag(this.textType, this.textId)
         }
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
-        if (this.$textC.checkDetectedProps(this.textType, this.textId)) {
+        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text.length > 0)) {
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
