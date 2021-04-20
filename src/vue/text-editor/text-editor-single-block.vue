@@ -17,7 +17,9 @@
       </div>
       
       <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
-                    :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" v-show="showTextProps || showUploadMenu"/>      
+                    :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
+                    :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
+                    v-show="showTextProps || showUploadMenu"/>      
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
@@ -101,7 +103,8 @@ export default {
       showTextProps: false,
       showUploadMenu: false,
       showOnlyMetadata: true,
-      showUploadBlockFlag: 1
+      showUploadBlockFlag: 1,
+      showClearTextFlag: 1
     }
   },
   /**
@@ -124,7 +127,6 @@ export default {
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
-      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
     },
     async '$store.state.resetOptions' () {
       await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
@@ -264,6 +266,9 @@ export default {
     async restartTextEditor () {
         this.text = ''
         await this.prepareDefaultTextEditorOptions()
+        if (this.textId) {
+          this.$textC.removeDetectedFlag(this.textType, this.textId)
+        }
 
         this.showTypeUploadButtons = true
         this.showTypeTextBlock = false
@@ -286,10 +291,14 @@ export default {
           tokenization: this.tokenization
         }
 
+        if (this.text.length === 0) {
+          this.$textC.removeDetectedFlag(this.textType, this.textId)
+        }
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId)) {
           this.showTextProps = true
+          this.showClearTextFlag++ 
         }
       }
     },

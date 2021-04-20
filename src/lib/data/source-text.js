@@ -77,10 +77,6 @@ export default class SourceText {
 
     this.sourceType = docSource.sourceType ? docSource.sourceType : this.sourceType
     this.tokenization = Object.assign({}, docSource.tokenization)
-
-    if (this.text.length === 0) {
-      DetectTextController.removeFromDetected(this)
-    }
   }
 
   updateDetectedLang (langData) {

@@ -11,6 +11,10 @@
             @click="uploadTexts" :disabled="!docSourceEditAvailable" v-show="!onlyMetadata">
             {{ l10n.getMsgS('ACTIONS_UPLOAD_TITLE') }}
         </button>
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__clear_text"
+            @click="clearText" v-show="showClearText">
+            {{ l10n.getMsgS('ACTIONS_CLEAR_TEXT_TITLE') }}
+        </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
             @click="toggleMetadata" :disabled = "!metadataAvailable">
             {{ toggleMetadataTitle }}
@@ -53,13 +57,19 @@ export default {
       type: Number,
       required: false,
       default: 1
+    },
+    showClearTextFlag: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
     return {
       showUploadBlock: false,
       shownMetadataBlock: false,
-      showModal: false
+      showModal: false,
+      showClearText: false
     }
   },
   watch: {
@@ -68,6 +78,9 @@ export default {
     },
     'showUploadBlockFlag' () {
       this.uploadTexts()
+    },
+    'showClearTextFlag' () {
+      this.showClearText = true
     }
   },
   computed: {
@@ -128,6 +141,11 @@ export default {
     uploadFromDTSAPI (filedata) {
       this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadBlock = false
+    },
+
+    clearText () {
+      this.$emit('clear-text')
+      this.showClearText = false
     }
   }
 }

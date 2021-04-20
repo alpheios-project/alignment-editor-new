@@ -77,11 +77,6 @@ export default class TextsController {
     }
   }
 
-  checkDetectedProps (textType, docSourceId) {
-    const docSource = textType === 'origin' ? this.originDocSource : this.targetDocSource(docSourceId)
-    return Boolean(docSource.detectedLang)
-  }
-
   /**
    * Delete target SourceText
    * @param {String} textType - target or origin
@@ -395,5 +390,13 @@ export default class TextsController {
 
   get originDocSourceDefined () {
     return this.alignment.originDocSourceDefined
+  }
+
+  checkDetectedProps (textType, docSourceId) {
+    return Boolean(this.getDocSource(textType, docSourceId).detectedLang)
+  }
+
+  removeDetectedFlag (textType, docSourceId) {
+    DetectTextController.removeFromDetected(this.getDocSource(textType, docSourceId))
   }
 }

@@ -101,6 +101,11 @@
     "description": "Button in main menu",
     "component": "MainMenu"
   },
+  "ACTIONS_CLEAR_TEXT_TITLE": {
+    "message": "Clear text",
+    "description": "Button in main menu",
+    "component": "MainMenu"
+  },
   "UPLOAD_DTSAPI_TITLE": {
     "message": "Upload texts from DTS API",
     "description": "Title in upload block",

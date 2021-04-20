@@ -159,6 +159,7 @@ export default class SettingsController {
     const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
     await Promise.all(optionPromises)
 
+    await this.resetLocalTextEditorOptions(clonedOpts)
     return clonedOpts
   }
 
