@@ -50,7 +50,7 @@ describe('text-editor-single-block.test.js', () => {
 
     appC.settingsC.options.app.items.tokenizer.currentValue = 'simpleLocalTokenizer'
   })
-/*
+
   it('1 TextEditorSingleBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
         store: appC.store,
@@ -93,7 +93,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.findComponent(LanguageOptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TokenizeOptionsBlock)).toBeTruthy()
   })
-*/
+
   it('4 TextEditorSingleBlock - localTextEditorOptions prepares a local instance of options', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
         store: appC.store,
@@ -124,7 +124,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.textTypeFormatted).toEqual('Translation')
     expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Translation'))
   })
-/*
+
   it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
@@ -239,6 +239,6 @@ describe('text-editor-single-block.test.js', () => {
 
     expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
   })
-*/
+
 })
 
