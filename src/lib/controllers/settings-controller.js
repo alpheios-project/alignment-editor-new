@@ -24,6 +24,7 @@ export default class SettingsController {
 
     this.options = {}
 
+    Langs.collectLangsData()
     this.valuesClassesList = {
       Langs: Langs.all
     }
