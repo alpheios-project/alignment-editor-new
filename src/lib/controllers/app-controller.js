@@ -13,6 +13,7 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Locales from '@/locales/locales.js'
+import Langs from '@/lib/data/langs/langs.js'
 
 export default class AppController {
   /**
@@ -36,6 +37,8 @@ export default class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+
+    Langs.collectLangsData()
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {

@@ -37,7 +37,7 @@
       />
 
       <language-options-block :textType = "textType"
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" v-show="showTextProps"
+        @updateText = "updateText" @updateDirection = "updateDirection" :localOptions = "localTextEditorOptions" v-show="showTextProps"
       />
 
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
@@ -59,6 +59,8 @@ import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
+
+import Langs from '@/lib/data/langs/langs.js'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -320,6 +322,12 @@ export default {
         }
       }
     },
+
+    updateDirection () {
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = Langs.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.$store.commit('incrementOptionsUpdated')
+    },
+
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },

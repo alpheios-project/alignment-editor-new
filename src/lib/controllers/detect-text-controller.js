@@ -22,13 +22,19 @@ export default class DetectTextController {
    *          {String} direction - only for text
    */
   static async detectTextProperties (sourceText) {
-    if (this.isAlreadyDetected(sourceText)) { return }
+    console.info('detectTextProperties sourceText started', sourceText.startedDetection)
+    if (this.isAlreadyDetected(sourceText) || sourceText.startedDetection) { return }
     const sourceType = this.checkXML(sourceText)
 
     if (sourceType === 'tei') {
       this.addToDetected(sourceText)
       return { sourceType }
     }
+
+    console.info('started detection ', sourceText.text.substr(0, 5), sourceText.startedDetection)
+    sourceText.startedDetection = true
+
+    console.info('detectTextProperties after', sourceText.startedDetection)
 
     const adapterDetectLangRes = await ClientAdapters.detectlangGroup.detectlang({
       method: 'getDetectedLangsList',

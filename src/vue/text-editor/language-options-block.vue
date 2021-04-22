@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     updateData () {
+      this.$emit('updateDirection')
       this.$emit('updateText')
     }
   }

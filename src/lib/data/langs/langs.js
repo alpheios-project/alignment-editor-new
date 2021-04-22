@@ -2,7 +2,7 @@ import LangsList from '@/lib/data/langs/langs-list.json'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 let allLangs = []
-const rtlLangs = []
+let rtlLangs = []
 
 export default class Langs {
   /**
@@ -12,9 +12,6 @@ export default class Langs {
    *          {String} label - language name
    */
   static get all () {
-    if (allLangs.length === 0) {
-      allLangs = this.collectLangsData()
-    }
     return allLangs
   }
 
@@ -23,9 +20,6 @@ export default class Langs {
    * @returns {String} - rtl/ltr
    */
   static defineDirection (langCode) {
-    if (rtlLangs.length === 0) {
-      allLangs = this.collectLangsData()
-    }
     return rtlLangs.includes(langCode) ? 'rtl' : 'ltr'
   }
 
@@ -36,15 +30,22 @@ export default class Langs {
    *          {String} label - language name
    */
   static collectLangsData () {
-    return LangsList.map(langData => {
+    this.clearLangsArrs()
+
+    LangsList.forEach(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
       const l10nMessage = L10nSingleton.getMsgS(l10nLabel)
 
       if (langData.direction === 'rtl') { rtlLangs.push(langData.value) }
-      return {
+      allLangs.push({
         value: langData.value,
         text: l10nMessage || langData.label
-      }
+      })
     })
+  }
+
+  static clearLangsArrs () {
+    allLangs = []
+    rtlLangs = []
   }
 }

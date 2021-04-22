@@ -38772,8 +38772,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AppController)
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
@@ -38783,6 +38783,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+
 
 
 
@@ -38821,6 +38823,8 @@ class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+
+    _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_10__.default.collectLangsData()
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {
@@ -38855,12 +38859,12 @@ class AppController {
     this.defineTokensEditController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -38879,8 +38883,8 @@ class AppController {
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use(vuex__WEBPACK_IMPORTED_MODULE_11__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_11__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.use(vuex__WEBPACK_IMPORTED_MODULE_12__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_12__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
   }
 
   /**
@@ -38889,7 +38893,7 @@ class AppController {
   async defineSettingsController () {
     this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
     await this.settingsC.init()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$settingsC = this.settingsC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$settingsC = this.settingsC
 
     this.settingsC.uploadRemoteSettings()
   }
@@ -38899,7 +38903,7 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
   }
 
   /**
@@ -38907,7 +38911,7 @@ class AppController {
    */
   defineAlignedGroupsController () {
     this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$alignedGC = this.alignedGC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedGC = this.alignedGC
   }
 
   /**
@@ -38915,7 +38919,7 @@ class AppController {
    */
   defineTokensEditController () {
     this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$tokensEC = this.tokensEC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
@@ -38923,7 +38927,7 @@ class AppController {
    */
   defineHistoryController () {
     this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$historyC = this.historyC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -38992,13 +38996,19 @@ class DetectTextController {
    *          {String} direction - only for text
    */
   static async detectTextProperties (sourceText) {
-    if (this.isAlreadyDetected(sourceText)) { return }
+    console.info('detectTextProperties sourceText started', sourceText.startedDetection)
+    if (this.isAlreadyDetected(sourceText) || sourceText.startedDetection) { return }
     const sourceType = this.checkXML(sourceText)
 
     if (sourceType === 'tei') {
       this.addToDetected(sourceText)
       return { sourceType }
     }
+
+    console.info('started detection ', sourceText.text.substr(0, 5), sourceText.startedDetection)
+    sourceText.startedDetection = true
+
+    console.info('detectTextProperties after', sourceText.startedDetection)
 
     const adapterDetectLangRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.detectlangGroup.detectlang({
       method: 'getDetectedLangsList',
@@ -39670,7 +39680,7 @@ class TextsController {
       this.alignment.updateOriginDocSource(originDocSource)
     }
 
-    if (this.originDocSource && this.originDocSource.readyForLangDetection) {
+    if (this.originDocSource && !this.originDocSource.startedDetection && this.originDocSource.readyForLangDetection) {
       const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.originDocSource)
       this.originDocSource.updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
@@ -39693,7 +39703,7 @@ class TextsController {
       return
     }
     const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (targetDocSource && this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
+    if (targetDocSource && this.targetDocSource(newTargetId) && !this.targetDocSource(newTargetId).startedDetection && this.targetDocSource(newTargetId).readyForLangDetection) {
       const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(newTargetId))
       this.targetDocSource(newTargetId).updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
@@ -43442,7 +43452,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let allLangs = []
-const rtlLangs = []
+let rtlLangs = []
 
 class Langs {
   /**
@@ -43452,9 +43462,6 @@ class Langs {
    *          {String} label - language name
    */
   static get all () {
-    if (allLangs.length === 0) {
-      allLangs = this.collectLangsData()
-    }
     return allLangs
   }
 
@@ -43463,9 +43470,6 @@ class Langs {
    * @returns {String} - rtl/ltr
    */
   static defineDirection (langCode) {
-    if (rtlLangs.length === 0) {
-      allLangs = this.collectLangsData()
-    }
     return rtlLangs.includes(langCode) ? 'rtl' : 'ltr'
   }
 
@@ -43476,16 +43480,23 @@ class Langs {
    *          {String} label - language name
    */
   static collectLangsData () {
-    return _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
+    this.clearLangsArrs()
+
+    _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.forEach(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
       const l10nMessage = _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS(l10nLabel)
 
       if (langData.direction === 'rtl') { rtlLangs.push(langData.value) }
-      return {
+      allLangs.push({
         value: langData.value,
         text: l10nMessage || langData.label
-      }
+      })
     })
+  }
+
+  static clearLangsArrs () {
+    allLangs = []
+    rtlLangs = []
   }
 }
 
@@ -44050,7 +44061,7 @@ class SourceText {
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(jsonData.metadata) : null
 
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, true)
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
@@ -44868,7 +44879,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210422627" : 0
+    return  true ? "i327-new-text-editor-screen.20210422669" : 0
   }
 
   static get libName () {
@@ -47833,6 +47844,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateData () {
+      this.$emit('updateDirection')
       this.$emit('updateText')
     }
   }
@@ -48107,6 +48119,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
 /* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
 /* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -48154,6 +48167,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -48429,6 +48444,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
+
+    updateDirection () {
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_9__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.$store.commit('incrementOptionsUpdated')
+    },
+
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
@@ -55819,7 +55840,7 @@ var render = function() {
           textType: _vm.textType,
           localOptions: _vm.localTextEditorOptions
         },
-        on: { updateText: _vm.updateText }
+        on: { updateText: _vm.updateText, updateDirection: _vm.updateDirection }
       }),
       _vm._v(" "),
       _vm.$settingsC.hasTokenizerOptions

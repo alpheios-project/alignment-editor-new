@@ -134,7 +134,7 @@ export default class SourceText {
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? Metadata.convertFromJSON(jsonData.metadata) : null
 
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, true)
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
