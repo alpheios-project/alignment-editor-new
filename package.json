@@ -1,6 +1,6 @@
 {
   "name": "alpheios-alignment-editor",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "libName": "Alpheios Translation Alignment editor",
   "description": "The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.",
   "main": "src/index.js",
@@ -12,7 +12,7 @@
     "test": "jest tests --coverage",
     "test-lib": "jest tests/lib --coverage",
     "test-vue": "jest tests/vue --coverage",
-    "test-a": "jest tests/lib/controllers/upload-controller.test.js",
+    "test-a": "jest tests/lib/controllers/settings-controller.test.js",
     "test-b": "jest tests/vue/app.test.js --coverage",
     "test-c": "jest tests/lib/data/source-text.test.js --coverage",
     "test-d": "jest tests/_output/vue/app.test.js --coverage",

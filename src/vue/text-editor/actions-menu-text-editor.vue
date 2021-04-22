@@ -12,7 +12,7 @@
             {{ l10n.getMsgS('ACTIONS_UPLOAD_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__clear_text"
-            @click="clearText" v-show="showClearText">
+            @click="clearText" v-show="showClearText" :disabled="!docSourceEditAvailable">
             {{ l10n.getMsgS('ACTIONS_CLEAR_TEXT_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"

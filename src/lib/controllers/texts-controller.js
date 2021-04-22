@@ -68,7 +68,7 @@ export default class TextsController {
       return
     }
     const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
+    if (targetDocSource && this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
       const langData = await DetectTextController.detectTextProperties(this.targetDocSource(newTargetId))
       this.targetDocSource(newTargetId).updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
@@ -197,7 +197,9 @@ export default class TextsController {
     const result = UploadController.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
-      result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
+      result.targetDocSources.forEach(targetDocSource => {
+        this.updateTargetDocSource(targetDocSource)
+      })
 
       this.store.commit('incrementUploadCheck')
       return true

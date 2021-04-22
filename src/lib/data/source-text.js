@@ -16,7 +16,7 @@ export default class SourceText {
    * @param {Object} docSource.tokenization
    * @param {String} targetId
    */
-  constructor (textType, docSource, targetId) {
+  constructor (textType, docSource, targetId, skipDetected = false) {
     this.id = targetId || uuidv4()
     this.textType = textType
 
@@ -25,6 +25,8 @@ export default class SourceText {
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
+
+    this.skipDetected = skipDetected
 
     if (docSource && docSource.metadata) {
       if (docSource.metadata instanceof Metadata) {
@@ -92,7 +94,7 @@ export default class SourceText {
   }
 
   get readyForLangDetection () {
-    return this.text && (this.text.length > 5) && !this.detectedLang
+    return !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
   }
 
   /**
@@ -132,7 +134,7 @@ export default class SourceText {
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? Metadata.convertFromJSON(jsonData.metadata) : null
 
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, true)
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }

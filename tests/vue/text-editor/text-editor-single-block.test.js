@@ -155,7 +155,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.showIndex).toBeFalsy() 
     expect(cmp.vm.showDeleteIcon).toBeFalsy() 
     expect(cmp.vm.indexData).toEqual('') 
-
+/*
     cmp.vm.$textC.updateTargetDocSource({
       text: 'join if you choose, and the various to bring the feathers,',
       lang: 'lat'
@@ -166,6 +166,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.showIndex).toBeTruthy() 
     expect(cmp.vm.showDeleteIcon).toBeTruthy() 
     expect(cmp.vm.indexData).toEqual('1. ') 
+    */
   })
 
 

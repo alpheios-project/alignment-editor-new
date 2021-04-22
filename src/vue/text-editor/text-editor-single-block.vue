@@ -114,6 +114,7 @@ export default {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
+    this.initDataProps()
     await this.updateFromExternal()
   },
   watch: {
@@ -129,7 +130,7 @@ export default {
       await this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
+      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     }
   },
@@ -244,12 +245,22 @@ export default {
     }
   },
   methods: {
+    initDataProps () {
+      this.showMetadata = false
+      this.showTypeUploadButtons = true
+
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
+    },
+
     /**
      * Updates sourceText properties from textController
      */
     async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-      if (sourceTextData) {
+      if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
@@ -291,12 +302,13 @@ export default {
           tokenization: this.tokenization
         }
 
-        if ((this.text.length === 0) && this.textId) {
+        if (this.text && (this.text.length === 0) && this.textId) {
           this.$textC.removeDetectedFlag(this.textType, this.textId)
         }
+
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
-        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text.length > 0)) {
+        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
@@ -312,8 +324,7 @@ export default {
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-
-      await this.updateText()
+      // await this.updateText()
     },
 
     /**

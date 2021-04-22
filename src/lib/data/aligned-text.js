@@ -13,6 +13,8 @@ export default class AlignedText {
     this.direction = docSource.direction
     this.lang = docSource.lang
 
+    this.langName = this.defineLangName()
+
     this.sourceType = docSource.sourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
@@ -33,14 +35,18 @@ export default class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
-  get langName () {
+  defineLangName () {
     const langData = Langs.all.find(langData => langData.value === this.lang)
-    return langData ? langData.text : this.lang
+    const res = langData ? langData.text : this.lang
+    return res
   }
 
   updateLanguage (lang) {
-    this.lang = lang
-    this.segments.forEach(segment => segment.updateLanguage(lang))
+    if (lang !== this.lang) {
+      this.lang = lang
+      this.segments.forEach(segment => segment.updateLanguage(lang))
+      this.langName = this.defineLangName()
+    }
   }
 
   /**

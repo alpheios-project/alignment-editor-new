@@ -39396,6 +39396,7 @@ class SettingsController {
   constructor (store) {
     this.store = store
     this.storageAdapter = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea
+    this.textPropsStorageAdapter = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.TempStorageArea
 
     this.defaultSettings = {
       app: _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_1__,
@@ -39463,7 +39464,6 @@ class SettingsController {
     Object.values(this.options).forEach(optionsGroup => {
       optionsGroup.checkAndUploadValuesFromArray(this.valuesClassesList)
     })
-    this.store.commit('incrementOptionsUpdated')
     this.submitEventUpdateTheme()
   }
 
@@ -39485,7 +39485,6 @@ class SettingsController {
 
     await Promise.all(optionsPromises)
     this.submitEventUpdateTheme()
-    this.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -39527,20 +39526,16 @@ class SettingsController {
    * @param {Number} indexText - the number of the text with the type (used for targets)
    * @returns {Options}
    */
-  async cloneTextEditorOptions (typeText, indexText) {
+  cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
-      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
+      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
     }
 
     if (this.hasTokenizerOptions) {
       Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.storageAdapter)
+        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
       })
     }
-    const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
-    await Promise.all(optionPromises)
-
-    await this.resetLocalTextEditorOptions(clonedOpts)
     return clonedOpts
   }
 
@@ -39579,16 +39574,8 @@ class SettingsController {
    * @param {Object} localTextEditorOptions
    *        {Options} localTextEditorOptions.sourceText
    */
-  async resetLocalTextEditorOptions (localTextEditorOptions) {
-    await localTextEditorOptions.sourceText.reset()
-    localTextEditorOptions.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
-    if (localTextEditorOptions.text) {
-      await localTextEditorOptions.text.reset()
-    }
-    if (localTextEditorOptions.tei) {
-      await localTextEditorOptions.tei.reset()
-    }
-    this.store.commit('incrementOptionsUpdated')
+  resetLocalTextEditorOptions (textType, textId) {
+    return this.cloneTextEditorOptions(textType, textId)
   }
 
   /**
@@ -39704,7 +39691,7 @@ class TextsController {
       return
     }
     const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
+    if (targetDocSource && this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
       const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(newTargetId))
       this.targetDocSource(newTargetId).updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
@@ -39833,7 +39820,9 @@ class TextsController {
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
-      result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
+      result.targetDocSources.forEach(targetDocSource => {
+        this.updateTargetDocSource(targetDocSource)
+      })
 
       this.store.commit('incrementUploadCheck')
       return true
@@ -41668,6 +41657,8 @@ class AlignedText {
     this.direction = docSource.direction
     this.lang = docSource.lang
 
+    this.langName = this.defineLangName()
+
     this.sourceType = docSource.sourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
@@ -41688,14 +41679,18 @@ class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
-  get langName () {
+  defineLangName () {
     const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
-    return langData ? langData.text : this.lang
+    const res = langData ? langData.text : this.lang
+    return res
   }
 
   updateLanguage (lang) {
-    this.lang = lang
-    this.segments.forEach(segment => segment.updateLanguage(lang))
+    if (lang !== this.lang) {
+      this.lang = lang
+      this.segments.forEach(segment => segment.updateLanguage(lang))
+      this.langName = this.defineLangName()
+    }
   }
 
   /**
@@ -43935,7 +43930,7 @@ class SourceText {
    * @param {Object} docSource.tokenization
    * @param {String} targetId
    */
-  constructor (textType, docSource, targetId) {
+  constructor (textType, docSource, targetId, skipDetected = false) {
     this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_3__.v4)()
     this.textType = textType
 
@@ -43944,6 +43939,8 @@ class SourceText {
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
+
+    this.skipDetected = skipDetected
 
     if (docSource && docSource.metadata) {
       if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default) {
@@ -44011,7 +44008,7 @@ class SourceText {
   }
 
   get readyForLangDetection () {
-    return this.text && (this.text.length > 5) && !this.detectedLang
+    return !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
   }
 
   /**
@@ -44051,7 +44048,7 @@ class SourceText {
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(jsonData.metadata) : null
 
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, true)
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
@@ -44869,7 +44866,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210420619" : 0
+    return  true ? "i327-new-text-editor-screen.20210422457" : 0
   }
 
   static get libName () {
@@ -48221,6 +48218,7 @@ __webpack_require__.r(__webpack_exports__);
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
       await this.prepareDefaultTextEditorOptions()
     }
+    this.initDataProps()
     await this.updateFromExternal()
   },
   watch: {
@@ -48236,7 +48234,7 @@ __webpack_require__.r(__webpack_exports__);
       await this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
+      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
       await this.updateText()
     }
   },
@@ -48351,12 +48349,22 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    initDataProps () {
+      this.showMetadata = false
+      this.showTypeUploadButtons = true
+
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
+    },
+
     /**
      * Updates sourceText properties from textController
      */
     async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-      if (sourceTextData) {
+      if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
         await this.updateText()
@@ -48398,12 +48406,13 @@ __webpack_require__.r(__webpack_exports__);
           tokenization: this.tokenization
         }
 
-        if ((this.text.length === 0) && this.textId) {
+        if (this.text && (this.text.length === 0) && this.textId) {
           this.$textC.removeDetectedFlag(this.textType, this.textId)
         }
+
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
-        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text.length > 0)) {
+        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
@@ -48419,8 +48428,7 @@ __webpack_require__.r(__webpack_exports__);
     async prepareDefaultTextEditorOptions () {
       this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-
-      await this.updateText()
+      // await this.updateText()
     },
 
     /**
@@ -54946,7 +54954,10 @@ var render = function() {
               ],
               staticClass:
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: { id: "alpheios-actions-menu-button__clear_text" },
+              attrs: {
+                id: "alpheios-actions-menu-button__clear_text",
+                disabled: !_vm.docSourceEditAvailable
+              },
               on: { click: _vm.clearText }
             },
             [
@@ -57946,7 +57957,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.2","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/app.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.7","@babel/core":"^7.13.15","@babel/plugin-proposal-object-rest-spread":"^7.13.8","@babel/plugin-transform-modules-commonjs":"^7.13.8","@babel/plugin-transform-runtime":"^7.13.15","@babel/preset-env":"^7.13.15","@babel/register":"^7.13.14","@babel/runtime":"^7.13.10","@vue/test-utils":"^1.1.4","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.24.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.7","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.11","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.34.0","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.3","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/app.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.7","@babel/core":"^7.13.15","@babel/plugin-proposal-object-rest-spread":"^7.13.8","@babel/plugin-transform-modules-commonjs":"^7.13.8","@babel/plugin-transform-runtime":"^7.13.15","@babel/preset-env":"^7.13.15","@babel/register":"^7.13.14","@babel/runtime":"^7.13.10","@vue/test-utils":"^1.1.4","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.24.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.7","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.11","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.34.0","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

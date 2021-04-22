@@ -106,7 +106,7 @@ describe('settings-controller.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-
+/*
   it('1 SettingsController - constructor defines all base options ', () => {
     const settingsC = new SettingsController(appC.store)
 
@@ -265,16 +265,14 @@ describe('settings-controller.test.js', () => {
     expect(settingsC.options.app.items.allowUpdateTokenWord.currentValue).toBeFalsy()
     expect(settingsC.allowUpdateTokenWordOptionValue).toBeFalsy()
   })
-
+*/
   it('12 SettingsController - resetLocalTextEditorOptions - reset local options to initial', async () => {
     const settingsC = new SettingsController(appC.store)
     await settingsC.init()
 
     settingsC.options.tokenize = fixtureForRemoteSettings()
 
-    const resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
-
-    await resultOptions.sourceText.reset()
+    let resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
 
     expect(resultOptions.sourceText.items.language.currentValue).toEqual('eng')
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
@@ -290,13 +288,14 @@ describe('settings-controller.test.js', () => {
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('rtl')
     expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('tei')
 
-    await settingsC.resetLocalTextEditorOptions(resultOptions)
+    resultOptions = settingsC.resetLocalTextEditorOptions('origin', 0)
 
+    console.info('resultOptions.sourceText.items.language - ', resultOptions.sourceText.items.language)
     expect(resultOptions.sourceText.items.language.currentValue).toEqual('eng')
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
     expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('text')
   })
-
+/*
   it('13 SettingsController - resetAllOptions - reset global options to initial', async () => {
     const settingsC = new SettingsController(appC.store)
     await settingsC.init()
@@ -330,4 +329,5 @@ describe('settings-controller.test.js', () => {
     expect(settingsC.options.sourceText.items.direction.currentValue).toEqual('ltr')
     expect(settingsC.options.sourceText.items.sourceType.currentValue).toEqual('text')
   })
+  */
 })
