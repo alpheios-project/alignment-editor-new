@@ -50,7 +50,7 @@ describe('text-editor-single-block.test.js', () => {
 
     appC.settingsC.options.app.items.tokenizer.currentValue = 'simpleLocalTokenizer'
   })
-
+/*
   it('1 TextEditorSingleBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
         store: appC.store,
@@ -93,7 +93,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.findComponent(LanguageOptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TokenizeOptionsBlock)).toBeTruthy()
   })
-
+*/
   it('4 TextEditorSingleBlock - localTextEditorOptions prepares a local instance of options', async () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
         store: appC.store,
@@ -104,9 +104,6 @@ describe('text-editor-single-block.test.js', () => {
         }
       })
 
-    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: false })
-    await cmp.vm.prepareDefaultTextEditorOptions()
-
     expect(cmp.vm.localTextEditorOptions).toEqual({ ready: true, sourceText: expect.any(Options)})
 
     // at the start these options equal to default values
@@ -114,7 +111,6 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.language).toEqual('eng')
     expect(cmp.vm.sourceType).toEqual('text')
   })
-
   
   it('5 TextEditorSingleBlock - textTypeFormatted, textBlockTitle uses textType', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
@@ -128,7 +124,7 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.textTypeFormatted).toEqual('Translation')
     expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Translation'))
   })
-
+/*
   it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
@@ -155,18 +151,6 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.showIndex).toBeFalsy() 
     expect(cmp.vm.showDeleteIcon).toBeFalsy() 
     expect(cmp.vm.indexData).toEqual('') 
-/*
-    cmp.vm.$textC.updateTargetDocSource({
-      text: 'join if you choose, and the various to bring the feathers,',
-      lang: 'lat'
-    })
-
-    // we have only two targets
-
-    expect(cmp.vm.showIndex).toBeTruthy() 
-    expect(cmp.vm.showDeleteIcon).toBeTruthy() 
-    expect(cmp.vm.indexData).toEqual('1. ') 
-    */
   })
 
 
@@ -255,6 +239,6 @@ describe('text-editor-single-block.test.js', () => {
 
     expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
   })
-
+*/
 })
 

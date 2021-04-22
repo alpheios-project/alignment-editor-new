@@ -2,7 +2,7 @@
     <div class="alpheios-alignment-editor-text-blocks-single-language-options" v-if="showOptions">
         <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset-slim alpheios-alignment-editor-options-fieldset-label-auto">
             <option-item-block
-              :optionItem = "localOptions.sourceText.items.language"
+              :optionItem = "optionItem"
               :emitUpdateData = "true" :disabled="disabled"
               :showLabelText = "showLangLabel"
               @updateData = "updateData" :labelsListType="textType" 
@@ -41,6 +41,9 @@ export default {
   computed: {
     showOptions () {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
+    },
+    optionItem () {
+      return this.localOptions.sourceText.items.language
     }
   },
   methods: {

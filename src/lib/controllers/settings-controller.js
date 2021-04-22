@@ -194,7 +194,9 @@ export default class SettingsController {
    *        {Options} localTextEditorOptions.sourceText
    */
   resetLocalTextEditorOptions (textType, textId) {
-    return this.cloneTextEditorOptions(textType, textId)
+    const clonedOpts = this.cloneTextEditorOptions(textType, textId)
+    this.store.commit('incrementOptionsUpdated')
+    return clonedOpts
   }
 
   /**

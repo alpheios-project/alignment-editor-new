@@ -104,7 +104,9 @@ export default {
       showUploadMenu: false,
       showOnlyMetadata: true,
       showUploadBlockFlag: 1,
-      showClearTextFlag: 1
+      showClearTextFlag: 1,
+
+      updatedLocalOptionsFlag: 1
     }
   },
   /**
@@ -112,7 +114,7 @@ export default {
    */
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-      await this.prepareDefaultTextEditorOptions()
+      this.prepareDefaultTextEditorOptions()
     }
     this.initDataProps()
     await this.updateFromExternal()
@@ -120,7 +122,7 @@ export default {
   watch: {
     async '$store.state.optionsUpdated' () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTextEditorOptions()
+        this.prepareDefaultTextEditorOptions()
       }
     },
     async '$store.state.uploadCheck' () {
@@ -150,9 +152,9 @@ export default {
      * It is executed after each alignment update, 
      * checks if  localOptions is not yet uploaded
      */
-    async dataUpdated () {
+    dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTextEditorOptions()
+        this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.alignmentUpdated
     },
@@ -242,6 +244,10 @@ export default {
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+    },
+
+    updatedLocalOptions () {
+      return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     }
   },
   methods: {
@@ -274,18 +280,18 @@ export default {
     /**
      * Clears text and reloads local options
      */
-    async restartTextEditor () {
-        this.text = ''
-        await this.prepareDefaultTextEditorOptions()
-        if (this.textId) {
-          this.$textC.removeDetectedFlag(this.textType, this.textId)
-        }
+    restartTextEditor () {
+      this.text = ''
+      this.prepareDefaultTextEditorOptions()
+      if (this.textId) {
+        this.$textC.removeDetectedFlag(this.textType, this.textId)
+      }
 
-        this.showTypeUploadButtons = true
-        this.showTypeTextBlock = false
-        this.showTextProps = false
-        this.showUploadMenu = false
-        this.showOnlyMetadata = true
+      this.showTypeUploadButtons = true
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
     },
 
     /**
@@ -321,10 +327,10 @@ export default {
     /**
      * Reloads local options
      */
-    async prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+    prepareDefaultTextEditorOptions () {
+      this.localTextEditorOptions = this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-      // await this.updateText()
+      this.$store.commit('incrementOptionsUpdated')
     },
 
     /**
