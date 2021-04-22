@@ -36,6 +36,7 @@ export default class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {

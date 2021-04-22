@@ -5612,10 +5612,15 @@ class DetectLangAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPOR
    */
   chooseOneLanguage (langsData) {
     if (langsData && langsData.data && langsData.data.detections && langsData.data.detections.length > 0) {
-      const reliableLangs = langsData.data.detections
+      let finalLangs = langsData.data.detections
         .filter(langItem => langItem.isReliable)
-      if (reliableLangs && (reliableLangs.length > 0)) {
-        const lang = reliableLangs.sort((a, b) => a.confidence - b.confidence)
+
+      if (finalLangs.length === 0) {
+        finalLangs = langsData.data.detections
+      }
+
+      if (finalLangs && (finalLangs.length > 0)) {
+        const lang = finalLangs.sort((a, b) => a.confidence - b.confidence)
           .reverse()[0].language
         return _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__[lang] ? _clAdapters_adapters_detectlang_langs_list_json__WEBPACK_IMPORTED_MODULE_2__[lang].langCode : lang
       }
@@ -5631,16 +5636,16 @@ class DetectLangAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPOR
 /*!************************************!*\
   !*** ./adapters/dtsapi/adapter.js ***!
   \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_120462__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_120547__) => {
 
 "use strict";
-__nested_webpack_require_120462__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_120462__.d(__webpack_exports__, {
+__nested_webpack_require_120547__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_120547__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ DTSAPIAdapter)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_120462__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_120462__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_120462__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_120547__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_120547__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_120547__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -5832,19 +5837,19 @@ class DTSAPIAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_
 /*!**************************************!*\
   !*** ./adapters/lexicons/adapter.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_126905__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_126990__) => {
 
 "use strict";
-__nested_webpack_require_126905__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_126905__.d(__webpack_exports__, {
+__nested_webpack_require_126990__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_126990__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_126905__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_126905__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_126905__(/*! papaparse */ "papaparse");
-/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_126905__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_126905__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_126905__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_126990__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_126990__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_126990__(/*! papaparse */ "papaparse");
+/* harmony import */ var papaparse__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_126990__.n(papaparse__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_126990__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_126990__(/*! @clAdapters/adapters/lexicons/config.json */ "./adapters/lexicons/config.json");
 
 
 
@@ -6393,17 +6398,17 @@ class AlpheiosLexiconsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK
 /*!*************************************!*\
   !*** ./adapters/logeion/adapter.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150355__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_150440__) => {
 
 "use strict";
-__nested_webpack_require_150355__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_150355__.d(__webpack_exports__, {
+__nested_webpack_require_150440__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_150440__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150355__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150355__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150355__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150355__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_logeion_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150440__(/*! @clAdapters/adapters/logeion/config.json */ "./adapters/logeion/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150440__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150440__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_150440__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -6510,17 +6515,17 @@ class AlpheiosLogeionAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_
 /*!******************************************!*\
   !*** ./adapters/tokenization/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_154941__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_155026__) => {
 
 "use strict";
-__nested_webpack_require_154941__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_154941__.d(__webpack_exports__, {
+__nested_webpack_require_155026__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_155026__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_154941__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_154941__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_154941__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_154941__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _clAdapters_adapters_tokenization_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155026__(/*! @clAdapters/adapters/tokenization/config.json */ "./adapters/tokenization/config.json");
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155026__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155026__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_155026__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -6694,17 +6699,17 @@ class AlpheiosTokenizationAdapter extends _clAdapters_adapters_base_adapter__WEB
 /*!******************************************!*\
   !*** ./adapters/translations/adapter.js ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_161189__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_161274__) => {
 
 "use strict";
-__nested_webpack_require_161189__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_161189__.d(__webpack_exports__, {
+__nested_webpack_require_161274__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_161274__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161189__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161189__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_161189__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_161189__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_config_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161274__(/*! @clAdapters/adapters/translations/config.json */ "./adapters/translations/config.json");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161274__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_161274__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_161274__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
 
 
 
@@ -6833,19 +6838,19 @@ class AlpheiosLemmaTranslationsAdapter extends _clAdapters_adapters_base_adapter
 /*!***********************************!*\
   !*** ./adapters/tufts/adapter.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166769__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_166854__) => {
 
 "use strict";
-__nested_webpack_require_166769__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_166769__.d(__webpack_exports__, {
+__nested_webpack_require_166854__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_166854__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166769__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_166769__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166769__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
-/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_166769__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
-/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_166769__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
-/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_166769__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_166854__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_166854__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _clAdapters_adapters_base_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/base-adapter */ "./adapters/base-adapter.js");
+/* harmony import */ var _clAdapters_transformers_alpheios_lexicon_transformer__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_166854__(/*! @clAdapters/transformers/alpheios-lexicon-transformer */ "./transformers/alpheios-lexicon-transformer.js");
+/* harmony import */ var _clAdapters_adapters_tufts_config_json__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/tufts/config.json */ "./adapters/tufts/config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_engines_set__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_166854__(/*! @clAdapters/adapters/tufts/engines-set */ "./adapters/tufts/engines-set.js");
 
 
 
@@ -6964,16 +6969,16 @@ class AlpheiosTuftsAdapter extends _clAdapters_adapters_base_adapter__WEBPACK_IM
 /*!*******************************************!*\
   !*** ./adapters/tufts/engine/aramorph.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172771__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_172856__) => {
 
 "use strict";
-__nested_webpack_require_172771__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_172771__.d(__webpack_exports__, {
+__nested_webpack_require_172856__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_172856__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172771__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172771__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172771__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172856__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172856__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172856__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -6988,16 +6993,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!***************************************!*\
   !*** ./adapters/tufts/engine/hazm.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_174060__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_174145__) => {
 
 "use strict";
-__nested_webpack_require_174060__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_174060__.d(__webpack_exports__, {
+__nested_webpack_require_174145__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_174145__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_174060__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_174060__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_174060__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_174145__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_174145__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_174145__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7015,16 +7020,16 @@ data.setLexemeFilter(function (lexeme) { return Boolean(lexeme.lemma.word) })
 /*!**********************************************!*\
   !*** ./adapters/tufts/engine/morpheusgrc.js ***!
   \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175579__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_175664__) => {
 
 "use strict";
-__nested_webpack_require_175579__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_175579__.d(__webpack_exports__, {
+__nested_webpack_require_175664__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_175664__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175579__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175579__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175579__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_175664__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_175664__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_175664__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7093,16 +7098,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!****************************************!*\
   !*** ./adapters/tufts/engine/sedra.js ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180572__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_180657__) => {
 
 "use strict";
-__nested_webpack_require_180572__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_180572__.d(__webpack_exports__, {
+__nested_webpack_require_180657__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_180657__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180572__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180572__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180572__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_180657__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_180657__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_180657__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7145,16 +7150,16 @@ data.setPropertyParser(function (propertyName, propertyValue, inputElem) {
 /*!*****************************************!*\
   !*** ./adapters/tufts/engine/traces.js ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183054__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_183139__) => {
 
 "use strict";
-__nested_webpack_require_183054__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_183054__.d(__webpack_exports__, {
+__nested_webpack_require_183139__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_183139__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183054__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183054__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183054__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183139__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183139__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_183139__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7169,16 +7174,16 @@ const data = new _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED
 /*!********************************************!*\
   !*** ./adapters/tufts/engine/whitakers.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_184359__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_184444__) => {
 
 "use strict";
-__nested_webpack_require_184359__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_184359__.d(__webpack_exports__, {
+__nested_webpack_require_184444__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_184444__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_184359__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_184359__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_184359__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _clAdapters_transformers_import_morph_data_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_184444__(/*! @clAdapters/transformers/import-morph-data.js */ "./transformers/import-morph-data.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_184444__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_184444__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_1__);
 
 
 
@@ -7302,21 +7307,21 @@ data.setLemmaParser(function (lemma) {
 /*!***************************************!*\
   !*** ./adapters/tufts/engines-set.js ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190600__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_190685__) => {
 
 "use strict";
-__nested_webpack_require_190600__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_190600__.d(__webpack_exports__, {
+__nested_webpack_require_190685__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_190685__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190600__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190600__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190600__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190600__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190600__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
-/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190600__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190600__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_190600__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _clAdapters_adapters_tufts_engine_whitakers__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/whitakers */ "./adapters/tufts/engine/whitakers.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_morpheusgrc__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/morpheusgrc */ "./adapters/tufts/engine/morpheusgrc.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_aramorph__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/aramorph */ "./adapters/tufts/engine/aramorph.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_hazm__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/hazm */ "./adapters/tufts/engine/hazm.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_traces__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/traces */ "./adapters/tufts/engine/traces.js");
+/* harmony import */ var _clAdapters_adapters_tufts_engine_sedra__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_190685__(/*! @clAdapters/adapters/tufts/engine/sedra */ "./adapters/tufts/engine/sedra.js");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_190685__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__nested_webpack_require_190685__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -7367,27 +7372,27 @@ class EnginesSet {
 /*!****************************!*\
   !*** ./client-adapters.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_194154__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_194239__) => {
 
 "use strict";
-__nested_webpack_require_194154__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_194154__.d(__webpack_exports__, {
+__nested_webpack_require_194239__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_194239__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
-/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
-/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
-/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
-/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
-/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
-/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
-/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
-/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
-/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
-/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
-/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_194154__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
-/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_194154__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
-/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_194154__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
+/* harmony import */ var _clAdapters_adapters_tufts_adapter__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/tufts/adapter */ "./adapters/tufts/adapter.js");
+/* harmony import */ var _clAdapters_adapters_chineseloc_adapter__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/chineseloc/adapter */ "./adapters/chineseloc/adapter.js");
+/* harmony import */ var _clAdapters_adapters_alpheiostb_adapter__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/alpheiostb/adapter */ "./adapters/alpheiostb/adapter.js");
+/* harmony import */ var _clAdapters_adapters_translations_adapter__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/translations/adapter */ "./adapters/translations/adapter.js");
+/* harmony import */ var _clAdapters_adapters_lexicons_adapter__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/lexicons/adapter */ "./adapters/lexicons/adapter.js");
+/* harmony import */ var _clAdapters_adapters_concordance_adapter__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/concordance/adapter */ "./adapters/concordance/adapter.js");
+/* harmony import */ var _clAdapters_adapters_arethusa_adapter__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/arethusa/adapter */ "./adapters/arethusa/adapter.js");
+/* harmony import */ var _clAdapters_adapters_logeion_adapter__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/logeion/adapter */ "./adapters/logeion/adapter.js");
+/* harmony import */ var _clAdapters_adapters_tokenization_adapter__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/tokenization/adapter */ "./adapters/tokenization/adapter.js");
+/* harmony import */ var _clAdapters_adapters_dtsapi_adapter__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/dtsapi/adapter */ "./adapters/dtsapi/adapter.js");
+/* harmony import */ var _clAdapters_adapters_detectlang_adapter__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/detectlang/adapter */ "./adapters/detectlang/adapter.js");
+/* harmony import */ var _clAdapters_errors_wrong_method_error__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_194239__(/*! @clAdapters/errors/wrong-method-error */ "./errors/wrong-method-error.js");
+/* harmony import */ var _clAdapters_errors_no_required_param_error__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_194239__(/*! @clAdapters/errors/no-required-param-error */ "./errors/no-required-param-error.js");
+/* harmony import */ var _clAdapters_adapters_adapters_config_json__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_194239__(/*! @clAdapters/adapters/adapters-config.json */ "./adapters/adapters-config.json");
 
 
 
@@ -7885,11 +7890,11 @@ class ClientAdapters {
 /*!*********************************!*\
   !*** ./errors/adapter-error.js ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217091__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_217176__) => {
 
 "use strict";
-__nested_webpack_require_217091__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_217091__.d(__webpack_exports__, {
+__nested_webpack_require_217176__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_217176__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class AdapterError extends Error {
@@ -7932,11 +7937,11 @@ class AdapterError extends Error {
 /*!***********************************!*\
   !*** ./errors/adapter-warning.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218611__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_218696__) => {
 
 "use strict";
-__nested_webpack_require_218611__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_218611__.d(__webpack_exports__, {
+__nested_webpack_require_218696__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_218696__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AdapterWarning)
 /* harmony export */ });
 /**
@@ -7969,11 +7974,11 @@ class AdapterWarning extends Error {
 /*!*******************************************!*\
   !*** ./errors/no-required-param-error.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220128__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_220213__) => {
 
 "use strict";
-__nested_webpack_require_220128__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_220128__.d(__webpack_exports__, {
+__nested_webpack_require_220213__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_220213__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class NoRequiredParamError extends Error {
@@ -7996,11 +8001,11 @@ class NoRequiredParamError extends Error {
 /*!********************************!*\
   !*** ./errors/remote-error.js ***!
   \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221102__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_221187__) => {
 
 "use strict";
-__nested_webpack_require_221102__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_221102__.d(__webpack_exports__, {
+__nested_webpack_require_221187__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_221187__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ RemoteError)
 /* harmony export */ });
 class RemoteError extends Error {
@@ -8027,11 +8032,11 @@ class RemoteError extends Error {
 /*!**************************************!*\
   !*** ./errors/wrong-method-error.js ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222070__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222155__) => {
 
 "use strict";
-__nested_webpack_require_222070__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_222070__.d(__webpack_exports__, {
+__nested_webpack_require_222155__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222155__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 class WrongMethodError extends Error {
@@ -8053,18 +8058,18 @@ class WrongMethodError extends Error {
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222896__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_222981__) => {
 
 "use strict";
-__nested_webpack_require_222896__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_222896__.d(__webpack_exports__, {
+__nested_webpack_require_222981__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_222981__.d(__webpack_exports__, {
 /* harmony export */   "ClientAdapters": () => (/* reexport safe */ _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__.default),
 /* harmony export */   "AdapterError": () => (/* reexport safe */ _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__.default),
 /* harmony export */   "RemoteError": () => (/* reexport safe */ _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__.default)
 /* harmony export */ });
-/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222896__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
-/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222896__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
-/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_222896__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
+/* harmony import */ var _clAdapters_client_adapters_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222981__(/*! @clAdapters/client-adapters.js */ "./client-adapters.js");
+/* harmony import */ var _clAdapters_errors_adapter_error_js__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222981__(/*! @clAdapters/errors/adapter-error.js */ "./errors/adapter-error.js");
+/* harmony import */ var _clAdapters_errors_remote_error_js__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_222981__(/*! @clAdapters/errors/remote-error.js */ "./errors/remote-error.js");
 
 
 
@@ -8078,15 +8083,15 @@ __nested_webpack_require_222896__.r(__webpack_exports__);
 /*!****************************!*\
   !*** ./locales/locales.js ***!
   \****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224234__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_224319__) => {
 
 "use strict";
-__nested_webpack_require_224234__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_224234__.d(__webpack_exports__, {
+__nested_webpack_require_224319__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_224319__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224234__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
-/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224234__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
+/* harmony import */ var _en_us_messages_json__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224319__(/*! ./en-us/messages.json */ "./locales/en-us/messages.json");
+/* harmony import */ var _en_gb_messages_json__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224319__(/*! ./en-gb/messages.json */ "./locales/en-gb/messages.json");
 
 
 
@@ -8106,15 +8111,15 @@ __nested_webpack_require_224234__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./transformers/alpheios-lexicon-transformer.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225363__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_225448__) => {
 
 "use strict";
-__nested_webpack_require_225363__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_225363__.d(__webpack_exports__, {
+__nested_webpack_require_225448__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_225448__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225363__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_225363__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_225448__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_225448__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 
 
 /**
@@ -8432,15 +8437,15 @@ class AlpheiosLexiconTransformer {
 /*!*******************************************!*\
   !*** ./transformers/import-morph-data.js ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_239669__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __nested_webpack_require_239754__) => {
 
 "use strict";
-__nested_webpack_require_239669__.r(__webpack_exports__);
-/* harmony export */ __nested_webpack_require_239669__.d(__webpack_exports__, {
+__nested_webpack_require_239754__.r(__webpack_exports__);
+/* harmony export */ __nested_webpack_require_239754__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_239669__(/*! alpheios-data-models */ "alpheios-data-models");
-/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_239669__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_239754__(/*! alpheios-data-models */ "alpheios-data-models");
+/* harmony import */ var alpheios_data_models__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_239754__.n(alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__);
 /*
 Objects of a morphology analyzer's library
  */
@@ -8920,7 +8925,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_493488__(moduleId) {
+/******/ 	function __nested_webpack_require_493573__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		if(__webpack_module_cache__[moduleId]) {
 /******/ 			return __webpack_module_cache__[moduleId].exports;
@@ -8933,7 +8938,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_493488__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_493573__);
 /******/ 	
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
@@ -8946,11 +8951,11 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_493488__.n = (module) => {
+/******/ 		__nested_webpack_require_493573__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_493488__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_493573__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -8958,9 +8963,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_493488__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_493573__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_493488__.o(definition, key) && !__nested_webpack_require_493488__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_493573__.o(definition, key) && !__nested_webpack_require_493573__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -8969,13 +8974,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_493488__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_493573__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_493488__.r = (exports) => {
+/******/ 		__nested_webpack_require_493573__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -8985,7 +8990,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_493488__.nmd = (module) => {
+/******/ 		__nested_webpack_require_493573__.nmd = (module) => {
 /******/ 			module.paths = [];
 /******/ 			if (!module.children) module.children = [];
 /******/ 			return module;
@@ -8996,7 +9001,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_papaparse__;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nested_webpack_require_493488__("./index.js");
+/******/ 	return __nested_webpack_require_493573__("./index.js");
 /******/ })()
 ;
 });
@@ -38816,6 +38821,7 @@ class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {
@@ -38942,6 +38948,115 @@ class AppController {
   defineNotificationSupport () {
     const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
     return notificationSingleton
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/controllers/detect-text-controller.js":
+/*!***************************************************!*\
+  !*** ./lib/controllers/detect-text-controller.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DetectTextController)
+/* harmony export */ });
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpheios-client-adapters */ "../node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js");
+/* harmony import */ var alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+
+
+
+
+const detectedTexts = {}
+
+class DetectTextController {
+  /**
+   * This is a max amount of text that would be send to the detection service
+   */
+  static get maxAmountOfText () {
+    return 200
+  }
+
+  /**
+   * Checks if text is plain text or xml.
+   * If it is a plain text - than application will send a request to language detection API and defines direction from language.
+   * @param {SourceText} sourceText
+   * @returns {Object}
+   *          {String} sourceType - text/tei
+   *          {String} lang - only for text
+   *          {String} direction - only for text
+   */
+  static async detectTextProperties (sourceText) {
+    if (this.isAlreadyDetected(sourceText) || sourceText.startedDetection) { return }
+    const sourceType = this.checkXML(sourceText)
+
+    if (sourceType === 'tei') {
+      this.addToDetected(sourceText)
+      return { sourceType }
+    }
+
+    sourceText.startedDetection = true
+
+    const adapterDetectLangRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.detectlangGroup.detectlang({
+      method: 'getDetectedLangsList',
+      params: {
+        text: sourceText.text.substr(0, this.maxAmountOfText)
+      }
+    })
+
+    if (adapterDetectLangRes.errors.length > 0) {
+      adapterDetectLangRes.errors.forEach(error => {
+        console.error(error)
+        _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
+          text: error.message,
+          type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.ERROR
+        })
+      })
+      return
+    }
+    this.addToDetected(sourceText)
+    return {
+      lang: adapterDetectLangRes.result,
+      direction: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_2__.default.defineDirection(adapterDetectLangRes.result),
+      sourceType
+    }
+  }
+
+  /**
+   *
+   * @param {String} sourceText
+   * @returns {String} - tei/text
+   */
+  static checkXML (sourceText) {
+    const checkRegExp = new RegExp('</[ ]*tei[ ]*>', 'i')
+    return checkRegExp.test(sourceText.text) ? 'tei' : 'text'
+  }
+
+  /**
+   * @param {SourceText} sourceText
+   */
+  static addToDetected (sourceText) {
+    detectedTexts[sourceText.id] = true
+  }
+
+  /**
+   * @param {SourceText} sourceText
+   */
+  static removeFromDetected (sourceText) {
+    detectedTexts[sourceText.id] = false
+  }
+
+  /**
+   * @param {SourceText} sourceText
+   */
+  static isAlreadyDetected (sourceText) {
+    return detectedTexts[sourceText.id]
   }
 }
 
@@ -39284,6 +39399,7 @@ class SettingsController {
   constructor (store) {
     this.store = store
     this.storageAdapter = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.LocalStorageArea
+    this.textPropsStorageAdapter = alpheios_data_models__WEBPACK_IMPORTED_MODULE_0__.TempStorageArea
 
     this.defaultSettings = {
       app: _settings_default_app_settings_json__WEBPACK_IMPORTED_MODULE_1__,
@@ -39292,6 +39408,7 @@ class SettingsController {
 
     this.options = {}
 
+    _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__.default.collectLangsData()
     this.valuesClassesList = {
       Langs: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_4__.default.all
     }
@@ -39351,7 +39468,6 @@ class SettingsController {
     Object.values(this.options).forEach(optionsGroup => {
       optionsGroup.checkAndUploadValuesFromArray(this.valuesClassesList)
     })
-    this.store.commit('incrementOptionsUpdated')
     this.submitEventUpdateTheme()
   }
 
@@ -39373,7 +39489,6 @@ class SettingsController {
 
     await Promise.all(optionsPromises)
     this.submitEventUpdateTheme()
-    this.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -39415,19 +39530,16 @@ class SettingsController {
    * @param {Number} indexText - the number of the text with the type (used for targets)
    * @returns {Options}
    */
-  async cloneTextEditorOptions (typeText, indexText) {
+  cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
-      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
+      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
     }
 
     if (this.hasTokenizerOptions) {
       Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.storageAdapter)
+        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
       })
     }
-    const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
-    await Promise.all(optionPromises)
-
     return clonedOpts
   }
 
@@ -39466,16 +39578,10 @@ class SettingsController {
    * @param {Object} localTextEditorOptions
    *        {Options} localTextEditorOptions.sourceText
    */
-  async resetLocalTextEditorOptions (localTextEditorOptions) {
-    await localTextEditorOptions.sourceText.reset()
-    localTextEditorOptions.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
-    if (localTextEditorOptions.text) {
-      await localTextEditorOptions.text.reset()
-    }
-    if (localTextEditorOptions.tei) {
-      await localTextEditorOptions.tei.reset()
-    }
+  resetLocalTextEditorOptions (textType, textId) {
+    const clonedOpts = this.cloneTextEditorOptions(textType, textId)
     this.store.commit('incrementOptionsUpdated')
+    return clonedOpts
   }
 
   /**
@@ -39520,6 +39626,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+
 
 
 
@@ -39559,28 +39667,41 @@ class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} originDocSource
    */
-  updateOriginDocSource (originDocSource) {
+  async updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
       this.createAlignment(originDocSource, null)
     } else {
       this.alignment.updateOriginDocSource(originDocSource)
     }
-    this.store.commit('incrementAlignmentUpdated')
+
+    if (this.originDocSource && !this.originDocSource.startedDetection && this.originDocSource.readyForLangDetection) {
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.originDocSource)
+      this.originDocSource.updateDetectedLang(langData)
+      this.store.commit('incrementUploadCheck')
+    } else {
+      this.store.commit('incrementAlignmentUpdated')
+    }
   }
 
   /**
    * Uploads target source document to the alignment object.
    * @param {Object} targetDocSource
    */
-  updateTargetDocSource (targetDocSource, targetId) {
+  async updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
         text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
         type: 'error'
       })
+      return
+    }
+    const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
+    if (targetDocSource && this.targetDocSource(newTargetId) && !this.targetDocSource(newTargetId).startedDetection && this.targetDocSource(newTargetId).readyForLangDetection) {
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(newTargetId))
+      this.targetDocSource(newTargetId).updateDetectedLang(langData)
+      this.store.commit('incrementUploadCheck')
     } else {
-      this.alignment.updateTargetDocSource(targetDocSource, targetId)
       this.store.commit('incrementAlignmentUpdated')
     }
   }
@@ -39705,7 +39826,9 @@ class TextsController {
     const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
-      result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
+      result.targetDocSources.forEach(targetDocSource => {
+        this.updateTargetDocSource(targetDocSource)
+      })
 
       this.store.commit('incrementUploadCheck')
       return true
@@ -39898,6 +40021,14 @@ class TextsController {
 
   get originDocSourceDefined () {
     return this.alignment.originDocSourceDefined
+  }
+
+  checkDetectedProps (textType, docSourceId) {
+    return Boolean(this.getDocSource(textType, docSourceId).detectedLang)
+  }
+
+  removeDetectedFlag (textType, docSourceId) {
+    _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.removeFromDetected(this.getDocSource(textType, docSourceId))
   }
 }
 
@@ -41532,6 +41663,8 @@ class AlignedText {
     this.direction = docSource.direction
     this.lang = docSource.lang
 
+    this.langName = this.defineLangName()
+
     this.sourceType = docSource.sourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
@@ -41552,14 +41685,18 @@ class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
-  get langName () {
+  defineLangName () {
     const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
-    return langData ? langData.text : this.lang
+    const res = langData ? langData.text : this.lang
+    return res
   }
 
   updateLanguage (lang) {
-    this.lang = lang
-    this.segments.forEach(segment => segment.updateLanguage(lang))
+    if (lang !== this.lang) {
+      this.lang = lang
+      this.segments.forEach(segment => segment.updateLanguage(lang))
+      this.langName = this.defineLangName()
+    }
   }
 
   /**
@@ -42053,6 +42190,7 @@ class Alignment {
       if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
         docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
       }
+
       this.targets[docSource.id] = {
         docSource
       }
@@ -42062,7 +42200,7 @@ class Alignment {
         this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
       }
     }
-    return true
+    return docSource.id
   }
 
   /**
@@ -43307,16 +43445,52 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+let allLangs = []
+let rtlLangs = []
+
 class Langs {
+  /**
+   * Uploads once language's list for options
+   * @returns {Array[Object]}
+   *          {String} value - lang code ISO 639-3
+   *          {String} label - language name
+   */
   static get all () {
-    return _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.map(langData => {
+    return allLangs
+  }
+
+  /**
+   * Uploads once rtl language's list. And defines direction by langCode.
+   * @returns {String} - rtl/ltr
+   */
+  static defineDirection (langCode) {
+    return rtlLangs.includes(langCode) ? 'rtl' : 'ltr'
+  }
+
+  /**
+   * Creates allLangs list and rtl langs list.
+   * @returns {Array[Object]}
+   *          {String} value - lang code ISO 639-3
+   *          {String} label - language name
+   */
+  static collectLangsData () {
+    this.clearLangsArrs()
+
+    _lib_data_langs_langs_list_json__WEBPACK_IMPORTED_MODULE_0__.forEach(langData => {
       const l10nLabel = `LANG_${langData.value.toUpperCase()}`
       const l10nMessage = _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default.getMsgS(l10nLabel)
-      return {
+
+      if (langData.direction === 'rtl') { rtlLangs.push(langData.value) }
+      allLangs.push({
         value: langData.value,
         text: l10nMessage || langData.label
-      }
+      })
     })
+  }
+
+  static clearLangsArrs () {
+    allLangs = []
+    rtlLangs = []
   }
 }
 
@@ -43741,9 +43915,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+
 
 
 
@@ -43761,8 +43937,8 @@ class SourceText {
    * @param {Object} docSource.tokenization
    * @param {String} targetId
    */
-  constructor (textType, docSource, targetId) {
-    this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_2__.v4)()
+  constructor (textType, docSource, targetId, skipDetected = false) {
+    this.id = targetId || (0,uuid__WEBPACK_IMPORTED_MODULE_3__.v4)()
     this.textType = textType
 
     this.text = docSource && docSource.text ? docSource.text : ''
@@ -43771,14 +43947,16 @@ class SourceText {
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
+    this.skipDetected = skipDetected
+
     if (docSource && docSource.metadata) {
-      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default) {
         this.metadata = docSource.metadata
       } else {
-        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default(docSource.metadata)
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default(docSource.metadata)
       }
     } else {
-      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default()
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
     }
   }
 
@@ -43824,6 +44002,22 @@ class SourceText {
     this.tokenization = Object.assign({}, docSource.tokenization)
   }
 
+  updateDetectedLang (langData) {
+    this.sourceType = langData.sourceType
+    if (langData.lang) {
+      this.lang = langData.lang
+      this.direction = langData.direction
+    }
+  }
+
+  get detectedLang () {
+    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isAlreadyDetected(this)
+  }
+
+  get readyForLangDetection () {
+    return !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
+  }
+
   /**
    * Checks if all obligatory properties are defined: text, direction, lang
    * @return {Boolean}
@@ -43859,9 +44053,9 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(jsonData.metadata) : null
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(jsonData.metadata) : null
 
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
@@ -44679,7 +44873,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i302-language-update.20210415625" : 0
+    return  true ? "i327-new-text-editor-screen.20210422688" : 0
   }
 
   static get libName () {
@@ -47284,6 +47478,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -47301,18 +47499,40 @@ __webpack_require__.r(__webpack_exports__);
     textId: {
       type: String,
       required: false
+    },
+    onlyMetadata: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    showUploadBlockFlag: {
+      type: Number,
+      required: false,
+      default: 1
+    },
+    showClearTextFlag: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
     return {
       showUploadBlock: false,
       shownMetadataBlock: false,
-      showModal: false
+      showModal: false,
+      showClearText: false
     }
   },
   watch: {
     '$store.state.alignmentRestarted' () {
       this.$refs.fileupload.value = ''
+    },
+    'showUploadBlockFlag' () {
+      this.uploadTexts()
+    },
+    'showClearTextFlag' () {
+      this.showClearText = true
     }
   },
   computed: {
@@ -47373,6 +47593,11 @@ __webpack_require__.r(__webpack_exports__);
     uploadFromDTSAPI (filedata) {
       this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadBlock = false
+    },
+
+    clearText () {
+      this.$emit('clear-text')
+      this.showClearText = false
     }
   }
 });
@@ -47574,6 +47799,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -47599,15 +47825,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
+      showLangLabel: false
     }
   },
   computed: {
     showOptions () {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
+    },
+    optionItem () {
+      return this.localOptions.sourceText.items.language
     }
   },
   methods: {
     updateData () {
+      this.$emit('updateDirection')
       this.$emit('updateText')
     }
   }
@@ -47882,6 +48113,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
 /* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
 /* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -47915,6 +48147,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -47966,7 +48214,17 @@ __webpack_require__.r(__webpack_exports__);
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false
+      showMetadata: false,
+      showTypeUploadButtons: true,
+
+      showTypeTextBlock: false,
+      showTextProps: false,
+      showUploadMenu: false,
+      showOnlyMetadata: true,
+      showUploadBlockFlag: 1,
+      showClearTextFlag: 1,
+
+      updatedLocalOptionsFlag: 1
     }
   },
   /**
@@ -47974,28 +48232,33 @@ __webpack_require__.r(__webpack_exports__);
    */
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-      await this.prepareDefaultTextEditorOptions()
+      this.prepareDefaultTextEditorOptions()
     }
-    this.updateFromExternal()
+    this.initDataProps()
+    await this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTextEditorOptions()
+        this.prepareDefaultTextEditorOptions()
       }
     },
-    '$store.state.uploadCheck' () {
-      this.updateFromExternal()
+    async '$store.state.uploadCheck' () {
+      await this.updateFromExternal()
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
-      this.updateText()
+      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
+      await this.updateText()
     }
   },
   computed: {
+
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
     /**
      * Used for css id definition
      */
@@ -48007,9 +48270,9 @@ __webpack_require__.r(__webpack_exports__);
      * It is executed after each alignment update, 
      * checks if  localOptions is not yet uploaded
      */
-    async dataUpdated () {
+    dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTextEditorOptions()
+        this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.alignmentUpdated
     },
@@ -48040,12 +48303,8 @@ __webpack_require__.r(__webpack_exports__);
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
+      return (this.textType === 'target') ? this.textTypeFormatted : this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-
-    l10n () {
-      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
-    },
 
     /**
      * Defines if we have multiple targets then we need to show index of target text
@@ -48103,33 +48362,60 @@ __webpack_require__.r(__webpack_exports__);
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+    },
+
+    updatedLocalOptions () {
+      return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     }
   },
   methods: {
+    initDataProps () {
+      this.showMetadata = false
+      this.showTypeUploadButtons = true
+
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
+    },
+
     /**
      * Updates sourceText properties from textController
      */
-    updateFromExternal () {
+    async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-      if (sourceTextData) {
+      if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
-        this.updateText()
+        await this.updateText()
+
+        this.showTypeUploadButtons = false
+        this.showTypeTextBlock = true
+        this.showOnlyMetadata = true
       }
     },
 
     /**
      * Clears text and reloads local options
      */
-    async restartTextEditor () {
-        this.text = ''
-        await this.prepareDefaultTextEditorOptions()
+    restartTextEditor () {
+      this.text = ''
+      this.prepareDefaultTextEditorOptions()
+      if (this.textId) {
+        this.$textC.removeDetectedFlag(this.textType, this.textId)
+      }
+
+      this.showTypeUploadButtons = true
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
     },
 
     /**
      * Emits update-text event with data from properties
      */
-    updateText (updatePlace) {
+    async updateText (updatePlace) {
       if ((updatePlace === 'text') || (this.text)) {
         const params = {
           text: this.text,
@@ -48140,9 +48426,24 @@ __webpack_require__.r(__webpack_exports__);
           tokenization: this.tokenization
         }
 
-        this.$textC[this.updateTextMethod](params, this.textId)  
+        if (this.text && (this.text.length === 0) && this.textId) {
+          this.$textC.removeDetectedFlag(this.textType, this.textId)
+        }
+
+        await this.$textC[this.updateTextMethod](params, this.textId)  
+
+        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
+          this.showTextProps = true
+          this.showClearTextFlag++ 
+        }
       }
     },
+
+    updateDirection () {
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_9__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.$store.commit('incrementOptionsUpdated')
+    },
+
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
@@ -48150,11 +48451,10 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Reloads local options
      */
-    async prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+    prepareDefaultTextEditorOptions () {
+      this.localTextEditorOptions = this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-
-      this.updateText()
+      this.$store.commit('incrementOptionsUpdated')
     },
 
     /**
@@ -48166,10 +48466,26 @@ __webpack_require__.r(__webpack_exports__);
         textId: this.textId,
         tokenization: this.tokenization
       })
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
     },
 
     toggleMetadata () {
       this.showMetadata = !this.showMetadata
+    },
+
+    selectTypeText () {
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
+      this.showTypeUploadButtons = false
+    },
+
+    selectUploadText () { 
+      this.showUploadMenu = true
+      this.showUploadBlockFlag++
+
+      this.showOnlyMetadata = true
+      this.showTypeUploadButtons = false
     }
   }
 });
@@ -54626,26 +54942,14 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: {
-                id: "alpheios-actions-menu-button__download",
-                disabled: !_vm.downloadAvailable
-              },
-              on: { click: _vm.downloadSingle }
-            },
-            [
-              _vm._v(
-                "\n        " +
-                  _vm._s(_vm.l10n.getMsgS("ACTIONS_DOWNLOAD_TITLE")) +
-                  "\n    "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.onlyMetadata,
+                  expression: "!onlyMetadata"
+                }
+              ],
               staticClass:
                 "alpheios-editor-button-tertiary alpheios-actions-menu-button",
               attrs: {
@@ -54658,6 +54962,34 @@ var render = function() {
               _vm._v(
                 "\n        " +
                   _vm._s(_vm.l10n.getMsgS("ACTIONS_UPLOAD_TITLE")) +
+                  "\n    "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showClearText,
+                  expression: "showClearText"
+                }
+              ],
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: {
+                id: "alpheios-actions-menu-button__clear_text",
+                disabled: !_vm.docSourceEditAvailable
+              },
+              on: { click: _vm.clearText }
+            },
+            [
+              _vm._v(
+                "\n        " +
+                  _vm._s(_vm.l10n.getMsgS("ACTIONS_CLEAR_TEXT_TITLE")) +
                   "\n    "
               )
             ]
@@ -54994,9 +55326,10 @@ var render = function() {
             [
               _c("option-item-block", {
                 attrs: {
-                  optionItem: _vm.localOptions.sourceText.items.language,
+                  optionItem: _vm.optionItem,
                   emitUpdateData: true,
                   disabled: _vm.disabled,
+                  showLabelText: _vm.showLangLabel,
                   labelsListType: _vm.textType
                 },
                 on: { updateData: _vm.updateData }
@@ -55329,11 +55662,75 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showTypeUploadButtons,
+              expression: "showTypeUploadButtons"
+            }
+          ]
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__typetext" },
+              on: { click: _vm.selectTypeText }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("TEXT_SINGLE_TYPE_BUTTON")) +
+                  "\n      "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__uploadtext" },
+              on: { click: _vm.selectUploadText }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.l10n.getMsgS("TEXT_SINGLE_UPLOAD_BUTTON")) +
+                  "\n      "
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("actions-menu", {
-        attrs: { "text-type": _vm.textType, "text-id": _vm.textId },
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTextProps || _vm.showUploadMenu,
+            expression: "showTextProps || showUploadMenu"
+          }
+        ],
+        attrs: {
+          "text-type": _vm.textType,
+          "text-id": _vm.textId,
+          onlyMetadata: _vm.showOnlyMetadata,
+          showUploadBlockFlag: _vm.showUploadBlockFlag,
+          showClearTextFlag: _vm.showClearTextFlag
+        },
         on: {
           "upload-single": _vm.uploadSingle,
-          "toggle-metadata": _vm.toggleMetadata
+          "toggle-metadata": _vm.toggleMetadata,
+          "clear-text": _vm.restartTextEditor
         }
       }),
       _vm._v(" "),
@@ -55349,7 +55746,74 @@ var render = function() {
         attrs: { "text-type": _vm.textType, "text-id": _vm.textId }
       }),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showTypeTextBlock,
+              expression: "showTypeTextBlock"
+            }
+          ]
+        },
+        [
+          _c(
+            "p",
+            {
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__characters",
+              class: _vm.charactersClasses
+            },
+            [_vm._v("\n        " + _vm._s(_vm.charactersText) + "\n      ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "textarea",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.text,
+                  expression: "text"
+                }
+              ],
+              attrs: {
+                id: _vm.textareaId,
+                dir: _vm.direction,
+                tabindex: "2",
+                lang: _vm.language,
+                disabled: !_vm.docSourceEditAvailable
+              },
+              domProps: { value: _vm.text },
+              on: {
+                blur: function($event) {
+                  return _vm.updateText("text")
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.text = $event.target.value
+                }
+              }
+            },
+            [_vm._v("      >")]
+          )
+        ]
+      ),
+      _vm._v(" "),
       _c("direction-options-block", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTextProps,
+            expression: "showTextProps"
+          }
+        ],
         attrs: {
           localOptions: _vm.localTextEditorOptions,
           disabled: !_vm.docSourceEditAvailable
@@ -55357,60 +55821,32 @@ var render = function() {
         on: { updateText: _vm.updateText }
       }),
       _vm._v(" "),
-      _c(
-        "p",
-        {
-          staticClass:
-            "alpheios-alignment-editor-text-blocks-single__characters",
-          class: _vm.charactersClasses
-        },
-        [_vm._v("\n       " + _vm._s(_vm.charactersText) + "\n    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "textarea",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.text,
-              expression: "text"
-            }
-          ],
-          attrs: {
-            id: _vm.textareaId,
-            dir: _vm.direction,
-            tabindex: "2",
-            lang: _vm.language,
-            disabled: !_vm.docSourceEditAvailable
-          },
-          domProps: { value: _vm.text },
-          on: {
-            blur: function($event) {
-              return _vm.updateText("text")
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.text = $event.target.value
-            }
-          }
-        },
-        [_vm._v("    >")]
-      ),
-      _vm._v(" "),
       _c("language-options-block", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showTextProps,
+            expression: "showTextProps"
+          }
+        ],
         attrs: {
           textType: _vm.textType,
           localOptions: _vm.localTextEditorOptions
         },
-        on: { updateText: _vm.updateText }
+        on: { updateText: _vm.updateText, updateDirection: _vm.updateDirection }
       }),
       _vm._v(" "),
       _vm.$settingsC.hasTokenizerOptions
         ? _c("tokenize-options-block", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showTextProps,
+                expression: "showTextProps"
+              }
+            ],
             attrs: {
               localOptions: _vm.localTextEditorOptions,
               disabled: !_vm.docSourceEditAvailable
@@ -55452,7 +55888,11 @@ var render = function() {
         "alpheios-alignment-text-editor-block alpheios-alignment-editor-container"
     },
     [
-      _c("h2", [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")) + " ")]),
+      _c(
+        "h2",
+        { staticClass: "alpheios-alignment-text-editor-block__header" },
+        [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")) + " ")]
+      ),
       _vm._v(" "),
       _c(
         "div",
@@ -57543,7 +57983,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.2","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/upload-controller.test.js","test-b":"jest tests/vue/app.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.7","@babel/core":"^7.13.15","@babel/plugin-proposal-object-rest-spread":"^7.13.8","@babel/plugin-transform-modules-commonjs":"^7.13.8","@babel/plugin-transform-runtime":"^7.13.15","@babel/preset-env":"^7.13.15","@babel/register":"^7.13.14","@babel/runtime":"^7.13.10","@vue/test-utils":"^1.1.4","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.24.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.7","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.8","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.33.2","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.3","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/text-editor/text-editor-single-block.test.js --coverage","test-c":"jest tests/lib/data/source-text.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.7","@babel/core":"^7.13.15","@babel/plugin-proposal-object-rest-spread":"^7.13.8","@babel/plugin-transform-modules-commonjs":"^7.13.8","@babel/plugin-transform-runtime":"^7.13.15","@babel/preset-env":"^7.13.15","@babel/register":"^7.13.14","@babel/runtime":"^7.13.10","@vue/test-utils":"^1.1.4","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.24.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.7","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.11","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.34.0","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -57554,7 +57994,7 @@ module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","label":"Latin"},{"value":"grc","label":"Greek (Ancient –1453)"},{"value":"ara","label":"Arabic"},{"value":"zh","label":"Chinese"},{"value":"aka","label":"Abkhazian"},{"value":"aar","label":"Afar"},{"value":"abk","label":"Akan"},{"value":"afr","label":"Afrikaans"},{"value":"akk","label":"Akkadian"},{"value":"sqi","label":"Albanian"},{"value":"amh","label":"Amharic"},{"value":"arg","label":"Aragonese"},{"value":"arc","label":"Aramaic (Imperial- 700 BC–300 BC)"},{"value":"sam","label":"Aramaic (Samaritan)"},{"value":"hye","label":"Armenian"},{"value":"asm","label":"Assamese"},{"value":"ast","label":"Asturian"},{"value":"ave","label":"Avestan"},{"value":"aym","label":"Aymara"},{"value":"aze","label":"Azerbaijani"},{"value":"bak","label":"Bashkir"},{"value":"eus","label":"Basque"},{"value":"bel","label":"Belarusian"},{"value":"ben","label":"Bengali"},{"value":"ber","label":"Berber"},{"value":"bih","label":"Bihari"},{"value":"bos","label":"Bosnian"},{"value":"bre","label":"Breton"},{"value":"bul","label":"Bulgarian"},{"value":"bug","label":"Buginese"},{"value":"chu","label":"Bulgarian (Old, Old Church Slavonic)"},{"value":"mya","label":"Burmese"},{"value":"cat","label":"Catalan"},{"value":"ceb","label":"Cebuano"},{"value":"chg","label":"Chagatai"},{"value":"chr","label":"Cherokee"},{"value":"cop","label":"Coptic"},{"value":"cor","label":"Cornish"},{"value":"cos","label":"Corsican"},{"value":"hrv","label":"Croatian"},{"value":"ces","label":"Czech"},{"value":"dan","label":"Danish"},{"value":"div","label":"Dhivehi"},{"value":"nld","label":"Dutch (Flemish)"},{"value":"dum","label":"Dutch (Middle, 1050–1350)"},{"value":"dzo","label":"Dzongkha"},{"value":"egy","label":"Egyptian (Ancient)"},{"value":"elx","label":"Elamite"},{"value":"enm","label":"English (Middle, 1100–1500)"},{"value":"ang","label":"English (Old, 450–1100)"},{"value":"epo","label":"Esperanto"},{"value":"est","label":"Estonian"},{"value":"fao","label":"Faroese"},{"value":"fij","label":"Fijian"},{"value":"fin","label":"Finnish"},{"value":"fra","label":"French"},{"value":"frm","label":"French (Middle, 1400—1600)"},{"value":"fro","label":"French (Old, 842—c. 1400)"},{"value":"frr","label":"Frisian"},{"value":"glg","label":"Galician"},{"value":"gez","label":"Ge\'ez"},{"value":"kat","label":"Georgian"},{"value":"nds","label":"German (Low, Low Saxon)"},{"value":"gmh","label":"German (Middle-High, 1050–1500)"},{"value":"goh","label":"German (Old-High, 750–1050)"},{"value":"deu","label":"German"},{"value":"got","label":"Gothic"},{"value":"ell","label":"Greek (Modern, 1453–)"},{"value":"grn","label":"Guarani"},{"value":"guj","label":"Gujarati"},{"value":"hau","label":"Hausa"},{"value":"heb","label":"Hebrew"},{"value":"hin","label":"Hindi"},{"value":"hit","label":"Hittite"},{"value":"hun","label":"Hungarian"},{"value":"isl","label":"Icelandic"},{"value":"ind","label":"Indonesian"},{"value":"gle","label":"Irish (Modern)"},{"value":"mga","label":"Irish (Middle 900–1200)"},{"value":"sga","label":"Irish (Old, to 900)"},{"value":"ita","label":"Italian"},{"value":"jpn","label":"Japanese"},{"value":"jav","label":"Javanese"},{"value":"kan","label":"Kannada"},{"value":"khm","label":"Khmer (Central)"},{"value":"kor","label":"Korean"},{"value":"kur","label":"Kurdish"},{"value":"lad","label":"Ladino"},{"value":"lit","label":"Lithuanian"},{"value":"msa","label":"Malay"},{"value":"glv","label":"Manx"},{"value":"mar","label":"Marathi"},{"value":"new","label":"Nepal Bhasa (Newari)"},{"value":"nep","label":"Nepali"},{"value":"nwc","label":"Newari"},{"value":"non","label":"Norse (Old)"},{"value":"nor","label":"Norwegian"},{"value":"nob","label":"Norwegian (Bokmål)"},{"value":"nno","label":"Norwegian (Nynorsk)"},{"value":"oss","label":"Ossetian"},{"value":"pal","label":"Pahlavi (Middle Persian)"},{"value":"pli","label":"Pali"},{"value":"pus","label":"Pashto"},{"value":"fas","label":"Persian (Farsi)"},{"value":"peo","label":"Persian (Old, 600–400 BC)"},{"value":"phn","label":"Phoenician"},{"value":"pol","label":"Polish"},{"value":"por","label":"Portuguese"},{"value":"pra","label":"Prakrit"},{"value":"pro","label":"Provençal (Occitan, –1500)"},{"value":"pan","label":"Punjabi (Panjabi)"},{"value":"raj","label":"Rajasthani"},{"value":"ron","label":"Romanian"},{"value":"rom","label":"Romany"},{"value":"rus","label":"Russian"},{"value":"san","label":"Sanskrit"},{"value":"sco","label":"Scots"},{"value":"gla","label":"Scottish (Gaelic)"},{"value":"srp","label":"Serbian"},{"value":"crs","label":"Seselwa"},{"value":"scn","label":"Sicilian"},{"value":"snd","label":"Sindhi"},{"value":"sin","label":"Sinhalese (Sinhala)"},{"value":"slk","label":"Slovak"},{"value":"slv","label":"Slovenian"},{"value":"sog","label":"Sogdian"},{"value":"spa","label":"Spanish (Castilian)"},{"value":"sux","label":"Sumerian"},{"value":"swa","label":"Swahili"},{"value":"swe","label":"Swedish"},{"value":"gsw","label":"Swiss German (Alsatian)"},{"value":"syc","label":"Syriac (Classical)"},{"value":"syr","label":"Syriac (Northeastern, Neo-Aramaic)"},{"value":"tgl","label":"Tagalog"},{"value":"tgk","label":"Tajik"},{"value":"tam","label":"Tamil"},{"value":"tat","label":"Tatar"},{"value":"tel","label":"Telugu"},{"value":"tha","label":"Thai"},{"value":"bod","label":"Tibetan"},{"value":"tur","label":"Turkish (Modern)"},{"value":"ota","label":"Turkish (Ottoman, 1500–1928)"},{"value":"tuk","label":"Turkmen"},{"value":"uga","label":"Ugaritic"},{"value":"ukr","label":"Ukainian"},{"value":"urd","label":"Urdu"},{"value":"uzb","label":"Uzbek"},{"value":"vie","label":"Vietnamese"},{"value":"wln","label":"Walloon"},{"value":"cym","label":"Welsh"},{"value":"yid","label":"Yiddish"}]');
+module.exports = JSON.parse('[{"value":"eng","label":"English"},{"value":"lat","label":"Latin"},{"value":"grc","label":"Greek (Ancient –1453)"},{"value":"ara","label":"Arabic","direction":"rtl"},{"value":"zh","label":"Chinese"},{"value":"zho","label":"Chinese"},{"value":"aka","label":"Abkhazian"},{"value":"aar","label":"Afar"},{"value":"abk","label":"Akan"},{"value":"afr","label":"Afrikaans"},{"value":"akk","label":"Akkadian"},{"value":"sqi","label":"Albanian"},{"value":"amh","label":"Amharic"},{"value":"arg","label":"Aragonese"},{"value":"arc","label":"Aramaic (Imperial- 700 BC–300 BC)","direction":"rtl"},{"value":"sam","label":"Aramaic (Samaritan)","direction":"rtl"},{"value":"hye","label":"Armenian"},{"value":"asm","label":"Assamese"},{"value":"ast","label":"Asturian"},{"value":"ave","label":"Avestan"},{"value":"aym","label":"Aymara"},{"value":"aze","label":"Azerbaijani"},{"value":"bak","label":"Bashkir"},{"value":"eus","label":"Basque"},{"value":"bel","label":"Belarusian"},{"value":"ben","label":"Bengali"},{"value":"ber","label":"Berber"},{"value":"bih","label":"Bihari"},{"value":"bos","label":"Bosnian"},{"value":"bre","label":"Breton"},{"value":"bul","label":"Bulgarian"},{"value":"bug","label":"Buginese"},{"value":"chu","label":"Bulgarian (Old, Old Church Slavonic)"},{"value":"mya","label":"Burmese"},{"value":"cat","label":"Catalan"},{"value":"ceb","label":"Cebuano"},{"value":"chg","label":"Chagatai"},{"value":"chr","label":"Cherokee"},{"value":"cop","label":"Coptic"},{"value":"cor","label":"Cornish"},{"value":"cos","label":"Corsican"},{"value":"hrv","label":"Croatian"},{"value":"ces","label":"Czech"},{"value":"dan","label":"Danish"},{"value":"div","label":"Dhivehi","direction":"rtl"},{"value":"nld","label":"Dutch (Flemish)"},{"value":"dum","label":"Dutch (Middle, 1050–1350)"},{"value":"dzo","label":"Dzongkha"},{"value":"egy","label":"Egyptian (Ancient)"},{"value":"elx","label":"Elamite"},{"value":"enm","label":"English (Middle, 1100–1500)"},{"value":"ang","label":"English (Old, 450–1100)"},{"value":"epo","label":"Esperanto"},{"value":"est","label":"Estonian"},{"value":"fao","label":"Faroese"},{"value":"fij","label":"Fijian"},{"value":"fin","label":"Finnish"},{"value":"fra","label":"French"},{"value":"frm","label":"French (Middle, 1400—1600)"},{"value":"fro","label":"French (Old, 842—c. 1400)"},{"value":"frr","label":"Frisian"},{"value":"glg","label":"Galician"},{"value":"lug","label":"Ganda"},{"value":"gez","label":"Ge\'ez"},{"value":"kat","label":"Georgian"},{"value":"nds","label":"German (Low, Low Saxon)"},{"value":"gmh","label":"German (Middle-High, 1050–1500)"},{"value":"goh","label":"German (Old-High, 750–1050)"},{"value":"deu","label":"German"},{"value":"got","label":"Gothic"},{"value":"ell","label":"Greek (Modern, 1453–)"},{"value":"kal","label":"Greenlandic"},{"value":"grn","label":"Guarani"},{"value":"guj","label":"Gujarati"},{"value":"hat","label":"Haitian Creole"},{"value":"hau","label":"Hausa"},{"value":"haw","label":"Hawaiian"},{"value":"heb","label":"Hebrew","direction":"rtl"},{"value":"hin","label":"Hindi"},{"value":"hit","label":"Hittite"},{"value":"hmn","label":"Hmong"},{"value":"hun","label":"Hungarian"},{"value":"isl","label":"Icelandic"},{"value":"ibo","label":"Igbo"},{"value":"ind","label":"Indonesian"},{"value":"ina","label":"Interlingua"},{"value":"ile","label":"Interlingue"},{"value":"iku","label":"Inuktitut"},{"value":"ipk","label":"Inupiaq"},{"value":"gle","label":"Irish (Modern)"},{"value":"mga","label":"Irish (Middle 900–1200)"},{"value":"sga","label":"Irish (Old, to 900)"},{"value":"ita","label":"Italian"},{"value":"jpn","label":"Japanese"},{"value":"jav","label":"Javanese"},{"value":"kan","label":"Kannada"},{"value":"kaz","label":"Kazakh"},{"value":"kas","label":"Kashmiri"},{"value":"kha","label":"Khasi"},{"value":"khm","label":"Khmer (Central)"},{"value":"kin","label":"Kinyarwanda"},{"value":"tlh","label":"Klingon"},{"value":"kor","label":"Korean"},{"value":"kur","label":"Kurdish","direction":"rtl"},{"value":"kir","label":"Kyrgyz"},{"value":"lad","label":"Ladino"},{"value":"lao","label":"Laothian"},{"value":"lav","label":"Latvian"},{"value":"lim","label":"Limbu"},{"value":"lin","label":"Lingala"},{"value":"lit","label":"Lithuanian"},{"value":"ltz","label":"Luxembourgish"},{"value":"mac","label":"Macedonian"},{"value":"msa","label":"Malay"},{"value":"mlg","label":"Malagasy"},{"value":"mlt","label":"Maltese"},{"value":"glv","label":"Manx"},{"value":"mao","label":"Maori"},{"value":"mar","label":"Marathi"},{"value":"mfe","label":"Mauritian Creole"},{"value":"mon","label":"Mongolian"},{"value":"nau","label":"Nauru"},{"value":"nbl","label":"Ndebele"},{"value":"new","label":"Nepal Bhasa (Newari)"},{"value":"nep","label":"Nepali"},{"value":"nwc","label":"Newari"},{"value":"non","label":"Norse (Old)"},{"value":"nor","label":"Norwegian"},{"value":"nob","label":"Norwegian (Bokmål)"},{"value":"nno","label":"Norwegian (Nynorsk)"},{"value":"nya","label":"Nyanja"},{"value":"oci","label":"Occitan"},{"value":"ori","label":"Oriya"},{"value":"orm","label":"Oromo"},{"value":"oss","label":"Ossetian"},{"value":"pal","label":"Pahlavi (Middle Persian)"},{"value":"pli","label":"Pali"},{"value":"pus","label":"Pashto"},{"value":"nso","label":"Pedi"},{"value":"per","label":"Persian","direction":"rtl"},{"value":"fas","label":"Persian (Farsi)","direction":"rtl"},{"value":"peo","label":"Persian (Old, 600–400 BC)","direction":"rtl"},{"value":"phn","label":"Phoenician"},{"value":"pol","label":"Polish"},{"value":"por","label":"Portuguese"},{"value":"pra","label":"Prakrit"},{"value":"pro","label":"Provençal (Occitan, –1500)"},{"value":"pan","label":"Punjabi (Panjabi)"},{"value":"raj","label":"Rajasthani"},{"value":"que","label":"Quechua"},{"value":"roh","label":"Rhaeto Romance"},{"value":"ron","label":"Romanian"},{"value":"rom","label":"Romany"},{"value":"run","label":"Rundi"},{"value":"rus","label":"Russian"},{"value":"smo","label":"Samoan"},{"value":"sag","label":"Sango"},{"value":"san","label":"Sanskrit"},{"value":"sco","label":"Scots"},{"value":"gla","label":"Scottish (Gaelic)"},{"value":"srp","label":"Serbian"},{"value":"crs","label":"Seselwa"},{"value":"sot","label":"Sesotho"},{"value":"scn","label":"Sicilian"},{"value":"snd","label":"Sindhi"},{"value":"sin","label":"Sinhalese (Sinhala)"},{"value":"ssw","label":"Siswant"},{"value":"sna","label":"Shona"},{"value":"slk","label":"Slovak"},{"value":"slv","label":"Slovenian"},{"value":"sog","label":"Sogdian"},{"value":"som","label":"Somali"},{"value":"spa","label":"Spanish (Castilian)"},{"value":"sux","label":"Sumerian"},{"value":"sun","label":"Sundanese"},{"value":"swa","label":"Swahili"},{"value":"swe","label":"Swedish"},{"value":"gsw","label":"Swiss German (Alsatian)"},{"value":"syc","label":"Syriac (Classical)","direction":"rtl"},{"value":"syr","label":"Syriac (Northeastern, Neo-Aramaic)","direction":"rtl"},{"value":"tgl","label":"Tagalog"},{"value":"tgk","label":"Tajik"},{"value":"tam","label":"Tamil"},{"value":"tat","label":"Tatar"},{"value":"tel","label":"Telugu"},{"value":"tha","label":"Thai"},{"value":"bod","label":"Tibetan"},{"value":"tir","label":"Tigrinya"},{"value":"tsn","label":"Tswana"},{"value":"tog","label":"Tonga"},{"value":"tso","label":"Tsonga"},{"value":"tur","label":"Turkish (Modern)"},{"value":"ota","label":"Turkish (Ottoman, 1500–1928)"},{"value":"tuk","label":"Turkmen"},{"value":"uga","label":"Ugaritic"},{"value":"uig","label":"Uighur"},{"value":"ukr","label":"Ukainian"},{"value":"urd","label":"Urdu","direction":"rtl"},{"value":"uzb","label":"Uzbek"},{"value":"ven","label":"Venda"},{"value":"vie","label":"Vietnamese"},{"value":"vol","label":"Volapuk"},{"value":"wln","label":"Walloon"},{"value":"cym","label":"Welsh"},{"value":"wol","label":"Wolof"},{"value":"xho","label":"Xhosa"},{"value":"yid","label":"Yiddish"},{"value":"yor","label":"Yoruba"}]');
 
 /***/ }),
 
@@ -57587,7 +58027,7 @@ module.exports = JSON.parse('{"COOKIE_TEST_MESSAGE":{"message":"This is a test m
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Define Alignment Groups","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
+module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
 
 /***/ }),
 
@@ -57620,7 +58060,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AAR":{"message":"Afar","description":"Language name for available languages list","component":"TextEditor"},"LANG_ABK":{"message":"Abkhazian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKA":{"message":"Akan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ASM":{"message":"Assamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AYM":{"message":"Aymara","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BAK":{"message":"Bashkir","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEL":{"message":"Belarusian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIH":{"message":"Bihari","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIS":{"message":"Bislama","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUG":{"message":"Buginese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CEB":{"message":"Cebuano","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHR":{"message":"Cherokee","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_COS":{"message":"Corsican","description":"Language name for available languages list","component":"TextEditor"},"LANG_CRS":{"message":"Seselwa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_DIV":{"message":"Dhivehi","description":"Language name for available languages list","component":"TextEditor"},"LANG_DZO":{"message":"Dzongkha","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_EPO":{"message":"Esperanto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAO":{"message":"Faroese","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIJ":{"message":"Fijian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRR":{"message":"Frisian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLG":{"message":"Galician","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRN":{"message":"Guarani","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAU":{"message":"Hausa","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukrainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"}}');
+module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHO":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AAR":{"message":"Afar","description":"Language name for available languages list","component":"TextEditor"},"LANG_ABK":{"message":"Abkhazian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKA":{"message":"Akan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ASM":{"message":"Assamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AYM":{"message":"Aymara","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BAK":{"message":"Bashkir","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEL":{"message":"Belarusian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIH":{"message":"Bihari","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIS":{"message":"Bislama","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUG":{"message":"Buginese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CEB":{"message":"Cebuano","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHR":{"message":"Cherokee","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_COS":{"message":"Corsican","description":"Language name for available languages list","component":"TextEditor"},"LANG_CRS":{"message":"Seselwa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_DIV":{"message":"Dhivehi","description":"Language name for available languages list","component":"TextEditor"},"LANG_DZO":{"message":"Dzongkha","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_EPO":{"message":"Esperanto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAO":{"message":"Faroese","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIJ":{"message":"Fijian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRR":{"message":"Frisian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLG":{"message":"Galician","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRN":{"message":"Guarani","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAT":{"message":"Haitian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAU":{"message":"Hausa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAW":{"message":"Hawaiian","description":"Language name for available languages list","component":"TextEditor"},"LANG_HMN":{"message":"Hmong","description":"Language name for available languages list","component":"TextEditor"},"LANG_LUG":{"message":"Ganda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAL":{"message":"Greenlandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_IBO":{"message":"Igbo","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_INA":{"message":"Interlingua","description":"Language name for available languages list","component":"TextEditor"},"LANG_ILE":{"message":"Interlingue","description":"Language name for available languages list","component":"TextEditor"},"LANG_IPK":{"message":"Inupiaq","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAZ":{"message":"Kazakh","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAS":{"message":"Kashmiri","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIN":{"message":"Kinyarwanda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHA":{"message":"Khasi","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_TLH":{"message":"Klingon","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIR":{"message":"Kyrgyz","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAO":{"message":"Laothian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAV":{"message":"Latvian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIM":{"message":"Limbu","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIN":{"message":"Lingala","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LTZ":{"message":"Luxembourgish","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAC":{"message":"Macedonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLG":{"message":"Malagasy","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAL":{"message":"Malayalam","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLT":{"message":"Maltese","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAO":{"message":"Maori","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_MFE":{"message":"Mauritian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_MON":{"message":"Mongolian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NBL":{"message":"Ndebele","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NYA":{"message":"Nyanja","description":"Language name for available languages list","component":"TextEditor"},"LANG_OCI":{"message":"Occitan","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORI":{"message":"Oriya","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORM":{"message":"Oromo","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_NSO":{"message":"Pedi","description":"Language name for available languages list","component":"TextEditor"},"LANG_PER":{"message":"Persian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_QUE":{"message":"Quechua","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROH":{"message":"Rhaeto Romance","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUN":{"message":"Rundi","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SMO":{"message":"Samoan","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAG":{"message":"Sango","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOT":{"message":"Sesotho","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SSW":{"message":"Siswant","description":"Language name for available languages list","component":"TextEditor"},"LANG_SNA":{"message":"Shona","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOM":{"message":"Somali","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUN":{"message":"Sundanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TIR":{"message":"Tigrinya","description":"Language name for available languages list","component":"TextEditor"},"LANG_TOG":{"message":"Tonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSO":{"message":"Tsonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSN":{"message":"Tswana","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UIG":{"message":"Uighur","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukrainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VEN":{"message":"Venda","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_VOL":{"message":"Volapuk","description":"Language name for available languages list","component":"TextEditor"},"LANG_WAR":{"message":"Waray Philippines","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_WOL":{"message":"Wolof","description":"Language name for available languages list","component":"TextEditor"},"LANG_XHO":{"message":"Xhosa","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"},"LANG_YOR":{"message":"Yoruba","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHA":{"message":"Zhuang","description":"Language name for available languages list","component":"TextEditor"}}');
 
 /***/ }),
 
@@ -57664,7 +58104,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original and Translation Texts","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"Enter Text in { textType } Language:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Clear text","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Upload","description":"Title in text editor block","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 
@@ -57675,7 +58115,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Define Original 
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit tokens in Original and Translation texts","description":"A heading for text editor","component":"AlignEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the translation of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"AlignEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the translation of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
 
 /***/ }),
 

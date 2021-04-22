@@ -5,30 +5,44 @@
           <delete-icon />
         </span>
       </p>
-      <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata"/>
+      <div v-show="showTypeUploadButtons">
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__typetext"
+            @click="selectTypeText">
+            {{ l10n.getMsgS('TEXT_SINGLE_TYPE_BUTTON') }}
+        </button>
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
+            @click="selectUploadText">
+            {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
+        </button>
+      </div>
       
+      <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
+                    :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
+                    :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
+                    v-show="showTextProps || showUploadMenu"/>      
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
-      <direction-options-block 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable" 
-      />
-      <p class="alpheios-alignment-editor-text-blocks-single__characters" 
-         :class = "charactersClasses">
-         {{ charactersText }}
-      </p>
-      <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
-                 :disabled="!docSourceEditAvailable" >
-      ></textarea>
+      <div v-show="showTypeTextBlock">
+        <p class="alpheios-alignment-editor-text-blocks-single__characters" 
+          :class = "charactersClasses">
+          {{ charactersText }}
+        </p>
+        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
+                  :disabled="!docSourceEditAvailable" >
+        ></textarea>
+      </div>
 
+      <direction-options-block 
+        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"  v-show="showTextProps" 
+      />
 
       <language-options-block :textType = "textType"
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" 
+        @updateText = "updateText" @updateDirection = "updateDirection" :localOptions = "localTextEditorOptions" v-show="showTextProps"
       />
 
-      <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions"
+      <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
-
   </div>
 </template>
 <script>
@@ -45,6 +59,8 @@ import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
+
+import Langs from '@/lib/data/langs/langs.js'
 
 export default {
   name: 'TextEditorSingleBlock',
@@ -82,7 +98,17 @@ export default {
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false
+      showMetadata: false,
+      showTypeUploadButtons: true,
+
+      showTypeTextBlock: false,
+      showTextProps: false,
+      showUploadMenu: false,
+      showOnlyMetadata: true,
+      showUploadBlockFlag: 1,
+      showClearTextFlag: 1,
+
+      updatedLocalOptionsFlag: 1
     }
   },
   /**
@@ -90,28 +116,33 @@ export default {
    */
   async mounted () {
     if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-      await this.prepareDefaultTextEditorOptions()
+      this.prepareDefaultTextEditorOptions()
     }
-    this.updateFromExternal()
+    this.initDataProps()
+    await this.updateFromExternal()
   },
   watch: {
     async '$store.state.optionsUpdated' () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTextEditorOptions()
+        this.prepareDefaultTextEditorOptions()
       }
     },
-    '$store.state.uploadCheck' () {
-      this.updateFromExternal()
+    async '$store.state.uploadCheck' () {
+      await this.updateFromExternal()
     },
     async '$store.state.alignmentRestarted' () {
       await this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
-      await this.$settingsC.resetLocalTextEditorOptions(this.localTextEditorOptions)
-      this.updateText()
+      this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
+      await this.updateText()
     }
   },
   computed: {
+
+    l10n () {
+      return L10nSingleton
+    },
     /**
      * Used for css id definition
      */
@@ -123,9 +154,9 @@ export default {
      * It is executed after each alignment update, 
      * checks if  localOptions is not yet uploaded
      */
-    async dataUpdated () {
+    dataUpdated () {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
-        await this.prepareDefaultTextEditorOptions()
+        this.prepareDefaultTextEditorOptions()
       }
       return this.$store.state.alignmentUpdated
     },
@@ -156,12 +187,8 @@ export default {
      * Defines Title for the text block
      */
     textBlockTitle () {
-      return this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
+      return (this.textType === 'target') ? this.textTypeFormatted : this.l10n.getMsgS('TEXT_EDITOR_TEXT_BLOCK_TITLE', { textType: this.textTypeFormatted })
     }, 
-
-    l10n () {
-      return L10nSingleton
-    },
 
     /**
      * Defines if we have multiple targets then we need to show index of target text
@@ -219,33 +246,60 @@ export default {
     },
     charactersText () {
       return `Characters count - ${this.textCharactersAmount} (max - ${this.maxCharactersForTheText})`
+    },
+
+    updatedLocalOptions () {
+      return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     }
   },
   methods: {
+    initDataProps () {
+      this.showMetadata = false
+      this.showTypeUploadButtons = true
+
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
+    },
+
     /**
      * Updates sourceText properties from textController
      */
-    updateFromExternal () {
+    async updateFromExternal () {
       const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
-      if (sourceTextData) {
+      if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
-        this.updateText()
+        await this.updateText()
+
+        this.showTypeUploadButtons = false
+        this.showTypeTextBlock = true
+        this.showOnlyMetadata = true
       }
     },
 
     /**
      * Clears text and reloads local options
      */
-    async restartTextEditor () {
-        this.text = ''
-        await this.prepareDefaultTextEditorOptions()
+    restartTextEditor () {
+      this.text = ''
+      this.prepareDefaultTextEditorOptions()
+      if (this.textId) {
+        this.$textC.removeDetectedFlag(this.textType, this.textId)
+      }
+
+      this.showTypeUploadButtons = true
+      this.showTypeTextBlock = false
+      this.showTextProps = false
+      this.showUploadMenu = false
+      this.showOnlyMetadata = true
     },
 
     /**
      * Emits update-text event with data from properties
      */
-    updateText (updatePlace) {
+    async updateText (updatePlace) {
       if ((updatePlace === 'text') || (this.text)) {
         const params = {
           text: this.text,
@@ -256,9 +310,24 @@ export default {
           tokenization: this.tokenization
         }
 
-        this.$textC[this.updateTextMethod](params, this.textId)  
+        if (this.text && (this.text.length === 0) && this.textId) {
+          this.$textC.removeDetectedFlag(this.textType, this.textId)
+        }
+
+        await this.$textC[this.updateTextMethod](params, this.textId)  
+
+        if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
+          this.showTextProps = true
+          this.showClearTextFlag++ 
+        }
       }
     },
+
+    updateDirection () {
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = Langs.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.$store.commit('incrementOptionsUpdated')
+    },
+
     deleteText () {
       this.$textC.deleteText(this.textType, this.textId)
     },
@@ -266,11 +335,10 @@ export default {
     /**
      * Reloads local options
      */
-    async prepareDefaultTextEditorOptions () {
-      this.localTextEditorOptions = await this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
+    prepareDefaultTextEditorOptions () {
+      this.localTextEditorOptions = this.$settingsC.cloneTextEditorOptions(this.textType, this.index)
       this.localTextEditorOptions.ready = true
-
-      this.updateText()
+      this.$store.commit('incrementOptionsUpdated')
     },
 
     /**
@@ -282,10 +350,26 @@ export default {
         textId: this.textId,
         tokenization: this.tokenization
       })
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
     },
 
     toggleMetadata () {
       this.showMetadata = !this.showMetadata
+    },
+
+    selectTypeText () {
+      this.showTypeTextBlock = true
+      this.showOnlyMetadata = true
+      this.showTypeUploadButtons = false
+    },
+
+    selectUploadText () { 
+      this.showUploadMenu = true
+      this.showUploadBlockFlag++
+
+      this.showOnlyMetadata = true
+      this.showTypeUploadButtons = false
     }
   }
 }
@@ -319,6 +403,8 @@ export default {
 
     .alpheios-alignment-editor-text-blocks-single__title {
       position: relative;
+      font-size: 20px;
+      font-weight: bold;
     }
     .alpheios-alignment-editor-text-blocks-single__remove {
       display: inline-block;

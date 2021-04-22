@@ -1,13 +1,19 @@
 <template>
     <div class="alpheios-alignment-editor-actions-menu">
       <div class="alpheios-alignment-editor-actions-menu__buttons">
+        <!--
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__download"
             @click="downloadSingle" :disabled="!downloadAvailable" >
             {{ l10n.getMsgS('ACTIONS_DOWNLOAD_TITLE') }}
         </button>
+        -->
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__upload"
-            @click="uploadTexts" :disabled="!docSourceEditAvailable" >
+            @click="uploadTexts" :disabled="!docSourceEditAvailable" v-show="!onlyMetadata">
             {{ l10n.getMsgS('ACTIONS_UPLOAD_TITLE') }}
+        </button>
+        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__clear_text"
+            @click="clearText" v-show="showClearText" :disabled="!docSourceEditAvailable">
+            {{ l10n.getMsgS('ACTIONS_CLEAR_TEXT_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
             @click="toggleMetadata" :disabled = "!metadataAvailable">
@@ -15,9 +21,7 @@
         </button>
       </div>
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadBlock && docSourceEditAvailable" >
-        
           <input type="file" @change="loadTextFromFile" ref="fileupload">
-
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
               @click="showModal = true">
               DTSAPI
@@ -43,18 +47,40 @@ export default {
     textId: {
       type: String,
       required: false
+    },
+    onlyMetadata: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    showUploadBlockFlag: {
+      type: Number,
+      required: false,
+      default: 1
+    },
+    showClearTextFlag: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data () {
     return {
       showUploadBlock: false,
       shownMetadataBlock: false,
-      showModal: false
+      showModal: false,
+      showClearText: false
     }
   },
   watch: {
     '$store.state.alignmentRestarted' () {
       this.$refs.fileupload.value = ''
+    },
+    'showUploadBlockFlag' () {
+      this.uploadTexts()
+    },
+    'showClearTextFlag' () {
+      this.showClearText = true
     }
   },
   computed: {
@@ -115,6 +141,11 @@ export default {
     uploadFromDTSAPI (filedata) {
       this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
       this.showUploadBlock = false
+    },
+
+    clearText () {
+      this.$emit('clear-text')
+      this.showClearText = false
     }
   }
 }

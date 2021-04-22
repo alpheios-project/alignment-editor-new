@@ -1499,6 +1499,8 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-text-blocks-single__title {
   position: relative;
+  font-size: 20px;
+  font-weight: bold;
 }
 .alpheios-alignment-editor-text-blocks-single__remove {
   display: inline-block;
@@ -1545,6 +1547,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-options-fieldset-label-auto .alpheios-alignment-select,
 .alpheios-alignment-editor-options-fieldset-label-auto .alpheios-alignment-radio-block {
   width: auto;
+}
+.alpheios-alignment-text-editor-block__header {
+  font-size: 24px;
 }
 .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {
   padding: 20px 10px 20px 40px;

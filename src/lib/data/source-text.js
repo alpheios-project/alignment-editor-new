@@ -1,5 +1,6 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 import { v4 as uuidv4 } from 'uuid'
 import Metadata from '@/lib/data/metadata.js'
@@ -15,7 +16,7 @@ export default class SourceText {
    * @param {Object} docSource.tokenization
    * @param {String} targetId
    */
-  constructor (textType, docSource, targetId) {
+  constructor (textType, docSource, targetId, skipDetected = false) {
     this.id = targetId || uuidv4()
     this.textType = textType
 
@@ -24,6 +25,8 @@ export default class SourceText {
     this.lang = docSource && docSource.lang ? docSource.lang : this.defaultLang
     this.sourceType = docSource && docSource.sourceType ? docSource.sourceType : this.defaultSourceType
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
+
+    this.skipDetected = skipDetected
 
     if (docSource && docSource.metadata) {
       if (docSource.metadata instanceof Metadata) {
@@ -78,6 +81,22 @@ export default class SourceText {
     this.tokenization = Object.assign({}, docSource.tokenization)
   }
 
+  updateDetectedLang (langData) {
+    this.sourceType = langData.sourceType
+    if (langData.lang) {
+      this.lang = langData.lang
+      this.direction = langData.direction
+    }
+  }
+
+  get detectedLang () {
+    return DetectTextController.isAlreadyDetected(this)
+  }
+
+  get readyForLangDetection () {
+    return !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
+  }
+
   /**
    * Checks if all obligatory properties are defined: text, direction, lang
    * @return {Boolean}
@@ -115,7 +134,7 @@ export default class SourceText {
     const tokenization = jsonData.tokenization
     const metadata = jsonData.metadata ? Metadata.convertFromJSON(jsonData.metadata) : null
 
-    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata })
+    const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }

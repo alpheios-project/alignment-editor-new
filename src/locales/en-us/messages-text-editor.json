@@ -1,6 +1,6 @@
 {
   "TEXT_EDITOR_HEADING": {
-    "message": "Define Original and Translation Texts",
+    "message": "Enter text",
     "description": "A heading for text editor",
     "component": "TextEditor"
   },
@@ -15,7 +15,7 @@
     "component": "TextEditor"
   },
   "TEXT_EDITOR_TEXT_BLOCK_TITLE": {
-    "message": "Enter Text in { textType } Language:",
+    "message": "{ textType } text:",
     "description": "A tytle for text block area",
     "component": "TextEditorSingleBlock",
     "params": ["textType"]
@@ -87,7 +87,7 @@
     "component": "MainMenu"
   },
   "ACTIONS_UPLOAD_TITLE": {
-    "message": "Upload",
+    "message": "Upload text",
     "description": "Button in main menu",
     "component": "MainMenu"
   },
@@ -98,6 +98,11 @@
   },
   "ACTIONS_METADATA_SHOW_TITLE": {
     "message": "Show metadata",
+    "description": "Button in main menu",
+    "component": "MainMenu"
+  },
+  "ACTIONS_CLEAR_TEXT_TITLE": {
+    "message": "Clear text",
     "description": "Button in main menu",
     "component": "MainMenu"
   },
@@ -125,5 +130,15 @@
     "message": "go to",
     "description": "Title in upload block",
     "component": "UploadDTSAPIBlock"
+  },
+  "TEXT_SINGLE_TYPE_BUTTON": {
+    "message": "Type/paste in",
+    "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
+  },
+  "TEXT_SINGLE_UPLOAD_BUTTON": {
+    "message": "Upload",
+    "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
   }
 }

@@ -124,6 +124,7 @@ export default class Alignment {
       if (!(docSource instanceof SourceText)) {
         docSource = new SourceText('target', docSource, targetId)
       }
+
       this.targets[docSource.id] = {
         docSource
       }
@@ -133,7 +134,7 @@ export default class Alignment {
         this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
       }
     }
-    return true
+    return docSource.id
   }
 
   /**
