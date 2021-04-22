@@ -106,7 +106,7 @@ describe('settings-controller.test.js', () => {
     jest.spyOn(console, 'log')
     jest.spyOn(console, 'warn')
   })
-/*
+
   it('1 SettingsController - constructor defines all base options ', () => {
     const settingsC = new SettingsController(appC.store)
 
@@ -265,7 +265,7 @@ describe('settings-controller.test.js', () => {
     expect(settingsC.options.app.items.allowUpdateTokenWord.currentValue).toBeFalsy()
     expect(settingsC.allowUpdateTokenWordOptionValue).toBeFalsy()
   })
-*/
+
   it('12 SettingsController - resetLocalTextEditorOptions - reset local options to initial', async () => {
     const settingsC = new SettingsController(appC.store)
     await settingsC.init()
@@ -295,7 +295,7 @@ describe('settings-controller.test.js', () => {
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
     expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('text')
   })
-/*
+
   it('13 SettingsController - resetAllOptions - reset global options to initial', async () => {
     const settingsC = new SettingsController(appC.store)
     await settingsC.init()
@@ -329,5 +329,5 @@ describe('settings-controller.test.js', () => {
     expect(settingsC.options.sourceText.items.direction.currentValue).toEqual('ltr')
     expect(settingsC.options.sourceText.items.sourceType.currentValue).toEqual('text')
   })
-  */
+
 })
