@@ -38993,7 +38993,6 @@ class DetectTextController {
    *          {String} direction - only for text
    */
   static async detectTextProperties (sourceText) {
-    console.info('detectTextProperties sourceText started', sourceText.startedDetection)
     if (this.isAlreadyDetected(sourceText) || sourceText.startedDetection) { return }
     const sourceType = this.checkXML(sourceText)
 
@@ -39002,10 +39001,7 @@ class DetectTextController {
       return { sourceType }
     }
 
-    console.info('started detection ', sourceText.text.substr(0, 5), sourceText.startedDetection)
     sourceText.startedDetection = true
-
-    console.info('detectTextProperties after', sourceText.startedDetection)
 
     const adapterDetectLangRes = await alpheios_client_adapters__WEBPACK_IMPORTED_MODULE_0__.ClientAdapters.detectlangGroup.detectlang({
       method: 'getDetectedLangsList',
@@ -44877,7 +44873,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210422687" : 0
+    return  true ? "i327-new-text-editor-screen.20210422688" : 0
   }
 
   static get libName () {
