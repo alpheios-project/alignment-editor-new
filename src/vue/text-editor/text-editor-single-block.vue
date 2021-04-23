@@ -208,7 +208,7 @@ export default {
      * Defines if we have multiple target texts then show delete index
      */
     showDeleteIcon () {
-      return this.showIndex
+      return (this.showIndex || (this.text && (this.text.length > 0))) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     /**
      * Blocks changes if aligned version is already created and aligned groups are started
@@ -329,7 +329,11 @@ export default {
     },
 
     deleteText () {
-      this.$textC.deleteText(this.textType, this.textId)
+      if (!this.showIndex) {
+        this.text = ''
+      } else {
+        this.$textC.deleteText(this.textType, this.textId)
+      }
     },
 
     /**

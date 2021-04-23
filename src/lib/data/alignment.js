@@ -279,6 +279,10 @@ export default class Alignment {
     return Object.keys(this.targets)
   }
 
+  get allTargetTextsIdsNumbered () {
+    return Object.keys(this.targets).map((targetId, targetIndex) => { return { targetId, targetIndex } }).reverse()
+  }
+
   /**
    * All segments from aligned origin and target texts
    * @returns {Array[Object]}

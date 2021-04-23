@@ -12,12 +12,12 @@
             />
           </div>
 
-          <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container" v-if="allTargetTextsIds">
+          <div class="alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container" v-if="allTargetTextsIdsNumbered">
             <text-editor-single-block 
-                v-for="(targetTextId, indexT) in allTargetTextsIds" :key="indexT"
+                v-for="(targetTextId, indexT) in allTargetTextsIdsNumbered" :key="targetTextId ? targetTextId.targetId : indexT"
                 text-type = "target" 
-                :text-id = "targetTextId"
-                :index = "indexT"
+                :text-id = "targetTextId && targetTextId.targetId"
+                :index = "targetTextId && targetTextId.targetIndex"
             />
           </div>
 
@@ -56,8 +56,8 @@ export default {
     originId () {
       return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
-    allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+    allTargetTextsIdsNumbered () {
+      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
