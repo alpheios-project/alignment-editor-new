@@ -114,6 +114,10 @@ export default class TextsController {
     return this.alignment ? this.alignment.allTargetTextsIds : []
   }
 
+  get allTargetTextsIdsNumbered () {
+    return this.alignment ? this.alignment.allTargetTextsIdsNumbered : []
+  }
+
   /**
    * Returns target document source if alignment is defined
    * @returns {SourceText} - target source text
@@ -395,10 +399,14 @@ export default class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    return Boolean(this.getDocSource(textType, docSourceId).detectedLang)
+    const sourceText = this.getDocSource(textType, docSourceId)
+    return Boolean(sourceText && sourceText.detectedLang)
   }
 
   removeDetectedFlag (textType, docSourceId) {
-    DetectTextController.removeFromDetected(this.getDocSource(textType, docSourceId))
+    const sourceText = this.getDocSource(textType, docSourceId)
+    if (sourceText) {
+      DetectTextController.removeFromDetected(this.getDocSource(textType, docSourceId))
+    }
   }
 }

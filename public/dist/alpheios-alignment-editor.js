@@ -39743,6 +39743,10 @@ class TextsController {
     return this.alignment ? this.alignment.allTargetTextsIds : []
   }
 
+  get allTargetTextsIdsNumbered () {
+    return this.alignment ? this.alignment.allTargetTextsIdsNumbered : []
+  }
+
   /**
    * Returns target document source if alignment is defined
    * @returns {SourceText} - target source text
@@ -40024,11 +40028,15 @@ class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    return Boolean(this.getDocSource(textType, docSourceId).detectedLang)
+    const sourceText = this.getDocSource(textType, docSourceId)
+    return Boolean(sourceText && sourceText.detectedLang)
   }
 
   removeDetectedFlag (textType, docSourceId) {
-    _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.removeFromDetected(this.getDocSource(textType, docSourceId))
+    const sourceText = this.getDocSource(textType, docSourceId)
+    if (sourceText) {
+      _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.removeFromDetected(this.getDocSource(textType, docSourceId))
+    }
   }
 }
 
@@ -42343,6 +42351,10 @@ class Alignment {
    */
   get allTargetTextsIds () {
     return Object.keys(this.targets)
+  }
+
+  get allTargetTextsIdsNumbered () {
+    return Object.keys(this.targets).map((targetId, targetIndex) => { return { targetId, targetIndex } }).reverse()
   }
 
   /**
@@ -44873,7 +44885,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-new-text-editor-screen.20210422688" : 0
+    return  true ? "i339-delete-button.20210423693" : 0
   }
 
   static get libName () {
@@ -48324,7 +48336,7 @@ __webpack_require__.r(__webpack_exports__);
      * Defines if we have multiple target texts then show delete index
      */
     showDeleteIcon () {
-      return this.showIndex
+      return (this.showIndex || (this.text && (this.text.length > 0))) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     /**
      * Blocks changes if aligned version is already created and aligned groups are started
@@ -48445,7 +48457,11 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     deleteText () {
-      this.$textC.deleteText(this.textType, this.textId)
+      if (!this.showIndex) {
+        this.text = ''
+      } else {
+        this.$textC.deleteText(this.textType, this.textId)
+      }
     },
 
     /**
@@ -48564,8 +48580,8 @@ __webpack_require__.r(__webpack_exports__);
     originId () {
       return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
-    allTargetTextsIds () {
-      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIds.length > 0 ? this.$textC.allTargetTextsIds : [ null ]
+    allTargetTextsIdsNumbered () {
+      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
@@ -55922,23 +55938,23 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm.allTargetTextsIds
+              _vm.allTargetTextsIdsNumbered
                 ? _c(
                     "div",
                     {
                       staticClass:
                         "alpheios-alignment-editor-text-blocks-single-container alpheios-alignment-editor-text-blocks-target-container"
                     },
-                    _vm._l(_vm.allTargetTextsIds, function(
+                    _vm._l(_vm.allTargetTextsIdsNumbered, function(
                       targetTextId,
                       indexT
                     ) {
                       return _c("text-editor-single-block", {
-                        key: indexT,
+                        key: targetTextId ? targetTextId.targetId : indexT,
                         attrs: {
                           "text-type": "target",
-                          "text-id": targetTextId,
-                          index: indexT
+                          "text-id": targetTextId && targetTextId.targetId,
+                          index: targetTextId && targetTextId.targetIndex
                         }
                       })
                     }),
