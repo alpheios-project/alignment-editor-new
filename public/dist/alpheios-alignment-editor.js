@@ -40033,10 +40033,7 @@ class TextsController {
   }
 
   removeDetectedFlag (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    if (sourceText) {
-      _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.removeFromDetected(this.getDocSource(textType, docSourceId))
-    }
+    return this.alignment.removeDetectedFlag(textType, docSourceId)
   }
 }
 
@@ -42219,7 +42216,21 @@ class Alignment {
   deleteText (textType, id) {
     if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
       delete this.targets[id]
+    } else {
+      const docSource = this.getDocSource(textType, id)
+      if (docSource) {
+        docSource.clear()
+      }
     }
+  }
+
+  removeDetectedFlag (textType, docSourceId) {
+    return this.getDocSource(textType, docSourceId).removeDetectedFlag()
+  }
+
+  getDocSource (textType, id) {
+    if (textType === 'origin') { return this.originDocSource }
+    return this.targetDocSource(id)
   }
 
   /**
@@ -43960,6 +43971,7 @@ class SourceText {
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
     this.skipDetected = skipDetected
+    this.startedDetection = false
 
     if (docSource && docSource.metadata) {
       if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default) {
@@ -43982,6 +43994,20 @@ class SourceText {
 
   get defaultSourceType () {
     return 'text'
+  }
+
+  clear () {
+    this.text = ''
+    this.direction = this.defaultDirection
+    this.lang = this.defaultLang
+    this.sourceType = this.defaultSourceType
+    this.tokenization = {}
+
+    this.skipDetected = false
+    this.startedDetection = false
+    this.removeDetectedFlag()
+
+    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
   }
 
   addMetadata (property, value) {
@@ -44024,6 +44050,10 @@ class SourceText {
 
   get detectedLang () {
     return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.isAlreadyDetected(this)
+  }
+
+  removeDetectedFlag () {
+    return _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.removeFromDetected(this)
   }
 
   get readyForLangDetection () {
@@ -44885,7 +44915,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i339-delete-button.20210423693" : 0
+    return  true ? "i327-text-editor-screen-fixes.20210426390" : 0
   }
 
   static get libName () {
@@ -48258,8 +48288,8 @@ __webpack_require__.r(__webpack_exports__);
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
     },
-    async '$store.state.alignmentRestarted' () {
-      await this.restartTextEditor()
+    '$store.state.alignmentRestarted' () {
+      this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
       this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
@@ -48410,18 +48440,17 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Clears text and reloads local options
      */
-    restartTextEditor () {
+    async restartTextEditor () {
       this.text = ''
       this.prepareDefaultTextEditorOptions()
-      if (this.textId) {
-        this.$textC.removeDetectedFlag(this.textType, this.textId)
-      }
+      await this.updateText()
 
       this.showTypeUploadButtons = true
       this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
+      this.$textC.deleteText(this.textType, this.textId)
     },
 
     /**

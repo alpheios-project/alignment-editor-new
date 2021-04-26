@@ -27,6 +27,7 @@ export default class SourceText {
     this.tokenization = docSource && docSource.tokenization ? docSource.tokenization : {}
 
     this.skipDetected = skipDetected
+    this.startedDetection = false
 
     if (docSource && docSource.metadata) {
       if (docSource.metadata instanceof Metadata) {
@@ -49,6 +50,20 @@ export default class SourceText {
 
   get defaultSourceType () {
     return 'text'
+  }
+
+  clear () {
+    this.text = ''
+    this.direction = this.defaultDirection
+    this.lang = this.defaultLang
+    this.sourceType = this.defaultSourceType
+    this.tokenization = {}
+
+    this.skipDetected = false
+    this.startedDetection = false
+    this.removeDetectedFlag()
+
+    this.metadata = new Metadata()
   }
 
   addMetadata (property, value) {
@@ -91,6 +106,10 @@ export default class SourceText {
 
   get detectedLang () {
     return DetectTextController.isAlreadyDetected(this)
+  }
+
+  removeDetectedFlag () {
+    return DetectTextController.removeFromDetected(this)
   }
 
   get readyForLangDetection () {
