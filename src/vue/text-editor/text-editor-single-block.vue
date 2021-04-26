@@ -130,8 +130,8 @@ export default {
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
     },
-    async '$store.state.alignmentRestarted' () {
-      await this.restartTextEditor()
+    '$store.state.alignmentRestarted' () {
+      this.restartTextEditor()
     },
     async '$store.state.resetOptions' () {
       this.localTextEditorOptions = this.$settingsC.resetLocalTextEditorOptions(this.textType, this.textId)
@@ -282,18 +282,17 @@ export default {
     /**
      * Clears text and reloads local options
      */
-    restartTextEditor () {
+    async restartTextEditor () {
       this.text = ''
       this.prepareDefaultTextEditorOptions()
-      if (this.textId) {
-        this.$textC.removeDetectedFlag(this.textType, this.textId)
-      }
+      await this.updateText()
 
       this.showTypeUploadButtons = true
       this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
+      this.$textC.deleteText(this.textType, this.textId)
     },
 
     /**

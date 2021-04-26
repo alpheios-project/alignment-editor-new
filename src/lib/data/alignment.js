@@ -145,7 +145,21 @@ export default class Alignment {
   deleteText (textType, id) {
     if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
       delete this.targets[id]
+    } else {
+      const docSource = this.getDocSource(textType, id)
+      if (docSource) {
+        docSource.clear()
+      }
     }
+  }
+
+  removeDetectedFlag (textType, docSourceId) {
+    return this.getDocSource(textType, docSourceId).removeDetectedFlag()
+  }
+
+  getDocSource (textType, id) {
+    if (textType === 'origin') { return this.originDocSource }
+    return this.targetDocSource(id)
   }
 
   /**

@@ -404,9 +404,6 @@ export default class TextsController {
   }
 
   removeDetectedFlag (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    if (sourceText) {
-      DetectTextController.removeFromDetected(this.getDocSource(textType, docSourceId))
-    }
+    return this.alignment.removeDetectedFlag(textType, docSourceId)
   }
 }
