@@ -23,9 +23,14 @@
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
-        <p class="alpheios-alignment-editor-text-blocks-single__characters" 
+        <p class="alpheios-alignment-editor-text-blocks-info-line" 
           :class = "charactersClasses">
-          {{ charactersText }}
+          <span class="alpheios-alignment-editor-text-blocks-single__characters">{{ charactersText }}</span>
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="isEmptyMetadata">
+            <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="top">
+              <no-metadata-icon />
+            </tooltip>
+          </span>
         </p>
         <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
                   :disabled="!docSourceEditAvailable" >
@@ -48,6 +53,7 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
+import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
@@ -59,6 +65,7 @@ import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 import Langs from '@/lib/data/langs/langs.js'
 
@@ -85,12 +92,14 @@ export default {
   },
   components: {
     deleteIcon: DeleteIcon,
+    noMetadataIcon: NoMetadataIcon,
     optionItemBlock: OptionItemBlock,
     actionsMenu: ActionsMenu,
     metadataBlock: MetadataBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
-    languageOptionsBlock: LanguageOptionsBlock
+    languageOptionsBlock: LanguageOptionsBlock,
+    tooltip: Tooltip
   },
   data () {
     return {
@@ -250,6 +259,12 @@ export default {
 
     updatedLocalOptions () {
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
+    },
+    docSource () {
+      return this.$textC.getDocSource(this.textType, this.textId)
+    },
+    isEmptyMetadata () {
+      return this.$store.state.alignmentUpdated && this.docSource && this.docSource.hasEmptyMetadata
     }
   },
   methods: {
@@ -267,7 +282,7 @@ export default {
      * Updates sourceText properties from textController
      */
     async updateFromExternal () {
-      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      const sourceTextData = this.docSource
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)
@@ -365,6 +380,7 @@ export default {
       this.showTypeTextBlock = true
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
+      this.showClearTextFlag++ 
     },
 
     selectUploadText () { 
@@ -373,6 +389,7 @@ export default {
 
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
+      this.showClearTextFlag++ 
     }
   }
 }
@@ -393,12 +410,36 @@ export default {
             margin-bottom: 10px;
         }
 
-        p.alpheios-alignment-editor-text-blocks-single__characters {
+        p.alpheios-alignment-editor-text-blocks-info-line {
+          margin: 0;
+
+          &:before,
+          &:after {
+            clear: both;
+            content: '';
+            display: table;
+          }
+        }
+        span.alpheios-alignment-editor-text-blocks-single__characters {
           color: #888;
           font-size: 90%;
-          margin: 0;
+          display: block;
+          float: left;
+          padding: 10px 0;
         }
+        span.alpheios-alignment-editor-text-blocks-single__icons {
+          display: block;
+          float: right;
+          padding: 5px;
 
+          svg {
+            display: block;
+            width: 30px;
+            height: 30px;
+            stroke: #99002a;
+            fill: transparent;
+          }
+        }
         p.alpheios-alignment-editor-red {
           color: #99002a;
         }

@@ -25,19 +25,19 @@ export default class AlignedGroupsController {
     }
 
     this.alignment = alignment
-
+    /*
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
       type: NotificationSingleton.types.INFO
     })
-
+*/
     const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
-
+    /*
     NotificationSingleton.addNotification({
       text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
       type: NotificationSingleton.types.INFO
     })
-
+*/
     if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
       this.store.commit('incrementAlignmentUpdated')

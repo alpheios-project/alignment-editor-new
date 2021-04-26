@@ -10,7 +10,7 @@
       "component": "MainMenu"
     },
     "MAIN_MENU_ALIGN_TITLE": {
-      "message": "Align",
+      "message": "Prepare texts for alignment",
       "description": "Button in main menu",
       "component": "MainMenu"
     },

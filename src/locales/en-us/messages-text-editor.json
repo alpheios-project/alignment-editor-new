@@ -140,5 +140,10 @@
     "message": "Upload",
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
+  },
+  "NO_METADATA_ICON": {
+    "message": "Metadata is empty for the text",
+    "description": "Tooltip for no metadata icon",
+    "component": "TextEditorSingleBlock"
   }
 }

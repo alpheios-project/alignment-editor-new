@@ -1171,6 +1171,19 @@ button.alpheios-app-menu-link:-moz-focusring {
   background: #000;
   transition: 0.6s;
 }
+.alpheios-editor__waiting {
+  text-align: center;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
   margin-left: 30px;
@@ -1305,19 +1318,6 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-editor-content-pagination-go-to input.alpheios-alignment-editor-pagination-go-to {
   display: inline-block;
   width: 150px;
-}
-.alpheios-editor__waiting {
-  text-align: center;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 .alpheios-alignment-editor-actions-menu p.alpheios-editor-content-title {
   margin: 0;
@@ -1489,10 +1489,32 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single p {
   margin-bottom: 10px;
 }
-.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-text-blocks-single__characters {
+.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-text-blocks-info-line {
+  margin: 0;
+}
+.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-text-blocks-info-line:before, .alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-text-blocks-info-line:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__characters {
   color: #888;
   font-size: 90%;
-  margin: 0;
+  display: block;
+  float: left;
+  padding: 10px 0;
+}
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons {
+  display: block;
+  float: right;
+  padding: 5px;
+}
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+  stroke: #99002a;
+  fill: transparent;
 }
 .alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-red {
   color: #99002a;

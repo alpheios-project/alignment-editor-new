@@ -52,6 +52,10 @@ export default class SourceText {
     return 'text'
   }
 
+  get hasEmptyMetadata () {
+    return this.metadata.isEmpty
+  }
+
   clear () {
     this.text = ''
     this.direction = this.defaultDirection
