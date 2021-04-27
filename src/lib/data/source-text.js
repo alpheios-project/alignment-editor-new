@@ -4,6 +4,7 @@ import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 import { v4 as uuidv4 } from 'uuid'
 import Metadata from '@/lib/data/metadata.js'
+import Langs from '@/lib/data/langs/langs.js'
 
 export default class SourceText {
   /**
@@ -54,6 +55,15 @@ export default class SourceText {
 
   get hasEmptyMetadata () {
     return this.metadata.isEmpty
+  }
+
+  get langData () {
+    const textPart = this.text.substr(0, 10)
+    return {
+      textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
+      langCode: this.lang,
+      langName: Langs.defineLangName(this.lang)
+    }
   }
 
   clear () {

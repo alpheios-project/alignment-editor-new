@@ -260,9 +260,6 @@ export default {
     updatedLocalOptions () {
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     },
-    docSource () {
-      return this.$textC.getDocSource(this.textType, this.textId)
-    },
     isEmptyMetadata () {
       return this.$store.state.alignmentUpdated && this.docSource && this.docSource.hasEmptyMetadata
     }
@@ -282,7 +279,7 @@ export default {
      * Updates sourceText properties from textController
      */
     async updateFromExternal () {
-      const sourceTextData = this.docSource
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
       if (sourceTextData && sourceTextData.text) {
         this.text = sourceTextData.text
         this.$settingsC.updateLocalTextEditorOptions(this.localTextEditorOptions, sourceTextData)

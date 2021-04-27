@@ -1184,6 +1184,30 @@ button.alpheios-app-menu-link:-moz-focusring {
   height: 100%;
   display: block;
 }
+.alpheios-editor-summary-header {
+  font-weight: bold;
+}
+.alpheios-editor-langs-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.alpheios-editor-langs-table th, .alpheios-editor-langs-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.alpheios-editor-langs-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.alpheios-editor-langs-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #90a959;
+  color: white;
+}
+.alpheios-editor-langs-table .alpheios-editor-langs-table_lang {
+  font-weight: bold;
+}
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
   margin-left: 30px;

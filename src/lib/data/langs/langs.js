@@ -3,6 +3,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 let allLangs = []
 let rtlLangs = []
+let langsDict = {}
 
 export default class Langs {
   /**
@@ -13,6 +14,10 @@ export default class Langs {
    */
   static get all () {
     return allLangs
+  }
+
+  static defineLangName (langCode) {
+    return langsDict[langCode]
   }
 
   /**
@@ -41,11 +46,14 @@ export default class Langs {
         value: langData.value,
         text: l10nMessage || langData.label
       })
+
+      langsDict[langData.value] = l10nMessage || langData.label
     })
   }
 
   static clearLangsArrs () {
     allLangs = []
     rtlLangs = []
+    langsDict = {}
   }
 }
