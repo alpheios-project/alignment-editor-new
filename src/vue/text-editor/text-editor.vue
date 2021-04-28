@@ -1,6 +1,14 @@
 <template>
   <div class="alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
-      <h2 class="alpheios-alignment-text-editor-block__header">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }} </h2>
+      <h2 class="alpheios-alignment-text-editor-block__header">
+        <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
+        <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="bottom">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__align"
+              @click="$emit('align-text')" v-show="alignAvailable" >
+              {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
+          </button>
+        </tooltip>
+      </h2>
 
       <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
         <div class="alpheios-alignment-editor-text-blocks-container-inner">
@@ -29,11 +37,13 @@
 <script>
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 export default {
   name: 'TextEditor',
   components: {
-    textEditorSingleBlock: TextEditorSingleBlock
+    textEditorSingleBlock: TextEditorSingleBlock,
+    tooltip: Tooltip
   },
   props: {  
   },
@@ -65,6 +75,9 @@ export default {
      */
     l10n () {
       return L10nSingleton
+    },
+    alignAvailable () {
+      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -74,6 +87,11 @@ export default {
 <style lang="scss">
   .alpheios-alignment-text-editor-block__header {
     font-size: 24px;
+
+    .alpheios-alignment-text-editor-block__header-label {
+      display: inline-block;
+      padding-right: 15px;
+    }
   }
 
   .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {

@@ -44968,7 +44968,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-popup.20210428596" : 0
+    return  true ? "i344-summary-popup.20210428618" : 0
   }
 
   static get libName () {
@@ -47690,12 +47690,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -48750,6 +48744,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -48778,6 +48773,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -48785,7 +48789,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditor',
   components: {
-    textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {  
   },
@@ -48817,6 +48822,9 @@ __webpack_require__.r(__webpack_exports__);
      */
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    alignAvailable () {
+      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -53854,7 +53862,10 @@ var render = function() {
             expression: "showSourceTextEditorBlock"
           }
         ],
-        on: { "add-translation": _vm.addTarget }
+        on: {
+          "add-translation": _vm.addTarget,
+          "align-text": _vm.showSummaryPopup
+        }
       }),
       _vm._v(" "),
       _c("align-editor", {
@@ -56493,7 +56504,56 @@ var render = function() {
       _c(
         "h2",
         { staticClass: "alpheios-alignment-text-editor-block__header" },
-        [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")) + " ")]
+        [
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-label"
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
+                tooltipDirection: "bottom"
+              }
+            },
+            [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.alignAvailable,
+                      expression: "alignAvailable"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                  attrs: { id: "alpheios-actions-menu-button__align" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("align-text")
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              )
+            ]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
@@ -58424,10 +58484,10 @@ render._withStripped = true
             {
               class: [classNames,staticClass],
               style: [style,staticStyle],
-              attrs: Object.assign({"xmlns":"http://www.w3.org/2000/svg","width":"300","height":"300","viewBox":"0 0 79.375 79.375"}, attrs),
+              attrs: Object.assign({"width":"300","height":"300","viewBox":"0 0 79.375 79.375","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('ellipse',{attrs:{"cx":"39.688","cy":"39.688","opacity":".99","stroke-linecap":"round","stroke-width":"3.748","rx":"36.67","ry":"35.795","fill":"none","stroke":"#000"}}),_c('path',{staticStyle:{"-inkscape-font-specification":"Stencil"},attrs:{"d":"M44.237 44.986v16.16q0 1.042-.408 1.45-.362.407-1.403.407h-6.428q-1.04 0-1.448-.408-.362-.407-.362-1.448v-16.16H18.073q-1.042 0-1.449-.408-.407-.408-.407-1.494v-5.93q0-1.086.407-1.494.407-.407 1.449-.407h16.115V18.867q0-1.04.362-1.448.407-.408 1.448-.408h6.428q1.041 0 1.403.408.408.407.408 1.448v16.387h16.386q1.087 0 1.494.407.408.408.408 1.494v5.93q0 1.086-.408 1.494-.407.407-1.494.407z","font-weight":"400","font-family":"Stencil"}})])
+            children.concat([_c('ellipse',{attrs:{"cx":"39.688","cy":"39.688","rx":"36.67","ry":"35.795","fill":"none","opacity":".99","stroke":"#000","stroke-linecap":"round","stroke-width":"3.748"}}),_c('path',{attrs:{"d":"M44.237 44.986v16.16q0 1.041-.407 1.448-.363.408-1.404.408h-6.428q-1.04 0-1.448-.407-.362-.408-.362-1.449v-16.16H18.073q-1.041 0-1.449-.407t-.407-1.494v-5.93q0-1.087.407-1.494t1.449-.407h16.115V18.867q0-1.042.362-1.449.407-.407 1.448-.407h6.428q1.041 0 1.404.407.407.407.407 1.449v16.387h16.387q1.086 0 1.494.407t.407 1.494v5.93q0 1.086-.407 1.494t-1.494.407z"}})])
           )
         }
       }
@@ -58785,7 +58845,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 

@@ -155,5 +155,10 @@
     "message": "Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary",
     "description": "Header in a summary popup component",
     "component": "SummaryPopup"
+  },
+  "ALIGN_TEXT_BUTTON_TOOLTIP": {
+    "message": "Start tokenizing texts",
+    "description": "Tooltip for align texts button",
+    "component": "TextEditorSingleBlock"
   }
 }

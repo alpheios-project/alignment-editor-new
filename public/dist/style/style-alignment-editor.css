@@ -1623,6 +1623,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-text-editor-block__header {
   font-size: 24px;
 }
+.alpheios-alignment-text-editor-block__header .alpheios-alignment-text-editor-block__header-label {
+  display: inline-block;
+  padding-right: 15px;
+}
 .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {
   padding: 20px 10px 20px 40px;
 }
