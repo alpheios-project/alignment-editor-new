@@ -44968,7 +44968,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-popup.20210428516" : 0
+    return  true ? "i344-summary-popup.20210428596" : 0
   }
 
   static get libName () {
@@ -48322,15 +48322,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/no-metadata.svg */ "./inline-icons/no-metadata.svg");
 /* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/plus.svg */ "./inline-icons/plus.svg");
+/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -48380,6 +48382,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -48423,13 +48430,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_10__.default
+    plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_11__.default
   },
   data () {
     return {
@@ -48569,7 +48577,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_3__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
@@ -48593,6 +48601,9 @@ __webpack_require__.r(__webpack_exports__);
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+    },
+    showAddTranslation () {
+      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     }
   },
   methods: {
@@ -48667,7 +48678,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_11__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_12__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
       this.$store.commit('incrementOptionsUpdated')
     },
 
@@ -48739,6 +48750,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
 //
 //
 //
@@ -53841,7 +53853,8 @@ var render = function() {
             value: _vm.showSourceTextEditorBlock,
             expression: "showSourceTextEditorBlock"
           }
-        ]
+        ],
+        on: { "add-translation": _vm.addTarget }
       }),
       _vm._v(" "),
       _c("align-editor", {
@@ -56167,9 +56180,38 @@ var render = function() {
         "p",
         { staticClass: "alpheios-alignment-editor-text-blocks-single__title" },
         [
-          _vm._v(
-            _vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle) + "\n      "
+          _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__title-text"
+            },
+            [_vm._v(_vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle))]
           ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showAddTranslation,
+                  expression: "showAddTranslation"
+                }
+              ],
+              staticClass: "alpheios-alignment-editor-add-translation",
+              attrs: { id: "alpheios-alignment-editor-add-translation" },
+              on: {
+                click: function($event) {
+                  return _vm.$emit("add-translation")
+                }
+              }
+            },
+            [_c("plus-icon")],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "span",
             {
@@ -56499,6 +56541,11 @@ var render = function() {
                           "text-type": "target",
                           "text-id": targetTextId && targetTextId.targetId,
                           index: targetTextId && targetTextId.targetIndex
+                        },
+                        on: {
+                          "add-translation": function($event) {
+                            return _vm.$emit("add-translation")
+                          }
                         }
                       })
                     }),
@@ -58344,6 +58391,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M3.145 50.041l3.144-9.43L46.903 0l12.564 12.572L18.855 53.18 0 59.47zm8.514 1.873l2.816-1.003-5.96-5.943-2.068 6.356.763.797c.42.438.96.797 1.198.797.24 0 1.702-.452 3.251-1.004zm28.955-28.03l-1.256-1.256L15.29 46.69l2.495 2.534L41.87 25.14zm-5.027-5.027l-1.256-1.256-24.067 24.062 2.495 2.534 24.084-24.084zm10.128 2.439l1.173-1.196-7.526-7.526-2.509 2.51 3.697 3.703c2.034 2.038 3.764 3.704 3.845 3.704.08 0 .674-.538 1.32-1.195zm6.283-6.283l2.442-2.452-7.548-7.534-5.01 5.03 3.696 3.704c2.033 2.037 3.76 3.703 3.838 3.703.077 0 1.24-1.103 2.582-2.451z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/plus.svg":
+/*!*******************************!*\
+  !*** ./inline-icons/plus.svg ***!
+  \*******************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"xmlns":"http://www.w3.org/2000/svg","width":"300","height":"300","viewBox":"0 0 79.375 79.375"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('ellipse',{attrs:{"cx":"39.688","cy":"39.688","opacity":".99","stroke-linecap":"round","stroke-width":"3.748","rx":"36.67","ry":"35.795","fill":"none","stroke":"#000"}}),_c('path',{staticStyle:{"-inkscape-font-specification":"Stencil"},attrs:{"d":"M44.237 44.986v16.16q0 1.042-.408 1.45-.362.407-1.403.407h-6.428q-1.04 0-1.448-.408-.362-.407-.362-1.448v-16.16H18.073q-1.042 0-1.449-.408-.407-.408-.407-1.494v-5.93q0-1.086.407-1.494.407-.407 1.449-.407h16.115V18.867q0-1.04.362-1.448.407-.408 1.448-.408h6.428q1.041 0 1.403.408.408.407.408 1.448v16.387h16.386q1.087 0 1.494.407.408.408.408 1.494v5.93q0 1.086-.408 1.494-.407.407-1.494.407z","font-weight":"400","font-family":"Stencil"}})])
           )
         }
       }

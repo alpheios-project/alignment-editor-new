@@ -18,6 +18,7 @@
                 text-type = "target" 
                 :text-id = "targetTextId && targetTextId.targetId"
                 :index = "targetTextId && targetTextId.targetIndex"
+                @add-translation="$emit('add-translation')"
             />
           </div>
 

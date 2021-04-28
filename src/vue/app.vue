@@ -23,7 +23,7 @@
       <notification-bar />
       <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
       <options-block v-show="shownOptionsBlock" />
-      <text-editor v-show="showSourceTextEditorBlock"
+      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock"
       />

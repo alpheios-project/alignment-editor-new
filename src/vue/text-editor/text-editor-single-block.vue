@@ -1,6 +1,10 @@
 <template>
   <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
-      <p class="alpheios-alignment-editor-text-blocks-single__title">{{ indexData }}{{ textBlockTitle }}
+      <p class="alpheios-alignment-editor-text-blocks-single__title">
+        <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textBlockTitle }}</span>
+        <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
+          <plus-icon />
+        </span>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
           <delete-icon />
         </span>
@@ -51,6 +55,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
 import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
+import PlusIcon from '@/inline-icons/plus.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
@@ -90,6 +95,7 @@ export default {
   components: {
     deleteIcon: DeleteIcon,
     noMetadataIcon: NoMetadataIcon,
+    plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
     actionsMenu: ActionsMenu,
     metadataBlock: MetadataBlock,
@@ -260,6 +266,9 @@ export default {
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+    },
+    showAddTranslation () {
+      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     }
   },
   methods: {
@@ -464,6 +473,19 @@ export default {
       }
     }
 
+    .alpheios-alignment-editor-add-translation {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+
+      cursor: pointer;
+      svg {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     .alpheios-alignment-editor-options-fieldset {
       padding: 10px;
       border: 2px groove #f8f8f8;
@@ -505,5 +527,19 @@ export default {
     .alpheios-alignment-editor-text-blocks-single__type-label {
       display: inline-block;
       padding-right: 15px;
+    }
+
+    .alpheios-alignment-editor-text-blocks-single__title {
+      position: relative;
+
+      .alpheios-alignment-editor-text-blocks-single__title-text {
+        display: inline-block; 
+        padding-right: 15px;
+      }
+
+      .alpheios-alignment-editor-add-translation {
+        position: relative;
+        top: 5px;
+      }
     }
 </style>

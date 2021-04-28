@@ -1563,6 +1563,17 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   width: 100%;
   height: 100%;
 }
+.alpheios-alignment-editor-add-translation {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-alignment-editor-add-translation svg {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 .alpheios-alignment-editor-options-fieldset {
   padding: 10px;
   border: 2px groove #f8f8f8;
@@ -1597,6 +1608,17 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single__type-label {
   display: inline-block;
   padding-right: 15px;
+}
+.alpheios-alignment-editor-text-blocks-single__title {
+  position: relative;
+}
+.alpheios-alignment-editor-text-blocks-single__title .alpheios-alignment-editor-text-blocks-single__title-text {
+  display: inline-block;
+  padding-right: 15px;
+}
+.alpheios-alignment-editor-text-blocks-single__title .alpheios-alignment-editor-add-translation {
+  position: relative;
+  top: 5px;
 }
 .alpheios-alignment-text-editor-block__header {
   font-size: 24px;
