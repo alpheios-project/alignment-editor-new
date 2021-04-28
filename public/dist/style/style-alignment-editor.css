@@ -1410,7 +1410,7 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-alignment-editor-actions-menu__buttons,
 .alpheios-alignment-editor-actions-menu__upload-block {
-  padding: 5px 0 15px;
+  padding: 5px 0 0;
   text-align: left;
 }
 .alpheios-alignment-editor-metadata-item {
@@ -1593,6 +1593,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-options-fieldset-label-auto .alpheios-alignment-select,
 .alpheios-alignment-editor-options-fieldset-label-auto .alpheios-alignment-radio-block {
   width: auto;
+}
+.alpheios-alignment-editor-text-blocks-single__type-label {
+  display: inline-block;
+  padding-right: 15px;
 }
 .alpheios-alignment-text-editor-block__header {
   font-size: 24px;

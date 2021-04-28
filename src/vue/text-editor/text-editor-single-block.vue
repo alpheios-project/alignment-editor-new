@@ -6,20 +6,17 @@
         </span>
       </p>
       <div v-show="showTypeUploadButtons">
-        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__typetext"
-            @click="selectTypeText">
-            {{ l10n.getMsgS('TEXT_SINGLE_TYPE_BUTTON') }}
-        </button>
+        <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      
       <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
-                    :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
-                    :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
-                    v-show="showTextProps || showUploadMenu"/>      
+            :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
+            :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
+            v-show="showTextProps || showUploadMenu"/>       
+     
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
@@ -110,7 +107,7 @@ export default {
       showMetadata: false,
       showTypeUploadButtons: true,
 
-      showTypeTextBlock: false,
+      showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
       showOnlyMetadata: true,
@@ -261,7 +258,8 @@ export default {
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     },
     isEmptyMetadata () {
-      return this.$store.state.alignmentUpdated && this.docSource && this.docSource.hasEmptyMetadata
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
     }
   },
   methods: {
@@ -269,7 +267,7 @@ export default {
       this.showMetadata = false
       this.showTypeUploadButtons = true
 
-      this.showTypeTextBlock = false
+      // this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -286,7 +284,7 @@ export default {
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        this.showTypeTextBlock = true
+        // this.showTypeTextBlock = true
         this.showOnlyMetadata = true
       }
     },
@@ -300,7 +298,7 @@ export default {
       await this.updateText()
 
       this.showTypeUploadButtons = true
-      this.showTypeTextBlock = false
+      // this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -328,6 +326,7 @@ export default {
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
+          this.showTypeUploadButtons = false
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
@@ -372,14 +371,14 @@ export default {
     toggleMetadata () {
       this.showMetadata = !this.showMetadata
     },
-
+/*
     selectTypeText () {
       this.showTypeTextBlock = true
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
       this.showClearTextFlag++ 
     },
-
+*/
     selectUploadText () { 
       this.showUploadMenu = true
       this.showUploadBlockFlag++
@@ -501,5 +500,10 @@ export default {
       .alpheios-alignment-radio-block {
         width: auto;
       }
+    }
+
+    .alpheios-alignment-editor-text-blocks-single__type-label {
+      display: inline-block;
+      padding-right: 15px;
     }
 </style>

@@ -102,7 +102,7 @@
     "component": "MainMenu"
   },
   "ACTIONS_CLEAR_TEXT_TITLE": {
-    "message": "Clear text",
+    "message": "Restart",
     "description": "Button in main menu",
     "component": "MainMenu"
   },
@@ -136,8 +136,13 @@
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   },
+  "TEXT_SINGLE_TYPE_LABEL": {
+    "message": "Type or paste in text or",
+    "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
+  },
   "TEXT_SINGLE_UPLOAD_BUTTON": {
-    "message": "Upload",
+    "message": "Choose text to upload",
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   },

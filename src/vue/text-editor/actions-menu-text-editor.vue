@@ -153,7 +153,7 @@ export default {
 <style lang="scss">
   .alpheios-alignment-editor-actions-menu__buttons,
   .alpheios-alignment-editor-actions-menu__upload-block {
-    padding: 5px 0 15px;
+    padding: 5px 0 0;
     text-align: left;
   }
 </style>
