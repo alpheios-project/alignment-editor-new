@@ -141,6 +141,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/actions-menu-text-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/actions-menu-text-editor.vue?vue&type=style&index=0&lang=scss& ***!
@@ -38479,17 +38489,7 @@ class AlignedGroupsController {
 
     this.alignment = alignment
 
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
-    })
-
     const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
-
-    _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.addNotification({
-      text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
-      type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__.default.types.INFO
-    })
 
     if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
@@ -39437,6 +39437,10 @@ class SettingsController {
     return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
   }
 
+  get showSummaryPopup () {
+    return this.options.app && this.options.app.items.showSummaryPopup ? this.options.app.items.showSummaryPopup.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */
@@ -40034,6 +40038,14 @@ class TextsController {
 
   removeDetectedFlag (textType, docSourceId) {
     return this.alignment.removeDetectedFlag(textType, docSourceId)
+  }
+
+  get originalLangData () {
+    return this.alignment.originalLangData
+  }
+
+  get targetsLangData () {
+    return this.alignment.targetsLangData
   }
 }
 
@@ -42244,6 +42256,14 @@ class Alignment {
     return this.originDocSource && Boolean(this.originDocSource.text)
   }
 
+  get originalLangData () {
+    return this.originDocSource.langData
+  }
+
+  get targetsLangData () {
+    return Object.keys(this.targets).map(targetId => this.targets[targetId].docSource.langData)
+  }
+
   /**
    * @returns { SourceText | null } target docSource
    */
@@ -43470,6 +43490,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let allLangs = []
 let rtlLangs = []
+let langsDict = {}
 
 class Langs {
   /**
@@ -43480,6 +43501,10 @@ class Langs {
    */
   static get all () {
     return allLangs
+  }
+
+  static defineLangName (langCode) {
+    return langsDict[langCode]
   }
 
   /**
@@ -43508,12 +43533,15 @@ class Langs {
         value: langData.value,
         text: l10nMessage || langData.label
       })
+
+      langsDict[langData.value] = l10nMessage || langData.label
     })
   }
 
   static clearLangsArrs () {
     allLangs = []
     rtlLangs = []
+    langsDict = {}
   }
 }
 
@@ -43696,6 +43724,10 @@ __webpack_require__.r(__webpack_exports__);
 class Metadata {
   constructor () {
     this.properties = {}
+  }
+
+  get isEmpty () {
+    return Object.values(_lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.property).every(property => !this.hasProperty(property))
   }
 
   isSupportedProperty (property) {
@@ -43942,6 +43974,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+
 
 
 
@@ -43994,6 +44028,20 @@ class SourceText {
 
   get defaultSourceType () {
     return 'text'
+  }
+
+  get hasEmptyMetadata () {
+    return this.metadata.isEmpty
+  }
+
+  get langData () {
+    const textPart = this.text.substr(0, 10)
+    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__.default.defineLangName(this.lang)
+    return {
+      textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
+      langCode: this.lang,
+      langName: langName || this.lang
+    }
   }
 
   clear () {
@@ -44915,7 +44963,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i327-text-editor-screen-fixes.20210426390" : 0
+    return  true ? "i344-summary-popup.20210429625" : 0
   }
 
   static get libName () {
@@ -46209,13 +46257,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/alignment */ "./lib/data/alignment.js");
 /* harmony import */ var _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/initial-screen.vue */ "./vue/initial-screen.vue");
 /* harmony import */ var _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/main-menu.vue */ "./vue/main-menu.vue");
-/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
-/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
-/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
-/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
-/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
-/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
-/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/summary-popup.vue */ "./vue/summary-popup.vue");
+/* harmony import */ var _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/notification-bar.vue */ "./vue/notification-bar.vue");
+/* harmony import */ var _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/text-editor.vue */ "./vue/text-editor/text-editor.vue");
+/* harmony import */ var _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/align-editor/align-editor.vue */ "./vue/align-editor/align-editor.vue");
+/* harmony import */ var _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor.vue */ "./vue/tokens-editor/tokens-editor.vue");
+/* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
+/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
+/* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__);
 //
 //
 //
@@ -46249,6 +46298,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
+
 
 
 
@@ -46269,13 +46323,14 @@ __webpack_require__.r(__webpack_exports__);
   name: 'App',
   components: {
     mainMenu: _vue_main_menu_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    navbarIcon: (_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_9___default()),
-    initialScreen: _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    textEditor: _vue_text_editor_text_editor_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    alignEditor: _vue_align_editor_align_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    tokensEditor: _vue_tokens_editor_tokens_editor_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    notificationBar: _vue_notification_bar_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    optionsBlock: _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+    navbarIcon: (_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default()),
+    initialScreen: _vue_initial_screen_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    summaryPopup: _vue_summary_popup_vue__WEBPACK_IMPORTED_MODULE_4__.default
   },
   data () {
     return {     
@@ -46288,7 +46343,10 @@ __webpack_require__.r(__webpack_exports__);
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen'
+      updateCurrentPage: 'initial-screen',
+
+      showSummaryModal: false,
+      showOnlyWaitingSummary: false
     }
   },
   computed: {
@@ -46336,11 +46394,17 @@ __webpack_require__.r(__webpack_exports__);
     undoAction () {
       this.$historyC.undo()
     },
+
+    showSummaryPopup () {
+      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
+      this.showSummaryModal = true
+    },
     /**
      * Starts align workflow
      */
     async alignTexts () {
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
+      this.showSummaryModal = false
       if (result) {
         this.showAlignmentGroupsEditor()
       }
@@ -47056,7 +47120,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('add-target')
       this.closeMenu()
     },
-
+    
     alignTexts () {
       this.$emit('align-texts')
       this.closeMenu()
@@ -47446,7 +47510,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsBlock',
   components: {
@@ -47479,6 +47542,136 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/summary-popup.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/summary-popup.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'SummaryPopup',
+  components: {
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    showOnlyWaiting: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  data () {
+    return {
+      contentAvailable: true,
+      showWaiting: false,
+      showLabelTextOpt: false
+    }
+  },
+  watch: {
+    showModal () {
+      if (!this.showModal) {
+        this.showWaiting = false
+      } else if (this.showOnlyWaiting) {
+        this.startAlign()
+      }
+    }
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    originalLangData () {
+      return this.$store.state.alignmentUpdated && this.$textC.originalLangData
+    },
+    targetsLangData () {
+      return this.$store.state.alignmentUpdated && this.$textC.targetsLangData
+    },
+    showSummaryPopupOpt () {
+      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
+    }
+  },
+  methods: {
+    startAlign () {
+      this.showWaiting = true
+      this.$emit('start-align')
+    }
+  }
+});
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/actions-menu-text-editor.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/text-editor/actions-menu-text-editor.vue?vue&type=script&lang=js& ***!
@@ -47492,12 +47685,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -48148,14 +48335,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
 /* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/no-metadata.svg */ "./inline-icons/no-metadata.svg");
+/* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/no-lang-detected.svg */ "./inline-icons/no-lang-detected.svg");
+/* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/plus.svg */ "./inline-icons/plus.svg");
+/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -48203,6 +48397,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
 
 
 
@@ -48243,12 +48456,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_4__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_5__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_8__.default
+    noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default()),
+    noLangDetectedIcon: (_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
+    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_11__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__.default
   },
   data () {
     return {
@@ -48259,7 +48476,7 @@ __webpack_require__.r(__webpack_exports__);
       showMetadata: false,
       showTypeUploadButtons: true,
 
-      showTypeTextBlock: false,
+      showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
       showOnlyMetadata: true,
@@ -48388,7 +48605,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
@@ -48408,6 +48625,17 @@ __webpack_require__.r(__webpack_exports__);
 
     updatedLocalOptions () {
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
+    },
+    isEmptyMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+    },
+    isLanguageDetected () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.alignmentUpdated && docSource && docSource.detectedLang
+    },
+    showAddTranslation () {
+      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     }
   },
   methods: {
@@ -48415,7 +48643,6 @@ __webpack_require__.r(__webpack_exports__);
       this.showMetadata = false
       this.showTypeUploadButtons = true
 
-      this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -48432,7 +48659,6 @@ __webpack_require__.r(__webpack_exports__);
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        this.showTypeTextBlock = true
         this.showOnlyMetadata = true
       }
     },
@@ -48446,7 +48672,6 @@ __webpack_require__.r(__webpack_exports__);
       await this.updateText()
 
       this.showTypeUploadButtons = true
-      this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -48474,6 +48699,7 @@ __webpack_require__.r(__webpack_exports__);
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
+          this.showTypeUploadButtons = false
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
@@ -48481,7 +48707,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_9__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_13__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
       this.$store.commit('incrementOptionsUpdated')
     },
 
@@ -48519,18 +48745,13 @@ __webpack_require__.r(__webpack_exports__);
       this.showMetadata = !this.showMetadata
     },
 
-    selectTypeText () {
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
-      this.showTypeUploadButtons = false
-    },
-
     selectUploadText () { 
       this.showUploadMenu = true
       this.showUploadBlockFlag++
 
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
+      this.showClearTextFlag++ 
     }
   }
 });
@@ -48551,6 +48772,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 //
 //
 //
@@ -48578,6 +48800,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -48585,7 +48817,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'TextEditor',
   components: {
-    textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default
+    textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {  
   },
@@ -48617,6 +48850,9 @@ __webpack_require__.r(__webpack_exports__);
      */
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    alignAvailable () {
+      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -50790,6 +51026,47 @@ component.options.__file = "vue/options/options-block.vue"
 
 /***/ }),
 
+/***/ "./vue/summary-popup.vue":
+/*!*******************************!*\
+  !*** ./vue/summary-popup.vue ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./summary-popup.vue?vue&type=template&id=ab96fd44& */ "./vue/summary-popup.vue?vue&type=template&id=ab96fd44&");
+/* harmony import */ var _summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./summary-popup.vue?vue&type=script&lang=js& */ "./vue/summary-popup.vue?vue&type=script&lang=js&");
+/* harmony import */ var _summary_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./summary-popup.vue?vue&type=style&index=0&lang=scss& */ "./vue/summary-popup.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__.render,
+  _summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/summary-popup.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/text-editor/actions-menu-text-editor.vue":
 /*!******************************************************!*\
   !*** ./vue/text-editor/actions-menu-text-editor.vue ***!
@@ -51786,6 +52063,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/summary-popup.vue?vue&type=style&index=0&lang=scss&":
+/*!*****************************************************************!*\
+  !*** ./vue/summary-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./summary-popup.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/text-editor/actions-menu-text-editor.vue?vue&type=style&index=0&lang=scss&":
 /*!****************************************************************************************!*\
   !*** ./vue/text-editor/actions-menu-text-editor.vue?vue&type=style&index=0&lang=scss& ***!
@@ -52296,6 +52590,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/summary-popup.vue?vue&type=script&lang=js&":
+/*!********************************************************!*\
+  !*** ./vue/summary-popup.vue?vue&type=script&lang=js& ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./summary-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/summary-popup.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_summary_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -52837,6 +53147,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_options_block_vue_vue_type_template_id_7e2b5386___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./options-block.vue?vue&type=template&id=7e2b5386& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/options/options-block.vue?vue&type=template&id=7e2b5386&");
+
+
+/***/ }),
+
+/***/ "./vue/summary-popup.vue?vue&type=template&id=ab96fd44&":
+/*!**************************************************************!*\
+  !*** ./vue/summary-popup.vue?vue&type=template&id=ab96fd44& ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_summary_popup_vue_vue_type_template_id_ab96fd44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./summary-popup.vue?vue&type=template&id=ab96fd44& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=template&id=ab96fd44&");
 
 
 /***/ }),
@@ -53514,7 +53841,7 @@ var render = function() {
         on: {
           "download-data": _vm.downloadData,
           "upload-data": _vm.uploadData,
-          "align-texts": _vm.alignTexts,
+          "align-texts": _vm.showSummaryPopup,
           "redo-action": _vm.redoAction,
           "undo-action": _vm.undoAction,
           "add-target": _vm.addTarget,
@@ -53562,7 +53889,11 @@ var render = function() {
             value: _vm.showSourceTextEditorBlock,
             expression: "showSourceTextEditorBlock"
           }
-        ]
+        ],
+        on: {
+          "add-translation": _vm.addTarget,
+          "align-text": _vm.showSummaryPopup
+        }
       }),
       _vm._v(" "),
       _c("align-editor", {
@@ -53586,6 +53917,19 @@ var render = function() {
           }
         ],
         attrs: { renderEditor: _vm.renderTokensEditor }
+      }),
+      _vm._v(" "),
+      _c("summary-popup", {
+        attrs: {
+          showModal: _vm.showSummaryModal,
+          showOnlyWaiting: _vm.showOnlyWaitingSummary
+        },
+        on: {
+          closeModal: function($event) {
+            _vm.showSummaryModal = false
+          },
+          "start-align": _vm.alignTexts
+        }
       })
     ],
     1
@@ -54960,6 +55304,278 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=template&id=ab96fd44&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=template&id=ab96fd44& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.showModal
+    ? _c("modal", {
+        on: {
+          close: function($event) {
+            return _vm.$emit("closeModal")
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "header",
+              fn: function() {
+                return [
+                  _c("p", {
+                    staticClass: "alpheios-editor-summary-header",
+                    domProps: {
+                      innerHTML: _vm._s(
+                        _vm.l10n.getMsgS("SUMMARY_POPUP_HEADER")
+                      )
+                    }
+                  })
+                ]
+              },
+              proxy: true
+            },
+            _vm.contentAvailable
+              ? {
+                  key: "body",
+                  fn: function() {
+                    return [
+                      _c("waiting", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showWaiting,
+                            expression: "showWaiting"
+                          }
+                        ]
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: !_vm.showWaiting,
+                              expression: "!showWaiting"
+                            }
+                          ],
+                          staticClass: "alpheios-editor-summary-content"
+                        },
+                        [
+                          _c(
+                            "table",
+                            { staticClass: "alpheios-editor-langs-table" },
+                            [
+                              _c("tr", [
+                                _c("th", { attrs: { colspan: "2" } }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "SUMMARY_POPUP_TABEL_TH_ORIGINAL"
+                                      )
+                                    )
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { attrs: { colspan: "2" } }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "SUMMARY_POPUP_TABEL_TH_TRANSLATION"
+                                      )
+                                    )
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.targetsLangData, function(
+                                langData,
+                                langIndex
+                              ) {
+                                return _c("tr", { key: langIndex }, [
+                                  langIndex > 0
+                                    ? _c("td", { attrs: { colspan: "2" } })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  langIndex === 0
+                                    ? _c("td", [
+                                        _vm._v(
+                                          "\n              " +
+                                            _vm._s(
+                                              _vm.originalLangData.textPart
+                                            ) +
+                                            "\n            "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  langIndex === 0
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "alpheios-editor-langs-table_lang"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n              " +
+                                              _vm._s(
+                                                _vm.originalLangData.langName
+                                              ) +
+                                              "\n            "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      "\n              " +
+                                        _vm._s(langData.textPart) +
+                                        "\n            "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-langs-table_lang"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(langData.langName) +
+                                          "\n            "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "alpheios-editor-summary-show-option"
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "alpheios-editor-summary-show-option-item"
+                                },
+                                [
+                                  _c("option-item-block", {
+                                    attrs: {
+                                      optionItem: _vm.showSummaryPopupOpt,
+                                      showLabelText: _vm.showLabelTextOpt
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "alpheios-editor-summary-show-option-label"
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "SUMMARY_POPUP_SHOW_OPTION_LABEL"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  },
+                  proxy: true
+                }
+              : null,
+            {
+              key: "footer",
+              fn: function() {
+                return [
+                  _c("div", { staticClass: "alpheios-editor-summary-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        attrs: { disabled: _vm.showWaiting },
+                        on: { click: _vm.startAlign }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON"))
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        attrs: { disabled: _vm.showWaiting },
+                        on: {
+                          click: function($event) {
+                            return _vm.$emit("closeModal")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(
+                            _vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")
+                          )
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              },
+              proxy: true
+            }
+          ],
+          null,
+          true
+        )
+      })
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/actions-menu-text-editor.vue?vue&type=template&id=04c0dab0&":
 /*!******************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/actions-menu-text-editor.vue?vue&type=template&id=04c0dab0& ***!
@@ -55682,9 +56298,38 @@ var render = function() {
         "p",
         { staticClass: "alpheios-alignment-editor-text-blocks-single__title" },
         [
-          _vm._v(
-            _vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle) + "\n      "
+          _c(
+            "span",
+            {
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__title-text"
+            },
+            [_vm._v(_vm._s(_vm.indexData) + _vm._s(_vm.textBlockTitle))]
           ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showAddTranslation,
+                  expression: "showAddTranslation"
+                }
+              ],
+              staticClass: "alpheios-alignment-editor-add-translation",
+              attrs: { id: "alpheios-alignment-editor-add-translation" },
+              on: {
+                click: function($event) {
+                  return _vm.$emit("add-translation")
+                }
+              }
+            },
+            [_c("plus-icon")],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "span",
             {
@@ -55721,20 +56366,12 @@ var render = function() {
         },
         [
           _c(
-            "button",
+            "span",
             {
               staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: { id: "alpheios-actions-menu-button__typetext" },
-              on: { click: _vm.selectTypeText }
+                "alpheios-alignment-editor-text-blocks-single__type-label"
             },
-            [
-              _vm._v(
-                "\n          " +
-                  _vm._s(_vm.l10n.getMsgS("TEXT_SINGLE_TYPE_BUTTON")) +
-                  "\n      "
-              )
-            ]
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_SINGLE_TYPE_LABEL")))]
           ),
           _vm._v(" "),
           _c(
@@ -55807,11 +56444,96 @@ var render = function() {
           _c(
             "p",
             {
-              staticClass:
-                "alpheios-alignment-editor-text-blocks-single__characters",
+              staticClass: "alpheios-alignment-editor-text-blocks-info-line",
               class: _vm.charactersClasses
             },
-            [_vm._v("\n        " + _vm._s(_vm.charactersText) + "\n      ")]
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__characters"
+                },
+                [_vm._v(_vm._s(_vm.charactersText))]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showTextProps,
+                      expression: "showTextProps"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__lang-icon"
+                },
+                [_vm._v("\n          " + _vm._s(_vm.language) + "\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showTextProps && !_vm.isLanguageDetected,
+                      expression: "showTextProps && !isLanguageDetected"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__icons"
+                },
+                [
+                  _c(
+                    "tooltip",
+                    {
+                      attrs: {
+                        tooltipText: _vm.l10n.getMsgS("NO_LANG_DETECTED_ICON"),
+                        tooltipDirection: "top"
+                      }
+                    },
+                    [_c("no-lang-detected-icon")],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isEmptyMetadata,
+                      expression: "isEmptyMetadata"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__icons"
+                },
+                [
+                  _c(
+                    "tooltip",
+                    {
+                      attrs: {
+                        tooltipText: _vm.l10n.getMsgS("NO_METADATA_ICON"),
+                        tooltipDirection: "top"
+                      }
+                    },
+                    [_c("no-metadata-icon")],
+                    1
+                  )
+                ],
+                1
+              )
+            ]
           ),
           _vm._v(" "),
           _c(
@@ -55936,7 +56658,56 @@ var render = function() {
       _c(
         "h2",
         { staticClass: "alpheios-alignment-text-editor-block__header" },
-        [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")) + " ")]
+        [
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-label"
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "tooltip",
+            {
+              attrs: {
+                tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
+                tooltipDirection: "bottom"
+              }
+            },
+            [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.alignAvailable,
+                      expression: "alignAvailable"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                  attrs: { id: "alpheios-actions-menu-button__align" },
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("align-text")
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                      "\n        "
+                  )
+                ]
+              )
+            ]
+          )
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
@@ -55984,6 +56755,11 @@ var render = function() {
                           "text-type": "target",
                           "text-id": targetTextId && targetTextId.targetId,
                           index: targetTextId && targetTextId.targetIndex
+                        },
+                        on: {
+                          "add-translation": function($event) {
+                            return _vm.$emit("add-translation")
+                          }
                         }
                       })
                     }),
@@ -57762,6 +58538,80 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/no-lang-detected.svg":
+/*!*******************************************!*\
+  !*** ./inline-icons/no-lang-detected.svg ***!
+  \*******************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"1005.9","height":"1005.9","viewBox":"0 0 266.14 266.14","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M44.59 210.391l-.684-.684.068-62.872.067-62.872.602-.487c.331-.268 4.826-1.894 9.988-3.612l9.386-3.125c46.585-15.11 35.121-10.919 64.725-21.576 47.38 15.521 55.912 18.131 76.695 25.781l16.797 5.315.002 62.272c.002 52.33-.055 62.25-.357 62.134-.197-.076-9.354-3.004-20.349-6.507a79133.093 79133.093 0 01-62.689-19.988l-6.006-1.923-12.78 4.33c-25.96 8.798-72.518 24.19-73.631 24.342-.997.137-1.24.067-1.834-.526zm44.497-18.194l40.018-13.333v-59.466c0-32.706-.09-59.466-.198-59.466-.11 0-18.266 6.023-40.35 13.384L48.408 86.7v59.538c0 47.519.066 59.513.33 59.416.182-.067 18.34-6.122 40.35-13.455zM61.372 173.44c0-.09.43-.572.956-1.074 1.72-1.64 8.859-10.093 11.609-13.744 3.894-5.17 9.839-13.524 12.995-18.26 2.058-3.09 3.982-6.579 7.77-14.088 2.769-5.49 5.035-10.115 5.035-10.278 0-.394-1.272-.144-4.76.938-7.898 2.448-10.992 3.374-13.768 4.119-1.677.45-3.215.921-3.418 1.047s-.44.745-.523 1.376c-.146 1.089-.232 1.186-1.722 1.93-1.32.66-1.961.801-4.045.892-2.997.131-4.369-.299-5.718-1.792-.807-.893-1.544-2.97-1.183-3.332.058-.058 1.26-.29 2.67-.518 2.965-.477 10.324-2.6 17.068-4.923 2.576-.887 6.41-2.186 8.52-2.885 2.336-.775 5.165-1.968 7.236-3.052 3.86-2.021 9.187-4.163 9.528-3.831.125.122.143 1.066.039 2.099-.17 1.7-.508 2.522-3.562 8.689-3.554 7.177-5.938 11.47-9.659 17.4-1.242 1.981-2.256 3.683-2.253 3.783.008.195 3.405 1.682 15.736 6.885 4.366 1.843 8.073 3.438 8.239 3.545.337.22 1.343 3.8 1.47 5.229.078.895.052.924-.772.86-.47-.037-1.754-.425-2.855-.862-5.902-2.344-12.242-6.043-18.027-10.516-2.494-1.928-4.662-3.506-4.818-3.506-.156 0-.409.234-.562.52-.512.957-5.103 7.516-7.508 10.725-6.907 9.219-15.54 19.105-18.747 21.47-1.027.756-1.575.953-3.109 1.117-1.024.11-1.862.126-1.862.037zm19.065-66.692c-2.611-1.185-4.492-3.516-5.2-6.444-.166-.686-.13-.748.317-.559.276.117 1.514.265 2.751.328 2.11.109 2.562.026 7.326-1.345 8.434-2.428 9.322-2.501 10.022-.827 1.118 2.677-.445 5.32-4.366 7.38-3.658 1.922-8.426 2.567-10.85 1.467zm123.56 64.243c-.26-.91-4.974-17.906-10.476-37.769-5.502-19.864-10.079-36.205-10.172-36.314-.29-.342-11.493-3.639-11.672-3.435-.462.525-25.111 61.552-24.928 61.72.209.193 10.331 3.307 11.293 3.475.421.074.903-.882 3.094-6.13 2.142-5.131 2.68-6.203 3.074-6.132 1.348.245 23.538 7.057 23.783 7.301.157.157 1.214 3.695 2.35 7.863l2.063 7.578 4.53 1.367c2.49.751 5.005 1.529 5.587 1.728 1.972.673 2.014.637 1.475-1.251zm-27.999-34.027c-4.111-1.258-7.474-2.376-7.474-2.485 0-.342 8.24-20.161 8.492-20.426.148-.156.239-.108.239.126 0 .208 1.548 5.87 3.44 12.58 1.891 6.711 3.439 12.28 3.439 12.375 0 .3-.494.168-8.136-2.17zm-4.81-67.505c16.59 5.295 29.307 10.016 29.416 10.029-39.856-12.516-90.82-29.307-29.416-10.029z","fill":"red","fill-opacity":".66"}}),_c('g',{attrs:{"fill":"none","stroke":"red"}},[_c('path',{attrs:{"d":"M262.45 133.073a129.36 129.36 0 01-129.361 129.36 129.36 129.36 0 01-129.36-129.36 129.36 129.36 0 01129.36-129.36 129.36 129.36 0 01129.36 129.36z","opacity":".99","stroke-linecap":"round","stroke-width":"7.426433"}}),_c('path',{attrs:{"d":"M41.657 41.426l183.31 183.31","stroke-width":"7.342"}})])])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/no-metadata.svg":
+/*!**************************************!*\
+  !*** ./inline-icons/no-metadata.svg ***!
+  \**************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"548.03","height":"548.03","viewBox":"0 0 145 145","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M22.334 103.21c-1.06-.57-1.007 1.07-1.015-31.426-.007-32.885-.071-31.03 1.087-31.543.313-.138 1.487-.232 2.914-.232h2.39v-2.223c0-2.5.177-3.07 1.078-3.469.71-.314 25.783-3.213 29.214-3.378 4.372-.21 10.074.86 13.746 2.58.723.338.776.338 1.5 0 3.673-1.72 9.378-2.79 13.745-2.579 3.458.168 28.508 3.063 29.214 3.377.901.4 1.078.969 1.078 3.469v2.223h2.39c1.427 0 2.6.094 2.914.232 1.158.512 1.094-1.336 1.094 31.504s.064 30.991-1.094 31.504c-.812.36-99.588.32-100.26-.039zm97.551-31.465V43.697h-2.6l-.002 25.281c-.003 19.833-.057 25.385-.253 25.761-.61 1.17.032 1.192-15.361-.547-8.403-.95-14.84-1.588-15.975-1.585-3.652.01-7.56.84-10.967 2.33-.98.428-1.983.778-2.23.778-.245 0-1.248-.35-2.228-.779-3.408-1.49-7.316-2.32-10.967-2.33-1.134-.003-7.572.637-15.975 1.586-15.393 1.74-14.751 1.717-15.361.547-.196-.376-.25-5.929-.253-25.761l-.003-25.281H25.11v56.095h94.776zm-76.02 18.723c6.566-.751 12.748-1.418 13.738-1.48 3.328-.213 8.283.49 11.778 1.671.65.22 1.212.399 1.25.399.038 0 .068-12.14.068-26.976V37.106l-.75-.37c-.94-.464-3.709-1.316-5.548-1.709-.77-.164-2.704-.34-4.298-.393-2.676-.087-3.835.012-14.995 1.283-6.653.758-12.433 1.429-12.846 1.49l-.75.113v27.157c0 18.641.065 27.157.207 27.157.115 0 5.58-.615 12.146-1.366zM34.97 79.65c-.945-.721-.92-2.266.048-2.882.554-.352 18.417-2.48 22.803-2.717 4.026-.217 9.487.643 10.277 1.618.8.988.264 2.602-.95 2.858-.302.063-1.358-.065-2.347-.285-1.14-.253-2.863-.439-4.699-.507-2.683-.099-3.668-.019-13.196 1.076-5.663.651-10.567 1.181-10.896 1.179-.33-.003-.798-.156-1.04-.34zm.203-8.234c-.655-.307-1.057-1.247-.843-1.97.388-1.315.058-1.24 10.808-2.483 5.426-.628 11.08-1.197 12.565-1.264 4.446-.202 9.443.56 10.343 1.576.526.593.596 1.566.157 2.174-.52.722-1.232.82-3.102.426-1.035-.218-2.989-.403-4.999-.474-3.171-.112-3.694-.07-13.537 1.065-5.63.65-10.399 1.176-10.597 1.168-.197-.006-.555-.105-.795-.218zm.237-8.298c-1.598-.635-1.459-2.986.2-3.39.255-.063 5.096-.638 10.758-1.279 12.63-1.43 14.719-1.479 19.495-.462 1.9.405 2.637.975 2.637 2.04 0 .557-.135.9-.49 1.245-.582.565-1.397.61-3.259.185-1.857-.426-5.872-.662-8.047-.474-1.045.09-6.152.649-11.35 1.241-5.198.592-9.471 1.072-9.497 1.065a11.766 11.766 0 01-.447-.171zm.104-8.38c-.876-.339-1.204-.767-1.204-1.573 0-.967.244-1.4.942-1.678.307-.121 5.146-.748 10.754-1.393 12.691-1.46 15.152-1.517 20.013-.467 1.86.402 2.481.887 2.481 1.937 0 .519-.154.853-.584 1.27-.668.649-1.136.695-2.915.288-2.052-.468-5.29-.732-7.298-.595-1.59.109-19.208 2.043-21.094 2.316-.33.047-.823 0-1.095-.105zm-.713-8.8c-.791-.769-.623-2.34.302-2.82.357-.186 18.713-2.338 22.332-2.618 2.632-.204 8.036.395 9.923 1.1 1.261.472 1.543 1.931.557 2.888-.7.68-.88.687-3.483.14-3.523-.74-6.875-.611-18.065.69-5.19.603-9.805 1.096-10.256 1.096-.603 0-.949-.125-1.31-.476zm78.686 18.739V37.52l-.75-.113c-.412-.062-6.193-.733-12.846-1.49-11.16-1.272-12.32-1.37-14.995-1.283-1.594.052-3.529.229-4.299.393-1.839.392-4.608 1.245-5.548 1.709l-.75.37V64.08c0 14.837.028 26.976.063 26.976s.864-.263 1.844-.585c3.328-1.091 5.758-1.443 9.79-1.415 3.135.021 5.066.2 14.994 1.38 6.268.746 11.644 1.365 11.947 1.376l.55.02zM98.691 78.88c-7.938-.957-9.318-1.074-12.796-1.084-3.348-.01-4.161.049-5.755.415-1.021.235-2.07.375-2.33.312-1.32-.322-1.824-2.003-.878-2.922.985-.956 6.255-1.764 10.16-1.559 1.915.101 19.404 2.003 21.835 2.374 1.674.257 2.317 1.902 1.177 3.01-.494.479-.735.564-1.55.546-.53-.01-4.969-.503-9.863-1.092zm-.5-8.426c-9.335-1.097-9.957-1.146-13.196-1.054-2.33.066-3.956.217-5.17.48-1.86.402-2.373.35-2.95-.298-.897-1.01-.489-2.379.852-2.857 1.987-.709 4.36-.994 8.168-.982 3.2.01 4.98.16 13.196 1.112 5.223.606 9.831 1.192 10.24 1.302 1.437.389 1.834 1.89.772 2.922-.455.442-.753.563-1.35.546-.42-.011-5.173-.539-10.561-1.171zm.4-8.344c-10.738-1.28-14.106-1.446-17.295-.849-2.839.532-3.537.57-4.078.227-.73-.465-1.023-1.508-.63-2.246.41-.77.624-.866 3.108-1.406 1.845-.4 2.596-.454 6.199-.444 3.701.011 5.01.12 13.496 1.115 5.168.607 9.644 1.154 9.944 1.216 1.073.222 1.69 1.631 1.146 2.618-.26.47-1.23.967-1.833.936-.253-.013-4.779-.538-10.057-1.167zm.3-8.331c-13.56-1.576-13.837-1.583-19.63-.543-1.636.293-2.25.086-2.677-.905-.596-1.386.111-2.215 2.303-2.7 4.793-1.058 7.293-1 20.004.46 5.664.652 10.452 1.23 10.642 1.288.92.277 1.437 1.73.939 2.633-.198.36-1.357.975-1.727.918-.086-.014-4.52-.532-9.854-1.151zm-.5-8.467c-10.813-1.295-14.358-1.426-18.04-.67-2.638.543-3.303.421-3.781-.69-.332-.77-.199-1.432.398-1.976.943-.86 7.15-1.733 10.52-1.48.938.071 6.247.642 11.797 1.27 8.363.945 10.177 1.203 10.597 1.506.966.699 1.042 1.955.166 2.748-.622.562-1.483.51-11.656-.708z","fill":"none","stroke":"red","stroke-width":"1.391"}}),_c('path',{attrs:{"d":"M142.98 72.5a70.477 70.477 0 01-70.477 70.477A70.477 70.477 0 012.026 72.5 70.477 70.477 0 0172.503 2.023 70.477 70.477 0 01142.98 72.5z","fill":"none","opacity":".99","stroke":"red","stroke-linecap":"round","stroke-width":"4.046"}}),_c('path',{attrs:{"d":"M22.689 22.57l99.869 99.869","fill":"none","stroke":"red","stroke-width":"4"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/pen.svg":
 /*!******************************!*\
   !*** ./inline-icons/pen.svg ***!
@@ -57792,6 +58642,43 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M3.145 50.041l3.144-9.43L46.903 0l12.564 12.572L18.855 53.18 0 59.47zm8.514 1.873l2.816-1.003-5.96-5.943-2.068 6.356.763.797c.42.438.96.797 1.198.797.24 0 1.702-.452 3.251-1.004zm28.955-28.03l-1.256-1.256L15.29 46.69l2.495 2.534L41.87 25.14zm-5.027-5.027l-1.256-1.256-24.067 24.062 2.495 2.534 24.084-24.084zm10.128 2.439l1.173-1.196-7.526-7.526-2.509 2.51 3.697 3.703c2.034 2.038 3.764 3.704 3.845 3.704.08 0 .674-.538 1.32-1.195zm6.283-6.283l2.442-2.452-7.548-7.534-5.01 5.03 3.696 3.704c2.033 2.037 3.76 3.703 3.838 3.703.077 0 1.24-1.103 2.582-2.451z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
+/***/ "./inline-icons/plus.svg":
+/*!*******************************!*\
+  !*** ./inline-icons/plus.svg ***!
+  \*******************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"300","height":"300","viewBox":"0 0 79.375 79.375","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('ellipse',{attrs:{"cx":"39.688","cy":"39.688","rx":"36.67","ry":"35.795","fill":"none","opacity":".99","stroke":"#000","stroke-linecap":"round","stroke-width":"3.748"}}),_c('path',{attrs:{"d":"M44.237 44.986v16.16q0 1.041-.407 1.448-.363.408-1.404.408h-6.428q-1.04 0-1.448-.407-.362-.408-.362-1.449v-16.16H18.073q-1.041 0-1.449-.407t-.407-1.494v-5.93q0-1.087.407-1.494t1.449-.407h16.115V18.867q0-1.042.362-1.449.407-.407 1.448-.407h6.428q1.041 0 1.404.407.407.407.407 1.449v16.387h16.387q1.086 0 1.494.407t.407 1.494v5.93q0 1.086-.407 1.494t-1.494.407z"}})])
           )
         }
       }
@@ -58105,7 +58992,7 @@ module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Downl
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHO":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AAR":{"message":"Afar","description":"Language name for available languages list","component":"TextEditor"},"LANG_ABK":{"message":"Abkhazian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKA":{"message":"Akan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ASM":{"message":"Assamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AYM":{"message":"Aymara","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BAK":{"message":"Bashkir","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEL":{"message":"Belarusian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIH":{"message":"Bihari","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIS":{"message":"Bislama","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUG":{"message":"Buginese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CEB":{"message":"Cebuano","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHR":{"message":"Cherokee","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_COS":{"message":"Corsican","description":"Language name for available languages list","component":"TextEditor"},"LANG_CRS":{"message":"Seselwa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_DIV":{"message":"Dhivehi","description":"Language name for available languages list","component":"TextEditor"},"LANG_DZO":{"message":"Dzongkha","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_EPO":{"message":"Esperanto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAO":{"message":"Faroese","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIJ":{"message":"Fijian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRR":{"message":"Frisian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLG":{"message":"Galician","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRN":{"message":"Guarani","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAT":{"message":"Haitian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAU":{"message":"Hausa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAW":{"message":"Hawaiian","description":"Language name for available languages list","component":"TextEditor"},"LANG_HMN":{"message":"Hmong","description":"Language name for available languages list","component":"TextEditor"},"LANG_LUG":{"message":"Ganda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAL":{"message":"Greenlandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_IBO":{"message":"Igbo","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_INA":{"message":"Interlingua","description":"Language name for available languages list","component":"TextEditor"},"LANG_ILE":{"message":"Interlingue","description":"Language name for available languages list","component":"TextEditor"},"LANG_IPK":{"message":"Inupiaq","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAZ":{"message":"Kazakh","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAS":{"message":"Kashmiri","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIN":{"message":"Kinyarwanda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHA":{"message":"Khasi","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_TLH":{"message":"Klingon","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIR":{"message":"Kyrgyz","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAO":{"message":"Laothian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAV":{"message":"Latvian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIM":{"message":"Limbu","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIN":{"message":"Lingala","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LTZ":{"message":"Luxembourgish","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAC":{"message":"Macedonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLG":{"message":"Malagasy","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAL":{"message":"Malayalam","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLT":{"message":"Maltese","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAO":{"message":"Maori","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_MFE":{"message":"Mauritian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_MON":{"message":"Mongolian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NBL":{"message":"Ndebele","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NYA":{"message":"Nyanja","description":"Language name for available languages list","component":"TextEditor"},"LANG_OCI":{"message":"Occitan","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORI":{"message":"Oriya","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORM":{"message":"Oromo","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_NSO":{"message":"Pedi","description":"Language name for available languages list","component":"TextEditor"},"LANG_PER":{"message":"Persian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_QUE":{"message":"Quechua","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROH":{"message":"Rhaeto Romance","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUN":{"message":"Rundi","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SMO":{"message":"Samoan","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAG":{"message":"Sango","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOT":{"message":"Sesotho","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SSW":{"message":"Siswant","description":"Language name for available languages list","component":"TextEditor"},"LANG_SNA":{"message":"Shona","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOM":{"message":"Somali","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUN":{"message":"Sundanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TIR":{"message":"Tigrinya","description":"Language name for available languages list","component":"TextEditor"},"LANG_TOG":{"message":"Tonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSO":{"message":"Tsonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSN":{"message":"Tswana","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UIG":{"message":"Uighur","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukrainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VEN":{"message":"Venda","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_VOL":{"message":"Volapuk","description":"Language name for available languages list","component":"TextEditor"},"LANG_WAR":{"message":"Waray Philippines","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_WOL":{"message":"Wolof","description":"Language name for available languages list","component":"TextEditor"},"LANG_XHO":{"message":"Xhosa","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"},"LANG_YOR":{"message":"Yoruba","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHA":{"message":"Zhuang","description":"Language name for available languages list","component":"TextEditor"}}');
+module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAT":{"message":"Latin","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRC":{"message":"Greek (Ancient –1453)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARA":{"message":"Arabic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZH":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHO":{"message":"Chinese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AAR":{"message":"Afar","description":"Language name for available languages list","component":"TextEditor"},"LANG_ABK":{"message":"Abkhazian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKA":{"message":"Akan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AFR":{"message":"Afrikaans","description":"Language name for available languages list","component":"TextEditor"},"LANG_AKK":{"message":"Akkadian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SQI":{"message":"Albanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AMH":{"message":"Amharic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARG":{"message":"Aragonese","description":"Language name for available languages list","component":"TextEditor"},"LANG_ARC":{"message":"Aramaic (Imperial- 700 BC–300 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAM":{"message":"Aramaic (Samaritan)","description":"Language name for available languages list","component":"TextEditor"},"LANG_HYE":{"message":"Armenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ASM":{"message":"Assamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_AST":{"message":"Asturian","description":"Language name for available languages list","component":"TextEditor"},"LANG_AVE":{"message":"Avestan","description":"Language name for available languages list","component":"TextEditor"},"LANG_AYM":{"message":"Aymara","description":"Language name for available languages list","component":"TextEditor"},"LANG_AZE":{"message":"Azerbaijani","description":"Language name for available languages list","component":"TextEditor"},"LANG_EUS":{"message":"Basque","description":"Language name for available languages list","component":"TextEditor"},"LANG_BAK":{"message":"Bashkir","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEL":{"message":"Belarusian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BEN":{"message":"Bengali","description":"Language name for available languages list","component":"TextEditor"},"LANG_BER":{"message":"Berber","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIH":{"message":"Bihari","description":"Language name for available languages list","component":"TextEditor"},"LANG_BIS":{"message":"Bislama","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOS":{"message":"Bosnian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BRE":{"message":"Breton","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUL":{"message":"Bulgarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_BUG":{"message":"Buginese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHU":{"message":"Bulgarian (Old, Old Church Slavonic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_MYA":{"message":"Burmese","description":"Language name for available languages list","component":"TextEditor"},"LANG_CAT":{"message":"Catalan","description":"Language name for available languages list","component":"TextEditor"},"LANG_CEB":{"message":"Cebuano","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHG":{"message":"Chagatai","description":"Language name for available languages list","component":"TextEditor"},"LANG_CHR":{"message":"Cherokee","description":"Language name for available languages list","component":"TextEditor"},"LANG_COP":{"message":"Coptic","description":"Language name for available languages list","component":"TextEditor"},"LANG_COR":{"message":"Cornish","description":"Language name for available languages list","component":"TextEditor"},"LANG_COS":{"message":"Corsican","description":"Language name for available languages list","component":"TextEditor"},"LANG_CRS":{"message":"Seselwa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HRV":{"message":"Croatian","description":"Language name for available languages list","component":"TextEditor"},"LANG_CES":{"message":"Czech","description":"Language name for available languages list","component":"TextEditor"},"LANG_DAN":{"message":"Danish","description":"Language name for available languages list","component":"TextEditor"},"LANG_DIV":{"message":"Dhivehi","description":"Language name for available languages list","component":"TextEditor"},"LANG_DZO":{"message":"Dzongkha","description":"Language name for available languages list","component":"TextEditor"},"LANG_NLD":{"message":"Dutch (Flemish)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DUM":{"message":"Dutch (Middle, 1050–1350)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EGY":{"message":"Egyptian (Ancient)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELX":{"message":"Elamite","description":"Language name for available languages list","component":"TextEditor"},"LANG_ENM":{"message":"English (Middle, 1100–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ANG":{"message":"English (Old, 450–1100)","description":"Language name for available languages list","component":"TextEditor"},"LANG_EST":{"message":"Estonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_EPO":{"message":"Esperanto","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAO":{"message":"Faroese","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIJ":{"message":"Fijian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FIN":{"message":"Finnish","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRA":{"message":"French","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRM":{"message":"French (Middle, 1400—1600)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRO":{"message":"French (Old, 842—c. 1400)","description":"Language name for available languages list","component":"TextEditor"},"LANG_FRR":{"message":"Frisian","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLG":{"message":"Galician","description":"Language name for available languages list","component":"TextEditor"},"LANG_GRN":{"message":"Guarani","description":"Language name for available languages list","component":"TextEditor"},"LANG_GEZ":{"message":"Ge\'ez","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAT":{"message":"Haitian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAU":{"message":"Hausa","description":"Language name for available languages list","component":"TextEditor"},"LANG_HAW":{"message":"Hawaiian","description":"Language name for available languages list","component":"TextEditor"},"LANG_HMN":{"message":"Hmong","description":"Language name for available languages list","component":"TextEditor"},"LANG_LUG":{"message":"Ganda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAT":{"message":"Georgian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NDS":{"message":"German (Low, Low Saxon)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GMH":{"message":"German (Middle-High, 1050–1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOH":{"message":"German (Old-High, 750–1050)","description":"Language name for available languages list","component":"TextEditor"},"LANG_DEU":{"message":"German","description":"Language name for available languages list","component":"TextEditor"},"LANG_GOT":{"message":"Gothic","description":"Language name for available languages list","component":"TextEditor"},"LANG_ELL":{"message":"Greek (Modern, 1453–)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAL":{"message":"Greenlandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_GUJ":{"message":"Gujarati","description":"Language name for available languages list","component":"TextEditor"},"LANG_HEB":{"message":"Hebrew","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIN":{"message":"Hindi","description":"Language name for available languages list","component":"TextEditor"},"LANG_HIT":{"message":"Hittite","description":"Language name for available languages list","component":"TextEditor"},"LANG_HUN":{"message":"Hungarian","description":"Language name for available languages list","component":"TextEditor"},"LANG_IBO":{"message":"Igbo","description":"Language name for available languages list","component":"TextEditor"},"LANG_IKU":{"message":"Inuktitut","description":"Language name for available languages list","component":"TextEditor"},"LANG_ISL":{"message":"Icelandic","description":"Language name for available languages list","component":"TextEditor"},"LANG_IND":{"message":"Indonesian","description":"Language name for available languages list","component":"TextEditor"},"LANG_INA":{"message":"Interlingua","description":"Language name for available languages list","component":"TextEditor"},"LANG_ILE":{"message":"Interlingue","description":"Language name for available languages list","component":"TextEditor"},"LANG_IPK":{"message":"Inupiaq","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLE":{"message":"Irish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLV":{"message":"Manx","description":"Language name for available languages list","component":"TextEditor"},"LANG_MGA":{"message":"Irish (Middle 900–1200)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SGA":{"message":"Irish (Old, to 900)","description":"Language name for available languages list","component":"TextEditor"},"LANG_ITA":{"message":"Italian","description":"Language name for available languages list","component":"TextEditor"},"LANG_JPN":{"message":"Japanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_JAV":{"message":"Javanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAN":{"message":"Kannada","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAZ":{"message":"Kazakh","description":"Language name for available languages list","component":"TextEditor"},"LANG_KAS":{"message":"Kashmiri","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIN":{"message":"Kinyarwanda","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHA":{"message":"Khasi","description":"Language name for available languages list","component":"TextEditor"},"LANG_KHM":{"message":"Khmer (Central)","description":"Language name for available languages list","component":"TextEditor"},"LANG_KOR":{"message":"Korean","description":"Language name for available languages list","component":"TextEditor"},"LANG_TLH":{"message":"Klingon","description":"Language name for available languages list","component":"TextEditor"},"LANG_KUR":{"message":"Kurdish","description":"Language name for available languages list","component":"TextEditor"},"LANG_KIR":{"message":"Kyrgyz","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAD":{"message":"Ladino","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAO":{"message":"Laothian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LAV":{"message":"Latvian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIM":{"message":"Limbu","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIN":{"message":"Lingala","description":"Language name for available languages list","component":"TextEditor"},"LANG_LIT":{"message":"Lithuanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_LTZ":{"message":"Luxembourgish","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAC":{"message":"Macedonian","description":"Language name for available languages list","component":"TextEditor"},"LANG_MSA":{"message":"Malay","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLG":{"message":"Malagasy","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAL":{"message":"Malayalam","description":"Language name for available languages list","component":"TextEditor"},"LANG_MLT":{"message":"Maltese","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAO":{"message":"Maori","description":"Language name for available languages list","component":"TextEditor"},"LANG_MAR":{"message":"Marathi","description":"Language name for available languages list","component":"TextEditor"},"LANG_MFE":{"message":"Mauritian Creole","description":"Language name for available languages list","component":"TextEditor"},"LANG_MON":{"message":"Mongolian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEW":{"message":"Nepal Bhasa (Newari)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NEP":{"message":"Nepali","description":"Language name for available languages list","component":"TextEditor"},"LANG_NAU":{"message":"Nauru","description":"Language name for available languages list","component":"TextEditor"},"LANG_NWC":{"message":"Newari","description":"Language name for available languages list","component":"TextEditor"},"LANG_NON":{"message":"Norse (Old)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOR":{"message":"Norwegian","description":"Language name for available languages list","component":"TextEditor"},"LANG_NBL":{"message":"Ndebele","description":"Language name for available languages list","component":"TextEditor"},"LANG_NOB":{"message":"Norwegian (Bokmål)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NNO":{"message":"Norwegian (Nynorsk)","description":"Language name for available languages list","component":"TextEditor"},"LANG_NYA":{"message":"Nyanja","description":"Language name for available languages list","component":"TextEditor"},"LANG_OCI":{"message":"Occitan","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORI":{"message":"Oriya","description":"Language name for available languages list","component":"TextEditor"},"LANG_ORM":{"message":"Oromo","description":"Language name for available languages list","component":"TextEditor"},"LANG_OSS":{"message":"Ossetian","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAL":{"message":"Pahlavi (Middle Persian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PLI":{"message":"Pali","description":"Language name for available languages list","component":"TextEditor"},"LANG_PUS":{"message":"Pashto","description":"Language name for available languages list","component":"TextEditor"},"LANG_NSO":{"message":"Pedi","description":"Language name for available languages list","component":"TextEditor"},"LANG_PER":{"message":"Persian","description":"Language name for available languages list","component":"TextEditor"},"LANG_FAS":{"message":"Persian (Farsi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PEO":{"message":"Persian (Old, 600–400 BC)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PHN":{"message":"Phoenician","description":"Language name for available languages list","component":"TextEditor"},"LANG_POL":{"message":"Polish","description":"Language name for available languages list","component":"TextEditor"},"LANG_POR":{"message":"Portuguese","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRA":{"message":"Prakrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_PRO":{"message":"Provençal (Occitan, –1500)","description":"Language name for available languages list","component":"TextEditor"},"LANG_PAN":{"message":"Punjabi (Panjabi)","description":"Language name for available languages list","component":"TextEditor"},"LANG_QUE":{"message":"Quechua","description":"Language name for available languages list","component":"TextEditor"},"LANG_RAJ":{"message":"Rajasthani","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROH":{"message":"Rhaeto Romance","description":"Language name for available languages list","component":"TextEditor"},"LANG_RON":{"message":"Romanian","description":"Language name for available languages list","component":"TextEditor"},"LANG_ROM":{"message":"Romany","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUN":{"message":"Rundi","description":"Language name for available languages list","component":"TextEditor"},"LANG_RUS":{"message":"Russian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SMO":{"message":"Samoan","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAG":{"message":"Sango","description":"Language name for available languages list","component":"TextEditor"},"LANG_SAN":{"message":"Sanskrit","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCO":{"message":"Scots","description":"Language name for available languages list","component":"TextEditor"},"LANG_GLA":{"message":"Scottish (Gaelic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SRP":{"message":"Serbian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOT":{"message":"Sesotho","description":"Language name for available languages list","component":"TextEditor"},"LANG_SCN":{"message":"Sicilian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SND":{"message":"Sindhi","description":"Language name for available languages list","component":"TextEditor"},"LANG_SIN":{"message":"Sinhalese (Sinhala)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SSW":{"message":"Siswant","description":"Language name for available languages list","component":"TextEditor"},"LANG_SNA":{"message":"Shona","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLK":{"message":"Slovak","description":"Language name for available languages list","component":"TextEditor"},"LANG_SLV":{"message":"Slovenian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOG":{"message":"Sogdian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SOM":{"message":"Somali","description":"Language name for available languages list","component":"TextEditor"},"LANG_SPA":{"message":"Spanish (Castilian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUX":{"message":"Sumerian","description":"Language name for available languages list","component":"TextEditor"},"LANG_SUN":{"message":"Sundanese","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWA":{"message":"Swahili","description":"Language name for available languages list","component":"TextEditor"},"LANG_SWE":{"message":"Swedish","description":"Language name for available languages list","component":"TextEditor"},"LANG_GSW":{"message":"Swiss German (Alsatian)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYC":{"message":"Syriac (Classical)","description":"Language name for available languages list","component":"TextEditor"},"LANG_SYR":{"message":"Syriac (Northeastern, Neo-Aramaic)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGL":{"message":"Tagalog","description":"Language name for available languages list","component":"TextEditor"},"LANG_TGK":{"message":"Tajik","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAM":{"message":"Tamil","description":"Language name for available languages list","component":"TextEditor"},"LANG_TAT":{"message":"Tatar","description":"Language name for available languages list","component":"TextEditor"},"LANG_TEL":{"message":"Telugu","description":"Language name for available languages list","component":"TextEditor"},"LANG_THA":{"message":"Thai","description":"Language name for available languages list","component":"TextEditor"},"LANG_BOD":{"message":"Tibetan","description":"Language name for available languages list","component":"TextEditor"},"LANG_TIR":{"message":"Tigrinya","description":"Language name for available languages list","component":"TextEditor"},"LANG_TOG":{"message":"Tonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSO":{"message":"Tsonga","description":"Language name for available languages list","component":"TextEditor"},"LANG_TSN":{"message":"Tswana","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUR":{"message":"Turkish (Modern)","description":"Language name for available languages list","component":"TextEditor"},"LANG_OTA":{"message":"Turkish (Ottoman, 1500–1928)","description":"Language name for available languages list","component":"TextEditor"},"LANG_TUK":{"message":"Turkmen","description":"Language name for available languages list","component":"TextEditor"},"LANG_UGA":{"message":"Ugaritic","description":"Language name for available languages list","component":"TextEditor"},"LANG_UIG":{"message":"Uighur","description":"Language name for available languages list","component":"TextEditor"},"LANG_UKR":{"message":"Ukrainian","description":"Language name for available languages list","component":"TextEditor"},"LANG_URD":{"message":"Urdu","description":"Language name for available languages list","component":"TextEditor"},"LANG_UZB":{"message":"Uzbek","description":"Language name for available languages list","component":"TextEditor"},"LANG_VEN":{"message":"Venda","description":"Language name for available languages list","component":"TextEditor"},"LANG_VIE":{"message":"Vietnamese","description":"Language name for available languages list","component":"TextEditor"},"LANG_VOL":{"message":"Volapuk","description":"Language name for available languages list","component":"TextEditor"},"LANG_WAR":{"message":"Waray Philippines","description":"Language name for available languages list","component":"TextEditor"},"LANG_WLN":{"message":"Walloon","description":"Language name for available languages list","component":"TextEditor"},"LANG_CYM":{"message":"Welsh","description":"Language name for available languages list","component":"TextEditor"},"LANG_WOL":{"message":"Wolof","description":"Language name for available languages list","component":"TextEditor"},"LANG_XHO":{"message":"Xhosa","description":"Language name for available languages list","component":"TextEditor"},"LANG_YID":{"message":"Yiddish","description":"Language name for available languages list","component":"TextEditor"},"LANG_YOR":{"message":"Yoruba","description":"Language name for available languages list","component":"TextEditor"},"LANG_ZHA":{"message":"Zhuang","description":"Language name for available languages list","component":"TextEditor"}}');
 
 /***/ }),
 
@@ -58116,7 +59003,7 @@ module.exports = JSON.parse('{"LANG_ENG":{"message":"English","description":"Lan
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Align","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"New Alignment","description":"Button in main menu","component":"MainMenu"}}');
+module.exports = JSON.parse('{"MAIN_MENU_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UPLOAD_TITLE":{"message":"Upload","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ALIGN_TITLE":{"message":"Prepare texts for alignment","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_REDO_TITLE":{"message":"Redo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_UNDO_TITLE":{"message":"Undo","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_ADD_TARGET_TITLE":{"message":"Add translation","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_SHOW_OPTIONS_TITLE":{"message":"Show options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_HIDE_OPTIONS_TITLE":{"message":"Hide options","description":"Button in main menu","component":"MainMenu"},"MAIN_MENU_CLEAR_TEXT":{"message":"New Alignment","description":"Button in main menu","component":"MainMenu"}}');
 
 /***/ }),
 
@@ -58149,7 +59036,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Clear text","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Upload","description":"Title in text editor block","component":"TextEditorSingleBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 
@@ -58171,7 +59058,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

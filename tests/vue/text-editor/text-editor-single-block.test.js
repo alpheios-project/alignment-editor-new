@@ -225,12 +225,7 @@ describe('text-editor-single-block.test.js', () => {
     })
 
     await cmp.vm.prepareDefaultTextEditorOptions()
-/*
-    expect(cmp.vm.text).toBeNull()
-    expect(cmp.vm.direction).toEqual('ltr')
-    expect(cmp.vm.language).toEqual('eng')
-    expect(cmp.vm.sourceType).toEqual('text')
-*/
+
     await cmp.vm.$textC.updateOriginDocSource({
       text: 'Huma',
       direction: 'rtl',

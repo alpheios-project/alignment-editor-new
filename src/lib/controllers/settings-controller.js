@@ -53,6 +53,10 @@ export default class SettingsController {
     return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
   }
 
+  get showSummaryPopup () {
+    return this.options.app && this.options.app.items.showSummaryPopup ? this.options.app.items.showSummaryPopup.currentValue : false
+  }
+
   /**
    * @returns {Boolean} - allowUpdateTokenWord optin value
    */

@@ -173,6 +173,14 @@ export default class Alignment {
     return this.originDocSource && Boolean(this.originDocSource.text)
   }
 
+  get originalLangData () {
+    return this.originDocSource.langData
+  }
+
+  get targetsLangData () {
+    return Object.keys(this.targets).map(targetId => this.targets[targetId].docSource.langData)
+  }
+
   /**
    * @returns { SourceText | null } target docSource
    */

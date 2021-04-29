@@ -220,7 +220,7 @@ export default {
       this.$emit('add-target')
       this.closeMenu()
     },
-
+    
     alignTexts () {
       this.$emit('align-texts')
       this.closeMenu()

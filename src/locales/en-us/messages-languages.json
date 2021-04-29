@@ -434,6 +434,11 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
+    "LANG_IKU": {
+      "message": "Inuktitut",
+      "description": "Language name for available languages list",
+      "component": "TextEditor"
+    },
     "LANG_ISL": {
       "message": "Icelandic",
       "description": "Language name for available languages list",
@@ -461,6 +466,11 @@
     },
     "LANG_GLE": {
       "message": "Irish (Modern)",
+      "description": "Language name for available languages list",
+      "component": "TextEditor"
+    },
+    "LANG_GLV": {
+      "message": "Manx",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -638,6 +648,13 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
+
+    "LANG_NAU": {
+      "message": "Nauru",
+      "description": "Language name for available languages list",
+      "component": "TextEditor"
+    },
+
     "LANG_NWC": {
       "message": "Newari",
       "description": "Language name for available languages list",

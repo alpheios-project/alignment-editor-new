@@ -6,7 +6,7 @@
       <main-menu 
         @download-data = "downloadData"
         @upload-data = "uploadData"
-        @align-texts = "alignTexts"
+        @align-texts = "showSummaryPopup"
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
@@ -23,11 +23,14 @@
       <notification-bar />
       <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
       <options-block v-show="shownOptionsBlock" />
-      <text-editor v-show="showSourceTextEditorBlock"
+      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock"
       />
       <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor"
+      />
+
+      <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
       />
   </div>
 </template>
@@ -38,6 +41,8 @@ import Alignment from '@/lib/data/alignment'
 
 import InitialScreen from '@/vue/initial-screen.vue'
 import MainMenu from '@/vue/main-menu.vue'
+import SummaryPopup from '@/vue/summary-popup.vue'
+
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
@@ -57,7 +62,8 @@ export default {
     notificationBar: NotificationBar,
     optionsBlock: OptionsBlock,
     navbarIcon: NavbarIcon,
-    initialScreen: InitialScreen
+    initialScreen: InitialScreen,
+    summaryPopup: SummaryPopup
   },
   data () {
     return {     
@@ -70,7 +76,10 @@ export default {
       pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
       renderTokensEditor: 1,
-      updateCurrentPage: 'initial-screen'
+      updateCurrentPage: 'initial-screen',
+
+      showSummaryModal: false,
+      showOnlyWaitingSummary: false
     }
   },
   computed: {
@@ -118,11 +127,17 @@ export default {
     undoAction () {
       this.$historyC.undo()
     },
+
+    showSummaryPopup () {
+      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
+      this.showSummaryModal = true
+    },
     /**
      * Starts align workflow
      */
     async alignTexts () {
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
+      this.showSummaryModal = false
       if (result) {
         this.showAlignmentGroupsEditor()
       }

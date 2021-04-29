@@ -1,31 +1,46 @@
 <template>
   <div class="alpheios-alignment-editor-text-blocks-single" v-show="dataUpdated" :id="containerId">
-      <p class="alpheios-alignment-editor-text-blocks-single__title">{{ indexData }}{{ textBlockTitle }}
+      <p class="alpheios-alignment-editor-text-blocks-single__title">
+        <span class="alpheios-alignment-editor-text-blocks-single__title-text">{{ indexData }}{{ textBlockTitle }}</span>
+        <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
+          <plus-icon />
+        </span>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
           <delete-icon />
         </span>
       </p>
       <div v-show="showTypeUploadButtons">
-        <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__typetext"
-            @click="selectTypeText">
-            {{ l10n.getMsgS('TEXT_SINGLE_TYPE_BUTTON') }}
-        </button>
+        <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      
       <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
-                    :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
-                    :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
-                    v-show="showTextProps || showUploadMenu"/>      
+            :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
+            :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
+            v-show="showTextProps || showUploadMenu"/>       
+     
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
-        <p class="alpheios-alignment-editor-text-blocks-single__characters" 
+        <p class="alpheios-alignment-editor-text-blocks-info-line" 
           :class = "charactersClasses">
-          {{ charactersText }}
+          <span class="alpheios-alignment-editor-text-blocks-single__characters">{{ charactersText }}</span>
+
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps">
+            {{ language }}
+          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showTextProps && !isLanguageDetected">
+            <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
+              <no-lang-detected-icon />
+            </tooltip>
+          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="isEmptyMetadata">
+            <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="top">
+              <no-metadata-icon />
+            </tooltip>
+          </span>
         </p>
         <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
                   :disabled="!docSourceEditAvailable" >
@@ -48,6 +63,9 @@
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
+import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
+import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
+import PlusIcon from '@/inline-icons/plus.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
@@ -59,6 +77,7 @@ import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
+import Tooltip from '@/vue/common/tooltip.vue'
 
 import Langs from '@/lib/data/langs/langs.js'
 
@@ -85,12 +104,16 @@ export default {
   },
   components: {
     deleteIcon: DeleteIcon,
+    noMetadataIcon: NoMetadataIcon,
+    noLangDetectedIcon: NoLangDetectedIcon,
+    plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
     actionsMenu: ActionsMenu,
     metadataBlock: MetadataBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
-    languageOptionsBlock: LanguageOptionsBlock
+    languageOptionsBlock: LanguageOptionsBlock,
+    tooltip: Tooltip
   },
   data () {
     return {
@@ -101,7 +124,7 @@ export default {
       showMetadata: false,
       showTypeUploadButtons: true,
 
-      showTypeTextBlock: false,
+      showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
       showOnlyMetadata: true,
@@ -250,6 +273,17 @@ export default {
 
     updatedLocalOptions () {
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
+    },
+    isEmptyMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+    },
+    isLanguageDetected () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.alignmentUpdated && docSource && docSource.detectedLang
+    },
+    showAddTranslation () {
+      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     }
   },
   methods: {
@@ -257,7 +291,6 @@ export default {
       this.showMetadata = false
       this.showTypeUploadButtons = true
 
-      this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -274,7 +307,6 @@ export default {
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        this.showTypeTextBlock = true
         this.showOnlyMetadata = true
       }
     },
@@ -288,7 +320,6 @@ export default {
       await this.updateText()
 
       this.showTypeUploadButtons = true
-      this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -316,6 +347,7 @@ export default {
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
+          this.showTypeUploadButtons = false
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
@@ -361,18 +393,13 @@ export default {
       this.showMetadata = !this.showMetadata
     },
 
-    selectTypeText () {
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
-      this.showTypeUploadButtons = false
-    },
-
     selectUploadText () { 
       this.showUploadMenu = true
       this.showUploadBlockFlag++
 
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
+      this.showClearTextFlag++ 
     }
   }
 }
@@ -393,14 +420,51 @@ export default {
             margin-bottom: 10px;
         }
 
-        p.alpheios-alignment-editor-text-blocks-single__characters {
+        p.alpheios-alignment-editor-text-blocks-info-line {
+          margin: 0;
+
+          &:before,
+          &:after {
+            clear: both;
+            content: '';
+            display: table;
+          }
+        }
+        span.alpheios-alignment-editor-text-blocks-single__characters {
           color: #888;
           font-size: 90%;
-          margin: 0;
+          display: block;
+          float: left;
+          padding: 10px 0;
         }
+        span.alpheios-alignment-editor-text-blocks-single__icons {
+          display: block;
+          float: right;
+          padding: 5px;
 
+          svg {
+            display: block;
+            width: 30px;
+            height: 30px;
+            stroke: #99002a;
+            fill: transparent;
+          }
+        }
         p.alpheios-alignment-editor-red {
           color: #99002a;
+        }
+
+        .alpheios-alignment-editor-text-blocks-single__lang-icon {
+          display: block;
+          float: right;
+
+          font-weight: bold;
+          padding: 3px;
+          border: 2px solid #000;
+          border-radius: 30px;
+          font-size: 13px;
+          margin-top: 5px;
+          margin-left: 3px;
         }
     }
 
@@ -418,6 +482,19 @@ export default {
       top: 0;
 
       position: absolute;
+
+      cursor: pointer;
+      svg {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .alpheios-alignment-editor-add-translation {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
 
       cursor: pointer;
       svg {
@@ -462,6 +539,25 @@ export default {
       .alpheios-alignment-select, 
       .alpheios-alignment-radio-block {
         width: auto;
+      }
+    }
+
+    .alpheios-alignment-editor-text-blocks-single__type-label {
+      display: inline-block;
+      padding-right: 15px;
+    }
+
+    .alpheios-alignment-editor-text-blocks-single__title {
+      position: relative;
+
+      .alpheios-alignment-editor-text-blocks-single__title-text {
+        display: inline-block; 
+        padding-right: 15px;
+      }
+
+      .alpheios-alignment-editor-add-translation {
+        position: relative;
+        top: 5px;
       }
     }
 </style>

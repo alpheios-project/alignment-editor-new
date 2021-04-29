@@ -28,7 +28,6 @@
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
-
 export default {
   name: 'OptionsBlock',
   components: {

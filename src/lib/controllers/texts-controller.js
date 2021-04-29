@@ -406,4 +406,12 @@ export default class TextsController {
   removeDetectedFlag (textType, docSourceId) {
     return this.alignment.removeDetectedFlag(textType, docSourceId)
   }
+
+  get originalLangData () {
+    return this.alignment.originalLangData
+  }
+
+  get targetsLangData () {
+    return this.alignment.targetsLangData
+  }
 }

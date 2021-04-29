@@ -102,7 +102,7 @@
     "component": "MainMenu"
   },
   "ACTIONS_CLEAR_TEXT_TITLE": {
-    "message": "Clear text",
+    "message": "Restart",
     "description": "Button in main menu",
     "component": "MainMenu"
   },
@@ -136,9 +136,59 @@
     "description": "Title in text editor block",
     "component": "TextEditorSingleBlock"
   },
-  "TEXT_SINGLE_UPLOAD_BUTTON": {
-    "message": "Upload",
+  "TEXT_SINGLE_TYPE_LABEL": {
+    "message": "Type or paste in text or",
     "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
+  },
+  "TEXT_SINGLE_UPLOAD_BUTTON": {
+    "message": "Choose text to upload",
+    "description": "Title in text editor block",
+    "component": "TextEditorSingleBlock"
+  },
+  "NO_METADATA_ICON": {
+    "message": "Metadata is empty for the text",
+    "description": "Tooltip for no metadata icon",
+    "component": "TextEditorSingleBlock"
+  },
+  "NO_LANG_DETECTED_ICON": {
+    "message": "Language was not detected, please recheck it manually.",
+    "description": "Tooltip for no lang detected icon",
+    "component": "TextEditorSingleBlock"
+  },
+  "SUMMARY_POPUP_HEADER": {
+    "message": "Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary",
+    "description": "Header in a summary popup component",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_TABEL_TH_ORIGINAL": {
+    "message": "Original",
+    "description": "Table title",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_TABEL_TH_TRANSLATION": {
+    "message": "Original",
+    "description": "Table title",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_SHOW_OPTION_LABEL": {
+    "message": "Show this popup for each text preparation",
+    "description": "Label for the option",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_OK_BUTTON": {
+    "message": "All Ok",
+    "description": "Button label",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_CANCEL_BUTTON": {
+    "message": "Cancel",
+    "description": "Button label",
+    "component": "SummaryPopup"
+  },
+  "ALIGN_TEXT_BUTTON_TOOLTIP": {
+    "message": "Start tokenizing texts",
+    "description": "Tooltip for align texts button",
     "component": "TextEditorSingleBlock"
   }
 }
