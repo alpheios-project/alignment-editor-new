@@ -1251,10 +1251,16 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-editor-summary-footer {
   text-align: center;
 }
+.alpheios-editor-summary-show-option {
+  padding-top: 10px;
+}
 .alpheios-editor-summary-show-option-item {
   width: 30px;
   display: inline-block;
   vertical-align: middle;
+}
+.alpheios-editor-summary-show-option-item .alpheios-alignment-option-item {
+  margin-bottom: 0;
 }
 .alpheios-editor-summary-show-option-label {
   display: inline-block;
