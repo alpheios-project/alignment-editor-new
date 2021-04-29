@@ -30,7 +30,7 @@
       <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor"
       />
 
-      <summary-popup :showModal="showSummaryModal" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
+      <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
       />
   </div>
 </template>
@@ -78,7 +78,8 @@ export default {
       renderTokensEditor: 1,
       updateCurrentPage: 'initial-screen',
 
-      showSummaryModal: false
+      showSummaryModal: false,
+      showOnlyWaitingSummary: false
     }
   },
   computed: {
@@ -127,7 +128,8 @@ export default {
       this.$historyC.undo()
     },
 
-    showSummaryPopup () {
+    async showSummaryPopup () {
+      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
       this.showSummaryModal = true
     },
     /**

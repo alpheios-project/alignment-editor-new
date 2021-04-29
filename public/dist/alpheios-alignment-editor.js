@@ -38488,19 +38488,9 @@ class AlignedGroupsController {
     }
 
     this.alignment = alignment
-    /*
-    NotificationSingleton.addNotification({
-      text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_STARTED'),
-      type: NotificationSingleton.types.INFO
-    })
-*/
+
     const resultAlignment = await this.alignment.createAlignedTexts(useSpecificEnglishTokenizer)
-    /*
-    NotificationSingleton.addNotification({
-      text: L10nSingleton.getMsgS('ALIGNED_CONTROLLER_TOKENIZATION_FINISHED'),
-      type: NotificationSingleton.types.INFO
-    })
-*/
+
     if (!resultAlignment) {
       this.alignment.clearAlignedTexts() // notification is alredy published
       this.store.commit('incrementAlignmentUpdated')
@@ -39445,6 +39435,10 @@ class SettingsController {
 
   get useSpecificEnglishTokenizer () {
     return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
+  }
+
+  get showSummaryPopup () {
+    return this.options.app && this.options.app.items.showSummaryPopup ? this.options.app.items.showSummaryPopup.currentValue : false
   }
 
   /**
@@ -44042,10 +44036,11 @@ class SourceText {
 
   get langData () {
     const textPart = this.text.substr(0, 10)
+    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__.default.defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
       langCode: this.lang,
-      langName: _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__.default.defineLangName(this.lang)
+      langName: langName || this.lang
     }
   }
 
@@ -44968,7 +44963,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-popup.20210428618" : 0
+    return  true ? "i344-summary-popup.20210429306" : 0
   }
 
   static get libName () {
@@ -46350,7 +46345,8 @@ __webpack_require__.r(__webpack_exports__);
       renderTokensEditor: 1,
       updateCurrentPage: 'initial-screen',
 
-      showSummaryModal: false
+      showSummaryModal: false,
+      showOnlyWaitingSummary: false
     }
   },
   computed: {
@@ -46399,7 +46395,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$historyC.undo()
     },
 
-    showSummaryPopup () {
+    async showSummaryPopup () {
+      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
       this.showSummaryModal = true
     },
     /**
@@ -47513,7 +47510,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OptionsBlock',
   components: {
@@ -47560,6 +47556,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
 //
 //
 //
@@ -47598,6 +47595,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -47607,11 +47616,17 @@ __webpack_require__.r(__webpack_exports__);
   name: 'SummaryPopup',
   components: {
     modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   props: {
     showModal: {
-    type: Boolean,
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    showOnlyWaiting: {
+      type: Boolean,
       required: false,
       default: false
     }
@@ -47619,13 +47634,16 @@ __webpack_require__.r(__webpack_exports__);
   data () {
     return {
       contentAvailable: true,
-      showWaiting: false
+      showWaiting: false,
+      showLabelTextOpt: false
     }
   },
   watch: {
     showModal () {
       if (!this.showModal) {
         this.showWaiting = false
+      } else if (this.showOnlyWaiting) {
+        this.startAlign()
       }
     }
   },
@@ -47638,6 +47656,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     targetsLangData () {
       return this.$store.state.alignmentUpdated && this.$textC.targetsLangData
+    },
+    showSummaryPopupOpt () {
+      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
     }
   },
   methods: {
@@ -53892,7 +53913,10 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("summary-popup", {
-        attrs: { showModal: _vm.showSummaryModal },
+        attrs: {
+          showModal: _vm.showSummaryModal,
+          showOnlyWaiting: _vm.showOnlyWaitingSummary
+        },
         on: {
           closeModal: function($event) {
             _vm.showSummaryModal = false
@@ -55331,7 +55355,7 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c(
-                        "table",
+                        "div",
                         {
                           directives: [
                             {
@@ -55341,40 +55365,72 @@ var render = function() {
                               expression: "!showWaiting"
                             }
                           ],
-                          staticClass: "alpheios-editor-langs-table"
+                          staticClass: "alpheios-editor-summary-content"
                         },
                         [
-                          _c("tr", [
-                            _c("th", { attrs: { colspan: "2" } }, [
-                              _vm._v("Original")
-                            ]),
-                            _vm._v(" "),
-                            _c("th", { attrs: { colspan: "2" } }, [
-                              _vm._v("Translation")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.targetsLangData, function(
-                            langData,
-                            langIndex
-                          ) {
-                            return _c("tr", { key: langIndex }, [
-                              langIndex > 0
-                                ? _c("td", { attrs: { colspan: "2" } })
-                                : _vm._e(),
+                          _c(
+                            "table",
+                            { staticClass: "alpheios-editor-langs-table" },
+                            [
+                              _c("tr", [
+                                _c("th", { attrs: { colspan: "2" } }, [
+                                  _vm._v("Original")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { attrs: { colspan: "2" } }, [
+                                  _vm._v("Translation")
+                                ])
+                              ]),
                               _vm._v(" "),
-                              langIndex === 0
-                                ? _c("td", [
+                              _vm._l(_vm.targetsLangData, function(
+                                langData,
+                                langIndex
+                              ) {
+                                return _c("tr", { key: langIndex }, [
+                                  langIndex > 0
+                                    ? _c("td", { attrs: { colspan: "2" } })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  langIndex === 0
+                                    ? _c("td", [
+                                        _vm._v(
+                                          "\n              " +
+                                            _vm._s(
+                                              _vm.originalLangData.textPart
+                                            ) +
+                                            "\n            "
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  langIndex === 0
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "alpheios-editor-langs-table_lang"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n              " +
+                                              _vm._s(
+                                                _vm.originalLangData.langName
+                                              ) +
+                                              "\n            "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c("td", [
                                     _vm._v(
-                                      "\n            " +
-                                        _vm._s(_vm.originalLangData.textPart) +
-                                        "\n          "
+                                      "\n              " +
+                                        _vm._s(langData.textPart) +
+                                        "\n            "
                                     )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              langIndex === 0
-                                ? _c(
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
                                     "td",
                                     {
                                       staticClass:
@@ -55382,42 +55438,56 @@ var render = function() {
                                     },
                                     [
                                       _vm._v(
-                                        "\n            " +
-                                          _vm._s(
-                                            _vm.originalLangData.langName
-                                          ) +
-                                          "\n          "
+                                        "\n              " +
+                                          _vm._s(langData.langName) +
+                                          "\n            "
                                       )
                                     ]
                                   )
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  "\n            " +
-                                    _vm._s(langData.textPart) +
-                                    "\n          "
-                                )
-                              ]),
-                              _vm._v(" "),
+                                ])
+                              })
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "alpheios-editor-summary-show-option"
+                            },
+                            [
                               _c(
-                                "td",
+                                "span",
                                 {
                                   staticClass:
-                                    "alpheios-editor-langs-table_lang"
+                                    "alpheios-editor-summary-show-option-item"
+                                },
+                                [
+                                  _c("option-item-block", {
+                                    attrs: {
+                                      optionItem: _vm.showSummaryPopupOpt,
+                                      showLabelText: _vm.showLabelTextOpt
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "alpheios-editor-summary-show-option-label"
                                 },
                                 [
                                   _vm._v(
-                                    "\n            " +
-                                      _vm._s(langData.langName) +
-                                      "\n          "
+                                    "Show this popup for each text preparation"
                                   )
                                 ]
                               )
-                            ])
-                          })
-                        ],
-                        2
+                            ]
+                          )
+                        ]
                       )
                     ]
                   },
@@ -55428,29 +55498,33 @@ var render = function() {
               key: "footer",
               fn: function() {
                 return [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      on: { click: _vm.startAlign }
-                    },
-                    [_vm._v("All OK")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      on: {
-                        click: function($event) {
-                          return _vm.$emit("closeModal")
+                  _c("div", { staticClass: "alpheios-editor-summary-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        attrs: { disabled: _vm.showWaiting },
+                        on: { click: _vm.startAlign }
+                      },
+                      [_vm._v("All OK")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        attrs: { disabled: _vm.showWaiting },
+                        on: {
+                          click: function($event) {
+                            return _vm.$emit("closeModal")
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("Cancel")]
-                  )
+                      },
+                      [_vm._v("Cancel")]
+                    )
+                  ])
                 ]
               },
               proxy: true
@@ -58867,7 +58941,7 @@ module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","de
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
+module.exports = JSON.parse('{"domain":"alpheios-alignment-editor-app","version":"1","items":{"theme":{"defaultValue":"v1-theme","labelText":"CSS Theme","select":true,"values":[{"value":"standard-theme","text":"Standard Theme"},{"value":"v1-theme","text":"V1 Theme"}]},"tokenizer":{"defaultValue":"alpheiosRemoteTokenizer","labelText":"Tokenizer service","select":true,"values":[{"value":"alpheiosRemoteTokenizer","text":"Alpheios Remote Tokenizer"},{"value":"simpleLocalTokenizer","text":"Offline tokenizer"}]},"allowUpdateTokenWord":{"defaultValue":false,"labelText":"Allow update token word","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"maxCharactersPerText":{"defaultValue":5000,"labelText":"Max characters per text (recommended for performance)","number":true,"minValue":1,"maxValue":50000,"values":[]},"useSpecificEnglishTokenizer":{"defaultValue":false,"labelText":"Use language specific tokenizer for English","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]},"showSummaryPopup":{"defaultValue":true,"labelText":"Show language check before text would be prepared","boolean":true,"values":[{"value":true,"text":"Yes"},{"value":false,"text":"No"}]}}}');
 
 /***/ }),
 

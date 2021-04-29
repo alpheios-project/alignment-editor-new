@@ -1184,6 +1184,46 @@ button.alpheios-app-menu-link:-moz-focusring {
   height: 100%;
   display: block;
 }
+.alpheios-alignment-option-item {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.alpheios-alignment-option-item > label {
+  width: 48%;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item input.alpheios-alignment-input,
+.alpheios-alignment-option-item .alpheios-alignment-select,
+.alpheios-alignment-option-item .alpheios-alignment-radio-block {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item p.alpheios-alignment-radio-block {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.alpheios-alignment-option-item .alpheios-alignment-select-input__select-container span,
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input-container span {
+  min-width: 160px;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item .alpheios-alignment-select-input__select,
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input {
+  width: 80%;
+  max-width: 300px;
+  display: inline-block;
+  vertical-align: top;
+}
+.alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
+  font-size: 90%;
+  color: #888;
+}
 .alpheios-editor-summary-header {
   font-weight: bold;
 }
@@ -1207,6 +1247,18 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-editor-langs-table .alpheios-editor-langs-table_lang {
   font-weight: bold;
+}
+.alpheios-editor-summary-footer {
+  text-align: center;
+}
+.alpheios-editor-summary-show-option-item {
+  width: 30px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.alpheios-editor-summary-show-option-label {
+  display: inline-block;
+  vertical-align: middle;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
@@ -1281,46 +1333,6 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-alignment-notification-bar .alpheios-alignment-notification-bar-message.alpheios-alignment-notification-bar-message___info .alpheios-alignment-notification-bar__close-btn:active {
   fill: #1B374F;
   stroke: #1B374F;
-}
-.alpheios-alignment-option-item {
-  display: inline-block;
-  width: 100%;
-  vertical-align: top;
-  padding-right: 20px;
-  margin-bottom: 20px;
-}
-.alpheios-alignment-option-item > label {
-  width: 48%;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item input.alpheios-alignment-input,
-.alpheios-alignment-option-item .alpheios-alignment-select,
-.alpheios-alignment-option-item .alpheios-alignment-radio-block {
-  display: inline-block;
-  width: 50%;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item p.alpheios-alignment-radio-block {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.alpheios-alignment-option-item .alpheios-alignment-select-input__select-container span,
-.alpheios-alignment-option-item .alpheios-alignment-select-input__input-container span {
-  min-width: 160px;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item .alpheios-alignment-select-input__select,
-.alpheios-alignment-option-item .alpheios-alignment-select-input__input {
-  width: 80%;
-  max-width: 300px;
-  display: inline-block;
-  vertical-align: top;
-}
-.alpheios-alignment-option-item .alpheios-alignment-select-input__input-description {
-  font-size: 90%;
-  color: #888;
 }
 .alpheios-editor-content-pagination {
   margin-bottom: 10px;

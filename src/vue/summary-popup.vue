@@ -6,33 +6,44 @@
 
         <template v-slot:body v-if="contentAvailable">
           <waiting v-show="showWaiting"/>
-          <table class="alpheios-editor-langs-table" v-show="!showWaiting">
-            <tr>
-              <th colspan="2">Original</th>
-              <th colspan="2">Translation</th>
-            </tr>
-            <tr v-for="(langData, langIndex) in targetsLangData" :key="langIndex">
-              <td colspan="2" v-if="langIndex > 0"></td>
-              <td v-if="langIndex === 0">
-                {{ originalLangData.textPart }}
-              </td>
-              <td v-if="langIndex === 0" class="alpheios-editor-langs-table_lang">
-                {{ originalLangData.langName }}
-              </td>
+          <div class="alpheios-editor-summary-content" v-show="!showWaiting">
+            <table class="alpheios-editor-langs-table">
+              <tr>
+                <th colspan="2">Original</th>
+                <th colspan="2">Translation</th>
+              </tr>
+              <tr v-for="(langData, langIndex) in targetsLangData" :key="langIndex">
+                <td colspan="2" v-if="langIndex > 0"></td>
+                <td v-if="langIndex === 0">
+                  {{ originalLangData.textPart }}
+                </td>
+                <td v-if="langIndex === 0" class="alpheios-editor-langs-table_lang">
+                  {{ originalLangData.langName }}
+                </td>
 
-              <td>
-                {{ langData.textPart }}
-              </td>
-              <td class="alpheios-editor-langs-table_lang">
-                {{ langData.langName }}
-              </td>
-            </tr>
-          </table>
+                <td>
+                  {{ langData.textPart }}
+                </td>
+                <td class="alpheios-editor-langs-table_lang">
+                  {{ langData.langName }}
+                </td>
+              </tr>
+            </table>
+
+            <div class="alpheios-editor-summary-show-option">
+              <span class="alpheios-editor-summary-show-option-item">
+                <option-item-block :optionItem = "showSummaryPopupOpt" :showLabelText = "showLabelTextOpt" />
+              </span>
+              <span class="alpheios-editor-summary-show-option-label">Show this popup for each text preparation</span>
+            </div>
+          </div>
         </template>
 
         <template v-slot:footer>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign">All OK</button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Cancel</button>
+          <div class="alpheios-editor-summary-footer">
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" :disabled = "showWaiting">All OK</button>
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" :disabled = "showWaiting">Cancel</button>
+          </div>
         </template>
     </modal>
 </template>
@@ -40,16 +51,23 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Modal from '@/vue/common/modal.vue'
 import Waiting from '@/vue/common/waiting.vue'
+import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
 export default {
   name: 'SummaryPopup',
   components: {
     modal: Modal,
-    waiting: Waiting
+    waiting: Waiting,
+    optionItemBlock: OptionItemBlock
   },
   props: {
     showModal: {
-    type: Boolean,
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    showOnlyWaiting: {
+      type: Boolean,
       required: false,
       default: false
     }
@@ -57,13 +75,16 @@ export default {
   data () {
     return {
       contentAvailable: true,
-      showWaiting: false
+      showWaiting: false,
+      showLabelTextOpt: false
     }
   },
   watch: {
     showModal () {
       if (!this.showModal) {
         this.showWaiting = false
+      } else if (this.showOnlyWaiting) {
+        this.startAlign()
       }
     }
   },
@@ -76,6 +97,9 @@ export default {
     },
     targetsLangData () {
       return this.$store.state.alignmentUpdated && this.$textC.targetsLangData
+    },
+    showSummaryPopupOpt () {
+      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
     }
   },
   methods: {
@@ -115,5 +139,27 @@ export default {
     .alpheios-editor-langs-table_lang {
       font-weight: bold;
     }
+  }
+
+  .alpheios-editor-summary-footer {
+    text-align: center;
+  }
+
+  .alpheios-editor-summary-show-option {
+    padding-top: 10px;
+  }
+
+  .alpheios-editor-summary-show-option-item {
+    width: 30px;
+    display: inline-block;
+    vertical-align: middle;
+
+    .alpheios-alignment-option-item {
+      margin-bottom: 0;
+    }
+  }
+  .alpheios-editor-summary-show-option-label {
+    display: inline-block;
+    vertical-align: middle;
   }
 </style>
