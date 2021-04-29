@@ -291,7 +291,6 @@ export default {
       this.showMetadata = false
       this.showTypeUploadButtons = true
 
-      // this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -308,7 +307,6 @@ export default {
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        // this.showTypeTextBlock = true
         this.showOnlyMetadata = true
       }
     },
@@ -322,7 +320,6 @@ export default {
       await this.updateText()
 
       this.showTypeUploadButtons = true
-      // this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true

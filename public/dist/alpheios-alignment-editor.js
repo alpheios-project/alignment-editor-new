@@ -44963,7 +44963,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-popup.20210429531" : 0
+    return  true ? "i344-summary-popup.20210429625" : 0
   }
 
   static get libName () {
@@ -46395,7 +46395,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$historyC.undo()
     },
 
-    async showSummaryPopup () {
+    showSummaryPopup () {
       this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
       this.showSummaryModal = true
     },
@@ -48643,7 +48643,6 @@ __webpack_require__.r(__webpack_exports__);
       this.showMetadata = false
       this.showTypeUploadButtons = true
 
-      // this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true
@@ -48660,7 +48659,6 @@ __webpack_require__.r(__webpack_exports__);
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        // this.showTypeTextBlock = true
         this.showOnlyMetadata = true
       }
     },
@@ -48674,7 +48672,6 @@ __webpack_require__.r(__webpack_exports__);
       await this.updateText()
 
       this.showTypeUploadButtons = true
-      // this.showTypeTextBlock = false
       this.showTextProps = false
       this.showUploadMenu = false
       this.showOnlyMetadata = true

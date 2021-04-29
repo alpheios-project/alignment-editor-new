@@ -128,7 +128,7 @@ export default {
       this.$historyC.undo()
     },
 
-    async showSummaryPopup () {
+    showSummaryPopup () {
       this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
       this.showSummaryModal = true
     },
