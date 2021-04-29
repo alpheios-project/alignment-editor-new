@@ -27,6 +27,15 @@
         <p class="alpheios-alignment-editor-text-blocks-info-line" 
           :class = "charactersClasses">
           <span class="alpheios-alignment-editor-text-blocks-single__characters">{{ charactersText }}</span>
+
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps">
+            {{ language }}
+          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showTextProps && !isLanguageDetected">
+            <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
+              <no-lang-detected-icon />
+            </tooltip>
+          </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="isEmptyMetadata">
             <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="top">
               <no-metadata-icon />
@@ -55,6 +64,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import DeleteIcon from '@/inline-icons/delete.svg'
 import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
+import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
 
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
@@ -95,6 +105,7 @@ export default {
   components: {
     deleteIcon: DeleteIcon,
     noMetadataIcon: NoMetadataIcon,
+    noLangDetectedIcon: NoLangDetectedIcon,
     plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
     actionsMenu: ActionsMenu,
@@ -267,6 +278,10 @@ export default {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
     },
+    isLanguageDetected () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.alignmentUpdated && docSource && docSource.detectedLang
+    },
     showAddTranslation () {
       return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     }
@@ -380,14 +395,7 @@ export default {
     toggleMetadata () {
       this.showMetadata = !this.showMetadata
     },
-/*
-    selectTypeText () {
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
-      this.showTypeUploadButtons = false
-      this.showClearTextFlag++ 
-    },
-*/
+
     selectUploadText () { 
       this.showUploadMenu = true
       this.showUploadBlockFlag++
@@ -447,6 +455,19 @@ export default {
         }
         p.alpheios-alignment-editor-red {
           color: #99002a;
+        }
+
+        .alpheios-alignment-editor-text-blocks-single__lang-icon {
+          display: block;
+          float: right;
+
+          font-weight: bold;
+          padding: 3px;
+          border: 2px solid #000;
+          border-radius: 30px;
+          font-size: 13px;
+          margin-top: 5px;
+          margin-left: 3px;
         }
     }
 

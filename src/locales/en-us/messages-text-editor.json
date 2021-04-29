@@ -151,9 +151,39 @@
     "description": "Tooltip for no metadata icon",
     "component": "TextEditorSingleBlock"
   },
+  "NO_LANG_DETECTED_ICON": {
+    "message": "Language was not detected, please recheck it manually.",
+    "description": "Tooltip for no lang detected icon",
+    "component": "TextEditorSingleBlock"
+  },
   "SUMMARY_POPUP_HEADER": {
     "message": "Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary",
     "description": "Header in a summary popup component",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_TABEL_TH_ORIGINAL": {
+    "message": "Original",
+    "description": "Table title",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_TABEL_TH_TRANSLATION": {
+    "message": "Original",
+    "description": "Table title",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_SHOW_OPTION_LABEL": {
+    "message": "Show this popup for each text preparation",
+    "description": "Label for the option",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_OK_BUTTON": {
+    "message": "All Ok",
+    "description": "Button label",
+    "component": "SummaryPopup"
+  },
+  "SUMMARY_POPUP_CANCEL_BUTTON": {
+    "message": "Cancel",
+    "description": "Button label",
     "component": "SummaryPopup"
   },
   "ALIGN_TEXT_BUTTON_TOOLTIP": {

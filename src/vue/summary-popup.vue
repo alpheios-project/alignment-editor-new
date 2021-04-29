@@ -9,8 +9,8 @@
           <div class="alpheios-editor-summary-content" v-show="!showWaiting">
             <table class="alpheios-editor-langs-table">
               <tr>
-                <th colspan="2">Original</th>
-                <th colspan="2">Translation</th>
+                <th colspan="2">{{ l10n.getMsgS('SUMMARY_POPUP_TABEL_TH_ORIGINAL') }}</th>
+                <th colspan="2">{{ l10n.getMsgS('SUMMARY_POPUP_TABEL_TH_TRANSLATION') }}</th>
               </tr>
               <tr v-for="(langData, langIndex) in targetsLangData" :key="langIndex">
                 <td colspan="2" v-if="langIndex > 0"></td>
@@ -34,15 +34,15 @@
               <span class="alpheios-editor-summary-show-option-item">
                 <option-item-block :optionItem = "showSummaryPopupOpt" :showLabelText = "showLabelTextOpt" />
               </span>
-              <span class="alpheios-editor-summary-show-option-label">Show this popup for each text preparation</span>
+              <span class="alpheios-editor-summary-show-option-label">{{ l10n.getMsgS('SUMMARY_POPUP_SHOW_OPTION_LABEL') }}</span>
             </div>
           </div>
         </template>
 
         <template v-slot:footer>
           <div class="alpheios-editor-summary-footer">
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" :disabled = "showWaiting">All OK</button>
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" :disabled = "showWaiting">Cancel</button>
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" :disabled = "showWaiting">{{ l10n.getMsgS('SUMMARY_POPUP_OK_BUTTON') }}</button>
+            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" :disabled = "showWaiting">{{ l10n.getMsgS('SUMMARY_POPUP_CANCEL_BUTTON') }}</button>
           </div>
         </template>
     </modal>
