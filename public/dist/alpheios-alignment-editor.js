@@ -44963,7 +44963,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-popup.20210429625" : 0
+    return  true ? "i345-delete-button.20210430368" : 0
   }
 
   static get libName () {
@@ -47684,7 +47684,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
 //
 //
 //
@@ -47699,27 +47698,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ActionsMenuTextEditor',
-  components: {
-    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_1__.default
-  },
   props: {
     textType: {
       type: String,
@@ -47734,11 +47717,6 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: false
     },
-    showUploadBlockFlag: {
-      type: Number,
-      required: false,
-      default: 1
-    },
     showClearTextFlag: {
       type: Number,
       required: false,
@@ -47747,19 +47725,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   data () {
     return {
-      showUploadBlock: false,
       shownMetadataBlock: false,
-      showModal: false,
       showClearText: false
     }
   },
   watch: {
-    '$store.state.alignmentRestarted' () {
-      this.$refs.fileupload.value = ''
-    },
-    'showUploadBlockFlag' () {
-      this.uploadTexts()
-    },
     'showClearTextFlag' () {
       this.showClearText = true
     }
@@ -47783,45 +47753,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    downloadSingle () {
-      this.$textC.downloadSingleSourceText(this.textType, this.textId)
-    },
-    /**
-     * Shows/Hides block with choose file input
-     */
-    uploadTexts () {
-      this.showUploadBlock = !this.showUploadBlock
-    },
-
     toggleMetadata () {
       this.shownMetadataBlock = !this.shownMetadataBlock
       this.$emit('toggle-metadata')
-    },
-
-    /**
-     * Creates FileReader and passes data from file to App component for parsing
-     */
-    loadTextFromFile(ev) {
-      const file = ev.target.files[0]     
-      if (!file) { return }
-      const extension = file.name.split('.').pop()
-
-      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
-
-      const reader = new FileReader()
-
-      reader.onload = e => {
-        this.$emit('upload-single', { text: e.target.result, extension })
-        this.showUploadBlock = false
-      }
-      reader.readAsText(file)
-
-      this.$refs.fileupload.value = ''
-    },
-
-    uploadFromDTSAPI (filedata) {
-      this.$emit('upload-single', { text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
-      this.showUploadBlock = false
     },
 
     clearText () {
@@ -48349,7 +48283,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
 /* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -48412,6 +48347,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -48465,7 +48410,8 @@ __webpack_require__.r(__webpack_exports__);
     tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
     directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
     languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_11__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__.default
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__.default,
+    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__.default
   },
   data () {
     return {
@@ -48479,8 +48425,8 @@ __webpack_require__.r(__webpack_exports__);
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
+      showModalDTS: false,
       showOnlyMetadata: true,
-      showUploadBlockFlag: 1,
       showClearTextFlag: 1,
 
       updatedLocalOptionsFlag: 1
@@ -48583,7 +48529,7 @@ __webpack_require__.r(__webpack_exports__);
      * Defines if we have multiple target texts then show delete index
      */
     showDeleteIcon () {
-      return (this.showIndex || (this.text && (this.text.length > 0))) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return this.docSourceEditAvailable && (this.showIndex || (this.text && (this.text.length > 0)))
     },
     /**
      * Blocks changes if aligned version is already created and aligned groups are started
@@ -48636,6 +48582,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showAddTranslation () {
       return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
+    },
+    showActionMenu () {
+      return this.$store.state.alignmentUpdated && (this.showUploadMenu || this.showTextProps)
     }
   },
   methods: {
@@ -48668,6 +48617,7 @@ __webpack_require__.r(__webpack_exports__);
      */
     async restartTextEditor () {
       this.text = ''
+      this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
       await this.updateText()
 
@@ -48707,7 +48657,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_13__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
       this.$store.commit('incrementOptionsUpdated')
     },
 
@@ -48746,13 +48696,40 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     selectUploadText () { 
+      // console.info('selectUploadText - started')
+      // this.showUploadBlockFlag++
       this.showUploadMenu = true
-      this.showUploadBlockFlag++
 
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
       this.showClearTextFlag++ 
-    }
+    },
+
+    /**
+     * Creates FileReader and passes data from file to App component for parsing
+     */
+    loadTextFromFile(ev) {
+      const file = ev.target.files[0]     
+      if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
+      const reader = new FileReader()
+
+      reader.onload = e => {
+        this.uploadSingle({ text: e.target.result, extension })
+        this.showUploadMenu = false
+      }
+      reader.readAsText(file)
+
+      this.$refs.fileupload.value = ''
+    },
+
+    uploadFromDTSAPI (filedata) {
+      this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
+      this.showUploadMenu = false
+    },
   }
 });
 
@@ -55592,135 +55569,55 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "alpheios-alignment-editor-actions-menu" },
-    [
-      _c(
-        "div",
-        { staticClass: "alpheios-alignment-editor-actions-menu__buttons" },
-        [
-          _c(
-            "button",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.onlyMetadata,
-                  expression: "!onlyMetadata"
-                }
-              ],
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: {
-                id: "alpheios-actions-menu-button__upload",
-                disabled: !_vm.docSourceEditAvailable
-              },
-              on: { click: _vm.uploadTexts }
-            },
-            [
-              _vm._v(
-                "\n        " +
-                  _vm._s(_vm.l10n.getMsgS("ACTIONS_UPLOAD_TITLE")) +
-                  "\n    "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.showClearText,
-                  expression: "showClearText"
-                }
-              ],
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: {
-                id: "alpheios-actions-menu-button__clear_text",
-                disabled: !_vm.docSourceEditAvailable
-              },
-              on: { click: _vm.clearText }
-            },
-            [
-              _vm._v(
-                "\n        " +
-                  _vm._s(_vm.l10n.getMsgS("ACTIONS_CLEAR_TEXT_TITLE")) +
-                  "\n    "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: {
-                id: "alpheios-actions-menu-button__metadata",
-                disabled: !_vm.metadataAvailable
-              },
-              on: { click: _vm.toggleMetadata }
-            },
-            [_vm._v("\n        " + _vm._s(_vm.toggleMetadataTitle) + "\n    ")]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.showUploadBlock && _vm.docSourceEditAvailable,
-              expression: "showUploadBlock && docSourceEditAvailable"
-            }
-          ],
-          staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
-        },
-        [
-          _c("input", {
-            ref: "fileupload",
-            attrs: { type: "file" },
-            on: { change: _vm.loadTextFromFile }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-              attrs: { id: "alpheios-actions-menu-button__metadata" },
-              on: {
-                click: function($event) {
-                  _vm.showModal = true
-                }
+  return _c("div", { staticClass: "alpheios-alignment-editor-actions-menu" }, [
+    _c(
+      "div",
+      { staticClass: "alpheios-alignment-editor-actions-menu__buttons" },
+      [
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showClearText,
+                expression: "showClearText"
               }
+            ],
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: {
+              id: "alpheios-actions-menu-button__clear_text",
+              disabled: !_vm.docSourceEditAvailable
             },
-            [_vm._v("\n          DTSAPI\n      ")]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("upload-dtsapi-block", {
-        attrs: { showModal: _vm.showModal },
-        on: {
-          closeModal: function($event) {
-            _vm.showModal = false
+            on: { click: _vm.clearText }
           },
-          uploadFromDTSAPI: _vm.uploadFromDTSAPI
-        }
-      })
-    ],
-    1
-  )
+          [
+            _vm._v(
+              "\n        " +
+                _vm._s(_vm.l10n.getMsgS("ACTIONS_CLEAR_TEXT_TITLE")) +
+                "\n    "
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+            attrs: {
+              id: "alpheios-actions-menu-button__metadata",
+              disabled: !_vm.metadataAvailable
+            },
+            on: { click: _vm.toggleMetadata }
+          },
+          [_vm._v("\n        " + _vm._s(_vm.toggleMetadataTitle) + "\n    ")]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56398,21 +56295,66 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.showTextProps || _vm.showUploadMenu,
-            expression: "showTextProps || showUploadMenu"
+            value: !this.showTypeUploadButtons,
+            expression: "!this.showTypeUploadButtons"
           }
         ],
         attrs: {
           "text-type": _vm.textType,
           "text-id": _vm.textId,
           onlyMetadata: _vm.showOnlyMetadata,
-          showUploadBlockFlag: _vm.showUploadBlockFlag,
           showClearTextFlag: _vm.showClearTextFlag
         },
         on: {
-          "upload-single": _vm.uploadSingle,
           "toggle-metadata": _vm.toggleMetadata,
           "clear-text": _vm.restartTextEditor
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showUploadMenu,
+              expression: "showUploadMenu"
+            }
+          ],
+          staticClass: "alpheios-alignment-editor-actions-menu__upload-block"
+        },
+        [
+          _c("input", {
+            ref: "fileupload",
+            attrs: { type: "file" },
+            on: { change: _vm.loadTextFromFile }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+              attrs: { id: "alpheios-actions-menu-button__metadata" },
+              on: {
+                click: function($event) {
+                  _vm.showModalDTS = true
+                }
+              }
+            },
+            [_vm._v("\n            DTSAPI\n        ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("upload-dtsapi-block", {
+        attrs: { showModal: _vm.showModalDTS },
+        on: {
+          closeModal: function($event) {
+            _vm.showModalDTS = false
+          },
+          uploadFromDTSAPI: _vm.uploadFromDTSAPI
         }
       }),
       _vm._v(" "),
