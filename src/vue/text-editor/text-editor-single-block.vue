@@ -16,11 +16,20 @@
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      <actions-menu :text-type = "textType" :text-id = "textId" @upload-single="uploadSingle" @toggle-metadata="toggleMetadata" 
-            :onlyMetadata = "showOnlyMetadata" :showUploadBlockFlag = "showUploadBlockFlag" 
+      <actions-menu :text-type = "textType" :text-id = "textId" @toggle-metadata="toggleMetadata" 
+            :onlyMetadata = "showOnlyMetadata"
             :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
-            v-show="showTextProps || showUploadMenu"/>       
-     
+            v-show="!this.showTypeUploadButtons"/>       
+      
+      <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
+          <input type="file" @change="loadTextFromFile" ref="fileupload">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
+              @click="showModalDTS = true">
+              DTSAPI
+          </button>
+      </div>
+      <upload-dtsapi-block :showModal="showModalDTS" @closeModal = "showModalDTS = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
+
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
@@ -78,6 +87,7 @@ import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 import Tooltip from '@/vue/common/tooltip.vue'
+import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
 
 import Langs from '@/lib/data/langs/langs.js'
 
@@ -113,7 +123,8 @@ export default {
     tokenizeOptionsBlock: TokenizeOptionsBlock,
     directionOptionsBlock: DirectionOptionsBlock,
     languageOptionsBlock: LanguageOptionsBlock,
-    tooltip: Tooltip
+    tooltip: Tooltip,
+    uploadDtsapiBlock: UploadDTSAPIBlock
   },
   data () {
     return {
@@ -127,8 +138,8 @@ export default {
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
+      showModalDTS: false,
       showOnlyMetadata: true,
-      showUploadBlockFlag: 1,
       showClearTextFlag: 1,
 
       updatedLocalOptionsFlag: 1
@@ -231,7 +242,7 @@ export default {
      * Defines if we have multiple target texts then show delete index
      */
     showDeleteIcon () {
-      return (this.showIndex || (this.text && (this.text.length > 0))) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return this.docSourceEditAvailable && (this.showIndex || (this.text && (this.text.length > 0)))
     },
     /**
      * Blocks changes if aligned version is already created and aligned groups are started
@@ -284,6 +295,9 @@ export default {
     },
     showAddTranslation () {
       return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
+    },
+    showActionMenu () {
+      return this.$store.state.alignmentUpdated && (this.showUploadMenu || this.showTextProps)
     }
   },
   methods: {
@@ -316,6 +330,7 @@ export default {
      */
     async restartTextEditor () {
       this.text = ''
+      this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
       await this.updateText()
 
@@ -394,13 +409,40 @@ export default {
     },
 
     selectUploadText () { 
+      // console.info('selectUploadText - started')
+      // this.showUploadBlockFlag++
       this.showUploadMenu = true
-      this.showUploadBlockFlag++
 
       this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
       this.showClearTextFlag++ 
-    }
+    },
+
+    /**
+     * Creates FileReader and passes data from file to App component for parsing
+     */
+    loadTextFromFile(ev) {
+      const file = ev.target.files[0]     
+      if (!file) { return }
+      const extension = file.name.split('.').pop()
+
+      if (!this.$textC.checkUploadedFileByExtension(extension, false)) { return }
+
+      const reader = new FileReader()
+
+      reader.onload = e => {
+        this.uploadSingle({ text: e.target.result, extension })
+        this.showUploadMenu = false
+      }
+      reader.readAsText(file)
+
+      this.$refs.fileupload.value = ''
+    },
+
+    uploadFromDTSAPI (filedata) {
+      this.uploadSingle({ text: filedata.tei, lang: filedata.lang, extension: filedata.extension })
+      this.showUploadMenu = false
+    },
   }
 }
 </script>

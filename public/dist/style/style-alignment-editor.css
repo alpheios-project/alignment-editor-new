@@ -1340,92 +1340,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   fill: #1B374F;
   stroke: #1B374F;
 }
-.alpheios-editor-content-pagination {
-  margin-bottom: 10px;
-}
-.alpheios-editor-content-pagination-link {
-  padding: 5px;
-  background: #ddd;
-  cursor: pointer;
-  margin-right: 5px;
-  font-weight: bold;
-}
-.alpheios-editor-content-pagination-text {
-  padding: 5px;
-  margin-right: 5px;
-}
-.alpheios-editor-content-pagination-span {
-  display: inline-block;
-}
-.alpheios-editor-content-pagination-go-to input.alpheios-alignment-editor-pagination-go-to {
-  display: inline-block;
-  width: 150px;
-}
-.alpheios-alignment-editor-actions-menu p.alpheios-editor-content-title {
-  margin: 0;
-}
-.alpheios-editor-content-title {
-  font-weight: bold;
-  padding: 0 0 5px 0;
-  border-bottom: 2px solid #ddd;
-}
-.alpheios-editor-content-list {
-  column-count: 2;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.alpheios-editor-content-list.alpheios-editor-content-list__col2 {
-  column-count: 2;
-}
-.alpheios-editor-content-list.alpheios-editor-content-list__col4 {
-  column-count: 4;
-}
-.alpheios-editor-content-link {
-  cursor: pointer;
-  display: inline-block;
-  width: 100%;
-  padding-bottom: 20px;
-}
-.alpheios-editor-content-link .alpheios-editor-content-link__text {
-  text-decoration: underline;
-  display: inline-block;
-  width: 100%;
-}
-.alpheios-editor-content-link .alpheios-editor-content-link__checkbox {
-  display: inline-block;
-  width: 90%;
-}
-.alpheios-editor-content-breadcrumbs {
-  margin: 0 0 20px 0;
-  padding: 0;
-}
-.alpheios-editor-content-breadcrumbs li {
-  display: inline-block;
-  padding: 5px 5px 5px 0;
-}
-.alpheios-editor-content-breadcrumbs li:after {
-  content: " > ";
-}
-.alpheios-editor-content-breadcrumbs li:last-child:after {
-  content: "";
-}
-.alpheios-editor-content-breadcrumbs li.alpheios-editor-content-breadcrumbs__link {
-  cursor: pointer;
-  text-decoration: underline;
-  color: #185F6D;
-}
-.alpheios-editor-content-description p.alpheios-editor-content-description__title {
-  text-decoration: underline;
-  color: #185F6D;
-  margin: 0 0 10px 0;
-  cursor: pointer;
-}
-.alpheios-editor-content-description .alpheios-editor-content-description__details {
-  margin: 0 0 10px;
-  padding: 0 20px 0;
-  border-bottom: 2px solid #ddd;
-}
 .alpheios-alignment-editor-actions-menu__buttons,
 .alpheios-alignment-editor-actions-menu__upload-block {
   padding: 5px 0 0;
@@ -1519,6 +1433,92 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
   margin-bottom: 10px;
+}
+.alpheios-editor-content-pagination {
+  margin-bottom: 10px;
+}
+.alpheios-editor-content-pagination-link {
+  padding: 5px;
+  background: #ddd;
+  cursor: pointer;
+  margin-right: 5px;
+  font-weight: bold;
+}
+.alpheios-editor-content-pagination-text {
+  padding: 5px;
+  margin-right: 5px;
+}
+.alpheios-editor-content-pagination-span {
+  display: inline-block;
+}
+.alpheios-editor-content-pagination-go-to input.alpheios-alignment-editor-pagination-go-to {
+  display: inline-block;
+  width: 150px;
+}
+.alpheios-alignment-editor-actions-menu p.alpheios-editor-content-title {
+  margin: 0;
+}
+.alpheios-editor-content-title {
+  font-weight: bold;
+  padding: 0 0 5px 0;
+  border-bottom: 2px solid #ddd;
+}
+.alpheios-editor-content-list {
+  column-count: 2;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.alpheios-editor-content-list.alpheios-editor-content-list__col2 {
+  column-count: 2;
+}
+.alpheios-editor-content-list.alpheios-editor-content-list__col4 {
+  column-count: 4;
+}
+.alpheios-editor-content-link {
+  cursor: pointer;
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 20px;
+}
+.alpheios-editor-content-link .alpheios-editor-content-link__text {
+  text-decoration: underline;
+  display: inline-block;
+  width: 100%;
+}
+.alpheios-editor-content-link .alpheios-editor-content-link__checkbox {
+  display: inline-block;
+  width: 90%;
+}
+.alpheios-editor-content-breadcrumbs {
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+.alpheios-editor-content-breadcrumbs li {
+  display: inline-block;
+  padding: 5px 5px 5px 0;
+}
+.alpheios-editor-content-breadcrumbs li:after {
+  content: " > ";
+}
+.alpheios-editor-content-breadcrumbs li:last-child:after {
+  content: "";
+}
+.alpheios-editor-content-breadcrumbs li.alpheios-editor-content-breadcrumbs__link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #185F6D;
+}
+.alpheios-editor-content-description p.alpheios-editor-content-description__title {
+  text-decoration: underline;
+  color: #185F6D;
+  margin: 0 0 10px 0;
+  cursor: pointer;
+}
+.alpheios-editor-content-description .alpheios-editor-content-description__details {
+  margin: 0 0 10px;
+  padding: 0 20px 0;
+  border-bottom: 2px solid #ddd;
 }
 .alpheios-alignment-editor-hidden {
   visibility: hidden;
