@@ -261,23 +261,6 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
   })
 
-  it('10 TextEditorSingleBlock - deleteText clears text for origin', () => {
-    let cmp = shallowMount(TextEditorSingleBlock,{
-      store: appC.store,
-      localVue,
-      propsData: {
-        textType: 'origin',
-        textId: 'targetIdTest1'
-      }
-    })
-
-    jest.spyOn(cmp.vm.$textC, 'deleteText')
-    cmp.vm.text = 'some'
-
-    cmp.vm.deleteText()
-    expect(cmp.vm.text).toEqual('')
-    expect(cmp.vm.$textC.deleteText).not.toHaveBeenCalled()
-  })
 
   it('10 TextEditorSingleBlock - deleteText clears text for first target', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
