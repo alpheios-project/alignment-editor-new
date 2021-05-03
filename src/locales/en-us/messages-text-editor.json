@@ -167,7 +167,7 @@
     "component": "SummaryPopup"
   },
   "SUMMARY_POPUP_TABEL_TH_TRANSLATION": {
-    "message": "Original",
+    "message": "Translation",
     "description": "Table title",
     "component": "SummaryPopup"
   },

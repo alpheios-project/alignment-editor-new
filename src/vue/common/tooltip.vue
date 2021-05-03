@@ -82,6 +82,7 @@ export default {
       display: none;
       font-size: 12px;
       text-align: center;
+      font-weight: normal;
 
       text-transform: initial;
       white-space: normal;
