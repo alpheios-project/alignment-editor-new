@@ -44963,7 +44963,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-fixes.20210503395" : 0
+    return  true ? "i354-delete-fix.20210503561" : 0
   }
 
   static get libName () {
@@ -48661,12 +48661,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('incrementOptionsUpdated')
     },
 
-    deleteText () {
-      if (!this.showIndex) {
-        this.text = ''
-      } else {
-        this.$textC.deleteText(this.textType, this.textId)
-      }
+    async deleteText () {
+      this.text = ''
+      this.$textC.deleteText(this.textType, this.textId)
+      await this.updateText()
     },
 
     /**
