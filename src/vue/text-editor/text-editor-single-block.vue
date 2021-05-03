@@ -52,7 +52,7 @@
           </span>
         </p>
         <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
-                  :disabled="!docSourceEditAvailable" >
+                  :disabled="!docSourceEditAvailable" class="alpheios-alignment-editor-text-blocks-textarea">
         ></textarea>
       </div>
 
@@ -601,5 +601,9 @@ export default {
         position: relative;
         top: 5px;
       }
+    }
+
+    .alpheios-alignment-editor-text-blocks-textarea {
+      padding: 10px;
     }
 </style>

@@ -907,6 +907,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   display: none;
   font-size: 12px;
   text-align: center;
+  font-weight: normal;
   text-transform: initial;
   white-space: normal;
 }
@@ -1648,6 +1649,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single__title .alpheios-alignment-editor-add-translation {
   position: relative;
   top: 5px;
+}
+.alpheios-alignment-editor-text-blocks-textarea {
+  padding: 10px;
 }
 .alpheios-alignment-text-editor-block__header {
   font-size: 24px;
