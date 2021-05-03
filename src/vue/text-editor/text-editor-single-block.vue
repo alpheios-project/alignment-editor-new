@@ -374,12 +374,10 @@ export default {
       this.$store.commit('incrementOptionsUpdated')
     },
 
-    deleteText () {
-      if (!this.showIndex) {
-        this.text = ''
-      } else {
-        this.$textC.deleteText(this.textType, this.textId)
-      }
+    async deleteText () {
+      this.text = ''
+      this.$textC.deleteText(this.textType, this.textId)
+      await this.updateText()
     },
 
     /**
