@@ -1,7 +1,7 @@
 <template>
     <modal v-if="showModal" @close="$emit('closeModal')">
         <template v-slot:header>
-            <p class="alpheios-editor-summary-header" v-html="l10n.getMsgS('SUMMARY_POPUP_HEADER')"></p>
+            <p class="alpheios-editor-summary-header" v-html="l10n.getMsgS('SUMMARY_POPUP_HEADER')" v-show="!showWaiting"></p>
         </template>
 
         <template v-slot:body v-if="contentAvailable">
@@ -40,7 +40,7 @@
         </template>
 
         <template v-slot:footer>
-          <div class="alpheios-editor-summary-footer">
+          <div class="alpheios-editor-summary-footer" v-show="!showWaiting">
             <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click = "startAlign" :disabled = "showWaiting">{{ l10n.getMsgS('SUMMARY_POPUP_OK_BUTTON') }}</button>
             <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')" :disabled = "showWaiting">{{ l10n.getMsgS('SUMMARY_POPUP_CANCEL_BUTTON') }}</button>
           </div>

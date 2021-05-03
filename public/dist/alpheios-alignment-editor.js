@@ -44963,7 +44963,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i344-summary-fixes.20210503386" : 0
+    return  true ? "i344-summary-fixes.20210503395" : 0
   }
 
   static get libName () {
@@ -55311,6 +55311,14 @@ var render = function() {
               fn: function() {
                 return [
                   _c("p", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.showWaiting,
+                        expression: "!showWaiting"
+                      }
+                    ],
                     staticClass: "alpheios-editor-summary-header",
                     domProps: {
                       innerHTML: _vm._s(
@@ -55498,43 +55506,57 @@ var render = function() {
               key: "footer",
               fn: function() {
                 return [
-                  _c("div", { staticClass: "alpheios-editor-summary-footer" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                        attrs: { disabled: _vm.showWaiting },
-                        on: { click: _vm.startAlign }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON"))
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                        attrs: { disabled: _vm.showWaiting },
-                        on: {
-                          click: function($event) {
-                            return _vm.$emit("closeModal")
-                          }
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.showWaiting,
+                          expression: "!showWaiting"
                         }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(
-                            _vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")
+                      ],
+                      staticClass: "alpheios-editor-summary-footer"
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                          attrs: { disabled: _vm.showWaiting },
+                          on: { click: _vm.startAlign }
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(_vm.l10n.getMsgS("SUMMARY_POPUP_OK_BUTTON"))
                           )
-                        )
-                      ]
-                    )
-                  ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                          attrs: { disabled: _vm.showWaiting },
+                          on: {
+                            click: function($event) {
+                              return _vm.$emit("closeModal")
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.l10n.getMsgS("SUMMARY_POPUP_CANCEL_BUTTON")
+                            )
+                          )
+                        ]
+                      )
+                    ]
+                  )
                 ]
               },
               proxy: true
