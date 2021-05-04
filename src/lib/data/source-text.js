@@ -128,7 +128,7 @@ export default class SourceText {
   }
 
   get readyForLangDetection () {
-    return !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
+    return !this.startedDetection && !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
   }
 
   /**

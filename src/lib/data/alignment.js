@@ -17,13 +17,10 @@ export default class Alignment {
    * @param {SourceText | null} originDocSource
    * @param {SourceText | null} targetDocSource
    */
-  constructor (originDocSource, targetDocSource) {
+  constructor () {
     this.id = uuidv4()
     this.origin = {}
     this.targets = {}
-
-    this.updateOriginDocSource(originDocSource)
-    this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
     this.activeAlignmentGroup = null
@@ -77,6 +74,19 @@ export default class Alignment {
     return Boolean(this.origin.docSource)
   }
 
+  createNewDocSource (textType, docSource, targetId = null) {
+    const docSource = new SourceText(textType, docSource, targetId)
+    this.updateLangDocSource(docSource)
+    return docSource
+  }
+
+  updateLangDocSource (docSource) {
+    if (docSource.readyForLangDetection) {
+      const langData = await DetectTextController.detectTextProperties(this.originDocSource)
+      docSource.updateDetectedLang(langData)
+    }
+    return docSource
+  }
   /**
    * Updates/adds origin docSource
    * @param {SourceText | Object} docSource

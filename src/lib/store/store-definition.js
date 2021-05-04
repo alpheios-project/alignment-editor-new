@@ -43,6 +43,8 @@ export default class StoreDefinition {
         tokenUpdated: 1,
         maxCharactersUpdated: 1,
 
+        docSourceUpdated: 1,
+
         libName: this.libName,
         libVersion: this.libVersion,
         libBuildName: this.libBuildName,
@@ -85,6 +87,10 @@ export default class StoreDefinition {
         },
         incrementMaxCharactersUpdated (state) {
           state.maxCharactersUpdated++
+        },
+
+        incrementDocSourceUpdated (state) {
+          state.docSourceUpdated++
         }
       }
     }

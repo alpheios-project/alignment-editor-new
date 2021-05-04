@@ -17,8 +17,8 @@ export default class TextsController {
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
-  createAlignment (originDocSource, targetDocSource) {
-    this.alignment = new Alignment(originDocSource, targetDocSource)
+  createAlignment () {
+    this.alignment = new Alignment()
     return this.alignment
   }
 
@@ -40,12 +40,11 @@ export default class TextsController {
    */
   async updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
-      this.createAlignment(originDocSource, null)
-    } else {
-      this.alignment.updateOriginDocSource(originDocSource)
+      this.createAlignment()
     }
+    this.alignment.updateOriginDocSource(originDocSource)
 
-    if (this.originDocSource && !this.originDocSource.startedDetection && this.originDocSource.readyForLangDetection) {
+    if (this.originDocSource && this.originDocSource.readyForLangDetection) {
       const langData = await DetectTextController.detectTextProperties(this.originDocSource)
       this.originDocSource.updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')
@@ -68,7 +67,7 @@ export default class TextsController {
       return
     }
     const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (targetDocSource && this.targetDocSource(newTargetId) && !this.targetDocSource(newTargetId).startedDetection && this.targetDocSource(newTargetId).readyForLangDetection) {
+    if (targetDocSource && this.targetDocSource(newTargetId) && this.targetDocSource(newTargetId).readyForLangDetection) {
       const langData = await DetectTextController.detectTextProperties(this.targetDocSource(newTargetId))
       this.targetDocSource(newTargetId).updateDetectedLang(langData)
       this.store.commit('incrementUploadCheck')

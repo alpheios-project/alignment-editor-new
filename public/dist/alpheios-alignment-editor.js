@@ -39650,8 +39650,8 @@ class TextsController {
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
-  createAlignment (originDocSource, targetDocSource) {
-    this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default(originDocSource, targetDocSource)
+  createAlignment () {
+    this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
     return this.alignment
   }
 
@@ -39673,10 +39673,9 @@ class TextsController {
    */
   async updateOriginDocSource (originDocSource) {
     if (!this.alignment) {
-      this.createAlignment(originDocSource, null)
-    } else {
-      this.alignment.updateOriginDocSource(originDocSource)
+      this.createAlignment()
     }
+    this.alignment.updateOriginDocSource(originDocSource)
 
     if (this.originDocSource && !this.originDocSource.startedDetection && this.originDocSource.readyForLangDetection) {
       const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.originDocSource)
@@ -42100,13 +42099,10 @@ class Alignment {
    * @param {SourceText | null} originDocSource
    * @param {SourceText | null} targetDocSource
    */
-  constructor (originDocSource, targetDocSource) {
+  constructor () {
     this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.origin = {}
     this.targets = {}
-
-    this.updateOriginDocSource(originDocSource)
-    this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
     this.activeAlignmentGroup = null
@@ -44963,7 +44959,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i354-delete-fix.20210503561" : 0
+    return  true ? "events-redesign.20210504606" : 0
   }
 
   static get libName () {
@@ -45001,6 +44997,8 @@ class StoreDefinition {
         resetOptions: 1,
         tokenUpdated: 1,
         maxCharactersUpdated: 1,
+
+        docSourceUpdated: 1,
 
         libName: this.libName,
         libVersion: this.libVersion,
@@ -45044,6 +45042,10 @@ class StoreDefinition {
         },
         incrementMaxCharactersUpdated (state) {
           state.maxCharactersUpdated++
+        },
+
+        incrementDocSourceUpdated (state) {
+          state.docSourceUpdated++
         }
       }
     }
