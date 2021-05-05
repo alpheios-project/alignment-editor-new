@@ -38,10 +38,10 @@ export default {
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     metadataAvailable () {
-      return this.$store.state.alignmentUpdated && Boolean(this.docSource)
+      return this.$store.state.docSourceUpdated && Boolean(this.docSource)
     },
     allMetadata () {
-      return this.$store.state.alignmentUpdated && this.metadataAvailable && this.docSource.allAvailableMetadata
+      return this.$store.state.docSourceUpdated && this.metadataAvailable && this.docSource.allAvailableMetadata
     }
   },
   methods: {

@@ -39630,7 +39630,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
 
 
 
@@ -39638,7 +39637,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+// import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 class TextsController {
   constructor (store) {
@@ -39672,18 +39671,20 @@ class TextsController {
    * @param {Object} originDocSource
    */
   async updateOriginDocSource (originDocSource) {
-    if (!this.alignment) {
-      this.createAlignment()
-    }
-    this.alignment.updateOriginDocSource(originDocSource)
+    if (!this.alignment) { this.createAlignment() }
 
-    if (this.originDocSource && !this.originDocSource.startedDetection && this.originDocSource.readyForLangDetection) {
-      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.originDocSource)
-      this.originDocSource.updateDetectedLang(langData)
-      this.store.commit('incrementUploadCheck')
-    } else {
-      this.store.commit('incrementAlignmentUpdated')
+    if (originDocSource.text && (originDocSource.text.length === 0) && originDocSource.textId) {
+      this.removeDetectedFlag('origin')
     }
+
+    let result = await this.alignment.updateOriginDocSource(originDocSource)
+    if (!result) { return false }
+    this.store.commit('incrementDocSourceUpdated')
+
+    result = await this.alignment.updateLangDocSource('origin')
+    if (!result) { return false }
+    this.store.commit('incrementDocSourceLangDetected')
+    return true
   }
 
   /**
@@ -39699,14 +39700,19 @@ class TextsController {
       })
       return
     }
-    const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (targetDocSource && this.targetDocSource(newTargetId) && !this.targetDocSource(newTargetId).startedDetection && this.targetDocSource(newTargetId).readyForLangDetection) {
-      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.detectTextProperties(this.targetDocSource(newTargetId))
-      this.targetDocSource(newTargetId).updateDetectedLang(langData)
-      this.store.commit('incrementUploadCheck')
-    } else {
-      this.store.commit('incrementAlignmentUpdated')
+
+    if (targetDocSource.text && (targetDocSource.text.length === 0) && targetId) {
+      this.removeDetectedFlag('target', targetId)
     }
+
+    const finalTargetId = await this.alignment.updateTargetDocSource(targetDocSource, targetId)
+    if (!finalTargetId) { return false }
+    this.store.commit('incrementDocSourceUpdated')
+
+    const result = await this.alignment.updateLangDocSource('target', finalTargetId)
+    if (!result) { return false }
+    this.store.commit('incrementDocSourceLangDetected')
+    return true
   }
 
   /**
@@ -40023,7 +40029,7 @@ class TextsController {
    * A simple event for any change in metadata
    */
   changeMetadataTerm () {
-    this.store.commit('incrementAlignmentUpdated')
+    this.store.commit('incrementDocSourceUpdated')
   }
 
   get originDocSourceDefined () {
@@ -42080,6 +42086,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/data/history/history-step.js */ "./lib/data/history/history-step.js");
 /* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
 /* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
+/* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+
 
 
 
@@ -42156,27 +42164,44 @@ class Alignment {
     return Boolean(this.origin.docSource)
   }
 
+  createNewDocSource (textType, docSource, targetId = null) {
+    if (docSource.text && docSource.text.length > 0) {
+      return new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default(textType, docSource, targetId)
+    }
+    return false
+  }
+
+  async updateLangDocSource (textType, targetId) {
+    const docSource = this.getDocSource(textType, targetId)
+
+    if (docSource && docSource.readyForLangDetection) {
+      const langData = await _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__.default.detectTextProperties(docSource)
+      docSource.updateDetectedLang(langData)
+      return true
+    }
+    return false
+  }
+
   /**
    * Updates/adds origin docSource
    * @param {SourceText | Object} docSource
    * @returns {Boolean}
    */
-  updateOriginDocSource (docSource) {
+  async updateOriginDocSource (docSource) {
     if (!docSource) {
       return false
     }
 
     if (!this.originDocSourceDefined) {
-      if (docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default) {
-        this.origin.docSource = docSource
-      } else {
-        this.origin.docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('origin', docSource)
-      }
+      const docResult = this.createNewDocSource('origin', docSource)
+      if (!docResult) { return false }
+      this.origin.docSource = docResult
     } else {
       this.origin.docSource.update(docSource)
-      if (this.origin.alignedText) {
-        this.origin.alignedText.updateLanguage(docSource.lang)
-      }
+    }
+
+    if (this.origin.alignedText) {
+      this.origin.alignedText.updateLanguage(docSource.lang)
     }
     return true
   }
@@ -42187,7 +42212,7 @@ class Alignment {
    * @param {String|Null} targetId - docSourceId to be updated, null - if it is a new targetDoc
    * @returns {Boolean}
    */
-  updateTargetDocSource (docSource, targetId = null) {
+  async updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
         console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_4__.default.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
@@ -42200,18 +42225,16 @@ class Alignment {
     }
 
     if (!targetId || (docSource && !this.targets[docSource.id])) {
-      if (!(docSource instanceof _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default)) {
-        docSource = new _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default('target', docSource, targetId)
-      }
+      docSource = this.createNewDocSource('target', docSource, targetId)
+      if (!docSource) { return false }
 
-      this.targets[docSource.id] = {
-        docSource
-      }
+      this.targets[docSource.id] = { docSource: docSource }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
-      if (this.targets[docSource.id].alignedText) {
-        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
-      }
+    }
+
+    if (this.targets[docSource.id].alignedText) {
+      this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
     }
     return docSource.id
   }
@@ -44101,7 +44124,7 @@ class SourceText {
   }
 
   get readyForLangDetection () {
-    return !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
+    return !this.startedDetection && !this.skipDetected && this.text && (this.text.length > 5) && !this.detectedLang
   }
 
   /**
@@ -44959,7 +44982,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210504606" : 0
+    return  true ? "events-redesign.20210505654" : 0
   }
 
   static get libName () {
@@ -44999,6 +45022,7 @@ class StoreDefinition {
         maxCharactersUpdated: 1,
 
         docSourceUpdated: 1,
+        docSourceLangDetected: 1,
 
         libName: this.libName,
         libVersion: this.libVersion,
@@ -45046,6 +45070,9 @@ class StoreDefinition {
 
         incrementDocSourceUpdated (state) {
           state.docSourceUpdated++
+        },
+        incrementDocSourceLangDetected (state) {
+          state.docSourceLangDetected++
         }
       }
     }
@@ -46511,7 +46538,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.$textC.store.commit('incrementAlignmentRestarted')
       }
-      this.$textC.store.commit('incrementAlignmentUpdated')
+      this.$textC.store.commit('incrementDocSourceUpdated')
 
       if ((alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
@@ -47741,14 +47768,14 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return this.$store.state.docSourceUpdated && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     downloadAvailable () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(docSource) && (docSource.text)
+      return this.$store.state.docSourceUpdated && Boolean(docSource) && (docSource.text)
     },
     metadataAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
+      return this.$store.state.docSourceUpdated && Boolean(this.$textC.getDocSource(this.textType, this.textId))
     },
     toggleMetadataTitle () {
       return this.shownMetadataBlock ? this.l10n.getMsgS('ACTIONS_METADATA_HIDE_TITLE') : this.l10n.getMsgS('ACTIONS_METADATA_SHOW_TITLE')
@@ -47998,7 +48025,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
     },
     optionItem () {
-      return this.localOptions.sourceText.items.language
+      return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.language
     }
   },
   methods: {
@@ -48065,10 +48092,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     metadataAvailable () {
-      return this.$store.state.alignmentUpdated && Boolean(this.docSource)
+      return this.$store.state.docSourceUpdated && Boolean(this.docSource)
     },
     allMetadata () {
-      return this.$store.state.alignmentUpdated && this.metadataAvailable && this.docSource.allAvailableMetadata
+      return this.$store.state.docSourceUpdated && this.metadataAvailable && this.docSource.allAvailableMetadata
     }
   },
   methods: {
@@ -48213,7 +48240,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     sourceMetaValues () {
-      return this.$store.state.alignmentUpdated && this.metadataTerm.value.sort()
+      return this.$store.state.docSourceUpdated && this.metadataTerm.value.sort()
     },
     showDeleteIcon () {
       return this.metadataTerm.property.multivalued && this.value && (this.value.length > 0)
@@ -48453,6 +48480,10 @@ __webpack_require__.r(__webpack_exports__);
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
     },
+    async '$store.state.docSourceLangDetected' () {
+      this.updateLangData()
+    },
+
     '$store.state.alignmentRestarted' () {
       this.restartTextEditor()
     },
@@ -48481,7 +48512,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
-      return this.$store.state.alignmentUpdated
+      return this.$store.state.docSourceUpdated
     },
     containerId () {
       return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
@@ -48517,7 +48548,7 @@ __webpack_require__.r(__webpack_exports__);
      * Defines if we have multiple targets then we need to show index of target text
      */
     showIndex () {
-      return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
+      return (this.textType === 'target') && this.$store.state.docSourceUpdated && this.$textC.allTargetTextsIds.length > 1 
     },
     
     /**
@@ -48537,20 +48568,20 @@ __webpack_require__.r(__webpack_exports__);
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && 
+      return Boolean(this.$store.state.docSourceUpdated) && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
       return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
@@ -48576,17 +48607,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+      return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
     },
     isLanguageDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.alignmentUpdated && docSource && docSource.detectedLang
+      return this.$store.state.docSourceUpdated && docSource && docSource.detectedLang
     },
     showAddTranslation () {
-      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
+      return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     },
     showActionMenu () {
-      return this.$store.state.alignmentUpdated && (this.showUploadMenu || this.showTextProps)
+      return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     }
   },
   methods: {
@@ -48630,6 +48661,28 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.deleteText(this.textType, this.textId)
     },
 
+    collectCurrentParams () {
+      return {
+        text: this.text,
+        direction: this.direction,
+        lang: this.language,
+        id: this.textId,
+        sourceType: this.sourceType,
+        tokenization: this.tokenization
+      }
+    },
+
+    async updateTextFromTextBlock () {
+      const params = this.collectCurrentParams()
+      const result = await this.$textC[this.updateTextMethod](params, this.textId)
+
+      if (result && this.showTypeUploadButtons) {
+        this.showTypeUploadButtons = false
+        this.showTextProps = true
+        this.showClearTextFlag++
+      }
+    },
+    
     /**
      * Emits update-text event with data from properties
      */
@@ -48644,10 +48697,6 @@ __webpack_require__.r(__webpack_exports__);
           tokenization: this.tokenization
         }
 
-        if (this.text && (this.text.length === 0) && this.textId) {
-          this.$textC.removeDetectedFlag(this.textType, this.textId)
-        }
-
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
@@ -48655,6 +48704,16 @@ __webpack_require__.r(__webpack_exports__);
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
+      }
+    },
+
+    updateLangData () {
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      if (sourceTextData) {
+        this.localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+        this.localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+        this.localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+        this.$store.commit('incrementOptionsUpdated')
       }
     },
 
@@ -48696,7 +48755,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     selectUploadText () { 
-      // console.info('selectUploadText - started')
       // this.showUploadBlockFlag++
       this.showUploadMenu = true
 
@@ -48817,10 +48875,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     originId () {
-      return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
+      return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
     allTargetTextsIdsNumbered () {
-      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
+      return this.$store.state.docSourceUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
@@ -48829,7 +48887,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     alignAvailable () {
-      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -56522,7 +56580,7 @@ var render = function() {
               domProps: { value: _vm.text },
               on: {
                 blur: function($event) {
-                  return _vm.updateText("text")
+                  return _vm.updateTextFromTextBlock()
                 },
                 input: function($event) {
                   if ($event.target.composing) {

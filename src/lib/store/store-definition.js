@@ -44,6 +44,7 @@ export default class StoreDefinition {
         maxCharactersUpdated: 1,
 
         docSourceUpdated: 1,
+        docSourceLangDetected: 1,
 
         libName: this.libName,
         libVersion: this.libVersion,
@@ -91,6 +92,9 @@ export default class StoreDefinition {
 
         incrementDocSourceUpdated (state) {
           state.docSourceUpdated++
+        },
+        incrementDocSourceLangDetected (state) {
+          state.docSourceLangDetected++
         }
       }
     }

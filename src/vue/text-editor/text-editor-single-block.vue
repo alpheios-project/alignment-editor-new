@@ -51,7 +51,7 @@
             </tooltip>
           </span>
         </p>
-        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
+        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateTextFromTextBlock()" 
                   :disabled="!docSourceEditAvailable" class="alpheios-alignment-editor-text-blocks-textarea">
         ></textarea>
       </div>
@@ -164,6 +164,10 @@ export default {
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
     },
+    async '$store.state.docSourceLangDetected' () {
+      this.updateLangData()
+    },
+
     '$store.state.alignmentRestarted' () {
       this.restartTextEditor()
     },
@@ -192,7 +196,7 @@ export default {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
-      return this.$store.state.alignmentUpdated
+      return this.$store.state.docSourceUpdated
     },
     containerId () {
       return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
@@ -228,7 +232,7 @@ export default {
      * Defines if we have multiple targets then we need to show index of target text
      */
     showIndex () {
-      return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
+      return (this.textType === 'target') && this.$store.state.docSourceUpdated && this.$textC.allTargetTextsIds.length > 1 
     },
     
     /**
@@ -248,20 +252,20 @@ export default {
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && 
+      return Boolean(this.$store.state.docSourceUpdated) && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
       return TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
@@ -287,17 +291,17 @@ export default {
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+      return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
     },
     isLanguageDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.alignmentUpdated && docSource && docSource.detectedLang
+      return this.$store.state.docSourceUpdated && docSource && docSource.detectedLang
     },
     showAddTranslation () {
-      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
+      return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
     },
     showActionMenu () {
-      return this.$store.state.alignmentUpdated && (this.showUploadMenu || this.showTextProps)
+      return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     }
   },
   methods: {
@@ -341,6 +345,28 @@ export default {
       this.$textC.deleteText(this.textType, this.textId)
     },
 
+    collectCurrentParams () {
+      return {
+        text: this.text,
+        direction: this.direction,
+        lang: this.language,
+        id: this.textId,
+        sourceType: this.sourceType,
+        tokenization: this.tokenization
+      }
+    },
+
+    async updateTextFromTextBlock () {
+      const params = this.collectCurrentParams()
+      const result = await this.$textC[this.updateTextMethod](params, this.textId)
+
+      if (result && this.showTypeUploadButtons) {
+        this.showTypeUploadButtons = false
+        this.showTextProps = true
+        this.showClearTextFlag++
+      }
+    },
+    
     /**
      * Emits update-text event with data from properties
      */
@@ -355,10 +381,6 @@ export default {
           tokenization: this.tokenization
         }
 
-        if (this.text && (this.text.length === 0) && this.textId) {
-          this.$textC.removeDetectedFlag(this.textType, this.textId)
-        }
-
         await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
@@ -366,6 +388,16 @@ export default {
           this.showTextProps = true
           this.showClearTextFlag++ 
         }
+      }
+    },
+
+    updateLangData () {
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      if (sourceTextData) {
+        this.localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+        this.localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+        this.localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+        this.$store.commit('incrementOptionsUpdated')
       }
     },
 
@@ -407,7 +439,6 @@ export default {
     },
 
     selectUploadText () { 
-      // console.info('selectUploadText - started')
       // this.showUploadBlockFlag++
       this.showUploadMenu = true
 

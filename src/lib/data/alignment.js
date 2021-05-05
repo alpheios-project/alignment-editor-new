@@ -10,6 +10,7 @@ import HistoryStep from '@/lib/data/history/history-step.js'
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
+import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 export default class Alignment {
   /**
@@ -75,39 +76,43 @@ export default class Alignment {
   }
 
   createNewDocSource (textType, docSource, targetId = null) {
-    const docSource = new SourceText(textType, docSource, targetId)
-    this.updateLangDocSource(docSource)
-    return docSource
+    if (docSource.text && docSource.text.length > 0) {
+      return new SourceText(textType, docSource, targetId)
+    }
+    return false
   }
 
-  updateLangDocSource (docSource) {
-    if (docSource.readyForLangDetection) {
-      const langData = await DetectTextController.detectTextProperties(this.originDocSource)
+  async updateLangDocSource (textType, targetId) {
+    const docSource = this.getDocSource(textType, targetId)
+
+    if (docSource && docSource.readyForLangDetection) {
+      const langData = await DetectTextController.detectTextProperties(docSource)
       docSource.updateDetectedLang(langData)
+      return true
     }
-    return docSource
+    return false
   }
+
   /**
    * Updates/adds origin docSource
    * @param {SourceText | Object} docSource
    * @returns {Boolean}
    */
-  updateOriginDocSource (docSource) {
+  async updateOriginDocSource (docSource) {
     if (!docSource) {
       return false
     }
 
     if (!this.originDocSourceDefined) {
-      if (docSource instanceof SourceText) {
-        this.origin.docSource = docSource
-      } else {
-        this.origin.docSource = new SourceText('origin', docSource)
-      }
+      const docResult = this.createNewDocSource('origin', docSource)
+      if (!docResult) { return false }
+      this.origin.docSource = docResult
     } else {
       this.origin.docSource.update(docSource)
-      if (this.origin.alignedText) {
-        this.origin.alignedText.updateLanguage(docSource.lang)
-      }
+    }
+
+    if (this.origin.alignedText) {
+      this.origin.alignedText.updateLanguage(docSource.lang)
     }
     return true
   }
@@ -118,7 +123,7 @@ export default class Alignment {
    * @param {String|Null} targetId - docSourceId to be updated, null - if it is a new targetDoc
    * @returns {Boolean}
    */
-  updateTargetDocSource (docSource, targetId = null) {
+  async updateTargetDocSource (docSource, targetId = null) {
     if (!this.origin.docSource) {
       if (docSource) {
         console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
@@ -131,18 +136,16 @@ export default class Alignment {
     }
 
     if (!targetId || (docSource && !this.targets[docSource.id])) {
-      if (!(docSource instanceof SourceText)) {
-        docSource = new SourceText('target', docSource, targetId)
-      }
+      docSource = this.createNewDocSource('target', docSource, targetId)
+      if (!docSource) { return false }
 
-      this.targets[docSource.id] = {
-        docSource
-      }
+      this.targets[docSource.id] = { docSource: docSource }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
-      if (this.targets[docSource.id].alignedText) {
-        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
-      }
+    }
+
+    if (this.targets[docSource.id].alignedText) {
+      this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
     }
     return docSource.id
   }

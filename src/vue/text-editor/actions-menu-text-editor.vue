@@ -53,14 +53,14 @@ export default {
       return L10nSingleton
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+      return this.$store.state.docSourceUpdated && !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     downloadAvailable () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(docSource) && (docSource.text)
+      return this.$store.state.docSourceUpdated && Boolean(docSource) && (docSource.text)
     },
     metadataAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && Boolean(this.$textC.getDocSource(this.textType, this.textId))
+      return this.$store.state.docSourceUpdated && Boolean(this.$textC.getDocSource(this.textType, this.textId))
     },
     toggleMetadataTitle () {
       return this.shownMetadataBlock ? this.l10n.getMsgS('ACTIONS_METADATA_HIDE_TITLE') : this.l10n.getMsgS('ACTIONS_METADATA_SHOW_TITLE')

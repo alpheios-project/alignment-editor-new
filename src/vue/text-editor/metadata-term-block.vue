@@ -74,7 +74,7 @@ export default {
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     sourceMetaValues () {
-      return this.$store.state.alignmentUpdated && this.metadataTerm.value.sort()
+      return this.$store.state.docSourceUpdated && this.metadataTerm.value.sort()
     },
     showDeleteIcon () {
       return this.metadataTerm.property.multivalued && this.value && (this.value.length > 0)

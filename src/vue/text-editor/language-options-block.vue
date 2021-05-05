@@ -43,7 +43,7 @@ export default {
       return this.$store.state.optionsUpdated && this.localOptions.ready && this.$settingsC.sourceTextOptionsLoaded
     },
     optionItem () {
-      return this.localOptions.sourceText.items.language
+      return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.language
     }
   },
   methods: {
