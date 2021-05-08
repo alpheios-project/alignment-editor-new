@@ -146,7 +146,7 @@ export default {
      * Add aditional block for defining another target text
      */
     addTarget () {
-      this.$textC.updateTargetDocSource()
+      this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
     /**

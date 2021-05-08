@@ -14,9 +14,6 @@ import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 export default class Alignment {
   /**
-   * We could create an empty alignment
-   * @param {SourceText | null} originDocSource
-   * @param {SourceText | null} targetDocSource
    */
   constructor () {
     this.id = uuidv4()
@@ -75,8 +72,8 @@ export default class Alignment {
     return Boolean(this.origin.docSource)
   }
 
-  createNewDocSource (textType, docSource, targetId = null) {
-    if (docSource.text && docSource.text.length > 0) {
+  createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
+    if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
       return new SourceText(textType, docSource, targetId)
     }
     return false
@@ -98,7 +95,7 @@ export default class Alignment {
    * @param {SourceText | Object} docSource
    * @returns {Boolean}
    */
-  async updateOriginDocSource (docSource) {
+  updateOriginDocSource (docSource) {
     if (!docSource) {
       return false
     }
@@ -123,7 +120,9 @@ export default class Alignment {
    * @param {String|Null} targetId - docSourceId to be updated, null - if it is a new targetDoc
    * @returns {Boolean}
    */
-  async updateTargetDocSource (docSource, targetId = null) {
+  updateTargetDocSource (docSource, targetId = null) {
+    if (!docSource) { return false }
+
     if (!this.origin.docSource) {
       if (docSource) {
         console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
@@ -135,7 +134,7 @@ export default class Alignment {
       return false
     }
 
-    if (!targetId || (docSource && !this.targets[docSource.id])) {
+    if ((docSource && !this.targets[docSource.id]) || !docSource.id) {
       docSource = this.createNewDocSource('target', docSource, targetId)
       if (!docSource) { return false }
 
@@ -156,18 +155,18 @@ export default class Alignment {
    * @param {String} id - docSourceId
    */
   deleteText (textType, id) {
-    if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
-      delete this.targets[id]
-    } else {
+    if ((textType === 'origin') || ((textType === 'target') && this.allTargetTextsIds.length === 1)) {
       const docSource = this.getDocSource(textType, id)
-      if (docSource) {
-        docSource.clear()
-      }
+      if (docSource) { docSource.clearText() }
+    } else {
+      delete this.targets[id]
     }
   }
 
-  removeDetectedFlag (textType, docSourceId) {
-    return this.getDocSource(textType, docSourceId).removeDetectedFlag()
+  addNewTarget () {
+    const docSource = this.createNewDocSource('target', {}, null, true)
+    this.targets[docSource.id] = { docSource }
+    return docSource.id
   }
 
   getDocSource (textType, id) {

@@ -41,18 +41,18 @@ export default class TextsController {
   async updateOriginDocSource (originDocSource) {
     if (!this.alignment) { this.createAlignment() }
 
-    if (originDocSource.text && (originDocSource.text.length === 0) && originDocSource.textId) {
-      this.removeDetectedFlag('origin')
+    const resultUpdate = this.alignment.updateOriginDocSource(originDocSource)
+    if (!resultUpdate) {
+      return { resultUpdate }
     }
 
-    let result = await this.alignment.updateOriginDocSource(originDocSource)
-    if (!result) { return false }
     this.store.commit('incrementDocSourceUpdated')
+    const resultDetect = await this.alignment.updateLangDocSource('origin')
+    if (resultDetect) {
+      this.store.commit('incrementDocSourceLangDetected')
+    }
 
-    result = await this.alignment.updateLangDocSource('origin')
-    if (!result) { return false }
-    this.store.commit('incrementDocSourceLangDetected')
-    return true
+    return { resultUpdate, resultDetect }
   }
 
   /**
@@ -69,18 +69,31 @@ export default class TextsController {
       return
     }
 
-    if (targetDocSource.text && (targetDocSource.text.length === 0) && targetId) {
-      this.removeDetectedFlag('target', targetId)
+    const finalTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
+    if (!finalTargetId) {
+      return { resultUpdate: false }
     }
-
-    const finalTargetId = await this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (!finalTargetId) { return false }
     this.store.commit('incrementDocSourceUpdated')
 
-    const result = await this.alignment.updateLangDocSource('target', finalTargetId)
-    if (!result) { return false }
-    this.store.commit('incrementDocSourceLangDetected')
-    return true
+    const resultDetect = await this.alignment.updateLangDocSource('target', finalTargetId)
+    if (resultDetect) {
+      this.store.commit('incrementDocSourceLangDetected')
+    }
+    return { resultUpdate: true, resultDetect, finalTargetId }
+  }
+
+  async addNewTarget () {
+    if (!this.alignment) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+        type: 'error'
+      })
+      return
+    }
+    const finalTargetId = this.alignment.addNewTarget()
+    this.store.commit('incrementDocSourceUpdated')
+    return finalTargetId
   }
 
   /**
@@ -97,7 +110,8 @@ export default class TextsController {
       })
     } else {
       this.alignment.deleteText(textType, id)
-      this.store.commit('incrementUploadCheck')
+      this.store.commit('incrementDocSourceLangDetected')
+      this.store.commit('incrementDocSourceUpdated')
     }
   }
 
@@ -221,7 +235,7 @@ export default class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
+  async uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -236,11 +250,15 @@ export default class TextsController {
     const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
       if (textType === 'origin') {
-        this.updateOriginDocSource(result)
+        const resultUpdate = await this.updateOriginDocSource(result)
+        if (!resultUpdate) { return false }
+
         this.store.commit('incrementUploadCheck')
         return true
       } else {
-        this.updateTargetDocSource(result, textId)
+        const resultUpdate = await this.updateTargetDocSource(result, textId)
+        if (!resultUpdate) { return false }
+
         this.store.commit('incrementUploadCheck')
         return true
       }
@@ -407,10 +425,6 @@ export default class TextsController {
   checkDetectedProps (textType, docSourceId) {
     const sourceText = this.getDocSource(textType, docSourceId)
     return Boolean(sourceText && sourceText.detectedLang)
-  }
-
-  removeDetectedFlag (textType, docSourceId) {
-    return this.alignment.removeDetectedFlag(textType, docSourceId)
   }
 
   get originalLangData () {

@@ -33,14 +33,13 @@
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
       <div v-show="showTypeTextBlock">
-        <p class="alpheios-alignment-editor-text-blocks-info-line" 
-          :class = "charactersClasses">
-          <span class="alpheios-alignment-editor-text-blocks-single__characters">{{ charactersText }}</span>
+        <p class="alpheios-alignment-editor-text-blocks-info-line">
+          <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
           <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps">
             {{ language }}
           </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showTextProps && !isLanguageDetected">
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
@@ -128,7 +127,7 @@ export default {
   },
   data () {
     return {
-      text: null,
+      text: '',
       prevText: null,
 
       localTextEditorOptions: { ready: false },
@@ -272,7 +271,7 @@ export default {
     },
     charactersClasses () {
       return {
-        'alpheios-alignment-editor-hidden' : this.textCharactersAmount === 0,
+        'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
         'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
       }
     },
@@ -293,12 +292,13 @@ export default {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
     },
-    isLanguageDetected () {
+
+    showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceUpdated && docSource && docSource.detectedLang
+      return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
     },
     showAddTranslation () {
-      return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
+      return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
     },
     showActionMenu () {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
@@ -336,7 +336,7 @@ export default {
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
-      await this.updateText()
+      // await this.updateText()
 
       this.showTypeUploadButtons = true
       this.showTextProps = false
@@ -358,12 +358,20 @@ export default {
 
     async updateTextFromTextBlock () {
       const params = this.collectCurrentParams()
+      console.info('updateTextFromTextBlock start - ', this.$textC.alignment)
+
+      console.info('updateTextFromTextBlock1', this.textType, this.textId, params)
+
       const result = await this.$textC[this.updateTextMethod](params, this.textId)
 
-      if (result && this.showTypeUploadButtons) {
+      console.info('updateTextFromTextBlock2', this.textType, this.textId, result)
+
+      if (result.resultUpdate && this.showTypeUploadButtons) {
         this.showTypeUploadButtons = false
         this.showTextProps = true
         this.showClearTextFlag++
+      } else {
+        this.text = ''
       }
     },
     
@@ -381,7 +389,7 @@ export default {
           tokenization: this.tokenization
         }
 
-        await this.$textC[this.updateTextMethod](params, this.textId)  
+        const result = await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
@@ -409,7 +417,7 @@ export default {
     async deleteText () {
       this.text = ''
       this.$textC.deleteText(this.textType, this.textId)
-      await this.updateText()
+      // await this.updateText()
     },
 
     /**
@@ -424,14 +432,21 @@ export default {
     /**
      * Uploads a single instance of text
      */
-    uploadSingle (fileData) {
-      this.$textC.uploadDocSourceFromFileSingle(fileData, {
+    async uploadSingle (fileData) {
+      const result = await this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,
         textId: this.textId,
         tokenization: this.tokenization
       })
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
+      if (result.resultUpdate) {
+        this.showTypeTextBlock = true
+        this.showOnlyMetadata = true
+      } else {
+        this.showTypeUploadButtons = true
+        this.showTextProps = false
+        this.showUploadMenu = false
+        this.showOnlyMetadata = true
+      }
     },
 
     toggleMetadata () {
