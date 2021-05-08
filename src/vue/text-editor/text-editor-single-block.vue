@@ -5,22 +5,21 @@
         <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
           <plus-icon />
         </span>
-        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
-          <delete-icon />
-        </span>
+
       </p>
-      <div v-show="showTypeUploadButtons">
+      <div v-show="showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
+      <!--
       <actions-menu :text-type = "textType" :text-id = "textId" @toggle-metadata="toggleMetadata" 
             :onlyMetadata = "showOnlyMetadata"
             :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
             v-show="!this.showTypeUploadButtons"/>       
-      
+      -->
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
@@ -32,7 +31,7 @@
 
       <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
 
-      <div v-show="showTypeTextBlock">
+      <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
@@ -50,6 +49,9 @@
             </tooltip>
           </span>
         </p>
+        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
+          <x-close-icon />
+        </span>
         <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateTextFromTextBlock()" 
                   :disabled="!docSourceEditAvailable" class="alpheios-alignment-editor-text-blocks-textarea">
         ></textarea>
@@ -70,7 +72,7 @@
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import DeleteIcon from '@/inline-icons/delete.svg'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
 import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
@@ -112,7 +114,7 @@ export default {
     }
   },
   components: {
-    deleteIcon: DeleteIcon,
+    xCloseIcon: XCloseIcon,
     noMetadataIcon: NoMetadataIcon,
     noLangDetectedIcon: NoLangDetectedIcon,
     plusIcon: PlusIcon,
@@ -358,19 +360,14 @@ export default {
 
     async updateTextFromTextBlock () {
       const params = this.collectCurrentParams()
-      console.info('updateTextFromTextBlock start - ', this.$textC.alignment)
-
-      console.info('updateTextFromTextBlock1', this.textType, this.textId, params)
-
       const result = await this.$textC[this.updateTextMethod](params, this.textId)
-
-      console.info('updateTextFromTextBlock2', this.textType, this.textId, result)
 
       if (result.resultUpdate && this.showTypeUploadButtons) {
         this.showTypeUploadButtons = false
         this.showTextProps = true
         this.showClearTextFlag++
-      } else {
+      }
+      if (!result.resultUpdate) {
         this.text = ''
       }
     },
@@ -418,6 +415,8 @@ export default {
       this.text = ''
       this.$textC.deleteText(this.textType, this.textId)
       // await this.updateText()
+      this.showTypeUploadButtons = true
+      this.showUploadMenu = false
     },
 
     /**
@@ -559,23 +558,7 @@ export default {
       font-size: 20px;
       font-weight: bold;
     }
-    .alpheios-alignment-editor-text-blocks-single__remove {
-      display: inline-block;
-      width: 25px;
-      height: 25px;
-      right: 0;
-      top: 50%;
-      top: 0;
 
-      position: absolute;
-
-      cursor: pointer;
-      svg {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-      }
-    }
 
     .alpheios-alignment-editor-add-translation {
       display: inline-block;
@@ -648,6 +631,29 @@ export default {
     }
 
     .alpheios-alignment-editor-text-blocks-textarea {
-      padding: 10px;
+      padding: 10px 55px 10px 10px;
+    }
+
+    .alpheios-alignment-editor-text-blocks-single-text-area-container {
+      position: relative;
+
+      .alpheios-alignment-editor-text-blocks-single__remove {
+        top: 55px;
+        right: 25px;
+        fill: #ddd;
+
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+
+        position: absolute;
+
+        cursor: pointer;
+        svg {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
 </style>

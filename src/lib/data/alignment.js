@@ -157,7 +157,7 @@ export default class Alignment {
   deleteText (textType, id) {
     if ((textType === 'origin') || ((textType === 'target') && this.allTargetTextsIds.length === 1)) {
       const docSource = this.getDocSource(textType, id)
-      if (docSource) { docSource.clearText() }
+      if (docSource) { docSource.clear() }
     } else {
       delete this.targets[id]
     }

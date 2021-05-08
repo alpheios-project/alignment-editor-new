@@ -42260,7 +42260,7 @@ class Alignment {
   deleteText (textType, id) {
     if ((textType === 'origin') || ((textType === 'target') && this.allTargetTextsIds.length === 1)) {
       const docSource = this.getDocSource(textType, id)
-      if (docSource) { docSource.clearText() }
+      if (docSource) { docSource.clear() }
     } else {
       delete this.targets[id]
     }
@@ -45004,7 +45004,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210508449" : 0
+    return  true ? "events-redesign.20210508525" : 0
   }
 
   static get libName () {
@@ -48318,8 +48318,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/delete.svg */ "./inline-icons/delete.svg");
-/* harmony import */ var _inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/inline-icons/x-close.svg */ "./inline-icons/x-close.svg");
+/* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/no-metadata.svg */ "./inline-icons/no-metadata.svg");
 /* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/no-lang-detected.svg */ "./inline-icons/no-lang-detected.svg");
@@ -48336,6 +48336,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
 /* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+//
+//
 //
 //
 //
@@ -48450,7 +48452,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   components: {
-    deleteIcon: (_inline_icons_delete_svg__WEBPACK_IMPORTED_MODULE_1___default()),
+    xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default()),
     noLangDetectedIcon: (_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3___default()),
     plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4___default()),
@@ -48696,19 +48698,14 @@ __webpack_require__.r(__webpack_exports__);
 
     async updateTextFromTextBlock () {
       const params = this.collectCurrentParams()
-      console.info('updateTextFromTextBlock start - ', this.$textC.alignment)
-
-      console.info('updateTextFromTextBlock1', this.textType, this.textId, params)
-
       const result = await this.$textC[this.updateTextMethod](params, this.textId)
-
-      console.info('updateTextFromTextBlock2', this.textType, this.textId, result)
 
       if (result.resultUpdate && this.showTypeUploadButtons) {
         this.showTypeUploadButtons = false
         this.showTextProps = true
         this.showClearTextFlag++
-      } else {
+      }
+      if (!result.resultUpdate) {
         this.text = ''
       }
     },
@@ -48756,6 +48753,8 @@ __webpack_require__.r(__webpack_exports__);
       this.text = ''
       this.$textC.deleteText(this.textType, this.textId)
       // await this.updateText()
+      this.showTypeUploadButtons = true
+      this.showUploadMenu = false
     },
 
     /**
@@ -56342,26 +56341,6 @@ var render = function() {
             },
             [_c("plus-icon")],
             1
-          ),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.showDeleteIcon,
-                  expression: "showDeleteIcon"
-                }
-              ],
-              staticClass:
-                "alpheios-alignment-editor-text-blocks-single__remove",
-              attrs: { id: _vm.removeId },
-              on: { click: _vm.deleteText }
-            },
-            [_c("delete-icon")],
-            1
           )
         ]
       ),
@@ -56406,27 +56385,6 @@ var render = function() {
           )
         ]
       ),
-      _vm._v(" "),
-      _c("actions-menu", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: !this.showTypeUploadButtons,
-            expression: "!this.showTypeUploadButtons"
-          }
-        ],
-        attrs: {
-          "text-type": _vm.textType,
-          "text-id": _vm.textId,
-          onlyMetadata: _vm.showOnlyMetadata,
-          showClearTextFlag: _vm.showClearTextFlag
-        },
-        on: {
-          "toggle-metadata": _vm.toggleMetadata,
-          "clear-text": _vm.restartTextEditor
-        }
-      }),
       _vm._v(" "),
       _c(
         "div",
@@ -56497,7 +56455,9 @@ var render = function() {
               value: _vm.showTypeTextBlock,
               expression: "showTypeTextBlock"
             }
-          ]
+          ],
+          staticClass:
+            "alpheios-alignment-editor-text-blocks-single-text-area-container"
         },
         [
           _c(
@@ -56591,6 +56551,26 @@ var render = function() {
                 1
               )
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showDeleteIcon,
+                  expression: "showDeleteIcon"
+                }
+              ],
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__remove",
+              attrs: { id: _vm.removeId },
+              on: { click: _vm.deleteText }
+            },
+            [_c("x-close-icon")],
+            1
           ),
           _vm._v(" "),
           _c(
