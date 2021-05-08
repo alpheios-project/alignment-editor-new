@@ -208,7 +208,9 @@ export default class TextsController {
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
-    return UploadController.upload(uploadType, fileData)
+    const result = UploadController.upload(uploadType, fileData)
+    this.store.commit('incrementUploadCheck')
+    return result
   }
 
   /**

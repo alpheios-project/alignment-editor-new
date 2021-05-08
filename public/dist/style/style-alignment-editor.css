@@ -1630,6 +1630,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single__title .alpheios-alignment-editor-text-blocks-single__title-text {
   display: inline-block;
   padding-right: 15px;
+  line-height: 35px;
 }
 .alpheios-alignment-editor-text-blocks-single__title .alpheios-alignment-editor-add-translation {
   position: relative;

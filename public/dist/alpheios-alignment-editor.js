@@ -39840,7 +39840,9 @@ class TextsController {
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
-    return _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+    const result = _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload(uploadType, fileData)
+    this.store.commit('incrementUploadCheck')
+    return result
   }
 
   /**
@@ -45004,7 +45006,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210508525" : 0
+    return  true ? "events-redesign.20210508536" : 0
   }
 
   static get libName () {
@@ -45911,7 +45913,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     renderAlignEditor ()  {
-      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck &&this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -47089,7 +47091,7 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     alignAvailable () {
-      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     },
     undoAvailable () {
       return this.alignEditAvailable && this.$historyC.undoAvailable
@@ -47098,16 +47100,16 @@ __webpack_require__.r(__webpack_exports__);
       return this.alignEditAvailable && this.$historyC.redoAvailable
     },
     downloadAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.originDocSourceHasText
+      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
       return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     alignEditAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     addTargetAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     },
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
@@ -48478,8 +48480,6 @@ __webpack_require__.r(__webpack_exports__);
       showTextProps: false,
       showUploadMenu: false,
       showModalDTS: false,
-      showOnlyMetadata: true,
-      showClearTextFlag: 1,
 
       updatedLocalOptionsFlag: 1
     }
@@ -48651,7 +48651,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.showTextProps = false
       this.showUploadMenu = false
-      this.showOnlyMetadata = true
     },
 
     /**
@@ -48665,7 +48664,6 @@ __webpack_require__.r(__webpack_exports__);
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        this.showOnlyMetadata = true
       }
     },
 
@@ -48676,12 +48674,10 @@ __webpack_require__.r(__webpack_exports__);
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
-      // await this.updateText()
 
       this.showTypeUploadButtons = true
       this.showTextProps = false
       this.showUploadMenu = false
-      this.showOnlyMetadata = true
       this.$textC.deleteText(this.textType, this.textId)
     },
 
@@ -48703,7 +48699,6 @@ __webpack_require__.r(__webpack_exports__);
       if (result.resultUpdate && this.showTypeUploadButtons) {
         this.showTypeUploadButtons = false
         this.showTextProps = true
-        this.showClearTextFlag++
       }
       if (!result.resultUpdate) {
         this.text = ''
@@ -48729,7 +48724,6 @@ __webpack_require__.r(__webpack_exports__);
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
           this.showTextProps = true
-          this.showClearTextFlag++ 
         }
       }
     },
@@ -48751,6 +48745,8 @@ __webpack_require__.r(__webpack_exports__);
 
     async deleteText () {
       this.text = ''
+      this.$refs.fileupload.value = ''
+      this.prepareDefaultTextEditorOptions()
       this.$textC.deleteText(this.textType, this.textId)
       // await this.updateText()
       this.showTypeUploadButtons = true
@@ -48777,12 +48773,10 @@ __webpack_require__.r(__webpack_exports__);
       })
       if (result.resultUpdate) {
         this.showTypeTextBlock = true
-        this.showOnlyMetadata = true
       } else {
         this.showTypeUploadButtons = true
         this.showTextProps = false
         this.showUploadMenu = false
-        this.showOnlyMetadata = true
       }
     },
 
@@ -48791,12 +48785,9 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     selectUploadText () { 
-      // this.showUploadBlockFlag++
       this.showUploadMenu = true
 
-      this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
-      this.showClearTextFlag++ 
     },
 
     /**

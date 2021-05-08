@@ -140,8 +140,6 @@ export default {
       showTextProps: false,
       showUploadMenu: false,
       showModalDTS: false,
-      showOnlyMetadata: true,
-      showClearTextFlag: 1,
 
       updatedLocalOptionsFlag: 1
     }
@@ -313,7 +311,6 @@ export default {
 
       this.showTextProps = false
       this.showUploadMenu = false
-      this.showOnlyMetadata = true
     },
 
     /**
@@ -327,7 +324,6 @@ export default {
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        this.showOnlyMetadata = true
       }
     },
 
@@ -338,12 +334,10 @@ export default {
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
-      // await this.updateText()
 
       this.showTypeUploadButtons = true
       this.showTextProps = false
       this.showUploadMenu = false
-      this.showOnlyMetadata = true
       this.$textC.deleteText(this.textType, this.textId)
     },
 
@@ -365,7 +359,6 @@ export default {
       if (result.resultUpdate && this.showTypeUploadButtons) {
         this.showTypeUploadButtons = false
         this.showTextProps = true
-        this.showClearTextFlag++
       }
       if (!result.resultUpdate) {
         this.text = ''
@@ -391,7 +384,6 @@ export default {
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
           this.showTextProps = true
-          this.showClearTextFlag++ 
         }
       }
     },
@@ -413,6 +405,8 @@ export default {
 
     async deleteText () {
       this.text = ''
+      this.$refs.fileupload.value = ''
+      this.prepareDefaultTextEditorOptions()
       this.$textC.deleteText(this.textType, this.textId)
       // await this.updateText()
       this.showTypeUploadButtons = true
@@ -439,12 +433,10 @@ export default {
       })
       if (result.resultUpdate) {
         this.showTypeTextBlock = true
-        this.showOnlyMetadata = true
       } else {
         this.showTypeUploadButtons = true
         this.showTextProps = false
         this.showUploadMenu = false
-        this.showOnlyMetadata = true
       }
     },
 
@@ -453,12 +445,9 @@ export default {
     },
 
     selectUploadText () { 
-      // this.showUploadBlockFlag++
       this.showUploadMenu = true
 
-      this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
-      this.showClearTextFlag++ 
     },
 
     /**
@@ -622,6 +611,7 @@ export default {
       .alpheios-alignment-editor-text-blocks-single__title-text {
         display: inline-block; 
         padding-right: 15px;
+        line-height: 35px;
       }
 
       .alpheios-alignment-editor-add-translation {
