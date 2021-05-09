@@ -176,6 +176,11 @@
     "description": "Table title",
     "component": "SummaryPopup"
   },
+  "SUMMARY_POPUP_TABEL_TH_ISTEI": {
+    "message": "Is TEI",
+    "description": "Table title",
+    "component": "SummaryPopup"
+  },
   "SUMMARY_POPUP_SHOW_OPTION_LABEL": {
     "message": "Show this popup for each text preparation",
     "description": "Label for the option",

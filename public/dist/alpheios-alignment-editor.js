@@ -42290,11 +42290,21 @@ class Alignment {
   }
 
   get originalLangData () {
-    return this.originDocSource.langData
+    return {
+      langData: this.originDocSource.langData,
+      tokenized: Boolean(this.origin.alignedText),
+      isTei: this.originDocSource.isTei
+    }
   }
 
   get targetsLangData () {
-    return Object.keys(this.targets).map(targetId => this.targets[targetId].docSource.langData)
+    return Object.keys(this.targets).map(targetId => {
+      return {
+        langData: this.targets[targetId].docSource.langData,
+        tokenized: Boolean(this.targets[targetId].alignedText),
+        isTei: this.targets[targetId].docSource.isTei
+      }
+    }).reverse()
   }
 
   /**
@@ -44067,6 +44077,10 @@ class SourceText {
     return this.metadata.isEmpty
   }
 
+  get isTei () {
+    return this.sourceType === 'tei'
+  }
+
   get langData () {
     const textPart = this.text.substr(0, 10)
     const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__.default.defineLangName(this.lang)
@@ -45005,7 +45019,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210509467" : 0
+    return  true ? "events-redesign.20210509498" : 0
   }
 
   static get libName () {
@@ -47102,10 +47116,10 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     alignEditAvailable () {
-      return this.$store.state.docSourceUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
@@ -47609,6 +47623,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 /* harmony import */ var _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/waiting.vue */ "./vue/common/waiting.vue");
 /* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/check.svg */ "./inline-icons/check.svg");
+/* harmony import */ var _inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -47658,6 +47674,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -47669,7 +47698,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     waiting: _vue_common_waiting_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    checkIcon: (_inline_icons_check_svg__WEBPACK_IMPORTED_MODULE_4___default())
   },
   props: {
     showModal: {
@@ -47704,10 +47734,10 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
     },
     originalLangData () {
-      return this.$store.state.alignmentUpdated && this.$textC.originalLangData
+      return this.$store.state.docSourceUpdated && this.$textC.originalLangData
     },
     targetsLangData () {
-      return this.$store.state.alignmentUpdated && this.$textC.targetsLangData
+      return this.$store.state.docSourceUpdated && this.$textC.targetsLangData
     },
     showSummaryPopupOpt () {
       return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
@@ -48592,7 +48622,7 @@ __webpack_require__.r(__webpack_exports__);
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.docSourceUpdated) && 
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated &&
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
@@ -48650,7 +48680,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -48839,14 +48869,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/text-editor-single-block.vue */ "./vue/text-editor/text-editor-single-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -55464,6 +55486,16 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
+                                _c("th", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "SUMMARY_POPUP_TABEL_TH_ISTEI"
+                                      )
+                                    )
+                                  )
+                                ]),
+                                _vm._v(" "),
                                 _c("th", { attrs: { colspan: "2" } }, [
                                   _vm._v(
                                     _vm._s(
@@ -55472,42 +55504,43 @@ var render = function() {
                                       )
                                     )
                                   )
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.l10n.getMsgS(
+                                        "SUMMARY_POPUP_TABEL_TH_ISTEI"
+                                      )
+                                    )
+                                  )
                                 ])
                               ]),
                               _vm._v(" "),
                               _vm._l(_vm.targetsLangData, function(
-                                langData,
+                                targetData,
                                 langIndex
                               ) {
                                 return _c("tr", { key: langIndex }, [
                                   langIndex > 0
-                                    ? _c("td", { attrs: { colspan: "2" } })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  langIndex === 0
-                                    ? _c("td", [
-                                        _vm._v(
-                                          "\n              " +
-                                            _vm._s(
-                                              _vm.originalLangData.textPart
-                                            ) +
-                                            "\n            "
-                                        )
-                                      ])
+                                    ? _c("td", { attrs: { colspan: "3" } })
                                     : _vm._e(),
                                   _vm._v(" "),
                                   langIndex === 0
                                     ? _c(
                                         "td",
                                         {
-                                          staticClass:
-                                            "alpheios-editor-langs-table_lang"
+                                          class: {
+                                            "alpheios-editor-langs-table-tokenized":
+                                              _vm.originalLangData.tokenized
+                                          }
                                         },
                                         [
                                           _vm._v(
                                             "\n              " +
                                               _vm._s(
-                                                _vm.originalLangData.langName
+                                                _vm.originalLangData.langData
+                                                  .textPart
                                               ) +
                                               "\n            "
                                           )
@@ -55515,25 +55548,128 @@ var render = function() {
                                       )
                                     : _vm._e(),
                                   _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n              " +
-                                        _vm._s(langData.textPart) +
-                                        "\n            "
-                                    )
-                                  ]),
+                                  langIndex === 0
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "alpheios-editor-langs-table_lang",
+                                          class: {
+                                            "alpheios-editor-langs-table-tokenized":
+                                              _vm.originalLangData.tokenized
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n              " +
+                                              _vm._s(
+                                                _vm.originalLangData.langData
+                                                  .langName
+                                              ) +
+                                              "\n            "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  langIndex === 0
+                                    ? _c(
+                                        "td",
+                                        {
+                                          staticClass:
+                                            "alpheios-editor-langs-table_teicheck",
+                                          class: {
+                                            "alpheios-editor-langs-table-tokenized":
+                                              _vm.originalLangData.tokenized
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "span",
+                                            {
+                                              directives: [
+                                                {
+                                                  name: "show",
+                                                  rawName: "v-show",
+                                                  value:
+                                                    _vm.originalLangData.isTei,
+                                                  expression:
+                                                    "originalLangData.isTei"
+                                                }
+                                              ],
+                                              staticClass:
+                                                "alpheios-alignment-editor-text-blocks-single__icons"
+                                            },
+                                            [_c("check-icon")],
+                                            1
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      class: {
+                                        "alpheios-editor-langs-table-tokenized":
+                                          targetData.tokenized
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n              " +
+                                          _vm._s(targetData.langData.textPart) +
+                                          "\n            "
+                                      )
+                                    ]
+                                  ),
                                   _vm._v(" "),
                                   _c(
                                     "td",
                                     {
                                       staticClass:
-                                        "alpheios-editor-langs-table_lang"
+                                        "alpheios-editor-langs-table_lang",
+                                      class: {
+                                        "alpheios-editor-langs-table-tokenized":
+                                          targetData.tokenized
+                                      }
                                     },
                                     [
                                       _vm._v(
                                         "\n              " +
-                                          _vm._s(langData.langName) +
+                                          _vm._s(targetData.langData.langName) +
                                           "\n            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass:
+                                        "alpheios-editor-langs-table_teicheck",
+                                      class: {
+                                        "alpheios-editor-langs-table-tokenized":
+                                          targetData.tokenized
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value: targetData.isTei,
+                                              expression: "targetData.isTei"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "alpheios-alignment-editor-text-blocks-single__icons"
+                                        },
+                                        [_c("check-icon")],
+                                        1
                                       )
                                     ]
                                   )
@@ -56775,17 +56911,12 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.alignAvailable,
-                          expression: "alignAvailable"
-                        }
-                      ],
                       staticClass:
                         "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                      attrs: { id: "alpheios-actions-menu-button__align" },
+                      attrs: {
+                        id: "alpheios-actions-menu-button__align",
+                        disabled: !_vm.alignAvailable
+                      },
                       on: {
                         click: function($event) {
                           return _vm.$emit("align-text")
@@ -58391,6 +58522,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/check.svg":
+/*!********************************!*\
+  !*** ./inline-icons/check.svg ***!
+  \********************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"viewBox":"0 0 447.6 757.4"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M-128.4 305.8c74.8 53.3 146.8 110.5 215.7 171.3 0 0 348.4-399.4 557.1-477.1l27 53S277.2 418 150.5 757.4l-374.3-378.7 95.4-72.9z"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/delete.svg":
 /*!*********************************!*\
   !*** ./inline-icons/delete.svg ***!
@@ -59222,7 +59390,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"Is TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 

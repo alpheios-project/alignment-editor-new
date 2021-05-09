@@ -72,7 +72,7 @@
       <div class="alpheios-alignment-editor-text-blocks-single__align-button" v-if="textType === 'origin'">
         <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__align"
-              @click="$emit('align-text')" v-show="alignAvailable" >
+              @click="$emit('align-text')" :disabled="!alignAvailable" >
               {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
           </button>
         </tooltip>
@@ -260,7 +260,7 @@ export default {
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.docSourceUpdated) && 
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated &&
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
@@ -318,7 +318,7 @@ export default {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {

@@ -1267,6 +1267,17 @@ button.alpheios-app-menu-link:-moz-focusring {
   display: inline-block;
   vertical-align: middle;
 }
+.alpheios-editor-langs-table-tokenized {
+  color: #b0b0b0;
+}
+.alpheios-editor-langs-table-tokenized svg {
+  fill: #b0b0b0;
+}
+.alpheios-editor-langs-table_teicheck svg {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+}
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
   margin-left: 30px;
@@ -1668,6 +1679,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
   width: 100%;
   height: 100%;
+}
+.alpheios-alignment-editor-text-blocks-single__align-button {
+  margin-top: 30px;
 }
 .alpheios-alignment-text-editor-block__header {
   font-size: 24px;

@@ -57,6 +57,10 @@ export default class SourceText {
     return this.metadata.isEmpty
   }
 
+  get isTei () {
+    return this.sourceType === 'tei'
+  }
+
   get langData () {
     const textPart = this.text.substr(0, 10)
     const langName = Langs.defineLangName(this.lang)

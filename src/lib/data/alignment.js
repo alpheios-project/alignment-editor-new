@@ -186,11 +186,21 @@ export default class Alignment {
   }
 
   get originalLangData () {
-    return this.originDocSource.langData
+    return {
+      langData: this.originDocSource.langData,
+      tokenized: Boolean(this.origin.alignedText),
+      isTei: this.originDocSource.isTei
+    }
   }
 
   get targetsLangData () {
-    return Object.keys(this.targets).map(targetId => this.targets[targetId].docSource.langData)
+    return Object.keys(this.targets).map(targetId => {
+      return {
+        langData: this.targets[targetId].docSource.langData,
+        tokenized: Boolean(this.targets[targetId].alignedText),
+        isTei: this.targets[targetId].docSource.isTei
+      }
+    }).reverse()
   }
 
   /**

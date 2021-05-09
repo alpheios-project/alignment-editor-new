@@ -150,10 +150,10 @@ export default {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     alignEditAvailable () {
-      return this.$store.state.docSourceUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     addTargetAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
