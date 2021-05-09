@@ -1341,11 +1341,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   fill: #1B374F;
   stroke: #1B374F;
 }
-.alpheios-alignment-editor-actions-menu__buttons,
-.alpheios-alignment-editor-actions-menu__upload-block {
-  padding: 5px 0 0;
-  text-align: left;
-}
 .alpheios-alignment-editor-metadata-item {
   margin-bottom: 10px;
 }
@@ -1418,6 +1413,9 @@ p.alpheios-alignment-editor-metadata__info-title {
 .alpheios-alignment-editor-modal-metadata .alpheios-modal-body {
   max-height: 700px;
 }
+.alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
+  margin-bottom: 10px;
+}
 p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
   cursor: pointer;
@@ -1435,9 +1433,6 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   font-size: 90%;
   text-decoration: underline;
   margin: 0;
-}
-.alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
-  margin-bottom: 10px;
 }
 .alpheios-editor-content-pagination {
   margin-bottom: 10px;
@@ -1563,8 +1558,14 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   stroke: #99002a;
   fill: transparent;
 }
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data {
+  cursor: pointer;
+}
 .alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data svg {
   stroke: #99002a;
+}
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data {
+  cursor: pointer;
 }
 .alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
@@ -1582,6 +1583,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   font-size: 13px;
   margin-top: 5px;
   margin-left: 3px;
+  cursor: pointer;
 }
 .alpheios-alignment-editor-text-blocks-single__title {
   position: relative;

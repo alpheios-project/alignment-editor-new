@@ -24,12 +24,14 @@
       <upload-dtsapi-block :showModal="showModalDTS" @closeModal = "showModalDTS = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
 
       <metadata-block :text-type = "textType" :text-id = "textId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  />
+      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" @updateDirection = "updateDirection"
+                      :showModal="showModalLanguage" @closeModal = "showModalLanguage = false"  />
 
       <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps">
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true">
             {{ language }}
           </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
@@ -61,13 +63,7 @@
         ></textarea>
       </div>
 
-      <direction-options-block 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"  v-show="showTextProps" 
-      />
 
-      <language-options-block :textType = "textType"
-        @updateText = "updateText" @updateDirection = "updateDirection" :localOptions = "localTextEditorOptions" v-show="showTextProps"
-      />
 
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
@@ -86,12 +82,11 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
-import ActionsMenu from '@/vue/text-editor/actions-menu-text-editor.vue'
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
+import LanguageBlock from '@/vue/text-editor/language-block.vue'
 
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
-import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
-import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
+
 import Tooltip from '@/vue/common/tooltip.vue'
 import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
 
@@ -125,11 +120,9 @@ export default {
     noLangDetectedIcon: NoLangDetectedIcon,
     plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
-    actionsMenu: ActionsMenu,
     metadataBlock: MetadataBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
-    directionOptionsBlock: DirectionOptionsBlock,
-    languageOptionsBlock: LanguageOptionsBlock,
+    languageBlock: LanguageBlock,
     tooltip: Tooltip,
     uploadDtsapiBlock: UploadDTSAPIBlock
   },
@@ -146,6 +139,7 @@ export default {
       showUploadMenu: false,
       showModalDTS: false,
       showModalMetadata: false,
+      showModalLanguage: false,
 
       updatedLocalOptionsFlag: 1
     }
@@ -534,12 +528,14 @@ export default {
         span.alpheios-alignment-editor-text-blocks-single__icons{
 
           &.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data {
+            cursor: pointer;
             svg {
               stroke: #99002a;
             }
           }
 
           &.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data {
+            cursor: pointer;
             svg {
               stroke: #2a9900;
             }
@@ -561,6 +557,8 @@ export default {
           font-size: 13px;
           margin-top: 5px;
           margin-left: 3px;
+
+          cursor: pointer;
         }
     }
 
