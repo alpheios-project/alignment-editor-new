@@ -151,6 +151,11 @@
     "description": "Tooltip for no metadata icon",
     "component": "TextEditorSingleBlock"
   },
+  "HAS_METADATA_ICON": {
+    "message": "You could check and update metadata here",
+    "description": "Tooltip for has metadata icon",
+    "component": "TextEditorSingleBlock"
+  },
   "NO_LANG_DETECTED_ICON": {
     "message": "Language was not detected, please recheck it manually.",
     "description": "Tooltip for no lang detected icon",

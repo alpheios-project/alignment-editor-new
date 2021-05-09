@@ -14,12 +14,6 @@
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      <!--
-      <actions-menu :text-type = "textType" :text-id = "textId" @toggle-metadata="toggleMetadata" 
-            :onlyMetadata = "showOnlyMetadata"
-            :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
-            v-show="!this.showTypeUploadButtons"/>       
-      -->
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
@@ -29,7 +23,7 @@
       </div>
       <upload-dtsapi-block :showModal="showModalDTS" @closeModal = "showModalDTS = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
 
-      <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
+      <metadata-block :text-type = "textType" :text-id = "textId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  />
 
       <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
@@ -43,11 +37,21 @@
               <no-lang-detected-icon />
             </tooltip>
           </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="isEmptyMetadata">
+
+          <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data" 
+                v-show="isEmptyMetadata" @click="showModalMetadata = true">
             <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="top">
               <no-metadata-icon />
             </tooltip>
           </span>
+
+          <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data" 
+                v-show="hasMetadata" @click="showModalMetadata = true">
+            <tooltip :tooltipText="l10n.getMsgS('HAS_METADATA_ICON')" tooltipDirection="top">
+              <has-metadata-icon />
+            </tooltip>
+          </span>
+
         </p>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
           <x-close-icon />
@@ -74,6 +78,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import XCloseIcon from '@/inline-icons/x-close.svg'
 import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
+import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
 import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
 
@@ -116,6 +121,7 @@ export default {
   components: {
     xCloseIcon: XCloseIcon,
     noMetadataIcon: NoMetadataIcon,
+    hasMetadataIcon: HasMetadataIcon,
     noLangDetectedIcon: NoLangDetectedIcon,
     plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
@@ -133,13 +139,13 @@ export default {
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false,
       showTypeUploadButtons: true,
 
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
       showModalDTS: false,
+      showModalMetadata: false,
 
       updatedLocalOptionsFlag: 1
     }
@@ -293,6 +299,11 @@ export default {
       return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
     },
 
+    hasMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    },
+
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
@@ -306,7 +317,6 @@ export default {
   },
   methods: {
     initDataProps () {
-      this.showMetadata = false
       this.showTypeUploadButtons = true
 
       this.showTextProps = false
@@ -440,10 +450,6 @@ export default {
       }
     },
 
-    toggleMetadata () {
-      this.showMetadata = !this.showMetadata
-    },
-
     selectUploadText () { 
       this.showUploadMenu = true
 
@@ -524,6 +530,22 @@ export default {
             fill: transparent;
           }
         }
+
+        span.alpheios-alignment-editor-text-blocks-single__icons{
+
+          &.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data {
+            svg {
+              stroke: #99002a;
+            }
+          }
+
+          &.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data {
+            svg {
+              stroke: #2a9900;
+            }
+          }
+        }
+
         p.alpheios-alignment-editor-red {
           color: #99002a;
         }

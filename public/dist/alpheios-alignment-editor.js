@@ -181,6 +181,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-info.vue?vue&type=style&index=0&lang=scss& ***!
@@ -45006,7 +45016,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210508536" : 0
+    return  true ? "events-redesign.20210509390" : 0
   }
 
   static get libName () {
@@ -48076,6 +48086,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/text-editor/metadata-term-block.vue */ "./vue/text-editor/metadata-term-block.vue");
 /* harmony import */ var _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/text-editor/metadata-info.vue */ "./vue/text-editor/metadata-info.vue");
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
 //
 //
 //
@@ -48084,6 +48095,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -48092,7 +48111,8 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MetadataBlock',
   components: {
     metadataTermBlock: _vue_text_editor_metadata_term_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    metadataInfo: _vue_text_editor_metadata_info_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: {
     textType: {
@@ -48102,6 +48122,11 @@ __webpack_require__.r(__webpack_exports__);
     textId: {
       type: String,
       required: false
+    },
+    showModal: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -48115,11 +48140,8 @@ __webpack_require__.r(__webpack_exports__);
     docSource () {
       return this.$textC.getDocSource(this.textType, this.textId)
     },
-    metadataAvailable () {
-      return this.$store.state.docSourceUpdated && Boolean(this.docSource)
-    },
     allMetadata () {
-      return this.$store.state.docSourceUpdated && this.metadataAvailable && this.docSource.allAvailableMetadata
+      return this.$store.state.docSourceUpdated && this.docSource.allAvailableMetadata
     }
   },
   methods: {
@@ -48324,20 +48346,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/no-metadata.svg */ "./inline-icons/no-metadata.svg");
 /* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/no-lang-detected.svg */ "./inline-icons/no-lang-detected.svg");
-/* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/plus.svg */ "./inline-icons/plus.svg");
-/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
-/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
-/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
-/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
-/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
-/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
-/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
-/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
-/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/has-metadata.svg */ "./inline-icons/has-metadata.svg");
+/* harmony import */ var _inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/no-lang-detected.svg */ "./inline-icons/no-lang-detected.svg");
+/* harmony import */ var _inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/inline-icons/plus.svg */ "./inline-icons/plus.svg");
+/* harmony import */ var _inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/vue/options/option-item-block.vue */ "./vue/options/option-item-block.vue");
+/* harmony import */ var _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/vue/text-editor/actions-menu-text-editor.vue */ "./vue/text-editor/actions-menu-text-editor.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
+/* harmony import */ var _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/vue/text-editor/tokenize-options-block.vue */ "./vue/text-editor/tokenize-options-block.vue");
+/* harmony import */ var _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/vue/text-editor/direction-options-block.vue */ "./vue/text-editor/direction-options-block.vue");
+/* harmony import */ var _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/vue/text-editor/language-options-block.vue */ "./vue/text-editor/language-options-block.vue");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/vue/text-editor/upload-dtsapi-block.vue */ "./vue/text-editor/upload-dtsapi-block.vue");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
 //
 //
 //
@@ -48410,6 +48434,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -48456,16 +48485,17 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     xCloseIcon: (_inline_icons_x_close_svg__WEBPACK_IMPORTED_MODULE_1___default()),
     noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    noLangDetectedIcon: (_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_3___default()),
-    plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_4___default()),
-    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_6__.default,
-    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_7__.default,
-    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
-    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
-    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_11__.default,
-    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_12__.default,
-    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_13__.default
+    hasMetadataIcon: (_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    noLangDetectedIcon: (_inline_icons_no_lang_detected_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    plusIcon: (_inline_icons_plus_svg__WEBPACK_IMPORTED_MODULE_5___default()),
+    optionItemBlock: _vue_options_option_item_block_vue__WEBPACK_IMPORTED_MODULE_7__.default,
+    actionsMenu: _vue_text_editor_actions_menu_text_editor_vue__WEBPACK_IMPORTED_MODULE_8__.default,
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_9__.default,
+    tokenizeOptionsBlock: _vue_text_editor_tokenize_options_block_vue__WEBPACK_IMPORTED_MODULE_10__.default,
+    directionOptionsBlock: _vue_text_editor_direction_options_block_vue__WEBPACK_IMPORTED_MODULE_11__.default,
+    languageOptionsBlock: _vue_text_editor_language_options_block_vue__WEBPACK_IMPORTED_MODULE_12__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_13__.default,
+    uploadDtsapiBlock: _vue_text_editor_upload_dtsapi_block_vue__WEBPACK_IMPORTED_MODULE_14__.default
   },
   data () {
     return {
@@ -48473,13 +48503,13 @@ __webpack_require__.r(__webpack_exports__);
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false,
       showTypeUploadButtons: true,
 
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
       showModalDTS: false,
+      showModalMetadata: false,
 
       updatedLocalOptionsFlag: 1
     }
@@ -48607,7 +48637,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
-      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
+      return _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
@@ -48633,6 +48663,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
     },
 
+    hasMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    },
+
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
@@ -48646,7 +48681,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initDataProps () {
-      this.showMetadata = false
       this.showTypeUploadButtons = true
 
       this.showTextProps = false
@@ -48739,7 +48773,7 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     updateDirection () {
-      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_14__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
+      this.localTextEditorOptions.sourceText.items.direction.currentValue = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_15__.default.defineDirection(this.localTextEditorOptions.sourceText.items.language.currentValue)
       this.$store.commit('incrementOptionsUpdated')
     },
 
@@ -48778,10 +48812,6 @@ __webpack_require__.r(__webpack_exports__);
         this.showTextProps = false
         this.showUploadMenu = false
       }
-    },
-
-    toggleMetadata () {
-      this.showMetadata = !this.showMetadata
     },
 
     selectUploadText () { 
@@ -49117,7 +49147,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     showModal: {
-    type: Boolean,
+      type: Boolean,
       required: false,
       default: false
     }
@@ -51304,15 +51334,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=template&id=afaf8a30& */ "./vue/text-editor/metadata-block.vue?vue&type=template&id=afaf8a30&");
 /* harmony import */ var _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=script&lang=js& */ "./vue/text-editor/metadata-block.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _metadata_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata-block.vue?vue&type=style&index=0&lang=scss& */ "./vue/text-editor/metadata-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _metadata_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
   _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.render,
   _metadata_block_vue_vue_type_template_id_afaf8a30___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -52188,6 +52220,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
 /* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_dts_api_pagination_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./vue/text-editor/metadata-block.vue?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************!*\
+  !*** ./vue/text-editor/metadata-block.vue?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/mini-css-extract-plugin/dist/loader.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./metadata-block.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/text-editor/metadata-block.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_metadata_block_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
 
 
@@ -56029,26 +56078,73 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.metadataAvailable
-    ? _c(
-        "div",
-        { staticClass: "alpheios-alignment-editor-metadata" },
-        [
-          _c("metadata-info"),
-          _vm._v(" "),
-          _vm._l(_vm.allMetadata, function(metadataTerm, termIndex) {
-            return _c("metadata-term-block", {
-              key: termIndex,
-              attrs: {
-                "text-type": _vm.textType,
-                "text-id": _vm.textId,
-                "metadata-term": metadataTerm
-              }
-            })
-          })
-        ],
-        2
-      )
+  return _vm.showModal
+    ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-metadata",
+        on: {
+          close: function($event) {
+            return _vm.$emit("closeModal")
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "body",
+              fn: function() {
+                return [
+                  _c(
+                    "div",
+                    { staticClass: "alpheios-alignment-editor-metadata" },
+                    [
+                      _c("metadata-info"),
+                      _vm._v(" "),
+                      _vm._l(_vm.allMetadata, function(
+                        metadataTerm,
+                        termIndex
+                      ) {
+                        return _c("metadata-term-block", {
+                          key: termIndex,
+                          attrs: {
+                            "text-type": _vm.textType,
+                            "text-id": _vm.textId,
+                            "metadata-term": metadataTerm
+                          }
+                        })
+                      })
+                    ],
+                    2
+                  )
+                ]
+              },
+              proxy: true
+            },
+            {
+              key: "footer",
+              fn: function() {
+                return [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("closeModal")
+                        }
+                      }
+                    },
+                    [_vm._v("Close")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ],
+          null,
+          false,
+          3324870161
+        )
+      })
     : _vm._e()
 }
 var staticRenderFns = []
@@ -56425,15 +56521,16 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("metadata-block", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showMetadata,
-            expression: "showMetadata"
+        attrs: {
+          "text-type": _vm.textType,
+          "text-id": _vm.textId,
+          showModal: _vm.showModalMetadata
+        },
+        on: {
+          closeModal: function($event) {
+            _vm.showModalMetadata = false
           }
-        ],
-        attrs: { "text-type": _vm.textType, "text-id": _vm.textId }
+        }
       }),
       _vm._v(" "),
       _c(
@@ -56524,7 +56621,12 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "alpheios-alignment-editor-text-blocks-single__icons"
+                    "alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data",
+                  on: {
+                    click: function($event) {
+                      _vm.showModalMetadata = true
+                    }
+                  }
                 },
                 [
                   _c(
@@ -56536,6 +56638,41 @@ var render = function() {
                       }
                     },
                     [_c("no-metadata-icon")],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.hasMetadata,
+                      expression: "hasMetadata"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data",
+                  on: {
+                    click: function($event) {
+                      _vm.showModalMetadata = true
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "tooltip",
+                    {
+                      attrs: {
+                        tooltipText: _vm.l10n.getMsgS("HAS_METADATA_ICON"),
+                        tooltipDirection: "top"
+                      }
+                    },
+                    [_c("has-metadata-icon")],
                     1
                   )
                 ],
@@ -58419,6 +58556,43 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./inline-icons/has-metadata.svg":
+/*!***************************************!*\
+  !*** ./inline-icons/has-metadata.svg ***!
+  \***************************************/
+/***/ ((module) => {
+
+
+      module.exports = {
+        functional: true,
+        render(_h, _vm) {
+          const { _c, _v, data, children = [] } = _vm;
+
+          const {
+            class: classNames,
+            staticClass,
+            style,
+            staticStyle,
+            attrs = {},
+            ...rest
+          } = data;
+
+          return _c(
+            'svg',
+            {
+              class: [classNames,staticClass],
+              style: [style,staticStyle],
+              attrs: Object.assign({"width":"548.03","height":"548.03","viewBox":"0 0 145 145","xmlns":"http://www.w3.org/2000/svg"}, attrs),
+              ...rest,
+            },
+            children.concat([_c('path',{attrs:{"d":"M22.334 103.21c-1.06-.57-1.007 1.07-1.015-31.426-.007-32.885-.071-31.03 1.087-31.543.313-.138 1.487-.232 2.914-.232h2.39v-2.223c0-2.5.177-3.07 1.078-3.469.71-.314 25.783-3.213 29.214-3.378 4.372-.21 10.074.86 13.746 2.58.723.338.776.338 1.5 0 3.673-1.72 9.378-2.79 13.745-2.579 3.458.168 28.508 3.063 29.214 3.377.901.4 1.078.969 1.078 3.469v2.223h2.39c1.427 0 2.6.094 2.914.232 1.158.512 1.094-1.336 1.094 31.504s.064 30.991-1.094 31.504c-.812.36-99.588.32-100.26-.039zm97.551-31.465V43.697h-2.6l-.002 25.281c-.003 19.833-.057 25.385-.253 25.761-.61 1.17.032 1.192-15.361-.547-8.403-.95-14.84-1.588-15.975-1.585-3.652.01-7.56.84-10.967 2.33-.98.428-1.983.778-2.23.778-.245 0-1.248-.35-2.228-.779-3.408-1.49-7.316-2.32-10.967-2.33-1.134-.003-7.572.637-15.975 1.586-15.393 1.74-14.751 1.717-15.361.547-.196-.376-.25-5.929-.253-25.761l-.003-25.281H25.11v56.095h94.776zm-76.02 18.723c6.566-.751 12.748-1.418 13.738-1.48 3.328-.213 8.283.49 11.778 1.671.65.22 1.212.399 1.25.399s.068-12.14.068-26.976V37.106l-.75-.37c-.94-.464-3.709-1.316-5.548-1.709-.77-.164-2.704-.34-4.298-.393-2.676-.087-3.835.012-14.995 1.283-6.653.758-12.433 1.429-12.846 1.49l-.75.113v27.157c0 18.641.065 27.157.207 27.157.115 0 5.58-.615 12.146-1.366zM34.97 79.65c-.945-.721-.92-2.266.048-2.882.554-.352 18.417-2.48 22.803-2.717 4.026-.217 9.487.643 10.277 1.618.8.988.264 2.602-.95 2.858-.302.063-1.358-.065-2.347-.285-1.14-.253-2.863-.439-4.699-.507-2.683-.099-3.668-.019-13.196 1.076-5.663.651-10.567 1.181-10.896 1.179-.33-.003-.798-.156-1.04-.34zm.203-8.234c-.655-.307-1.057-1.247-.843-1.97.388-1.315.058-1.24 10.808-2.483 5.426-.628 11.08-1.197 12.565-1.264 4.446-.202 9.443.56 10.343 1.576.526.593.596 1.566.157 2.174-.52.722-1.232.82-3.102.426-1.035-.218-2.989-.403-4.999-.474-3.171-.112-3.694-.07-13.537 1.065-5.63.65-10.399 1.176-10.597 1.168-.197-.006-.555-.105-.795-.218zm.237-8.298c-1.598-.635-1.459-2.986.2-3.39.255-.063 5.096-.638 10.758-1.279 12.63-1.43 14.719-1.479 19.495-.462 1.9.405 2.637.975 2.637 2.04 0 .557-.135.9-.49 1.245-.582.565-1.397.61-3.259.185-1.857-.426-5.872-.662-8.047-.474-1.045.09-6.152.649-11.35 1.241-5.198.592-9.471 1.072-9.497 1.065a11.766 11.766 0 01-.447-.171zm.104-8.38c-.876-.339-1.204-.767-1.204-1.573 0-.967.244-1.4.942-1.678.307-.121 5.146-.748 10.754-1.393 12.691-1.46 15.152-1.517 20.013-.467 1.86.402 2.481.887 2.481 1.937 0 .519-.154.853-.584 1.27-.668.649-1.136.695-2.915.288-2.052-.468-5.29-.732-7.298-.595-1.59.109-19.208 2.043-21.094 2.316-.33.047-.823 0-1.095-.105zm-.713-8.8c-.791-.769-.623-2.34.302-2.82.357-.186 18.713-2.338 22.332-2.618 2.632-.204 8.036.395 9.923 1.1 1.261.472 1.543 1.931.557 2.888-.7.68-.88.687-3.483.14-3.523-.74-6.875-.611-18.065.69-5.19.603-9.805 1.096-10.256 1.096-.603 0-.949-.125-1.31-.476zm78.686 18.739V37.52l-.75-.113c-.412-.062-6.193-.733-12.846-1.49-11.16-1.272-12.32-1.37-14.995-1.283-1.594.052-3.529.229-4.299.393-1.839.392-4.608 1.245-5.548 1.709l-.75.37V64.08c0 14.837.028 26.976.063 26.976s.864-.263 1.844-.585c3.328-1.091 5.758-1.443 9.79-1.415 3.135.021 5.066.2 14.994 1.38 6.268.746 11.644 1.365 11.947 1.376l.55.02zM98.691 78.88c-7.938-.957-9.318-1.074-12.796-1.084-3.348-.01-4.161.049-5.755.415-1.021.235-2.07.375-2.33.312-1.32-.322-1.824-2.003-.878-2.922.985-.956 6.255-1.764 10.16-1.559 1.915.101 19.404 2.003 21.835 2.374 1.674.257 2.317 1.902 1.177 3.01-.494.479-.735.564-1.55.546-.53-.01-4.969-.503-9.863-1.092zm-.5-8.426c-9.335-1.097-9.957-1.146-13.196-1.054-2.33.066-3.956.217-5.17.48-1.86.402-2.373.35-2.95-.298-.897-1.01-.489-2.379.852-2.857 1.987-.709 4.36-.994 8.168-.982 3.2.01 4.98.16 13.196 1.112 5.223.606 9.831 1.192 10.24 1.302 1.437.389 1.834 1.89.772 2.922-.455.442-.753.563-1.35.546-.42-.011-5.173-.539-10.561-1.171zm.4-8.344c-10.738-1.28-14.106-1.446-17.295-.849-2.839.532-3.537.57-4.078.227-.73-.465-1.023-1.508-.63-2.246.41-.77.624-.866 3.108-1.406 1.845-.4 2.596-.454 6.199-.444 3.701.011 5.01.12 13.496 1.115 5.168.607 9.644 1.154 9.944 1.216 1.073.222 1.69 1.631 1.146 2.618-.26.47-1.23.967-1.833.936-.253-.013-4.779-.538-10.057-1.167zm.3-8.331c-13.56-1.576-13.837-1.583-19.63-.543-1.636.293-2.25.086-2.677-.905-.596-1.386.111-2.215 2.303-2.7 4.793-1.058 7.293-1 20.004.46 5.664.652 10.452 1.23 10.642 1.288.92.277 1.437 1.73.939 2.633-.198.36-1.357.975-1.727.918-.086-.014-4.52-.532-9.854-1.151zm-.5-8.467c-10.813-1.295-14.358-1.426-18.04-.67-2.638.543-3.303.421-3.781-.69-.332-.77-.199-1.432.398-1.976.943-.86 7.15-1.733 10.52-1.48.938.071 6.247.642 11.797 1.27 8.363.945 10.177 1.203 10.597 1.506.966.699 1.042 1.955.166 2.748-.622.562-1.483.51-11.656-.708z","fill":"none","stroke":"#2a9900","stroke-width":"1.391"}}),_c('path',{attrs:{"d":"M142.98 72.5a70.477 70.477 0 01-70.477 70.477A70.477 70.477 0 012.026 72.5 70.477 70.477 0 0172.503 2.023 70.477 70.477 0 01142.98 72.5z","fill":"none","opacity":".99","stroke":"#2a9900","stroke-linecap":"round","stroke-width":"4.046"}})])
+          )
+        }
+      }
+    
+
+/***/ }),
+
 /***/ "./inline-icons/merge-left.svg":
 /*!*************************************!*\
   !*** ./inline-icons/merge-left.svg ***!
@@ -58633,7 +58807,7 @@ render._withStripped = true
               attrs: Object.assign({"width":"548.03","height":"548.03","viewBox":"0 0 145 145","xmlns":"http://www.w3.org/2000/svg"}, attrs),
               ...rest,
             },
-            children.concat([_c('path',{attrs:{"d":"M22.334 103.21c-1.06-.57-1.007 1.07-1.015-31.426-.007-32.885-.071-31.03 1.087-31.543.313-.138 1.487-.232 2.914-.232h2.39v-2.223c0-2.5.177-3.07 1.078-3.469.71-.314 25.783-3.213 29.214-3.378 4.372-.21 10.074.86 13.746 2.58.723.338.776.338 1.5 0 3.673-1.72 9.378-2.79 13.745-2.579 3.458.168 28.508 3.063 29.214 3.377.901.4 1.078.969 1.078 3.469v2.223h2.39c1.427 0 2.6.094 2.914.232 1.158.512 1.094-1.336 1.094 31.504s.064 30.991-1.094 31.504c-.812.36-99.588.32-100.26-.039zm97.551-31.465V43.697h-2.6l-.002 25.281c-.003 19.833-.057 25.385-.253 25.761-.61 1.17.032 1.192-15.361-.547-8.403-.95-14.84-1.588-15.975-1.585-3.652.01-7.56.84-10.967 2.33-.98.428-1.983.778-2.23.778-.245 0-1.248-.35-2.228-.779-3.408-1.49-7.316-2.32-10.967-2.33-1.134-.003-7.572.637-15.975 1.586-15.393 1.74-14.751 1.717-15.361.547-.196-.376-.25-5.929-.253-25.761l-.003-25.281H25.11v56.095h94.776zm-76.02 18.723c6.566-.751 12.748-1.418 13.738-1.48 3.328-.213 8.283.49 11.778 1.671.65.22 1.212.399 1.25.399.038 0 .068-12.14.068-26.976V37.106l-.75-.37c-.94-.464-3.709-1.316-5.548-1.709-.77-.164-2.704-.34-4.298-.393-2.676-.087-3.835.012-14.995 1.283-6.653.758-12.433 1.429-12.846 1.49l-.75.113v27.157c0 18.641.065 27.157.207 27.157.115 0 5.58-.615 12.146-1.366zM34.97 79.65c-.945-.721-.92-2.266.048-2.882.554-.352 18.417-2.48 22.803-2.717 4.026-.217 9.487.643 10.277 1.618.8.988.264 2.602-.95 2.858-.302.063-1.358-.065-2.347-.285-1.14-.253-2.863-.439-4.699-.507-2.683-.099-3.668-.019-13.196 1.076-5.663.651-10.567 1.181-10.896 1.179-.33-.003-.798-.156-1.04-.34zm.203-8.234c-.655-.307-1.057-1.247-.843-1.97.388-1.315.058-1.24 10.808-2.483 5.426-.628 11.08-1.197 12.565-1.264 4.446-.202 9.443.56 10.343 1.576.526.593.596 1.566.157 2.174-.52.722-1.232.82-3.102.426-1.035-.218-2.989-.403-4.999-.474-3.171-.112-3.694-.07-13.537 1.065-5.63.65-10.399 1.176-10.597 1.168-.197-.006-.555-.105-.795-.218zm.237-8.298c-1.598-.635-1.459-2.986.2-3.39.255-.063 5.096-.638 10.758-1.279 12.63-1.43 14.719-1.479 19.495-.462 1.9.405 2.637.975 2.637 2.04 0 .557-.135.9-.49 1.245-.582.565-1.397.61-3.259.185-1.857-.426-5.872-.662-8.047-.474-1.045.09-6.152.649-11.35 1.241-5.198.592-9.471 1.072-9.497 1.065a11.766 11.766 0 01-.447-.171zm.104-8.38c-.876-.339-1.204-.767-1.204-1.573 0-.967.244-1.4.942-1.678.307-.121 5.146-.748 10.754-1.393 12.691-1.46 15.152-1.517 20.013-.467 1.86.402 2.481.887 2.481 1.937 0 .519-.154.853-.584 1.27-.668.649-1.136.695-2.915.288-2.052-.468-5.29-.732-7.298-.595-1.59.109-19.208 2.043-21.094 2.316-.33.047-.823 0-1.095-.105zm-.713-8.8c-.791-.769-.623-2.34.302-2.82.357-.186 18.713-2.338 22.332-2.618 2.632-.204 8.036.395 9.923 1.1 1.261.472 1.543 1.931.557 2.888-.7.68-.88.687-3.483.14-3.523-.74-6.875-.611-18.065.69-5.19.603-9.805 1.096-10.256 1.096-.603 0-.949-.125-1.31-.476zm78.686 18.739V37.52l-.75-.113c-.412-.062-6.193-.733-12.846-1.49-11.16-1.272-12.32-1.37-14.995-1.283-1.594.052-3.529.229-4.299.393-1.839.392-4.608 1.245-5.548 1.709l-.75.37V64.08c0 14.837.028 26.976.063 26.976s.864-.263 1.844-.585c3.328-1.091 5.758-1.443 9.79-1.415 3.135.021 5.066.2 14.994 1.38 6.268.746 11.644 1.365 11.947 1.376l.55.02zM98.691 78.88c-7.938-.957-9.318-1.074-12.796-1.084-3.348-.01-4.161.049-5.755.415-1.021.235-2.07.375-2.33.312-1.32-.322-1.824-2.003-.878-2.922.985-.956 6.255-1.764 10.16-1.559 1.915.101 19.404 2.003 21.835 2.374 1.674.257 2.317 1.902 1.177 3.01-.494.479-.735.564-1.55.546-.53-.01-4.969-.503-9.863-1.092zm-.5-8.426c-9.335-1.097-9.957-1.146-13.196-1.054-2.33.066-3.956.217-5.17.48-1.86.402-2.373.35-2.95-.298-.897-1.01-.489-2.379.852-2.857 1.987-.709 4.36-.994 8.168-.982 3.2.01 4.98.16 13.196 1.112 5.223.606 9.831 1.192 10.24 1.302 1.437.389 1.834 1.89.772 2.922-.455.442-.753.563-1.35.546-.42-.011-5.173-.539-10.561-1.171zm.4-8.344c-10.738-1.28-14.106-1.446-17.295-.849-2.839.532-3.537.57-4.078.227-.73-.465-1.023-1.508-.63-2.246.41-.77.624-.866 3.108-1.406 1.845-.4 2.596-.454 6.199-.444 3.701.011 5.01.12 13.496 1.115 5.168.607 9.644 1.154 9.944 1.216 1.073.222 1.69 1.631 1.146 2.618-.26.47-1.23.967-1.833.936-.253-.013-4.779-.538-10.057-1.167zm.3-8.331c-13.56-1.576-13.837-1.583-19.63-.543-1.636.293-2.25.086-2.677-.905-.596-1.386.111-2.215 2.303-2.7 4.793-1.058 7.293-1 20.004.46 5.664.652 10.452 1.23 10.642 1.288.92.277 1.437 1.73.939 2.633-.198.36-1.357.975-1.727.918-.086-.014-4.52-.532-9.854-1.151zm-.5-8.467c-10.813-1.295-14.358-1.426-18.04-.67-2.638.543-3.303.421-3.781-.69-.332-.77-.199-1.432.398-1.976.943-.86 7.15-1.733 10.52-1.48.938.071 6.247.642 11.797 1.27 8.363.945 10.177 1.203 10.597 1.506.966.699 1.042 1.955.166 2.748-.622.562-1.483.51-11.656-.708z","fill":"none","stroke":"red","stroke-width":"1.391"}}),_c('path',{attrs:{"d":"M142.98 72.5a70.477 70.477 0 01-70.477 70.477A70.477 70.477 0 012.026 72.5 70.477 70.477 0 0172.503 2.023 70.477 70.477 0 01142.98 72.5z","fill":"none","opacity":".99","stroke":"red","stroke-linecap":"round","stroke-width":"4.046"}}),_c('path',{attrs:{"d":"M22.689 22.57l99.869 99.869","fill":"none","stroke":"red","stroke-width":"4"}})])
+            children.concat([_c('path',{attrs:{"d":"M22.334 103.21c-1.06-.57-1.007 1.07-1.015-31.426-.007-32.885-.071-31.03 1.087-31.543.313-.138 1.487-.232 2.914-.232h2.39v-2.223c0-2.5.177-3.07 1.078-3.469.71-.314 25.783-3.213 29.214-3.378 4.372-.21 10.074.86 13.746 2.58.723.338.776.338 1.5 0 3.673-1.72 9.378-2.79 13.745-2.579 3.458.168 28.508 3.063 29.214 3.377.901.4 1.078.969 1.078 3.469v2.223h2.39c1.427 0 2.6.094 2.914.232 1.158.512 1.094-1.336 1.094 31.504s.064 30.991-1.094 31.504c-.812.36-99.588.32-100.26-.039zm97.551-31.465V43.697h-2.6l-.002 25.281c-.003 19.833-.057 25.385-.253 25.761-.61 1.17.032 1.192-15.361-.547-8.403-.95-14.84-1.588-15.975-1.585-3.652.01-7.56.84-10.967 2.33-.98.428-1.983.778-2.23.778-.245 0-1.248-.35-2.228-.779-3.408-1.49-7.316-2.32-10.967-2.33-1.134-.003-7.572.637-15.975 1.586-15.393 1.74-14.751 1.717-15.361.547-.196-.376-.25-5.929-.253-25.761l-.003-25.281H25.11v56.095h94.776zm-76.02 18.723c6.566-.751 12.748-1.418 13.738-1.48 3.328-.213 8.283.49 11.778 1.671.65.22 1.212.399 1.25.399s.068-12.14.068-26.976V37.106l-.75-.37c-.94-.464-3.709-1.316-5.548-1.709-.77-.164-2.704-.34-4.298-.393-2.676-.087-3.835.012-14.995 1.283-6.653.758-12.433 1.429-12.846 1.49l-.75.113v27.157c0 18.641.065 27.157.207 27.157.115 0 5.58-.615 12.146-1.366zM34.97 79.65c-.945-.721-.92-2.266.048-2.882.554-.352 18.417-2.48 22.803-2.717 4.026-.217 9.487.643 10.277 1.618.8.988.264 2.602-.95 2.858-.302.063-1.358-.065-2.347-.285-1.14-.253-2.863-.439-4.699-.507-2.683-.099-3.668-.019-13.196 1.076-5.663.651-10.567 1.181-10.896 1.179-.33-.003-.798-.156-1.04-.34zm.203-8.234c-.655-.307-1.057-1.247-.843-1.97.388-1.315.058-1.24 10.808-2.483 5.426-.628 11.08-1.197 12.565-1.264 4.446-.202 9.443.56 10.343 1.576.526.593.596 1.566.157 2.174-.52.722-1.232.82-3.102.426-1.035-.218-2.989-.403-4.999-.474-3.171-.112-3.694-.07-13.537 1.065-5.63.65-10.399 1.176-10.597 1.168-.197-.006-.555-.105-.795-.218zm.237-8.298c-1.598-.635-1.459-2.986.2-3.39.255-.063 5.096-.638 10.758-1.279 12.63-1.43 14.719-1.479 19.495-.462 1.9.405 2.637.975 2.637 2.04 0 .557-.135.9-.49 1.245-.582.565-1.397.61-3.259.185-1.857-.426-5.872-.662-8.047-.474-1.045.09-6.152.649-11.35 1.241-5.198.592-9.471 1.072-9.497 1.065a11.766 11.766 0 01-.447-.171zm.104-8.38c-.876-.339-1.204-.767-1.204-1.573 0-.967.244-1.4.942-1.678.307-.121 5.146-.748 10.754-1.393 12.691-1.46 15.152-1.517 20.013-.467 1.86.402 2.481.887 2.481 1.937 0 .519-.154.853-.584 1.27-.668.649-1.136.695-2.915.288-2.052-.468-5.29-.732-7.298-.595-1.59.109-19.208 2.043-21.094 2.316-.33.047-.823 0-1.095-.105zm-.713-8.8c-.791-.769-.623-2.34.302-2.82.357-.186 18.713-2.338 22.332-2.618 2.632-.204 8.036.395 9.923 1.1 1.261.472 1.543 1.931.557 2.888-.7.68-.88.687-3.483.14-3.523-.74-6.875-.611-18.065.69-5.19.603-9.805 1.096-10.256 1.096-.603 0-.949-.125-1.31-.476zm78.686 18.739V37.52l-.75-.113c-.412-.062-6.193-.733-12.846-1.49-11.16-1.272-12.32-1.37-14.995-1.283-1.594.052-3.529.229-4.299.393-1.839.392-4.608 1.245-5.548 1.709l-.75.37V64.08c0 14.837.028 26.976.063 26.976s.864-.263 1.844-.585c3.328-1.091 5.758-1.443 9.79-1.415 3.135.021 5.066.2 14.994 1.38 6.268.746 11.644 1.365 11.947 1.376l.55.02zM98.691 78.88c-7.938-.957-9.318-1.074-12.796-1.084-3.348-.01-4.161.049-5.755.415-1.021.235-2.07.375-2.33.312-1.32-.322-1.824-2.003-.878-2.922.985-.956 6.255-1.764 10.16-1.559 1.915.101 19.404 2.003 21.835 2.374 1.674.257 2.317 1.902 1.177 3.01-.494.479-.735.564-1.55.546-.53-.01-4.969-.503-9.863-1.092zm-.5-8.426c-9.335-1.097-9.957-1.146-13.196-1.054-2.33.066-3.956.217-5.17.48-1.86.402-2.373.35-2.95-.298-.897-1.01-.489-2.379.852-2.857 1.987-.709 4.36-.994 8.168-.982 3.2.01 4.98.16 13.196 1.112 5.223.606 9.831 1.192 10.24 1.302 1.437.389 1.834 1.89.772 2.922-.455.442-.753.563-1.35.546-.42-.011-5.173-.539-10.561-1.171zm.4-8.344c-10.738-1.28-14.106-1.446-17.295-.849-2.839.532-3.537.57-4.078.227-.73-.465-1.023-1.508-.63-2.246.41-.77.624-.866 3.108-1.406 1.845-.4 2.596-.454 6.199-.444 3.701.011 5.01.12 13.496 1.115 5.168.607 9.644 1.154 9.944 1.216 1.073.222 1.69 1.631 1.146 2.618-.26.47-1.23.967-1.833.936-.253-.013-4.779-.538-10.057-1.167zm.3-8.331c-13.56-1.576-13.837-1.583-19.63-.543-1.636.293-2.25.086-2.677-.905-.596-1.386.111-2.215 2.303-2.7 4.793-1.058 7.293-1 20.004.46 5.664.652 10.452 1.23 10.642 1.288.92.277 1.437 1.73.939 2.633-.198.36-1.357.975-1.727.918-.086-.014-4.52-.532-9.854-1.151zm-.5-8.467c-10.813-1.295-14.358-1.426-18.04-.67-2.638.543-3.303.421-3.781-.69-.332-.77-.199-1.432.398-1.976.943-.86 7.15-1.733 10.52-1.48.938.071 6.247.642 11.797 1.27 8.363.945 10.177 1.203 10.597 1.506.966.699 1.042 1.955.166 2.748-.622.562-1.483.51-11.656-.708z","fill":"none","stroke":"#f00f00","stroke-width":"1.391"}}),_c('path',{attrs:{"d":"M142.98 72.5a70.477 70.477 0 01-70.477 70.477A70.477 70.477 0 012.026 72.5 70.477 70.477 0 0172.503 2.023 70.477 70.477 0 01142.98 72.5z","fill":"none","opacity":".99","stroke":"#f00f00","stroke-linecap":"round","stroke-width":"4.046"}}),_c('path',{attrs:{"d":"M22.689 22.57l99.869 99.869","fill":"none","stroke":"#f00f00","stroke-width":"4"}})])
           )
         }
       }
@@ -59065,7 +59239,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 

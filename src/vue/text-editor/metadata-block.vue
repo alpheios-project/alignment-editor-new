@@ -1,20 +1,29 @@
 <template>
-    <div class="alpheios-alignment-editor-metadata" v-if="metadataAvailable">
-      <metadata-info />
-      <metadata-term-block 
-        v-for="(metadataTerm, termIndex) in allMetadata" :key="termIndex"
-        :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
-    </div>
+  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-metadata">
+    <template v-slot:body >
+      <div class="alpheios-alignment-editor-metadata" >
+        <metadata-info />
+        <metadata-term-block 
+          v-for="(metadataTerm, termIndex) in allMetadata" :key="termIndex"
+          :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
+      </div>
+    </template>
+    <template v-slot:footer>
+      <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Close</button>
+    </template>
+  </modal>
 </template>
 <script>
 import MetadataTermBlock from '@/vue/text-editor/metadata-term-block.vue'
 import MetadataInfo from '@/vue/text-editor/metadata-info.vue'
+import Modal from '@/vue/common/modal.vue'
 
 export default {
   name: 'MetadataBlock',
   components: {
     metadataTermBlock: MetadataTermBlock,
-    metadataInfo: MetadataInfo
+    metadataInfo: MetadataInfo,
+    modal: Modal
   },
   props: {
     textType: {
@@ -24,6 +33,11 @@ export default {
     textId: {
       type: String,
       required: false
+    },
+    showModal: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -37,15 +51,18 @@ export default {
     docSource () {
       return this.$textC.getDocSource(this.textType, this.textId)
     },
-    metadataAvailable () {
-      return this.$store.state.docSourceUpdated && Boolean(this.docSource)
-    },
     allMetadata () {
-      return this.$store.state.docSourceUpdated && this.metadataAvailable && this.docSource.allAvailableMetadata
+      return this.$store.state.docSourceUpdated && this.docSource.allAvailableMetadata
     }
   },
   methods: {
   }
 }
 </script>
-
+<style lang="scss">
+.alpheios-alignment-editor-modal-metadata {
+  .alpheios-modal-body {
+    max-height: 700px;
+  }
+}
+</style>

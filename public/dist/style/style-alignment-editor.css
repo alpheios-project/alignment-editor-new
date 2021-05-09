@@ -1402,10 +1402,11 @@ button.alpheios-app-menu-link:-moz-focusring {
   width: 100%;
   height: 100%;
 }
-.alpheios-alignment-editor-metadata__info-title {
+p.alpheios-alignment-editor-metadata__info-title {
   cursor: pointer;
   color: #90a959;
   text-decoration: underline;
+  margin: 0;
 }
 .alpheios-alignment-editor-metadata__info-details {
   border-bottom: 1px solid #6a9fb5;
@@ -1413,6 +1414,9 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-alignment-editor-metadata__info-details p, .alpheios-alignment-editor-metadata__info-details ul {
   margin: 0;
+}
+.alpheios-alignment-editor-modal-metadata .alpheios-modal-body {
+  max-height: 700px;
 }
 p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
@@ -1558,6 +1562,12 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   height: 30px;
   stroke: #99002a;
   fill: transparent;
+}
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data svg {
+  stroke: #99002a;
+}
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
+  stroke: #2a9900;
 }
 .alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-red {
   color: #99002a;
