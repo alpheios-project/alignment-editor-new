@@ -45005,7 +45005,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210509440" : 0
+    return  true ? "events-redesign.20210509467" : 0
   }
 
   static get libName () {
@@ -48402,6 +48402,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48639,6 +48648,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showActionMenu () {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
+    },
+    alignAvailable () {
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -48863,6 +48875,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -48904,9 +48919,6 @@ __webpack_require__.r(__webpack_exports__);
      */
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
-    },
-    alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
@@ -56741,6 +56753,58 @@ var render = function() {
             },
             on: { updateText: _vm.updateText }
           })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.textType === "origin"
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "alpheios-alignment-editor-text-blocks-single__align-button"
+            },
+            [
+              _c(
+                "tooltip",
+                {
+                  attrs: {
+                    tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
+                    tooltipDirection: "top"
+                  }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.alignAvailable,
+                          expression: "alignAvailable"
+                        }
+                      ],
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                      attrs: { id: "alpheios-actions-menu-button__align" },
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("align-text")
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " +
+                          _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
+                          "\n        "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ],
+            1
+          )
         : _vm._e()
     ],
     1
@@ -56786,49 +56850,8 @@ var render = function() {
               staticClass: "alpheios-alignment-text-editor-block__header-label"
             },
             [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")))]
-          ),
-          _vm._v(" "),
-          _c(
-            "tooltip",
-            {
-              attrs: {
-                tooltipText: _vm.l10n.getMsgS("ALIGN_TEXT_BUTTON_TOOLTIP"),
-                tooltipDirection: "bottom"
-              }
-            },
-            [
-              _c(
-                "button",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.alignAvailable,
-                      expression: "alignAvailable"
-                    }
-                  ],
-                  staticClass:
-                    "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                  attrs: { id: "alpheios-actions-menu-button__align" },
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("align-text")
-                    }
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_ALIGN_TITLE")) +
-                      "\n        "
-                  )
-                ]
-              )
-            ]
           )
-        ],
-        1
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -56853,7 +56876,12 @@ var render = function() {
                 },
                 [
                   _c("text-editor-single-block", {
-                    attrs: { "text-type": "origin", "text-id": _vm.originId }
+                    attrs: { "text-type": "origin", "text-id": _vm.originId },
+                    on: {
+                      "align-text": function($event) {
+                        return _vm.$emit("align-text")
+                      }
+                    }
                   })
                 ],
                 1
