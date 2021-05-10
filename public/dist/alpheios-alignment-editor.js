@@ -45019,7 +45019,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i372-nav-links.20210510367" : 0
+    return  true ? "i372-nav-links.20210510427" : 0
   }
 
   static get libName () {
@@ -48949,7 +48949,6 @@ __webpack_require__.r(__webpack_exports__);
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
     },
     alignEditAvailable () {
-      console.info('alignEditAvailable - ', this.$alignedGC.alignmentGroupsWorkflowStarted)
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },

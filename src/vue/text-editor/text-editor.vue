@@ -74,7 +74,6 @@ export default {
       return L10nSingleton
     },
     alignEditAvailable () {
-      console.info('alignEditAvailable - ', this.$alignedGC.alignmentGroupsWorkflowStarted)
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
