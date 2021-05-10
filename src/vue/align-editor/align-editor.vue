@@ -1,7 +1,11 @@
 <template>
   <div class="alpheios-alignment-align-editor-block alpheios-alignment-editor-container  alpheios-tools-enabled">
-      <h2>{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</h2>
-    
+      <h2 class="alpheios-alignment-text-editor-block__header">
+        <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showSourceTextEditor')">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
+        <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('ALIGN_EDITOR_HEADING') }}</span>
+        <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+      </h2>
+
     <align-editor-view-mode v-if="renderAlignEditor"/>   
   </div>
 </template>

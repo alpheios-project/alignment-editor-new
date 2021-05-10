@@ -2,17 +2,22 @@
     "TOKENS_EDITOR_HEADING": {
       "message": "Edit text",
       "description": "A heading for text editor",
-      "component": "AlignEditor"
+      "component": "TokensEditor"
+    },
+    "TOKENS_EDITOR_LINK": {
+      "message": "Edit",
+      "description": "A heading for text editor",
+      "component": "TokensEditor"
     },
     "TOKENS_EDITOR_HIDE": {
       "message": "hide",
       "description": "A label for hide/show links",
-      "component": "AlignEditor"
+      "component": "TokensEditor"
     },
     "TOKENS_EDITOR_SHOW": {
       "message": "show",
       "description": "A label for hide/show links",
-      "component": "AlignEditor"
+      "component": "TokensEditor"
     },
     "ACTION_BUTTON_UPDATE_TOKEN": {
       "message": "Update a token",
