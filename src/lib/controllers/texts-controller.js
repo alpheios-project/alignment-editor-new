@@ -5,7 +5,6 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
-import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -17,8 +16,8 @@ export default class TextsController {
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
-  createAlignment (originDocSource, targetDocSource) {
-    this.alignment = new Alignment(originDocSource, targetDocSource)
+  createAlignment () {
+    this.alignment = new Alignment()
     return this.alignment
   }
 
@@ -39,19 +38,20 @@ export default class TextsController {
    * @param {Object} originDocSource
    */
   async updateOriginDocSource (originDocSource) {
-    if (!this.alignment) {
-      this.createAlignment(originDocSource, null)
-    } else {
-      this.alignment.updateOriginDocSource(originDocSource)
+    if (!this.alignment) { this.createAlignment() }
+
+    const resultUpdate = this.alignment.updateOriginDocSource(originDocSource)
+    if (!resultUpdate) {
+      return { resultUpdate }
     }
 
-    if (this.originDocSource && !this.originDocSource.startedDetection && this.originDocSource.readyForLangDetection) {
-      const langData = await DetectTextController.detectTextProperties(this.originDocSource)
-      this.originDocSource.updateDetectedLang(langData)
-      this.store.commit('incrementUploadCheck')
-    } else {
-      this.store.commit('incrementAlignmentUpdated')
+    this.store.commit('incrementDocSourceUpdated')
+    const resultDetect = await this.alignment.updateLangDocSource('origin')
+    if (resultDetect) {
+      this.store.commit('incrementDocSourceLangDetected')
     }
+
+    return { resultUpdate, resultDetect }
   }
 
   /**
@@ -67,14 +67,32 @@ export default class TextsController {
       })
       return
     }
-    const newTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (targetDocSource && this.targetDocSource(newTargetId) && !this.targetDocSource(newTargetId).startedDetection && this.targetDocSource(newTargetId).readyForLangDetection) {
-      const langData = await DetectTextController.detectTextProperties(this.targetDocSource(newTargetId))
-      this.targetDocSource(newTargetId).updateDetectedLang(langData)
-      this.store.commit('incrementUploadCheck')
-    } else {
-      this.store.commit('incrementAlignmentUpdated')
+
+    const finalTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
+    if (!finalTargetId) {
+      return { resultUpdate: false }
     }
+    this.store.commit('incrementDocSourceUpdated')
+
+    const resultDetect = await this.alignment.updateLangDocSource('target', finalTargetId)
+    if (resultDetect) {
+      this.store.commit('incrementDocSourceLangDetected')
+    }
+    return { resultUpdate: true, resultDetect, finalTargetId }
+  }
+
+  async addNewTarget () {
+    if (!this.alignment) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
+        type: 'error'
+      })
+      return
+    }
+    const finalTargetId = this.alignment.addNewTarget()
+    this.store.commit('incrementDocSourceUpdated')
+    return finalTargetId
   }
 
   /**
@@ -91,7 +109,8 @@ export default class TextsController {
       })
     } else {
       this.alignment.deleteText(textType, id)
-      this.store.commit('incrementUploadCheck')
+      this.store.commit('incrementDocSourceLangDetected')
+      this.store.commit('incrementDocSourceUpdated')
     }
   }
 
@@ -188,7 +207,9 @@ export default class TextsController {
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
-    return UploadController.upload(uploadType, fileData)
+    const result = UploadController.upload(uploadType, fileData)
+    this.store.commit('incrementUploadCheck')
+    return result
   }
 
   /**
@@ -215,7 +236,7 @@ export default class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
+  async uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -230,11 +251,15 @@ export default class TextsController {
     const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
       if (textType === 'origin') {
-        this.updateOriginDocSource(result)
+        const resultUpdate = await this.updateOriginDocSource(result)
+        if (!resultUpdate) { return false }
+
         this.store.commit('incrementUploadCheck')
         return true
       } else {
-        this.updateTargetDocSource(result, textId)
+        const resultUpdate = await this.updateTargetDocSource(result, textId)
+        if (!resultUpdate) { return false }
+
         this.store.commit('incrementUploadCheck')
         return true
       }
@@ -391,7 +416,7 @@ export default class TextsController {
    * A simple event for any change in metadata
    */
   changeMetadataTerm () {
-    this.store.commit('incrementAlignmentUpdated')
+    this.store.commit('incrementDocSourceUpdated')
   }
 
   get originDocSourceDefined () {
@@ -401,10 +426,6 @@ export default class TextsController {
   checkDetectedProps (textType, docSourceId) {
     const sourceText = this.getDocSource(textType, docSourceId)
     return Boolean(sourceText && sourceText.detectedLang)
-  }
-
-  removeDetectedFlag (textType, docSourceId) {
-    return this.alignment.removeDetectedFlag(textType, docSourceId)
   }
 
   get originalLangData () {

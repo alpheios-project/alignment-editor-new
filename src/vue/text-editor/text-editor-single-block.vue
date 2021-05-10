@@ -5,22 +5,15 @@
         <span id="alpheios-alignment-editor-add-translation" class="alpheios-alignment-editor-add-translation" v-show="showAddTranslation" @click="$emit('add-translation')">
           <plus-icon />
         </span>
-        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
-          <delete-icon />
-        </span>
+
       </p>
-      <div v-show="showTypeUploadButtons">
+      <div v-show="showTypeUploadButtons" >
         <span class="alpheios-alignment-editor-text-blocks-single__type-label">{{ l10n.getMsgS('TEXT_SINGLE_TYPE_LABEL') }}</span>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__uploadtext"
             @click="selectUploadText">
             {{ l10n.getMsgS('TEXT_SINGLE_UPLOAD_BUTTON') }}
         </button>
       </div>
-      <actions-menu :text-type = "textType" :text-id = "textId" @toggle-metadata="toggleMetadata" 
-            :onlyMetadata = "showOnlyMetadata"
-            :showClearTextFlag = "showClearTextFlag" @clear-text="restartTextEditor"
-            v-show="!this.showTypeUploadButtons"/>       
-      
       <div class="alpheios-alignment-editor-actions-menu__upload-block" v-show="showUploadMenu" >
           <input type="file" @change="loadTextFromFile" ref="fileupload">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__metadata"
@@ -30,49 +23,67 @@
       </div>
       <upload-dtsapi-block :showModal="showModalDTS" @closeModal = "showModalDTS = false" @uploadFromDTSAPI = "uploadFromDTSAPI"/>
 
-      <metadata-block :text-type = "textType" :text-id = "textId" v-show="showMetadata" />
+      <metadata-block :text-type = "textType" :text-id = "textId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  />
+      <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" @updateDirection = "updateDirection"
+                      :showModal="showModalLanguage" @closeModal = "showModalLanguage = false"  />
 
-      <div v-show="showTypeTextBlock">
-        <p class="alpheios-alignment-editor-text-blocks-info-line" 
-          :class = "charactersClasses">
-          <span class="alpheios-alignment-editor-text-blocks-single__characters">{{ charactersText }}</span>
+      <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
+        <p class="alpheios-alignment-editor-text-blocks-info-line">
+          <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps">
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true">
             {{ language }}
           </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showTextProps && !isLanguageDetected">
+          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
           </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="isEmptyMetadata">
+
+          <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data" 
+                v-show="isEmptyMetadata" @click="showModalMetadata = true">
             <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="top">
               <no-metadata-icon />
             </tooltip>
           </span>
+
+          <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data" 
+                v-show="hasMetadata" @click="showModalMetadata = true">
+            <tooltip :tooltipText="l10n.getMsgS('HAS_METADATA_ICON')" tooltipDirection="top">
+              <has-metadata-icon />
+            </tooltip>
+          </span>
+
         </p>
-        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateText('text')" 
+        <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
+          <x-close-icon />
+        </span>
+        <textarea :id="textareaId" v-model="text" :dir="direction" tabindex="2" :lang="language" @blur="updateTextFromTextBlock()" 
                   :disabled="!docSourceEditAvailable" class="alpheios-alignment-editor-text-blocks-textarea">
         ></textarea>
       </div>
 
-      <direction-options-block 
-        @updateText = "updateText" :localOptions = "localTextEditorOptions" :disabled="!docSourceEditAvailable"  v-show="showTextProps" 
-      />
 
-      <language-options-block :textType = "textType"
-        @updateText = "updateText" @updateDirection = "updateDirection" :localOptions = "localTextEditorOptions" v-show="showTextProps"
-      />
 
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
+
+      <div class="alpheios-alignment-editor-text-blocks-single__align-button" v-if="textType === 'origin'">
+        <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__align"
+              @click="$emit('align-text')" :disabled="!alignAvailable" >
+              {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
+          </button>
+        </tooltip>
+      </div>
   </div>
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import DeleteIcon from '@/inline-icons/delete.svg'
+import XCloseIcon from '@/inline-icons/x-close.svg'
 import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
+import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
 import NoLangDetectedIcon from '@/inline-icons/no-lang-detected.svg'
 import PlusIcon from '@/inline-icons/plus.svg'
 
@@ -80,12 +91,11 @@ import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
-import ActionsMenu from '@/vue/text-editor/actions-menu-text-editor.vue'
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
+import LanguageBlock from '@/vue/text-editor/language-block.vue'
 
 import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
-import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
-import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
+
 import Tooltip from '@/vue/common/tooltip.vue'
 import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
 
@@ -113,34 +123,32 @@ export default {
     }
   },
   components: {
-    deleteIcon: DeleteIcon,
+    xCloseIcon: XCloseIcon,
     noMetadataIcon: NoMetadataIcon,
+    hasMetadataIcon: HasMetadataIcon,
     noLangDetectedIcon: NoLangDetectedIcon,
     plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
-    actionsMenu: ActionsMenu,
     metadataBlock: MetadataBlock,
     tokenizeOptionsBlock: TokenizeOptionsBlock,
-    directionOptionsBlock: DirectionOptionsBlock,
-    languageOptionsBlock: LanguageOptionsBlock,
+    languageBlock: LanguageBlock,
     tooltip: Tooltip,
     uploadDtsapiBlock: UploadDTSAPIBlock
   },
   data () {
     return {
-      text: null,
+      text: '',
       prevText: null,
 
       localTextEditorOptions: { ready: false },
-      showMetadata: false,
       showTypeUploadButtons: true,
 
       showTypeTextBlock: true,
       showTextProps: false,
       showUploadMenu: false,
       showModalDTS: false,
-      showOnlyMetadata: true,
-      showClearTextFlag: 1,
+      showModalMetadata: false,
+      showModalLanguage: false,
 
       updatedLocalOptionsFlag: 1
     }
@@ -164,6 +172,10 @@ export default {
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
     },
+    async '$store.state.docSourceLangDetected' () {
+      this.updateLangData()
+    },
+
     '$store.state.alignmentRestarted' () {
       this.restartTextEditor()
     },
@@ -192,7 +204,7 @@ export default {
       if (!this.localTextEditorOptions.ready && this.$settingsC.tokenizerOptionsLoaded) {
         this.prepareDefaultTextEditorOptions()
       }
-      return this.$store.state.alignmentUpdated
+      return this.$store.state.docSourceUpdated
     },
     containerId () {
       return `alpheios-alignment-editor-text-blocks-single__${this.textType}_${this.formattedTextId}`
@@ -228,7 +240,7 @@ export default {
      * Defines if we have multiple targets then we need to show index of target text
      */
     showIndex () {
-      return (this.textType === 'target') && this.$store.state.alignmentUpdated && this.$textC.allTargetTextsIds.length > 1 
+      return (this.textType === 'target') && this.$store.state.docSourceUpdated && this.$textC.allTargetTextsIds.length > 1 
     },
     
     /**
@@ -248,27 +260,27 @@ export default {
      * Blocks changes if aligned version is already created and aligned groups are started
      */
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && 
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated &&
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
     },
     updateTextMethod () {
       return this.textType === 'origin' ? 'updateOriginDocSource' : 'updateTargetDocSource'
     },
     direction () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.direction.currentValue
     },
     language () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.language.currentValue
     },
     sourceType () {
-      return this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
+      return this.$store.state.optionsUpdated && this.$store.state.docSourceUpdated && this.localTextEditorOptions.ready && this.localTextEditorOptions.sourceText.items.sourceType.currentValue
     },
     tokenization () {
       return TokenizeController.defineTextTokenizationOptions(this.$settingsC.tokenizerOptionValue, this.localTextEditorOptions[this.sourceType])
     },
     charactersClasses () {
       return {
-        'alpheios-alignment-editor-hidden' : this.textCharactersAmount === 0,
+        'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
         'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
       }
     },
@@ -287,27 +299,34 @@ export default {
     },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.alignmentUpdated && docSource && docSource.hasEmptyMetadata
+      return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
     },
-    isLanguageDetected () {
+
+    hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.alignmentUpdated && docSource && docSource.detectedLang
+      return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    },
+
+    showLangNotDetected () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
     },
     showAddTranslation () {
-      return this.$store.state.alignmentUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1))
+      return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
     },
     showActionMenu () {
-      return this.$store.state.alignmentUpdated && (this.showUploadMenu || this.showTextProps)
+      return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
+    },
+    alignAvailable () {
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {
     initDataProps () {
-      this.showMetadata = false
       this.showTypeUploadButtons = true
 
       this.showTextProps = false
       this.showUploadMenu = false
-      this.showOnlyMetadata = true
     },
 
     /**
@@ -321,7 +340,6 @@ export default {
         await this.updateText()
 
         this.showTypeUploadButtons = false
-        this.showOnlyMetadata = true
       }
     },
 
@@ -332,15 +350,37 @@ export default {
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
-      await this.updateText()
 
       this.showTypeUploadButtons = true
       this.showTextProps = false
       this.showUploadMenu = false
-      this.showOnlyMetadata = true
       this.$textC.deleteText(this.textType, this.textId)
     },
 
+    collectCurrentParams () {
+      return {
+        text: this.text,
+        direction: this.direction,
+        lang: this.language,
+        id: this.textId,
+        sourceType: this.sourceType,
+        tokenization: this.tokenization
+      }
+    },
+
+    async updateTextFromTextBlock () {
+      const params = this.collectCurrentParams()
+      const result = await this.$textC[this.updateTextMethod](params, this.textId)
+
+      if (result.resultUpdate && this.showTypeUploadButtons) {
+        this.showTypeUploadButtons = false
+        this.showTextProps = true
+      }
+      if (!result.resultUpdate) {
+        this.text = ''
+      }
+    },
+    
     /**
      * Emits update-text event with data from properties
      */
@@ -355,17 +395,22 @@ export default {
           tokenization: this.tokenization
         }
 
-        if (this.text && (this.text.length === 0) && this.textId) {
-          this.$textC.removeDetectedFlag(this.textType, this.textId)
-        }
-
-        await this.$textC[this.updateTextMethod](params, this.textId)  
+        const result = await this.$textC[this.updateTextMethod](params, this.textId)  
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false
           this.showTextProps = true
-          this.showClearTextFlag++ 
         }
+      }
+    },
+
+    updateLangData () {
+      const sourceTextData = this.$textC.getDocSource(this.textType, this.textId)
+      if (sourceTextData) {
+        this.localTextEditorOptions.sourceText.items.direction.currentValue = sourceTextData.direction
+        this.localTextEditorOptions.sourceText.items.language.currentValue = sourceTextData.lang
+        this.localTextEditorOptions.sourceText.items.sourceType.currentValue = sourceTextData.sourceType
+        this.$store.commit('incrementOptionsUpdated')
       }
     },
 
@@ -376,8 +421,12 @@ export default {
 
     async deleteText () {
       this.text = ''
+      this.$refs.fileupload.value = ''
+      this.prepareDefaultTextEditorOptions()
       this.$textC.deleteText(this.textType, this.textId)
-      await this.updateText()
+      // await this.updateText()
+      this.showTypeUploadButtons = true
+      this.showUploadMenu = false
     },
 
     /**
@@ -392,28 +441,25 @@ export default {
     /**
      * Uploads a single instance of text
      */
-    uploadSingle (fileData) {
-      this.$textC.uploadDocSourceFromFileSingle(fileData, {
+    async uploadSingle (fileData) {
+      const result = await this.$textC.uploadDocSourceFromFileSingle(fileData, {
         textType: this.textType,
         textId: this.textId,
         tokenization: this.tokenization
       })
-      this.showTypeTextBlock = true
-      this.showOnlyMetadata = true
-    },
-
-    toggleMetadata () {
-      this.showMetadata = !this.showMetadata
+      if (result.resultUpdate) {
+        this.showTypeTextBlock = true
+      } else {
+        this.showTypeUploadButtons = true
+        this.showTextProps = false
+        this.showUploadMenu = false
+      }
     },
 
     selectUploadText () { 
-      // console.info('selectUploadText - started')
-      // this.showUploadBlockFlag++
       this.showUploadMenu = true
 
-      this.showOnlyMetadata = true
       this.showTypeUploadButtons = false
-      this.showClearTextFlag++ 
     },
 
     /**
@@ -490,6 +536,24 @@ export default {
             fill: transparent;
           }
         }
+
+        span.alpheios-alignment-editor-text-blocks-single__icons{
+
+          &.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data {
+            cursor: pointer;
+            svg {
+              stroke: #99002a;
+            }
+          }
+
+          &.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data {
+            cursor: pointer;
+            svg {
+              stroke: #2a9900;
+            }
+          }
+        }
+
         p.alpheios-alignment-editor-red {
           color: #99002a;
         }
@@ -505,6 +569,8 @@ export default {
           font-size: 13px;
           margin-top: 5px;
           margin-left: 3px;
+
+          cursor: pointer;
         }
     }
 
@@ -513,23 +579,7 @@ export default {
       font-size: 20px;
       font-weight: bold;
     }
-    .alpheios-alignment-editor-text-blocks-single__remove {
-      display: inline-block;
-      width: 25px;
-      height: 25px;
-      right: 0;
-      top: 50%;
-      top: 0;
 
-      position: absolute;
-
-      cursor: pointer;
-      svg {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-      }
-    }
 
     .alpheios-alignment-editor-add-translation {
       display: inline-block;
@@ -593,6 +643,7 @@ export default {
       .alpheios-alignment-editor-text-blocks-single__title-text {
         display: inline-block; 
         padding-right: 15px;
+        line-height: 35px;
       }
 
       .alpheios-alignment-editor-add-translation {
@@ -602,6 +653,33 @@ export default {
     }
 
     .alpheios-alignment-editor-text-blocks-textarea {
-      padding: 10px;
+      padding: 10px 55px 10px 10px;
     }
+
+    .alpheios-alignment-editor-text-blocks-single-text-area-container {
+      position: relative;
+
+      .alpheios-alignment-editor-text-blocks-single__remove {
+        top: 55px;
+        right: 25px;
+        fill: #ddd;
+
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+
+        position: absolute;
+
+        cursor: pointer;
+        svg {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+  .alpheios-alignment-editor-text-blocks-single__align-button {
+    margin-top: 30px;
+  }
 </style>

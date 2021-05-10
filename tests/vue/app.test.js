@@ -126,11 +126,11 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
-    cmp.vm.$textC.updateTargetDocSource = jest.fn()
+    cmp.vm.$textC.addNewTarget = jest.fn()
     jest.spyOn(cmp.vm, 'showSourceTextEditor')
     
     cmp.vm.addTarget()
-    expect(cmp.vm.$textC.updateTargetDocSource).toHaveBeenCalled()
+    expect(cmp.vm.$textC.addNewTarget).toHaveBeenCalled()
     expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
   })
 

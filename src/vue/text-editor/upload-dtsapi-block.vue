@@ -72,7 +72,7 @@ export default {
   },
   props: {
     showModal: {
-    type: Boolean,
+      type: Boolean,
       required: false,
       default: false
     }

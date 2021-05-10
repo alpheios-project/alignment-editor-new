@@ -2,12 +2,6 @@
   <div class="alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
       <h2 class="alpheios-alignment-text-editor-block__header">
         <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
-        <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="bottom">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__align"
-              @click="$emit('align-text')" v-show="alignAvailable" >
-              {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
-          </button>
-        </tooltip>
       </h2>
 
       <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
@@ -17,6 +11,7 @@
             <text-editor-single-block 
                 text-type="origin" 
                 :text-id = "originId"
+                @align-text = "$emit('align-text')"
             />
           </div>
 
@@ -65,19 +60,16 @@ export default {
   },
   computed: {
     originId () {
-      return this.$store.state.alignmentUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
+      return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
     },
     allTargetTextsIdsNumbered () {
-      return this.$store.state.alignmentUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
+      return this.$store.state.docSourceUpdated && this.$store.state.uploadCheck && this.$textC.allTargetTextsIdsNumbered.length > 0 ? this.$textC.allTargetTextsIdsNumbered : [ null ]
     },
     /**
      * Defines label show/hide texts block depending on showTextsBlocks
      */
     l10n () {
       return L10nSingleton
-    },
-    alignAvailable () {
-      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     }
   },
   methods: {

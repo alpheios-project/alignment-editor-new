@@ -146,7 +146,7 @@ export default {
      * Add aditional block for defining another target text
      */
     addTarget () {
-      this.$textC.updateTargetDocSource()
+      this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
     /**
@@ -242,7 +242,7 @@ export default {
       } else {
         this.$textC.store.commit('incrementAlignmentRestarted')
       }
-      this.$textC.store.commit('incrementAlignmentUpdated')
+      this.$textC.store.commit('incrementDocSourceUpdated')
 
       if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()
