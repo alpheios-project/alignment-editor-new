@@ -2,6 +2,8 @@
   <div class="alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
       <h2 class="alpheios-alignment-text-editor-block__header">
         <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
+        <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
+        <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
       </h2>
 
       <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
@@ -70,6 +72,9 @@ export default {
      */
     l10n () {
       return L10nSingleton
+    },
+    alignEditAvailable () {
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -78,11 +83,23 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-text-editor-block__header {
-    font-size: 24px;
+    font-size: 20px;
 
     .alpheios-alignment-text-editor-block__header-label {
       display: inline-block;
       padding-right: 15px;
+
+      text-transform: uppercase;
+    }
+
+    .alpheios-alignment-text-editor-block__header-link {
+      display: inline-block;
+      padding-right: 15px;
+
+      color: #185F6D;
+      cursor: pointer;
+      text-decoration: underline;
+      text-transform: uppercase;
     }
   }
 

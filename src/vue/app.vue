@@ -23,11 +23,11 @@
       <notification-bar />
       <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
       <options-block v-show="shownOptionsBlock" />
-      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup"
+      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
-      <align-editor v-show="showAlignmentGroupsEditorBlock"
+      <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
       />
-      <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor"
+      <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor" @showSourceTextEditor = "showSourceTextEditor"  @showAlignmentGroupsEditor = "showAlignmentGroupsEditor"
       />
 
       <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"

@@ -45019,7 +45019,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "events-redesign.20210509498" : 0
+    return  true ? "i372-nav-links.20210510427" : 0
   }
 
   static get libName () {
@@ -45894,6 +45894,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-view-mode.vue */ "./vue/align-editor/align-editor-view-mode.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
 //
 //
 //
@@ -48900,6 +48904,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -48941,6 +48947,9 @@ __webpack_require__.r(__webpack_exports__);
      */
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    alignEditAvailable () {
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     }
   },
   methods: {
@@ -50488,6 +50497,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor-inner-block.vue */ "./vue/tokens-editor/tokens-editor-inner-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
 //
 //
 //
@@ -53712,7 +53725,45 @@ var render = function() {
         "alpheios-alignment-align-editor-block alpheios-alignment-editor-container  alpheios-tools-enabled"
     },
     [
-      _c("h2", [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")))]),
+      _c(
+        "h2",
+        { staticClass: "alpheios-alignment-text-editor-block__header" },
+        [
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-link",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("showSourceTextEditor")
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_LINK")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-label"
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_HEADING")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-link",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("showTokensEditor")
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_LINK")))]
+          )
+        ]
+      ),
       _vm._v(" "),
       _vm.renderAlignEditor ? _c("align-editor-view-mode") : _vm._e()
     ],
@@ -53980,7 +54031,9 @@ var render = function() {
         ],
         on: {
           "add-translation": _vm.addTarget,
-          "align-text": _vm.showSummaryPopup
+          "align-text": _vm.showSummaryPopup,
+          showAlignmentGroupsEditor: _vm.showAlignmentGroupsEditor,
+          showTokensEditor: _vm.showTokensEditor
         }
       }),
       _vm._v(" "),
@@ -53992,7 +54045,11 @@ var render = function() {
             value: _vm.showAlignmentGroupsEditorBlock,
             expression: "showAlignmentGroupsEditorBlock"
           }
-        ]
+        ],
+        on: {
+          showSourceTextEditor: _vm.showSourceTextEditor,
+          showTokensEditor: _vm.showTokensEditor
+        }
       }),
       _vm._v(" "),
       _c("tokens-editor", {
@@ -54004,7 +54061,11 @@ var render = function() {
             expression: "showTokensEditorBlock"
           }
         ],
-        attrs: { renderEditor: _vm.renderTokensEditor }
+        attrs: { renderEditor: _vm.renderTokensEditor },
+        on: {
+          showSourceTextEditor: _vm.showSourceTextEditor,
+          showAlignmentGroupsEditor: _vm.showAlignmentGroupsEditor
+        }
       }),
       _vm._v(" "),
       _c("summary-popup", {
@@ -56981,7 +57042,39 @@ var render = function() {
               staticClass: "alpheios-alignment-text-editor-block__header-label"
             },
             [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADING")))]
-          )
+          ),
+          _vm._v(" "),
+          _vm.alignEditAvailable
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-text-editor-block__header-link",
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("showAlignmentGroupsEditor")
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_LINK")))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.alignEditAvailable
+            ? _c(
+                "span",
+                {
+                  staticClass:
+                    "alpheios-alignment-text-editor-block__header-link",
+                  on: {
+                    click: function($event) {
+                      return _vm.$emit("showTokensEditor")
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_LINK")))]
+              )
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -58508,7 +58601,45 @@ var render = function() {
         "alpheios-alignment-tokens-editor-block alpheios-alignment-editor-container"
     },
     [
-      _c("h2", [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_HEADING")))]),
+      _c(
+        "h2",
+        { staticClass: "alpheios-alignment-text-editor-block__header" },
+        [
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-link",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("showSourceTextEditor")
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_LINK")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-link",
+              on: {
+                click: function($event) {
+                  return _vm.$emit("showAlignmentGroupsEditor")
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("ALIGN_EDITOR_LINK")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "alpheios-alignment-text-editor-block__header-label"
+            },
+            [_vm._v(_vm._s(_vm.l10n.getMsgS("TOKENS_EDITOR_HEADING")))]
+          )
+        ]
+      ),
       _vm._v(" "),
       _vm.renderTokensEditor ? _c("tokens-editor-inner-block") : _vm._e()
     ],
@@ -59313,7 +59444,7 @@ module.exports = JSON.parse('{"COOKIE_TEST_MESSAGE":{"message":"This is a test m
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
+module.exports = JSON.parse('{"ALIGN_EDITOR_HEADING":{"message":"Align text","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_LINK":{"message":"Align","description":"A heading for align editor","component":"AlignEditor"},"ALIGN_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"ALIGN_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"}}');
 
 /***/ }),
 
@@ -59390,7 +59521,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"Is TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_LINK":{"message":"Enter","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"Is TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
 
 /***/ }),
 
@@ -59401,7 +59532,7 @@ module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","des
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"AlignEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"AlignEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"AlignEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the translation of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
+module.exports = JSON.parse('{"TOKENS_EDITOR_HEADING":{"message":"Edit text","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_LINK":{"message":"Edit","description":"A heading for text editor","component":"TokensEditor"},"TOKENS_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TokensEditor"},"TOKENS_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TokensEditor"},"ACTION_BUTTON_UPDATE_TOKEN":{"message":"Update a token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_LEFT":{"message":"Merge with a left token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_MERGE_RIGHT":{"message":"Merge with a right token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_SPLIT_TOKEN":{"message":"Split a token to 2 tokens by space","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_ADD_LINEBREAK":{"message":"Add line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_REMOVE_LINEBREAK":{"message":"Remove line break after the token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"ACTION_BUTTON_DELETE":{"message":"Delete token","description":"A label for action menu buttons","component":"ActionsMenuTokenEdit"},"TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP":{"message":"This token is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP":{"message":"The token that is the translation of merging is inside a created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"Alignment"},"TOKENS_EDIT_SPLIT_NO_SPACES":{"message":"The token word must contain at least one space for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_SPLIT_SEVERAL_SPACES":{"message":"Only one space is allowed for split workflow.","description":"An error message for token edit workflow","component":"TokensEditController"},"TOKENS_EDIT_ALREADY_HAS_LINE_BREAK":{"message":"The token already has a line break.","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_NEXT_SEGMENT":{"message":"Move the token to the next segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTION_BUTTON_TO_PREV_SEGMENT":{"message":"Move the token to the previous segment","description":"An error message for token edit workflow","component":"TokensEditController"},"ACTIONS_UNDO_TITLE":{"message":"Undo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"ACTIONS_REDO_TITLE":{"message":"Redo","description":"A label for action menu buttons","component":"ActionsMenuTokensEditor"},"TOKENS_EDIT_UNDO_ERROR":{"message":"Nothing to undo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_REDO_ERROR":{"message":"Nothing to redo.","description":"An error inside tokens edit history workflow","component":"Alignment"},"TOKENS_EDIT_INSERT_DESCRIPTION_START":{"message":"Add space between tokens. Click Enter to insert tokens to the start.","description":"A description for insert tokens input","component":"EmptyTokensInput"},"TOKENS_EDIT_INSERT_DESCRIPTION_END":{"message":"Add space between tokens. Click Enter to insert tokens to the end.","description":"A description for insert tokens input","component":"EmptyTokensInput"}}');
 
 /***/ }),
 
