@@ -1683,8 +1683,33 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single__align-button {
   margin-top: 30px;
 }
+.alpheios-alignment-editor-modal-help .alpheios-modal-container {
+  width: 700px;
+}
+.alpheios-alignment-editor-modal-help .alpheios-modal-body {
+  max-height: 700px;
+  border: 0;
+  padding: 0 15px 0 0;
+  margin: 0 0 20px;
+}
+.alpheios-alignment-editor-modal-help-header {
+  text-transform: uppercase;
+}
+.alpheios-editor-help-content {
+  text-indent: 10px;
+  text-align: justify;
+}
+.alpheios-editor-help-content .alpheios-editor-help-content-error {
+  color: #f00;
+  font-weight: bold;
+}
 .alpheios-alignment-text-editor-block__header {
   font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.alpheios-alignment-text-editor-block__header .alpheios-alignment-text-editor-block__part button {
+  text-transform: uppercase;
 }
 .alpheios-alignment-text-editor-block__header .alpheios-alignment-text-editor-block__header-label {
   display: inline-block;
@@ -1804,6 +1829,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
   background: #185F6D;
+}
+.alpheios-alignment-editor-align-groups-editor-container {
+  padding-top: 20px;
 }
 .alpheios-alignment-editor-align-define-container-inner {
   margin-top: 15px;

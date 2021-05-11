@@ -1,9 +1,27 @@
 <template>
   <div class="alpheios-alignment-text-editor-block alpheios-alignment-editor-container">
       <h2 class="alpheios-alignment-text-editor-block__header">
-        <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
-        <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
-        <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+        <span class="alpheios-alignment-text-editor-block__part">
+          <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TEXT_EDITOR_HEADING') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
+          <span class="alpheios-alignment-text-editor-block__header-link" v-if="alignEditAvailable" @click="$emit('showTokensEditor')">{{ l10n.getMsgS('TOKENS_EDITOR_LINK') }}</span>
+        </span>
+        <span class="alpheios-alignment-text-editor-block__part">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
+              @click="showModalHelp = true">
+              HELP
+          </button>
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
+              @click="showModalOptions = true">
+              Options
+          </button>
+        </span>
+        <span class="alpheios-alignment-text-editor-block__part">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
+              @click="showModalSave = true">
+              Save locally
+          </button>
+        </span>
       </h2>
 
       <div class="alpheios-alignment-editor-text-blocks-container" id="alpheios-text-editor-blocks-container" >
@@ -29,23 +47,37 @@
 
         </div>
       </div>
+
+      <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
+        <template v-slot:content >
+          <help-block-enter />
+        </template>
+      </help-popup>
   </div>
 </template>
 <script>
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
+import HelpPopup from '@/vue/help-popup.vue'
+
+import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
 
 export default {
   name: 'TextEditor',
   components: {
     textEditorSingleBlock: TextEditorSingleBlock,
-    tooltip: Tooltip
+    tooltip: Tooltip,
+    helpPopup: HelpPopup,
+    helpBlockEnter: HelpBlockEnter
   },
   props: {  
   },
   data () {
     return {
+      showModalHelp: false,
+      showModalOptions: false,
+      showModalSave: false
     }
   },
   watch: {
@@ -84,6 +116,14 @@ export default {
 <style lang="scss">
   .alpheios-alignment-text-editor-block__header {
     font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .alpheios-alignment-text-editor-block__part {
+      button {
+        text-transform: uppercase;
+      }
+    }
 
     .alpheios-alignment-text-editor-block__header-label {
       display: inline-block;
