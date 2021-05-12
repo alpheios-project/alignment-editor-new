@@ -136,6 +136,9 @@ export default {
 }
 </script>
 <style lang="scss">
+  .alpheios-alignment-editor-align-groups-editor-container {
+    padding-top: 20px;
+  }
   .alpheios-alignment-editor-align-define-container-inner {
     margin-top: 15px;
     border: 1px solid #ddd;

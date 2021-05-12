@@ -205,5 +205,20 @@
     "message": "Start tokenizing texts",
     "description": "Tooltip for align texts button",
     "component": "TextEditorSingleBlock"
+  },
+  "TEXT_EDITOR_HEADER_SAVE": {
+    "message": "Save locally",
+    "description": "Tooltip for header buttons",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_HEADER_OPTIONS": {
+    "message": "Options",
+    "description": "Tooltip for header buttons",
+    "component": "TextEditor"
+  },
+  "TEXT_EDITOR_HEADER_HELP": {
+    "message": "Help",
+    "description": "Tooltip for header buttons",
+    "component": "TextEditor"
   }
 }

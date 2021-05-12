@@ -403,6 +403,21 @@ div.alpheios-alignment-checkbox-block {
   background: #8bafb6;
   border-color: #8bafb6;
 }
+.alpheios-standard-theme .alpheios-actions-menu-button-align {
+  color: #fff;
+  background: #000;
+  border-color: #323232;
+}
+.alpheios-standard-theme .alpheios-actions-menu-button-align:hover {
+  color: #fff;
+  background: #191919;
+  border-color: #4c4c4c;
+}
+.alpheios-standard-theme .alpheios-actions-menu-button-align:disabled {
+  color: #fff;
+  background: #8bafb6;
+  border-color: #8bafb6;
+}
 .alpheios-standard-theme .alpheios-token-edit-actions-button {
   border-color: #185F6D;
   background: #fff;
@@ -581,6 +596,21 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-v1-theme .alpheios-actions-menu-button:disabled,
 .alpheios-v1-theme .alpheios-options-button:disabled,
 .alpheios-v1-theme .alpheios-align-text-segment-button:disabled {
+  color: #F8F8F8;
+  background: #6e6e6e;
+  border-color: #505050;
+}
+.alpheios-v1-theme .alpheios-actions-menu-button-align {
+  color: #fff;
+  background: #000;
+  border-color: #323232;
+}
+.alpheios-v1-theme .alpheios-actions-menu-button-align:hover {
+  color: #fff;
+  background: #191919;
+  border-color: #4c4c4c;
+}
+.alpheios-v1-theme .alpheios-actions-menu-button-align:disabled {
   color: #F8F8F8;
   background: #6e6e6e;
   border-color: #505050;
@@ -901,7 +931,7 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   background-color: #fff;
   border: 1px solid #757575;
   border-radius: 10px;
-  z-index: 1000;
+  z-index: 10000;
   opacity: 0;
   transition: opacity 0.6s;
   display: none;
@@ -1088,36 +1118,17 @@ body.alpheios-initial-page .alpheios-alignment-app-menu-open-icon svg {
   cursor: pointer;
   white-space: nowrap;
 }
-.alpheios-alignment-app-menu__upload-block,
-.alpheios-alignment-app-menu__download-block {
+.alpheios-alignment-app-menu__upload-block {
   text-align: left;
   padding: 10px 0;
   border-top: 2px solid #ddd;
   border-bottom: 2px solid #ddd;
 }
-.alpheios-main-menu-download-block-radio-block {
-  display: inline-block;
-  width: 70%;
-  vertical-align: middle;
-}
-.alpheios-main-menu-download-block-radio-block .alpheios-main-menu-download-block-radio-block_item {
-  display: block;
-  white-space: nowrap;
-}
-.alpheios-main-menu-download-block_item {
-  display: inline-block;
-  width: 25%;
-  vertical-align: middle;
-  text-align: right;
-  overflow: hidden;
-}
-.alpheios-main-menu-download-block-radio-block_item,
 .alpheios-main-menu-upload-block-radio-block_item,
 .alpheios-main-menu-upload-block_item {
   padding-right: 20px;
 }
-.alpheios-main-menu-upload-block_item.alpheios-token-edit-actions-button,
-.alpheios-main-menu-download-block_item.alpheios-token-edit-actions-button {
+.alpheios-main-menu-upload-block_item.alpheios-token-edit-actions-button {
   width: 30px;
   height: 30px;
   border-radius: 30px;
@@ -1682,9 +1693,48 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-text-blocks-single__align-button {
   margin-top: 30px;
+  text-align: right;
+}
+.alpheios-alignment-editor-modal-help .alpheios-modal-container {
+  width: 700px;
+}
+.alpheios-alignment-editor-modal-help .alpheios-modal-body {
+  max-height: 700px;
+  border: 0;
+  padding: 0 15px 0 0;
+  margin: 0 0 20px;
+}
+.alpheios-alignment-editor-modal-help-header {
+  text-transform: uppercase;
+}
+.alpheios-main-menu-download-block-radio-block_item {
+  padding-right: 20px;
+}
+.alpheios-main-menu-download-block-radio-block {
+  vertical-align: middle;
+}
+.alpheios-main-menu-download-block-radio-block .alpheios-main-menu-download-block-radio-block_item {
+  display: inline-block;
+  white-space: nowrap;
+}
+.alpheios-alignment-editor-modal-save .alpheios-modal-body {
+  overflow: initial;
+}
+.alpheios-editor-help-content {
+  text-indent: 10px;
+  text-align: justify;
+}
+.alpheios-editor-help-content .alpheios-editor-help-content-error {
+  color: #f00;
+  font-weight: bold;
 }
 .alpheios-alignment-text-editor-block__header {
   font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.alpheios-alignment-text-editor-block__header .alpheios-alignment-text-editor-block__part button {
+  text-transform: uppercase;
 }
 .alpheios-alignment-text-editor-block__header .alpheios-alignment-text-editor-block__header-label {
   display: inline-block;
@@ -1804,6 +1854,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
   background: #185F6D;
+}
+.alpheios-alignment-editor-align-groups-editor-container {
+  padding-top: 20px;
 }
 .alpheios-alignment-editor-align-define-container-inner {
   margin-top: 15px;

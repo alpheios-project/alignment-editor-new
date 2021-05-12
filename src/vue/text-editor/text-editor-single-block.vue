@@ -63,15 +63,13 @@
         ></textarea>
       </div>
 
-
-
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
 
       <div class="alpheios-alignment-editor-text-blocks-single__align-button" v-if="textType === 'origin'">
         <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-button__align"
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button-align"  id="alpheios-actions-menu-button__align"
               @click="$emit('align-text')" :disabled="!alignAvailable" >
               {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
           </button>
@@ -149,6 +147,8 @@ export default {
       showModalDTS: false,
       showModalMetadata: false,
       showModalLanguage: false,
+
+      showModalHelp: false,
 
       updatedLocalOptionsFlag: 1
     }
@@ -369,6 +369,9 @@ export default {
     },
 
     async updateTextFromTextBlock () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      if (!docSource && (this.text.length === 0)) { return }
+
       const params = this.collectCurrentParams()
       const result = await this.$textC[this.updateTextMethod](params, this.textId)
 
@@ -681,5 +684,6 @@ export default {
 
   .alpheios-alignment-editor-text-blocks-single__align-button {
     margin-top: 30px;
+    text-align: right;
   }
 </style>

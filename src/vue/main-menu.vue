@@ -29,25 +29,6 @@
                   {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
           </button>
 
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-download" 
-                  @click="downloadTexts" :disabled="!downloadAvailable" >
-                  {{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}
-          </button>
-
-          <div class="alpheios-alignment-app-menu__download-block" id="alpheios-main-menu-download-block" v-show="showDownloadBlock &&  downloadAvailable" >
-            <p class="alpheios-main-menu-download-block-radio-block">
-              <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item" >
-                  <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
-                  <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "top-left">
-                    <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
-                  </tooltip>
-              </span>
-            </p>
-            <span class="alpheios-main-menu-download-block_item alpheios-token-edit-actions-button">
-                <download-icon @click="downloadData"/>
-            </span>
-          </div>
-
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-upload" 
                   @click="uploadTexts"  :disabled="!docSourceEditAvailable" >
                   {{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}
@@ -150,7 +131,7 @@ export default {
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
-      return this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
@@ -319,8 +300,7 @@ export default {
     white-space: nowrap;
   }
 
-  .alpheios-alignment-app-menu__upload-block,
-  .alpheios-alignment-app-menu__download-block {
+  .alpheios-alignment-app-menu__upload-block {
     text-align: left;
 
     padding: 10px 0;
@@ -328,33 +308,12 @@ export default {
     border-bottom: 2px solid #ddd;
   }
 
-  .alpheios-main-menu-download-block-radio-block {
-    display: inline-block;
-    width: 70%;
-    vertical-align: middle;
-
-    .alpheios-main-menu-download-block-radio-block_item {
-      display: block;
-      white-space: nowrap;
-    }
-  }
-
-  .alpheios-main-menu-download-block_item {
-    display: inline-block;
-    width: 25%;
-    vertical-align: middle;
-    text-align: right;
-    overflow: hidden;
-  }
-
-  .alpheios-main-menu-download-block-radio-block_item,
   .alpheios-main-menu-upload-block-radio-block_item,
   .alpheios-main-menu-upload-block_item {
     padding-right: 20px; 
   }
 
-  .alpheios-main-menu-upload-block_item,
-  .alpheios-main-menu-download-block_item {
+  .alpheios-main-menu-upload-block_item {
     &.alpheios-token-edit-actions-button {
       width: 30px;
       height: 30px;
