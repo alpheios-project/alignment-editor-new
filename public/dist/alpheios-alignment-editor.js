@@ -39256,7 +39256,10 @@ class DownloadController {
     })
 
     const now = DownloadController.timeNow.bind(new Date())()
-    const fileName = `${now}-full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
+    console.info('data - ', data)
+
+    const filePrefixName = data.origin.alignedText ? 'full-alignment' : 'alignment'
+    const fileName = `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
     return _lib_download_download_file_json_js__WEBPACK_IMPORTED_MODULE_1__.default.download(data, fileName)
   }
 
@@ -45049,7 +45052,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i374-header-buttons.20210512621" : 0
+    return  true ? "i374-header-buttons.20210512638" : 0
   }
 
   static get libName () {
@@ -47948,6 +47951,7 @@ __webpack_require__.r(__webpack_exports__);
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
     downloadData () {
+      this.$emit('closeModal')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
         additional = {
@@ -47955,7 +47959,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
       this.$textC.downloadData(this.currentDownloadType, additional)
-      this.$emit('closeModal')
+      
     }
   }
 });
@@ -58351,7 +58355,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button-align",
                       attrs: {
                         id: "alpheios-actions-menu-button__align",
                         disabled: !_vm.alignAvailable

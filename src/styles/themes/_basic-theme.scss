@@ -49,6 +49,25 @@
         }
     }
 
+    .alpheios-actions-menu-button-align {
+        color: map.get($theme, 'align-button-color');
+        background: map.get($theme, 'align-button-background');
+        border-color: map.get($theme, 'align-button-border');
+
+        &:hover {
+            color: map.get($theme, 'align-button-color-hover');
+            background: map.get($theme, 'align-button-background-hover');
+            border-color: map.get($theme, 'align-button-border-hover');
+        }
+
+
+        &:disabled {
+            color: map.get($theme, 'main-menu-text-color-disabled');
+            background: map.get($theme, 'main-menu-background-color-disabled');
+            border-color: map.get($theme, 'main-menu-border-color-disabled');
+        }
+    }
+
     .alpheios-token-edit-actions-button {
         border-color: map.get($theme, 'main-menu-border-color');
         background: map.get($theme, 'main-menu-background-color');
