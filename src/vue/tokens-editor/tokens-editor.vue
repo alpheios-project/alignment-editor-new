@@ -28,6 +28,7 @@
     <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
       <template v-slot:content > <help-block-edit /> </template>
     </help-popup>
+    <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
   </div>
 </template>
 <script>
@@ -37,7 +38,7 @@ import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import HelpPopup from '@/vue/help-popup.vue'
-
+import SavePopup from '@/vue/save-popup.vue'
 import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
 
 export default {
@@ -45,6 +46,7 @@ export default {
   components: {
     TokensEditorInnerBlock: TokensEditInnerBlock,
     helpPopup: HelpPopup,
+    savePopup: SavePopup,
     helpBlockEdit: HelpBlockEdit
   },
   props: {

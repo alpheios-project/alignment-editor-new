@@ -9,17 +9,17 @@
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
               @click="showModalHelp = true">
-              HELP
+              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_HELP') }}
           </button>
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
               @click="showModalOptions = true">
-              Options
+              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_OPTIONS') }}
           </button>
         </span>
         <span class="alpheios-alignment-text-editor-block__part">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="showModalSave = true">
-              Save locally
+              @click="showModalSave = true" :disabled="!downloadAvailable">
+              {{ l10n.getMsgS('TEXT_EDITOR_HEADER_SAVE') }}
           </button>
         </span>
       </h2>
@@ -49,10 +49,9 @@
       </div>
 
       <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
-        <template v-slot:content >
-          <help-block-enter />
-        </template>
+        <template v-slot:content > <help-block-enter /> </template>
       </help-popup>
+      <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
   </div>
 </template>
 <script>
@@ -60,6 +59,7 @@ import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vu
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 import HelpPopup from '@/vue/help-popup.vue'
+import SavePopup from '@/vue/save-popup.vue'
 
 import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
 
@@ -69,6 +69,7 @@ export default {
     textEditorSingleBlock: TextEditorSingleBlock,
     tooltip: Tooltip,
     helpPopup: HelpPopup,
+    savePopup: SavePopup,
     helpBlockEnter: HelpBlockEnter
   },
   props: {  
@@ -107,6 +108,9 @@ export default {
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+    },
+    downloadAvailable () {
+      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     }
   },
   methods: {

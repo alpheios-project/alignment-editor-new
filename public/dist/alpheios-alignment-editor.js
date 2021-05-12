@@ -161,6 +161,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/save-popup.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/save-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/summary-popup.vue?vue&type=style&index=0&lang=scss& ***!
@@ -45039,7 +45049,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i374-header-buttons.20210511620" : 0
+    return  true ? "i374-header-buttons.20210512621" : 0
   }
 
   static get libName () {
@@ -45915,7 +45925,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/align-editor-view-mode.vue */ "./vue/align-editor/align-editor-view-mode.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/help-popup.vue */ "./vue/help-popup.vue");
-/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
+/* harmony import */ var _vue_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/save-popup.vue */ "./vue/save-popup.vue");
+/* harmony import */ var _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-align.vue */ "./vue/help-blocks/eng/help-block-align.vue");
 //
 //
 //
@@ -45949,6 +45960,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -45964,7 +45977,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     alignEditorViewMode: _vue_align_editor_align_editor_view_mode_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     helpPopup: _vue_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    savePopup: _vue_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    helpBlockAlign: _vue_help_blocks_eng_help_block_align_vue__WEBPACK_IMPORTED_MODULE_4__.default
   },
   props: {
   },
@@ -47292,25 +47306,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -47377,7 +47372,7 @@ __webpack_require__.r(__webpack_exports__);
       return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
-      return this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
@@ -47862,6 +47857,105 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     async resetOptions () {
       await this.$settingsC.resetAllOptions()
+    }
+  }
+});
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/save-popup.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/save-popup.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/inline-icons/download.svg */ "./inline-icons/download.svg");
+/* harmony import */ var _inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/common/modal.vue */ "./vue/common/modal.vue");
+/* harmony import */ var _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/download-controller.js */ "./lib/controllers/download-controller.js");
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'SavePopup',
+  components: {
+    modal: _vue_common_modal_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    downloadIcon: (_inline_icons_download_svg__WEBPACK_IMPORTED_MODULE_0___default()),
+  },
+  props: {
+    showModal: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  data () {
+    return {
+      currentDownloadType: null
+    }
+  },
+  watch: {
+    showModal () {
+      if (this.showModal && this.downloadTypes.length === 1) {
+        this.downloadData()
+      }
+    }
+  },
+  mounted () {  
+    this.currentDownloadType = this.downloadTypes.length > 0 ? this.downloadTypes[0].name : null
+  },
+  computed: {
+    downloadTypes () {
+      return Boolean(this.$store.state.alignmentUpdated) && 
+             Object.values(_lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.downloadMethods).filter(method => method.allTexts && (!method.alignmentStarted || this.$alignedGC.alignmentGroupsWorkflowAvailable))
+    }
+  },
+  methods: {
+    downloadTypeId (dTypeName) {
+      return `alpheios-save-popup-download-block__radio_${dTypeName}`
+    },
+    downloadData () {
+      let additional = {}
+      if (this.currentDownloadType === 'htmlDownloadAll') {
+        additional = {
+          theme: this.$settingsC.themeOptionValue
+        }
+      }
+      this.$textC.downloadData(this.currentDownloadType, additional)
+      this.$emit('closeModal')
     }
   }
 });
@@ -49134,7 +49228,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
 /* harmony import */ var _vue_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/help-popup.vue */ "./vue/help-popup.vue");
-/* harmony import */ var _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-enter.vue */ "./vue/help-blocks/eng/help-block-enter.vue");
+/* harmony import */ var _vue_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/save-popup.vue */ "./vue/save-popup.vue");
+/* harmony import */ var _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-enter.vue */ "./vue/help-blocks/eng/help-block-enter.vue");
 //
 //
 //
@@ -49191,7 +49286,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 
@@ -49206,7 +49301,8 @@ __webpack_require__.r(__webpack_exports__);
     textEditorSingleBlock: _vue_text_editor_text_editor_single_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_2__.default,
     helpPopup: _vue_help_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
-    helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_4__.default
+    savePopup: _vue_save_popup_vue__WEBPACK_IMPORTED_MODULE_4__.default,
+    helpBlockEnter: _vue_help_blocks_eng_help_block_enter_vue__WEBPACK_IMPORTED_MODULE_5__.default
   },
   props: {  
   },
@@ -49244,6 +49340,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     alignEditAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+    },
+    downloadAvailable () {
+      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     }
   },
   methods: {
@@ -50792,7 +50891,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/tokens-editor/tokens-editor-inner-block.vue */ "./vue/tokens-editor/tokens-editor-inner-block.vue");
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _vue_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/help-popup.vue */ "./vue/help-popup.vue");
-/* harmony import */ var _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-edit.vue */ "./vue/help-blocks/eng/help-block-edit.vue");
+/* harmony import */ var _vue_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/vue/save-popup.vue */ "./vue/save-popup.vue");
+/* harmony import */ var _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/vue/help-blocks/eng/help-block-edit.vue */ "./vue/help-blocks/eng/help-block-edit.vue");
+//
 //
 //
 //
@@ -50840,7 +50941,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     TokensEditorInnerBlock: _vue_tokens_editor_tokens_editor_inner_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
     helpPopup: _vue_help_popup_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    savePopup: _vue_save_popup_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    helpBlockEdit: _vue_help_blocks_eng_help_block_edit_vue__WEBPACK_IMPORTED_MODULE_4__.default
   },
   props: {
     renderEditor: {
@@ -51607,6 +51709,47 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "vue/options/options-block.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./vue/save-popup.vue":
+/*!****************************!*\
+  !*** ./vue/save-popup.vue ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _save_popup_vue_vue_type_template_id_662b0f13___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./save-popup.vue?vue&type=template&id=662b0f13& */ "./vue/save-popup.vue?vue&type=template&id=662b0f13&");
+/* harmony import */ var _save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./save-popup.vue?vue&type=script&lang=js& */ "./vue/save-popup.vue?vue&type=script&lang=js&");
+/* harmony import */ var _save_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./save-popup.vue?vue&type=style&index=0&lang=scss& */ "./vue/save-popup.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _save_popup_vue_vue_type_template_id_662b0f13___WEBPACK_IMPORTED_MODULE_0__.render,
+  _save_popup_vue_vue_type_template_id_662b0f13___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/save-popup.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -52682,6 +52825,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/save-popup.vue?vue&type=style&index=0&lang=scss&":
+/*!**************************************************************!*\
+  !*** ./vue/save-popup.vue?vue&type=style&index=0&lang=scss& ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./save-popup.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/save-popup.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/summary-popup.vue?vue&type=style&index=0&lang=scss&":
 /*!*****************************************************************!*\
   !*** ./vue/summary-popup.vue?vue&type=style&index=0&lang=scss& ***!
@@ -53273,6 +53433,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./options-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/options/options-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_options_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/save-popup.vue?vue&type=script&lang=js&":
+/*!*****************************************************!*\
+  !*** ./vue/save-popup.vue?vue&type=script&lang=js& ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./save-popup.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/save-popup.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_save_popup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -53902,6 +54078,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/save-popup.vue?vue&type=template&id=662b0f13&":
+/*!***********************************************************!*\
+  !*** ./vue/save-popup.vue?vue&type=template&id=662b0f13& ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_template_id_662b0f13___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_template_id_662b0f13___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_save_popup_vue_vue_type_template_id_662b0f13___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./save-popup.vue?vue&type=template&id=662b0f13& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/save-popup.vue?vue&type=template&id=662b0f13&");
+
+
+/***/ }),
+
 /***/ "./vue/summary-popup.vue?vue&type=template&id=ab96fd44&":
 /*!**************************************************************!*\
   !*** ./vue/summary-popup.vue?vue&type=template&id=ab96fd44& ***!
@@ -54499,7 +54692,16 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _vm.renderAlignEditor ? _c("align-editor-view-mode") : _vm._e()
+      _vm.renderAlignEditor ? _c("align-editor-view-mode") : _vm._e(),
+      _vm._v(" "),
+      _c("save-popup", {
+        attrs: { showModal: _vm.showModalSave },
+        on: {
+          closeModal: function($event) {
+            _vm.showModalSave = false
+          }
+        }
+      })
     ],
     1
   )
@@ -55792,119 +55994,6 @@ var render = function() {
                 {
                   staticClass: "alpheios-app-menu-link",
                   attrs: {
-                    id: "alpheios-main-menu-download",
-                    disabled: !_vm.downloadAvailable
-                  },
-                  on: { click: _vm.downloadTexts }
-                },
-                [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.l10n.getMsgS("MAIN_MENU_DOWNLOAD_TITLE")) +
-                      "\n        "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.showDownloadBlock && _vm.downloadAvailable,
-                      expression: "showDownloadBlock &&  downloadAvailable"
-                    }
-                  ],
-                  staticClass: "alpheios-alignment-app-menu__download-block",
-                  attrs: { id: "alpheios-main-menu-download-block" }
-                },
-                [
-                  _c(
-                    "p",
-                    {
-                      staticClass:
-                        "alpheios-main-menu-download-block-radio-block"
-                    },
-                    _vm._l(_vm.downloadTypes, function(dType) {
-                      return _c(
-                        "span",
-                        {
-                          key: dType.name,
-                          staticClass:
-                            "alpheios-main-menu-download-block-radio-block_item"
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.currentDownloadType,
-                                expression: "currentDownloadType"
-                              }
-                            ],
-                            attrs: {
-                              type: "radio",
-                              id: _vm.downloadTypeId(dType.name)
-                            },
-                            domProps: {
-                              value: dType.name,
-                              checked: _vm._q(
-                                _vm.currentDownloadType,
-                                dType.name
-                              )
-                            },
-                            on: {
-                              change: function($event) {
-                                _vm.currentDownloadType = dType.name
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "tooltip",
-                            {
-                              attrs: {
-                                tooltipText: dType.tooltip,
-                                tooltipDirection: "top-left"
-                              }
-                            },
-                            [
-                              _c(
-                                "label",
-                                {
-                                  attrs: { for: _vm.downloadTypeId(dType.name) }
-                                },
-                                [_vm._v(_vm._s(dType.label))]
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "alpheios-main-menu-download-block_item alpheios-token-edit-actions-button"
-                    },
-                    [_c("download-icon", { on: { click: _vm.downloadData } })],
-                    1
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "alpheios-app-menu-link",
-                  attrs: {
                     id: "alpheios-main-menu-upload",
                     disabled: !_vm.docSourceEditAvailable
                   },
@@ -56573,6 +56662,167 @@ var render = function() {
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/save-popup.vue?vue&type=template&id=662b0f13&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/save-popup.vue?vue&type=template&id=662b0f13& ***!
+  \****************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.showModal
+    ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-save",
+        on: {
+          close: function($event) {
+            return _vm.$emit("closeModal")
+          }
+        },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "header",
+              fn: function() {
+                return [
+                  _c(
+                    "h2",
+                    {
+                      staticClass: "alpheios-alignment-editor-modal-help-header"
+                    },
+                    [_vm._v("Save locally")]
+                  )
+                ]
+              },
+              proxy: true
+            },
+            {
+              key: "body",
+              fn: function() {
+                return [
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "alpheios-main-menu-download-block-radio-block"
+                    },
+                    _vm._l(_vm.downloadTypes, function(dType) {
+                      return _c(
+                        "span",
+                        {
+                          key: dType.name,
+                          staticClass:
+                            "alpheios-main-menu-download-block-radio-block_item"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.currentDownloadType,
+                                expression: "currentDownloadType"
+                              }
+                            ],
+                            attrs: {
+                              type: "radio",
+                              id: _vm.downloadTypeId(dType.name)
+                            },
+                            domProps: {
+                              value: dType.name,
+                              checked: _vm._q(
+                                _vm.currentDownloadType,
+                                dType.name
+                              )
+                            },
+                            on: {
+                              change: function($event) {
+                                _vm.currentDownloadType = dType.name
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "tooltip",
+                            {
+                              attrs: {
+                                tooltipText: dType.tooltip,
+                                tooltipDirection: "top-right"
+                              }
+                            },
+                            [
+                              _c(
+                                "label",
+                                {
+                                  attrs: { for: _vm.downloadTypeId(dType.name) }
+                                },
+                                [_vm._v(_vm._s(dType.label))]
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  )
+                ]
+              },
+              proxy: true
+            },
+            {
+              key: "footer",
+              fn: function() {
+                return [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                      on: { click: _vm.downloadData }
+                    },
+                    [_vm._v("Save")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "alpheios-editor-button-tertiary alpheios-actions-menu-button",
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("closeModal")
+                        }
+                      }
+                    },
+                    [_vm._v("Close")]
+                  )
+                ]
+              },
+              proxy: true
+            }
+          ],
+          null,
+          false,
+          325166768
+        )
+      })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58227,7 +58477,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            HELP\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_HELP")) +
+                      "\n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -58242,7 +58498,13 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Options\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_OPTIONS")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           ),
@@ -58256,14 +58518,23 @@ var render = function() {
                 {
                   staticClass:
                     "alpheios-editor-button-tertiary alpheios-actions-menu-button",
-                  attrs: { id: "alpheios-actions-menu-button__enter-save" },
+                  attrs: {
+                    id: "alpheios-actions-menu-button__enter-save",
+                    disabled: !_vm.downloadAvailable
+                  },
                   on: {
                     click: function($event) {
                       _vm.showModalSave = true
                     }
                   }
                 },
-                [_vm._v("\n            Save locally\n        ")]
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.l10n.getMsgS("TEXT_EDITOR_HEADER_SAVE")) +
+                      "\n        "
+                  )
+                ]
               )
             ]
           )
@@ -58352,6 +58623,15 @@ var render = function() {
             proxy: true
           }
         ])
+      }),
+      _vm._v(" "),
+      _c("save-popup", {
+        attrs: { showModal: _vm.showModalSave },
+        on: {
+          closeModal: function($event) {
+            _vm.showModalSave = false
+          }
+        }
       })
     ],
     1
@@ -59936,6 +60216,15 @@ var render = function() {
             proxy: true
           }
         ])
+      }),
+      _vm._v(" "),
+      _c("save-popup", {
+        attrs: { showModal: _vm.showModalSave },
+        on: {
+          closeModal: function($event) {
+            _vm.showModalSave = false
+          }
+        }
       })
     ],
     1
@@ -60816,7 +61105,7 @@ module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Applicatio
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_LINK":{"message":"Enter","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"Is TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"}}');
+module.exports = JSON.parse('{"TEXT_EDITOR_HEADING":{"message":"Enter text","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_LINK":{"message":"Enter","description":"A heading for text editor","component":"TextEditor"},"TEXT_EDITOR_HIDE":{"message":"hide","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_SHOW":{"message":"show","description":"A label for hide/show links","component":"TextEditor"},"TEXT_EDITOR_TEXT_BLOCK_TITLE":{"message":"{ textType } text:","description":"A tytle for text block area","component":"TextEditorSingleBlock","params":["textType"]},"RADIO_BLOCK_DIRECTION_LABEL":{"message":"Text Direction:","description":"A label for text direction select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_LTR":{"message":"Left to Right","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"RADIO_BLOCK_DIRECTION_RTL":{"message":"Right to Left","description":"A label for text direction select option","component":"TextEditorSingleBlock"},"TEXT_EDITOR_AVA_LANGUAGE_TITLE":{"message":"{ textType } Language:","description":"A title for available languages select","component":"TextEditorSingleBlock","params":["textType"]},"TEXT_EDITOR_LANGUAGE_OTHER_LABEL":{"message":"Or Other Language:","description":"A label for other language text input","component":"TextEditorSingleBlock"},"TEXT_EDITOR_LANGUAGE_OTHER_DESCRIPTION":{"message":"Please use ISO 639-2 or ISO 639-3 three-letter codes for any other languages","description":"A description for other language text input","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_LABEL":{"message":"Text type:","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEXT":{"message":"Text","description":"A label for text type select","component":"TextEditorSingleBlock"},"RADIO_BLOCK_TEXTSOURCETYPE_TEI":{"message":"TEI","description":"A label for text type select","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS":{"message":"Tokenize options for Alpheios Remote Servise","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT":{"message":"TEXT","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEI":{"message":"TEI","description":"Fieldset inside options","component":"TextEditorSingleBlock"},"ACTIONS_DOWNLOAD_TITLE":{"message":"Download","description":"Button in main menu","component":"MainMenu"},"ACTIONS_UPLOAD_TITLE":{"message":"Upload text","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_HIDE_TITLE":{"message":"Hide metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_METADATA_SHOW_TITLE":{"message":"Show metadata","description":"Button in main menu","component":"MainMenu"},"ACTIONS_CLEAR_TEXT_TITLE":{"message":"Restart","description":"Button in main menu","component":"MainMenu"},"UPLOAD_DTSAPI_TITLE":{"message":"Upload texts from DTS API","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_TITLE":{"message":"You can either upload the entire document or selected passages:","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_DESCRIPTION_DETAILS":{"message":"<li>Select one reference that you want to upload.</li><li>Select multiple references to upload as a range from the minimum to the maximum number. For example, if you choose 2, 5 and 8, the range from 2 to 8 references will be uploaded.</li>","description":"Description in upload bloc","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_ENTIRE_DOCUMENT":{"message":"Entire document","description":"Title in upload block","component":"UploadDTSAPIBlock"},"UPLOAD_DTSAPI_GO_TO_PAGE":{"message":"go to","description":"Title in upload block","component":"UploadDTSAPIBlock"},"TEXT_SINGLE_TYPE_BUTTON":{"message":"Type/paste in","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_TYPE_LABEL":{"message":"Type or paste in text or","description":"Title in text editor block","component":"TextEditorSingleBlock"},"TEXT_SINGLE_UPLOAD_BUTTON":{"message":"Choose text to upload","description":"Title in text editor block","component":"TextEditorSingleBlock"},"NO_METADATA_ICON":{"message":"Metadata is empty for the text","description":"Tooltip for no metadata icon","component":"TextEditorSingleBlock"},"HAS_METADATA_ICON":{"message":"You could check and update metadata here","description":"Tooltip for has metadata icon","component":"TextEditorSingleBlock"},"NO_LANG_DETECTED_ICON":{"message":"Language was not detected, please recheck it manually.","description":"Tooltip for no lang detected icon","component":"TextEditorSingleBlock"},"SUMMARY_POPUP_HEADER":{"message":"Alpheios believes your texts are in the following languages.<br />Please review and correct if necessary","description":"Header in a summary popup component","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ORIGINAL":{"message":"Original","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_TRANSLATION":{"message":"Translation","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_TABEL_TH_ISTEI":{"message":"Is TEI","description":"Table title","component":"SummaryPopup"},"SUMMARY_POPUP_SHOW_OPTION_LABEL":{"message":"Show this popup for each text preparation","description":"Label for the option","component":"SummaryPopup"},"SUMMARY_POPUP_OK_BUTTON":{"message":"All Ok","description":"Button label","component":"SummaryPopup"},"SUMMARY_POPUP_CANCEL_BUTTON":{"message":"Cancel","description":"Button label","component":"SummaryPopup"},"ALIGN_TEXT_BUTTON_TOOLTIP":{"message":"Start tokenizing texts","description":"Tooltip for align texts button","component":"TextEditorSingleBlock"},"TEXT_EDITOR_HEADER_SAVE":{"message":"Save locally","description":"Tooltip for header buttons","component":"TextEditor"},"TEXT_EDITOR_HEADER_OPTIONS":{"message":"Options","description":"Tooltip for header buttons","component":"TextEditor"},"TEXT_EDITOR_HEADER_HELP":{"message":"Help","description":"Tooltip for header buttons","component":"TextEditor"}}');
 
 /***/ }),
 
