@@ -1,5 +1,6 @@
 <template>
   <div class="alpheios-alignment-editor-align-groups-editor-container">
+    <actions-menu-align-editor  />
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
@@ -33,12 +34,14 @@
 import Vue from '@vue-runtime'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import EditorTabs from '@/vue/common/editor-tabs.vue'
+import ActionsMenuAlignEditor from '@/vue/align-editor/actions-menu-align-editor.vue'
 
 export default {
   name: 'AlignEditorViewMode',
   components: {
     segmentBlock: SegmentBlock,
-    editorTabs: EditorTabs
+    editorTabs: EditorTabs,
+    actionsMenuAlignEditor: ActionsMenuAlignEditor
   },
   props: {
   },
@@ -46,6 +49,14 @@ export default {
     return {
       shownTabs: [],
       shownTabsInited: false
+    }
+  },
+  watch: {
+    '$store.state.alignmentRestarted' () {
+      this.shownTabsInited = false
+    },
+    '$store.state.uploadCheck' () {
+      this.shownTabsInited = false
     }
   },
   computed: {
@@ -57,12 +68,14 @@ export default {
      */
     allTokenizedTargetTextsIds () {
       const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
+
       if (!this.shownTabsInited) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+    
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
     },
 
     /**
@@ -140,7 +153,6 @@ export default {
     padding-top: 20px;
   }
   .alpheios-alignment-editor-align-define-container-inner {
-    margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     background: #F8F8F8;

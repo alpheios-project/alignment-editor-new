@@ -22,26 +22,17 @@
         <div class="alpheios-alignment-app-menu__buttons-actions">
 
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-upload" 
-                  @click="uploadTexts"  :disabled="!docSourceEditAvailable" >
+                  @click="uploadTexts"  >
                   {{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}
           </button>
 
-          <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
+          <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock" >
             <span class="alpheios-main-menu-upload-block_item">
               <input type="file" id = "alpheiosfileupload" ref="alpheiosfileupload" class="alpheios-fileupload" @change="loadTextFromFile">
               <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">Choose a file</label>
             </span>
           </div>
           
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-undo" 
-                  @click="undoAction" :disabled="!undoAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_UNDO_TITLE') }}
-          </button>
-
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-redo" 
-                  @click="redoAction" :disabled="!redoAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
-          </button>
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
                   @click="clearAll">
                   {{ l10n.getMsgS('MAIN_MENU_CLEAR_TEXT') }}

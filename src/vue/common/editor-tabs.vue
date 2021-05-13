@@ -41,6 +41,11 @@ export default {
       tabsStates: []
     }
   },
+  watch: {
+    '$store.state.uploadCheck' () {
+      this.tabsStates = []
+    }
+  },
   computed: {
     tabsStatesFinal () {
       if (this.tabs.length > this.tabsStates.length) {
@@ -49,7 +54,7 @@ export default {
         })
         this.tabsStates = newTabStates
       }
-      return this.$store.state.alignmentUpdated && this.tabsStates
+      return this.$store.state.uploadCheck && this.$store.state.alignmentUpdated && this.tabsStates
     }
   },
   methods: {
@@ -80,7 +85,12 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-editor-align-target-tabs {
-    padding-left: 51%;
+    display: inline-block;
+    padding-left: 0;
+    position: relative;
+    width: 49%;
+    vertical-align: middle;
+    padding-left: 10px;
   }
   .alpheios-alignment-editor-align-target-tab-item {
     cursor: pointer;

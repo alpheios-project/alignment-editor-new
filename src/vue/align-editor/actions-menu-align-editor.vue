@@ -2,11 +2,11 @@
     <div class="alpheios-alignment-editor-actions-menu">
       <div class="alpheios-alignment-editor-actions-menu__buttons">
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  id="alpheios-actions-menu-tokens-editor-button__undo"
-            @click="undoTokensEditStep" :disabled="!undoTokensEditAvailable" >
+            @click="undoAction" :disabled="!undoAvailable" >
             {{ l10n.getMsgS('ACTIONS_UNDO_TITLE') }}
         </button>
         <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-tokens-editor-button__redo"
-            @click="redoTokensEditStep" :disabled="!redoTokensEditAvailable" >
+            @click="redoAction" :disabled="!redoAvailable" >
             {{ l10n.getMsgS('ACTIONS_REDO_TITLE') }}
         </button>
       </div>
@@ -16,7 +16,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
-  name: 'ActionsMenuTokensEditor',
+  name: 'ActionsMenuAlignEditor',
   props: {
   },
   data () {
@@ -27,21 +27,22 @@ export default {
     l10n () {
       return L10nSingleton
     },
-    undoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$tokensEC.undoTokensEditAvailable
+    alignEditAvailable () {
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
-    redoTokensEditAvailable () {
-      return this.$store.state.tokenUpdated && this.$tokensEC.redoTokensEditAvailable
+    undoAvailable () {
+      return this.alignEditAvailable && this.$historyC.undoAvailable
+    },
+    redoAvailable () {
+      return this.alignEditAvailable && this.$historyC.redoAvailable
     }
   },
   methods: {
-    undoTokensEditStep () {
-      this.$emit('blockTokensActions')
-      this.$tokensEC.undoTokensEditStep()
+    undoAction () {
+      this.$historyC.undo()
     },
-    redoTokensEditStep () {
-      this.$emit('blockTokensActions')
-      this.$tokensEC.redoTokensEditStep()
+    redoAction () {
+      this.$historyC.redo()
     }
   }
 }
