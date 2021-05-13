@@ -1,7 +1,7 @@
 <template>
     <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-help">
         <template v-slot:header >
-          <h2 class="alpheios-alignment-editor-modal-help-header">Help</h2>
+          <h2 class="alpheios-alignment-editor-modal-header">Help</h2>
         </template>
         <template v-slot:body >
             <slot name="content"></slot>
@@ -45,7 +45,8 @@ export default {
   }
 }
 
-.alpheios-alignment-editor-modal-help-header {
+.alpheios-alignment-editor-modal-header {
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 </style>

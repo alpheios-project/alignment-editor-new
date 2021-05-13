@@ -1,7 +1,7 @@
 <template>
     <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-save">
         <template v-slot:header >
-          <h2 class="alpheios-alignment-editor-modal-help-header">Save locally</h2>
+          <h2 class="alpheios-alignment-editor-modal-header">Save locally</h2>
         </template>
         <template v-slot:body >
             <p class="alpheios-main-menu-download-block-radio-block">
@@ -95,5 +95,11 @@ export default {
 
   .alpheios-alignment-editor-modal-save .alpheios-modal-body {
       overflow: initial;
+  }
+
+  .alpheios-alignment-editor-modal-save {
+    .alpheios-alignment-editor-modal-header {
+      margin-bottom: 10px;
+    }
   }
 </style>

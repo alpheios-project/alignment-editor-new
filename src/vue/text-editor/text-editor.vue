@@ -52,6 +52,7 @@
         <template v-slot:content > <help-block-enter /> </template>
       </help-popup>
       <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
+      <options-text-enter-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
   </div>
 </template>
 <script>
@@ -60,6 +61,8 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 import HelpPopup from '@/vue/help-popup.vue'
 import SavePopup from '@/vue/save-popup.vue'
+
+import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
 
 import HelpBlockEnter from '@/vue/help-blocks/eng/help-block-enter.vue'
 
@@ -70,7 +73,8 @@ export default {
     tooltip: Tooltip,
     helpPopup: HelpPopup,
     savePopup: SavePopup,
-    helpBlockEnter: HelpBlockEnter
+    helpBlockEnter: HelpBlockEnter,
+    optionsTextEnterPopup: OptionsTextEnter
   },
   props: {  
   },
