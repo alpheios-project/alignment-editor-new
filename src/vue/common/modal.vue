@@ -52,6 +52,7 @@ export default {
           width: 100%;
           height: 100%;
           display: block;
+          fill: #c6c6c6;
         }
     }
   }

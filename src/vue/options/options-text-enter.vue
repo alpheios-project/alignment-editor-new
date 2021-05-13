@@ -12,9 +12,6 @@
             <option-item-block :optionItem = "showSummaryPopupOptionItem" />
         </div>
     </template>
-    <template v-slot:footer>
-      <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Close</button>
-    </template>
   </modal>
 </template>
 <script>
@@ -60,8 +57,11 @@ export default {
   }
   .alpheios-modal-body {
     max-height: 700px;
-    // border: 0;
     margin: 0 0 20px;
+
+    border: 0;
+    border-top: 2px solid #ddd;
+    padding: 10px 0 0 0;
   }
 
   .alpheios-alignment-editor-modal-options-block {

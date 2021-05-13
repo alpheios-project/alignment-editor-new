@@ -6,9 +6,6 @@
         <template v-slot:body >
             <slot name="content"></slot>
         </template>
-        <template v-slot:footer>
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Close</button>
-        </template>
     </modal>
 </template>
 <script>
@@ -43,10 +40,9 @@ export default {
     padding: 0 15px 0 0;
     margin: 0 0 20px;
   }
-}
-
-.alpheios-alignment-editor-modal-header {
-  text-transform: uppercase;
-  margin-bottom: 10px;
+  .alpheios-alignment-editor-modal-header {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
 }
 </style>
