@@ -117,6 +117,11 @@ export default class SettingsController {
    */
   async uploadRemoteSettings () {
     this.options.tokenize = await TokenizeController.uploadOptions(this.storageAdapter)
+
+    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.text) {
+      delete this.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
+      delete this.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 

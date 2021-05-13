@@ -30,6 +30,7 @@
 
     <align-editor-view-mode v-if="renderAlignEditor"/>   
     <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
+    <options-text-align-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
   </div>
 </template>
 <script>
@@ -40,6 +41,7 @@ import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import HelpPopup from '@/vue/help-popup.vue'
 import SavePopup from '@/vue/save-popup.vue'
+import OptionsTextAlign from '@/vue/options/options-text-align.vue'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
 
@@ -49,7 +51,8 @@ export default {
     alignEditorViewMode: AlignEditorViewMode,
     helpPopup: HelpPopup,
     savePopup: SavePopup,
-    helpBlockAlign: HelpBlockAlign
+    helpBlockAlign: HelpBlockAlign,
+    optionsTextAlignPopup: OptionsTextAlign
   },
   props: {
   },

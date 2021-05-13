@@ -1,13 +1,10 @@
 <template>
     <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-help">
         <template v-slot:header >
-          <h2 class="alpheios-alignment-editor-modal-help-header">Help</h2>
+          <h2 class="alpheios-alignment-editor-modal-header">Help</h2>
         </template>
         <template v-slot:body >
             <slot name="content"></slot>
-        </template>
-        <template v-slot:footer>
-            <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Close</button>
         </template>
     </modal>
 </template>
@@ -43,9 +40,9 @@ export default {
     padding: 0 15px 0 0;
     margin: 0 0 20px;
   }
-}
-
-.alpheios-alignment-editor-modal-help-header {
-  text-transform: uppercase;
+  .alpheios-alignment-editor-modal-header {
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
 }
 </style>

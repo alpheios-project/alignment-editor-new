@@ -7,12 +7,14 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: table;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
+
+    padding-top: 25%;
   }
   
   .alpheios-modal-wrapper {
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
   }
   
   .alpheios-modal-container {
@@ -22,7 +24,7 @@
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
   }
   
   .alpheios-modal-header h3 {
@@ -52,17 +54,17 @@
    * these styles.
    */
   
-  .modal-enter {
+  .alpheios-modal-enter {
     opacity: 0;
   }
   
-  .modal-leave-active {
+  .alpheios-modal-leave-active {
     opacity: 0;
   }
-  /*
-  .modal-enter .modal-container,
-  .modal-leave-active .modal-container {
+/*
+  .alpheios-modal-enter .alpheios-modal-container,
+  .alpheios-modal-leave-active .alpheios-modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
-  */
+*/

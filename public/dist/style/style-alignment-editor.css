@@ -299,12 +299,13 @@ div.alpheios-alignment-checkbox-block {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
+  padding-top: 25%;
 }
 
 .alpheios-modal-wrapper {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .alpheios-modal-container {
@@ -314,7 +315,7 @@ div.alpheios-alignment-checkbox-block {
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .alpheios-modal-header h3 {
@@ -342,20 +343,20 @@ div.alpheios-alignment-checkbox-block {
  * You can easily play with the modal transition by editing
  * these styles.
  */
-.modal-enter {
+.alpheios-modal-enter {
   opacity: 0;
 }
 
-.modal-leave-active {
+.alpheios-modal-leave-active {
   opacity: 0;
 }
 
 /*
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
+  .alpheios-modal-enter .alpheios-modal-container,
+  .alpheios-modal-leave-active .alpheios-modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
 */
 .alpheios-standard-theme {
   background-color: #fff;
@@ -1183,6 +1184,24 @@ button.alpheios-app-menu-link:-moz-focusring {
   background: #000;
   transition: 0.6s;
 }
+.alpheios-modal-header {
+  position: relative;
+}
+.alpheios-modal-header .alpheios-alignment-modal-close-icon {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.alpheios-modal-header .alpheios-alignment-modal-close-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: #c6c6c6;
+}
 .alpheios-editor__waiting {
   text-align: center;
 }
@@ -1207,6 +1226,7 @@ button.alpheios-app-menu-link:-moz-focusring {
   width: 48%;
   display: inline-block;
   vertical-align: top;
+  padding-right: 10px;
 }
 .alpheios-alignment-option-item input.alpheios-alignment-input,
 .alpheios-alignment-option-item .alpheios-alignment-select,
@@ -1704,8 +1724,9 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   padding: 0 15px 0 0;
   margin: 0 0 20px;
 }
-.alpheios-alignment-editor-modal-help-header {
+.alpheios-alignment-editor-modal-help .alpheios-alignment-editor-modal-header {
   text-transform: uppercase;
+  margin-bottom: 10px;
 }
 .alpheios-main-menu-download-block-radio-block_item {
   padding-right: 20px;
@@ -1719,6 +1740,25 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-modal-save .alpheios-modal-body {
   overflow: initial;
+}
+.alpheios-alignment-editor-modal-save .alpheios-alignment-editor-modal-header {
+  margin-bottom: 10px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-modal-container {
+  width: 700px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-modal-body {
+  max-height: 700px;
+  margin: 0 0 20px;
+  border: 0;
+  border-top: 2px solid #ddd;
+  padding: 10px 0 0 0;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
+  padding: 10px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
+  margin-bottom: 10px;
 }
 .alpheios-editor-help-content {
   text-indent: 10px;
@@ -1838,7 +1878,12 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   vertical-align: top;
 }
 .alpheios-alignment-editor-align-target-tabs {
-  padding-left: 51%;
+  display: inline-block;
+  padding-left: 0;
+  position: relative;
+  width: 49%;
+  vertical-align: middle;
+  padding-left: 10px;
 }
 .alpheios-alignment-editor-align-target-tab-item {
   cursor: pointer;
@@ -1855,11 +1900,22 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-align-target-tab-item.alpheios-alignment-editor-align-target-tab-item-active {
   background: #185F6D;
 }
+.alpheios-alignment-editor-actions-menu {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 10px;
+}
+.alpheios-alignment-editor-actions-menu__buttons {
+  padding: 5px 0 10px;
+  text-align: left;
+  display: inline-block;
+}
 .alpheios-alignment-editor-align-groups-editor-container {
   padding-top: 20px;
 }
 .alpheios-alignment-editor-align-define-container-inner {
-  margin-top: 15px;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   background: #F8F8F8;
@@ -1890,6 +1946,19 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-align-define-container-inner .alpheios-alignment-editor-align-segment-data-item {
   display: table-cell;
+}
+.alpheios-alignment-editor-modal-options .alpheios-modal-container {
+  width: 700px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-modal-body {
+  max-height: 700px;
+  margin: 0 0 20px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
+  padding: 10px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
+  margin-bottom: 10px;
 }
 .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
   padding: 20px 10px 20px 40px;
@@ -1972,12 +2041,22 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-align-text-segment-edit {
   position: relative;
 }
+.alpheios-alignment-editor-actions-menu {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 10px;
+}
 .alpheios-alignment-editor-actions-menu__buttons {
-  padding: 5px 0 15px;
+  padding: 5px 0 10px;
   text-align: left;
+  display: inline-block;
+}
+.alpheios-alignment-editor-tokens-edit-editor-container {
+  margin-top: 15px;
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner {
-  margin-top: 15px;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   background: #F8F8F8;
@@ -2005,6 +2084,19 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 }
 .alpheios-alignment-editor-tokens-edit-editor-container-inner .alpheios-alignment-editor-align-segment-edit-data-item.alpheios-alignment-editor-align-segment-data-target {
   border-left: 2px solid #ddd;
+}
+.alpheios-alignment-editor-modal-options .alpheios-modal-container {
+  width: 700px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-modal-body {
+  max-height: 700px;
+  margin: 0 0 20px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
+  padding: 10px;
+}
+.alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-header {
+  margin-bottom: 10px;
 }
 .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
   padding: 20px 10px 20px 40px;
