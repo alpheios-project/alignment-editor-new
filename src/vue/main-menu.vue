@@ -6,28 +6,20 @@
       </span>
       <div class="alpheios-alignment-app-menu__buttons">
         <div class="alpheios-alignment-app-menu__buttons-blocks">
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-options" :class="{ 'alpheios-app-menu-link-current': currentPage === 'options-page' }"
-                  @click="showOptions" >
-                  Options
-          </button>
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-source-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'text-editor-page' }"
                   @click="showSourceTextEditor" >
-                  Source Text Editor
+                  {{ l10n.getMsgS('MAIN_MENU_TEXT_ENTER_LINK') }}
           </button>
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-alignment-groups-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'align-editor-page' }"
                   @click="showAlignmentGroupsEditor" :disabled="!alignEditAvailable">
-                  Alignment Groups Editor
+                  {{ l10n.getMsgS('MAIN_MENU_TEXT_ALIGN_LINK') }}
           </button>
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'tokens-editor-page' }"
                   @click="showTokensEditor" :disabled="!alignEditAvailable">
-                  Tokens Editor
+                  {{ l10n.getMsgS('MAIN_MENU_TEXT_EDIT_LINK') }}
           </button>
         </div>
         <div class="alpheios-alignment-app-menu__buttons-actions">
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-add-target" 
-                  @click="addTarget" :disabled="!addTargetAvailable" >
-                  {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
-          </button>
 
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-upload" 
                   @click="uploadTexts"  :disabled="!docSourceEditAvailable" >
@@ -40,11 +32,6 @@
               <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">Choose a file</label>
             </span>
           </div>
-
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-align" 
-                  @click="alignTexts" :disabled="!alignAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
-          </button>
           
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-undo" 
                   @click="undoAction" :disabled="!undoAvailable">
