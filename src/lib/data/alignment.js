@@ -338,11 +338,12 @@ export default class Alignment {
   get allAlignedTextsSegments () {
     let allSegments = [] // eslint-disable-line prefer-const
 
-    this.origin.alignedText.segments.forEach(segment => {
+    this.origin.alignedText.segments.forEach((segment, segInd) => {
       allSegments.push({
         index: segment.index,
         origin: segment,
-        targets: {}
+        targets: {},
+        isFirst: (segInd === 0)
       })
     })
 

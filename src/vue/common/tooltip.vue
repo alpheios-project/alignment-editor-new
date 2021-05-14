@@ -83,6 +83,7 @@ export default {
       font-size: 12px;
       text-align: center;
       font-weight: normal;
+      color: #000;
 
       text-transform: initial;
       white-space: normal;

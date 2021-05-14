@@ -42529,11 +42529,12 @@ class Alignment {
   get allAlignedTextsSegments () {
     let allSegments = [] // eslint-disable-line prefer-const
 
-    this.origin.alignedText.segments.forEach(segment => {
+    this.origin.alignedText.segments.forEach((segment, segInd) => {
       allSegments.push({
         index: segment.index,
         origin: segment,
-        targets: {}
+        targets: {},
+        isFirst: (segInd === 0)
       })
     })
 
@@ -43941,6 +43942,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Segment)
 /* harmony export */ });
 /* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+
 
 
 class Segment {
@@ -43948,6 +43951,7 @@ class Segment {
     this.index = index
     this.textType = textType
     this.lang = lang
+    this.langName = this.defineLangName()
     this.direction = direction
     this.docSourceId = docSourceId
 
@@ -43956,8 +43960,15 @@ class Segment {
     }
   }
 
+  defineLangName () {
+    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_1__.default.all.find(langData => langData.value === this.lang)
+    const res = langData ? langData.text : this.lang
+    return res
+  }
+
   updateLanguage (lang) {
     this.lang = lang
+    this.langName = this.defineLangName()
   }
 
   /**
@@ -45106,7 +45117,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i383-describe-button.20210514524" : 0
+    return  true ? "i385-info-line-align-text.20210514632" : 0
   }
 
   static get libName () {
@@ -45980,6 +45991,7 @@ __webpack_require__.r(__webpack_exports__);
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
+      
       return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
@@ -46156,12 +46168,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/align-editor/token-block.vue */ "./vue/align-editor/token-block.vue");
-/* harmony import */ var _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/utility/scroll-utility.js */ "./lib/utility/scroll-utility.js");
-/* harmony import */ var _inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/inline-icons/up-arrow.svg */ "./inline-icons/up-arrow.svg");
-/* harmony import */ var _inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/down-arrow.svg */ "./inline-icons/down-arrow.svg");
-/* harmony import */ var _inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/vue/align-editor/token-block.vue */ "./vue/align-editor/token-block.vue");
+/* harmony import */ var _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/utility/scroll-utility.js */ "./lib/utility/scroll-utility.js");
+/* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/inline-icons/no-metadata.svg */ "./inline-icons/no-metadata.svg");
+/* harmony import */ var _inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/inline-icons/has-metadata.svg */ "./inline-icons/has-metadata.svg");
+/* harmony import */ var _inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/vue/common/tooltip.vue */ "./vue/common/tooltip.vue");
+/* harmony import */ var _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/vue/text-editor/metadata-block.vue */ "./vue/text-editor/metadata-block.vue");
 //
 //
 //
@@ -46189,6 +46204,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -46200,9 +46232,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'SegmentBlock',
   components: {
-    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    upArrow: (_inline_icons_up_arrow_svg__WEBPACK_IMPORTED_MODULE_2___default()),
-    downArrow: (_inline_icons_down_arrow_svg__WEBPACK_IMPORTED_MODULE_3___default())
+    token: _vue_align_editor_token_block_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    tooltip: _vue_common_tooltip_vue__WEBPACK_IMPORTED_MODULE_5__.default,
+    noMetadataIcon: (_inline_icons_no_metadata_svg__WEBPACK_IMPORTED_MODULE_3___default()),
+    hasMetadataIcon: (_inline_icons_has_metadata_svg__WEBPACK_IMPORTED_MODULE_4___default()),
+    metadataBlock: _vue_text_editor_metadata_block_vue__WEBPACK_IMPORTED_MODULE_6__.default
   },
   props: {
     currentTargetId: {
@@ -46225,6 +46259,12 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: false,
       default: 1
+    },
+
+    isFirst: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -46236,16 +46276,21 @@ __webpack_require__.r(__webpack_exports__);
       heightDelta: 0,
       heightUpdated: 1,
       showUpDown: false,
-      minMaxHeight: 500
+      minMaxHeight: 500,
+      showModalMetadata: false
     }
   },
   watch: {
   },
   computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
     /**
      * @returns {String} - origin/target
      */
     textType () {
+      console.info('segment', this.isFirst, this.segment)
       return this.segment.textType
     },
     /**
@@ -46280,11 +46325,19 @@ __webpack_require__.r(__webpack_exports__);
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index};`
       } else {
-        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index};`
       }
-      // this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      return result
+    },
+    cssStyleSeg () {
+      let result 
+      if (this.textType === 'target') {
+        result = `${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      } else {
+        result = `${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      }
       return result
     },
     /**
@@ -46295,6 +46348,7 @@ __webpack_require__.r(__webpack_exports__);
       let classes = {}
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
+      classes[`alpheios-align-text-segment-first`] = this.isFirst
       return classes
     },
     /**
@@ -46335,6 +46389,15 @@ __webpack_require__.r(__webpack_exports__);
 
       const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
       return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
+    },
+    isEmptyMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
+      return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
+    },
+
+    hasMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
+      return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
     }
   },
   methods: {
@@ -46371,7 +46434,7 @@ __webpack_require__.r(__webpack_exports__);
           const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
           const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
-          _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_1__.default.makeScrollTo(tokId, segId)
+          _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.makeScrollTo(tokId, segId)
         }
       }
     },
@@ -55277,7 +55340,8 @@ var render = function() {
                     attrs: {
                       segment: segmentData.origin,
                       currentTargetId: _vm.currentTargetId,
-                      amountOfShownTabs: _vm.amountOfShownTabs
+                      amountOfShownTabs: _vm.amountOfShownTabs,
+                      isFirst: segmentData.isFirst
                     }
                   })
                 ],
@@ -55303,6 +55367,7 @@ var render = function() {
                     key: _vm.getIndex("target", segmentData.index, targetId),
                     attrs: {
                       segment: segmentTarget,
+                      isFirst: segmentData.isFirst,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
                       currentTargetId: _vm.currentTargetId,
                       amountOfShownTabs: _vm.amountOfShownTabs
@@ -55526,76 +55591,157 @@ var render = function() {
       staticClass: "alpheios-alignment-editor-align-text-segment",
       class: _vm.cssClass,
       style: _vm.cssStyle,
-      attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
+      attrs: { dir: _vm.direction, lang: _vm.lang }
     },
     [
-      _vm._l(_vm.allTokens, function(token, tokenIndex) {
-        return [
-          token.word
-            ? _c("token", {
-                key: tokenIndex,
-                attrs: {
-                  token: token,
-                  selected:
-                    _vm.$store.state.alignmentUpdated &&
-                    _vm.selectedToken(token),
-                  grouped:
-                    _vm.$store.state.alignmentUpdated &&
-                    _vm.groupedToken(token),
-                  inActiveGroup:
-                    _vm.$store.state.alignmentUpdated &&
-                    _vm.inActiveGroup(token),
-                  firstInActiveGroup:
-                    _vm.$store.state.alignmentUpdated &&
-                    _vm.isFirstInActiveGroup(token)
-                },
-                on: {
-                  "click-token": _vm.clickToken,
-                  "add-hover-token": _vm.addHoverToken,
-                  "remove-hover-token": _vm.removeHoverToken
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$store.state.tokenUpdated && token.hasLineBreak
-            ? _c("br")
-            : _vm._e()
-        ]
-      }),
-      _vm._v(" "),
-      _vm.showUpDown
+      _vm.isFirst
         ? _c(
-            "div",
-            {
-              staticClass:
-                "alpheios-alignment-editor-align-text-segment__up-down",
-              style: _vm.backgroundStyle
-            },
+            "p",
+            { staticClass: "alpheios-alignment-editor-align-text-segment-row" },
             [
               _c(
                 "span",
                 {
-                  staticClass: "alpheios-align-text-segment-button",
-                  on: { click: _vm.reduceHeight }
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-segment-row__langname"
                 },
-                [_c("up-arrow")],
+                [_vm._v(_vm._s(_vm.segment.langName))]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isEmptyMetadata,
+                      expression: "isEmptyMetadata"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data",
+                  on: {
+                    click: function($event) {
+                      _vm.showModalMetadata = true
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "tooltip",
+                    {
+                      attrs: {
+                        tooltipText: _vm.l10n.getMsgS("NO_METADATA_ICON"),
+                        tooltipDirection: "left"
+                      }
+                    },
+                    [_c("no-metadata-icon")],
+                    1
+                  )
+                ],
                 1
               ),
               _vm._v(" "),
               _c(
                 "span",
                 {
-                  staticClass: "alpheios-align-text-segment-button",
-                  on: { click: _vm.increaseHeight }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.hasMetadata,
+                      expression: "hasMetadata"
+                    }
+                  ],
+                  staticClass:
+                    "alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data",
+                  on: {
+                    click: function($event) {
+                      _vm.showModalMetadata = true
+                    }
+                  }
                 },
-                [_c("down-arrow")],
+                [
+                  _c(
+                    "tooltip",
+                    {
+                      attrs: {
+                        tooltipText: _vm.l10n.getMsgS("HAS_METADATA_ICON"),
+                        tooltipDirection: "left"
+                      }
+                    },
+                    [_c("has-metadata-icon")],
+                    1
+                  )
+                ],
                 1
               )
             ]
           )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
+          style: _vm.cssStyleSeg,
+          attrs: { id: _vm.cssId }
+        },
+        [
+          _vm._l(_vm.allTokens, function(token, tokenIndex) {
+            return [
+              token.word
+                ? _c("token", {
+                    key: tokenIndex,
+                    attrs: {
+                      token: token,
+                      selected:
+                        _vm.$store.state.alignmentUpdated &&
+                        _vm.selectedToken(token),
+                      grouped:
+                        _vm.$store.state.alignmentUpdated &&
+                        _vm.groupedToken(token),
+                      inActiveGroup:
+                        _vm.$store.state.alignmentUpdated &&
+                        _vm.inActiveGroup(token),
+                      firstInActiveGroup:
+                        _vm.$store.state.alignmentUpdated &&
+                        _vm.isFirstInActiveGroup(token)
+                    },
+                    on: {
+                      "click-token": _vm.clickToken,
+                      "add-hover-token": _vm.addHoverToken,
+                      "remove-hover-token": _vm.removeHoverToken
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$store.state.tokenUpdated && token.hasLineBreak
+                ? _c("br")
+                : _vm._e()
+            ]
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm.isFirst
+        ? _c("metadata-block", {
+            attrs: {
+              "text-type": _vm.textType,
+              "text-id": _vm.segment.docSourceId,
+              showModal: _vm.showModalMetadata
+            },
+            on: {
+              closeModal: function($event) {
+                _vm.showModalMetadata = false
+              }
+            }
+          })
         : _vm._e()
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -61314,43 +61460,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./inline-icons/down-arrow.svg":
-/*!*************************************!*\
-  !*** ./inline-icons/down-arrow.svg ***!
-  \*************************************/
-/***/ ((module) => {
-
-
-      module.exports = {
-        functional: true,
-        render(_h, _vm) {
-          const { _c, _v, data, children = [] } = _vm;
-
-          const {
-            class: classNames,
-            staticClass,
-            style,
-            staticStyle,
-            attrs = {},
-            ...rest
-          } = data;
-
-          return _c(
-            'svg',
-            {
-              class: [classNames,staticClass],
-              style: [style,staticStyle],
-              attrs: Object.assign({"width":"16","height":"16","viewBox":"0 0 4.233 4.233","xmlns":"http://www.w3.org/2000/svg"}, attrs),
-              ...rest,
-            },
-            children.concat([_c('path',{attrs:{"d":"M1.44 0v1.786H.001L1.06 3.01l1.058 1.223L3.176 3.01l1.058-1.224H2.887V0H1.44z"}})])
-          )
-        }
-      }
-    
-
-/***/ }),
-
 /***/ "./inline-icons/download.svg":
 /*!***********************************!*\
   !*** ./inline-icons/download.svg ***!
@@ -61862,43 +61971,6 @@ render._withStripped = true
               ...rest,
             },
             children.concat([_c('path',{attrs:{"d":"M632.22 539.98a54.952 54.952 0 01-16.1-38.9c0-30.4 24.6-55 55-55h139.2l-74.7-74.7c-21.5-21.5-21.5-56.3 0-77.8s56.3-21.5 77.8 0l168.7 168.7c6.399 6.399 11.2 14.399 13.7 23.1v.101c3.199 10.8 2.899 22.5-.601 33.1-2.7 8-7.3 15.4-13.2 21.4l-168.8 168.6c-21.5 21.5-56.3 21.5-77.8 0s-21.5-56.3 0-77.8l74.7-74.7h-139.1c-15.099-.003-28.899-6.203-38.799-16.102zM365.62 539.98c9.899-9.9 16.1-23.7 16.1-38.9 0-30.4-24.6-55-55-55h-139.1l74.7-74.7c21.5-21.5 21.5-56.3 0-77.8s-56.3-21.5-77.8 0l-168.5 168.6-.1.101c-6.4 6.399-11.2 14.399-13.7 23.1v.101c-3.2 10.8-2.9 22.5.6 33.1 2.7 8 7.3 15.4 13.2 21.4l168.6 168.6c21.5 21.5 56.3 21.5 77.8 0s21.5-56.3 0-77.8l-74.8-74.7h139.2c15.1-.003 28.9-6.203 38.8-16.102zM568.92 924.77V73.37c0-38.7-31.3-70-70-70s-70 31.3-70 70v851.3c0 38.7 31.3 70 70 70s70-31.3 70-69.9z"}})])
-          )
-        }
-      }
-    
-
-/***/ }),
-
-/***/ "./inline-icons/up-arrow.svg":
-/*!***********************************!*\
-  !*** ./inline-icons/up-arrow.svg ***!
-  \***********************************/
-/***/ ((module) => {
-
-
-      module.exports = {
-        functional: true,
-        render(_h, _vm) {
-          const { _c, _v, data, children = [] } = _vm;
-
-          const {
-            class: classNames,
-            staticClass,
-            style,
-            staticStyle,
-            attrs = {},
-            ...rest
-          } = data;
-
-          return _c(
-            'svg',
-            {
-              class: [classNames,staticClass],
-              style: [style,staticStyle],
-              attrs: Object.assign({"width":"16","height":"16","viewBox":"0 0 4.233 4.233","xmlns":"http://www.w3.org/2000/svg"}, attrs),
-              ...rest,
-            },
-            children.concat([_c('path',{attrs:{"d":"M1.44 4.23V2.444H.001L2.118-.003l2.117 2.447H2.887V4.23H1.44z"}})])
           )
         }
       }
