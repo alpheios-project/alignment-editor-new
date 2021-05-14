@@ -220,5 +220,15 @@
     "message": "Help",
     "description": "Tooltip for header buttons",
     "component": "TextEditor"
+  },
+  "DESCRIBE_BUTTON_TOOLTIP": {
+    "message": "You could fill in metadata here",
+    "description": "Tooltip for describe texts button",
+    "component": "TextEditorSingleBlock"
+  },
+  "DESCRIBE_BUTTON_TITLE": {
+    "message": "Describe",
+    "description": "Button's title",
+    "component": "TextEditorSingleBlock"
   }
 }

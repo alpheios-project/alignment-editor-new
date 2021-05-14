@@ -1715,6 +1715,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   margin-top: 30px;
   text-align: right;
 }
+.alpheios-alignment-editor-text-blocks-single__describe-button {
+  text-align: center;
+  margin-top: 10px;
+}
 .alpheios-alignment-editor-modal-help .alpheios-modal-container {
   width: 700px;
 }
