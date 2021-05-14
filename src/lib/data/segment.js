@@ -1,10 +1,12 @@
 import Token from '@/lib/data/token'
+import Langs from '@/lib/data/langs/langs'
 
 export default class Segment {
   constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
     this.index = index
     this.textType = textType
     this.lang = lang
+    this.langName = this.defineLangName()
     this.direction = direction
     this.docSourceId = docSourceId
 
@@ -13,8 +15,15 @@ export default class Segment {
     }
   }
 
+  defineLangName () {
+    const langData = Langs.all.find(langData => langData.value === this.lang)
+    const res = langData ? langData.text : this.lang
+    return res
+  }
+
   updateLanguage (lang) {
     this.lang = lang
+    this.langName = this.defineLangName()
   }
 
   /**

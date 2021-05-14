@@ -14,13 +14,13 @@
       >
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-block 
-                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
+                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs" :isFirst = "segmentData.isFirst"
           />
         </div>
 
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
-                  :segment = "segmentTarget" 
+                  :segment = "segmentTarget" :isFirst = "segmentData.isFirst"
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
                   v-show="isShownTab(targetId)"
           />
@@ -85,6 +85,7 @@ export default {
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
+      
       return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
@@ -191,6 +192,7 @@ export default {
     }
     .alpheios-alignment-editor-align-segment-data-item {
       display: table-cell;
+      vertical-align: top;
     }
   }
 

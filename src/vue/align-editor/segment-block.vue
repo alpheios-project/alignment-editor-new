@@ -1,44 +1,63 @@
 <template>
     <div class="alpheios-alignment-editor-align-text-segment" 
-         :id = "cssId" :style="cssStyle"
+         :style="cssStyle"
          :class = "cssClass" :dir = "direction" :lang = "lang" 
           >
+          <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
+            <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
-          <template v-for = "(token, tokenIndex) in allTokens">
-            <token
-              v-if ="token.word"
-              :token = "token" :key = "tokenIndex"
-              @click-token = "clickToken"
-              @add-hover-token = "addHoverToken"
-              @remove-hover-token = "removeHoverToken"
-              :selected = "$store.state.alignmentUpdated && selectedToken(token)"
-              :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
-              :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
-              :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
-            />
-            <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
-          </template>
-          
-          <div class="alpheios-alignment-editor-align-text-segment__up-down" :style="backgroundStyle" v-if="showUpDown">
-            <span class="alpheios-align-text-segment-button" @click="reduceHeight"><up-arrow /></span>
-            <span class="alpheios-align-text-segment-button" @click="increaseHeight"><down-arrow /></span>
+            <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data" 
+                  v-show="isEmptyMetadata" @click="showModalMetadata = true">
+              <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="left">
+                <no-metadata-icon />
+              </tooltip>
+            </span>
+
+            <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data" 
+                  v-show="hasMetadata" @click="showModalMetadata = true">
+              <tooltip :tooltipText="l10n.getMsgS('HAS_METADATA_ICON')" tooltipDirection="left">
+                <has-metadata-icon />
+              </tooltip>
+            </span>
+          </p>
+          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" >
+            <template v-for = "(token, tokenIndex) in allTokens">
+              <token
+                v-if ="token.word"
+                :token = "token" :key = "tokenIndex"
+                @click-token = "clickToken"
+                @add-hover-token = "addHoverToken"
+                @remove-hover-token = "removeHoverToken"
+                :selected = "$store.state.alignmentUpdated && selectedToken(token)"
+                :grouped = "$store.state.alignmentUpdated && groupedToken(token)"
+                :inActiveGroup = "$store.state.alignmentUpdated && inActiveGroup(token)"
+                :firstInActiveGroup = "$store.state.alignmentUpdated && isFirstInActiveGroup(token)"
+              />
+              <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
+            </template>
           </div>
+
+          <metadata-block :text-type = "textType" :text-id = "segment.docSourceId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  v-if="isFirst"/>
     </div>
 </template>
 <script>
 import Vue from '@vue-runtime'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 import ScrollUtility from '@/lib/utility/scroll-utility.js'
-
-import UpArrow from '@/inline-icons/up-arrow.svg'
-import DownArrow from '@/inline-icons/down-arrow.svg'
+import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
+import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
+import Tooltip from '@/vue/common/tooltip.vue'
+import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 
 export default {
   name: 'SegmentBlock',
   components: {
     token: TokenBlock,
-    upArrow: UpArrow,
-    downArrow: DownArrow
+    tooltip: Tooltip,
+    noMetadataIcon: NoMetadataIcon,
+    hasMetadataIcon: HasMetadataIcon,
+    metadataBlock: MetadataBlock
   },
   props: {
     currentTargetId: {
@@ -61,6 +80,12 @@ export default {
       type: Number,
       required: false,
       default: 1
+    },
+
+    isFirst: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -72,16 +97,21 @@ export default {
       heightDelta: 0,
       heightUpdated: 1,
       showUpDown: false,
-      minMaxHeight: 500
+      minMaxHeight: 500,
+      showModalMetadata: false
     }
   },
   watch: {
   },
   computed: {
+    l10n () {
+      return L10nSingleton
+    },
     /**
      * @returns {String} - origin/target
      */
     textType () {
+      console.info('segment', this.isFirst, this.segment)
       return this.segment.textType
     },
     /**
@@ -131,6 +161,7 @@ export default {
       let classes = {}
       classes[`alpheios-align-text-segment-${this.textType}`] = true
       classes[`alpheios-align-text-segment-${this.textType}-last`] = this.isLast
+      classes[`alpheios-align-text-segment-first`] = this.isFirst
       return classes
     },
     /**
@@ -171,6 +202,15 @@ export default {
 
       const heightCalculated = (this.textType === 'origin') ? this.containerHeight * this.amountOfShownTabs/this.amountOfSegments : this.containerHeight/this.amountOfSegments
       return Math.round(Math.max(minHeight, heightCalculated)) + this.heightDelta
+    },
+    isEmptyMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
+      return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
+    },
+
+    hasMetadata () {
+      const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
+      return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
     }
   },
   methods: {
@@ -259,36 +299,74 @@ export default {
 </script>
 <style lang="scss">
 .alpheios-alignment-editor-align-text-segment {
-  max-height: 400px;
-  overflow-y: scroll;
-  padding: 10px;
-  position: relative;
-
-  .alpheios-alignment-editor-align-text-segment__up-down {
-    position: sticky;
-    bottom: -15px;
-    left: 0; right: 0;
-    width: 100%;
-    // background: #F8F8F8;
-    background: transparent;
-    text-align: right;
-    padding: 5px;
-
-    .alpheios-align-text-segment-button {
-      display: inline-block;
-      padding: 2px;
-      height: 30px;
-      width: 30px;
-      cursor: pointer;
-      border-radius: 10px;
-
-        svg {
-          display: inline-block;
-          width: 100%;
-          height: 100%;
-          vertical-align: top;
-        }
-    }
+  // padding: 10px;
+  // position: relative;
+  .alpheios-alignment-editor-align-text-segment-tokens {
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: scroll;
   }
 }
+
+.alpheios-align-text-segment-first {
+  // padding-top: 40px;
+}
+  .alpheios-alignment-editor-align-text-segment-row {
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      // position: absolute;
+      min-height: 2px;
+
+      // overflow-y: hidden;
+      border-bottom: 0;
+      // top: 0;
+      // right: 0;
+      // left: 0;
+      margin: 0;
+      padding: 0;
+      
+      font-size: 90%;
+
+      background: #ddd;
+      color: #fff;
+      z-index: 100;
+
+      .alpheios-alignment-editor-align-text-segment-row__langname {
+        display: inline-block;
+        text-align: right;
+        vertical-align: top;
+        padding: 5px 5px 5px 15px;
+        color: #000;
+      }
+    }
+        span.alpheios-alignment-editor-text-blocks-single__icons {
+          display: block;
+          padding: 5px;
+
+          svg {
+            display: block;
+            width: 25px;
+            height: 25px;
+            stroke: #99002a;
+            fill: transparent;
+          }
+        }
+
+        span.alpheios-alignment-editor-text-blocks-single__icons{
+
+          &.alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data {
+            cursor: pointer;
+            svg {
+              stroke: #99002a;
+            }
+          }
+
+          &.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data {
+            cursor: pointer;
+            svg {
+              stroke: #2a9900;
+            }
+          }
+        }
 </style>
