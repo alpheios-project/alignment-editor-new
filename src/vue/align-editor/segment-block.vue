@@ -20,7 +20,7 @@
               </tooltip>
             </span>
           </p>
-          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" >
+          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg">
             <template v-for = "(token, tokenIndex) in allTokens">
               <token
                 v-if ="token.word"
@@ -146,11 +146,19 @@ export default {
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index};`
       } else {
-        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index};`
       }
-      // this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      return result
+    },
+    cssStyleSeg () {
+      let result 
+      if (this.textType === 'target') {
+        result = `${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      } else {
+        result = `${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      }
       return result
     },
     /**
@@ -315,6 +323,7 @@ export default {
       margin: 0;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       // position: absolute;
       min-height: 2px;
 
@@ -328,16 +337,15 @@ export default {
       
       font-size: 90%;
 
-      background: #ddd;
-      color: #fff;
-      z-index: 100;
+      background: #eee;
+      // color: #fff;
+      // z-index: 100;
 
       .alpheios-alignment-editor-align-text-segment-row__langname {
         display: inline-block;
-        text-align: right;
-        vertical-align: top;
-        padding: 5px 5px 5px 15px;
+        padding: 5px 5px 0 15px;
         color: #000;
+        font-weight: bold;
       }
     }
         span.alpheios-alignment-editor-text-blocks-single__icons {

@@ -1862,21 +1862,19 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   margin: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   min-height: 2px;
   border-bottom: 0;
   margin: 0;
   padding: 0;
   font-size: 90%;
-  background: #ddd;
-  color: #fff;
-  z-index: 100;
+  background: #eee;
 }
 .alpheios-alignment-editor-align-text-segment-row .alpheios-alignment-editor-align-text-segment-row__langname {
   display: inline-block;
-  text-align: right;
-  vertical-align: top;
-  padding: 5px 5px 5px 15px;
+  padding: 5px 5px 0 15px;
   color: #000;
+  font-weight: bold;
 }
 span.alpheios-alignment-editor-text-blocks-single__icons {
   display: block;

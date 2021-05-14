@@ -45117,7 +45117,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i385-info-line-align-text.20210514624" : 0
+    return  true ? "i385-info-line-align-text.20210514632" : 0
   }
 
   static get libName () {
@@ -46325,11 +46325,19 @@ __webpack_require__.r(__webpack_exports__);
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index};`
       } else {
-        result = `order: ${this.segment.index}; ${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+        result = `order: ${this.segment.index};`
       }
-      // this.showUpDown = this.$el && (this.$el.clientHeight < this.$el.scrollHeight)
+      return result
+    },
+    cssStyleSeg () {
+      let result 
+      if (this.textType === 'target') {
+        result = `${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      } else {
+        result = `${this.backgroundStyle} max-height: ${this.maxHeight}px;`
+      }
       return result
     },
     /**
@@ -55677,6 +55685,7 @@ var render = function() {
         "div",
         {
           staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
+          style: _vm.cssStyleSeg,
           attrs: { id: _vm.cssId }
         },
         [
