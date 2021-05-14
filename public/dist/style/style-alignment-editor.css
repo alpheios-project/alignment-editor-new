@@ -1454,6 +1454,7 @@ p.alpheios-alignment-editor-metadata__info-title {
 }
 .alpheios-alignment-editor-modal-metadata .alpheios-modal-body {
   max-height: 700px;
+  border: 0;
 }
 .alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
   margin-bottom: 10px;

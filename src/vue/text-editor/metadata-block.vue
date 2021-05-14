@@ -63,6 +63,7 @@ export default {
 .alpheios-alignment-editor-modal-metadata {
   .alpheios-modal-body {
     max-height: 700px;
+    border: 0;
   }
 }
 </style>
