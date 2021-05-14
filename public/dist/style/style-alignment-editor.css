@@ -1454,6 +1454,7 @@ p.alpheios-alignment-editor-metadata__info-title {
 }
 .alpheios-alignment-editor-modal-metadata .alpheios-modal-body {
   max-height: 700px;
+  border: 0;
 }
 .alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
   margin-bottom: 10px;
@@ -1714,6 +1715,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single__align-button {
   margin-top: 30px;
   text-align: right;
+}
+.alpheios-alignment-editor-text-blocks-single__describe-button {
+  text-align: center;
+  margin-top: 10px;
 }
 .alpheios-alignment-editor-modal-help .alpheios-modal-container {
   width: 700px;

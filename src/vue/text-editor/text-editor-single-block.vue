@@ -66,6 +66,14 @@
       <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
         @updateText = "updateText" :disabled="!docSourceEditAvailable"
       />
+      <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
+        <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
+          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
+              @click="showModalMetadata = true" :disabled="!isMetadataAvailable" >
+              {{ l10n.getMsgS('DESCRIBE_BUTTON_TITLE') }}
+          </button>
+        </tooltip>
+      </div>
 
       <div class="alpheios-alignment-editor-text-blocks-single__align-button" v-if="textType === 'origin'">
         <tooltip :tooltipText="l10n.getMsgS('ALIGN_TEXT_BUTTON_TOOLTIP')" tooltipDirection="top">
@@ -297,6 +305,10 @@ export default {
     updatedLocalOptions () {
       return this.updatedLocalOptionsFlag && this.localTextEditorOptions
     },
+    isMetadataAvailable () {
+      const docSource = this.$textC.getDocSource(this.textType, this.textId)
+      return this.$store.state.docSourceUpdated && docSource
+    },
     isEmptyMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
@@ -319,6 +331,9 @@ export default {
     },
     alignAvailable () {
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+    },
+    describeButtonId () {
+      return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
     }
   },
   methods: {
@@ -685,5 +700,10 @@ export default {
   .alpheios-alignment-editor-text-blocks-single__align-button {
     margin-top: 30px;
     text-align: right;
+  }
+
+  .alpheios-alignment-editor-text-blocks-single__describe-button {
+    text-align: center;
+    margin-top: 10px;
   }
 </style>
