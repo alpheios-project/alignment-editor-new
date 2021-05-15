@@ -38,8 +38,8 @@ import Vue from '@vue-runtime'
 import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import HelpPopup from '@/vue/help-popup.vue'
-import SavePopup from '@/vue/save-popup.vue'
+import HelpPopup from '@/vue/common/help-popup.vue'
+import SavePopup from '@/vue/common/save-popup.vue'
 import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
 import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
 

@@ -59,8 +59,8 @@
 import TextEditorSingleBlock from '@/vue/text-editor/text-editor-single-block.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import Tooltip from '@/vue/common/tooltip.vue'
-import HelpPopup from '@/vue/help-popup.vue'
-import SavePopup from '@/vue/save-popup.vue'
+import HelpPopup from '@/vue/common/help-popup.vue'
+import SavePopup from '@/vue/common/save-popup.vue'
 
 import OptionsTextEnter from '@/vue/options/options-text-enter.vue'
 

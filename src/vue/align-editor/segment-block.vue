@@ -6,19 +6,7 @@
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
-            <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data" 
-                  v-show="isEmptyMetadata" @click="showModalMetadata = true">
-              <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="left">
-                <no-metadata-icon />
-              </tooltip>
-            </span>
-
-            <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data" 
-                  v-show="hasMetadata" @click="showModalMetadata = true">
-              <tooltip :tooltipText="l10n.getMsgS('HAS_METADATA_ICON')" tooltipDirection="left">
-                <has-metadata-icon />
-              </tooltip>
-            </span>
+            <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
           </p>
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg">
             <template v-for = "(token, tokenIndex) in allTokens">
@@ -49,6 +37,7 @@ import NoMetadataIcon from '@/inline-icons/no-metadata.svg'
 import HasMetadataIcon from '@/inline-icons/has-metadata.svg'
 import Tooltip from '@/vue/common/tooltip.vue'
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
+import MetadataIcons from '@/vue/common/metadata-icons.vue'
 
 export default {
   name: 'SegmentBlock',
@@ -57,7 +46,8 @@ export default {
     tooltip: Tooltip,
     noMetadataIcon: NoMetadataIcon,
     hasMetadataIcon: HasMetadataIcon,
-    metadataBlock: MetadataBlock
+    metadataBlock: MetadataBlock,
+    metadataIcons: MetadataIcons
   },
   props: {
     currentTargetId: {
