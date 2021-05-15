@@ -58,5 +58,10 @@
       "message": "Edit Text",
       "description": "Button in main menu",
       "component": "MainMenu"
+    },
+    "MAIN_MENU_CHOOSE_FILE": {
+      "message": "Choose a file",
+      "description": "Button in main menu",
+      "component": "MainMenu"
     }
 }
