@@ -8,11 +8,26 @@
           <option-item-block :optionItem = "allowUpdateTokenOptionItem" />
         </div>
     </template>
+    <template v-slot:footer>
+      <p class="alpheios-alignment-options__buttons">
+        <button class="alpheios-editor-button-tertiary alpheios-options-button alpheios-options-reset-all" 
+            @click="resetOptions" >
+            {{ l10n.getMsgS('OPTIONS_BLOCK_RESET_ALL') }}
+        </button>
+      </p>
+      <div class="alpheios-alignment-options__aboutcont">
+        <h3>{{ l10n.getMsgS('OPTIONS_BLOCK_INFO_ABOUT') }}</h3>
+        <div class="alpheios-alignment-options__versiontext">
+          {{ versionData }}
+        </div>
+      </div>
+    </template>
   </modal>
 </template>
 <script>
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import Modal from '@/vue/common/modal.vue'
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 export default {
   name: 'OptionsTextEdit',
@@ -28,8 +43,19 @@ export default {
     }
   },
   computed: {
+    l10n () {
+      return L10nSingleton
+    },
+    versionData () {
+      return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
     allowUpdateTokenOptionItem () {
       return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.allowUpdateTokenWord
+    }
+  },
+  methods: {
+    async resetOptions () {
+      await this.$settingsC.resetAllOptions()
     }
   }
 }

@@ -33,12 +33,8 @@
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalSourceType = true">
-            {{ sourceType }}
-          </span>
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true">
-            {{ language }}
-          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalSourceType = true"> {{ sourceType }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true"> {{ language }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
