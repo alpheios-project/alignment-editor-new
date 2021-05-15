@@ -1,0 +1,17 @@
+{
+    "INITIAL_NEW_ALIGNMENT": {
+      "message": "Start a new alignment",
+      "description": "Button on initial screen",
+      "component": "InitialScreen"
+    },
+    "INITIAL_RESUME_ALIGNMENT": {
+      "message": "Resume previous alignment",
+      "description": "Button on initial screen",
+      "component": "InitialScreen"
+    },
+    "INITIAL_CHOOSE_FILE": {
+      "message": "Choose a file",
+      "description": "Button on initial screen",
+      "component": "InitialScreen"
+    }
+}
