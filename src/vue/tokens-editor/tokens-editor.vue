@@ -88,7 +88,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
-    padding: 20px 10px 20px 40px;  
+    padding: 20px 30px 20px 40px;  
   }
 
 </style>

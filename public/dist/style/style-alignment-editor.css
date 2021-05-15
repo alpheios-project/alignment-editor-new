@@ -1460,6 +1460,10 @@ p.alpheios-alignment-editor-metadata__info-title {
 .alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
   margin-bottom: 10px;
 }
+.alpheios-alignment-editor-modal-language .alpheios-modal-body {
+  max-height: 700px;
+  border: 0;
+}
 p.alpheios-alignment-editor-tokenize-options__details-toggle {
   display: inline-block;
   cursor: pointer;
@@ -1477,6 +1481,10 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   font-size: 90%;
   text-decoration: underline;
   margin: 0;
+}
+.alpheios-alignment-editor-modal-source-type .alpheios-modal-body {
+  max-height: 700px;
+  border: 0;
 }
 .alpheios-editor-content-pagination {
   margin-bottom: 10px;
@@ -1796,7 +1804,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   text-transform: uppercase;
 }
 .alpheios-alignment-text-editor-block.alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 40px;
+  padding: 20px 30px 20px 40px;
 }
 .alpheios-alignment-editor-text-blocks-container-inner:before, .alpheios-alignment-editor-text-blocks-container-inner:after {
   content: "";
@@ -1984,7 +1992,7 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   margin-bottom: 10px;
 }
 .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 40px;
+  padding: 20px 30px 20px 40px;
 }
 .alpheios-alignment-editor-token-edit-span {
   display: inline-block;
@@ -2122,10 +2130,10 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   margin-bottom: 10px;
 }
 .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 40px;
+  padding: 20px 30px 20px 40px;
 }
 .alpheios-alignment-options-block .alpheios-alignment-editor-container {
-  padding: 20px 10px 20px 40px;
+  padding: 20px 30px 20px 40px;
   border-bottom: 5px solid #f8f8f8;
   border-top: 5px solid #f8f8f8;
 }
