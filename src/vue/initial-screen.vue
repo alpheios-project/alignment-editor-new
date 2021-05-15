@@ -15,20 +15,22 @@
             <div class="alpheios-alignment-editor-initial-screen__button">
                 <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  id="alpheios-start-new-alignment"
                     @click="startNewAlignment" >
-                    Start a new alignment
+                    {{ l10n.getMsgS('INITIAL_NEW_ALIGNMENT') }}
                 </button>
             </div>
 
             <div class="alpheios-alignment-editor-initial-screen__button">
                 <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-main-button"  id="alpheios-resume"
                     @click="resumePrevAlignment" >
-                    Resume previous alignment
+                    {{ l10n.getMsgS('INITIAL_RESUME_ALIGNMENT') }}
                 </button>
 
                 <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block-page" v-show="showUploadBlock" >
                     <span class="alpheios-main-menu-upload-block_item">
                         <input type="file" id = "alpheiosfileuploadpage" ref="alpheiosfileuploadpage" class="alpheios-fileupload" @change="loadTextFromFile">
-                        <label for="alpheiosfileuploadpage" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">Choose a file</label>
+                        <label for="alpheiosfileuploadpage" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button alpheios-actions-menu-button-upload">
+                            {{ l10n.getMsgS('INITIAL_CHOOSE_FILE') }} 
+                        </label>
                     </span>
                 </div>
             </div>
@@ -43,6 +45,7 @@
 <script>
 import Vue from "vue"
 import Embed from "v-video-embed"
+import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 // global register
 Vue.use(Embed)

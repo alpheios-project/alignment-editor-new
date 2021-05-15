@@ -39,8 +39,8 @@ import Vue from '@vue-runtime'
 import AlignEditorViewMode from '@/vue/align-editor/align-editor-view-mode.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import HelpPopup from '@/vue/help-popup.vue'
-import SavePopup from '@/vue/save-popup.vue'
+import HelpPopup from '@/vue/common/help-popup.vue'
+import SavePopup from '@/vue/common/save-popup.vue'
 import OptionsTextAlign from '@/vue/options/options-text-align.vue'
 
 import HelpBlockAlign from '@/vue/help-blocks/eng/help-block-align.vue'
@@ -79,7 +79,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-align-editor-block.alpheios-alignment-editor-container {
-    padding: 20px 10px 20px 40px;  
+    padding: 20px 30px 20px 40px;  
   }
 
 </style>

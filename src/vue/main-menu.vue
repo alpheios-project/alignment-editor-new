@@ -29,7 +29,9 @@
           <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock" >
             <span class="alpheios-main-menu-upload-block_item">
               <input type="file" id = "alpheiosfileupload" ref="alpheiosfileupload" class="alpheios-fileupload" @change="loadTextFromFile">
-              <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">Choose a file</label>
+              <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">
+                {{ l10n.getMsgS('MAIN_MENU_CHOOSE_FILE') }}                
+              </label>
             </span>
           </div>
           

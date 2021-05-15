@@ -1,28 +1,17 @@
 <template>
-  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-language">
+  <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-source-type">
     <template v-slot:body >
-      <direction-options-block 
+      <tokenize-options-block v-if="$settingsC.hasTokenizerOptions" 
         @updateText = "$emit('updateText')" :localOptions = "localOptions" :disabled="!docSourceEditAvailable"  
-      />
-
-      <language-options-block :textType = "textType"
-        @updateText = "$emit('updateText')" @updateDirection = "$emit('updateDirection')" :localOptions = "localOptions" 
       />
     </template>
   </modal>
 </template>
 <script>
 import Modal from '@/vue/common/modal.vue'
-import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
-import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
-
+import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 export default {
-  name: 'LanguageBlock',
-  components: {
-    directionOptionsBlock: DirectionOptionsBlock,
-    languageOptionsBlock: LanguageOptionsBlock,
-    modal: Modal
-  },
+  name: 'SourceTypeBlock',
   props: {
     textType: {
       type: String,
@@ -42,6 +31,10 @@ export default {
       required: true
     }
   },
+  components: {
+    tokenizeOptionsBlock: TokenizeOptionsBlock,
+    modal: Modal
+  },
   data () {
     return {
     }
@@ -56,7 +49,7 @@ export default {
 
 </script>
 <style lang="scss">
-.alpheios-alignment-editor-modal-language {
+.alpheios-alignment-editor-modal-source-type {
   .alpheios-modal-body {
     max-height: 700px;
     border: 0;

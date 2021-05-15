@@ -38,8 +38,8 @@ import Vue from '@vue-runtime'
 import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import HelpPopup from '@/vue/help-popup.vue'
-import SavePopup from '@/vue/save-popup.vue'
+import HelpPopup from '@/vue/common/help-popup.vue'
+import SavePopup from '@/vue/common/save-popup.vue'
 import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
 import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
 
@@ -88,7 +88,7 @@ export default {
 </script>
 <style lang="scss">
   .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
-    padding: 20px 10px 20px 40px;  
+    padding: 20px 30px 20px 40px;  
   }
 
 </style>

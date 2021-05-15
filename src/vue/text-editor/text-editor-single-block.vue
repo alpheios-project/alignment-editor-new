@@ -26,33 +26,22 @@
       <metadata-block :text-type = "textType" :text-id = "textId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  />
       <language-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" @updateDirection = "updateDirection"
                       :showModal="showModalLanguage" @closeModal = "showModalLanguage = false"  />
+      <source-type-block :text-type = "textType" :text-id = "textId" :localOptions = "localTextEditorOptions" @updateText = "updateText" 
+                :showModal="showModalSourceType" @closeModal = "showModalSourceType = false"  />
 
       <div v-show="showTypeTextBlock" class="alpheios-alignment-editor-text-blocks-single-text-area-container">
         <p class="alpheios-alignment-editor-text-blocks-info-line">
           <span class="alpheios-alignment-editor-text-blocks-single__characters" :class = "charactersClasses">{{ charactersText }}</span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true">
-            {{ language }}
-          </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalSourceType = true"> {{ sourceType }} </span>
+          <span class="alpheios-alignment-editor-text-blocks-single__lang-icon" v-show="showTextProps" @click="showModalLanguage = true"> {{ language }} </span>
           <span class="alpheios-alignment-editor-text-blocks-single__icons" v-show="showLangNotDetected">
             <tooltip :tooltipText="l10n.getMsgS('NO_LANG_DETECTED_ICON')" tooltipDirection="top">
               <no-lang-detected-icon />
             </tooltip>
           </span>
 
-          <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_no_data" 
-                v-show="isEmptyMetadata" @click="showModalMetadata = true">
-            <tooltip :tooltipText="l10n.getMsgS('NO_METADATA_ICON')" tooltipDirection="top">
-              <no-metadata-icon />
-            </tooltip>
-          </span>
-
-          <span class="alpheios-alignment-editor-text-blocks-single__icons alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data" 
-                v-show="hasMetadata" @click="showModalMetadata = true">
-            <tooltip :tooltipText="l10n.getMsgS('HAS_METADATA_ICON')" tooltipDirection="top">
-              <has-metadata-icon />
-            </tooltip>
-          </span>
+          <metadata-icons :text-type = "textType" :text-id = "textId" @showModalMetadata = "showModalMetadata = true" />
 
         </p>
         <span :id="removeId" class="alpheios-alignment-editor-text-blocks-single__remove" v-show="showDeleteIcon" @click="deleteText">
@@ -63,9 +52,7 @@
         ></textarea>
       </div>
 
-      <tokenize-options-block :localOptions = "localTextEditorOptions" v-if="$settingsC.hasTokenizerOptions" v-show="showTextProps"
-        @updateText = "updateText" :disabled="!docSourceEditAvailable"
-      />
+
       <div class="alpheios-alignment-editor-text-blocks-single__describe-button" >
         <tooltip :tooltipText="l10n.getMsgS('DESCRIBE_BUTTON_TOOLTIP')" tooltipDirection="top">
           <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button"  :id="describeButtonId"
@@ -99,10 +86,10 @@ import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
 import MetadataBlock from '@/vue/text-editor/metadata-block.vue'
 import LanguageBlock from '@/vue/text-editor/language-block.vue'
-
-import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
+import SourceTypeBlock from '@/vue/text-editor/source-type-block.vue'
 
 import Tooltip from '@/vue/common/tooltip.vue'
+import MetadataIcons from '@/vue/common/metadata-icons.vue'
 import UploadDTSAPIBlock from '@/vue/text-editor/upload-dtsapi-block.vue'
 
 import Langs from '@/lib/data/langs/langs.js'
@@ -136,10 +123,11 @@ export default {
     plusIcon: PlusIcon,
     optionItemBlock: OptionItemBlock,
     metadataBlock: MetadataBlock,
-    tokenizeOptionsBlock: TokenizeOptionsBlock,
+    sourceTypeBlock: SourceTypeBlock,
     languageBlock: LanguageBlock,
     tooltip: Tooltip,
-    uploadDtsapiBlock: UploadDTSAPIBlock
+    uploadDtsapiBlock: UploadDTSAPIBlock,
+    metadataIcons: MetadataIcons
   },
   data () {
     return {
@@ -155,7 +143,7 @@ export default {
       showModalDTS: false,
       showModalMetadata: false,
       showModalLanguage: false,
-
+      showModalSourceType: false,
       showModalHelp: false,
 
       updatedLocalOptionsFlag: 1
@@ -309,16 +297,6 @@ export default {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.docSourceUpdated && docSource
     },
-    isEmptyMetadata () {
-      const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceUpdated && docSource && docSource.hasEmptyMetadata
-    },
-
-    hasMetadata () {
-      const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
-    },
-
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)

@@ -8,9 +8,6 @@
           :text-type="textType" :text-id="textId" :metadata-term="metadataTerm" />
       </div>
     </template>
-    <template v-slot:footer>
-      <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" @click="$emit('closeModal')">Close</button>
-    </template>
   </modal>
 </template>
 <script>

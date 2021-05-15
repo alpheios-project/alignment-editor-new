@@ -7,10 +7,9 @@
               :emitUpdateData = "true"
               @updateData = "updateData" :disabled="disabled"
             />
-            <p class="alpheios-alignment-editor-tokenize-options__details-toggle" @click="toggleShowTokenizeDetails">{{ toggleTokenizeDetailsLabel }}</p>
         </fieldset>
 
-      <div class="alpheios-alignment-editor-tokenize-options__details-container" v-show="showTokenizeDetails">
+      <div class="alpheios-alignment-editor-tokenize-options__details-container">
         <fieldset class="alpheios-alignment-editor-options-fieldset alpheios-alignment-editor-options-fieldset__text" v-show="sourceType === 'text'">
             <legend>{{ l10n.getMsgS('TEXT_EDITOR_BLOCK_TOKENIZE_OPTIONS_TEXT') }}</legend>
             <option-item-block
@@ -55,7 +54,6 @@ export default {
   },
   data () {
     return {
-      showTokenizeDetails: false
     }
   },
   computed: {
@@ -67,9 +65,6 @@ export default {
     },
     sourceType () {
       return this.$store.state.optionsUpdated && this.localOptions.sourceText.items.sourceType.currentValue
-    },
-    toggleTokenizeDetailsLabel () {
-      return this.showTokenizeDetails ? 'Hide details' : 'Show details'
     }
 
   },
