@@ -1,7 +1,7 @@
 <template>
   <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-options">
     <template v-slot:header >
-        <h2 class="alpheios-alignment-editor-modal-header">Options for Text Enter</h2>
+        <h2 class="alpheios-alignment-editor-modal-header">{{ l10n.getMsgS('OPTIONS_TITLE_TEXT_ENTER') }}</h2>
     </template>
     <template v-slot:body >
         <div class="alpheios-alignment-editor-modal-options-block">
