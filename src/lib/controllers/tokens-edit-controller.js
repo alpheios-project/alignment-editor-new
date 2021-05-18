@@ -9,6 +9,10 @@ export default class TokensEditController {
     this.store = store
   }
 
+  startOver (alignment) {
+    this.loadAlignment(alignment)
+  }
+
   /**
    *
    * @param {Alignment} alignment

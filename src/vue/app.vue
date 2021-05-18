@@ -21,7 +21,7 @@
         :updateCurrentPage = "updateCurrentPage"
       />
       <notification-bar />
-      <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
+      <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-initial-alignment="startNewInitialAlignment"/>
       <options-block v-show="shownOptionsBlock" />
       <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
@@ -149,6 +149,13 @@ export default {
       this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
+
+    startNewInitialAlignment () {
+      this.$textC.createAlignment()
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.showSourceTextEditor()
+    },
+
     /**
      * Show options block
      */
@@ -221,20 +228,22 @@ export default {
      */
 
     startOver (alignment) {
+      /*
       this.$alignedGC.alignment = null
       this.$textC.alignment = null
       this.$historyC.alignment = null
       this.$tokensEC.alignment = null
+      */
 
       if (alignment instanceof Alignment) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
       } else {
-        this.$textC.createAlignment()
+        this.$textC.startOver()
+        this.$alignedGC.startOver()
       }
-      
-      this.$historyC.startTracking(this.$textC.alignment)
-      this.$tokensEC.loadAlignment(this.$textC.alignment)
+      this.$historyC.startOver(this.$textC.alignment)
+      this.$tokensEC.startOver(this.$textC.alignment)
       
       NotificationSingleton.clearNotifications()
       if (alignment instanceof Alignment) {

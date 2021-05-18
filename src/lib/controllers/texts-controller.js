@@ -5,6 +5,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -18,6 +19,8 @@ export default class TextsController {
    */
   createAlignment () {
     this.alignment = new Alignment()
+
+    StorageController.update(this.alignment)
     return this.alignment
   }
 
@@ -203,7 +206,9 @@ export default class TextsController {
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
-    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    StorageController.update(alignment)
+    return alignment
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {

@@ -38872,17 +38872,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AppController)
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
 /* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+
 
 
 
@@ -38921,6 +38923,7 @@ class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+    this.defineStorageController()
 
     await this.defineSettingsController()
 
@@ -38956,12 +38959,12 @@ class AppController {
     this.defineTokensEditController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -38980,8 +38983,8 @@ class AppController {
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use(vuex__WEBPACK_IMPORTED_MODULE_11__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_11__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.use(vuex__WEBPACK_IMPORTED_MODULE_12__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_12__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__.default.defaultDefinition)
   }
 
   /**
@@ -38990,7 +38993,7 @@ class AppController {
   async defineSettingsController () {
     this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
     await this.settingsC.init()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$settingsC = this.settingsC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$settingsC = this.settingsC
 
     this.settingsC.uploadRemoteSettings()
   }
@@ -39000,7 +39003,7 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
   }
 
   /**
@@ -39008,7 +39011,7 @@ class AppController {
    */
   defineAlignedGroupsController () {
     this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$alignedGC = this.alignedGC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedGC = this.alignedGC
   }
 
   /**
@@ -39016,7 +39019,7 @@ class AppController {
    */
   defineTokensEditController () {
     this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$tokensEC = this.tokensEC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
@@ -39024,7 +39027,7 @@ class AppController {
    */
   defineHistoryController () {
     this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$historyC = this.historyC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -39032,11 +39035,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.predefinedLocales())
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39046,8 +39049,12 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__.default(this.store)
     return notificationSingleton
+  }
+
+  defineStorageController () {
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.definedDBAdapter()
   }
 }
 
@@ -39720,6 +39727,40 @@ SettingsController.evt = {
 
 /***/ }),
 
+/***/ "./lib/controllers/storage-controller.js":
+/*!***********************************************!*\
+  !*** ./lib/controllers/storage-controller.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StorageController)
+/* harmony export */ });
+/* harmony import */ var _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/storage/indexed-db-adapter.js */ "./lib/storage/indexed-db-adapter.js");
+
+
+let dbAdapter
+
+class StorageController {
+  static definedDBAdapter () {
+    if (!dbAdapter) {
+      dbAdapter = new _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__.default()
+    }
+  }
+
+  static async update (alignment) {
+    if (alignment) {
+      const result = await dbAdapter.update(alignment.convertToIndexedDB())
+      return result
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/controllers/texts-controller.js":
 /*!*********************************************!*\
   !*** ./lib/controllers/texts-controller.js ***!
@@ -39737,6 +39778,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -39757,6 +39800,8 @@ class TextsController {
    */
   createAlignment () {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
+
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     return this.alignment
   }
 
@@ -39942,7 +39987,9 @@ class TextsController {
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
-    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(alignment)
+    return alignment
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
@@ -40449,6 +40496,10 @@ class TokensEditController {
    */
   constructor (store) {
     this.store = store
+  }
+
+  startOver (alignment) {
+    this.loadAlignment(alignment)
   }
 
   /**
@@ -42209,6 +42260,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
 /* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
 /* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+
 
 
 
@@ -42226,8 +42279,12 @@ __webpack_require__.r(__webpack_exports__);
 class Alignment {
   /**
    */
-  constructor () {
-    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+  constructor ({ id, createdDT, updatedDT, userID } = {}) {
+    this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+    this.createdDT = createdDT || new Date()
+    this.updatedDT = updatedDT || new Date()
+    this.userID = userID || this.defaultUserID
+
     this.origin = {}
     this.targets = {}
 
@@ -42240,6 +42297,14 @@ class Alignment {
     this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
     this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+  }
+
+  get defaultUserID () {
+    return 'defaultUserID'
+  }
+
+  setUpdated () {
+    this.updatedDT = new Date()
   }
 
   /**
@@ -42298,6 +42363,7 @@ class Alignment {
       docSource.updateDetectedLang(langData)
       return true
     }
+    this.setUpdated()
     return false
   }
 
@@ -42322,6 +42388,8 @@ class Alignment {
     if (this.origin.alignedText) {
       this.origin.alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return true
   }
 
@@ -42357,6 +42425,8 @@ class Alignment {
     if (this.targets[docSource.id].alignedText) {
       this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return docSource.id
   }
 
@@ -42372,11 +42442,13 @@ class Alignment {
     } else {
       delete this.targets[id]
     }
+    this.setUpdated()
   }
 
   addNewTarget () {
     const docSource = this.createNewDocSource('target', {}, null, true)
     this.targets[docSource.id] = { docSource }
+    this.setUpdated()
     return docSource.id
   }
 
@@ -43233,6 +43305,10 @@ class Alignment {
     // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
+      id: this.id,
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
+      userID: this.userID,
       origin,
       targets,
       alignmentGroups/*,
@@ -43241,7 +43317,11 @@ class Alignment {
   }
 
   static convertFromJSON (data) {
-    const alignment = new Alignment()
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(data.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(data.updatedDT)
+    const alignment = new Alignment({
+      id: data.id, createdDT, updatedDT, userID: data.userID
+    })
 
     alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
 
@@ -43269,6 +43349,15 @@ class Alignment {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
     return alignment
+  }
+
+  convertToIndexedDB () {
+    return {
+      id: this.id,
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
+      userID: this.userID
+    }
   }
 }
 
@@ -45119,6 +45208,235 @@ NotificationSingleton.types = {
 
 /***/ }),
 
+/***/ "./lib/storage/indexed-db-adapter.js":
+/*!*******************************************!*\
+  !*** ./lib/storage/indexed-db-adapter.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ IndexedDBAdapter)
+/* harmony export */ });
+/* harmony import */ var _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/storage/indexed-db-structure.js */ "./lib/storage/indexed-db-structure.js");
+/* eslint-disable no-unused-vars */
+
+
+/**
+ * An interface to IndexedDB Storage
+ */
+class IndexedDBAdapter {
+  /**
+   * @param {String} domain the storage domain
+   * @param {Object} dbDriver a driver for a specific data type
+   */
+  constructor () {
+    this.available = this._initIndexedDBNamespaces()
+    // this.dbDriver = dbDriver
+    this.errors = []
+  }
+
+  async update (data) {
+    try {
+      let result
+      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
+        const query = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareQuery(objectStoreData, data)
+        if (query.ready) {
+          result = await this._set(query)
+        }
+      }
+
+      return result
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
+  }
+
+  /**
+   * This method checks if IndexedDB is used in the current browser
+   */
+  _initIndexedDBNamespaces () {
+    this.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+    this.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || { READ_WRITE: 'readwrite' } // This line should only be needed if it is needed to support the object's constants for older browsers
+    this.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
+    if (!this.indexedDB) {
+      console.warn("Alpheios warn: your browser doesn't support IndexedDB.")
+      return false
+    }
+    return true
+  }
+
+  _openDatabaseRequest () {
+    const request = this.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbVersion)
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result
+      const upgradeTransaction = event.target.transaction
+      this._createObjectStores(db, upgradeTransaction)
+    }
+    return request
+  }
+
+  _createObjectStores (db, upgradeTransaction) {
+    try {
+      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
+        let objectStore
+
+        if (!db.objectStoreNames.contains(objectStoreData.name)) {
+          objectStore = db.createObjectStore(objectStoreData.name, { keyPath: objectStoreData.structure.keyPath })
+        } else {
+          objectStore = upgradeTransaction.objectStore(objectStoreData.name)
+        }
+
+        objectStoreData.structure.indexes.forEach(index => {
+          if (!objectStore.indexNames.contains(index.indexName)) {
+            objectStore.createIndex(index.indexName, index.keyPath, { unique: index.unique })
+          }
+        })
+      }
+    } catch (error) {
+      this.errors.push(error)
+    }
+  }
+
+  async _set (query) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = async (event) => {
+        const db = event.target.result
+        const rv = await this._putItem(db, query)
+        resolve(rv)
+      }
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+    return promiseOpenDB
+  }
+
+  /**
+   * Internal method to put an item into a database
+   * @param {} db the database handle
+   * @param {Object} data data item to be updated  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        dataItems: array of data items to be updated }
+   * @return {Promise} resolves to true on success
+   */
+  async _putItem (db, data) {
+    const idba = this
+    console.info('_putItem', data)
+    const promisePut = await new Promise((resolve, reject) => {
+      try {
+        const transaction = db.transaction([data.objectStoreName], 'readwrite')
+        transaction.onerror = (event) => {
+          idba.errors.push(event.target)
+          reject(event.target)
+        }
+        const objectStore = transaction.objectStore(data.objectStoreName)
+        let objectsDone = data.dataItems.length
+        for (const dataItem of data.dataItems) {
+          const requestPut = objectStore.put(dataItem)
+          requestPut.onsuccess = () => {
+            objectsDone = objectsDone - 1
+            if (objectsDone === 0) {
+              resolve(true)
+            }
+          }
+          requestPut.onerror = () => {
+            idba.errors.push(event.target)
+            reject(event.target)
+          }
+        }
+        if (objectsDone === 0) {
+          resolve(true)
+        }
+      } catch (error) {
+        console.error(error)
+        if (error) {
+          idba.errors.push(error)
+        }
+      }
+    })
+    return promisePut
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/storage/indexed-db-structure.js":
+/*!*********************************************!*\
+  !*** ./lib/storage/indexed-db-structure.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ IndexedDBStructure)
+/* harmony export */ });
+class IndexedDBStructure {
+  static get dbVersion () {
+    return 1
+  }
+
+  static get dbName () {
+    return 'AlignmentEditorDB'
+  }
+
+  static get allObjectStoreData () {
+    return {
+      common: this.commonStructure
+    }
+  }
+
+  static get commonStructure () {
+    return {
+      name: 'ALEditorCommon',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false }
+        ]
+      },
+      serialize: this.serializeCommon.bind(this)
+    }
+  }
+
+  static serializeCommon (data) {
+    const uniqueID = `${data.userID}-${data.id}`
+    return [{
+      ID: uniqueID,
+      alignmentID: data.id,
+      userID: data.userID,
+      createdDT: data.createdDT,
+      updatedDT: data.updatedDT
+    }]
+  }
+
+  static prepareQuery (objectStoreData, data) {
+    const dataItems = objectStoreData.serialize(data)
+    if (dataItems && dataItems.length > 0) {
+      return {
+        objectStoreName: objectStoreData.name,
+        dataItems,
+        ready: true
+      }
+    }
+    return { ready: false }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/store/store-definition.js":
 /*!***************************************!*\
   !*** ./lib/store/store-definition.js ***!
@@ -45137,7 +45455,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i387-tei-text-icon.20210515400" : 0
+    return  true ? "i353-indexeddb-support.20210517638" : 0
   }
 
   static get libName () {
@@ -45683,6 +46001,36 @@ class UploadFileCSV {
     }
     textDataAll.push(textData)
     return textDataAll
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/utility/convert-utility.js":
+/*!****************************************!*\
+  !*** ./lib/utility/convert-utility.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ConvertUtility)
+/* harmony export */ });
+class ConvertUtility {
+  static convertDateToString (dt) {
+    if (!dt) { return }
+    return dt.getFullYear() + '-' +
+      ((dt.getMonth() + 1) < 10 ? '0' : '') + (dt.getMonth() + 1) + '-' +
+      ((dt.getDate() < 10) ? '0' : '') + dt.getDate() + ' ' +
+      ((dt.getHours() < 10) ? '0' : '') + dt.getHours() + ':' +
+      ((dt.getMinutes() < 10) ? '0' : '') + dt.getMinutes() + ':' +
+      ((dt.getSeconds() < 10) ? '0' : '') + dt.getSeconds()
+  }
+
+  static convertStringToDate (str) {
+    return new Date(str)
   }
 }
 
@@ -46303,7 +46651,6 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} - origin/target
      */
     textType () {
-      console.info('segment', this.isFirst, this.segment)
       return this.segment.textType
     },
     /**
@@ -46767,6 +47114,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
+
+    startNewInitialAlignment () {
+      this.$textC.createAlignment()
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.showSourceTextEditor()
+    },
+
     /**
      * Show options block
      */
@@ -46839,20 +47193,22 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     startOver (alignment) {
+      /*
       this.$alignedGC.alignment = null
       this.$textC.alignment = null
       this.$historyC.alignment = null
       this.$tokensEC.alignment = null
+      */
 
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
       } else {
-        this.$textC.createAlignment()
+        this.$textC.startOver()
+        this.$alignedGC.startOver()
       }
-      
-      this.$historyC.startTracking(this.$textC.alignment)
-      this.$tokensEC.loadAlignment(this.$textC.alignment)
+      this.$historyC.startOver(this.$textC.alignment)
+      this.$tokensEC.startOver(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
@@ -47599,7 +47955,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
   },
   methods: {
     startNewAlignment () {
-      this.$emit("new-alignment")
+      this.$emit("new-initial-alignment")
     },
     resumePrevAlignment () {
       this.showUploadBlock = true
@@ -49920,10 +50276,9 @@ __webpack_require__.r(__webpack_exports__);
    * it could be moved out here
    */
   created () {
-    this.$textC.createAlignment()
-    this.$historyC.startTracking(this.$textC.alignment)
-    this.$tokensEC.loadAlignment(this.$textC.alignment)
+
   },
+
   computed: {
     originId () {
       return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
@@ -56215,7 +56570,7 @@ var render = function() {
         ],
         on: {
           "upload-data": _vm.uploadData,
-          "new-alignment": _vm.showSourceTextEditor
+          "new-initial-alignment": _vm.startNewInitialAlignment
         }
       }),
       _vm._v(" "),

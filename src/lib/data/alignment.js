@@ -11,12 +11,17 @@ import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
+import ConvertUtility from '@/lib/utility/convert-utility.js'
 
 export default class Alignment {
   /**
    */
-  constructor () {
-    this.id = uuidv4()
+  constructor ({ id, createdDT, updatedDT, userID } = {}) {
+    this.id = id || uuidv4()
+    this.createdDT = createdDT || new Date()
+    this.updatedDT = updatedDT || new Date()
+    this.userID = userID || this.defaultUserID
+
     this.origin = {}
     this.targets = {}
 
@@ -29,6 +34,14 @@ export default class Alignment {
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+  }
+
+  get defaultUserID () {
+    return 'defaultUserID'
+  }
+
+  setUpdated () {
+    this.updatedDT = new Date()
   }
 
   /**
@@ -87,6 +100,7 @@ export default class Alignment {
       docSource.updateDetectedLang(langData)
       return true
     }
+    this.setUpdated()
     return false
   }
 
@@ -111,6 +125,8 @@ export default class Alignment {
     if (this.origin.alignedText) {
       this.origin.alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return true
   }
 
@@ -146,6 +162,8 @@ export default class Alignment {
     if (this.targets[docSource.id].alignedText) {
       this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return docSource.id
   }
 
@@ -161,11 +179,13 @@ export default class Alignment {
     } else {
       delete this.targets[id]
     }
+    this.setUpdated()
   }
 
   addNewTarget () {
     const docSource = this.createNewDocSource('target', {}, null, true)
     this.targets[docSource.id] = { docSource }
+    this.setUpdated()
     return docSource.id
   }
 
@@ -1022,6 +1042,10 @@ export default class Alignment {
     // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
+      id: this.id,
+      createdDT: ConvertUtility.convertDateToString(this.createdDT),
+      updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
+      userID: this.userID,
       origin,
       targets,
       alignmentGroups/*,
@@ -1030,7 +1054,11 @@ export default class Alignment {
   }
 
   static convertFromJSON (data) {
-    const alignment = new Alignment()
+    const createdDT = ConvertUtility.convertStringToDate(data.createdDT)
+    const updatedDT = ConvertUtility.convertStringToDate(data.updatedDT)
+    const alignment = new Alignment({
+      id: data.id, createdDT, updatedDT, userID: data.userID
+    })
 
     alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
 
@@ -1058,5 +1086,14 @@ export default class Alignment {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
     return alignment
+  }
+
+  convertToIndexedDB () {
+    return {
+      id: this.id,
+      createdDT: ConvertUtility.convertDateToString(this.createdDT),
+      updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
+      userID: this.userID
+    }
   }
 }

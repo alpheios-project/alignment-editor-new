@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     startNewAlignment () {
-      this.$emit("new-alignment")
+      this.$emit("new-initial-alignment")
     },
     resumePrevAlignment () {
       this.showUploadBlock = true
