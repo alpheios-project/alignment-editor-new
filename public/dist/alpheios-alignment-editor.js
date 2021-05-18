@@ -45233,11 +45233,11 @@ class IndexedDBAdapter {
    */
   constructor () {
     this.available = this._initIndexedDBNamespaces()
-    // this.dbDriver = dbDriver
     this.errors = []
   }
 
   async update (data) {
+    if (!this.available) { return }
     try {
       let result
       for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
@@ -45391,7 +45391,8 @@ class IndexedDBStructure {
 
   static get allObjectStoreData () {
     return {
-      common: this.commonStructure
+      common: this.commonStructure,
+      docSource: this.docSourceStructure
     }
   }
 
@@ -45410,6 +45411,22 @@ class IndexedDBStructure {
     }
   }
 
+  static get docSourceOriginStructure () {
+    return {
+      name: 'ALEditorDocSourceOrigin',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'langCode', keyPath: 'langCode', unique: false }
+        ]
+      },
+      serialize: this.serializeDocSource.bind(this)
+    }
+  }
+
   static serializeCommon (data) {
     const uniqueID = `${data.userID}-${data.id}`
     return [{
@@ -45419,6 +45436,19 @@ class IndexedDBStructure {
       createdDT: data.createdDT,
       updatedDT: data.updatedDT
     }]
+  }
+
+  static serializeDocSource (data) {
+    /*
+    const uniqueID = `${data.userID}-${data.id}-${data.origin.textType}-${data.origin.textType}`
+    return [{
+      ID: uniqueID,
+      alignmentID: data.id,
+      userID: data.userID,
+      createdDT: data.createdDT,
+      updatedDT: data.updatedDT
+    }]
+    */
   }
 
   static prepareQuery (objectStoreData, data) {
@@ -45455,7 +45485,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210517638" : 0
+    return  true ? "i353-indexeddb-support.20210518362" : 0
   }
 
   static get libName () {
@@ -58524,7 +58554,11 @@ var render = function() {
                   _c(
                     "h2",
                     { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [_vm._v("Options for Text Align")]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_ALIGN"))
+                      )
+                    ]
                   )
                 ]
               },
@@ -58599,7 +58633,7 @@ var render = function() {
           ],
           null,
           false,
-          2011564009
+          479970768
         )
       })
     : _vm._e()
@@ -58644,7 +58678,11 @@ var render = function() {
                   _c(
                     "h2",
                     { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [_vm._v("Options for Text Align")]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_EDIT"))
+                      )
+                    ]
                   )
                 ]
               },
@@ -58729,7 +58767,7 @@ var render = function() {
           ],
           null,
           false,
-          2179753699
+          3604151883
         )
       })
     : _vm._e()
@@ -58774,7 +58812,11 @@ var render = function() {
                   _c(
                     "h2",
                     { staticClass: "alpheios-alignment-editor-modal-header" },
-                    [_vm._v("Options for Text Enter")]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.l10n.getMsgS("OPTIONS_TITLE_TEXT_ENTER"))
+                      )
+                    ]
                   )
                 ]
               },
@@ -58877,7 +58919,7 @@ var render = function() {
           ],
           null,
           false,
-          2431539790
+          2751059575
         )
       })
     : _vm._e()
@@ -63113,7 +63155,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Text Enter","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Text Align","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Text Edit","description":"Title of the options popup","component":"OptionsTextEdit"}}');
 
 /***/ }),
 

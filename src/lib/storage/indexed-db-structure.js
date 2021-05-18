@@ -10,7 +10,7 @@ export default class IndexedDBStructure {
   static get allObjectStoreData () {
     return {
       common: this.commonStructure,
-      docSource: this.docSourceStructure,
+      docSource: this.docSourceStructure
     }
   }
 
@@ -57,7 +57,7 @@ export default class IndexedDBStructure {
   }
 
   static serializeDocSource (data) {
-      /*
+    /*
     const uniqueID = `${data.userID}-${data.id}-${data.origin.textType}-${data.origin.textType}`
     return [{
       ID: uniqueID,
