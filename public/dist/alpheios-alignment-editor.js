@@ -39608,6 +39608,10 @@ class SettingsController {
       delete this.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
       delete this.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
+    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.tei) {
+      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
+      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 
@@ -45137,7 +45141,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i389-some-fixes.20210519390" : 0
+    return  true ? "i389-some-fixes.20210519392" : 0
   }
 
   static get libName () {
