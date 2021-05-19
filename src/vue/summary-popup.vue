@@ -107,10 +107,10 @@ export default {
       return L10nSingleton
     },
     originalLangData () {
-      return this.$store.state.docSourceUpdated && this.$textC.originalLangData
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.originalLangData
     },
     targetsLangData () {
-      return this.$store.state.docSourceUpdated && this.$textC.targetsLangData
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.targetsLangData
     },
     showSummaryPopupOpt () {
       return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
@@ -190,6 +190,7 @@ export default {
       display: inline-block;
       width: 15px;
       height: 15px;
+      fill: #000;
     }
   }
 </style>

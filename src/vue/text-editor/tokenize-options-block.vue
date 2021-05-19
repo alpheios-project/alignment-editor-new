@@ -5,7 +5,7 @@
             <option-item-block
               :optionItem = "localOptions.sourceText.items.sourceType"
               :emitUpdateData = "true"
-              @updateData = "updateData" :disabled="disabled"
+              @updateData = "$emit('updateText')" :disabled="disabled"
             />
         </fieldset>
 
@@ -15,7 +15,7 @@
             <option-item-block
                 v-for="textOptItem in localOptions.text.items" :key="textOptItem.domain"
                 :optionItem = "textOptItem" :emitUpdateData = "true"
-                @updateData = "updateData" :disabled="disabled"
+                @updateData = "$emit('updateText')" :disabled="disabled"
             />
         </fieldset>
 
@@ -24,7 +24,7 @@
             <option-item-block
                 v-for="textOptItem in localOptions.tei.items" :key="textOptItem.domain"
                 :optionItem = "textOptItem" :emitUpdateData = "true"
-                @updateData = "updateData" :disabled="disabled"
+                @updateData = "$emit('updateText')" :disabled="disabled"
 
             />
         </fieldset>
@@ -69,9 +69,6 @@ export default {
 
   },
   methods: {
-    updateData () {
-      this.$emit('updateText')
-    },
     toggleShowTokenizeDetails () {
       this.showTokenizeDetails = !this.showTokenizeDetails
     }

@@ -182,7 +182,7 @@
     "component": "SummaryPopup"
   },
   "SUMMARY_POPUP_TABEL_TH_ISTEI": {
-    "message": "Is TEI",
+    "message": "TEI",
     "description": "Table title",
     "component": "SummaryPopup"
   },

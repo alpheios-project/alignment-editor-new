@@ -380,8 +380,8 @@ export default {
     /**
      * Emits update-text event with data from properties
      */
-    async updateText (updatePlace) {
-      if ((updatePlace === 'text') || (this.text)) {
+    async updateText () {
+      if (this.text) {
         const params = {
           text: this.text,
           direction: this.direction,

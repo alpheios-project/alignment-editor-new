@@ -1309,6 +1309,7 @@ button.alpheios-app-menu-link:-moz-focusring {
   display: inline-block;
   width: 15px;
   height: 15px;
+  fill: #000;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;

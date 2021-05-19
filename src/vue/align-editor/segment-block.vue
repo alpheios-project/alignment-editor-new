@@ -101,7 +101,6 @@ export default {
      * @returns {String} - origin/target
      */
     textType () {
-      console.info('segment', this.isFirst, this.segment)
       return this.segment.textType
     },
     /**
