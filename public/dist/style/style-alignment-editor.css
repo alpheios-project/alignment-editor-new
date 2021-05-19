@@ -1640,6 +1640,8 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   margin-top: 5px;
   margin-left: 3px;
   cursor: pointer;
+  min-width: 33px;
+  text-align: center;
 }
 .alpheios-alignment-editor-text-blocks-single__title {
   position: relative;

@@ -575,6 +575,9 @@ export default {
           margin-left: 3px;
 
           cursor: pointer;
+
+          min-width: 33px;
+          text-align: center;
         }
     }
 
