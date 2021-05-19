@@ -51,7 +51,7 @@ export default {
 <style lang="scss">
 .alpheios-alignment-editor-modal-source-type {
   .alpheios-modal-body {
-    max-height: 700px;
+    // max-height: 700px;
     border: 0;
   }
 }

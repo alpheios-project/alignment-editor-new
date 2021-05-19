@@ -66,7 +66,7 @@ export default {
     width: 700px;
   }
   .alpheios-modal-body {
-    max-height: 700px;
+    // max-height: 700px;
     // border: 0;
     margin: 0 0 20px;
   }
