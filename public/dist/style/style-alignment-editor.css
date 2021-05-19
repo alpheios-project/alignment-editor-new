@@ -375,6 +375,9 @@ div.alpheios-alignment-checkbox-block {
 .alpheios-standard-theme .alpheios-header .header-logo .logo-2 {
   display: none;
 }
+.alpheios-standard-theme .alpheios-alignment-editor-modal-metadata {
+  color: #212529;
+}
 .alpheios-standard-theme .alpheios-alignment-editor-metadata-item span.alpheios-alignment-editor-metadata-item__label-help {
   color: #fff;
   background: #185F6D;
@@ -571,6 +574,9 @@ div.alpheios-alignment-checkbox-block {
 }
 .alpheios-v1-theme .alpheios-header .header-logo .logo-2 {
   display: inline-block;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-modal-metadata {
+  color: #000;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-metadata-item span.alpheios-alignment-editor-metadata-item__label-help {
   color: #fff;
