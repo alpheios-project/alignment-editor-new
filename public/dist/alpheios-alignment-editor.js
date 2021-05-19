@@ -42282,7 +42282,11 @@ class Alignment {
   constructor ({ id, createdDT, updatedDT, userID } = {}) {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.createdDT = createdDT || new Date()
+
+    console.info('Alignment new 1 createdDT', createdDT)
+    console.info('Alignment new 1 this.createdDT', this.createdDT)
     this.updatedDT = updatedDT || new Date()
+
     this.userID = userID || this.defaultUserID
 
     this.origin = {}
@@ -42297,6 +42301,8 @@ class Alignment {
     this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
     this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+
+    console.info('Alignment this', this)
   }
 
   get defaultUserID () {
@@ -43361,6 +43367,8 @@ class Alignment {
         docSource: this.targets[targetId].docSource.convertToIndexedDB()
       }
     })
+
+    console.info('convertToIndexedDB', this.createdDT, this.updatedDT)
 
     return {
       id: this.id,
@@ -45469,7 +45477,7 @@ class IndexedDBStructure {
   static serializeDocSource (data) {
     const finalData = []
 
-    const dataItems = Object.values(data.targets)
+    const dataItems = Object.values(data.targets).map(target => target.docSource)
     dataItems.unshift(data.origin.docSource)
 
     for (const dataItem of dataItems) {
@@ -45527,7 +45535,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210518421" : 0
+    return  true ? "i353-indexeddb-support.20210519483" : 0
   }
 
   static get libName () {
@@ -46092,7 +46100,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class ConvertUtility {
   static convertDateToString (dt) {
-    if (!dt) { return }
+    if (!dt) { return null }
     return dt.getFullYear() + '-' +
       ((dt.getMonth() + 1) < 10 ? '0' : '') + (dt.getMonth() + 1) + '-' +
       ((dt.getDate() < 10) ? '0' : '') + dt.getDate() + ' ' +
@@ -46102,7 +46110,7 @@ class ConvertUtility {
   }
 
   static convertStringToDate (str) {
-    return new Date(str)
+    return str ? new Date(str) : null
   }
 
   static converToBlob (text, sourceType) {

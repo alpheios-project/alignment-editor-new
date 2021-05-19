@@ -59,7 +59,7 @@ export default class IndexedDBStructure {
   static serializeDocSource (data) {
     const finalData = []
 
-    const dataItems = Object.values(data.targets)
+    const dataItems = Object.values(data.targets).map(target => target.docSource)
     dataItems.unshift(data.origin.docSource)
 
     for (const dataItem of dataItems) {

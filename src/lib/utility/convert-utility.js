@@ -1,6 +1,6 @@
 export default class ConvertUtility {
   static convertDateToString (dt) {
-    if (!dt) { return }
+    if (!dt) { return null }
     return dt.getFullYear() + '-' +
       ((dt.getMonth() + 1) < 10 ? '0' : '') + (dt.getMonth() + 1) + '-' +
       ((dt.getDate() < 10) ? '0' : '') + dt.getDate() + ' ' +
@@ -10,7 +10,7 @@ export default class ConvertUtility {
   }
 
   static convertStringToDate (str) {
-    return new Date(str)
+    return str ? new Date(str) : null
   }
 
   static converToBlob (text, sourceType) {

@@ -9,8 +9,12 @@ export default class StorageController {
     }
   }
 
+  static get dbAdapterAvailable () {
+    return dbAdapter && dbAdapter.available
+  }
+
   static async update (alignment) {
-    if (alignment) {
+    if (this.dbAdapterAvailable && alignment) {
       const result = await dbAdapter.update(alignment.convertToIndexedDB())
       return result
     }

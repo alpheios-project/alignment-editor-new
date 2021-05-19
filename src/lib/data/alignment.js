@@ -19,7 +19,11 @@ export default class Alignment {
   constructor ({ id, createdDT, updatedDT, userID } = {}) {
     this.id = id || uuidv4()
     this.createdDT = createdDT || new Date()
+
+    console.info('Alignment new 1 createdDT', createdDT)
+    console.info('Alignment new 1 this.createdDT', this.createdDT)
     this.updatedDT = updatedDT || new Date()
+
     this.userID = userID || this.defaultUserID
 
     this.origin = {}
@@ -34,6 +38,8 @@ export default class Alignment {
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+
+    console.info('Alignment this', this)
   }
 
   get defaultUserID () {
