@@ -29,9 +29,9 @@ export default class IndexedDBStructure {
     }
   }
 
-  static get docSourceOriginStructure () {
+  static get docSourceStructure () {
     return {
-      name: 'ALEditorDocSourceOrigin',
+      name: 'ALEditorDocSource',
       structure: {
         keyPath: 'ID',
         indexes: [
@@ -57,19 +57,33 @@ export default class IndexedDBStructure {
   }
 
   static serializeDocSource (data) {
-    /*
-    const uniqueID = `${data.userID}-${data.id}-${data.origin.textType}-${data.origin.textType}`
-    return [{
-      ID: uniqueID,
-      alignmentID: data.id,
-      userID: data.userID,
-      createdDT: data.createdDT,
-      updatedDT: data.updatedDT
-    }]
-    */
+    const finalData = []
+
+    const dataItems = Object.values(data.targets)
+    dataItems.unshift(data.origin.docSource)
+
+    for (const dataItem of dataItems) {
+      const uniqueID = `${data.userID}-${data.id}-${dataItem.textType}-${dataItem.textId}`
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+        textType: dataItem.textType,
+        textId: dataItem.textId,
+        lang: dataItem.lang,
+        sourceType: dataItem.sourceType,
+        direction: dataItem.direction,
+        text: dataItem.text
+      })
+    }
+
+    return finalData
   }
 
   static prepareQuery (objectStoreData, data) {
+    console.info('prepareQuery objectStoreData', objectStoreData)
+    console.info('prepareQuery data', data)
+
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
       return {

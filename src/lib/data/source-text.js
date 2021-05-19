@@ -1,6 +1,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
+import ConvertUtility from '@/lib/utility/convert-utility.js'
 
 import { v4 as uuidv4 } from 'uuid'
 import Metadata from '@/lib/data/metadata.js'
@@ -192,12 +193,26 @@ export default class SourceText {
   convertToJSON () {
     return {
       textId: this.id,
+      textType: this.textType,
       text: this.text,
       direction: this.direction,
       lang: this.lang,
       sourceType: this.sourceType,
       tokenization: this.tokenization,
       metadata: this.metadata.convertToJSON()
+    }
+  }
+
+  convertToIndexedDB () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      text: ConvertUtility.converToBlob(this.text, this.sourceType),
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType
+      // tokenization: this.tokenization,
+      // metadata: this.metadata.convertToJSON()
     }
   }
 }

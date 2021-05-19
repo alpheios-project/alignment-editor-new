@@ -12,4 +12,17 @@ export default class ConvertUtility {
   static convertStringToDate (str) {
     return new Date(str)
   }
+
+  static converToBlob (text, sourceType) {
+    if (sourceType === 'text') {
+      return new Blob([text], {
+        type: 'text/plain'
+      })
+    } else if (sourceType === 'tei') {
+      return new Blob([text], {
+        type: 'application/xml'
+      })
+    }
+    return text
+  }
 }

@@ -43352,11 +43352,23 @@ class Alignment {
   }
 
   convertToIndexedDB () {
+    const origin = {
+      docSource: this.origin.docSource.convertToIndexedDB()
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToIndexedDB()
+      }
+    })
+
     return {
       id: this.id,
       createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
       updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
-      userID: this.userID
+      userID: this.userID,
+      origin,
+      targets
     }
   }
 }
@@ -44221,10 +44233,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+
 
 
 
@@ -44245,7 +44259,7 @@ class SourceText {
    * @param {String} targetId
    */
   constructor (textType, docSource, targetId, skipDetected = false) {
-    this.id = targetId || docSource.id || (0,uuid__WEBPACK_IMPORTED_MODULE_3__.v4)()
+    this.id = targetId || docSource.id || (0,uuid__WEBPACK_IMPORTED_MODULE_4__.v4)()
     this.textType = textType
 
     this.text = docSource && docSource.text ? docSource.text : ''
@@ -44258,13 +44272,13 @@ class SourceText {
     this.startedDetection = false
 
     if (docSource && docSource.metadata) {
-      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default) {
         this.metadata = docSource.metadata
       } else {
-        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default(docSource.metadata)
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default(docSource.metadata)
       }
     } else {
-      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default()
     }
   }
 
@@ -44290,7 +44304,7 @@ class SourceText {
 
   get langData () {
     const textPart = this.text.substr(0, 10)
-    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__.default.defineLangName(this.lang)
+    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__.default.defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
       langCode: this.lang,
@@ -44301,7 +44315,7 @@ class SourceText {
   clear () {
     this.clearText()
     this.tokenization = {}
-    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
+    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default()
   }
 
   clearText () {
@@ -44406,7 +44420,7 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(jsonData.metadata) : null
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromJSON(jsonData.metadata) : null
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
@@ -44419,12 +44433,26 @@ class SourceText {
   convertToJSON () {
     return {
       textId: this.id,
+      textType: this.textType,
       text: this.text,
       direction: this.direction,
       lang: this.lang,
       sourceType: this.sourceType,
       tokenization: this.tokenization,
       metadata: this.metadata.convertToJSON()
+    }
+  }
+
+  convertToIndexedDB () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      text: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.converToBlob(this.text, this.sourceType),
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType
+      // tokenization: this.tokenization,
+      // metadata: this.metadata.convertToJSON()
     }
   }
 }
@@ -45411,9 +45439,9 @@ class IndexedDBStructure {
     }
   }
 
-  static get docSourceOriginStructure () {
+  static get docSourceStructure () {
     return {
-      name: 'ALEditorDocSourceOrigin',
+      name: 'ALEditorDocSource',
       structure: {
         keyPath: 'ID',
         indexes: [
@@ -45439,19 +45467,33 @@ class IndexedDBStructure {
   }
 
   static serializeDocSource (data) {
-    /*
-    const uniqueID = `${data.userID}-${data.id}-${data.origin.textType}-${data.origin.textType}`
-    return [{
-      ID: uniqueID,
-      alignmentID: data.id,
-      userID: data.userID,
-      createdDT: data.createdDT,
-      updatedDT: data.updatedDT
-    }]
-    */
+    const finalData = []
+
+    const dataItems = Object.values(data.targets)
+    dataItems.unshift(data.origin.docSource)
+
+    for (const dataItem of dataItems) {
+      const uniqueID = `${data.userID}-${data.id}-${dataItem.textType}-${dataItem.textId}`
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+        textType: dataItem.textType,
+        textId: dataItem.textId,
+        lang: dataItem.lang,
+        sourceType: dataItem.sourceType,
+        direction: dataItem.direction,
+        text: dataItem.text
+      })
+    }
+
+    return finalData
   }
 
   static prepareQuery (objectStoreData, data) {
+    console.info('prepareQuery objectStoreData', objectStoreData)
+    console.info('prepareQuery data', data)
+
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
       return {
@@ -45485,7 +45527,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210518362" : 0
+    return  true ? "i353-indexeddb-support.20210518421" : 0
   }
 
   static get libName () {
@@ -46061,6 +46103,19 @@ class ConvertUtility {
 
   static convertStringToDate (str) {
     return new Date(str)
+  }
+
+  static converToBlob (text, sourceType) {
+    if (sourceType === 'text') {
+      return new Blob([text], {
+        type: 'text/plain'
+      })
+    } else if (sourceType === 'tei') {
+      return new Blob([text], {
+        type: 'application/xml'
+      })
+    }
+    return text
   }
 }
 

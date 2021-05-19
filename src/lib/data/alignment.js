@@ -1089,11 +1089,23 @@ export default class Alignment {
   }
 
   convertToIndexedDB () {
+    const origin = {
+      docSource: this.origin.docSource.convertToIndexedDB()
+    }
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToIndexedDB()
+      }
+    })
+
     return {
       id: this.id,
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
-      userID: this.userID
+      userID: this.userID,
+      origin,
+      targets
     }
   }
 }
