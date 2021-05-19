@@ -45137,7 +45137,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i389-some-fixes.20210519364" : 0
+    return  true ? "i389-some-fixes.20210519367" : 0
   }
 
   static get libName () {
@@ -49698,7 +49698,6 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     async updateText () {
-      console.info('updateText - this.sourceType', this.sourceType)
       if (this.text) {
         const params = {
           text: this.text,
@@ -49710,7 +49709,6 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         const result = await this.$textC[this.updateTextMethod](params, this.textId)  
-        console.info('updateText - $textC.update', this.$textC.originalLangData)
 
         if (this.$textC.checkDetectedProps(this.textType, this.textId) || (this.text && this.text.length > 0)) {
           this.showTypeUploadButtons = false

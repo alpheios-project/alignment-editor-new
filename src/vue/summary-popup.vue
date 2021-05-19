@@ -186,7 +186,7 @@ export default {
   }
 
   .alpheios-editor-langs-table_teicheck {
-    svg {
+    span.alpheios-alignment-editor-text-blocks-single__icons svg {
       display: inline-block;
       width: 15px;
       height: 15px;

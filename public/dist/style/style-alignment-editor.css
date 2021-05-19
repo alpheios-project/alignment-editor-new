@@ -1305,7 +1305,7 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-editor-langs-table-tokenized svg {
   fill: #b0b0b0;
 }
-.alpheios-editor-langs-table_teicheck svg {
+.alpheios-editor-langs-table_teicheck span.alpheios-alignment-editor-text-blocks-single__icons svg {
   display: inline-block;
   width: 15px;
   height: 15px;
