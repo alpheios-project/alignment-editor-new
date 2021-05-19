@@ -309,6 +309,7 @@ div.alpheios-alignment-checkbox-block {
 
 .alpheios-modal-container {
   width: 600px;
+  max-height: 600px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -373,6 +374,9 @@ div.alpheios-alignment-checkbox-block {
 }
 .alpheios-standard-theme .alpheios-header .header-logo .logo-2 {
   display: none;
+}
+.alpheios-standard-theme .alpheios-alignment-editor-modal-metadata {
+  color: #212529;
 }
 .alpheios-standard-theme .alpheios-alignment-editor-metadata-item span.alpheios-alignment-editor-metadata-item__label-help {
   color: #fff;
@@ -570,6 +574,9 @@ div.alpheios-alignment-checkbox-block {
 }
 .alpheios-v1-theme .alpheios-header .header-logo .logo-2 {
   display: inline-block;
+}
+.alpheios-v1-theme .alpheios-alignment-editor-modal-metadata {
+  color: #000;
 }
 .alpheios-v1-theme .alpheios-alignment-editor-metadata-item span.alpheios-alignment-editor-metadata-item__label-help {
   color: #fff;
@@ -1304,10 +1311,11 @@ button.alpheios-app-menu-link:-moz-focusring {
 .alpheios-editor-langs-table-tokenized svg {
   fill: #b0b0b0;
 }
-.alpheios-editor-langs-table_teicheck svg {
+.alpheios-editor-langs-table_teicheck span.alpheios-alignment-editor-text-blocks-single__icons svg {
   display: inline-block;
   width: 15px;
   height: 15px;
+  fill: #000;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
@@ -1453,14 +1461,12 @@ p.alpheios-alignment-editor-metadata__info-title {
   margin: 0;
 }
 .alpheios-alignment-editor-modal-metadata .alpheios-modal-body {
-  max-height: 700px;
   border: 0;
 }
 .alpheios-alignment-editor-text-blocks-single-direction-options .alpheios-alignment-option-item {
   margin-bottom: 10px;
 }
 .alpheios-alignment-editor-modal-language .alpheios-modal-body {
-  max-height: 700px;
   border: 0;
 }
 p.alpheios-alignment-editor-tokenize-options__details-toggle {
@@ -1482,7 +1488,6 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   margin: 0;
 }
 .alpheios-alignment-editor-modal-source-type .alpheios-modal-body {
-  max-height: 700px;
   border: 0;
 }
 .alpheios-editor-content-pagination {
@@ -1635,6 +1640,8 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   margin-top: 5px;
   margin-left: 3px;
   cursor: pointer;
+  min-width: 33px;
+  text-align: center;
 }
 .alpheios-alignment-editor-text-blocks-single__title {
   position: relative;
@@ -1732,7 +1739,6 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   width: 700px;
 }
 .alpheios-alignment-editor-modal-help .alpheios-modal-body {
-  max-height: 700px;
   border: 0;
   padding: 0 15px 0 0;
   margin: 0 0 20px;
@@ -1761,7 +1767,6 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
   width: 700px;
 }
 .alpheios-alignment-editor-modal-options .alpheios-modal-body {
-  max-height: 700px;
   margin: 0 0 20px;
   border: 0;
   border-top: 2px solid #ddd;
@@ -1981,7 +1986,6 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   width: 700px;
 }
 .alpheios-alignment-editor-modal-options .alpheios-modal-body {
-  max-height: 700px;
   margin: 0 0 20px;
 }
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {
@@ -2119,7 +2123,6 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
   width: 700px;
 }
 .alpheios-alignment-editor-modal-options .alpheios-modal-body {
-  max-height: 700px;
   margin: 0 0 20px;
 }
 .alpheios-alignment-editor-modal-options .alpheios-alignment-editor-modal-options-block {

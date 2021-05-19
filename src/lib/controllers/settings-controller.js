@@ -122,6 +122,10 @@ export default class SettingsController {
       delete this.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
       delete this.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
     }
+    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.tei) {
+      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
+      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 

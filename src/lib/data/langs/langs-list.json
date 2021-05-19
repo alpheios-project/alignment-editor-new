@@ -3,7 +3,7 @@
   { "value": "lat", "label": "Latin" },
   { "value": "grc", "label": "Greek (Ancient –1453)" },
   { "value": "ara", "label": "Arabic", "direction": "rtl" },
-  { "value": "zh", "label": "Chinese" },
+  
   { "value": "zho", "label": "Chinese" },
   { "value": "aka", "label": "Abkhazian" },
   { "value": "aar", "label": "Afar" },

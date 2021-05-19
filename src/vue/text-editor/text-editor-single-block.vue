@@ -362,26 +362,32 @@ export default {
     },
 
     async updateTextFromTextBlock () {
+      console.info('updateTextFromTextBlock - started', this.text)
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       if (!docSource && (this.text.length === 0)) { return }
 
       const params = this.collectCurrentParams()
       const result = await this.$textC[this.updateTextMethod](params, this.textId)
-
-      if (result.resultUpdate && this.showTypeUploadButtons) {
-        this.showTypeUploadButtons = false
-        this.showTextProps = true
-      }
       if (!result.resultUpdate) {
         this.text = ''
+      }
+
+      if (result.resultUpdate && this.showTypeUploadButtons) {
+
+        setTimeout(() => {
+          this.showTypeUploadButtons = false
+          this.showTextProps = true
+        }, 100)
+        
       }
     },
     
     /**
      * Emits update-text event with data from properties
      */
-    async updateText (updatePlace) {
-      if ((updatePlace === 'text') || (this.text)) {
+    async updateText () {
+      console.info('updateText - started', this.text)
+      if (this.text) {
         const params = {
           text: this.text,
           direction: this.direction,
@@ -416,13 +422,15 @@ export default {
     },
 
     async deleteText () {
+      console.info('deleteText - started', this.text)
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
       this.$textC.deleteText(this.textType, this.textId)
-      // await this.updateText()
-      this.showTypeUploadButtons = true
-      this.showUploadMenu = false
+      setTimeout(() => {
+        this.showTypeUploadButtons = true
+        this.showUploadMenu = false
+      }, 150)
     },
 
     /**
@@ -567,6 +575,9 @@ export default {
           margin-left: 3px;
 
           cursor: pointer;
+
+          min-width: 33px;
+          text-align: center;
         }
     }
 
