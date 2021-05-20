@@ -5,7 +5,7 @@
       </span>
       <main-menu 
         @download-data = "downloadData"
-        @upload-data = "uploadData"
+        @upload-data = "uploadDataFromFile"
         @align-texts = "showSummaryPopup"
         @redo-action = "redoAction"
         @undo-action = "undoAction"
@@ -21,7 +21,9 @@
         :updateCurrentPage = "updateCurrentPage"
       />
       <notification-bar />
-      <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-initial-alignment="startNewInitialAlignment"/>
+      <initial-screen v-show="showInitialScreenBlock"
+        @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB"
+        @new-initial-alignment="startNewInitialAlignment"/>
       <options-block v-show="shownOptionsBlock" />
       <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
@@ -104,15 +106,26 @@ export default {
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, extension) {
+    uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
         }
       } 
       
+      this.showSourceTextEditor()
+    },
+
+    async uploadDataFromDB (alData) {
+      if (alData) {
+        const alignment = await this.$textC.uploadDataFromDB(alData)
+        console.info('uploadDataFromDB - alignment', alignment)
+        if (alignment instanceof Alignment) {
+          return this.startOver(alignment)
+        }
+      }
       this.showSourceTextEditor()
     },
     /**

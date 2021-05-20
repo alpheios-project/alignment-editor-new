@@ -61,6 +61,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -39750,9 +39760,20 @@ class StorageController {
     }
   }
 
+  static get dbAdapterAvailable () {
+    return dbAdapter && dbAdapter.available
+  }
+
   static async update (alignment) {
-    if (alignment) {
+    if (this.dbAdapterAvailable && alignment) {
       const result = await dbAdapter.update(alignment.convertToIndexedDB())
+      return result
+    }
+  }
+
+  static async select (data, typeQuery = 'allAlignmentsByUserID') {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.select(data, typeQuery)
       return result
     }
   }
@@ -39970,7 +39991,22 @@ class TextsController {
     return true
   }
 
-  uploadData (fileData, tokenizerOptionValue, extension) {
+  async uploadDataFromDB (alData) {
+    if (!alData) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+
+    const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload('indexedDBUpload', alData)
+    console.info('uploadDataFromDB alignment', alignment)
+    return alignment
+  }
+
+  uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -40220,6 +40256,14 @@ class TextsController {
 
   get targetsLangData () {
     return this.alignment.targetsLangData
+  }
+
+  async uploadFromAllAlignmentsDB () {
+    const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.defaultUserID }
+
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
+    console.info('uploadFromDB result - ', result)
+    return result
   }
 }
 
@@ -40792,6 +40836,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
 /* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -40813,7 +40859,8 @@ class UploadController {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
-      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
+      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: false, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
   }
 
@@ -40953,6 +41000,12 @@ class UploadController {
       const docXML = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getDocument(linkData, refParams)
       return docXML
     }
+  }
+
+  static async indexedDBUploadSingle (alData) {
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(alData, 'alignmentByAlIDQuery')
+
+    return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(dbData)
   }
 }
 
@@ -42287,7 +42340,7 @@ class Alignment {
     console.info('Alignment new 1 this.createdDT', this.createdDT)
     this.updatedDT = updatedDT || new Date()
 
-    this.userID = userID || this.defaultUserID
+    this.userID = userID || Alignment.defaultUserID
 
     this.origin = {}
     this.targets = {}
@@ -42305,8 +42358,20 @@ class Alignment {
     console.info('Alignment this', this)
   }
 
-  get defaultUserID () {
+  static get defaultUserID () {
     return 'defaultUserID'
+  }
+
+  get langsList () {
+    if (!this.origin.docSource || Object.values(this.targets).length === 0) { return '' }
+
+    let langs = [] // eslint-disable-line prefer-const
+
+    Object.values(this.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+
+    return `${this.origin.docSource.lang}-${langs.join('-')}`
   }
 
   setUpdated () {
@@ -43368,16 +43433,19 @@ class Alignment {
       }
     })
 
-    console.info('convertToIndexedDB', this.createdDT, this.updatedDT)
-
     return {
       id: this.id,
       createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
       updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
       userID: this.userID,
+      langsList: this.langsList,
       origin,
       targets
     }
+  }
+
+  static convertFromIndexedDB (dbData) {
+    return dbData
   }
 }
 
@@ -45272,12 +45340,56 @@ class IndexedDBAdapter {
     this.errors = []
   }
 
+  merge (initialData, newData, mergeData) {
+    if (!initialData) { return newData }
+
+    for (const dataItem of newData) {
+      if (initialData[mergeData.mergeBy] === dataItem[mergeData.mergeBy]) {
+        if (!initialData[mergeData.uploadTo]) { initialData[mergeData.uploadTo] = [] }
+        initialData[mergeData.uploadTo].push(dataItem)
+      }
+    }
+    console.info('merge - ', mergeData, initialData, newData)
+
+    return initialData
+  }
+
+  /**
+   * Query for a set of data items
+   * @param {Object} params datatype specific query parameters
+   * @return Object[] array of data model items
+   */
+  async select (data, typeQuery) {
+    if (!this.available) { return }
+    console.info('******select start')
+    try {
+      let finalResult
+      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareSelectQuery(typeQuery, data)
+      for (const query of queries) {
+        const queryResult = await this._getFromStore(query)
+
+        console.info('queryResult', queryResult)
+
+        finalResult = this.merge(finalResult, queryResult, query.mergeData)
+        console.info('finalResult', finalResult)
+      }
+
+      console.info('******select end')
+      return finalResult
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
+  }
+
   async update (data) {
     if (!this.available) { return }
     try {
       let result
       for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
-        const query = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareQuery(objectStoreData, data)
+        const query = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareUpdateQuery(objectStoreData, data)
         if (query.ready) {
           result = await this._set(query)
         }
@@ -45400,6 +45512,48 @@ class IndexedDBAdapter {
     })
     return promisePut
   }
+
+  /**
+   * Internal method to get an item from a database store
+   * @param {Object} data data item to be retrieved  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        condition: query parameters }
+   * @return {Promise} resolves to the retrieved items
+   */
+  async _getFromStore (query) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const transaction = db.transaction([query.objectStoreName])
+          const objectStore = transaction.objectStore(query.objectStoreName)
+
+          const index = objectStore.index(query.condition.indexName)
+          const keyRange = this.IDBKeyRange[query.condition.type](query.condition.value)
+
+          const requestOpenCursor = index.getAll(keyRange, 0)
+          requestOpenCursor.onsuccess = (event) => {
+            const finalResult = query.resultType === 'multiple' ? event.target.result : event.target.result[0]
+            resolve(finalResult)
+          }
+
+          requestOpenCursor.onerror = (event) => {
+            idba.errors.push(event.target)
+            reject(event.target)
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(event.target)
+        }
+      }
+      request.onerror = (event) => {
+        reject(event.target)
+      }
+    })
+    return promiseOpenDB
+  }
 }
 
 
@@ -45470,7 +45624,8 @@ class IndexedDBStructure {
       alignmentID: data.id,
       userID: data.userID,
       createdDT: data.createdDT,
-      updatedDT: data.updatedDT
+      updatedDT: data.updatedDT,
+      langsList: data.langsList
     }]
   }
 
@@ -45498,10 +45653,7 @@ class IndexedDBStructure {
     return finalData
   }
 
-  static prepareQuery (objectStoreData, data) {
-    console.info('prepareQuery objectStoreData', objectStoreData)
-    console.info('prepareQuery data', data)
-
+  static prepareUpdateQuery (objectStoreData, data) {
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
       return {
@@ -45511,6 +45663,55 @@ class IndexedDBStructure {
       }
     }
     return { ready: false }
+  }
+
+  static prepareSelectQuery (typeQuery, indexData) {
+    const typeQueryList = {
+      allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
+      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this)
+    }
+    return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareAllAlignmentsByUserIDQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.common.name,
+        condition: {
+          indexName: 'userID',
+          value: indexData.userID,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  static prepareAlignmentByAlIDQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.common.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'single'
+      },
+      {
+        objectStoreName: this.allObjectStoreData.docSource.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: 'alignmentID',
+          uploadTo: 'docSource'
+        }
+      }
+    ]
   }
 }
 
@@ -45535,7 +45736,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210519483" : 0
+    return  true ? "i353-indexeddb-support.20210520393" : 0
   }
 
   static get libName () {
@@ -47033,6 +47234,63 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignmentsList',
+  props: {
+  },
+  data () {
+    return {
+      alignments: []
+    }
+  },
+  async mounted () {
+    this.alignments = await this.$textC.uploadFromAllAlignmentsDB()
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    readyAlignments () {
+      return this.alignments && this.alignments.length > 0
+    }
+  },
+  methods: {
+    uploadAlignmentFromDB (alData) {
+      this.$emit('upload-data-from-db', alData)
+      console.info('uploadAlignmentFromDB - ', alData)
+    }
+  }
+});
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js& ***!
@@ -47056,6 +47314,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 /* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
 /* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__);
+//
+//
 //
 //
 //
@@ -47162,15 +47422,26 @@ __webpack_require__.r(__webpack_exports__);
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, extension) {
+    uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
         if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
           return this.startOver(alignment)
         }
       } 
       
+      this.showSourceTextEditor()
+    },
+
+    async uploadDataFromDB (alData) {
+      if (alData) {
+        const alignment = await this.$textC.uploadDataFromDB(alData)
+        console.info('uploadDataFromDB - alignment', alignment)
+        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+          return this.startOver(alignment)
+        }
+      }
       this.showSourceTextEditor()
     },
     /**
@@ -47971,10 +48242,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var v_video_embed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-video-embed */ "../node_modules/v-video-embed/dist/video-embed.min.js");
 /* harmony import */ var v_video_embed__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_video_embed__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_alignments_list_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/alignments-list.vue */ "./vue/alignments-list.vue");
 //
 //
 //
@@ -48019,31 +48291,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
+
 
 
 
 
 
 // global register
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use((v_video_embed__WEBPACK_IMPORTED_MODULE_0___default()))
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use((v_video_embed__WEBPACK_IMPORTED_MODULE_0___default()))
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'InitialScreen',
+  components: {
+    alignmentsList: _vue_alignments_list_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  },
   data () {
     return {
       showUploadBlock: false,
       uploadFileName: null,
-      showVideo: false
+      showVideo: false,
+      alignments: []
     }
   },
   mounted () {
-      setTimeout(() => {
-          this.showVideo = true
-      }, 1500)
+    setTimeout(() => {
+      this.showVideo = true
+    }, 1500)
   },
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    readyAlignments () {
+      return this.alignments && this.alignments.length > 0
     }
   },
   methods: {
@@ -48067,10 +48353,15 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result, extension)
+        this.$emit("upload-data-from-file", e.target.result, extension)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
+
+    uploadDataFromDB (alData) {
+      this.$emit('upload-data-from-db', alData)
+      this.showUploadBlock = false
     }
   }
 });
@@ -52235,6 +52526,47 @@ component.options.__file = "vue/align-editor/token-block.vue"
 
 /***/ }),
 
+/***/ "./vue/alignments-list.vue":
+/*!*********************************!*\
+  !*** ./vue/alignments-list.vue ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./alignments-list.vue?vue&type=template&id=2fb49fb4& */ "./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&");
+/* harmony import */ var _alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alignments-list.vue?vue&type=script&lang=js& */ "./vue/alignments-list.vue?vue&type=script&lang=js&");
+/* harmony import */ var _alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alignments-list.vue?vue&type=style&index=0&lang=scss& */ "./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/alignments-list.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/app.vue":
 /*!*********************!*\
   !*** ./vue/app.vue ***!
@@ -53952,6 +54284,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************!*\
+  !*** ./vue/alignments-list.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./alignments-list.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************!*\
   !*** ./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -54641,6 +54990,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/alignments-list.vue?vue&type=script&lang=js&":
+/*!**********************************************************!*\
+  !*** ./vue/alignments-list.vue?vue&type=script&lang=js& ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./alignments-list.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -55365,6 +55730,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-block.vue?vue&type=template&id=53b7c654& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&");
+
+
+/***/ }),
+
+/***/ "./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&":
+/*!****************************************************************!*\
+  !*** ./vue/alignments-list.vue?vue&type=template&id=2fb49fb4& ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./alignments-list.vue?vue&type=template&id=2fb49fb4& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&");
 
 
 /***/ }),
@@ -56593,6 +56975,81 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=template&id=2fb49fb4& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.readyAlignments,
+          expression: "readyAlignments"
+        }
+      ],
+      staticClass: "alpheios-alignment-editor-alignments"
+    },
+    [
+      _c(
+        "table",
+        { staticClass: "alpheios-alignment-editor-alignments-table" },
+        _vm._l(_vm.alignments, function(alData, alIndex) {
+          return _c("tr", { key: alIndex }, [
+            _c(
+              "td",
+              {
+                staticClass:
+                  "alpheios-alignment-editor-alignments-table_link alpheios-alignment-editor-alignments-table_dt",
+                on: {
+                  click: function($event) {
+                    return _vm.uploadAlignmentFromDB(alData)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(alData.updatedDT))]
+            ),
+            _vm._v(" "),
+            _c(
+              "td",
+              {
+                staticClass: "alpheios-alignment-editor-alignments-table_link",
+                on: {
+                  click: function($event) {
+                    return _vm.uploadAlignmentFromDB(alData)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(alData.langsList))]
+            )
+          ])
+        }),
+        0
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& ***!
@@ -56637,7 +57094,7 @@ var render = function() {
         },
         on: {
           "download-data": _vm.downloadData,
-          "upload-data": _vm.uploadData,
+          "upload-data": _vm.uploadDataFromFile,
           "align-texts": _vm.showSummaryPopup,
           "redo-action": _vm.redoAction,
           "undo-action": _vm.undoAction,
@@ -56662,7 +57119,8 @@ var render = function() {
           }
         ],
         on: {
-          "upload-data": _vm.uploadData,
+          "upload-data-from-file": _vm.uploadDataFromFile,
+          "upload-data-from-db": _vm.uploadDataFromDB,
           "new-initial-alignment": _vm.startNewInitialAlignment
         }
       }),
@@ -57761,6 +58219,36 @@ var render = function() {
                         ]
                       )
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showUploadBlock,
+                          expression: "showUploadBlock"
+                        }
+                      ],
+                      staticClass:
+                        "alpheios-alignment-editor-initial-screen__alignments-container"
+                    },
+                    [
+                      _c("alignments-list", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showUploadBlock,
+                            expression: "showUploadBlock"
+                          }
+                        ],
+                        on: { "upload-data-from-db": _vm.uploadDataFromDB }
+                      })
+                    ],
+                    1
                   )
                 ]
               )
@@ -57815,7 +58303,7 @@ var staticRenderFns = [
       "h2",
       {
         staticClass:
-          "alpheios-alignment-editor-initial-screen__heading-animated"
+          "alpheios-heading-animated alpheios-alignment-editor-initial-screen__heading-animated"
       },
       [
         _c("span", [_vm._v("A")]),
@@ -63163,7 +63651,7 @@ module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
+module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_EMPTY_DB_DATA":{"message":"There is not enough information for retrieving alignment from DB.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
 
 /***/ }),
 

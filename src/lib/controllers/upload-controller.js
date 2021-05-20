@@ -6,6 +6,7 @@ import SourceText from '@/lib/data/source-text'
 
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class UploadController {
   /**
@@ -19,7 +20,8 @@ export default class UploadController {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
-      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
+      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: false, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
   }
 
@@ -159,5 +161,11 @@ export default class UploadController {
       const docXML = await UploadDTSAPI.getDocument(linkData, refParams)
       return docXML
     }
+  }
+
+  static async indexedDBUploadSingle (alData) {
+    const dbData = await StorageController.select(alData, 'alignmentByAlIDQuery')
+
+    return Alignment.convertFromIndexedDB(dbData)
   }
 }

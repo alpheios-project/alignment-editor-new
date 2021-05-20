@@ -52,7 +52,8 @@ export default class IndexedDBStructure {
       alignmentID: data.id,
       userID: data.userID,
       createdDT: data.createdDT,
-      updatedDT: data.updatedDT
+      updatedDT: data.updatedDT,
+      langsList: data.langsList
     }]
   }
 
@@ -80,10 +81,7 @@ export default class IndexedDBStructure {
     return finalData
   }
 
-  static prepareQuery (objectStoreData, data) {
-    console.info('prepareQuery objectStoreData', objectStoreData)
-    console.info('prepareQuery data', data)
-
+  static prepareUpdateQuery (objectStoreData, data) {
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
       return {
@@ -93,5 +91,54 @@ export default class IndexedDBStructure {
       }
     }
     return { ready: false }
+  }
+
+  static prepareSelectQuery (typeQuery, indexData) {
+    const typeQueryList = {
+      allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
+      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this)
+    }
+    return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareAllAlignmentsByUserIDQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.common.name,
+        condition: {
+          indexName: 'userID',
+          value: indexData.userID,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  static prepareAlignmentByAlIDQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.common.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'single'
+      },
+      {
+        objectStoreName: this.allObjectStoreData.docSource.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: 'alignmentID',
+          uploadTo: 'docSource'
+        }
+      }
+    ]
   }
 }

@@ -19,4 +19,11 @@ export default class StorageController {
       return result
     }
   }
+
+  static async select (data, typeQuery = 'allAlignmentsByUserID') {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.select(data, typeQuery)
+      return result
+    }
+  }
 }

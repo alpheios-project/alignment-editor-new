@@ -14,12 +14,56 @@ export default class IndexedDBAdapter {
     this.errors = []
   }
 
+  merge (initialData, newData, mergeData) {
+    if (!initialData) { return newData }
+
+    for (const dataItem of newData) {
+      if (initialData[mergeData.mergeBy] === dataItem[mergeData.mergeBy]) {
+        if (!initialData[mergeData.uploadTo]) { initialData[mergeData.uploadTo] = [] }
+        initialData[mergeData.uploadTo].push(dataItem)
+      }
+    }
+    console.info('merge - ', mergeData, initialData, newData)
+
+    return initialData
+  }
+
+  /**
+   * Query for a set of data items
+   * @param {Object} params datatype specific query parameters
+   * @return Object[] array of data model items
+   */
+  async select (data, typeQuery) {
+    if (!this.available) { return }
+    console.info('******select start')
+    try {
+      let finalResult
+      const queries = IndexedDBStructure.prepareSelectQuery(typeQuery, data)
+      for (const query of queries) {
+        const queryResult = await this._getFromStore(query)
+
+        console.info('queryResult', queryResult)
+
+        finalResult = this.merge(finalResult, queryResult, query.mergeData)
+        console.info('finalResult', finalResult)
+      }
+
+      console.info('******select end')
+      return finalResult
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
+  }
+
   async update (data) {
     if (!this.available) { return }
     try {
       let result
       for (const objectStoreData of Object.values(IndexedDBStructure.allObjectStoreData)) {
-        const query = IndexedDBStructure.prepareQuery(objectStoreData, data)
+        const query = IndexedDBStructure.prepareUpdateQuery(objectStoreData, data)
         if (query.ready) {
           result = await this._set(query)
         }
@@ -141,5 +185,47 @@ export default class IndexedDBAdapter {
       }
     })
     return promisePut
+  }
+
+  /**
+   * Internal method to get an item from a database store
+   * @param {Object} data data item to be retrieved  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        condition: query parameters }
+   * @return {Promise} resolves to the retrieved items
+   */
+  async _getFromStore (query) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const transaction = db.transaction([query.objectStoreName])
+          const objectStore = transaction.objectStore(query.objectStoreName)
+
+          const index = objectStore.index(query.condition.indexName)
+          const keyRange = this.IDBKeyRange[query.condition.type](query.condition.value)
+
+          const requestOpenCursor = index.getAll(keyRange, 0)
+          requestOpenCursor.onsuccess = (event) => {
+            const finalResult = query.resultType === 'multiple' ? event.target.result : event.target.result[0]
+            resolve(finalResult)
+          }
+
+          requestOpenCursor.onerror = (event) => {
+            idba.errors.push(event.target)
+            reject(event.target)
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(event.target)
+        }
+      }
+      request.onerror = (event) => {
+        reject(event.target)
+      }
+    })
+    return promiseOpenDB
   }
 }

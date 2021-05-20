@@ -24,7 +24,7 @@ export default class Alignment {
     console.info('Alignment new 1 this.createdDT', this.createdDT)
     this.updatedDT = updatedDT || new Date()
 
-    this.userID = userID || this.defaultUserID
+    this.userID = userID || Alignment.defaultUserID
 
     this.origin = {}
     this.targets = {}
@@ -42,8 +42,20 @@ export default class Alignment {
     console.info('Alignment this', this)
   }
 
-  get defaultUserID () {
+  static get defaultUserID () {
     return 'defaultUserID'
+  }
+
+  get langsList () {
+    if (!this.origin.docSource || Object.values(this.targets).length === 0) { return '' }
+
+    let langs = [] // eslint-disable-line prefer-const
+
+    Object.values(this.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+
+    return `${this.origin.docSource.lang}-${langs.join('-')}`
   }
 
   setUpdated () {
@@ -1110,8 +1122,13 @@ export default class Alignment {
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
       updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
       userID: this.userID,
+      langsList: this.langsList,
       origin,
       targets
     }
+  }
+
+  static convertFromIndexedDB (dbData) {
+    return dbData
   }
 }

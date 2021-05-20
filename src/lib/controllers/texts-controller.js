@@ -189,7 +189,22 @@ export default class TextsController {
     return true
   }
 
-  uploadData (fileData, tokenizerOptionValue, extension) {
+  async uploadDataFromDB (alData) {
+    if (!alData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const alignment = await UploadController.upload('indexedDBUpload', alData)
+    console.info('uploadDataFromDB alignment', alignment)
+    return alignment
+  }
+
+  uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -439,5 +454,13 @@ export default class TextsController {
 
   get targetsLangData () {
     return this.alignment.targetsLangData
+  }
+
+  async uploadFromAllAlignmentsDB () {
+    const data = { userID: Alignment.defaultUserID }
+
+    const result = await StorageController.select(data)
+    console.info('uploadFromDB result - ', result)
+    return result
   }
 }
