@@ -96,12 +96,7 @@ export default {
 
       if (!this.value) { return }
 
-      if (this.metadataTerm.template) {
-        this.docSource.addMetadata(this.metadataTerm.property, this.value)
-      } else {
-        this.metadataTerm.saveValue(this.value)
-      }
-      this.$textC.changeMetadataTerm()
+      this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
       if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },

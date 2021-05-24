@@ -39764,8 +39764,13 @@ class StorageController {
     return dbAdapter && dbAdapter.available
   }
 
-  static async update (alignment) {
-    if (this.dbAdapterAvailable && alignment) {
+  static async update (alignment, clearFirst = false) {
+    if (this.dbAdapterAvailable && alignment && alignment.origin.docSource) {
+      console.info('SC update clearFirst', clearFirst, alignment.id)
+      if (clearFirst) {
+        await this.deleteMany(alignment.id, 'alignmentDataByID')
+      }
+
       const result = await dbAdapter.update(alignment.convertToIndexedDB())
       return result
     }
@@ -39774,6 +39779,13 @@ class StorageController {
   static async select (data, typeQuery = 'allAlignmentsByUserID') {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.select(data, typeQuery)
+      return result
+    }
+  }
+
+  static async deleteMany (alignmentID, typeQuery) {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
       return result
     }
   }
@@ -39856,6 +39868,7 @@ class TextsController {
       this.store.commit('incrementDocSourceLangDetected')
     }
 
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     return { resultUpdate, resultDetect }
   }
 
@@ -39883,6 +39896,7 @@ class TextsController {
     if (resultDetect) {
       this.store.commit('incrementDocSourceLangDetected')
     }
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
@@ -39916,6 +39930,7 @@ class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     }
   }
 
@@ -40002,7 +40017,7 @@ class TextsController {
     }
 
     const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload('indexedDBUpload', alData)
-    console.info('uploadDataFromDB alignment', alignment)
+    // console.info('uploadDataFromDB alignment', alignment)
     return alignment
   }
 
@@ -40024,7 +40039,7 @@ class TextsController {
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(alignment)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(alignment, true)
     return alignment
   }
 
@@ -40237,8 +40252,16 @@ class TextsController {
   /**
    * A simple event for any change in metadata
    */
-  changeMetadataTerm () {
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+    if (metadataTermData.template) {
+      docSource.addMetadata(metadataTermData.property, value)
+    } else {
+      metadataTermData.saveValue(value)
+    }
+
     this.store.commit('incrementDocSourceUpdated')
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
   }
 
   get originDocSourceDefined () {
@@ -40262,7 +40285,7 @@ class TextsController {
     const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.defaultUserID }
 
     const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
-    console.info('uploadFromDB result - ', result)
+    // console.info('uploadFromDB result - ', result)
     return result
   }
 }
@@ -41004,8 +41027,8 @@ class UploadController {
 
   static async indexedDBUploadSingle (alData) {
     const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(alData, 'alignmentByAlIDQuery')
-
-    return _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(dbData)
+    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(dbData)
+    return alignment
   }
 }
 
@@ -42336,8 +42359,6 @@ class Alignment {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.createdDT = createdDT || new Date()
 
-    console.info('Alignment new 1 createdDT', createdDT)
-    console.info('Alignment new 1 this.createdDT', this.createdDT)
     this.updatedDT = updatedDT || new Date()
 
     this.userID = userID || Alignment.defaultUserID
@@ -42354,8 +42375,6 @@ class Alignment {
     this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
     this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
-
-    console.info('Alignment this', this)
   }
 
   static get defaultUserID () {
@@ -43426,6 +43445,7 @@ class Alignment {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB()
     }
+
     const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
@@ -43444,8 +43464,28 @@ class Alignment {
     }
   }
 
-  static convertFromIndexedDB (dbData) {
-    return dbData
+  static async convertFromIndexedDB (dbData) {
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.updatedDT)
+    const alignment = new Alignment({
+      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
+    })
+
+    if (dbData.docSource) {
+      for (const docSourceData of dbData.docSource) {
+        const docSource = await _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromIndexedDB(docSourceData, dbData.metadata)
+        if (docSource.textType === 'origin') {
+          alignment.origin.docSource = docSource
+        } else {
+          alignment.targets[docSource.id] = {
+            docSource
+          }
+        }
+      }
+    }
+
+    console.info('alignment', alignment)
+    return alignment
   }
 }
 
@@ -43887,8 +43927,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ MetadataTerm)
 /* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+
+
 class MetadataTerm {
-  constructor (property, value) {
+  constructor (property, value, metadataId) {
+    this.id = metadataId || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.property = property
     this.saveValue(value)
   }
@@ -43946,6 +43991,19 @@ class MetadataTerm {
   static convertFromJSON (data) {
     const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
     return new MetadataTerm(property, data.value)
+  }
+
+  convertToIndexedDB () {
+    return {
+      id: this.id,
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value, data.metaId)
   }
 }
 
@@ -44066,12 +44124,12 @@ class Metadata {
     return Boolean(this.properties[property.label])
   }
 
-  addProperty (property, value) {
+  addProperty (property, value, metaId) {
     if (!this.isSupportedProperty(property)) {
       return false
     }
     if (!this.hasProperty(property)) {
-      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value)
+      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value, metaId)
       return true
     }
     return this.getProperty(property).saveValue(value)
@@ -44120,6 +44178,24 @@ class Metadata {
       const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(prop)
       metadata.addProperty(metaItem.property, metaItem.value)
     })
+    return metadata
+  }
+
+  convertToIndexedDB () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB())
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    const metadata = new Metadata()
+    data.forEach(prop => {
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(prop)
+      metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
+    })
+
+    console.info('Metadata data - ', data)
+    console.info('Metadata metadata - ', metadata)
     return metadata
   }
 }
@@ -44523,13 +44599,34 @@ class SourceText {
     return {
       textId: this.id,
       textType: this.textType,
-      text: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.converToBlob(this.text, this.sourceType),
+      text: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.convertTextToBlob(this.text, this.sourceType),
       direction: this.direction,
       lang: this.lang,
-      sourceType: this.sourceType
-      // tokenization: this.tokenization,
-      // metadata: this.metadata.convertToJSON()
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToIndexedDB()
     }
+  }
+
+  static async convertFromIndexedDB (dbData, metadataDbData) {
+    const textData = await _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.converBlobToText(dbData.text)
+
+    const metadataDbDataFiltered = metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId)
+    const metadata = metadataDbDataFiltered ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromIndexedDB(metadataDbDataFiltered) : null
+
+    const tokenization = dbData.tokenization
+
+    const textParams = {
+      text: textData,
+      direction: dbData.direction,
+      lang: dbData.lang,
+      sourceType: dbData.sourceType,
+      metadata,
+      tokenization
+    }
+
+    const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    return sourceText
   }
 }
 
@@ -45342,16 +45439,25 @@ class IndexedDBAdapter {
 
   merge (initialData, newData, mergeData) {
     if (!initialData) { return newData }
-
     for (const dataItem of newData) {
       if (initialData[mergeData.mergeBy] === dataItem[mergeData.mergeBy]) {
         if (!initialData[mergeData.uploadTo]) { initialData[mergeData.uploadTo] = [] }
         initialData[mergeData.uploadTo].push(dataItem)
       }
     }
-    console.info('merge - ', mergeData, initialData, newData)
-
     return initialData
+  }
+
+  async clear (alignmentID) {
+    if (!this.available || !alignmentID) { return }
+    try {
+
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
   }
 
   /**
@@ -45361,20 +45467,14 @@ class IndexedDBAdapter {
    */
   async select (data, typeQuery) {
     if (!this.available) { return }
-    console.info('******select start')
     try {
       let finalResult
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareSelectQuery(typeQuery, data)
       for (const query of queries) {
         const queryResult = await this._getFromStore(query)
-
-        console.info('queryResult', queryResult)
-
         finalResult = this.merge(finalResult, queryResult, query.mergeData)
-        console.info('finalResult', finalResult)
       }
 
-      console.info('******select end')
       return finalResult
     } catch (error) {
       console.error(error)
@@ -45401,6 +45501,22 @@ class IndexedDBAdapter {
       if (error) {
         this.errors.push(error)
       }
+    }
+  }
+
+  async deleteMany (data, typeQuery) {
+    if (!this.available) { return }
+    try {
+      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
+      console.info('deleteMany queries', queries)
+      for (const query of queries) {
+        const queryResult = await this._deleteFromStore(query)
+      }
+    } catch (error) {
+      if (error) {
+        this.errors.push(error)
+      }
+      return false
     }
   }
 
@@ -45477,7 +45593,6 @@ class IndexedDBAdapter {
    */
   async _putItem (db, data) {
     const idba = this
-    console.info('_putItem', data)
     const promisePut = await new Promise((resolve, reject) => {
       try {
         const transaction = db.transaction([data.objectStoreName], 'readwrite')
@@ -45554,6 +45669,59 @@ class IndexedDBAdapter {
     })
     return promiseOpenDB
   }
+
+  /**
+   * Internal method to delete an item from  a specific data store
+   * @param {Object} data data item to be retrieved  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        condition: query parameters }
+   * @return {Promise} resolves to the number of deleted items
+   */
+  async _deleteFromStore (data) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const transaction = db.transaction([data.objectStoreName], 'readwrite')
+          const objectStore = transaction.objectStore(data.objectStoreName)
+
+          const index = objectStore.index(data.condition.indexName)
+          const keyRange = this.IDBKeyRange[data.condition.type](data.condition.value)
+
+          const requestOpenCursor = index.openCursor(keyRange)
+          let deletedItems = 0
+          requestOpenCursor.onsuccess = (event) => {
+            const cursor = event.target.result
+            if (cursor) {
+              const requestDelete = cursor.delete()
+              requestDelete.onerror = (event) => {
+                idba.errors.push(event.target)
+                reject(event.target)
+              }
+              requestDelete.onsuccess = (event) => {
+                deletedItems = deletedItems + 1
+              }
+              cursor.continue()
+            } else {
+              resolve(deletedItems)
+            }
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(error)
+        }
+      }
+
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+
+    return promiseOpenDB
+  }
 }
 
 
@@ -45582,7 +45750,8 @@ class IndexedDBStructure {
   static get allObjectStoreData () {
     return {
       common: this.commonStructure,
-      docSource: this.docSourceStructure
+      docSource: this.docSourceStructure,
+      metadata: this.metadataStructure
     }
   }
 
@@ -45610,10 +45779,26 @@ class IndexedDBStructure {
           { indexName: 'ID', keyPath: 'ID', unique: true },
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
-          { indexName: 'langCode', keyPath: 'langCode', unique: false }
+          { indexName: 'textId', keyPath: 'textId', unique: false }
         ]
       },
       serialize: this.serializeDocSource.bind(this)
+    }
+  }
+
+  static get metadataStructure () {
+    return {
+      name: 'ALEditorMetadata',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextId', keyPath: 'alTextId', unique: false }
+        ]
+      },
+      serialize: this.serializeMetadata.bind(this)
     }
   }
 
@@ -45646,10 +45831,38 @@ class IndexedDBStructure {
         lang: dataItem.lang,
         sourceType: dataItem.sourceType,
         direction: dataItem.direction,
-        text: dataItem.text
+        text: dataItem.text,
+        tokenization: dataItem.tokenization
       })
     }
 
+    return finalData
+  }
+
+  static serializeMetadata (data) {
+    const finalData = []
+
+    const dataItems = Object.values(data.targets).map(target => target.docSource)
+    dataItems.unshift(data.origin.docSource)
+
+    for (const dataItem of dataItems) {
+      if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
+        for (const metadataItem of dataItem.metadata.properties) {
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.id}`
+
+          finalData.push({
+            ID: uniqueID,
+            alignmentID: data.id,
+            userID: data.userID,
+            alTextId: `${data.id}-${dataItem.textId}`,
+            textId: dataItem.textId,
+            metaId: metadataItem.id,
+            property: metadataItem.property,
+            value: metadataItem.value
+          })
+        }
+      }
+    }
     return finalData
   }
 
@@ -45710,8 +45923,47 @@ class IndexedDBStructure {
           mergeBy: 'alignmentID',
           uploadTo: 'docSource'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.metadata.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'metadata'
+        }
       }
     ]
+  }
+
+  static prepareDeleteQuery (typeQuery, indexData) {
+    const typeQueryList = {
+      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
+    }
+    return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAlignmentDataByID (alignmentID) {
+    return [{
+      objectStoreName: this.allObjectStoreData.docSource.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.metadata.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    }]
   }
 }
 
@@ -45736,7 +45988,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210520393" : 0
+    return  true ? "i353-indexeddb-support.20210521460" : 0
   }
 
   static get libName () {
@@ -46314,7 +46566,7 @@ class ConvertUtility {
     return str ? new Date(str) : null
   }
 
-  static converToBlob (text, sourceType) {
+  static convertTextToBlob (text, sourceType) {
     if (sourceType === 'text') {
       return new Blob([text], {
         type: 'text/plain'
@@ -46325,6 +46577,10 @@ class ConvertUtility {
       })
     }
     return text
+  }
+
+  static converBlobToText (textBlob) {
+    return textBlob.text()
   }
 }
 
@@ -47282,7 +47538,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     uploadAlignmentFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
-      console.info('uploadAlignmentFromDB - ', alData)
     }
   }
 });
@@ -47437,7 +47692,6 @@ __webpack_require__.r(__webpack_exports__);
     async uploadDataFromDB (alData) {
       if (alData) {
         const alignment = await this.$textC.uploadDataFromDB(alData)
-        console.info('uploadDataFromDB - alignment', alignment)
         if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
           return this.startOver(alignment)
         }
@@ -49937,12 +50191,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.value) { return }
 
-      if (this.metadataTerm.template) {
-        this.docSource.addMetadata(this.metadataTerm.property, this.value)
-      } else {
-        this.metadataTerm.saveValue(this.value)
-      }
-      this.$textC.changeMetadataTerm()
+      this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
       if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },

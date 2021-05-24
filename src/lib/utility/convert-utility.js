@@ -13,7 +13,7 @@ export default class ConvertUtility {
     return str ? new Date(str) : null
   }
 
-  static converToBlob (text, sourceType) {
+  static convertTextToBlob (text, sourceType) {
     if (sourceType === 'text') {
       return new Blob([text], {
         type: 'text/plain'
@@ -24,5 +24,9 @@ export default class ConvertUtility {
       })
     }
     return text
+  }
+
+  static converBlobToText (textBlob) {
+    return textBlob.text()
   }
 }

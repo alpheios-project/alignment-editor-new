@@ -10,7 +10,8 @@ export default class IndexedDBStructure {
   static get allObjectStoreData () {
     return {
       common: this.commonStructure,
-      docSource: this.docSourceStructure
+      docSource: this.docSourceStructure,
+      metadata: this.metadataStructure
     }
   }
 
@@ -38,10 +39,26 @@ export default class IndexedDBStructure {
           { indexName: 'ID', keyPath: 'ID', unique: true },
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
-          { indexName: 'langCode', keyPath: 'langCode', unique: false }
+          { indexName: 'textId', keyPath: 'textId', unique: false }
         ]
       },
       serialize: this.serializeDocSource.bind(this)
+    }
+  }
+
+  static get metadataStructure () {
+    return {
+      name: 'ALEditorMetadata',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextId', keyPath: 'alTextId', unique: false }
+        ]
+      },
+      serialize: this.serializeMetadata.bind(this)
     }
   }
 
@@ -74,10 +91,38 @@ export default class IndexedDBStructure {
         lang: dataItem.lang,
         sourceType: dataItem.sourceType,
         direction: dataItem.direction,
-        text: dataItem.text
+        text: dataItem.text,
+        tokenization: dataItem.tokenization
       })
     }
 
+    return finalData
+  }
+
+  static serializeMetadata (data) {
+    const finalData = []
+
+    const dataItems = Object.values(data.targets).map(target => target.docSource)
+    dataItems.unshift(data.origin.docSource)
+
+    for (const dataItem of dataItems) {
+      if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
+        for (const metadataItem of dataItem.metadata.properties) {
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.id}`
+
+          finalData.push({
+            ID: uniqueID,
+            alignmentID: data.id,
+            userID: data.userID,
+            alTextId: `${data.id}-${dataItem.textId}`,
+            textId: dataItem.textId,
+            metaId: metadataItem.id,
+            property: metadataItem.property,
+            value: metadataItem.value
+          })
+        }
+      }
+    }
     return finalData
   }
 
@@ -138,7 +183,46 @@ export default class IndexedDBStructure {
           mergeBy: 'alignmentID',
           uploadTo: 'docSource'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.metadata.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'metadata'
+        }
       }
     ]
+  }
+
+  static prepareDeleteQuery (typeQuery, indexData) {
+    const typeQueryList = {
+      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
+    }
+    return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAlignmentDataByID (alignmentID) {
+    return [{
+      objectStoreName: this.allObjectStoreData.docSource.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.metadata.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    }]
   }
 }

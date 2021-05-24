@@ -34,7 +34,6 @@ export default {
   methods: {
     uploadAlignmentFromDB (alData) {
       this.$emit('upload-data-from-db', alData)
-      console.info('uploadAlignmentFromDB - ', alData)
     }
   }
 }

@@ -16,16 +16,25 @@ export default class IndexedDBAdapter {
 
   merge (initialData, newData, mergeData) {
     if (!initialData) { return newData }
-
     for (const dataItem of newData) {
       if (initialData[mergeData.mergeBy] === dataItem[mergeData.mergeBy]) {
         if (!initialData[mergeData.uploadTo]) { initialData[mergeData.uploadTo] = [] }
         initialData[mergeData.uploadTo].push(dataItem)
       }
     }
-    console.info('merge - ', mergeData, initialData, newData)
-
     return initialData
+  }
+
+  async clear (alignmentID) {
+    if (!this.available || !alignmentID) { return }
+    try {
+
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
   }
 
   /**
@@ -35,20 +44,14 @@ export default class IndexedDBAdapter {
    */
   async select (data, typeQuery) {
     if (!this.available) { return }
-    console.info('******select start')
     try {
       let finalResult
       const queries = IndexedDBStructure.prepareSelectQuery(typeQuery, data)
       for (const query of queries) {
         const queryResult = await this._getFromStore(query)
-
-        console.info('queryResult', queryResult)
-
         finalResult = this.merge(finalResult, queryResult, query.mergeData)
-        console.info('finalResult', finalResult)
       }
 
-      console.info('******select end')
       return finalResult
     } catch (error) {
       console.error(error)
@@ -75,6 +78,22 @@ export default class IndexedDBAdapter {
       if (error) {
         this.errors.push(error)
       }
+    }
+  }
+
+  async deleteMany (data, typeQuery) {
+    if (!this.available) { return }
+    try {
+      const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
+      console.info('deleteMany queries', queries)
+      for (const query of queries) {
+        const queryResult = await this._deleteFromStore(query)
+      }
+    } catch (error) {
+      if (error) {
+        this.errors.push(error)
+      }
+      return false
     }
   }
 
@@ -151,7 +170,6 @@ export default class IndexedDBAdapter {
    */
   async _putItem (db, data) {
     const idba = this
-    console.info('_putItem', data)
     const promisePut = await new Promise((resolve, reject) => {
       try {
         const transaction = db.transaction([data.objectStoreName], 'readwrite')
@@ -226,6 +244,59 @@ export default class IndexedDBAdapter {
         reject(event.target)
       }
     })
+    return promiseOpenDB
+  }
+
+  /**
+   * Internal method to delete an item from  a specific data store
+   * @param {Object} data data item to be retrieved  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        condition: query parameters }
+   * @return {Promise} resolves to the number of deleted items
+   */
+  async _deleteFromStore (data) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const transaction = db.transaction([data.objectStoreName], 'readwrite')
+          const objectStore = transaction.objectStore(data.objectStoreName)
+
+          const index = objectStore.index(data.condition.indexName)
+          const keyRange = this.IDBKeyRange[data.condition.type](data.condition.value)
+
+          const requestOpenCursor = index.openCursor(keyRange)
+          let deletedItems = 0
+          requestOpenCursor.onsuccess = (event) => {
+            const cursor = event.target.result
+            if (cursor) {
+              const requestDelete = cursor.delete()
+              requestDelete.onerror = (event) => {
+                idba.errors.push(event.target)
+                reject(event.target)
+              }
+              requestDelete.onsuccess = (event) => {
+                deletedItems = deletedItems + 1
+              }
+              cursor.continue()
+            } else {
+              resolve(deletedItems)
+            }
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(error)
+        }
+      }
+
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+
     return promiseOpenDB
   }
 }

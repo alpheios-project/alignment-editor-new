@@ -21,7 +21,7 @@ export default class UploadController {
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
-      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: false, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
+      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
   }
 
@@ -165,7 +165,7 @@ export default class UploadController {
 
   static async indexedDBUploadSingle (alData) {
     const dbData = await StorageController.select(alData, 'alignmentByAlIDQuery')
-
-    return Alignment.convertFromIndexedDB(dbData)
+    const alignment = await Alignment.convertFromIndexedDB(dbData)
+    return alignment
   }
 }

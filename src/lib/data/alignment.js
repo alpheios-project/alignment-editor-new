@@ -20,8 +20,6 @@ export default class Alignment {
     this.id = id || uuidv4()
     this.createdDT = createdDT || new Date()
 
-    console.info('Alignment new 1 createdDT', createdDT)
-    console.info('Alignment new 1 this.createdDT', this.createdDT)
     this.updatedDT = updatedDT || new Date()
 
     this.userID = userID || Alignment.defaultUserID
@@ -38,8 +36,6 @@ export default class Alignment {
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
-
-    console.info('Alignment this', this)
   }
 
   static get defaultUserID () {
@@ -1110,6 +1106,7 @@ export default class Alignment {
     const origin = {
       docSource: this.origin.docSource.convertToIndexedDB()
     }
+
     const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
@@ -1128,7 +1125,27 @@ export default class Alignment {
     }
   }
 
-  static convertFromIndexedDB (dbData) {
-    return dbData
+  static async convertFromIndexedDB (dbData) {
+    const createdDT = ConvertUtility.convertStringToDate(dbData.createdDT)
+    const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
+    const alignment = new Alignment({
+      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
+    })
+
+    if (dbData.docSource) {
+      for (const docSourceData of dbData.docSource) {
+        const docSource = await SourceText.convertFromIndexedDB(docSourceData, dbData.metadata)
+        if (docSource.textType === 'origin') {
+          alignment.origin.docSource = docSource
+        } else {
+          alignment.targets[docSource.id] = {
+            docSource
+          }
+        }
+      }
+    }
+
+    console.info('alignment', alignment)
+    return alignment
   }
 }

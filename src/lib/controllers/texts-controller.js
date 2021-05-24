@@ -54,6 +54,7 @@ export default class TextsController {
       this.store.commit('incrementDocSourceLangDetected')
     }
 
+    StorageController.update(this.alignment)
     return { resultUpdate, resultDetect }
   }
 
@@ -81,6 +82,7 @@ export default class TextsController {
     if (resultDetect) {
       this.store.commit('incrementDocSourceLangDetected')
     }
+    StorageController.update(this.alignment)
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
@@ -114,6 +116,7 @@ export default class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment)
     }
   }
 
@@ -200,7 +203,7 @@ export default class TextsController {
     }
 
     const alignment = await UploadController.upload('indexedDBUpload', alData)
-    console.info('uploadDataFromDB alignment', alignment)
+    // console.info('uploadDataFromDB alignment', alignment)
     return alignment
   }
 
@@ -222,7 +225,7 @@ export default class TextsController {
     }
 
     const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
-    StorageController.update(alignment)
+    StorageController.update(alignment, true)
     return alignment
   }
 
@@ -435,8 +438,16 @@ export default class TextsController {
   /**
    * A simple event for any change in metadata
    */
-  changeMetadataTerm () {
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+    if (metadataTermData.template) {
+      docSource.addMetadata(metadataTermData.property, value)
+    } else {
+      metadataTermData.saveValue(value)
+    }
+
     this.store.commit('incrementDocSourceUpdated')
+    StorageController.update(this.alignment)
   }
 
   get originDocSourceDefined () {
@@ -460,7 +471,7 @@ export default class TextsController {
     const data = { userID: Alignment.defaultUserID }
 
     const result = await StorageController.select(data)
-    console.info('uploadFromDB result - ', result)
+    // console.info('uploadFromDB result - ', result)
     return result
   }
 }

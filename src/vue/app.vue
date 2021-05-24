@@ -121,7 +121,6 @@ export default {
     async uploadDataFromDB (alData) {
       if (alData) {
         const alignment = await this.$textC.uploadDataFromDB(alData)
-        console.info('uploadDataFromDB - alignment', alignment)
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
         }

@@ -207,12 +207,33 @@ export default class SourceText {
     return {
       textId: this.id,
       textType: this.textType,
-      text: ConvertUtility.converToBlob(this.text, this.sourceType),
+      text: ConvertUtility.convertTextToBlob(this.text, this.sourceType),
       direction: this.direction,
       lang: this.lang,
-      sourceType: this.sourceType
-      // tokenization: this.tokenization,
-      // metadata: this.metadata.convertToJSON()
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToIndexedDB()
     }
+  }
+
+  static async convertFromIndexedDB (dbData, metadataDbData) {
+    const textData = await ConvertUtility.converBlobToText(dbData.text)
+
+    const metadataDbDataFiltered = metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId)
+    const metadata = metadataDbDataFiltered ? Metadata.convertFromIndexedDB(metadataDbDataFiltered) : null
+
+    const tokenization = dbData.tokenization
+
+    const textParams = {
+      text: textData,
+      direction: dbData.direction,
+      lang: dbData.lang,
+      sourceType: dbData.sourceType,
+      metadata,
+      tokenization
+    }
+
+    const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    return sourceText
   }
 }

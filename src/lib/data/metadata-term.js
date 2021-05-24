@@ -1,5 +1,8 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export default class MetadataTerm {
-  constructor (property, value) {
+  constructor (property, value, metadataId) {
+    this.id = metadataId || uuidv4()
     this.property = property
     this.saveValue(value)
   }
@@ -57,6 +60,19 @@ export default class MetadataTerm {
   static convertFromJSON (data) {
     const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
     return new MetadataTerm(property, data.value)
+  }
+
+  convertToIndexedDB () {
+    return {
+      id: this.id,
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value, data.metaId)
   }
 }
 

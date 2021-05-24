@@ -17,12 +17,12 @@ export default class Metadata {
     return Boolean(this.properties[property.label])
   }
 
-  addProperty (property, value) {
+  addProperty (property, value, metaId) {
     if (!this.isSupportedProperty(property)) {
       return false
     }
     if (!this.hasProperty(property)) {
-      this.properties[property.label] = new MetadataTerm(property, value)
+      this.properties[property.label] = new MetadataTerm(property, value, metaId)
       return true
     }
     return this.getProperty(property).saveValue(value)
@@ -71,6 +71,24 @@ export default class Metadata {
       const metaItem = MetadataTerm.convertFromJSON(prop)
       metadata.addProperty(metaItem.property, metaItem.value)
     })
+    return metadata
+  }
+
+  convertToIndexedDB () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB())
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    const metadata = new Metadata()
+    data.forEach(prop => {
+      const metaItem = MetadataTerm.convertFromIndexedDB(prop)
+      metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
+    })
+
+    console.info('Metadata data - ', data)
+    console.info('Metadata metadata - ', metadata)
     return metadata
   }
 }
