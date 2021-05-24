@@ -203,7 +203,6 @@ export default class TextsController {
     }
 
     const alignment = await UploadController.upload('indexedDBUpload', alData)
-    // console.info('uploadDataFromDB alignment', alignment)
     return alignment
   }
 
@@ -471,7 +470,6 @@ export default class TextsController {
     const data = { userID: Alignment.defaultUserID }
 
     const result = await StorageController.select(data)
-    // console.info('uploadFromDB result - ', result)
     return result
   }
 }

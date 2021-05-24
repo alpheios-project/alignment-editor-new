@@ -39766,7 +39766,6 @@ class StorageController {
 
   static async update (alignment, clearFirst = false) {
     if (this.dbAdapterAvailable && alignment && alignment.origin.docSource) {
-      console.info('SC update clearFirst', clearFirst, alignment.id)
       if (clearFirst) {
         await this.deleteMany(alignment.id, 'alignmentDataByID')
       }
@@ -40017,7 +40016,6 @@ class TextsController {
     }
 
     const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload('indexedDBUpload', alData)
-    // console.info('uploadDataFromDB alignment', alignment)
     return alignment
   }
 
@@ -40285,7 +40283,6 @@ class TextsController {
     const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.defaultUserID }
 
     const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
-    // console.info('uploadFromDB result - ', result)
     return result
   }
 }
@@ -40883,7 +40880,7 @@ class UploadController {
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
       dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
-      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: false, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
+      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
   }
 
@@ -42020,6 +42017,7 @@ class AlignedText {
   }
 
   convertToJSON () {
+    console.info('convertToJSON - ', this)
     return {
       textId: this.id,
       textType: this.textType,
@@ -42039,7 +42037,7 @@ class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType,
+        sourceType: data.sourceType,
         tokenization: data.tokenization
       }
     }, data.tokenPrefix)
@@ -42059,6 +42057,37 @@ class AlignedText {
         }
       })
     }
+  }
+
+  convertToIndexedDB () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: dbData.textId,
+        textType: dbData.textType,
+        direction: dbData.direction,
+        lang: dbData.lang,
+        lansourceTypeg: dbData.sourceType,
+        tokenization: dbData.tokenization
+      }
+    }, dbData.tokenPrefix)
+    const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
+
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens))
+
+    return alignedText
   }
 }
 
@@ -42431,7 +42460,7 @@ class Alignment {
    * @returns {Boolean}
    */
   get targetDocSourceFullyDefined () {
-    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource && target.docSource.fullyDefined)
   }
 
   get originDocSourceDefined () {
@@ -43446,10 +43475,18 @@ class Alignment {
       docSource: this.origin.docSource.convertToIndexedDB()
     }
 
+    if (this.origin.alignedText) {
+      origin.alignedText = this.origin.alignedText.convertToIndexedDB()
+    }
+
     const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
         docSource: this.targets[targetId].docSource.convertToIndexedDB()
+      }
+
+      if (this.targets[targetId].alignedText) {
+        targets[targetId].alignedText = this.targets[targetId].alignedText.convertToIndexedDB()
       }
     })
 
@@ -43465,6 +43502,7 @@ class Alignment {
   }
 
   static async convertFromIndexedDB (dbData) {
+    console.info('dbData - ', dbData)
     const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.createdDT)
     const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
@@ -43477,14 +43515,23 @@ class Alignment {
         if (docSource.textType === 'origin') {
           alignment.origin.docSource = docSource
         } else {
-          alignment.targets[docSource.id] = {
-            docSource
-          }
+          alignment.targets[docSource.id] = { docSource }
         }
       }
     }
 
-    console.info('alignment', alignment)
+    if (dbData.alignedText) {
+      for (const alignedTextData of dbData.alignedText) {
+        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        if (alignedText.textType === 'origin') {
+          alignment.origin.alignedText = alignedText
+        } else {
+          alignment.targets[alignedText.id].alignedText = alignedText
+        }
+      }
+    }
+
+    console.info('alignment - ', alignment)
     return alignment
   }
 }
@@ -44194,8 +44241,6 @@ class Metadata {
       metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
     })
 
-    console.info('Metadata data - ', data)
-    console.info('Metadata metadata - ', metadata)
     return metadata
   }
 }
@@ -44214,13 +44259,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Segment)
 /* harmony export */ });
-/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
-/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+
+
 
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
+    this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.index = index
     this.textType = textType
     this.lang = lang
@@ -44234,7 +44284,7 @@ class Segment {
   }
 
   defineLangName () {
-    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_1__.default.all.find(langData => langData.value === this.lang)
+    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
@@ -44249,7 +44299,7 @@ class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
+    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
@@ -44304,7 +44354,7 @@ class Segment {
    * @returns {Boolean}
    */
   addNewToken (tokenIndex, newIdWord, word, updateLastToken = true) {
-    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default({
+    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default({
       textType: this.textType,
       idWord: newIdWord,
       word: word
@@ -44363,7 +44413,20 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(token))
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token))
+    })
+  }
+
+  static convertFromIndexedDB (data, dbTokens) {
+    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.sentenceIndex))
+
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token))
     })
   }
 }
@@ -45508,7 +45571,6 @@ class IndexedDBAdapter {
     if (!this.available) { return }
     try {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
-      console.info('deleteMany queries', queries)
       for (const query of queries) {
         const queryResult = await this._deleteFromStore(query)
       }
@@ -45751,7 +45813,10 @@ class IndexedDBStructure {
     return {
       common: this.commonStructure,
       docSource: this.docSourceStructure,
-      metadata: this.metadataStructure
+      metadata: this.metadataStructure,
+      alignedText: this.alignedTextStructure,
+      segments: this.segmentsStructure,
+      tokens: this.tokensStructure
     }
   }
 
@@ -45799,6 +45864,54 @@ class IndexedDBStructure {
         ]
       },
       serialize: this.serializeMetadata.bind(this)
+    }
+  }
+
+  static get alignedTextStructure () {
+    return {
+      name: 'ALEditorAlignedText',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'textId', keyPath: 'textId', unique: false }
+        ]
+      },
+      serialize: this.serializeAlignedText.bind(this)
+    }
+  }
+
+  static get segmentsStructure () {
+    return {
+      name: 'ALEditorSegments',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextId', keyPath: 'alTextId', unique: false }
+        ]
+      },
+      serialize: this.serializeSegments.bind(this)
+    }
+  }
+
+  static get tokensStructure () {
+    return {
+      name: 'ALEditorTokens',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+        ]
+      },
+      serialize: this.serializeTokens.bind(this)
     }
   }
 
@@ -45863,6 +45976,101 @@ class IndexedDBStructure {
         }
       }
     }
+    return finalData
+  }
+
+  static serializeAlignedText (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+
+      for (const dataItem of dataItems) {
+        const uniqueID = `${data.userID}-${data.id}-${dataItem.textType}-${dataItem.textId}`
+        finalData.push({
+          ID: uniqueID,
+          alignmentID: data.id,
+          userID: data.userID,
+          textType: dataItem.textType,
+          textId: dataItem.textId,
+          lang: dataItem.lang,
+          sourceType: dataItem.sourceType,
+          direction: dataItem.direction,
+          tokenPrefix: dataItem.tokenPrefix,
+          tokenization: dataItem.tokenization
+        })
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeSegments (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}`
+
+            finalData.push({
+              ID: uniqueID,
+              alignmentID: data.id,
+              userID: data.userID,
+              alTextId: `${data.id}-${dataItem.textId}`,
+              textId: dataItem.textId,
+
+              index: segmentItem.index,
+              textType: segmentItem.textType,
+              lang: segmentItem.lang,
+              direction: segmentItem.direction,
+              docSourceId: segmentItem.docSourceId
+            })
+          }
+        }
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeTokens (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            for (const tokenItem of segmentItem.tokens) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.id}-${tokenItem.segmentIndex}-${tokenItem.idWord}`
+
+              finalData.push({
+                ID: uniqueID,
+                alignmentID: data.id,
+                userID: data.userID,
+                alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.id}`,
+                textId: dataItem.textId,
+
+                segmentId: segmentItem.id,
+                textType: tokenItem.textType,
+                idWord: tokenItem.idWord,
+                word: tokenItem.word,
+                segmentIndex: tokenItem.segmentIndex,
+                docSourceId: segmentItem.docSourceId,
+                sentenceIndex: tokenItem.sentenceIndex
+              })
+            }
+          }
+        }
+      }
+    }
+
     return finalData
   }
 
@@ -45936,6 +46144,45 @@ class IndexedDBStructure {
           mergeBy: ['alignmentID', 'textId'],
           uploadTo: 'metadata'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.alignedText.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: 'alignmentID',
+          uploadTo: 'alignedText'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.segments.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'segments'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'tokens'
+        }
       }
     ]
   }
@@ -45963,7 +46210,32 @@ class IndexedDBStructure {
         value: alignmentID,
         type: 'only'
       }
-    }]
+    },
+    {
+      objectStoreName: this.allObjectStoreData.alignedText.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.segments.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.tokens.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    }
+    ]
   }
 }
 
@@ -45988,7 +46260,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210521460" : 0
+    return  true ? "i353-indexeddb-support.20210524560" : 0
   }
 
   static get libName () {

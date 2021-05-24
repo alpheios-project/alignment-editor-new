@@ -87,8 +87,6 @@ export default class Metadata {
       metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
     })
 
-    console.info('Metadata data - ', data)
-    console.info('Metadata metadata - ', metadata)
     return metadata
   }
 }

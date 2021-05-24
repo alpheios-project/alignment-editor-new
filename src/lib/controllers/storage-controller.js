@@ -15,7 +15,6 @@ export default class StorageController {
 
   static async update (alignment, clearFirst = false) {
     if (this.dbAdapterAvailable && alignment && alignment.origin.docSource) {
-      console.info('SC update clearFirst', clearFirst, alignment.id)
       if (clearFirst) {
         await this.deleteMany(alignment.id, 'alignmentDataByID')
       }

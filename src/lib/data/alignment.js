@@ -92,7 +92,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get targetDocSourceFullyDefined () {
-    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource && target.docSource.fullyDefined)
   }
 
   get originDocSourceDefined () {
@@ -1107,10 +1107,18 @@ export default class Alignment {
       docSource: this.origin.docSource.convertToIndexedDB()
     }
 
+    if (this.origin.alignedText) {
+      origin.alignedText = this.origin.alignedText.convertToIndexedDB()
+    }
+
     const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
         docSource: this.targets[targetId].docSource.convertToIndexedDB()
+      }
+
+      if (this.targets[targetId].alignedText) {
+        targets[targetId].alignedText = this.targets[targetId].alignedText.convertToIndexedDB()
       }
     })
 
@@ -1126,6 +1134,7 @@ export default class Alignment {
   }
 
   static async convertFromIndexedDB (dbData) {
+    console.info('dbData - ', dbData)
     const createdDT = ConvertUtility.convertStringToDate(dbData.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
@@ -1138,14 +1147,23 @@ export default class Alignment {
         if (docSource.textType === 'origin') {
           alignment.origin.docSource = docSource
         } else {
-          alignment.targets[docSource.id] = {
-            docSource
-          }
+          alignment.targets[docSource.id] = { docSource }
         }
       }
     }
 
-    console.info('alignment', alignment)
+    if (dbData.alignedText) {
+      for (const alignedTextData of dbData.alignedText) {
+        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        if (alignedText.textType === 'origin') {
+          alignment.origin.alignedText = alignedText
+        } else {
+          alignment.targets[alignedText.id].alignedText = alignedText
+        }
+      }
+    }
+
+    console.info('alignment - ', alignment)
     return alignment
   }
 }

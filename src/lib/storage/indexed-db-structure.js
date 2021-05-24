@@ -11,7 +11,10 @@ export default class IndexedDBStructure {
     return {
       common: this.commonStructure,
       docSource: this.docSourceStructure,
-      metadata: this.metadataStructure
+      metadata: this.metadataStructure,
+      alignedText: this.alignedTextStructure,
+      segments: this.segmentsStructure,
+      tokens: this.tokensStructure
     }
   }
 
@@ -59,6 +62,54 @@ export default class IndexedDBStructure {
         ]
       },
       serialize: this.serializeMetadata.bind(this)
+    }
+  }
+
+  static get alignedTextStructure () {
+    return {
+      name: 'ALEditorAlignedText',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'textId', keyPath: 'textId', unique: false }
+        ]
+      },
+      serialize: this.serializeAlignedText.bind(this)
+    }
+  }
+
+  static get segmentsStructure () {
+    return {
+      name: 'ALEditorSegments',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextId', keyPath: 'alTextId', unique: false }
+        ]
+      },
+      serialize: this.serializeSegments.bind(this)
+    }
+  }
+
+  static get tokensStructure () {
+    return {
+      name: 'ALEditorTokens',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+        ]
+      },
+      serialize: this.serializeTokens.bind(this)
     }
   }
 
@@ -123,6 +174,101 @@ export default class IndexedDBStructure {
         }
       }
     }
+    return finalData
+  }
+
+  static serializeAlignedText (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+
+      for (const dataItem of dataItems) {
+        const uniqueID = `${data.userID}-${data.id}-${dataItem.textType}-${dataItem.textId}`
+        finalData.push({
+          ID: uniqueID,
+          alignmentID: data.id,
+          userID: data.userID,
+          textType: dataItem.textType,
+          textId: dataItem.textId,
+          lang: dataItem.lang,
+          sourceType: dataItem.sourceType,
+          direction: dataItem.direction,
+          tokenPrefix: dataItem.tokenPrefix,
+          tokenization: dataItem.tokenization
+        })
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeSegments (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}`
+
+            finalData.push({
+              ID: uniqueID,
+              alignmentID: data.id,
+              userID: data.userID,
+              alTextId: `${data.id}-${dataItem.textId}`,
+              textId: dataItem.textId,
+
+              index: segmentItem.index,
+              textType: segmentItem.textType,
+              lang: segmentItem.lang,
+              direction: segmentItem.direction,
+              docSourceId: segmentItem.docSourceId
+            })
+          }
+        }
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeTokens (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            for (const tokenItem of segmentItem.tokens) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.id}-${tokenItem.segmentIndex}-${tokenItem.idWord}`
+
+              finalData.push({
+                ID: uniqueID,
+                alignmentID: data.id,
+                userID: data.userID,
+                alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.id}`,
+                textId: dataItem.textId,
+
+                segmentId: segmentItem.id,
+                textType: tokenItem.textType,
+                idWord: tokenItem.idWord,
+                word: tokenItem.word,
+                segmentIndex: tokenItem.segmentIndex,
+                docSourceId: segmentItem.docSourceId,
+                sentenceIndex: tokenItem.sentenceIndex
+              })
+            }
+          }
+        }
+      }
+    }
+
     return finalData
   }
 
@@ -196,6 +342,45 @@ export default class IndexedDBStructure {
           mergeBy: ['alignmentID', 'textId'],
           uploadTo: 'metadata'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.alignedText.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: 'alignmentID',
+          uploadTo: 'alignedText'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.segments.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'segments'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'tokens'
+        }
       }
     ]
   }
@@ -223,6 +408,31 @@ export default class IndexedDBStructure {
         value: alignmentID,
         type: 'only'
       }
-    }]
+    },
+    {
+      objectStoreName: this.allObjectStoreData.alignedText.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.segments.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.tokens.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    }
+    ]
   }
 }
