@@ -99,7 +99,6 @@ export default class AlignedText {
   }
 
   convertToJSON () {
-    console.info('convertToJSON - ', this)
     return {
       textId: this.id,
       textType: this.textType,

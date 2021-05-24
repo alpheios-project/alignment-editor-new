@@ -1,6 +1,6 @@
 export default class IndexedDBStructure {
   static get dbVersion () {
-    return 1
+    return 2
   }
 
   static get dbName () {
@@ -14,7 +14,8 @@ export default class IndexedDBStructure {
       metadata: this.metadataStructure,
       alignedText: this.alignedTextStructure,
       segments: this.segmentsStructure,
-      tokens: this.tokensStructure
+      tokens: this.tokensStructure,
+      alGroups: this.alGroupsStructure
     }
   }
 
@@ -110,6 +111,21 @@ export default class IndexedDBStructure {
         ]
       },
       serialize: this.serializeTokens.bind(this)
+    }
+  }
+
+  static get alGroupsStructure () {
+    return {
+      name: 'ALEditorAlGroups',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false }
+        ]
+      },
+      serialize: this.serializeAlGroups.bind(this)
     }
   }
 
@@ -273,6 +289,27 @@ export default class IndexedDBStructure {
     return finalData
   }
 
+  static serializeAlGroups (data) {
+    const finalData = []
+    for (const alGroupItem of data.alignmentGroups) {
+      const uniqueID = `${data.userID}-${data.id}-${alGroupItem.id}`
+
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+
+        alGroupId: alGroupItem.id,
+        segmentIndex: alGroupItem.segmentIndex,
+        targetId: alGroupItem.targetId,
+        origin: alGroupItem.origin,
+        target: alGroupItem.target
+      })
+    }
+
+    return finalData
+  }
+
   static prepareUpdateQuery (objectStoreData, data) {
     const dataItems = objectStoreData.serialize(data)
     if (dataItems && dataItems.length > 0) {
@@ -382,6 +419,19 @@ export default class IndexedDBStructure {
           mergeBy: ['alignmentID', 'textId'],
           uploadTo: 'tokens'
         }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.alGroups.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID'],
+          uploadTo: 'alignmentGroups'
+        }
       }
     ]
   }
@@ -428,6 +478,14 @@ export default class IndexedDBStructure {
     },
     {
       objectStoreName: this.allObjectStoreData.tokens.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.alGroups.name,
       condition: {
         indexName: 'alignmentID',
         value: alignmentID,

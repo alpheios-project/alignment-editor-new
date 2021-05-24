@@ -1122,6 +1122,8 @@ export default class Alignment {
       }
     })
 
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToIndexedDB())
+
     return {
       id: this.id,
       createdDT: ConvertUtility.convertDateToString(this.createdDT),
@@ -1129,7 +1131,8 @@ export default class Alignment {
       userID: this.userID,
       langsList: this.langsList,
       origin,
-      targets
+      targets,
+      alignmentGroups
     }
   }
 
@@ -1162,6 +1165,7 @@ export default class Alignment {
         }
       }
     }
+    dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
 
     console.info('alignment - ', alignment)
     return alignment

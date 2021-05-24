@@ -226,4 +226,19 @@ export default class AlignmentGroup {
 
     return alGroup
   }
+
+  convertToIndexedDB () {
+    return this.alignmentGroupActions.convertToJSON()
+  }
+
+  static convertFromIndexedDB (data) {
+    const alGroup = new AlignmentGroup(null, null, true)
+
+    alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
+  }
 }

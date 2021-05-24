@@ -130,7 +130,6 @@ export default class IndexedDBAdapter {
         } else {
           objectStore = upgradeTransaction.objectStore(objectStoreData.name)
         }
-
         objectStoreData.structure.indexes.forEach(index => {
           if (!objectStore.indexNames.contains(index.indexName)) {
             objectStore.createIndex(index.indexName, index.keyPath, { unique: index.unique })
@@ -219,8 +218,8 @@ export default class IndexedDBAdapter {
         try {
           const db = event.target.result
           const transaction = db.transaction([query.objectStoreName])
-          const objectStore = transaction.objectStore(query.objectStoreName)
 
+          const objectStore = transaction.objectStore(query.objectStoreName)
           const index = objectStore.index(query.condition.indexName)
           const keyRange = this.IDBKeyRange[query.condition.type](query.condition.value)
 

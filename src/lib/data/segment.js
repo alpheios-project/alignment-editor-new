@@ -153,9 +153,7 @@ export default class Segment {
   }
 
   static convertFromIndexedDB (data, dbTokens) {
-    console.info('Segment', data.textType, data.docSourceId, data.index, dbTokens)
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
-    console.info('tokensDbDataFiltered', tokensDbDataFiltered)
 
     return new Segment({
       index: data.index,
