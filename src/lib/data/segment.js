@@ -127,7 +127,7 @@ export default class Segment {
       lang: this.lang,
       direction: this.direction,
       docSourceId: this.docSourceId,
-      tokens: this.tokens.map(token => token.convertToJSON())
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
   }
 
@@ -153,7 +153,9 @@ export default class Segment {
   }
 
   static convertFromIndexedDB (data, dbTokens) {
-    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.sentenceIndex))
+    console.info('Segment', data.textType, data.docSourceId, data.index, dbTokens)
+    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
+    console.info('tokensDbDataFiltered', tokensDbDataFiltered)
 
     return new Segment({
       index: data.index,
@@ -161,7 +163,7 @@ export default class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => Token.convertFromJSON(token))
+      tokens: tokensDbDataFiltered.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 }

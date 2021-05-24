@@ -261,7 +261,8 @@ export default class IndexedDBStructure {
                 word: tokenItem.word,
                 segmentIndex: tokenItem.segmentIndex,
                 docSourceId: segmentItem.docSourceId,
-                sentenceIndex: tokenItem.sentenceIndex
+                sentenceIndex: tokenItem.sentenceIndex,
+                tokenIndex: tokenItem.tokenIndex
               })
             }
           }

@@ -14,7 +14,7 @@
     "test-vue": "jest tests/vue --coverage",
     "test-a": "jest tests/lib/controllers/aligned-groups-controller.test.js",
     "test-b": "jest tests/vue/text-editor/text-editor-single-block.test.js --coverage",
-    "test-c": "jest tests/lib/data/alignment.test.js --coverage",
+    "test-c": "jest tests/lib/data/segment.test.js --coverage",
     "test-d": "jest tests/_output/vue/app.test.js --coverage",
     "github-build": "node --experimental-modules --experimental-json-modules ./github-build.mjs",
     "dev": "npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"

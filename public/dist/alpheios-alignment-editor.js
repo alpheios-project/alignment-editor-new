@@ -38571,6 +38571,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -38620,6 +38622,8 @@ class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
@@ -40551,6 +40555,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -40585,6 +40591,7 @@ class TokensEditController {
 
     if (this.alignment.updateTokenWord(token, word)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40601,6 +40608,7 @@ class TokensEditController {
 
     if (this.alignment.mergeToken(token, direction)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40632,6 +40640,7 @@ class TokensEditController {
     }
 
     if (this.alignment.splitToken(token, tokenWord)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40647,6 +40656,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40662,6 +40672,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40678,6 +40689,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.moveToSegment(token, direction)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40791,6 +40803,7 @@ class TokensEditController {
   insertTokens (tokensText, textType, textId, insertType) {
     if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       return true
     }
     return false
@@ -40806,6 +40819,7 @@ class TokensEditController {
 
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40814,6 +40828,7 @@ class TokensEditController {
   undoTokensEditStep () {
     if (this.alignment.undoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40822,6 +40837,7 @@ class TokensEditController {
   redoTokensEditStep () {
     if (this.alignment.redoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -44392,7 +44408,7 @@ class Segment {
       lang: this.lang,
       direction: this.direction,
       docSourceId: this.docSourceId,
-      tokens: this.tokens.map(token => token.convertToJSON())
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
   }
 
@@ -44418,7 +44434,9 @@ class Segment {
   }
 
   static convertFromIndexedDB (data, dbTokens) {
-    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.sentenceIndex))
+    console.info('Segment', data.textType, data.docSourceId, data.index, dbTokens)
+    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
+    console.info('tokensDbDataFiltered', tokensDbDataFiltered)
 
     return new Segment({
       index: data.index,
@@ -44426,7 +44444,7 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token))
+      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 }
@@ -44711,7 +44729,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -44722,6 +44740,7 @@ class Token {
 
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
+    this.tokenIndex = tokenIndex
   }
 
   /**
@@ -44795,7 +44814,7 @@ class Token {
    *          { Number } segmentIndex
    *          { String } docSourceId
    */
-  convertToJSON () {
+  convertToJSON (tokenIndex) {
     return {
       textType: this.textType,
       idWord: this.idWord,
@@ -44805,7 +44824,8 @@ class Token {
       hasLineBreak: this.hasLineBreak,
       segmentIndex: this.segmentIndex,
       docSourceId: this.docSourceId,
-      sentenceIndex: this.sentenceIndex
+      sentenceIndex: this.sentenceIndex,
+      tokenIndex
     }
   }
 
@@ -44830,7 +44850,8 @@ class Token {
       beforeWord: data.beforeWord,
       afterWord: data.afterWord,
       hasLineBreak: data.hasLineBreak,
-      sentenceIndex: data.sentenceIndex
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex
     }, data.segmentIndex, data.docSourceId)
   }
 
@@ -46063,7 +46084,8 @@ class IndexedDBStructure {
                 word: tokenItem.word,
                 segmentIndex: tokenItem.segmentIndex,
                 docSourceId: segmentItem.docSourceId,
-                sentenceIndex: tokenItem.sentenceIndex
+                sentenceIndex: tokenItem.sentenceIndex,
+                tokenIndex: tokenItem.tokenIndex
               })
             }
           }
@@ -46260,7 +46282,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210524560" : 0
+    return  true ? "i353-indexeddb-support.20210524602" : 0
   }
 
   static get libName () {

@@ -1,5 +1,6 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class AlignedGroupsController {
   /**
@@ -47,6 +48,8 @@ export default class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    StorageController.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
