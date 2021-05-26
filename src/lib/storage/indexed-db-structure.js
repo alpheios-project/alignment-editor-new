@@ -175,7 +175,7 @@ export default class IndexedDBStructure {
     for (const dataItem of dataItems) {
       if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
         for (const metadataItem of dataItem.metadata.properties) {
-          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.id}`
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.property.replace(' ', '-')}`
 
           finalData.push({
             ID: uniqueID,
@@ -183,7 +183,6 @@ export default class IndexedDBStructure {
             userID: data.userID,
             alTextId: `${data.id}-${dataItem.textId}`,
             textId: dataItem.textId,
-            metaId: metadataItem.id,
             property: metadataItem.property,
             value: metadataItem.value
           })
@@ -262,16 +261,15 @@ export default class IndexedDBStructure {
         if (dataItem.segments && dataItem.segments.length > 0) {
           for (const segmentItem of dataItem.segments) {
             for (const tokenItem of segmentItem.tokens) {
-              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.id}-${tokenItem.segmentIndex}-${tokenItem.idWord}`
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.idWord}`
 
               finalData.push({
                 ID: uniqueID,
                 alignmentID: data.id,
                 userID: data.userID,
-                alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.id}`,
+                alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
                 textId: dataItem.textId,
 
-                segmentId: segmentItem.id,
                 textType: tokenItem.textType,
                 idWord: tokenItem.idWord,
                 word: tokenItem.word,
@@ -300,10 +298,10 @@ export default class IndexedDBStructure {
         userID: data.userID,
 
         alGroupId: alGroupItem.id,
-        segmentIndex: alGroupItem.segmentIndex,
-        targetId: alGroupItem.targetId,
-        origin: alGroupItem.origin,
-        target: alGroupItem.target
+        segmentIndex: alGroupItem.actions.segmentIndex,
+        targetId: alGroupItem.actions.targetId,
+        origin: alGroupItem.actions.origin,
+        target: alGroupItem.actions.target
       })
     }
 

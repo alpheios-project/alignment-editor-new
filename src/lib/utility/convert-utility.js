@@ -27,6 +27,6 @@ export default class ConvertUtility {
   }
 
   static converBlobToText (textBlob) {
-    return textBlob.text()
+    return textBlob instanceof Blob ? textBlob.text() : textBlob
   }
 }

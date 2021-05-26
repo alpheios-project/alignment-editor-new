@@ -203,11 +203,11 @@ export default class SourceText {
     }
   }
 
-  convertToIndexedDB () {
+  convertToIndexedDB (textAsBlob = true) {
     return {
       textId: this.id,
       textType: this.textType,
-      text: ConvertUtility.convertTextToBlob(this.text, this.sourceType),
+      text: textAsBlob ? ConvertUtility.convertTextToBlob(this.text, this.sourceType) : this.text,
       direction: this.direction,
       lang: this.lang,
       sourceType: this.sourceType,

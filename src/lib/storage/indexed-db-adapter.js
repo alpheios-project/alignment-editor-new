@@ -25,18 +25,6 @@ export default class IndexedDBAdapter {
     return initialData
   }
 
-  async clear (alignmentID) {
-    if (!this.available || !alignmentID) { return }
-    try {
-
-    } catch (error) {
-      console.error(error)
-      if (error) {
-        this.errors.push(error)
-      }
-    }
-  }
-
   /**
    * Query for a set of data items
    * @param {Object} params datatype specific query parameters
@@ -179,6 +167,7 @@ export default class IndexedDBAdapter {
         let objectsDone = data.dataItems.length
         for (const dataItem of data.dataItems) {
           const requestPut = objectStore.put(dataItem)
+
           requestPut.onsuccess = () => {
             objectsDone = objectsDone - 1
             if (objectsDone === 0) {
@@ -296,5 +285,52 @@ export default class IndexedDBAdapter {
     })
 
     return promiseOpenDB
+  }
+
+  /**
+   * Clear all the object stores
+   * Used primarily for testing right now
+   * TODO needs to be enhanced to support async removal of old database versions
+   */
+   async clear () {
+    let idba = this
+
+    let promiseDB = await new Promise((resolve, reject) => {
+      let request = idba.indexedDB.open(IndexedDBStructure.dbName, IndexedDBStructure.dbVersion)
+      request.onsuccess = (event) => {
+        try {
+          let db = event.target.result
+          let objectStores = Object.values(IndexedDBStructure.allObjectStoreData)
+          let objectStoresRemaining = objectStores.length
+
+          for (let store of objectStores) {
+            // open a read/write db transaction, ready for clearing the data
+            let transaction = db.transaction([store.name], 'readwrite')
+            // create an object store on the transaction
+            let objectStore = transaction.objectStore(store.name)
+            // Make a request to clear all the data out of the object store
+            let objectStoreRequest = objectStore.clear()
+            objectStoreRequest.onsuccess = function(event) {
+              objectStoresRemaining = objectStoresRemaining - 1
+              if (objectStoresRemaining === 0) {
+                resolve(true)
+              }
+            }
+            objectStoreRequest.onerror = function(event) {
+              idba.errors.push(event.target)
+              reject(event.target)
+            }
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(error)
+        }
+      }
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+    return promiseDB
   }
 }

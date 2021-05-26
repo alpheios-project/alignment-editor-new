@@ -1102,9 +1102,9 @@ export default class Alignment {
     return alignment
   }
 
-  convertToIndexedDB () {
+  convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {
-      docSource: this.origin.docSource.convertToIndexedDB()
+      docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
     }
 
     if (this.origin.alignedText) {
@@ -1114,7 +1114,7 @@ export default class Alignment {
     const targets = {}
     this.allTargetTextsIds.forEach(targetId => {
       targets[targetId] = {
-        docSource: this.targets[targetId].docSource.convertToIndexedDB()
+        docSource: this.targets[targetId].docSource.convertToIndexedDB(textAsBlob)
       }
 
       if (this.targets[targetId].alignedText) {
@@ -1122,7 +1122,7 @@ export default class Alignment {
       }
     })
 
-    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToIndexedDB())
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
 
     return {
       id: this.id,
@@ -1137,7 +1137,6 @@ export default class Alignment {
   }
 
   static async convertFromIndexedDB (dbData) {
-    console.info('dbData - ', dbData)
     const createdDT = ConvertUtility.convertStringToDate(dbData.createdDT)
     const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
     const alignment = new Alignment({
@@ -1165,9 +1164,7 @@ export default class Alignment {
         }
       }
     }
-    dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
-
-    console.info('alignment - ', alignment)
+    dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
     return alignment
   }
 }

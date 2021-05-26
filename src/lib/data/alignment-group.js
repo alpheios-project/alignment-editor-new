@@ -9,8 +9,8 @@ export default class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId, empty = false) {
-    this.id = uuidv4()
+  constructor (token, targetId, empty = false, id = null) {
+    this.id = id || uuidv4()
     this.alignmentGroupHistory = new AlignmentGroupHistory()
 
     if (!empty) {
@@ -212,12 +212,13 @@ export default class AlignmentGroup {
 
   convertToJSON () {
     return {
+      id: this.id,
       actions: this.alignmentGroupActions.convertToJSON()
     }
   }
 
   static convertFromJSON (data) {
-    const alGroup = new AlignmentGroup(null, null, true)
+    const alGroup = new AlignmentGroup(null, null, true, data.id)
 
     alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data.actions)
     alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
@@ -226,9 +227,12 @@ export default class AlignmentGroup {
 
     return alGroup
   }
-
+/*
   convertToIndexedDB () {
-    return this.alignmentGroupActions.convertToJSON()
+    return {
+      id: this.id,
+      actions: this.alignmentGroupActions.convertToJSON(this.id)
+    }
   }
 
   static convertFromIndexedDB (data) {
@@ -241,4 +245,5 @@ export default class AlignmentGroup {
 
     return alGroup
   }
+  */
 }
