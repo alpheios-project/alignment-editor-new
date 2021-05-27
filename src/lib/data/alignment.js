@@ -1171,7 +1171,7 @@ export default class Alignment {
       }
     }
     if (dbData.alignmentGroups) {
-      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
     }
     return alignment
   }

@@ -223,7 +223,7 @@ export default class SourceText {
   static async convertFromIndexedDB (dbData, metadataDbData) {
     const textData = await ConvertUtility.converBlobToText(dbData.text)
 
-    const metadataDbDataFiltered = metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId)
+    const metadataDbDataFiltered = metadataDbData ? metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId) : null
     const metadata = metadataDbDataFiltered ? Metadata.convertFromIndexedDB(metadataDbDataFiltered) : null
 
     const tokenization = dbData.tokenization

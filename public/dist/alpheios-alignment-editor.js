@@ -42353,25 +42353,17 @@ class AlignmentGroup {
 
     return alGroup
   }
-/*
-  convertToIndexedDB () {
-    return {
-      id: this.id,
-      actions: this.alignmentGroupActions.convertToJSON(this.id)
-    }
-  }
 
   static convertFromIndexedDB (data) {
-    const alGroup = new AlignmentGroup(null, null, true)
+    const alGroup = new AlignmentGroup(null, null, true, data.alGroupId)
 
-    alGroup.alignmentGroupActions = AlignmentGroupActions.convertFromJSON(data)
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data)
     alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
 
     alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
 
     return alGroup
   }
-  */
 }
 
 
@@ -43573,7 +43565,7 @@ class Alignment {
       }
     }
     if (dbData.alignmentGroups) {
-      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(alGroup)))
     }
     return alignment
   }
@@ -44760,7 +44752,7 @@ class SourceText {
   static async convertFromIndexedDB (dbData, metadataDbData) {
     const textData = await _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.converBlobToText(dbData.text)
 
-    const metadataDbDataFiltered = metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId)
+    const metadataDbDataFiltered = metadataDbData ? metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId) : null
     const metadata = metadataDbDataFiltered ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromIndexedDB(metadataDbDataFiltered) : null
 
     const tokenization = dbData.tokenization
@@ -46444,7 +46436,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210527652" : 0
+    return  true ? "i353-indexeddb-support.20210527661" : 0
   }
 
   static get libName () {
