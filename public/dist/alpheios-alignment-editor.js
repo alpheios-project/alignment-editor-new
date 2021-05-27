@@ -39374,6 +39374,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ HistoryController)
 /* harmony export */ });
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
+
 class HistoryController {
   constructor (store) {
     this.store = store
@@ -39435,6 +39438,7 @@ class HistoryController {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
     if (result) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1
       return result
@@ -39457,6 +39461,7 @@ class HistoryController {
       result = this.alignment.redoActiveGroup()
     }
     if (result) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps - 1
       return result
@@ -46464,7 +46469,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210527671" : 0
+    return  true ? "i353-indexeddb-support.20210527676" : 0
   }
 
   static get libName () {
@@ -51147,7 +51152,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async updateTextFromTextBlock () {
-      console.info('updateTextFromTextBlock - started', this.text)
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       if (!docSource && (this.text.length === 0)) { return }
 
@@ -51171,7 +51175,6 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     async updateText () {
-      console.info('updateText - started', this.text)
       if (this.text) {
         const params = {
           text: this.text,
@@ -51207,7 +51210,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async deleteText () {
-      console.info('deleteText - started', this.text)
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()

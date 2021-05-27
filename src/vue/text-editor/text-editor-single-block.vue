@@ -362,7 +362,6 @@ export default {
     },
 
     async updateTextFromTextBlock () {
-      console.info('updateTextFromTextBlock - started', this.text)
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       if (!docSource && (this.text.length === 0)) { return }
 
@@ -386,7 +385,6 @@ export default {
      * Emits update-text event with data from properties
      */
     async updateText () {
-      console.info('updateText - started', this.text)
       if (this.text) {
         const params = {
           text: this.text,
@@ -422,7 +420,6 @@ export default {
     },
 
     async deleteText () {
-      console.info('deleteText - started', this.text)
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
