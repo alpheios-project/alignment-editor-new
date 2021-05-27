@@ -94,8 +94,6 @@ export default {
       if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
       if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
 
-      // if (!this.value) { return }
-
       this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
       if (this.metadataTerm.property.multivalued) { this.clearValue() }

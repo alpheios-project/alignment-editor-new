@@ -520,6 +520,7 @@ export default class Alignment {
         type: NotificationSingleton.types.INFO
       })
       */
+      this.setUpdated()
       return true
     }
     return false
@@ -641,6 +642,7 @@ export default class Alignment {
       this.activeAlignmentGroup = tokensGroup
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
+      this.setUpdated()
       return true
     }
     return false
@@ -660,6 +662,7 @@ export default class Alignment {
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
+      this.setUpdated()
       return true
     }
     return false
@@ -692,6 +695,7 @@ export default class Alignment {
    */
   insertUnmergedGroup (data) {
     this.alignmentGroups.splice(data.indexDeleted, 0, data.tokensGroup)
+    this.setUpdated()
   }
 
   /**
@@ -844,7 +848,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   updateTokenWord (token, word) {
-    return this.tokensEditActions.updateTokenWord(token, word)
+    const result = this.tokensEditActions.updateTokenWord(token, word)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -863,7 +869,9 @@ export default class Alignment {
       return false
     }
 
-    return this.tokensEditActions.mergeToken(token, direction)
+    const result = this.tokensEditActions.mergeToken(token, direction)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -872,7 +880,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    return this.tokensEditActions.splitToken(token, tokenWord)
+    const result = this.tokensEditActions.splitToken(token, tokenWord)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -881,7 +891,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   addLineBreakAfterToken (token) {
-    return this.tokensEditActions.changeLineBreak(token, true)
+    const result = this.tokensEditActions.changeLineBreak(token, true)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -890,7 +902,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   removeLineBreakAfterToken (token) {
-    return this.tokensEditActions.changeLineBreak(token, false)
+    const result = this.tokensEditActions.changeLineBreak(token, false)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -900,7 +914,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
-    return this.tokensEditActions.moveToSegment(token, direction)
+    const result = this.tokensEditActions.moveToSegment(token, direction)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -911,7 +927,9 @@ export default class Alignment {
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
   insertTokens (tokensText, textType, textId, insertType) {
-    return this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -920,7 +938,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   deleteToken (token) {
-    return this.tokensEditActions.deleteToken(token)
+    const result = this.tokensEditActions.deleteToken(token)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -1180,7 +1200,9 @@ export default class Alignment {
     const docSource = this.getDocSource(textType, textId)
 
     if (docSource) {
-      return docSource.addMetadata(metadataTermData.property, value)
+      const result = docSource.addMetadata(metadataTermData.property, value)
+      this.setUpdated()
+      return result
     }
     return false
   }
@@ -1188,7 +1210,9 @@ export default class Alignment {
   deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
     const docSource = this.getDocSource(textType, textId)
     if (docSource) {
-      return docSource.deleteValueByIndex(metadataTerm, termValIndex)
+      const result = docSource.deleteValueByIndex(metadataTerm, termValIndex)
+      this.setUpdated()
+      return result
     }
     return false
   }
