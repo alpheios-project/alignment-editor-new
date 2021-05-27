@@ -19,8 +19,6 @@ export default class TextsController {
    */
   createAlignment () {
     this.alignment = new Alignment()
-
-    StorageController.update(this.alignment)
     return this.alignment
   }
 

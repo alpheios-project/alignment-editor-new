@@ -13,13 +13,13 @@ export default class StorageController {
     return dbAdapter && dbAdapter.available
   }
 
-  static async update (alignment, clearFirst = false) {
+  static async update (alignment, clearFirst = false, textAsBlob = false) {
     if (this.dbAdapterAvailable && alignment && alignment.origin.docSource) {
       if (clearFirst) {
         await this.deleteMany(alignment.id, 'alignmentDataByID')
       }
 
-      const result = await dbAdapter.update(alignment.convertToIndexedDB())
+      const result = await dbAdapter.update(alignment.convertToIndexedDB({ textAsBlob }))
       return result
     }
   }

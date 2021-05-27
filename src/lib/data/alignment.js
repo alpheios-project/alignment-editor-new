@@ -43,7 +43,8 @@ export default class Alignment {
   }
 
   get langsList () {
-    if (!this.origin.docSource || Object.values(this.targets).length === 0) { return '' }
+    let strResult
+    if (!this.origin.docSource) { return '' } 
 
     let langs = [] // eslint-disable-line prefer-const
 
@@ -51,7 +52,12 @@ export default class Alignment {
       langs.push(target.docSource.lang)
     })
 
-    return `${this.origin.docSource.lang}-${langs.join('-')}`
+    if (langs.length > 0) { 
+      strResult = `${this.origin.docSource.lang}-${langs.join('-')}`
+    } else {
+      strResult = this.origin.docSource.lang
+    }
+    return strResult
   }
 
   setUpdated () {

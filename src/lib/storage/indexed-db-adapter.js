@@ -31,7 +31,7 @@ export default class IndexedDBAdapter {
    * @return Object[] array of data model items
    */
   async select (data, typeQuery) {
-    if (!this.available) { return }
+    if (!this.available) { return false}
     try {
       let finalResult
       const queries = IndexedDBStructure.prepareSelectQuery(typeQuery, data)
@@ -50,7 +50,8 @@ export default class IndexedDBAdapter {
   }
 
   async update (data) {
-    if (!this.available) { return }
+    // console.info('DBAdapter data', data)
+    if (!this.available) { return false}
     try {
       let result
       for (const objectStoreData of Object.values(IndexedDBStructure.allObjectStoreData)) {
@@ -59,7 +60,6 @@ export default class IndexedDBAdapter {
           result = await this._set(query)
         }
       }
-
       return result
     } catch (error) {
       console.error(error)
@@ -70,7 +70,7 @@ export default class IndexedDBAdapter {
   }
 
   async deleteMany (data, typeQuery) {
-    if (!this.available) { return }
+    if (!this.available) { return false}
     try {
       const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
