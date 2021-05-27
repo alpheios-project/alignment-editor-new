@@ -39756,13 +39756,13 @@ class StorageController {
     return dbAdapter && dbAdapter.available
   }
 
-  static async update (alignment, clearFirst = false) {
+  static async update (alignment, clearFirst = false, textAsBlob = false) {
     if (this.dbAdapterAvailable && alignment && alignment.origin.docSource) {
       if (clearFirst) {
         await this.deleteMany(alignment.id, 'alignmentDataByID')
       }
 
-      const result = await dbAdapter.update(alignment.convertToIndexedDB())
+      const result = await dbAdapter.update(alignment.convertToIndexedDB({ textAsBlob }))
       return result
     }
   }
@@ -39777,6 +39777,13 @@ class StorageController {
   static async deleteMany (alignmentID, typeQuery) {
     if (this.dbAdapterAvailable) {
       const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
+      return result
+    }
+  }
+
+  static async clear () {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.clear()
       return result
     }
   }
@@ -39824,8 +39831,6 @@ class TextsController {
    */
   createAlignment () {
     this.alignment = new _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default()
-
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     return this.alignment
   }
 
@@ -39921,7 +39926,7 @@ class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
     }
   }
 
@@ -40243,15 +40248,20 @@ class TextsController {
    * A simple event for any change in metadata
    */
   changeMetadataTerm (metadataTermData, value, textType, textId) {
-    const docSource = this.getDocSource(textType, textId)
-    if (metadataTermData.template) {
-      docSource.addMetadata(metadataTermData.property, value)
-    } else {
-      metadataTermData.saveValue(value)
+    const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
     }
+  }
 
-    this.store.commit('incrementDocSourceUpdated')
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const result = this.alignment.deleteValueByIndex(metadataTerm, termValIndex, textType, textId)
+
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    }
   }
 
   get originDocSourceDefined () {
@@ -40259,8 +40269,7 @@ class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    return Boolean(sourceText && sourceText.detectedLang)
+    return this.alignment.checkDetectedProps(textType, docSourceId)
   }
 
   get originalLangData () {
@@ -40579,7 +40588,7 @@ class TokensEditController {
 
     if (this.alignment.updateTokenWord(token, word)) {
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40644,7 +40653,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40660,7 +40669,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40791,7 +40800,7 @@ class TokensEditController {
   insertTokens (tokensText, textType, textId, insertType) {
     if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
       this.store.commit('incrementTokenUpdated')
-      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -42436,7 +42445,8 @@ class Alignment {
   }
 
   get langsList () {
-    if (!this.origin.docSource || Object.values(this.targets).length === 0) { return '' }
+    let strResult
+    if (!this.origin.docSource) { return '' }
 
     let langs = [] // eslint-disable-line prefer-const
 
@@ -42444,7 +42454,12 @@ class Alignment {
       langs.push(target.docSource.lang)
     })
 
-    return `${this.origin.docSource.lang}-${langs.join('-')}`
+    if (langs.length > 0) {
+      strResult = `${this.origin.docSource.lang}-${langs.join('-')}`
+    } else {
+      strResult = this.origin.docSource.lang
+    }
+    return strResult
   }
 
   setUpdated () {
@@ -43497,11 +43512,11 @@ class Alignment {
 
   convertToIndexedDB ({ textAsBlob } = {}) {
     const origin = {
-      docSource: this.origin.docSource.convertToIndexedDB()
+      docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
     }
 
     if (this.origin.alignedText) {
-      origin.alignedText = this.origin.alignedText.convertToIndexedDB(textAsBlob)
+      origin.alignedText = this.origin.alignedText.convertToIndexedDB()
     }
 
     const targets = {}
@@ -43557,8 +43572,32 @@ class Alignment {
         }
       }
     }
-    dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+    if (dbData.alignmentGroups) {
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(alGroup)))
+    }
     return alignment
+  }
+
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+
+    if (docSource) {
+      return docSource.addMetadata(metadataTermData.property, value)
+    }
+    return false
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+    if (docSource) {
+      return docSource.deleteValueByIndex(metadataTerm, termValIndex)
+    }
+    return false
+  }
+
+  checkDetectedProps (textType, docSourceId) {
+    const sourceText = this.getDocSource(textType, docSourceId)
+    return Boolean(sourceText && sourceText.detectedLang)
   }
 }
 
@@ -44201,11 +44240,28 @@ class Metadata {
     if (!this.isSupportedProperty(property)) {
       return false
     }
-    if (!this.hasProperty(property)) {
+
+    if (!this.hasProperty(property) && value) {
       this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value, metaId)
       return true
+    } else if (this.hasProperty(property)) {
+      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
+      return true
     }
-    return this.getProperty(property).saveValue(value)
+    return false
+  }
+
+  deleteValueByIndex (metadataItem, termValIndex) {
+    if (!this.isSupportedProperty(metadataItem.property)) {
+      return false
+    }
+
+    metadataItem.deleteValueByIndex(termValIndex)
+
+    if (metadataItem.getValue().length === 0) {
+      delete this.properties[metadataItem.property.label]
+    }
+    return true
   }
 
   getProperty (property) {
@@ -44572,6 +44628,10 @@ class SourceText {
 
   addMetadata (property, value) {
     return this.metadata.addProperty(property, value)
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex) {
+    return this.metadata.deleteValueByIndex(metadataTerm, termValIndex)
   }
 
   getMetadataValue (property) {
@@ -45546,7 +45606,7 @@ class IndexedDBAdapter {
    * @return Object[] array of data model items
    */
   async select (data, typeQuery) {
-    if (!this.available) { return }
+    if (!this.available) { return false }
     try {
       let finalResult
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareSelectQuery(typeQuery, data)
@@ -45565,7 +45625,7 @@ class IndexedDBAdapter {
   }
 
   async update (data) {
-    if (!this.available) { return }
+    if (!this.available) { return false }
     try {
       let result
       for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
@@ -45574,7 +45634,6 @@ class IndexedDBAdapter {
           result = await this._set(query)
         }
       }
-
       return result
     } catch (error) {
       console.error(error)
@@ -45585,7 +45644,7 @@ class IndexedDBAdapter {
   }
 
   async deleteMany (data, typeQuery) {
-    if (!this.available) { return }
+    if (!this.available) { return false }
     try {
       const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
@@ -45645,15 +45704,11 @@ class IndexedDBAdapter {
   }
 
   async _set (query) {
-    console.info('_set', query)
     const idba = this
     const promiseOpenDB = await new Promise((resolve, reject) => {
       const request = this._openDatabaseRequest()
       request.onsuccess = async (event) => {
         const db = event.target.result
-
-        console.info('_set onsuccess db', db)
-        console.info('_set onsuccess query', query)
         const rv = await this._putItem(db, query)
         resolve(rv)
       }
@@ -45678,7 +45733,6 @@ class IndexedDBAdapter {
     const promisePut = await new Promise((resolve, reject) => {
       try {
         const transaction = db.transaction([data.objectStoreName], 'readwrite')
-        console.info('_putItem transaction', data.objectStoreName, transaction)
         transaction.onerror = (event) => {
           idba.errors.push(event.target)
           reject(event.target)
@@ -45688,7 +45742,6 @@ class IndexedDBAdapter {
         for (const dataItem of data.dataItems) {
           const requestPut = objectStore.put(dataItem)
 
-          console.info('_putItem requestPut', requestPut)
           requestPut.onsuccess = () => {
             objectsDone = objectsDone - 1
             if (objectsDone === 0) {
@@ -45806,6 +45859,53 @@ class IndexedDBAdapter {
     })
 
     return promiseOpenDB
+  }
+
+  /**
+   * Clear all the object stores
+   * Used primarily for testing right now
+   * TODO needs to be enhanced to support async removal of old database versions
+   */
+  async clear () {
+    const idba = this
+
+    const promiseDB = await new Promise((resolve, reject) => {
+      const request = idba.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbVersion)
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const objectStores = Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)
+          let objectStoresRemaining = objectStores.length
+
+          for (const store of objectStores) {
+            // open a read/write db transaction, ready for clearing the data
+            const transaction = db.transaction([store.name], 'readwrite')
+            // create an object store on the transaction
+            const objectStore = transaction.objectStore(store.name)
+            // Make a request to clear all the data out of the object store
+            const objectStoreRequest = objectStore.clear()
+            objectStoreRequest.onsuccess = function (event) {
+              objectStoresRemaining = objectStoresRemaining - 1
+              if (objectStoresRemaining === 0) {
+                resolve(true)
+              }
+            }
+            objectStoreRequest.onerror = function (event) {
+              idba.errors.push(event.target)
+              reject(event.target)
+            }
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(error)
+        }
+      }
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+    return promiseDB
   }
 }
 
@@ -46000,7 +46100,7 @@ class IndexedDBStructure {
     for (const dataItem of dataItems) {
       if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
         for (const metadataItem of dataItem.metadata.properties) {
-          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.id}`
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.property.replace(' ', '-')}`
 
           finalData.push({
             ID: uniqueID,
@@ -46008,7 +46108,6 @@ class IndexedDBStructure {
             userID: data.userID,
             alTextId: `${data.id}-${dataItem.textId}`,
             textId: dataItem.textId,
-            metaId: metadataItem.id,
             property: metadataItem.property,
             value: metadataItem.value
           })
@@ -46102,7 +46201,11 @@ class IndexedDBStructure {
                 segmentIndex: tokenItem.segmentIndex,
                 docSourceId: segmentItem.docSourceId,
                 sentenceIndex: tokenItem.sentenceIndex,
-                tokenIndex: tokenItem.tokenIndex
+                tokenIndex: tokenItem.tokenIndex,
+
+                beforeWord: tokenItem.beforeWord,
+                afterWord: tokenItem.afterWord,
+                hasLineBreak: tokenItem.hasLineBreak
               })
             }
           }
@@ -46341,7 +46444,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210526366" : 0
+    return  true ? "i353-indexeddb-support.20210527652" : 0
   }
 
   static get libName () {
@@ -50542,7 +50645,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
       if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
 
-      if (!this.value) { return }
+      // if (!this.value) { return }
 
       this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
@@ -50550,7 +50653,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
-      this.metadataTerm.deleteValueByIndex(termValIndex)
+      this.deleteValueByIndex(termValIndex)
+      this.$textC.deleteValueByIndex(this.metadataTerm, termValIndex, this.textType, this.textId)
+    },
+    deleteValueByIndex (termValIndex) {
+      this.metadataTerm.value.splice(termValIndex, 1)
     },
     clearValue () {
       this.value = null
@@ -64187,7 +64294,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.3","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/aligned-groups-controller.test.js","test-b":"jest tests/vue/text-editor/text-editor-single-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/storage-controller.test.js","test-b":"jest tests/vue/text-editor/text-editor-single-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

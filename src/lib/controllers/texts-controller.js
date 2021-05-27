@@ -114,7 +114,7 @@ export default class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
-      StorageController.update(this.alignment)
+      StorageController.update(this.alignment, true)
     }
   }
 
@@ -436,15 +436,20 @@ export default class TextsController {
    * A simple event for any change in metadata
    */
   changeMetadataTerm (metadataTermData, value, textType, textId) {
-    const docSource = this.getDocSource(textType, textId)
-    if (metadataTermData.template) {
-      docSource.addMetadata(metadataTermData.property, value)
-    } else {
-      metadataTermData.saveValue(value)
+    const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
     }
+  }
 
-    this.store.commit('incrementDocSourceUpdated')
-    StorageController.update(this.alignment)
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const result = this.alignment.deleteValueByIndex(metadataTerm, termValIndex, textType, textId)
+
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
+    }
   }
 
   get originDocSourceDefined () {
@@ -452,8 +457,7 @@ export default class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    return Boolean(sourceText && sourceText.detectedLang)
+    return this.alignment.checkDetectedProps(textType, docSourceId)
   }
 
   get originalLangData () {

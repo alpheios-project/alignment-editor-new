@@ -37,4 +37,11 @@ export default class StorageController {
       return result
     }
   }
+
+  static async clear () {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.clear()
+      return result
+    }
+  }
 }

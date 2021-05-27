@@ -44,7 +44,7 @@ export default class Alignment {
 
   get langsList () {
     let strResult
-    if (!this.origin.docSource) { return '' } 
+    if (!this.origin.docSource) { return '' }
 
     let langs = [] // eslint-disable-line prefer-const
 
@@ -52,7 +52,7 @@ export default class Alignment {
       langs.push(target.docSource.lang)
     })
 
-    if (langs.length > 0) { 
+    if (langs.length > 0) {
       strResult = `${this.origin.docSource.lang}-${langs.join('-')}`
     } else {
       strResult = this.origin.docSource.lang
@@ -1170,7 +1170,31 @@ export default class Alignment {
         }
       }
     }
-    dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+    if (dbData.alignmentGroups) {
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromJSON(alGroup)))
+    }
     return alignment
+  }
+
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+
+    if (docSource) {
+      return docSource.addMetadata(metadataTermData.property, value)
+    }
+    return false
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+    if (docSource) {
+      return docSource.deleteValueByIndex(metadataTerm, termValIndex)
+    }
+    return false
+  }
+
+  checkDetectedProps (textType, docSourceId) {
+    const sourceText = this.getDocSource(textType, docSourceId)
+    return Boolean(sourceText && sourceText.detectedLang)
   }
 }

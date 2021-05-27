@@ -33,7 +33,7 @@ export default class TokensEditController {
 
     if (this.alignment.updateTokenWord(token, word)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment)
+      StorageController.update(this.alignment, true)
       return true
     }
     return false
@@ -98,7 +98,7 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
-      StorageController.update(this.alignment)
+      StorageController.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -114,7 +114,7 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
-      StorageController.update(this.alignment)
+      StorageController.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -245,7 +245,7 @@ export default class TokensEditController {
   insertTokens (tokensText, textType, textId, insertType) {
     if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment)
+      StorageController.update(this.alignment, true)
       return true
     }
     return false

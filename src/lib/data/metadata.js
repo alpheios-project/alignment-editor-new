@@ -21,11 +21,28 @@ export default class Metadata {
     if (!this.isSupportedProperty(property)) {
       return false
     }
-    if (!this.hasProperty(property)) {
+
+    if (!this.hasProperty(property) && value) {
       this.properties[property.label] = new MetadataTerm(property, value, metaId)
       return true
+    } else if (this.hasProperty(property)) {
+      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
+      return true
     }
-    return this.getProperty(property).saveValue(value)
+    return false
+  }
+
+  deleteValueByIndex (metadataItem, termValIndex) {
+    if (!this.isSupportedProperty(metadataItem.property)) {
+      return false
+    }
+
+    metadataItem.deleteValueByIndex(termValIndex)
+
+    if (metadataItem.getValue().length === 0) {
+      delete this.properties[metadataItem.property.label]
+    }
+    return true
   }
 
   getProperty (property) {

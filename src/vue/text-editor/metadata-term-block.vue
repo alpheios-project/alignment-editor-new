@@ -94,7 +94,7 @@ export default {
       if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
       if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
 
-      if (!this.value) { return }
+      // if (!this.value) { return }
 
       this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
@@ -102,7 +102,11 @@ export default {
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
-      this.metadataTerm.deleteValueByIndex(termValIndex)
+      this.deleteValueByIndex(termValIndex)
+      this.$textC.deleteValueByIndex(this.metadataTerm, termValIndex, this.textType, this.textId)
+    },
+    deleteValueByIndex (termValIndex) {
+      this.metadataTerm.value.splice(termValIndex, 1)
     },
     clearValue () {
       this.value = null

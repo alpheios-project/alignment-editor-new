@@ -31,7 +31,7 @@ export default class IndexedDBAdapter {
    * @return Object[] array of data model items
    */
   async select (data, typeQuery) {
-    if (!this.available) { return false}
+    if (!this.available) { return false }
     try {
       let finalResult
       const queries = IndexedDBStructure.prepareSelectQuery(typeQuery, data)
@@ -50,8 +50,7 @@ export default class IndexedDBAdapter {
   }
 
   async update (data) {
-    // console.info('DBAdapter data', data)
-    if (!this.available) { return false}
+    if (!this.available) { return false }
     try {
       let result
       for (const objectStoreData of Object.values(IndexedDBStructure.allObjectStoreData)) {
@@ -70,7 +69,7 @@ export default class IndexedDBAdapter {
   }
 
   async deleteMany (data, typeQuery) {
-    if (!this.available) { return false}
+    if (!this.available) { return false }
     try {
       const queries = IndexedDBStructure.prepareDeleteQuery(typeQuery, data)
       for (const query of queries) {
@@ -292,31 +291,31 @@ export default class IndexedDBAdapter {
    * Used primarily for testing right now
    * TODO needs to be enhanced to support async removal of old database versions
    */
-   async clear () {
-    let idba = this
+  async clear () {
+    const idba = this
 
-    let promiseDB = await new Promise((resolve, reject) => {
-      let request = idba.indexedDB.open(IndexedDBStructure.dbName, IndexedDBStructure.dbVersion)
+    const promiseDB = await new Promise((resolve, reject) => {
+      const request = idba.indexedDB.open(IndexedDBStructure.dbName, IndexedDBStructure.dbVersion)
       request.onsuccess = (event) => {
         try {
-          let db = event.target.result
-          let objectStores = Object.values(IndexedDBStructure.allObjectStoreData)
+          const db = event.target.result
+          const objectStores = Object.values(IndexedDBStructure.allObjectStoreData)
           let objectStoresRemaining = objectStores.length
 
-          for (let store of objectStores) {
+          for (const store of objectStores) {
             // open a read/write db transaction, ready for clearing the data
-            let transaction = db.transaction([store.name], 'readwrite')
+            const transaction = db.transaction([store.name], 'readwrite')
             // create an object store on the transaction
-            let objectStore = transaction.objectStore(store.name)
+            const objectStore = transaction.objectStore(store.name)
             // Make a request to clear all the data out of the object store
-            let objectStoreRequest = objectStore.clear()
-            objectStoreRequest.onsuccess = function(event) {
+            const objectStoreRequest = objectStore.clear()
+            objectStoreRequest.onsuccess = function (event) {
               objectStoresRemaining = objectStoresRemaining - 1
               if (objectStoresRemaining === 0) {
                 resolve(true)
               }
             }
-            objectStoreRequest.onerror = function(event) {
+            objectStoreRequest.onerror = function (event) {
               idba.errors.push(event.target)
               reject(event.target)
             }

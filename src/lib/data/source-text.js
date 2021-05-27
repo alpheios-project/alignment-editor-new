@@ -93,6 +93,10 @@ export default class SourceText {
     return this.metadata.addProperty(property, value)
   }
 
+  deleteValueByIndex (metadataTerm, termValIndex) {
+    return this.metadata.deleteValueByIndex(metadataTerm, termValIndex)
+  }
+
   getMetadataValue (property) {
     return this.metadata.getPropertyValue(property)
   }
