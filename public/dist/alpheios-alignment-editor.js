@@ -46469,7 +46469,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210527676" : 0
+    return  true ? "i395-overlapping-x.20210528528" : 0
   }
 
   static get libName () {
@@ -48050,7 +48050,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 /* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
 /* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__);
-//
 //
 //
 //
@@ -57859,17 +57858,6 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("options-block", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.shownOptionsBlock,
-            expression: "shownOptionsBlock"
-          }
-        ]
-      }),
-      _vm._v(" "),
       _c("text-editor", {
         directives: [
           {
@@ -60234,6 +60222,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.showModal
     ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-summary",
         on: {
           close: function($event) {
             return _vm.$emit("closeModal")

@@ -1,5 +1,5 @@
 <template>
-    <modal v-if="showModal" @close="$emit('closeModal')">
+    <modal v-if="showModal" @close="$emit('closeModal')" class="alpheios-alignment-editor-modal-summary">
         <template v-slot:header>
             <p class="alpheios-editor-summary-header" v-html="l10n.getMsgS('SUMMARY_POPUP_HEADER')" v-show="!showWaiting"></p>
         </template>
@@ -191,6 +191,12 @@ export default {
       width: 15px;
       height: 15px;
       fill: #000;
+    }
+  }
+
+  .alpheios-alignment-editor-modal-summary {
+    .alpheios-modal-body {
+      border: 0;
     }
   }
 </style>

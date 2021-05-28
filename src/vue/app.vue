@@ -24,7 +24,6 @@
       <initial-screen v-show="showInitialScreenBlock"
         @upload-data-from-file = "uploadDataFromFile" @upload-data-from-db = "uploadDataFromDB"
         @new-initial-alignment="startNewInitialAlignment"/>
-      <options-block v-show="shownOptionsBlock" />
       <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
       <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
