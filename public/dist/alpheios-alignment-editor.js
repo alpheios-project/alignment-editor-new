@@ -46469,7 +46469,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i395-overlapping-x.20210528571" : 0
+    return  true ? "i395-overlapping-x.20210528587" : 0
   }
 
   static get libName () {
@@ -48202,6 +48202,7 @@ __webpack_require__.r(__webpack_exports__);
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
       this.showSummaryModal = false
       if (result) {
+        this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()
       }
     },
@@ -50956,6 +50957,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
+      this.$refs.fileupload.value = ''
     },
     async '$store.state.docSourceLangDetected' () {
       this.updateLangData()
