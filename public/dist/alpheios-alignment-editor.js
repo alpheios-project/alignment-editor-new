@@ -61,6 +61,16 @@
 
 /***/ }),
 
+/***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ (() => {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -421,16 +431,114 @@
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/error.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/error.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/fast-memoize/lib/index.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/@formatjs/fast-memoize/lib/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ memoize),
+/* harmony export */   "strategies": () => (/* binding */ strategies)
+/* harmony export */ });
+//
+// Main
+//
+function memoize(fn, options) {
+    var cache = options && options.cache ? options.cache : cacheDefault;
+    var serializer = options && options.serializer ? options.serializer : serializerDefault;
+    var strategy = options && options.strategy ? options.strategy : strategyDefault;
+    return strategy(fn, {
+        cache: cache,
+        serializer: serializer,
+    });
+}
+//
+// Strategy
+//
+function isPrimitive(value) {
+    return (value == null || typeof value === 'number' || typeof value === 'boolean'); // || typeof value === "string" 'unsafe' primitive for our needs
+}
+function monadic(fn, cache, serializer, arg) {
+    var cacheKey = isPrimitive(arg) ? arg : serializer(arg);
+    var computedValue = cache.get(cacheKey);
+    if (typeof computedValue === 'undefined') {
+        computedValue = fn.call(this, arg);
+        cache.set(cacheKey, computedValue);
+    }
+    return computedValue;
+}
+function variadic(fn, cache, serializer) {
+    var args = Array.prototype.slice.call(arguments, 3);
+    var cacheKey = serializer(args);
+    var computedValue = cache.get(cacheKey);
+    if (typeof computedValue === 'undefined') {
+        computedValue = fn.apply(this, args);
+        cache.set(cacheKey, computedValue);
+    }
+    return computedValue;
+}
+function assemble(fn, context, strategy, cache, serialize) {
+    return strategy.bind(context, fn, cache, serialize);
+}
+function strategyDefault(fn, options) {
+    var strategy = fn.length === 1 ? monadic : variadic;
+    return assemble(fn, this, strategy, options.cache.create(), options.serializer);
+}
+function strategyVariadic(fn, options) {
+    return assemble(fn, this, variadic, options.cache.create(), options.serializer);
+}
+function strategyMonadic(fn, options) {
+    return assemble(fn, this, monadic, options.cache.create(), options.serializer);
+}
+//
+// Serializer
+//
+var serializerDefault = function () {
+    return JSON.stringify(arguments);
+};
+//
+// Cache
+//
+function ObjectWithoutPrototypeCache() {
+    this.cache = Object.create(null);
+}
+ObjectWithoutPrototypeCache.prototype.has = function (key) {
+    return key in this.cache;
+};
+ObjectWithoutPrototypeCache.prototype.get = function (key) {
+    return this.cache[key];
+};
+ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
+    this.cache[key] = value;
+};
+var cacheDefault = {
+    create: function create() {
+        // @ts-ignore
+        return new ObjectWithoutPrototypeCache();
+    },
+};
+var strategies = {
+    variadic: strategyVariadic,
+    monadic: strategyMonadic,
+};
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ErrorKind = void 0;
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/error.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/error.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ErrorKind": () => (/* binding */ ErrorKind)
+/* harmony export */ });
 var ErrorKind;
 (function (ErrorKind) {
     /** Argument is unclosed (e.g. `{0`) */
@@ -493,52 +601,72 @@ var ErrorKind;
     ErrorKind[ErrorKind["UNMATCHED_CLOSING_TAG"] = 26] = "UNMATCHED_CLOSING_TAG";
     /** The opening tag has unmatched closing tag. (e.g. `<bold>foo`) */
     ErrorKind[ErrorKind["UNCLOSED_TAG"] = 27] = "UNCLOSED_TAG";
-})(ErrorKind = exports.ErrorKind || (exports.ErrorKind = {}));
+})(ErrorKind || (ErrorKind = {}));
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/index.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/index.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/index.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/index.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parse": () => (/* binding */ parse),
+/* harmony export */   "SKELETON_TYPE": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.SKELETON_TYPE),
+/* harmony export */   "TYPE": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.TYPE),
+/* harmony export */   "createLiteralElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.createNumberElement),
+/* harmony export */   "isArgumentElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isArgumentElement),
+/* harmony export */   "isDateElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isDateElement),
+/* harmony export */   "isDateTimeSkeleton": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isDateTimeSkeleton),
+/* harmony export */   "isLiteralElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isLiteralElement),
+/* harmony export */   "isNumberElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isNumberElement),
+/* harmony export */   "isNumberSkeleton": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isNumberSkeleton),
+/* harmony export */   "isPluralElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isPoundElement),
+/* harmony export */   "isSelectElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isSelectElement),
+/* harmony export */   "isTagElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isTagElement),
+/* harmony export */   "isTimeElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isTimeElement)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/lib/error.js");
+/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parser */ "../node_modules/@formatjs/icu-messageformat-parser/lib/parser.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/lib/types.js");
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parse = void 0;
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var error_1 = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/error.js");
-var parser_1 = __webpack_require__(/*! ./parser */ "../node_modules/@formatjs/icu-messageformat-parser/parser.js");
-var types_1 = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js");
+
+
+
 function pruneLocation(els) {
     els.forEach(function (el) {
         delete el.location;
-        if (types_1.isSelectElement(el) || types_1.isPluralElement(el)) {
+        if ((0,_types__WEBPACK_IMPORTED_MODULE_2__.isSelectElement)(el) || (0,_types__WEBPACK_IMPORTED_MODULE_2__.isPluralElement)(el)) {
             for (var k in el.options) {
                 delete el.options[k].location;
                 pruneLocation(el.options[k].value);
             }
         }
-        else if (types_1.isNumberElement(el) && types_1.isNumberSkeleton(el.style)) {
+        else if ((0,_types__WEBPACK_IMPORTED_MODULE_2__.isNumberElement)(el) && (0,_types__WEBPACK_IMPORTED_MODULE_2__.isNumberSkeleton)(el.style)) {
             delete el.style.location;
         }
-        else if ((types_1.isDateElement(el) || types_1.isTimeElement(el)) &&
-            types_1.isDateTimeSkeleton(el.style)) {
+        else if (((0,_types__WEBPACK_IMPORTED_MODULE_2__.isDateElement)(el) || (0,_types__WEBPACK_IMPORTED_MODULE_2__.isTimeElement)(el)) &&
+            (0,_types__WEBPACK_IMPORTED_MODULE_2__.isDateTimeSkeleton)(el.style)) {
             delete el.style.location;
         }
-        else if (types_1.isTagElement(el)) {
+        else if ((0,_types__WEBPACK_IMPORTED_MODULE_2__.isTagElement)(el)) {
             pruneLocation(el.children);
         }
     });
 }
 function parse(message, opts) {
     if (opts === void 0) { opts = {}; }
-    opts = tslib_1.__assign({ shouldParseSkeletons: true }, opts);
-    var result = new parser_1.Parser(message, opts).parse();
+    opts = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({ shouldParseSkeletons: true, requiresOtherClause: true }, opts);
+    var result = new _parser__WEBPACK_IMPORTED_MODULE_1__.Parser(message, opts).parse();
     if (result.err) {
-        var error = SyntaxError(error_1.ErrorKind[result.err.kind]);
+        var error = SyntaxError(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind[result.err.kind]);
         // @ts-expect-error Assign to error object
         error.location = result.err.location;
         // @ts-expect-error Assign to error object
@@ -550,27 +678,35 @@ function parse(message, opts) {
     }
     return result.val;
 }
-exports.parse = parse;
-tslib_1.__exportStar(__webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js"), exports);
+
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/parser.js":
-/*!********************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/parser.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/parser.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/parser.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Parser": () => (/* binding */ Parser)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/lib/error.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/lib/types.js");
+/* harmony import */ var _regex_generated__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-messageformat-parser/lib/regex.generated.js");
+/* harmony import */ var _formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @formatjs/icu-skeleton-parser */ "../node_modules/@formatjs/icu-skeleton-parser/lib/index.js");
+var _a;
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Parser = void 0;
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var error_1 = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/error.js");
-var types_1 = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js");
-var regex_generated_1 = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js");
-var icu_skeleton_parser_1 = __webpack_require__(/*! @formatjs/icu-skeleton-parser */ "../node_modules/@formatjs/icu-skeleton-parser/index.js");
+
+
+
+
+var SPACE_SEPARATOR_START_REGEX = new RegExp("^" + _regex_generated__WEBPACK_IMPORTED_MODULE_2__.SPACE_SEPARATOR_REGEX.source + "*");
+var SPACE_SEPARATOR_END_REGEX = new RegExp(_regex_generated__WEBPACK_IMPORTED_MODULE_2__.SPACE_SEPARATOR_REGEX.source + "*$");
 function createLocation(start, end) {
     return { start: start, end: end };
 }
@@ -594,7 +730,14 @@ var isSafeInteger = hasNativeIsSafeInteger
 // IE11 does not support y and u.
 var REGEX_SUPPORTS_U_AND_Y = true;
 try {
-    RE('([^\\p{White_Space}\\p{Pattern_Syntax}]*)', 'yu');
+    var re = RE('([^\\p{White_Space}\\p{Pattern_Syntax}]*)', 'yu');
+    /**
+     * legacy Edge or Xbox One browser
+     * Unicode flag support: supported
+     * Pattern_Syntax support: not supported
+     * See https://github.com/formatjs/formatjs/issues/2822
+     */
+    REGEX_SUPPORTS_U_AND_Y = ((_a = re.exec('a')) === null || _a === void 0 ? void 0 : _a[0]) === 'a';
 }
 catch (_) {
     REGEX_SUPPORTS_U_AND_Y = false;
@@ -672,7 +815,7 @@ var trimStart = hasTrimStart
         }
     : // Ponyfill
         function trimStart(s) {
-            return s.replace(regex_generated_1.SPACE_SEPARATOR_START_REGEX, '');
+            return s.replace(SPACE_SEPARATOR_START_REGEX, '');
         };
 var trimEnd = hasTrimEnd
     ? // Native
@@ -681,7 +824,7 @@ var trimEnd = hasTrimEnd
         }
     : // Ponyfill
         function trimEnd(s) {
-            return s.replace(regex_generated_1.SPACE_SEPARATOR_END_REGEX, '');
+            return s.replace(SPACE_SEPARATOR_END_REGEX, '');
         };
 // Prevent minifier to translate new RegExp to literal form that might cause syntax error on IE11.
 function RE(s, flag) {
@@ -748,7 +891,7 @@ var Parser = /** @class */ (function () {
                 var position = this.clonePosition();
                 this.bump();
                 elements.push({
-                    type: types_1.TYPE.pound,
+                    type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.pound,
                     location: createLocation(position, this.clonePosition()),
                 });
             }
@@ -760,7 +903,7 @@ var Parser = /** @class */ (function () {
                     break;
                 }
                 else {
-                    return this.error(error_1.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(this.clonePosition(), this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(this.clonePosition(), this.clonePosition()));
                 }
             }
             else if (char === 60 /* `<` */ &&
@@ -809,7 +952,7 @@ var Parser = /** @class */ (function () {
             // Self closing tag
             return {
                 val: {
-                    type: types_1.TYPE.literal,
+                    type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.literal,
                     value: "<" + tagName + "/>",
                     location: createLocation(startPosition, this.clonePosition()),
                 },
@@ -826,20 +969,20 @@ var Parser = /** @class */ (function () {
             var endTagStartPosition = this.clonePosition();
             if (this.bumpIf('</')) {
                 if (this.isEOF() || !_isAlpha(this.char())) {
-                    return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
                 }
                 var closingTagNameStartPosition = this.clonePosition();
                 var closingTagName = this.parseTagName();
                 if (tagName !== closingTagName) {
-                    return this.error(error_1.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(closingTagNameStartPosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(closingTagNameStartPosition, this.clonePosition()));
                 }
                 this.bumpSpace();
                 if (!this.bumpIf('>')) {
-                    return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
                 }
                 return {
                     val: {
-                        type: types_1.TYPE.tag,
+                        type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.tag,
                         value: tagName,
                         children: children,
                         location: createLocation(startPosition, this.clonePosition()),
@@ -848,11 +991,11 @@ var Parser = /** @class */ (function () {
                 };
             }
             else {
-                return this.error(error_1.ErrorKind.UNCLOSED_TAG, createLocation(startPosition, this.clonePosition()));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNCLOSED_TAG, createLocation(startPosition, this.clonePosition()));
             }
         }
         else {
-            return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(startPosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_TAG, createLocation(startPosition, this.clonePosition()));
         }
     };
     /**
@@ -889,7 +1032,7 @@ var Parser = /** @class */ (function () {
         }
         var location = createLocation(start, this.clonePosition());
         return {
-            val: { type: types_1.TYPE.literal, value: value, location: location },
+            val: { type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.literal, value: value, location: location },
             err: null,
         };
     };
@@ -982,20 +1125,20 @@ var Parser = /** @class */ (function () {
         this.bump(); // `{`
         this.bumpSpace();
         if (this.isEOF()) {
-            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
         }
         if (this.char() === 125 /* `}` */) {
             this.bump();
-            return this.error(error_1.ErrorKind.EMPTY_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EMPTY_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
         }
         // argument name
         var value = this.parseIdentifierIfPossible().value;
         if (!value) {
-            return this.error(error_1.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
         }
         this.bumpSpace();
         if (this.isEOF()) {
-            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
         }
         switch (this.char()) {
             // Simple argument: `{name}`
@@ -1003,7 +1146,7 @@ var Parser = /** @class */ (function () {
                 this.bump(); // `}`
                 return {
                     val: {
-                        type: types_1.TYPE.argument,
+                        type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.argument,
                         // value does not include the opening and closing braces.
                         value: value,
                         location: createLocation(openingBracePosition, this.clonePosition()),
@@ -1016,12 +1159,12 @@ var Parser = /** @class */ (function () {
                 this.bump(); // `,`
                 this.bumpSpace();
                 if (this.isEOF()) {
-                    return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
                 }
                 return this.parseArgumentOptions(nestingLevel, expectingCloseTag, value, openingBracePosition);
             }
             default:
-                return this.error(error_1.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
         }
     };
     /**
@@ -1049,7 +1192,7 @@ var Parser = /** @class */ (function () {
         switch (argType) {
             case '':
                 // Expecting a style string number, date, time, plural, selectordinal, or select.
-                return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
             case 'number':
             case 'date':
             case 'time': {
@@ -1067,7 +1210,7 @@ var Parser = /** @class */ (function () {
                     }
                     var style = trimEnd(result.val);
                     if (style.length === 0) {
-                        return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_STYLE, createLocation(this.clonePosition(), this.clonePosition()));
+                        return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_STYLE, createLocation(this.clonePosition(), this.clonePosition()));
                     }
                     var styleLocation = createLocation(styleStartPosition, this.clonePosition());
                     styleAndLocation = { style: style, styleLocation: styleLocation };
@@ -1087,23 +1230,23 @@ var Parser = /** @class */ (function () {
                             return result;
                         }
                         return {
-                            val: { type: types_1.TYPE.number, value: value, location: location_1, style: result.val },
+                            val: { type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.number, value: value, location: location_1, style: result.val },
                             err: null,
                         };
                     }
                     else {
                         if (skeleton.length === 0) {
-                            return this.error(error_1.ErrorKind.EXPECT_DATE_TIME_SKELETON, location_1);
+                            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_DATE_TIME_SKELETON, location_1);
                         }
                         var style = {
-                            type: types_1.SKELETON_TYPE.dateTime,
+                            type: _types__WEBPACK_IMPORTED_MODULE_1__.SKELETON_TYPE.dateTime,
                             pattern: skeleton,
                             location: styleAndLocation.styleLocation,
                             parsedOptions: this.shouldParseSkeletons
-                                ? icu_skeleton_parser_1.parseDateTimeSkeleton(skeleton)
+                                ? (0,_formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__.parseDateTimeSkeleton)(skeleton)
                                 : {},
                         };
-                        var type = argType === 'date' ? types_1.TYPE.date : types_1.TYPE.time;
+                        var type = argType === 'date' ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.date : _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.time;
                         return {
                             val: { type: type, value: value, location: location_1, style: style },
                             err: null,
@@ -1114,10 +1257,10 @@ var Parser = /** @class */ (function () {
                 return {
                     val: {
                         type: argType === 'number'
-                            ? types_1.TYPE.number
+                            ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.number
                             : argType === 'date'
-                                ? types_1.TYPE.date
-                                : types_1.TYPE.time,
+                                ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.date
+                                : _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.time,
                         value: value,
                         location: location_1,
                         style: (_a = styleAndLocation === null || styleAndLocation === void 0 ? void 0 : styleAndLocation.style) !== null && _a !== void 0 ? _a : null,
@@ -1134,7 +1277,7 @@ var Parser = /** @class */ (function () {
                 var typeEndPosition_1 = this.clonePosition();
                 this.bumpSpace();
                 if (!this.bumpIf(',')) {
-                    return this.error(error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_OPTIONS, createLocation(typeEndPosition_1, tslib_1.__assign({}, typeEndPosition_1)));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_SELECT_ARGUMENT_OPTIONS, createLocation(typeEndPosition_1, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, typeEndPosition_1)));
                 }
                 this.bumpSpace();
                 // Parse offset:
@@ -1149,10 +1292,10 @@ var Parser = /** @class */ (function () {
                 var pluralOffset = 0;
                 if (argType !== 'select' && identifierAndLocation.value === 'offset') {
                     if (!this.bumpIf(':')) {
-                        return this.error(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, createLocation(this.clonePosition(), this.clonePosition()));
+                        return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, createLocation(this.clonePosition(), this.clonePosition()));
                     }
                     this.bumpSpace();
-                    var result = this.tryParseDecimalInteger(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, error_1.ErrorKind.INVALID_PLURAL_ARGUMENT_OFFSET_VALUE);
+                    var result = this.tryParseDecimalInteger(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_PLURAL_ARGUMENT_OFFSET_VALUE);
                     if (result.err) {
                         return result;
                     }
@@ -1173,7 +1316,7 @@ var Parser = /** @class */ (function () {
                 if (argType === 'select') {
                     return {
                         val: {
-                            type: types_1.TYPE.select,
+                            type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.select,
                             value: value,
                             options: fromEntries(optionsResult.val),
                             location: location_2,
@@ -1184,7 +1327,7 @@ var Parser = /** @class */ (function () {
                 else {
                     return {
                         val: {
-                            type: types_1.TYPE.plural,
+                            type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.plural,
                             value: value,
                             options: fromEntries(optionsResult.val),
                             offset: pluralOffset,
@@ -1196,14 +1339,14 @@ var Parser = /** @class */ (function () {
                 }
             }
             default:
-                return this.error(error_1.ErrorKind.INVALID_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
         }
     };
     Parser.prototype.tryParseArgumentClose = function (openingBracePosition) {
         // Parse: {value, number, ::currency/GBP }
         //
         if (this.isEOF() || this.char() !== 125 /* `}` */) {
-            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
         }
         this.bump(); // `}`
         return { val: true, err: null };
@@ -1223,7 +1366,7 @@ var Parser = /** @class */ (function () {
                     this.bump();
                     var apostrophePosition = this.clonePosition();
                     if (!this.bumpUntil("'")) {
-                        return this.error(error_1.ErrorKind.UNCLOSED_QUOTE_IN_ARGUMENT_STYLE, createLocation(apostrophePosition, this.clonePosition()));
+                        return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNCLOSED_QUOTE_IN_ARGUMENT_STYLE, createLocation(apostrophePosition, this.clonePosition()));
                     }
                     this.bump();
                     break;
@@ -1258,18 +1401,18 @@ var Parser = /** @class */ (function () {
     Parser.prototype.parseNumberSkeletonFromString = function (skeleton, location) {
         var tokens = [];
         try {
-            tokens = icu_skeleton_parser_1.parseNumberSkeletonFromString(skeleton);
+            tokens = (0,_formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__.parseNumberSkeletonFromString)(skeleton);
         }
         catch (e) {
-            return this.error(error_1.ErrorKind.INVALID_NUMBER_SKELETON, location);
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_NUMBER_SKELETON, location);
         }
         return {
             val: {
-                type: types_1.SKELETON_TYPE.number,
+                type: _types__WEBPACK_IMPORTED_MODULE_1__.SKELETON_TYPE.number,
                 tokens: tokens,
                 location: location,
                 parsedOptions: this.shouldParseSkeletons
-                    ? icu_skeleton_parser_1.parseNumberSkeleton(tokens)
+                    ? (0,_formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__.parseNumberSkeleton)(tokens)
                     : {},
             },
             err: null,
@@ -1299,7 +1442,7 @@ var Parser = /** @class */ (function () {
                 var startPosition = this.clonePosition();
                 if (parentArgType !== 'select' && this.bumpIf('=')) {
                     // Try parse `={number}` selector
-                    var result = this.tryParseDecimalInteger(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, error_1.ErrorKind.INVALID_PLURAL_ARGUMENT_SELECTOR);
+                    var result = this.tryParseDecimalInteger(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_PLURAL_ARGUMENT_SELECTOR);
                     if (result.err) {
                         return result;
                     }
@@ -1313,8 +1456,8 @@ var Parser = /** @class */ (function () {
             // Duplicate selector clauses
             if (parsedSelectors.has(selector)) {
                 return this.error(parentArgType === 'select'
-                    ? error_1.ErrorKind.DUPLICATE_SELECT_ARGUMENT_SELECTOR
-                    : error_1.ErrorKind.DUPLICATE_PLURAL_ARGUMENT_SELECTOR, selectorLocation);
+                    ? _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.DUPLICATE_SELECT_ARGUMENT_SELECTOR
+                    : _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.DUPLICATE_PLURAL_ARGUMENT_SELECTOR, selectorLocation);
             }
             if (selector === 'other') {
                 hasOtherClause = true;
@@ -1326,8 +1469,8 @@ var Parser = /** @class */ (function () {
             var openingBracePosition = this.clonePosition();
             if (!this.bumpIf('{')) {
                 return this.error(parentArgType === 'select'
-                    ? error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT
-                    : error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT, createLocation(this.clonePosition(), this.clonePosition()));
+                    ? _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT
+                    : _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT, createLocation(this.clonePosition(), this.clonePosition()));
             }
             var fragmentResult = this.parseMessage(nestingLevel + 1, parentArgType, expectCloseTag);
             if (fragmentResult.err) {
@@ -1352,11 +1495,11 @@ var Parser = /** @class */ (function () {
         }
         if (options.length === 0) {
             return this.error(parentArgType === 'select'
-                ? error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR
-                : error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, createLocation(this.clonePosition(), this.clonePosition()));
+                ? _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR
+                : _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, createLocation(this.clonePosition(), this.clonePosition()));
         }
         if (this.requiresOtherClause && !hasOtherClause) {
-            return this.error(error_1.ErrorKind.MISSING_OTHER_CLAUSE, createLocation(this.clonePosition(), this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.MISSING_OTHER_CLAUSE, createLocation(this.clonePosition(), this.clonePosition()));
         }
         return { val: options, err: null };
     };
@@ -1522,7 +1665,7 @@ var Parser = /** @class */ (function () {
     };
     return Parser;
 }());
-exports.Parser = Parser;
+
 /**
  * This check if codepoint is alphabet (lower & uppercase)
  * @param codepoint
@@ -1827,34 +1970,50 @@ function _isPatternSyntax(c) {
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js":
-/*!*****************************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/regex.generated.js":
+/*!*********************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/regex.generated.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.WHITE_SPACE_REGEX = exports.SPACE_SEPARATOR_END_REGEX = exports.SPACE_SEPARATOR_START_REGEX = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SPACE_SEPARATOR_REGEX": () => (/* binding */ SPACE_SEPARATOR_REGEX),
+/* harmony export */   "WHITE_SPACE_REGEX": () => (/* binding */ WHITE_SPACE_REGEX)
+/* harmony export */ });
 // @generated from regex-gen.ts
-exports.SPACE_SEPARATOR_START_REGEX = /^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]*/i;
-exports.SPACE_SEPARATOR_END_REGEX = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]*$/i;
-exports.WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
+var SPACE_SEPARATOR_REGEX = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
+var WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/types.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/types.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/types.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/types.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.createNumberElement = exports.createLiteralElement = exports.isDateTimeSkeleton = exports.isNumberSkeleton = exports.isTagElement = exports.isPoundElement = exports.isPluralElement = exports.isSelectElement = exports.isTimeElement = exports.isDateElement = exports.isNumberElement = exports.isArgumentElement = exports.isLiteralElement = exports.SKELETON_TYPE = exports.TYPE = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TYPE": () => (/* binding */ TYPE),
+/* harmony export */   "SKELETON_TYPE": () => (/* binding */ SKELETON_TYPE),
+/* harmony export */   "isLiteralElement": () => (/* binding */ isLiteralElement),
+/* harmony export */   "isArgumentElement": () => (/* binding */ isArgumentElement),
+/* harmony export */   "isNumberElement": () => (/* binding */ isNumberElement),
+/* harmony export */   "isDateElement": () => (/* binding */ isDateElement),
+/* harmony export */   "isTimeElement": () => (/* binding */ isTimeElement),
+/* harmony export */   "isSelectElement": () => (/* binding */ isSelectElement),
+/* harmony export */   "isPluralElement": () => (/* binding */ isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* binding */ isPoundElement),
+/* harmony export */   "isTagElement": () => (/* binding */ isTagElement),
+/* harmony export */   "isNumberSkeleton": () => (/* binding */ isNumberSkeleton),
+/* harmony export */   "isDateTimeSkeleton": () => (/* binding */ isDateTimeSkeleton),
+/* harmony export */   "createLiteralElement": () => (/* binding */ createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* binding */ createNumberElement)
+/* harmony export */ });
 var TYPE;
 (function (TYPE) {
     /**
@@ -1894,66 +2053,54 @@ var TYPE;
      * XML-like tag
      */
     TYPE[TYPE["tag"] = 8] = "tag";
-})(TYPE = exports.TYPE || (exports.TYPE = {}));
+})(TYPE || (TYPE = {}));
 var SKELETON_TYPE;
 (function (SKELETON_TYPE) {
     SKELETON_TYPE[SKELETON_TYPE["number"] = 0] = "number";
     SKELETON_TYPE[SKELETON_TYPE["dateTime"] = 1] = "dateTime";
-})(SKELETON_TYPE = exports.SKELETON_TYPE || (exports.SKELETON_TYPE = {}));
+})(SKELETON_TYPE || (SKELETON_TYPE = {}));
 /**
  * Type Guards
  */
 function isLiteralElement(el) {
     return el.type === TYPE.literal;
 }
-exports.isLiteralElement = isLiteralElement;
 function isArgumentElement(el) {
     return el.type === TYPE.argument;
 }
-exports.isArgumentElement = isArgumentElement;
 function isNumberElement(el) {
     return el.type === TYPE.number;
 }
-exports.isNumberElement = isNumberElement;
 function isDateElement(el) {
     return el.type === TYPE.date;
 }
-exports.isDateElement = isDateElement;
 function isTimeElement(el) {
     return el.type === TYPE.time;
 }
-exports.isTimeElement = isTimeElement;
 function isSelectElement(el) {
     return el.type === TYPE.select;
 }
-exports.isSelectElement = isSelectElement;
 function isPluralElement(el) {
     return el.type === TYPE.plural;
 }
-exports.isPluralElement = isPluralElement;
 function isPoundElement(el) {
     return el.type === TYPE.pound;
 }
-exports.isPoundElement = isPoundElement;
 function isTagElement(el) {
     return el.type === TYPE.tag;
 }
-exports.isTagElement = isTagElement;
 function isNumberSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === SKELETON_TYPE.number);
 }
-exports.isNumberSkeleton = isNumberSkeleton;
 function isDateTimeSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === SKELETON_TYPE.dateTime);
 }
-exports.isDateTimeSkeleton = isDateTimeSkeleton;
 function createLiteralElement(value) {
     return {
         type: TYPE.literal,
         value: value,
     };
 }
-exports.createLiteralElement = createLiteralElement;
 function createNumberElement(value, style) {
     return {
         type: TYPE.number,
@@ -1961,21 +2108,21 @@ function createNumberElement(value, style) {
         style: style,
     };
 }
-exports.createNumberElement = createNumberElement;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/date-time.js":
-/*!******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/date-time.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/date-time.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/date-time.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parseDateTimeSkeleton = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseDateTimeSkeleton": () => (/* binding */ parseDateTimeSkeleton)
+/* harmony export */ });
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
  * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
@@ -2097,46 +2244,54 @@ function parseDateTimeSkeleton(skeleton) {
     });
     return result;
 }
-exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/index.js":
-/*!**************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/index.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/index.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/index.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseDateTimeSkeleton": () => (/* reexport safe */ _date_time__WEBPACK_IMPORTED_MODULE_0__.parseDateTimeSkeleton),
+/* harmony export */   "parseNumberSkeleton": () => (/* reexport safe */ _number__WEBPACK_IMPORTED_MODULE_1__.parseNumberSkeleton),
+/* harmony export */   "parseNumberSkeletonFromString": () => (/* reexport safe */ _number__WEBPACK_IMPORTED_MODULE_1__.parseNumberSkeletonFromString)
+/* harmony export */ });
+/* harmony import */ var _date_time__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./date-time */ "../node_modules/@formatjs/icu-skeleton-parser/lib/date-time.js");
+/* harmony import */ var _number__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./number */ "../node_modules/@formatjs/icu-skeleton-parser/lib/number.js");
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-tslib_1.__exportStar(__webpack_require__(/*! ./date-time */ "../node_modules/@formatjs/icu-skeleton-parser/date-time.js"), exports);
-tslib_1.__exportStar(__webpack_require__(/*! ./number */ "../node_modules/@formatjs/icu-skeleton-parser/number.js"), exports);
+
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/number.js":
-/*!***************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/number.js ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/number.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/number.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseNumberSkeletonFromString": () => (/* binding */ parseNumberSkeletonFromString),
+/* harmony export */   "parseNumberSkeleton": () => (/* binding */ parseNumberSkeleton)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _regex_generated__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-skeleton-parser/lib/regex.generated.js");
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parseNumberSkeleton = exports.parseNumberSkeletonFromString = void 0;
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var regex_generated_1 = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js");
+
 function parseNumberSkeletonFromString(skeleton) {
     if (skeleton.length === 0) {
         throw new Error('Number skeleton cannot be empty');
     }
     // Parse the skeleton
     var stringTokens = skeleton
-        .split(regex_generated_1.WHITE_SPACE_REGEX)
+        .split(_regex_generated__WEBPACK_IMPORTED_MODULE_0__.WHITE_SPACE_REGEX)
         .filter(function (x) { return x.length > 0; });
     var tokens = [];
     for (var _i = 0, stringTokens_1 = stringTokens; _i < stringTokens_1.length; _i++) {
@@ -2156,7 +2311,6 @@ function parseNumberSkeletonFromString(skeleton) {
     }
     return tokens;
 }
-exports.parseNumberSkeletonFromString = parseNumberSkeletonFromString;
 function icuUnitToEcma(unit) {
     return unit.replace(/^(.*?)-/, '');
 }
@@ -2314,10 +2468,10 @@ function parseNumberSkeleton(tokens) {
                 result.compactDisplay = 'long';
                 continue;
             case 'scientific':
-                result = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, result), { notation: 'scientific' }), token.options.reduce(function (all, opt) { return (tslib_1.__assign(tslib_1.__assign({}, all), parseNotationOptions(opt))); }, {}));
+                result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), { notation: 'scientific' }), token.options.reduce(function (all, opt) { return ((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, all), parseNotationOptions(opt))); }, {}));
                 continue;
             case 'engineering':
-                result = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, result), { notation: 'engineering' }), token.options.reduce(function (all, opt) { return (tslib_1.__assign(tslib_1.__assign({}, all), parseNotationOptions(opt))); }, {}));
+                result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), { notation: 'engineering' }), token.options.reduce(function (all, opt) { return ((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, all), parseNotationOptions(opt))); }, {}));
                 continue;
             case 'notation-simple':
                 result.notation = 'standard';
@@ -2393,43 +2547,43 @@ function parseNumberSkeleton(tokens) {
                 return '';
             });
             if (token.options.length) {
-                result = tslib_1.__assign(tslib_1.__assign({}, result), parseSignificantPrecision(token.options[0]));
+                result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), parseSignificantPrecision(token.options[0]));
             }
             continue;
         }
         // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
         if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
-            result = tslib_1.__assign(tslib_1.__assign({}, result), parseSignificantPrecision(token.stem));
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), parseSignificantPrecision(token.stem));
             continue;
         }
         var signOpts = parseSign(token.stem);
         if (signOpts) {
-            result = tslib_1.__assign(tslib_1.__assign({}, result), signOpts);
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), signOpts);
         }
         var conciseScientificAndEngineeringOpts = parseConciseScientificAndEngineeringStem(token.stem);
         if (conciseScientificAndEngineeringOpts) {
-            result = tslib_1.__assign(tslib_1.__assign({}, result), conciseScientificAndEngineeringOpts);
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), conciseScientificAndEngineeringOpts);
         }
     }
     return result;
 }
-exports.parseNumberSkeleton = parseNumberSkeleton;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js":
-/*!************************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/regex.generated.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/regex.generated.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.WHITE_SPACE_REGEX = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "WHITE_SPACE_REGEX": () => (/* binding */ WHITE_SPACE_REGEX)
+/* harmony export */ });
 // @generated from regex-gen.ts
-exports.WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
+var WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
 
 
 /***/ }),
@@ -25413,160 +25567,6 @@ Emitter.prototype.hasListeners = function(event){
 
 /***/ }),
 
-/***/ "../node_modules/fast-memoize/src/index.js":
-/*!*************************************************!*\
-  !*** ../node_modules/fast-memoize/src/index.js ***!
-  \*************************************************/
-/***/ ((module) => {
-
-//
-// Main
-//
-
-function memoize (fn, options) {
-  var cache = options && options.cache
-    ? options.cache
-    : cacheDefault
-
-  var serializer = options && options.serializer
-    ? options.serializer
-    : serializerDefault
-
-  var strategy = options && options.strategy
-    ? options.strategy
-    : strategyDefault
-
-  return strategy(fn, {
-    cache: cache,
-    serializer: serializer
-  })
-}
-
-//
-// Strategy
-//
-
-function isPrimitive (value) {
-  return value == null || typeof value === 'number' || typeof value === 'boolean' // || typeof value === "string" 'unsafe' primitive for our needs
-}
-
-function monadic (fn, cache, serializer, arg) {
-  var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
-
-  var computedValue = cache.get(cacheKey)
-  if (typeof computedValue === 'undefined') {
-    computedValue = fn.call(this, arg)
-    cache.set(cacheKey, computedValue)
-  }
-
-  return computedValue
-}
-
-function variadic (fn, cache, serializer) {
-  var args = Array.prototype.slice.call(arguments, 3)
-  var cacheKey = serializer(args)
-
-  var computedValue = cache.get(cacheKey)
-  if (typeof computedValue === 'undefined') {
-    computedValue = fn.apply(this, args)
-    cache.set(cacheKey, computedValue)
-  }
-
-  return computedValue
-}
-
-function assemble (fn, context, strategy, cache, serialize) {
-  return strategy.bind(
-    context,
-    fn,
-    cache,
-    serialize
-  )
-}
-
-function strategyDefault (fn, options) {
-  var strategy = fn.length === 1 ? monadic : variadic
-
-  return assemble(
-    fn,
-    this,
-    strategy,
-    options.cache.create(),
-    options.serializer
-  )
-}
-
-function strategyVariadic (fn, options) {
-  var strategy = variadic
-
-  return assemble(
-    fn,
-    this,
-    strategy,
-    options.cache.create(),
-    options.serializer
-  )
-}
-
-function strategyMonadic (fn, options) {
-  var strategy = monadic
-
-  return assemble(
-    fn,
-    this,
-    strategy,
-    options.cache.create(),
-    options.serializer
-  )
-}
-
-//
-// Serializer
-//
-
-function serializerDefault () {
-  return JSON.stringify(arguments)
-}
-
-//
-// Cache
-//
-
-function ObjectWithoutPrototypeCache () {
-  this.cache = Object.create(null)
-}
-
-ObjectWithoutPrototypeCache.prototype.has = function (key) {
-  return (key in this.cache)
-}
-
-ObjectWithoutPrototypeCache.prototype.get = function (key) {
-  return this.cache[key]
-}
-
-ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
-  this.cache[key] = value
-}
-
-var cacheDefault = {
-  create: function create () {
-    return new ObjectWithoutPrototypeCache()
-  }
-}
-
-//
-// API
-//
-
-module.exports = memoize
-module.exports.strategies = {
-  variadic: strategyVariadic,
-  monadic: strategyMonadic
-}
-
-
-/***/ }),
-
 /***/ "../node_modules/intl-messageformat/lib/index.js":
 /*!*******************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/index.js ***!
@@ -25616,10 +25616,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "IntlMessageFormat": () => (/* binding */ IntlMessageFormat)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/index.js");
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fast-memoize */ "../node_modules/fast-memoize/src/index.js");
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fast_memoize__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/lib/index.js");
+/* harmony import */ var _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @formatjs/fast-memoize */ "../node_modules/@formatjs/fast-memoize/lib/index.js");
 /* harmony import */ var _formatters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./formatters */ "../node_modules/intl-messageformat/lib/src/formatters.js");
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
@@ -25666,9 +25664,6 @@ function createFastMemoizeCache(store) {
         },
     };
 }
-// @ts-ignore this is to deal with rollup's default import shenanigans
-var _memoizeIntl = (fast_memoize__WEBPACK_IMPORTED_MODULE_1___default()) || fast_memoize__WEBPACK_IMPORTED_MODULE_1__;
-var memoizeIntl = _memoizeIntl;
 function createDefaultFormatters(cache) {
     if (cache === void 0) { cache = {
         number: {},
@@ -25676,7 +25671,7 @@ function createDefaultFormatters(cache) {
         pluralRules: {},
     }; }
     return {
-        getNumberFormat: memoizeIntl(function () {
+        getNumberFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25685,9 +25680,9 @@ function createDefaultFormatters(cache) {
             return new ((_a = Intl.NumberFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.number),
-            strategy: memoizeIntl.strategies.variadic,
+            strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
-        getDateTimeFormat: memoizeIntl(function () {
+        getDateTimeFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25696,9 +25691,9 @@ function createDefaultFormatters(cache) {
             return new ((_a = Intl.DateTimeFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.dateTime),
-            strategy: memoizeIntl.strategies.variadic,
+            strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
-        getPluralRules: memoizeIntl(function () {
+        getPluralRules: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25707,7 +25702,7 @@ function createDefaultFormatters(cache) {
             return new ((_a = Intl.PluralRules).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.pluralRules),
-            strategy: memoizeIntl.strategies.variadic,
+            strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
     };
 }
@@ -25776,7 +25771,8 @@ var IntlMessageFormat = /** @class */ (function () {
     Object.defineProperty(IntlMessageFormat, "defaultLocale", {
         get: function () {
             if (!IntlMessageFormat.memoizedDefaultLocale) {
-                IntlMessageFormat.memoizedDefaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+                IntlMessageFormat.memoizedDefaultLocale =
+                    new Intl.NumberFormat().resolvedOptions().locale;
             }
             return IntlMessageFormat.memoizedDefaultLocale;
         },
@@ -25932,8 +25928,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "isFormatXMLElementFn": () => (/* binding */ isFormatXMLElementFn),
 /* harmony export */   "formatToParts": () => (/* binding */ formatToParts)
 /* harmony export */ });
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/index.js");
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/lib/index.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "../node_modules/intl-messageformat/lib/src/error.js");
 
 
@@ -38561,6 +38556,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -38610,6 +38607,8 @@ class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
@@ -38670,16 +38669,19 @@ class AlignedGroupsController {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         this.activateGroupByToken(token, limitByTargetId)
+        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
+        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
         this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
+        _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
       }
@@ -38872,17 +38874,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AppController)
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
 /* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
 /* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
 /* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
 /* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+
 
 
 
@@ -38921,6 +38925,7 @@ class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
+    this.defineStorageController()
 
     await this.defineSettingsController()
 
@@ -38956,12 +38961,12 @@ class AppController {
     this.defineTokensEditController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -38980,8 +38985,8 @@ class AppController {
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.use(vuex__WEBPACK_IMPORTED_MODULE_11__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_11__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_6__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.use(vuex__WEBPACK_IMPORTED_MODULE_12__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_12__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__.default.defaultDefinition)
   }
 
   /**
@@ -38990,7 +38995,7 @@ class AppController {
   async defineSettingsController () {
     this.settingsC = new _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
     await this.settingsC.init()
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$settingsC = this.settingsC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$settingsC = this.settingsC
 
     this.settingsC.uploadRemoteSettings()
   }
@@ -39000,7 +39005,7 @@ class AppController {
    */
   defineTextController () {
     this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$textC = this.textC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
   }
 
   /**
@@ -39008,7 +39013,7 @@ class AppController {
    */
   defineAlignedGroupsController () {
     this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$alignedGC = this.alignedGC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedGC = this.alignedGC
   }
 
   /**
@@ -39016,7 +39021,7 @@ class AppController {
    */
   defineTokensEditController () {
     this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$tokensEC = this.tokensEC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
@@ -39024,7 +39029,7 @@ class AppController {
    */
   defineHistoryController () {
     this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_10__.default.prototype.$historyC = this.historyC
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -39032,11 +39037,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_9__.default.predefinedLocales())
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_8__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39046,8 +39051,12 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_7__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__.default(this.store)
     return notificationSingleton
+  }
+
+  defineStorageController () {
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.definedDBAdapter()
   }
 }
 
@@ -39365,6 +39374,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ HistoryController)
 /* harmony export */ });
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
+
 class HistoryController {
   constructor (store) {
     this.store = store
@@ -39426,6 +39438,7 @@ class HistoryController {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
     if (result) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1
       return result
@@ -39448,6 +39461,7 @@ class HistoryController {
       result = this.alignment.redoActiveGroup()
     }
     if (result) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_0__.default.update(this.alignment, true)
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps - 1
       return result
@@ -39724,6 +39738,69 @@ SettingsController.evt = {
 
 /***/ }),
 
+/***/ "./lib/controllers/storage-controller.js":
+/*!***********************************************!*\
+  !*** ./lib/controllers/storage-controller.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ StorageController)
+/* harmony export */ });
+/* harmony import */ var _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/storage/indexed-db-adapter.js */ "./lib/storage/indexed-db-adapter.js");
+
+
+let dbAdapter
+
+class StorageController {
+  static definedDBAdapter () {
+    if (!dbAdapter) {
+      dbAdapter = new _lib_storage_indexed_db_adapter_js__WEBPACK_IMPORTED_MODULE_0__.default()
+    }
+  }
+
+  static get dbAdapterAvailable () {
+    return dbAdapter && dbAdapter.available
+  }
+
+  static async update (alignment, clearFirst = false, textAsBlob = false) {
+    if (this.dbAdapterAvailable && alignment && alignment.origin.docSource) {
+      if (clearFirst) {
+        await this.deleteMany(alignment.id, 'alignmentDataByID')
+      }
+
+      const result = await dbAdapter.update(alignment.convertToIndexedDB({ textAsBlob }))
+      return result
+    }
+  }
+
+  static async select (data, typeQuery = 'allAlignmentsByUserID') {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.select(data, typeQuery)
+      return result
+    }
+  }
+
+  static async deleteMany (alignmentID, typeQuery) {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.deleteMany(alignmentID, typeQuery)
+      return result
+    }
+  }
+
+  static async clear () {
+    if (this.dbAdapterAvailable) {
+      const result = await dbAdapter.clear()
+      return result
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/controllers/texts-controller.js":
 /*!*********************************************!*\
   !*** ./lib/controllers/texts-controller.js ***!
@@ -39741,6 +39818,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -39794,6 +39873,7 @@ class TextsController {
       this.store.commit('incrementDocSourceLangDetected')
     }
 
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     return { resultUpdate, resultDetect }
   }
 
@@ -39821,6 +39901,7 @@ class TextsController {
     if (resultDetect) {
       this.store.commit('incrementDocSourceLangDetected')
     }
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment)
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
@@ -39854,6 +39935,7 @@ class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
     }
   }
 
@@ -39929,7 +40011,21 @@ class TextsController {
     return true
   }
 
-  uploadData (fileData, tokenizerOptionValue, extension) {
+  async uploadDataFromDB (alData) {
+    if (!alData) {
+      console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
+        text: _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.types.ERROR
+      })
+      return
+    }
+
+    const alignment = await _lib_controllers_upload_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.upload('indexedDBUpload', alData)
+    return alignment
+  }
+
+  uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(_lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_3__.default.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__.default.addNotification({
@@ -39946,7 +40042,9 @@ class TextsController {
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
-    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(alignment, true)
+    return alignment
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
@@ -40158,8 +40256,21 @@ class TextsController {
   /**
    * A simple event for any change in metadata
    */
-  changeMetadataTerm () {
-    this.store.commit('incrementDocSourceUpdated')
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    }
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const result = this.alignment.deleteValueByIndex(metadataTerm, termValIndex, textType, textId)
+
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    }
   }
 
   get originDocSourceDefined () {
@@ -40167,8 +40278,7 @@ class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    return Boolean(sourceText && sourceText.detectedLang)
+    return this.alignment.checkDetectedProps(textType, docSourceId)
   }
 
   get originalLangData () {
@@ -40177,6 +40287,13 @@ class TextsController {
 
   get targetsLangData () {
     return this.alignment.targetsLangData
+  }
+
+  async uploadFromAllAlignmentsDB () {
+    const data = { userID: _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.defaultUserID }
+
+    const result = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(data)
+    return result
   }
 }
 
@@ -40444,6 +40561,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -40453,6 +40572,10 @@ class TokensEditController {
    */
   constructor (store) {
     this.store = store
+  }
+
+  startOver (alignment) {
+    this.loadAlignment(alignment)
   }
 
   /**
@@ -40474,6 +40597,7 @@ class TokensEditController {
 
     if (this.alignment.updateTokenWord(token, word)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40490,6 +40614,7 @@ class TokensEditController {
 
     if (this.alignment.mergeToken(token, direction)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40521,6 +40646,7 @@ class TokensEditController {
     }
 
     if (this.alignment.splitToken(token, tokenWord)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40536,6 +40662,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40551,6 +40678,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40567,6 +40695,7 @@ class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.moveToSegment(token, direction)) {
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -40680,6 +40809,7 @@ class TokensEditController {
   insertTokens (tokensText, textType, textId, insertType) {
     if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40695,6 +40825,7 @@ class TokensEditController {
 
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40703,6 +40834,7 @@ class TokensEditController {
   undoTokensEditStep () {
     if (this.alignment.undoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40711,6 +40843,7 @@ class TokensEditController {
   redoTokensEditStep () {
     if (this.alignment.redoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
+      _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment, true)
       return true
     }
     return false
@@ -40745,6 +40878,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/data/source-text */ "./lib/data/source-text.js");
 /* harmony import */ var _lib_upload_upload_file_csv_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/upload/upload-file-csv.js */ "./lib/upload/upload-file-csv.js");
 /* harmony import */ var _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/upload/upload-dts-api.js */ "./lib/upload/upload-dts-api.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+
 
 
 
@@ -40766,7 +40901,8 @@ class UploadController {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
-      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
+      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
     }
   }
 
@@ -40906,6 +41042,12 @@ class UploadController {
       const docXML = await _lib_upload_upload_dts_api_js__WEBPACK_IMPORTED_MODULE_5__.default.getDocument(linkData, refParams)
       return docXML
     }
+  }
+
+  static async indexedDBUploadSingle (alData) {
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(alData, 'alignmentByAlIDQuery')
+    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(dbData)
+    return alignment
   }
 }
 
@@ -41916,10 +42058,11 @@ class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType,
+        sourceType: data.sourceType,
         tokenization: data.tokenization
-      }
-    }, data.tokenPrefix)
+      },
+      tokenPrefix: data.tokenPrefix
+    })
     alignedText.segments = data.segments.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(seg))
 
     return alignedText
@@ -41936,6 +42079,38 @@ class AlignedText {
         }
       })
     }
+  }
+
+  convertToIndexedDB () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: dbData.textId,
+        textType: dbData.textType,
+        direction: dbData.direction,
+        lang: dbData.lang,
+        lansourceTypeg: dbData.sourceType,
+        tokenization: dbData.tokenization
+      },
+      tokenPrefix: dbData.tokenPrefix
+    })
+    const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
+
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens))
+
+    return alignedText
   }
 }
 
@@ -41969,8 +42144,8 @@ class AlignmentGroup {
    * If it is defined, it will be added to group.
    * @param {Token | Undefined} token
    */
-  constructor (token, targetId, empty = false) {
-    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+  constructor (token, targetId, empty = false, id = null) {
+    this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.alignmentGroupHistory = new _lib_data_history_alignment_group_history__WEBPACK_IMPORTED_MODULE_2__.default()
 
     if (!empty) {
@@ -42172,14 +42347,26 @@ class AlignmentGroup {
 
   convertToJSON () {
     return {
+      id: this.id,
       actions: this.alignmentGroupActions.convertToJSON()
     }
   }
 
   static convertFromJSON (data) {
-    const alGroup = new AlignmentGroup(null, null, true)
+    const alGroup = new AlignmentGroup(null, null, true, data.id)
 
     alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data.actions)
+    alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
+
+    alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
+
+    return alGroup
+  }
+
+  static convertFromIndexedDB (data) {
+    const alGroup = new AlignmentGroup(null, null, true, data.alGroupId)
+
+    alGroup.alignmentGroupActions = _lib_data_actions_alignment_group_actions__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON(data)
     alGroup.alignmentGroupActions.alignmentGroupHistory = alGroup.alignmentGroupHistory
 
     alGroup.alignmentGroupHistory.allStepActions = alGroup.allStepActions
@@ -42213,6 +42400,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/data/history/tokens-edit-history.js */ "./lib/data/history/tokens-edit-history.js");
 /* harmony import */ var _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/data/actions/tokens-edit-actions.js */ "./lib/data/actions/tokens-edit-actions.js");
 /* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+
 
 
 
@@ -42230,8 +42419,14 @@ __webpack_require__.r(__webpack_exports__);
 class Alignment {
   /**
    */
-  constructor () {
-    this.id = (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+  constructor ({ id, createdDT, updatedDT, userID } = {}) {
+    this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
+    this.createdDT = createdDT || new Date()
+
+    this.updatedDT = updatedDT || new Date()
+
+    this.userID = userID || Alignment.defaultUserID
+
     this.origin = {}
     this.targets = {}
 
@@ -42244,6 +42439,32 @@ class Alignment {
     this.tokensEditHistory = new _lib_data_history_tokens_edit_history_js__WEBPACK_IMPORTED_MODULE_7__.default()
     this.tokensEditActions = new _lib_data_actions_tokens_edit_actions_js__WEBPACK_IMPORTED_MODULE_8__.default({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+  }
+
+  static get defaultUserID () {
+    return 'defaultUserID'
+  }
+
+  get langsList () {
+    let strResult
+    if (!this.origin.docSource) { return '' }
+
+    let langs = [] // eslint-disable-line prefer-const
+
+    Object.values(this.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+
+    if (langs.length > 0) {
+      strResult = `${this.origin.docSource.lang}-${langs.join('-')}`
+    } else {
+      strResult = this.origin.docSource.lang
+    }
+    return strResult
+  }
+
+  setUpdated () {
+    this.updatedDT = new Date()
   }
 
   /**
@@ -42280,7 +42501,7 @@ class Alignment {
    * @returns {Boolean}
    */
   get targetDocSourceFullyDefined () {
-    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource && target.docSource.fullyDefined)
   }
 
   get originDocSourceDefined () {
@@ -42302,6 +42523,7 @@ class Alignment {
       docSource.updateDetectedLang(langData)
       return true
     }
+    this.setUpdated()
     return false
   }
 
@@ -42326,6 +42548,8 @@ class Alignment {
     if (this.origin.alignedText) {
       this.origin.alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return true
   }
 
@@ -42361,6 +42585,8 @@ class Alignment {
     if (this.targets[docSource.id].alignedText) {
       this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return docSource.id
   }
 
@@ -42376,11 +42602,13 @@ class Alignment {
     } else {
       delete this.targets[id]
     }
+    this.setUpdated()
   }
 
   addNewTarget () {
     const docSource = this.createNewDocSource('target', {}, null, true)
     this.targets[docSource.id] = { docSource }
+    this.setUpdated()
     return docSource.id
   }
 
@@ -42695,6 +42923,7 @@ class Alignment {
         type: NotificationSingleton.types.INFO
       })
       */
+      this.setUpdated()
       return true
     }
     return false
@@ -42816,6 +43045,7 @@ class Alignment {
       this.activeAlignmentGroup = tokensGroup
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
+      this.setUpdated()
       return true
     }
     return false
@@ -42835,6 +43065,7 @@ class Alignment {
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
+      this.setUpdated()
       return true
     }
     return false
@@ -42867,6 +43098,7 @@ class Alignment {
    */
   insertUnmergedGroup (data) {
     this.alignmentGroups.splice(data.indexDeleted, 0, data.tokensGroup)
+    this.setUpdated()
   }
 
   /**
@@ -43019,7 +43251,9 @@ class Alignment {
    * @returns {Boolean}
    */
   updateTokenWord (token, word) {
-    return this.tokensEditActions.updateTokenWord(token, word)
+    const result = this.tokensEditActions.updateTokenWord(token, word)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43038,7 +43272,9 @@ class Alignment {
       return false
     }
 
-    return this.tokensEditActions.mergeToken(token, direction)
+    const result = this.tokensEditActions.mergeToken(token, direction)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43047,7 +43283,9 @@ class Alignment {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    return this.tokensEditActions.splitToken(token, tokenWord)
+    const result = this.tokensEditActions.splitToken(token, tokenWord)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43056,7 +43294,9 @@ class Alignment {
    * @returns {Boolean}
    */
   addLineBreakAfterToken (token) {
-    return this.tokensEditActions.changeLineBreak(token, true)
+    const result = this.tokensEditActions.changeLineBreak(token, true)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43065,7 +43305,9 @@ class Alignment {
    * @returns {Boolean}
    */
   removeLineBreakAfterToken (token) {
-    return this.tokensEditActions.changeLineBreak(token, false)
+    const result = this.tokensEditActions.changeLineBreak(token, false)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43075,7 +43317,9 @@ class Alignment {
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
-    return this.tokensEditActions.moveToSegment(token, direction)
+    const result = this.tokensEditActions.moveToSegment(token, direction)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43086,7 +43330,9 @@ class Alignment {
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
   insertTokens (tokensText, textType, textId, insertType) {
-    return this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43095,7 +43341,9 @@ class Alignment {
    * @returns {Boolean}
    */
   deleteToken (token) {
-    return this.tokensEditActions.deleteToken(token)
+    const result = this.tokensEditActions.deleteToken(token)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -43237,6 +43485,10 @@ class Alignment {
     // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
+      id: this.id,
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
+      userID: this.userID,
       origin,
       targets,
       alignmentGroups/*,
@@ -43245,7 +43497,11 @@ class Alignment {
   }
 
   static convertFromJSON (data) {
-    const alignment = new Alignment()
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(data.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(data.updatedDT)
+    const alignment = new Alignment({
+      id: data.id, createdDT, updatedDT, userID: data.userID
+    })
 
     alignment.origin.docSource = _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromJSON('origin', data.origin.docSource)
 
@@ -43273,6 +43529,100 @@ class Alignment {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
     return alignment
+  }
+
+  convertToIndexedDB ({ textAsBlob } = {}) {
+    const origin = {
+      docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
+    }
+
+    if (this.origin.alignedText) {
+      origin.alignedText = this.origin.alignedText.convertToIndexedDB()
+    }
+
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToIndexedDB(textAsBlob)
+      }
+
+      if (this.targets[targetId].alignedText) {
+        targets[targetId].alignedText = this.targets[targetId].alignedText.convertToIndexedDB()
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    return {
+      id: this.id,
+      createdDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.createdDT),
+      updatedDT: _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertDateToString(this.updatedDT),
+      userID: this.userID,
+      langsList: this.langsList,
+      origin,
+      targets,
+      alignmentGroups
+    }
+  }
+
+  static async convertFromIndexedDB (dbData) {
+    const createdDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.createdDT)
+    const updatedDT = _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_10__.default.convertStringToDate(dbData.updatedDT)
+    const alignment = new Alignment({
+      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
+    })
+
+    if (dbData.docSource) {
+      for (const docSourceData of dbData.docSource) {
+        const docSource = await _lib_data_source_text__WEBPACK_IMPORTED_MODULE_3__.default.convertFromIndexedDB(docSourceData, dbData.metadata)
+        if (docSource.textType === 'origin') {
+          alignment.origin.docSource = docSource
+        } else {
+          alignment.targets[docSource.id] = { docSource }
+        }
+      }
+    }
+
+    if (dbData.alignedText) {
+      for (const alignedTextData of dbData.alignedText) {
+        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        if (alignedText.textType === 'origin') {
+          alignment.origin.alignedText = alignedText
+        } else {
+          alignment.targets[alignedText.id].alignedText = alignedText
+        }
+      }
+    }
+    if (dbData.alignmentGroups) {
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(_lib_data_alignment_group__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(alGroup)))
+    }
+    return alignment
+  }
+
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+
+    if (docSource) {
+      const result = docSource.addMetadata(metadataTermData.property, value)
+      this.setUpdated()
+      return result
+    }
+    return false
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+    if (docSource) {
+      const result = docSource.deleteValueByIndex(metadataTerm, termValIndex)
+      this.setUpdated()
+      return result
+    }
+    return false
+  }
+
+  checkDetectedProps (textType, docSourceId) {
+    const sourceText = this.getDocSource(textType, docSourceId)
+    return Boolean(sourceText && sourceText.detectedLang)
   }
 }
 
@@ -43714,8 +44064,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ MetadataTerm)
 /* harmony export */ });
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+
+
 class MetadataTerm {
-  constructor (property, value) {
+  constructor (property, value, metadataId) {
+    this.id = metadataId || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.property = property
     this.saveValue(value)
   }
@@ -43773,6 +44128,19 @@ class MetadataTerm {
   static convertFromJSON (data) {
     const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
     return new MetadataTerm(property, data.value)
+  }
+
+  convertToIndexedDB () {
+    return {
+      id: this.id,
+      property: this.property.label,
+      value: this.value
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    const property = Object.values(MetadataTerm.property).find(prop => prop.label === data.property)
+    return new MetadataTerm(property, data.value, data.metaId)
   }
 }
 
@@ -43893,15 +44261,32 @@ class Metadata {
     return Boolean(this.properties[property.label])
   }
 
-  addProperty (property, value) {
+  addProperty (property, value, metaId) {
     if (!this.isSupportedProperty(property)) {
       return false
     }
-    if (!this.hasProperty(property)) {
-      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value)
+
+    if (!this.hasProperty(property) && value) {
+      this.properties[property.label] = new _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default(property, value, metaId)
+      return true
+    } else if (this.hasProperty(property)) {
+      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
       return true
     }
-    return this.getProperty(property).saveValue(value)
+    return false
+  }
+
+  deleteValueByIndex (metadataItem, termValIndex) {
+    if (!this.isSupportedProperty(metadataItem.property)) {
+      return false
+    }
+
+    metadataItem.deleteValueByIndex(termValIndex)
+
+    if (metadataItem.getValue().length === 0) {
+      delete this.properties[metadataItem.property.label]
+    }
+    return true
   }
 
   getProperty (property) {
@@ -43949,6 +44334,22 @@ class Metadata {
     })
     return metadata
   }
+
+  convertToIndexedDB () {
+    return {
+      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB())
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    const metadata = new Metadata()
+    data.forEach(prop => {
+      const metaItem = _lib_data_metadata_term_js__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(prop)
+      metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
+    })
+
+    return metadata
+  }
 }
 
 
@@ -43965,13 +44366,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Segment)
 /* harmony export */ });
-/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
-/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lib_data_token__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/data/token */ "./lib/data/token.js");
+/* harmony import */ var _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/data/langs/langs */ "./lib/data/langs/langs.js");
+
+
 
 
 
 class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
+    this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.index = index
     this.textType = textType
     this.lang = lang
@@ -43985,7 +44391,7 @@ class Segment {
   }
 
   defineLangName () {
-    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_1__.default.all.find(langData => langData.value === this.lang)
+    const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
@@ -44000,7 +44406,7 @@ class Segment {
    * @param {Array[Object]} tokens
    */
   checkAndUpdateTokens (tokens) {
-    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default(token, this.index, this.docSourceId))
+    this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
   }
 
@@ -44055,7 +44461,7 @@ class Segment {
    * @returns {Boolean}
    */
   addNewToken (tokenIndex, newIdWord, word, updateLastToken = true) {
-    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default({
+    const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default({
       textType: this.textType,
       idWord: newIdWord,
       word: word
@@ -44093,7 +44499,7 @@ class Segment {
       lang: this.lang,
       direction: this.direction,
       docSourceId: this.docSourceId,
-      tokens: this.tokens.map(token => token.convertToJSON())
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
   }
 
@@ -44114,7 +44520,20 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_0__.default.convertFromJSON(token))
+      tokens: data.tokens.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token))
+    })
+  }
+
+  static convertFromIndexedDB (data, dbTokens) {
+    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
+
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 }
@@ -44136,10 +44555,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_detect_text_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/detect-text-controller.js */ "./lib/controllers/detect-text-controller.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
-/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+/* harmony import */ var _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/utility/convert-utility.js */ "./lib/utility/convert-utility.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! uuid */ "../node_modules/uuid/index.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/data/metadata.js */ "./lib/data/metadata.js");
+/* harmony import */ var _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/data/langs/langs.js */ "./lib/data/langs/langs.js");
+
 
 
 
@@ -44160,7 +44581,7 @@ class SourceText {
    * @param {String} targetId
    */
   constructor (textType, docSource, targetId, skipDetected = false) {
-    this.id = targetId || docSource.id || (0,uuid__WEBPACK_IMPORTED_MODULE_3__.v4)()
+    this.id = targetId || docSource.id || (0,uuid__WEBPACK_IMPORTED_MODULE_4__.v4)()
     this.textType = textType
 
     this.text = docSource && docSource.text ? docSource.text : ''
@@ -44173,13 +44594,13 @@ class SourceText {
     this.startedDetection = false
 
     if (docSource && docSource.metadata) {
-      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default) {
+      if (docSource.metadata instanceof _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default) {
         this.metadata = docSource.metadata
       } else {
-        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default(docSource.metadata)
+        this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default(docSource.metadata)
       }
     } else {
-      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
+      this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default()
     }
   }
 
@@ -44205,7 +44626,7 @@ class SourceText {
 
   get langData () {
     const textPart = this.text.substr(0, 10)
-    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_5__.default.defineLangName(this.lang)
+    const langName = _lib_data_langs_langs_js__WEBPACK_IMPORTED_MODULE_6__.default.defineLangName(this.lang)
     return {
       textPart: textPart.length < this.text.length ? `${textPart.trim()}...` : textPart,
       langCode: this.lang,
@@ -44216,7 +44637,7 @@ class SourceText {
   clear () {
     this.clearText()
     this.tokenization = {}
-    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default()
+    this.metadata = new _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default()
   }
 
   clearText () {
@@ -44232,6 +44653,10 @@ class SourceText {
 
   addMetadata (property, value) {
     return this.metadata.addProperty(property, value)
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex) {
+    return this.metadata.deleteValueByIndex(metadataTerm, termValIndex)
   }
 
   getMetadataValue (property) {
@@ -44321,7 +44746,7 @@ class SourceText {
     const lang = jsonData.lang ? jsonData.lang.trim() : null
     const sourceType = jsonData.sourceType ? jsonData.sourceType.trim() : null
     const tokenization = jsonData.tokenization
-    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_4__.default.convertFromJSON(jsonData.metadata) : null
+    const metadata = jsonData.metadata ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromJSON(jsonData.metadata) : null
 
     const sourceText = new SourceText(textType, { text, direction, lang, sourceType, tokenization, metadata }, null, lang !== null)
     if (jsonData.textId) {
@@ -44334,6 +44759,7 @@ class SourceText {
   convertToJSON () {
     return {
       textId: this.id,
+      textType: this.textType,
       text: this.text,
       direction: this.direction,
       lang: this.lang,
@@ -44341,6 +44767,40 @@ class SourceText {
       tokenization: this.tokenization,
       metadata: this.metadata.convertToJSON()
     }
+  }
+
+  convertToIndexedDB (textAsBlob = true) {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      text: textAsBlob ? _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.convertTextToBlob(this.text, this.sourceType) : this.text,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToIndexedDB()
+    }
+  }
+
+  static async convertFromIndexedDB (dbData, metadataDbData) {
+    const textData = await _lib_utility_convert_utility_js__WEBPACK_IMPORTED_MODULE_3__.default.converBlobToText(dbData.text)
+
+    const metadataDbDataFiltered = metadataDbData ? metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId) : null
+    const metadata = metadataDbDataFiltered ? _lib_data_metadata_js__WEBPACK_IMPORTED_MODULE_5__.default.convertFromIndexedDB(metadataDbDataFiltered) : null
+
+    const tokenization = dbData.tokenization
+
+    const textParams = {
+      text: textData,
+      direction: dbData.direction,
+      lang: dbData.lang,
+      sourceType: dbData.sourceType,
+      metadata,
+      tokenization
+    }
+
+    const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    return sourceText
   }
 }
 
@@ -44362,7 +44822,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -44373,6 +44833,7 @@ class Token {
 
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
+    this.tokenIndex = tokenIndex
   }
 
   /**
@@ -44446,7 +44907,7 @@ class Token {
    *          { Number } segmentIndex
    *          { String } docSourceId
    */
-  convertToJSON () {
+  convertToJSON (tokenIndex) {
     return {
       textType: this.textType,
       idWord: this.idWord,
@@ -44456,7 +44917,8 @@ class Token {
       hasLineBreak: this.hasLineBreak,
       segmentIndex: this.segmentIndex,
       docSourceId: this.docSourceId,
-      sentenceIndex: this.sentenceIndex
+      sentenceIndex: this.sentenceIndex,
+      tokenIndex
     }
   }
 
@@ -44481,7 +44943,8 @@ class Token {
       beforeWord: data.beforeWord,
       afterWord: data.afterWord,
       hasLineBreak: data.hasLineBreak,
-      sentenceIndex: data.sentenceIndex
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex
     }, data.segmentIndex, data.docSourceId)
   }
 
@@ -45123,6 +45586,871 @@ NotificationSingleton.types = {
 
 /***/ }),
 
+/***/ "./lib/storage/indexed-db-adapter.js":
+/*!*******************************************!*\
+  !*** ./lib/storage/indexed-db-adapter.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ IndexedDBAdapter)
+/* harmony export */ });
+/* harmony import */ var _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/storage/indexed-db-structure.js */ "./lib/storage/indexed-db-structure.js");
+/* eslint-disable no-unused-vars */
+
+
+/**
+ * An interface to IndexedDB Storage
+ */
+class IndexedDBAdapter {
+  /**
+   * @param {String} domain the storage domain
+   * @param {Object} dbDriver a driver for a specific data type
+   */
+  constructor () {
+    this.available = this._initIndexedDBNamespaces()
+    this.errors = []
+  }
+
+  merge (initialData, newData, mergeData) {
+    if (!initialData) { return newData }
+    for (const dataItem of newData) {
+      if (initialData[mergeData.mergeBy] === dataItem[mergeData.mergeBy]) {
+        if (!initialData[mergeData.uploadTo]) { initialData[mergeData.uploadTo] = [] }
+        initialData[mergeData.uploadTo].push(dataItem)
+      }
+    }
+    return initialData
+  }
+
+  /**
+   * Query for a set of data items
+   * @param {Object} params datatype specific query parameters
+   * @return Object[] array of data model items
+   */
+  async select (data, typeQuery) {
+    if (!this.available) { return false }
+    try {
+      let finalResult
+      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareSelectQuery(typeQuery, data)
+      for (const query of queries) {
+        const queryResult = await this._getFromStore(query)
+        finalResult = this.merge(finalResult, queryResult, query.mergeData)
+      }
+
+      return finalResult
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
+  }
+
+  async update (data) {
+    if (!this.available) { return false }
+    try {
+      let result
+      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
+        const query = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareUpdateQuery(objectStoreData, data)
+        if (query.ready) {
+          result = await this._set(query)
+        }
+      }
+      return result
+    } catch (error) {
+      console.error(error)
+      if (error) {
+        this.errors.push(error)
+      }
+    }
+  }
+
+  async deleteMany (data, typeQuery) {
+    if (!this.available) { return false }
+    try {
+      const queries = _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.prepareDeleteQuery(typeQuery, data)
+      for (const query of queries) {
+        const queryResult = await this._deleteFromStore(query)
+      }
+    } catch (error) {
+      if (error) {
+        this.errors.push(error)
+      }
+      return false
+    }
+  }
+
+  /**
+   * This method checks if IndexedDB is used in the current browser
+   */
+  _initIndexedDBNamespaces () {
+    this.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+    this.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || { READ_WRITE: 'readwrite' } // This line should only be needed if it is needed to support the object's constants for older browsers
+    this.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
+    if (!this.indexedDB) {
+      console.warn("Alpheios warn: your browser doesn't support IndexedDB.")
+      return false
+    }
+    return true
+  }
+
+  _openDatabaseRequest () {
+    const request = this.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbVersion)
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result
+      const upgradeTransaction = event.target.transaction
+      this._createObjectStores(db, upgradeTransaction)
+    }
+    return request
+  }
+
+  _createObjectStores (db, upgradeTransaction) {
+    try {
+      for (const objectStoreData of Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)) {
+        let objectStore
+
+        if (!db.objectStoreNames.contains(objectStoreData.name)) {
+          objectStore = db.createObjectStore(objectStoreData.name, { keyPath: objectStoreData.structure.keyPath })
+        } else {
+          objectStore = upgradeTransaction.objectStore(objectStoreData.name)
+        }
+        objectStoreData.structure.indexes.forEach(index => {
+          if (!objectStore.indexNames.contains(index.indexName)) {
+            objectStore.createIndex(index.indexName, index.keyPath, { unique: index.unique })
+          }
+        })
+      }
+    } catch (error) {
+      this.errors.push(error)
+    }
+  }
+
+  async _set (query) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = async (event) => {
+        const db = event.target.result
+        const rv = await this._putItem(db, query)
+        resolve(rv)
+      }
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+    return promiseOpenDB
+  }
+
+  /**
+   * Internal method to put an item into a database
+   * @param {} db the database handle
+   * @param {Object} data data item to be updated  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        dataItems: array of data items to be updated }
+   * @return {Promise} resolves to true on success
+   */
+  async _putItem (db, data) {
+    const idba = this
+    const promisePut = await new Promise((resolve, reject) => {
+      try {
+        const transaction = db.transaction([data.objectStoreName], 'readwrite')
+        transaction.onerror = (event) => {
+          idba.errors.push(event.target)
+          reject(event.target)
+        }
+        const objectStore = transaction.objectStore(data.objectStoreName)
+        let objectsDone = data.dataItems.length
+        for (const dataItem of data.dataItems) {
+          const requestPut = objectStore.put(dataItem)
+
+          requestPut.onsuccess = () => {
+            objectsDone = objectsDone - 1
+            if (objectsDone === 0) {
+              resolve(true)
+            }
+          }
+          requestPut.onerror = () => {
+            idba.errors.push(event.target)
+            reject(event.target)
+          }
+        }
+        if (objectsDone === 0) {
+          resolve(true)
+        }
+      } catch (error) {
+        console.error(error)
+        if (error) {
+          idba.errors.push(error)
+        }
+      }
+    })
+    return promisePut
+  }
+
+  /**
+   * Internal method to get an item from a database store
+   * @param {Object} data data item to be retrieved  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        condition: query parameters }
+   * @return {Promise} resolves to the retrieved items
+   */
+  async _getFromStore (query) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const transaction = db.transaction([query.objectStoreName])
+
+          const objectStore = transaction.objectStore(query.objectStoreName)
+          const index = objectStore.index(query.condition.indexName)
+          const keyRange = this.IDBKeyRange[query.condition.type](query.condition.value)
+
+          const requestOpenCursor = index.getAll(keyRange, 0)
+          requestOpenCursor.onsuccess = (event) => {
+            const finalResult = query.resultType === 'multiple' ? event.target.result : event.target.result[0]
+            resolve(finalResult)
+          }
+
+          requestOpenCursor.onerror = (event) => {
+            idba.errors.push(event.target)
+            reject(event.target)
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(event.target)
+        }
+      }
+      request.onerror = (event) => {
+        reject(event.target)
+      }
+    })
+    return promiseOpenDB
+  }
+
+  /**
+   * Internal method to delete an item from  a specific data store
+   * @param {Object} data data item to be retrieved  in the format
+   *                      { objectStoreName: name of the object store,
+   *                        condition: query parameters }
+   * @return {Promise} resolves to the number of deleted items
+   */
+  async _deleteFromStore (data) {
+    const idba = this
+    const promiseOpenDB = await new Promise((resolve, reject) => {
+      const request = this._openDatabaseRequest()
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const transaction = db.transaction([data.objectStoreName], 'readwrite')
+          const objectStore = transaction.objectStore(data.objectStoreName)
+
+          const index = objectStore.index(data.condition.indexName)
+          const keyRange = this.IDBKeyRange[data.condition.type](data.condition.value)
+
+          const requestOpenCursor = index.openCursor(keyRange)
+          let deletedItems = 0
+          requestOpenCursor.onsuccess = (event) => {
+            const cursor = event.target.result
+            if (cursor) {
+              const requestDelete = cursor.delete()
+              requestDelete.onerror = (event) => {
+                idba.errors.push(event.target)
+                reject(event.target)
+              }
+              requestDelete.onsuccess = (event) => {
+                deletedItems = deletedItems + 1
+              }
+              cursor.continue()
+            } else {
+              resolve(deletedItems)
+            }
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(error)
+        }
+      }
+
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+
+    return promiseOpenDB
+  }
+
+  /**
+   * Clear all the object stores
+   * Used primarily for testing right now
+   * TODO needs to be enhanced to support async removal of old database versions
+   */
+  async clear () {
+    const idba = this
+
+    const promiseDB = await new Promise((resolve, reject) => {
+      const request = idba.indexedDB.open(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbName, _lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.dbVersion)
+      request.onsuccess = (event) => {
+        try {
+          const db = event.target.result
+          const objectStores = Object.values(_lib_storage_indexed_db_structure_js__WEBPACK_IMPORTED_MODULE_0__.default.allObjectStoreData)
+          let objectStoresRemaining = objectStores.length
+
+          for (const store of objectStores) {
+            // open a read/write db transaction, ready for clearing the data
+            const transaction = db.transaction([store.name], 'readwrite')
+            // create an object store on the transaction
+            const objectStore = transaction.objectStore(store.name)
+            // Make a request to clear all the data out of the object store
+            const objectStoreRequest = objectStore.clear()
+            objectStoreRequest.onsuccess = function (event) {
+              objectStoresRemaining = objectStoresRemaining - 1
+              if (objectStoresRemaining === 0) {
+                resolve(true)
+              }
+            }
+            objectStoreRequest.onerror = function (event) {
+              idba.errors.push(event.target)
+              reject(event.target)
+            }
+          }
+        } catch (error) {
+          idba.errors.push(error)
+          reject(error)
+        }
+      }
+      request.onerror = (event) => {
+        idba.errors.push(event.target)
+        reject(event.target)
+      }
+    })
+    return promiseDB
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/storage/indexed-db-structure.js":
+/*!*********************************************!*\
+  !*** ./lib/storage/indexed-db-structure.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ IndexedDBStructure)
+/* harmony export */ });
+class IndexedDBStructure {
+  static get dbVersion () {
+    return 2
+  }
+
+  static get dbName () {
+    return 'AlignmentEditorDB'
+  }
+
+  static get allObjectStoreData () {
+    return {
+      common: this.commonStructure,
+      docSource: this.docSourceStructure,
+      metadata: this.metadataStructure,
+      alignedText: this.alignedTextStructure,
+      segments: this.segmentsStructure,
+      tokens: this.tokensStructure,
+      alGroups: this.alGroupsStructure
+    }
+  }
+
+  static get commonStructure () {
+    return {
+      name: 'ALEditorCommon',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false }
+        ]
+      },
+      serialize: this.serializeCommon.bind(this)
+    }
+  }
+
+  static get docSourceStructure () {
+    return {
+      name: 'ALEditorDocSource',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'textId', keyPath: 'textId', unique: false }
+        ]
+      },
+      serialize: this.serializeDocSource.bind(this)
+    }
+  }
+
+  static get metadataStructure () {
+    return {
+      name: 'ALEditorMetadata',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextId', keyPath: 'alTextId', unique: false }
+        ]
+      },
+      serialize: this.serializeMetadata.bind(this)
+    }
+  }
+
+  static get alignedTextStructure () {
+    return {
+      name: 'ALEditorAlignedText',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'textId', keyPath: 'textId', unique: false }
+        ]
+      },
+      serialize: this.serializeAlignedText.bind(this)
+    }
+  }
+
+  static get segmentsStructure () {
+    return {
+      name: 'ALEditorSegments',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextId', keyPath: 'alTextId', unique: false }
+        ]
+      },
+      serialize: this.serializeSegments.bind(this)
+    }
+  }
+
+  static get tokensStructure () {
+    return {
+      name: 'ALEditorTokens',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+        ]
+      },
+      serialize: this.serializeTokens.bind(this)
+    }
+  }
+
+  static get alGroupsStructure () {
+    return {
+      name: 'ALEditorAlGroups',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false }
+        ]
+      },
+      serialize: this.serializeAlGroups.bind(this)
+    }
+  }
+
+  static serializeCommon (data) {
+    const uniqueID = `${data.userID}-${data.id}`
+    return [{
+      ID: uniqueID,
+      alignmentID: data.id,
+      userID: data.userID,
+      createdDT: data.createdDT,
+      updatedDT: data.updatedDT,
+      langsList: data.langsList
+    }]
+  }
+
+  static serializeDocSource (data) {
+    const finalData = []
+
+    const dataItems = Object.values(data.targets).map(target => target.docSource)
+    dataItems.unshift(data.origin.docSource)
+
+    for (const dataItem of dataItems) {
+      const uniqueID = `${data.userID}-${data.id}-${dataItem.textType}-${dataItem.textId}`
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+        textType: dataItem.textType,
+        textId: dataItem.textId,
+        lang: dataItem.lang,
+        sourceType: dataItem.sourceType,
+        direction: dataItem.direction,
+        text: dataItem.text,
+        tokenization: dataItem.tokenization
+      })
+    }
+
+    return finalData
+  }
+
+  static serializeMetadata (data) {
+    const finalData = []
+
+    const dataItems = Object.values(data.targets).map(target => target.docSource)
+    dataItems.unshift(data.origin.docSource)
+
+    for (const dataItem of dataItems) {
+      if (dataItem.metadata && dataItem.metadata.properties && dataItem.metadata.properties.length > 0) {
+        for (const metadataItem of dataItem.metadata.properties) {
+          const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${metadataItem.property.replace(' ', '-')}`
+
+          finalData.push({
+            ID: uniqueID,
+            alignmentID: data.id,
+            userID: data.userID,
+            alTextId: `${data.id}-${dataItem.textId}`,
+            textId: dataItem.textId,
+            property: metadataItem.property,
+            value: metadataItem.value
+          })
+        }
+      }
+    }
+    return finalData
+  }
+
+  static serializeAlignedText (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+
+      for (const dataItem of dataItems) {
+        const uniqueID = `${data.userID}-${data.id}-${dataItem.textType}-${dataItem.textId}`
+        finalData.push({
+          ID: uniqueID,
+          alignmentID: data.id,
+          userID: data.userID,
+          textType: dataItem.textType,
+          textId: dataItem.textId,
+          lang: dataItem.lang,
+          sourceType: dataItem.sourceType,
+          direction: dataItem.direction,
+          tokenPrefix: dataItem.tokenPrefix,
+          tokenization: dataItem.tokenization
+        })
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeSegments (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}`
+
+            finalData.push({
+              ID: uniqueID,
+              alignmentID: data.id,
+              userID: data.userID,
+              alTextId: `${data.id}-${dataItem.textId}`,
+              textId: dataItem.textId,
+
+              index: segmentItem.index,
+              textType: segmentItem.textType,
+              lang: segmentItem.lang,
+              direction: segmentItem.direction,
+              docSourceId: segmentItem.docSourceId
+            })
+          }
+        }
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeTokens (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            for (const tokenItem of segmentItem.tokens) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.idWord}`
+
+              finalData.push({
+                ID: uniqueID,
+                alignmentID: data.id,
+                userID: data.userID,
+                alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
+                textId: dataItem.textId,
+
+                textType: tokenItem.textType,
+                idWord: tokenItem.idWord,
+                word: tokenItem.word,
+                segmentIndex: tokenItem.segmentIndex,
+                docSourceId: segmentItem.docSourceId,
+                sentenceIndex: tokenItem.sentenceIndex,
+                tokenIndex: tokenItem.tokenIndex,
+
+                beforeWord: tokenItem.beforeWord,
+                afterWord: tokenItem.afterWord,
+                hasLineBreak: tokenItem.hasLineBreak
+              })
+            }
+          }
+        }
+      }
+    }
+
+    return finalData
+  }
+
+  static serializeAlGroups (data) {
+    const finalData = []
+    for (const alGroupItem of data.alignmentGroups) {
+      const uniqueID = `${data.userID}-${data.id}-${alGroupItem.id}`
+
+      finalData.push({
+        ID: uniqueID,
+        alignmentID: data.id,
+        userID: data.userID,
+
+        alGroupId: alGroupItem.id,
+        segmentIndex: alGroupItem.actions.segmentIndex,
+        targetId: alGroupItem.actions.targetId,
+        origin: alGroupItem.actions.origin,
+        target: alGroupItem.actions.target
+      })
+    }
+
+    return finalData
+  }
+
+  static prepareUpdateQuery (objectStoreData, data) {
+    const dataItems = objectStoreData.serialize(data)
+    if (dataItems && dataItems.length > 0) {
+      return {
+        objectStoreName: objectStoreData.name,
+        dataItems,
+        ready: true
+      }
+    }
+    return { ready: false }
+  }
+
+  static prepareSelectQuery (typeQuery, indexData) {
+    const typeQueryList = {
+      allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
+      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this)
+    }
+    return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareAllAlignmentsByUserIDQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.common.name,
+        condition: {
+          indexName: 'userID',
+          value: indexData.userID,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  static prepareAlignmentByAlIDQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.common.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'single'
+      },
+      {
+        objectStoreName: this.allObjectStoreData.docSource.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: 'alignmentID',
+          uploadTo: 'docSource'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.metadata.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'metadata'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.alignedText.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: 'alignmentID',
+          uploadTo: 'alignedText'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.segments.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'segments'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'tokens'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.alGroups.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID'],
+          uploadTo: 'alignmentGroups'
+        }
+      }
+    ]
+  }
+
+  static prepareDeleteQuery (typeQuery, indexData) {
+    const typeQueryList = {
+      alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
+    }
+    return typeQueryList[typeQuery](indexData)
+  }
+
+  static prepareDeleteAlignmentDataByID (alignmentID) {
+    return [{
+      objectStoreName: this.allObjectStoreData.docSource.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.metadata.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.alignedText.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.segments.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.tokens.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.alGroups.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    }
+    ]
+  }
+}
+
+
+/***/ }),
+
 /***/ "./lib/store/store-definition.js":
 /*!***************************************!*\
   !*** ./lib/store/store-definition.js ***!
@@ -45141,7 +46469,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i389-some-fixes.20210519395" : 0
+    return  true ? "i353-indexeddb-support.20210527676" : 0
   }
 
   static get libName () {
@@ -45687,6 +47015,53 @@ class UploadFileCSV {
     }
     textDataAll.push(textData)
     return textDataAll
+  }
+}
+
+
+/***/ }),
+
+/***/ "./lib/utility/convert-utility.js":
+/*!****************************************!*\
+  !*** ./lib/utility/convert-utility.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ConvertUtility)
+/* harmony export */ });
+class ConvertUtility {
+  static convertDateToString (dt) {
+    if (!dt) { return null }
+    return dt.getFullYear() + '-' +
+      ((dt.getMonth() + 1) < 10 ? '0' : '') + (dt.getMonth() + 1) + '-' +
+      ((dt.getDate() < 10) ? '0' : '') + dt.getDate() + ' ' +
+      ((dt.getHours() < 10) ? '0' : '') + dt.getHours() + ':' +
+      ((dt.getMinutes() < 10) ? '0' : '') + dt.getMinutes() + ':' +
+      ((dt.getSeconds() < 10) ? '0' : '') + dt.getSeconds()
+  }
+
+  static convertStringToDate (str) {
+    return str ? new Date(str) : null
+  }
+
+  static convertTextToBlob (text, sourceType) {
+    if (sourceType === 'text') {
+      return new Blob([text], {
+        type: 'text/plain'
+      })
+    } else if (sourceType === 'tei') {
+      return new Blob([text], {
+        type: 'application/xml'
+      })
+    }
+    return text
+  }
+
+  static converBlobToText (textBlob) {
+    return textBlob instanceof Blob ? textBlob.text() : textBlob
   }
 }
 
@@ -46596,6 +47971,62 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'AlignmentsList',
+  props: {
+  },
+  data () {
+    return {
+      alignments: []
+    }
+  },
+  async mounted () {
+    this.alignments = await this.$textC.uploadFromAllAlignmentsDB()
+  },
+  computed: {
+    l10n () {
+      return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_0__.default
+    },
+    readyAlignments () {
+      return this.alignments && this.alignments.length > 0
+    }
+  },
+  methods: {
+    uploadAlignmentFromDB (alData) {
+      this.$emit('upload-data-from-db', alData)
+    }
+  }
+});
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/app.vue?vue&type=script&lang=js& ***!
@@ -46619,6 +48050,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_options_options_block_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/vue/options/options-block.vue */ "./vue/options/options-block.vue");
 /* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/inline-icons/navbar.svg */ "./inline-icons/navbar.svg");
 /* harmony import */ var _inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_inline_icons_navbar_svg__WEBPACK_IMPORTED_MODULE_10__);
+//
+//
 //
 //
 //
@@ -46725,15 +48158,25 @@ __webpack_require__.r(__webpack_exports__);
     /**
     * Starts upload workflow
     */
-    uploadData (fileData, extension) {
+    uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
         if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
           return this.startOver(alignment)
         }
       } 
       
+      this.showSourceTextEditor()
+    },
+
+    async uploadDataFromDB (alData) {
+      if (alData) {
+        const alignment = await this.$textC.uploadDataFromDB(alData)
+        if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
+          return this.startOver(alignment)
+        }
+      }
       this.showSourceTextEditor()
     },
     /**
@@ -46770,6 +48213,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
+
+    startNewInitialAlignment () {
+      this.$textC.createAlignment()
+      this.$historyC.startTracking(this.$textC.alignment)
+      this.showSourceTextEditor()
+    },
+
     /**
      * Show options block
      */
@@ -46842,20 +48292,22 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     startOver (alignment) {
+      /*
       this.$alignedGC.alignment = null
       this.$textC.alignment = null
       this.$historyC.alignment = null
       this.$tokensEC.alignment = null
+      */
 
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
         this.$textC.alignment = alignment
         this.$alignedGC.alignment = alignment
       } else {
-        this.$textC.createAlignment()
+        this.$textC.startOver()
+        this.$alignedGC.startOver()
       }
-      
-      this.$historyC.startTracking(this.$textC.alignment)
-      this.$tokensEC.loadAlignment(this.$textC.alignment)
+      this.$historyC.startOver(this.$textC.alignment)
+      this.$tokensEC.startOver(this.$textC.alignment)
       
       _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_0__.default.clearNotifications()
       if (alignment instanceof _lib_data_alignment__WEBPACK_IMPORTED_MODULE_1__.default) {
@@ -47525,10 +48977,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "../node_modules/vue/dist/vue.runtime.esm.js");
 /* harmony import */ var v_video_embed__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-video-embed */ "../node_modules/v-video-embed/dist/video-embed.min.js");
 /* harmony import */ var v_video_embed__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_video_embed__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _vue_alignments_list_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/vue/alignments-list.vue */ "./vue/alignments-list.vue");
 //
 //
 //
@@ -47573,36 +49026,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
+
 
 
 
 
 
 // global register
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use((v_video_embed__WEBPACK_IMPORTED_MODULE_0___default()))
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use((v_video_embed__WEBPACK_IMPORTED_MODULE_0___default()))
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'InitialScreen',
+  components: {
+    alignmentsList: _vue_alignments_list_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  },
   data () {
     return {
       showUploadBlock: false,
       uploadFileName: null,
-      showVideo: false
+      showVideo: false,
+      alignments: []
     }
   },
   mounted () {
-      setTimeout(() => {
-          this.showVideo = true
-      }, 1500)
+    setTimeout(() => {
+      this.showVideo = true
+    }, 1500)
   },
   computed: {
     l10n () {
       return _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_1__.default
+    },
+    readyAlignments () {
+      return this.alignments && this.alignments.length > 0
     }
   },
   methods: {
     startNewAlignment () {
-      this.$emit("new-alignment")
+      this.$emit("new-initial-alignment")
     },
     resumePrevAlignment () {
       this.showUploadBlock = true
@@ -47621,10 +49088,15 @@ vue__WEBPACK_IMPORTED_MODULE_2__.default.use((v_video_embed__WEBPACK_IMPORTED_MO
       const reader = new FileReader()
 
       reader.onload = e => {
-        this.$emit("upload-data", e.target.result, extension)
+        this.$emit("upload-data-from-file", e.target.result, extension)
         this.showUploadBlock = false
       }
       reader.readAsText(file)
+    },
+
+    uploadDataFromDB (alData) {
+      this.$emit('upload-data-from-db', alData)
+      this.showUploadBlock = false
     }
   }
 });
@@ -49198,20 +50670,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
       if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
 
-      if (!this.value) { return }
-
-      if (this.metadataTerm.template) {
-        this.docSource.addMetadata(this.metadataTerm.property, this.value)
-      } else {
-        this.metadataTerm.saveValue(this.value)
-      }
-      this.$textC.changeMetadataTerm()
+      this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
       if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
-      this.metadataTerm.deleteValueByIndex(termValIndex)
+      this.deleteValueByIndex(termValIndex)
+      this.$textC.deleteValueByIndex(this.metadataTerm, termValIndex, this.textType, this.textId)
+    },
+    deleteValueByIndex (termValIndex) {
+      this.metadataTerm.value.splice(termValIndex, 1)
     },
     clearValue () {
       this.value = null
@@ -49683,7 +51152,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async updateTextFromTextBlock () {
-      console.info('updateTextFromTextBlock - started', this.text)
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       if (!docSource && (this.text.length === 0)) { return }
 
@@ -49707,7 +51175,6 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     async updateText () {
-      console.info('updateText - started', this.text)
       if (this.text) {
         const params = {
           text: this.text,
@@ -49743,7 +51210,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async deleteText () {
-      console.info('deleteText - started', this.text)
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
@@ -49931,10 +51397,9 @@ __webpack_require__.r(__webpack_exports__);
    * it could be moved out here
    */
   created () {
-    this.$textC.createAlignment()
-    this.$historyC.startTracking(this.$textC.alignment)
-    this.$tokensEC.loadAlignment(this.$textC.alignment)
+
   },
+
   computed: {
     originId () {
       return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null
@@ -51795,6 +53260,47 @@ component.options.__file = "vue/align-editor/token-block.vue"
 
 /***/ }),
 
+/***/ "./vue/alignments-list.vue":
+/*!*********************************!*\
+  !*** ./vue/alignments-list.vue ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./alignments-list.vue?vue&type=template&id=2fb49fb4& */ "./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&");
+/* harmony import */ var _alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alignments-list.vue?vue&type=script&lang=js& */ "./vue/alignments-list.vue?vue&type=script&lang=js&");
+/* harmony import */ var _alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alignments-list.vue?vue&type=style&index=0&lang=scss& */ "./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
+  _alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vue/alignments-list.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./vue/app.vue":
 /*!*********************!*\
   !*** ./vue/app.vue ***!
@@ -53512,6 +55018,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&":
+/*!*******************************************************************!*\
+  !*** ./vue/alignments-list.vue?vue&type=style&index=0&lang=scss& ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./alignments-list.vue?vue&type=style&index=0&lang=scss& */ "../node_modules/mini-css-extract-plugin/dist/loader.js!../node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[2]!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_5_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./vue/app.vue?vue&type=style&index=0&lang=scss&":
 /*!*******************************************************!*\
   !*** ./vue/app.vue?vue&type=style&index=0&lang=scss& ***!
@@ -54201,6 +55724,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../../node_modules/source-map-loader/dist/cjs.js!./token-block.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/align-editor/token-block.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_token_block_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./vue/alignments-list.vue?vue&type=script&lang=js&":
+/*!**********************************************************!*\
+  !*** ./vue/alignments-list.vue?vue&type=script&lang=js& ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/index.js??vue-loader-options!../../node_modules/source-map-loader/dist/cjs.js!./alignments-list.vue?vue&type=script&lang=js& */ "../node_modules/vue-loader/lib/index.js??vue-loader-options!../node_modules/source-map-loader/dist/cjs.js!./vue/alignments-list.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_vue_loader_lib_index_js_vue_loader_options_node_modules_source_map_loader_dist_cjs_js_alignments_list_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -54925,6 +56464,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_token_block_vue_vue_type_template_id_53b7c654___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./token-block.vue?vue&type=template&id=53b7c654& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/align-editor/token-block.vue?vue&type=template&id=53b7c654&");
+
+
+/***/ }),
+
+/***/ "./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&":
+/*!****************************************************************!*\
+  !*** ./vue/alignments-list.vue?vue&type=template&id=2fb49fb4& ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_alignments_list_vue_vue_type_template_id_2fb49fb4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./alignments-list.vue?vue&type=template&id=2fb49fb4& */ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&");
 
 
 /***/ }),
@@ -56153,6 +57709,81 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=template&id=2fb49fb4&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/alignments-list.vue?vue&type=template&id=2fb49fb4& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.readyAlignments,
+          expression: "readyAlignments"
+        }
+      ],
+      staticClass: "alpheios-alignment-editor-alignments"
+    },
+    [
+      _c(
+        "table",
+        { staticClass: "alpheios-alignment-editor-alignments-table" },
+        _vm._l(_vm.alignments, function(alData, alIndex) {
+          return _c("tr", { key: alIndex }, [
+            _c(
+              "td",
+              {
+                staticClass:
+                  "alpheios-alignment-editor-alignments-table_link alpheios-alignment-editor-alignments-table_dt",
+                on: {
+                  click: function($event) {
+                    return _vm.uploadAlignmentFromDB(alData)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(alData.updatedDT))]
+            ),
+            _vm._v(" "),
+            _c(
+              "td",
+              {
+                staticClass: "alpheios-alignment-editor-alignments-table_link",
+                on: {
+                  click: function($event) {
+                    return _vm.uploadAlignmentFromDB(alData)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(alData.langsList))]
+            )
+          ])
+        }),
+        0
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa&":
 /*!*********************************************************************************************************************************************************************************************!*\
   !*** ../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../node_modules/vue-loader/lib/index.js??vue-loader-options!./vue/app.vue?vue&type=template&id=2307d2fa& ***!
@@ -56197,7 +57828,7 @@ var render = function() {
         },
         on: {
           "download-data": _vm.downloadData,
-          "upload-data": _vm.uploadData,
+          "upload-data": _vm.uploadDataFromFile,
           "align-texts": _vm.showSummaryPopup,
           "redo-action": _vm.redoAction,
           "undo-action": _vm.undoAction,
@@ -56222,8 +57853,9 @@ var render = function() {
           }
         ],
         on: {
-          "upload-data": _vm.uploadData,
-          "new-alignment": _vm.showSourceTextEditor
+          "upload-data-from-file": _vm.uploadDataFromFile,
+          "upload-data-from-db": _vm.uploadDataFromDB,
+          "new-initial-alignment": _vm.startNewInitialAlignment
         }
       }),
       _vm._v(" "),
@@ -57321,6 +58953,36 @@ var render = function() {
                         ]
                       )
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showUploadBlock,
+                          expression: "showUploadBlock"
+                        }
+                      ],
+                      staticClass:
+                        "alpheios-alignment-editor-initial-screen__alignments-container"
+                    },
+                    [
+                      _c("alignments-list", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showUploadBlock,
+                            expression: "showUploadBlock"
+                          }
+                        ],
+                        on: { "upload-data-from-db": _vm.uploadDataFromDB }
+                      })
+                    ],
+                    1
                   )
                 ]
               )
@@ -57375,7 +59037,7 @@ var staticRenderFns = [
       "h2",
       {
         staticClass:
-          "alpheios-alignment-editor-initial-screen__heading-animated"
+          "alpheios-heading-animated alpheios-alignment-editor-initial-screen__heading-animated"
       },
       [
         _c("span", [_vm._v("A")]),
@@ -62669,7 +64331,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.3.3","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/aligned-groups-controller.test.js","test-b":"jest tests/vue/text-editor/text-editor-single-block.test.js --coverage","test-c":"jest tests/lib/data/alignment.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.2.7","@babel/core":"^7.13.15","@babel/plugin-proposal-object-rest-spread":"^7.13.8","@babel/plugin-transform-modules-commonjs":"^7.13.8","@babel/plugin-transform-runtime":"^7.13.15","@babel/preset-env":"^7.13.15","@babel/register":"^7.13.14","@babel/runtime":"^7.13.10","@vue/test-utils":"^1.1.4","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.24.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.22.1","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.7","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.4","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.32.11","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.6","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.34.0","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/storage-controller.test.js","test-b":"jest tests/vue/text-editor/text-editor-single-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 
@@ -62735,7 +64397,7 @@ module.exports = JSON.parse('{"ALIGNMENT_ERROR_TOKENIZATION_CANCELLED":{"message
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
+module.exports = JSON.parse('{"DOWNLOAD_CONTROLLER_ERROR_TYPE":{"message":"Download type {downloadType} is not defined.","description":"An error message for download process","component":"DownloadController","params":["downloadType"]},"DOWNLOAD_CONTROLLER_ERROR_NO_TEXTS":{"message":"You should define original and translation texts first","description":"An error message for download process","component":"DownloadController"},"TEXTS_CONTROLLER_EMPTY_FILE_DATA":{"message":"The file doesn\'t have all the required fields. Text won\'t be created.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_EMPTY_DB_DATA":{"message":"There is not enough information for retrieving alignment from DB.","description":"An error message for upload data from file.","component":"TextsController"},"TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP":{"message":"You should start from defining original text first.","description":"An error message creating alignment.","component":"TextsController"},"ALIGNED_CONTROLLER_NOT_READY_FOR_TOKENIZATION":{"message":"Document source texts are not ready for tokenization.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_NOT_EQUAL_SEGMENTS":{"message":"The tokenization process was cancelled because original and translation texts don\'t have the same amount of segments.","description":"An error message creating alignment.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_STARTED":{"message":"Tokenization process has started.","description":"An info message that is published before tokenization started.","component":"AlignedGroupsController"},"ALIGNED_CONTROLLER_TOKENIZATION_FINISHED":{"message":"Tokenization process has finished.","description":"An info message that is published after tokenization finished.","component":"AlignedGroupsController"},"TOKENIZE_CONTROLLER_ERROR_NOT_REGISTERED":{"message":"Tokenizer method {tokenizer} is not registered","description":"An error message for tokenization workflow","component":"TokenizeController","params":["tokenizer"]},"UPLOAD_CONTROLLER_ERROR_TYPE":{"message":"Upload type {uploadType} is not defined.","description":"An error message for upload workflow","component":"UploadController","params":["uploadType"]},"UPLOAD_CONTROLLER_ERROR_WRONG_FORMAT":{"message":"Uploaded file has wrong format for the type - plainSourceUploadFromFile.","description":"An error message for upload workflow","component":"UploadController"},"SETTINGS_CONTROLLER_NO_VALUES_CLASS":{"message":"There is no class for uploading settings values that is regestered as {className}","description":"An error message for settings upload workflow","component":"SettingsController","params":["className"]},"TOKENS_EDIT_IS_NOT_EDITABLE_ERROR":{"message":"This token is inside created alignment group, you should ungroup it first.","description":"An error message for token edit workflow","component":"TokenEditController"},"UPLOAD_CONTROLLER_EXTENSION_UNAVAILABLE":{"message":"File extension {extension} is not supported. Use the following - {availableExtensions}.","description":"An error message for upload workflow","component":"TextsController","params":["extension","availableExtensions"]},"DOWNLOAD_CONTROLLER_TYPE_SHORT_LABEL":{"message":"Short to tsv","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_LABEL":{"message":"Full to json","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_SHORT_TOOLTIP":{"message":"download only source texts without tokens and alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_FULL_TOOLTIP":{"message":"download source texts, tokens and segments, alignment groups","description":"Download type tooltip","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_LABEL":{"message":"Html","description":"Download type label","component":"DownloadController"},"DOWNLOAD_CONTROLLER_TYPE_HTML_TOOLTIP":{"message":"download html with alignment result","description":"Download type tooltip","component":"DownloadController"}}');
 
 /***/ }),
 

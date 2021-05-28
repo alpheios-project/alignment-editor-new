@@ -5,6 +5,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -51,6 +52,7 @@ export default class TextsController {
       this.store.commit('incrementDocSourceLangDetected')
     }
 
+    StorageController.update(this.alignment)
     return { resultUpdate, resultDetect }
   }
 
@@ -78,6 +80,7 @@ export default class TextsController {
     if (resultDetect) {
       this.store.commit('incrementDocSourceLangDetected')
     }
+    StorageController.update(this.alignment)
     return { resultUpdate: true, resultDetect, finalTargetId }
   }
 
@@ -111,6 +114,7 @@ export default class TextsController {
       this.alignment.deleteText(textType, id)
       this.store.commit('incrementDocSourceLangDetected')
       this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
     }
   }
 
@@ -186,7 +190,21 @@ export default class TextsController {
     return true
   }
 
-  uploadData (fileData, tokenizerOptionValue, extension) {
+  async uploadDataFromDB (alData) {
+    if (!alData) {
+      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
+      NotificationSingleton.addNotification({
+        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
+        type: NotificationSingleton.types.ERROR
+      })
+      return
+    }
+
+    const alignment = await UploadController.upload('indexedDBUpload', alData)
+    return alignment
+  }
+
+  uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -203,7 +221,9 @@ export default class TextsController {
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
-    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
+    StorageController.update(alignment, true)
+    return alignment
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
@@ -415,8 +435,21 @@ export default class TextsController {
   /**
    * A simple event for any change in metadata
    */
-  changeMetadataTerm () {
-    this.store.commit('incrementDocSourceUpdated')
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
+    }
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const result = this.alignment.deleteValueByIndex(metadataTerm, termValIndex, textType, textId)
+
+    if (result) {
+      this.store.commit('incrementDocSourceUpdated')
+      StorageController.update(this.alignment, true)
+    }
   }
 
   get originDocSourceDefined () {
@@ -424,8 +457,7 @@ export default class TextsController {
   }
 
   checkDetectedProps (textType, docSourceId) {
-    const sourceText = this.getDocSource(textType, docSourceId)
-    return Boolean(sourceText && sourceText.detectedLang)
+    return this.alignment.checkDetectedProps(textType, docSourceId)
   }
 
   get originalLangData () {
@@ -434,5 +466,12 @@ export default class TextsController {
 
   get targetsLangData () {
     return this.alignment.targetsLangData
+  }
+
+  async uploadFromAllAlignmentsDB () {
+    const data = { userID: Alignment.defaultUserID }
+
+    const result = await StorageController.select(data)
+    return result
   }
 }

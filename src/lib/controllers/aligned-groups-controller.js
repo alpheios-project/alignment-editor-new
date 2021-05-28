@@ -1,5 +1,6 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
+import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class AlignedGroupsController {
   /**
@@ -47,6 +48,8 @@ export default class AlignedGroupsController {
       return false
     }
     this.store.commit('incrementAlignmentUpdated')
+
+    StorageController.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     return resultAlignment
@@ -107,16 +110,19 @@ export default class AlignedGroupsController {
     if (!this.hasActiveAlignmentGroup) {
       if (this.tokenIsGrouped(token, limitByTargetId)) {
         this.activateGroupByToken(token, limitByTargetId)
+        StorageController.update(this.alignment, true)
       } else {
         this.startNewAlignmentGroup(token, limitByTargetId)
       }
     } else {
       if (this.shouldFinishAlignmentGroup(token, limitByTargetId)) {
         this.finishActiveAlignmentGroup()
+        StorageController.update(this.alignment)
       } else if (this.shouldRemoveFromAlignmentGroup(token, limitByTargetId)) {
         this.removeFromAlignmentGroup(token, limitByTargetId)
       } else if (this.tokenIsGrouped(token, limitByTargetId)) {
         this.mergeActiveGroupWithAnotherByToken(token, limitByTargetId)
+        StorageController.update(this.alignment, true)
       } else {
         this.addToAlignmentGroup(token, limitByTargetId)
       }

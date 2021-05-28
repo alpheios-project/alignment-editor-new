@@ -1,6 +1,7 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
+import ConvertUtility from '@/lib/utility/convert-utility.js'
 
 import { v4 as uuidv4 } from 'uuid'
 import Metadata from '@/lib/data/metadata.js'
@@ -90,6 +91,10 @@ export default class SourceText {
 
   addMetadata (property, value) {
     return this.metadata.addProperty(property, value)
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex) {
+    return this.metadata.deleteValueByIndex(metadataTerm, termValIndex)
   }
 
   getMetadataValue (property) {
@@ -192,6 +197,7 @@ export default class SourceText {
   convertToJSON () {
     return {
       textId: this.id,
+      textType: this.textType,
       text: this.text,
       direction: this.direction,
       lang: this.lang,
@@ -199,5 +205,39 @@ export default class SourceText {
       tokenization: this.tokenization,
       metadata: this.metadata.convertToJSON()
     }
+  }
+
+  convertToIndexedDB (textAsBlob = true) {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      text: textAsBlob ? ConvertUtility.convertTextToBlob(this.text, this.sourceType) : this.text,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenization: this.tokenization,
+      metadata: this.metadata.convertToIndexedDB()
+    }
+  }
+
+  static async convertFromIndexedDB (dbData, metadataDbData) {
+    const textData = await ConvertUtility.converBlobToText(dbData.text)
+
+    const metadataDbDataFiltered = metadataDbData ? metadataDbData.filter(metadataItem => metadataItem.textId === dbData.textId) : null
+    const metadata = metadataDbDataFiltered ? Metadata.convertFromIndexedDB(metadataDbDataFiltered) : null
+
+    const tokenization = dbData.tokenization
+
+    const textParams = {
+      text: textData,
+      direction: dbData.direction,
+      lang: dbData.lang,
+      sourceType: dbData.sourceType,
+      metadata,
+      tokenization
+    }
+
+    const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    return sourceText
   }
 }

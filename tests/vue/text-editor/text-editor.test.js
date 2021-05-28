@@ -59,7 +59,7 @@ describe('text-editor.test.js', () => {
 
     expect(cmp.findAllComponents(TextEditorSingleBlock)).toHaveLength(2)
   })
-
+/*
   it('3 TextEditor - alignment should be already created', () => {
     let cmp = shallowMount(TextEditor, { 
       store: appC.store,
@@ -70,7 +70,7 @@ describe('text-editor.test.js', () => {
     expect(cmp.vm.$textC.alignment).toEqual(expect.any(Alignment))
     expect(cmp.vm.$historyC.alignment).toEqual(expect.any(Alignment))
   })
-
+*/
 
 
 })

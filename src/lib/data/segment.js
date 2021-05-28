@@ -1,8 +1,11 @@
+import { v4 as uuidv4 } from 'uuid'
+
 import Token from '@/lib/data/token'
 import Langs from '@/lib/data/langs/langs'
 
 export default class Segment {
-  constructor ({ index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
+    this.id = id || uuidv4()
     this.index = index
     this.textType = textType
     this.lang = lang
@@ -124,7 +127,7 @@ export default class Segment {
       lang: this.lang,
       direction: this.direction,
       docSourceId: this.docSourceId,
-      tokens: this.tokens.map(token => token.convertToJSON())
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToJSON(tokenIndex))
     }
   }
 
@@ -146,6 +149,19 @@ export default class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: data.tokens.map(token => Token.convertFromJSON(token))
+    })
+  }
+
+  static convertFromIndexedDB (data, dbTokens) {
+    const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
+
+    return new Segment({
+      index: data.index,
+      textType: data.textType,
+      lang: data.lang,
+      direction: data.direction,
+      docSourceId: data.docSourceId,
+      tokens: tokensDbDataFiltered.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     })
   }
 }

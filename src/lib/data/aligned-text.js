@@ -118,10 +118,11 @@ export default class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        lansourceTypeg: data.sourceType,
+        sourceType: data.sourceType,
         tokenization: data.tokenization
-      }
-    }, data.tokenPrefix)
+      },
+      tokenPrefix: data.tokenPrefix
+    })
     alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))
 
     return alignedText
@@ -138,5 +139,37 @@ export default class AlignedText {
         }
       })
     }
+  }
+
+  convertToIndexedDB () {
+    return {
+      textId: this.id,
+      textType: this.textType,
+      direction: this.direction,
+      lang: this.lang,
+      sourceType: this.sourceType,
+      tokenPrefix: this.tokenPrefix,
+      tokenization: this.tokenization,
+      segments: this.segments.map(seg => seg.convertToJSON())
+    }
+  }
+
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+    const alignedText = new AlignedText({
+      docSource: {
+        id: dbData.textId,
+        textType: dbData.textType,
+        direction: dbData.direction,
+        lang: dbData.lang,
+        lansourceTypeg: dbData.sourceType,
+        tokenization: dbData.tokenization
+      },
+      tokenPrefix: dbData.tokenPrefix
+    })
+    const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
+
+    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens))
+
+    return alignedText
   }
 }

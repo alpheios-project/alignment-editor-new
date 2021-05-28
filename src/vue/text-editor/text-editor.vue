@@ -93,10 +93,9 @@ export default {
    * it could be moved out here
    */
   created () {
-    this.$textC.createAlignment()
-    this.$historyC.startTracking(this.$textC.alignment)
-    this.$tokensEC.loadAlignment(this.$textC.alignment)
+
   },
+
   computed: {
     originId () {
       return this.$store.state.docSourceUpdated && this.$textC.originDocSource ? this.$textC.originDocSource.id : null

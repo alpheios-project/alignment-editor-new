@@ -31,6 +31,13 @@
         border-color: map.get($theme, 'main-menu-border-color-hover');
     }
 
+    .alpheios-alignment-editor-alignments-table_link  {
+        color: map.get($theme, 'text-link-color');
+        &:hover {
+            color: map.get($theme, 'text-link-color-hover');
+        }
+    }
+
     .alpheios-menu-button,
     .alpheios-actions-menu-button,
     .alpheios-options-button,

@@ -11,12 +11,19 @@ import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
+import ConvertUtility from '@/lib/utility/convert-utility.js'
 
 export default class Alignment {
   /**
    */
-  constructor () {
-    this.id = uuidv4()
+  constructor ({ id, createdDT, updatedDT, userID } = {}) {
+    this.id = id || uuidv4()
+    this.createdDT = createdDT || new Date()
+
+    this.updatedDT = updatedDT || new Date()
+
+    this.userID = userID || Alignment.defaultUserID
+
     this.origin = {}
     this.targets = {}
 
@@ -29,6 +36,32 @@ export default class Alignment {
     this.tokensEditHistory = new TokensEditHistory()
     this.tokensEditActions = new TokensEditActions({ origin: this.origin, targets: this.targets, tokensEditHistory: this.tokensEditHistory })
     this.tokensEditHistory.allStepActions = this.allStepActionsTokensEditor
+  }
+
+  static get defaultUserID () {
+    return 'defaultUserID'
+  }
+
+  get langsList () {
+    let strResult
+    if (!this.origin.docSource) { return '' }
+
+    let langs = [] // eslint-disable-line prefer-const
+
+    Object.values(this.targets).forEach(target => {
+      langs.push(target.docSource.lang)
+    })
+
+    if (langs.length > 0) {
+      strResult = `${this.origin.docSource.lang}-${langs.join('-')}`
+    } else {
+      strResult = this.origin.docSource.lang
+    }
+    return strResult
+  }
+
+  setUpdated () {
+    this.updatedDT = new Date()
   }
 
   /**
@@ -65,7 +98,7 @@ export default class Alignment {
    * @returns {Boolean}
    */
   get targetDocSourceFullyDefined () {
-    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource.fullyDefined)
+    return Object.values(this.targets).length > 0 && Object.values(this.targets).every(target => target.docSource && target.docSource.fullyDefined)
   }
 
   get originDocSourceDefined () {
@@ -87,6 +120,7 @@ export default class Alignment {
       docSource.updateDetectedLang(langData)
       return true
     }
+    this.setUpdated()
     return false
   }
 
@@ -111,6 +145,8 @@ export default class Alignment {
     if (this.origin.alignedText) {
       this.origin.alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return true
   }
 
@@ -146,6 +182,8 @@ export default class Alignment {
     if (this.targets[docSource.id].alignedText) {
       this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
     }
+
+    this.setUpdated()
     return docSource.id
   }
 
@@ -161,11 +199,13 @@ export default class Alignment {
     } else {
       delete this.targets[id]
     }
+    this.setUpdated()
   }
 
   addNewTarget () {
     const docSource = this.createNewDocSource('target', {}, null, true)
     this.targets[docSource.id] = { docSource }
+    this.setUpdated()
     return docSource.id
   }
 
@@ -480,6 +520,7 @@ export default class Alignment {
         type: NotificationSingleton.types.INFO
       })
       */
+      this.setUpdated()
       return true
     }
     return false
@@ -601,6 +642,7 @@ export default class Alignment {
       this.activeAlignmentGroup = tokensGroup
       this.removeGroupFromAlignmentGroups(tokensGroup)
       if (token) { this.activeAlignmentGroup.updateFirstStepToken(token) }
+      this.setUpdated()
       return true
     }
     return false
@@ -620,6 +662,7 @@ export default class Alignment {
 
       const indexDeleted = this.removeGroupFromAlignmentGroups(tokensGroup)
       this.activeAlignmentGroup.merge(tokensGroup, indexDeleted)
+      this.setUpdated()
       return true
     }
     return false
@@ -652,6 +695,7 @@ export default class Alignment {
    */
   insertUnmergedGroup (data) {
     this.alignmentGroups.splice(data.indexDeleted, 0, data.tokensGroup)
+    this.setUpdated()
   }
 
   /**
@@ -804,7 +848,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   updateTokenWord (token, word) {
-    return this.tokensEditActions.updateTokenWord(token, word)
+    const result = this.tokensEditActions.updateTokenWord(token, word)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -823,7 +869,9 @@ export default class Alignment {
       return false
     }
 
-    return this.tokensEditActions.mergeToken(token, direction)
+    const result = this.tokensEditActions.mergeToken(token, direction)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -832,7 +880,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   splitToken (token, tokenWord) {
-    return this.tokensEditActions.splitToken(token, tokenWord)
+    const result = this.tokensEditActions.splitToken(token, tokenWord)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -841,7 +891,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   addLineBreakAfterToken (token) {
-    return this.tokensEditActions.changeLineBreak(token, true)
+    const result = this.tokensEditActions.changeLineBreak(token, true)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -850,7 +902,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   removeLineBreakAfterToken (token) {
-    return this.tokensEditActions.changeLineBreak(token, false)
+    const result = this.tokensEditActions.changeLineBreak(token, false)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -860,7 +914,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   moveToSegment (token, direction) {
-    return this.tokensEditActions.moveToSegment(token, direction)
+    const result = this.tokensEditActions.moveToSegment(token, direction)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -871,7 +927,9 @@ export default class Alignment {
    * @param {String} insertType - start (insert to the start of the first segment), end (insert to the end of the last segment)
    */
   insertTokens (tokensText, textType, textId, insertType) {
-    return this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+    const result = this.tokensEditActions.insertTokens(tokensText, textType, textId, insertType)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -880,7 +938,9 @@ export default class Alignment {
    * @returns {Boolean}
    */
   deleteToken (token) {
-    return this.tokensEditActions.deleteToken(token)
+    const result = this.tokensEditActions.deleteToken(token)
+    this.setUpdated()
+    return result
   }
 
   /**
@@ -1022,6 +1082,10 @@ export default class Alignment {
     // const activeAlignmentGroup = this.activeAlignmentGroup ? this.activeAlignmentGroup.convertToJSON() : null
 
     return {
+      id: this.id,
+      createdDT: ConvertUtility.convertDateToString(this.createdDT),
+      updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
+      userID: this.userID,
       origin,
       targets,
       alignmentGroups/*,
@@ -1030,7 +1094,11 @@ export default class Alignment {
   }
 
   static convertFromJSON (data) {
-    const alignment = new Alignment()
+    const createdDT = ConvertUtility.convertStringToDate(data.createdDT)
+    const updatedDT = ConvertUtility.convertStringToDate(data.updatedDT)
+    const alignment = new Alignment({
+      id: data.id, createdDT, updatedDT, userID: data.userID
+    })
 
     alignment.origin.docSource = SourceText.convertFromJSON('origin', data.origin.docSource)
 
@@ -1058,5 +1126,99 @@ export default class Alignment {
       document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
     }
     return alignment
+  }
+
+  convertToIndexedDB ({ textAsBlob } = {}) {
+    const origin = {
+      docSource: this.origin.docSource.convertToIndexedDB(textAsBlob)
+    }
+
+    if (this.origin.alignedText) {
+      origin.alignedText = this.origin.alignedText.convertToIndexedDB()
+    }
+
+    const targets = {}
+    this.allTargetTextsIds.forEach(targetId => {
+      targets[targetId] = {
+        docSource: this.targets[targetId].docSource.convertToIndexedDB(textAsBlob)
+      }
+
+      if (this.targets[targetId].alignedText) {
+        targets[targetId].alignedText = this.targets[targetId].alignedText.convertToIndexedDB()
+      }
+    })
+
+    const alignmentGroups = this.alignmentGroups.map(alGroup => alGroup.convertToJSON())
+
+    return {
+      id: this.id,
+      createdDT: ConvertUtility.convertDateToString(this.createdDT),
+      updatedDT: ConvertUtility.convertDateToString(this.updatedDT),
+      userID: this.userID,
+      langsList: this.langsList,
+      origin,
+      targets,
+      alignmentGroups
+    }
+  }
+
+  static async convertFromIndexedDB (dbData) {
+    const createdDT = ConvertUtility.convertStringToDate(dbData.createdDT)
+    const updatedDT = ConvertUtility.convertStringToDate(dbData.updatedDT)
+    const alignment = new Alignment({
+      id: dbData.alignmentID, createdDT, updatedDT, userID: dbData.userID
+    })
+
+    if (dbData.docSource) {
+      for (const docSourceData of dbData.docSource) {
+        const docSource = await SourceText.convertFromIndexedDB(docSourceData, dbData.metadata)
+        if (docSource.textType === 'origin') {
+          alignment.origin.docSource = docSource
+        } else {
+          alignment.targets[docSource.id] = { docSource }
+        }
+      }
+    }
+
+    if (dbData.alignedText) {
+      for (const alignedTextData of dbData.alignedText) {
+        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        if (alignedText.textType === 'origin') {
+          alignment.origin.alignedText = alignedText
+        } else {
+          alignment.targets[alignedText.id].alignedText = alignedText
+        }
+      }
+    }
+    if (dbData.alignmentGroups) {
+      dbData.alignmentGroups.forEach(alGroup => alignment.alignmentGroups.push(AlignmentGroup.convertFromIndexedDB(alGroup)))
+    }
+    return alignment
+  }
+
+  changeMetadataTerm (metadataTermData, value, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+
+    if (docSource) {
+      const result = docSource.addMetadata(metadataTermData.property, value)
+      this.setUpdated()
+      return result
+    }
+    return false
+  }
+
+  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
+    const docSource = this.getDocSource(textType, textId)
+    if (docSource) {
+      const result = docSource.deleteValueByIndex(metadataTerm, termValIndex)
+      this.setUpdated()
+      return result
+    }
+    return false
+  }
+
+  checkDetectedProps (textType, docSourceId) {
+    const sourceText = this.getDocSource(textType, docSourceId)
+    return Boolean(sourceText && sourceText.detectedLang)
   }
 }

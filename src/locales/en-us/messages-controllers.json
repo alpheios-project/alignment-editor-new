@@ -15,6 +15,11 @@
         "description": "An error message for upload data from file.",
         "component": "TextsController"
     },
+    "TEXTS_CONTROLLER_EMPTY_DB_DATA": {
+        "message": "There is not enough information for retrieving alignment from DB.",
+        "description": "An error message for upload data from file.",
+        "component": "TextsController"
+    },
     "TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP": {
         "message": "You should start from defining original text first.",
         "description": "An error message creating alignment.",
