@@ -555,7 +555,7 @@ export default {
           }
         }
 
-        p.alpheios-alignment-editor-red {
+        span.alpheios-alignment-editor-red {
           color: #99002a;
         }
 
