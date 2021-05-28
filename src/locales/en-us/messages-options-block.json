@@ -15,17 +15,17 @@
       "component": "OptionsBlock"
     },
     "OPTIONS_TITLE_TEXT_ENTER": {
-      "message": "Options for Text Enter",
+      "message": "Options for Enter Text",
       "description": "Title of the options popup",
       "component": "OptionsTextEnter"
     },
     "OPTIONS_TITLE_TEXT_ALIGN": {
-      "message": "Options for Text Align",
+      "message": "Options for Align Text",
       "description": "Title of the options popup",
       "component": "OptionsTextEdit"
     },
     "OPTIONS_TITLE_TEXT_EDIT": {
-      "message": "Options for Text Edit",
+      "message": "Options for Edit Text",
       "description": "Title of the options popup",
       "component": "OptionsTextEdit"
     }
