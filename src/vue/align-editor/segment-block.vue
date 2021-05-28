@@ -1,14 +1,14 @@
 <template>
     <div class="alpheios-alignment-editor-align-text-segment" 
          :style="cssStyle"
-         :class = "cssClass" :dir = "direction" :lang = "lang" 
+         :class = "cssClass" 
           >
           <p class="alpheios-alignment-editor-align-text-segment-row" v-if="isFirst">
             <span class="alpheios-alignment-editor-align-text-segment-row__langname" >{{ segment.langName }}</span>
 
             <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
           </p>
-          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg">
+          <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
             <template v-for = "(token, tokenIndex) in allTokens">
               <token
                 v-if ="token.word"

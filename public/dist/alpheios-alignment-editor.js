@@ -46469,7 +46469,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i395-overlapping-x.20210528559" : 0
+    return  true ? "i395-overlapping-x.20210528560" : 0
   }
 
   static get libName () {
@@ -57547,8 +57547,7 @@ var render = function() {
     {
       staticClass: "alpheios-alignment-editor-align-text-segment",
       class: _vm.cssClass,
-      style: _vm.cssStyle,
-      attrs: { dir: _vm.direction, lang: _vm.lang }
+      style: _vm.cssStyle
     },
     [
       _vm.isFirst
@@ -57586,7 +57585,7 @@ var render = function() {
         {
           staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
           style: _vm.cssStyleSeg,
-          attrs: { id: _vm.cssId }
+          attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
         },
         [
           _vm._l(_vm.allTokens, function(token, tokenIndex) {
