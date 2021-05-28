@@ -167,6 +167,7 @@ export default {
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
+      this.$refs.fileupload.value = ''
     },
     async '$store.state.docSourceLangDetected' () {
       this.updateLangData()
@@ -555,7 +556,7 @@ export default {
           }
         }
 
-        p.alpheios-alignment-editor-red {
+        span.alpheios-alignment-editor-red {
           color: #99002a;
         }
 

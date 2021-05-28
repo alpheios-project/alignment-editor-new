@@ -325,7 +325,7 @@ div.alpheios-alignment-checkbox-block {
 
 .alpheios-modal-body {
   margin: 10px 0;
-  max-height: 500px;
+  max-height: 400px;
   overflow: auto;
   border: 2px solid #ddd;
   padding: 10px;
@@ -1339,6 +1339,10 @@ button.alpheios-app-menu-link:-moz-focusring {
   height: 15px;
   fill: #000;
 }
+.alpheios-alignment-editor-modal-summary .alpheios-modal-body {
+  border: 0;
+  padding: 10px 0;
+}
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
   margin-left: 30px;
@@ -1648,7 +1652,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
 }
-.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-red {
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-red {
   color: #99002a;
 }
 .alpheios-alignment-editor-text-blocks-single .alpheios-alignment-editor-text-blocks-single__lang-icon {

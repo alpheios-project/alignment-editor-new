@@ -46469,7 +46469,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-indexeddb-support.20210527676" : 0
+    return  true ? "i395-overlapping-x.20210528587" : 0
   }
 
   static get libName () {
@@ -48087,7 +48087,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -48203,6 +48202,7 @@ __webpack_require__.r(__webpack_exports__);
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
       this.showSummaryModal = false
       if (result) {
+        this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()
       }
     },
@@ -50957,6 +50957,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     async '$store.state.uploadCheck' () {
       await this.updateFromExternal()
+      this.$refs.fileupload.value = ''
     },
     async '$store.state.docSourceLangDetected' () {
       this.updateLangData()
@@ -57548,8 +57549,7 @@ var render = function() {
     {
       staticClass: "alpheios-alignment-editor-align-text-segment",
       class: _vm.cssClass,
-      style: _vm.cssStyle,
-      attrs: { dir: _vm.direction, lang: _vm.lang }
+      style: _vm.cssStyle
     },
     [
       _vm.isFirst
@@ -57587,7 +57587,7 @@ var render = function() {
         {
           staticClass: "alpheios-alignment-editor-align-text-segment-tokens",
           style: _vm.cssStyleSeg,
-          attrs: { id: _vm.cssId }
+          attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
         },
         [
           _vm._l(_vm.allTokens, function(token, tokenIndex) {
@@ -57857,17 +57857,6 @@ var render = function() {
           "upload-data-from-db": _vm.uploadDataFromDB,
           "new-initial-alignment": _vm.startNewInitialAlignment
         }
-      }),
-      _vm._v(" "),
-      _c("options-block", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.shownOptionsBlock,
-            expression: "shownOptionsBlock"
-          }
-        ]
       }),
       _vm._v(" "),
       _c("text-editor", {
@@ -60234,6 +60223,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.showModal
     ? _c("modal", {
+        staticClass: "alpheios-alignment-editor-modal-summary",
         on: {
           close: function($event) {
             return _vm.$emit("closeModal")
@@ -64452,7 +64442,7 @@ module.exports = JSON.parse('{"METADATA_TERM_LABEL_IDENTIFIER":{"message":"Ident
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Text Enter","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Text Align","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Text Edit","description":"Title of the options popup","component":"OptionsTextEdit"}}');
+module.exports = JSON.parse('{"OPTIONS_BLOCK_APPLICATION":{"message":"Application options","description":"Fieldset inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_RESET_ALL":{"message":"Reset all","description":"Button inside options","component":"OptionsBlock"},"OPTIONS_BLOCK_INFO_ABOUT":{"message":"About Alpheios","description":"Title of the build info block","component":"OptionsBlock"},"OPTIONS_TITLE_TEXT_ENTER":{"message":"Options for Enter Text","description":"Title of the options popup","component":"OptionsTextEnter"},"OPTIONS_TITLE_TEXT_ALIGN":{"message":"Options for Align Text","description":"Title of the options popup","component":"OptionsTextEdit"},"OPTIONS_TITLE_TEXT_EDIT":{"message":"Options for Edit Text","description":"Title of the options popup","component":"OptionsTextEdit"}}');
 
 /***/ }),
 
