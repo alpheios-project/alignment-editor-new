@@ -197,6 +197,7 @@ export default {
   .alpheios-alignment-editor-modal-summary {
     .alpheios-modal-body {
       border: 0;
+      padding: 10px 0;
     }
   }
 </style>

@@ -1341,6 +1341,7 @@ button.alpheios-app-menu-link:-moz-focusring {
 }
 .alpheios-alignment-editor-modal-summary .alpheios-modal-body {
   border: 0;
+  padding: 10px 0;
 }
 .alpheios-alignment-notification-bar {
   padding: 15px 15px 0;
