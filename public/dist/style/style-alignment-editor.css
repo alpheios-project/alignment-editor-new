@@ -1937,6 +1937,23 @@ span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-edit
 span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
 }
+.alpheios-alignment-editor-align-text-parts-link {
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px;
+  text-decoration: underline;
+}
+.alpheios-alignment-editor-align-text-parts-link.alpheios-alignment-editor-align-text-parts-link-current {
+  cursor: initial;
+  text-decoration: none;
+}
+.alpheios-alignment-editor-align-text-parts,
+.alpheios-alignment-editor-align-text-single-link {
+  margin: 0;
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+}
 .alpheios-alignment-editor-align-target-tabs {
   display: inline-block;
   padding-left: 0;

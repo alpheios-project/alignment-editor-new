@@ -8,7 +8,20 @@
 
             <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
           </p>
+          <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
+            <span class="alpheios-alignment-editor-align-text-parts-link" 
+                  :class = "{ 'alpheios-alignment-editor-align-text-parts-link-current': currentPartIndex === parseInt(partKey) }"
+                  v-for = "partKey in allPartsKeys" :key="partKey"
+                  @click="clickPart(partKey)"
+            >
+                  {{ partKey }}
+            </span>
+          </p>
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
+            <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex > allPartsKeys[0]">
+              <span class="alpheios-alignment-editor-align-text-parts-link" @click="clickPart(currentPartIndex-1)">prev</span>
+            </p>
+
             <template v-for = "(token, tokenIndex) in allTokens">
               <token
                 v-if ="token.word"
@@ -23,6 +36,10 @@
               />
               <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
             </template>
+            
+            <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex < allPartsKeys[allPartsKeys.length-1]">
+              <span class="alpheios-alignment-editor-align-text-parts-link" @click="clickPart(currentPartIndex+1)">next</span>  
+            </p>
           </div>
 
           <metadata-block :text-type = "textType" :text-id = "segment.docSourceId" :showModal="showModalMetadata" @closeModal = "showModalMetadata = false"  v-if="isFirst"/>
@@ -88,7 +105,8 @@ export default {
       heightUpdated: 1,
       showUpDown: false,
       minMaxHeight: 500,
-      showModalMetadata: false
+      showModalMetadata: false,
+      currentPartIndex: 1
     }
   },
   watch: {
@@ -182,8 +200,11 @@ export default {
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
+    allPartsKeys () {
+      return  this.$store.state.tokenUpdated ? Object.keys(this.segment.uploadParts) : {}
+    },
     allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+      return  this.$store.state.tokenUpdated ? this.segment.partsTokens(this.currentPartIndex) : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -282,13 +303,11 @@ export default {
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
-    reduceHeight () {
-      this.heightDelta = this.heightDelta - this.heightStep
-      this.heightUpdated++
-    },
-    increaseHeight () {
-      this.heightDelta = this.heightDelta + this.heightStep
-      this.heightUpdated++
+
+    clickPart (partIndex) {
+      if (this.currentPartIndex !== parseInt(partIndex)) {
+        this.currentPartIndex = parseInt(partIndex)
+      }
     }
   }
 
@@ -366,4 +385,24 @@ export default {
             }
           }
         }
+
+  .alpheios-alignment-editor-align-text-parts-link {
+    cursor: pointer;
+    display: inline-block;
+    padding: 3px;
+    text-decoration: underline;
+
+    &.alpheios-alignment-editor-align-text-parts-link-current {
+      cursor: initial;
+      text-decoration: none;
+    }
+  }
+
+  .alpheios-alignment-editor-align-text-parts,
+  .alpheios-alignment-editor-align-text-single-link {
+    margin: 0;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+  }
 </style>

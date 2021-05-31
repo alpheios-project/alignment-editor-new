@@ -40542,6 +40542,7 @@ class TokenizeController {
         sentenceIndex++
       }
     }
+    segment.defineUploadParts()
   }
 }
 
@@ -44387,6 +44388,7 @@ class Segment {
 
     if (tokens) {
       this.checkAndUpdateTokens(tokens)
+      this.uploadParts = this.defineUploadParts(tokens)
     }
   }
 
@@ -44408,6 +44410,41 @@ class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
+  }
+
+  defineUploadParts () {
+    const charMax = 1000
+    const parts = {}
+    let partNum = 1
+    this.tokens.forEach((token, tokenIndex) => {
+      if (!parts[partNum]) {
+        parts[partNum] = { sentences: [], tokens: [], len: 0 }
+      }
+
+      if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
+        parts[partNum].sentences.push(token.sentenceIndex)
+      }
+
+      parts[partNum].tokens.push(token)
+      parts[partNum].len += token.len
+
+      if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
+        // console.info('partNum - ', partNum, tokenIndex, this.tokens.length, parts[partNum].len, this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex, this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex))
+        if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
+          partNum++
+        } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex > (this.tokens.length - 1))) {
+            partNum++
+          }
+        }
+      }
+    })
+    console.info('parts - ', parts)
+    return parts
+  }
+
+  partsTokens (partIndex) {
+    return this.uploadParts[partIndex].tokens
   }
 
   /**
@@ -44834,6 +44871,7 @@ class Token {
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
+    this.len = this.word.length
   }
 
   /**
@@ -44859,6 +44897,7 @@ class Token {
   update ({ word, idWord, segmentIndex, hasLineBreak }) {
     if (word !== undefined) {
       this.word = word
+      this.len = this.word.length
     }
 
     if (idWord !== undefined) {
@@ -46057,7 +46096,8 @@ class IndexedDBStructure {
           { indexName: 'ID', keyPath: 'ID', unique: true },
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
-          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false },
+          { indexName: 'alTextIdSegIdSentId', keyPath: 'alTextIdSegIdSentId', unique: false }
         ]
       },
       serialize: this.serializeTokens.bind(this)
@@ -46218,6 +46258,7 @@ class IndexedDBStructure {
                 alignmentID: data.id,
                 userID: data.userID,
                 alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
+                alTextIdSegIdSentId: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.sentenceIndex}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
@@ -46469,7 +46510,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i395-overlapping-x.20210528587" : 0
+    return  true ? "development.20210531662" : 0
   }
 
   static get libName () {
@@ -47609,6 +47650,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47669,7 +47727,8 @@ __webpack_require__.r(__webpack_exports__);
       heightUpdated: 1,
       showUpDown: false,
       minMaxHeight: 500,
-      showModalMetadata: false
+      showModalMetadata: false,
+      currentPartIndex: 1
     }
   },
   watch: {
@@ -47763,8 +47822,11 @@ __webpack_require__.r(__webpack_exports__);
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
+    allPartsKeys () {
+      return  this.$store.state.tokenUpdated ? Object.keys(this.segment.uploadParts) : {}
+    },
     allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.tokens : []
+      return  this.$store.state.tokenUpdated ? this.segment.partsTokens(this.currentPartIndex) : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -47863,13 +47925,11 @@ __webpack_require__.r(__webpack_exports__);
     isFirstInActiveGroup (token) {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
-    reduceHeight () {
-      this.heightDelta = this.heightDelta - this.heightStep
-      this.heightUpdated++
-    },
-    increaseHeight () {
-      this.heightDelta = this.heightDelta + this.heightStep
-      this.heightUpdated++
+
+    clickPart (partIndex) {
+      if (this.currentPartIndex !== parseInt(partIndex)) {
+        this.currentPartIndex = parseInt(partIndex)
+      }
     }
   }
 
@@ -57582,6 +57642,34 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
+      _vm.allPartsKeys.length > 1
+        ? _c(
+            "p",
+            { staticClass: "alpheios-alignment-editor-align-text-parts" },
+            _vm._l(_vm.allPartsKeys, function(partKey) {
+              return _c(
+                "span",
+                {
+                  key: partKey,
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-parts-link",
+                  class: {
+                    "alpheios-alignment-editor-align-text-parts-link-current":
+                      _vm.currentPartIndex === parseInt(partKey)
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.clickPart(partKey)
+                    }
+                  }
+                },
+                [_vm._v("\n              " + _vm._s(partKey) + "\n        ")]
+              )
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -57590,6 +57678,31 @@ var render = function() {
           attrs: { id: _vm.cssId, dir: _vm.direction, lang: _vm.lang }
         },
         [
+          _vm.currentPartIndex > _vm.allPartsKeys[0]
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-single-link"
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-parts-link",
+                      on: {
+                        click: function($event) {
+                          return _vm.clickPart(_vm.currentPartIndex - 1)
+                        }
+                      }
+                    },
+                    [_vm._v("prev")]
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _vm._l(_vm.allTokens, function(token, tokenIndex) {
             return [
               token.word
@@ -57622,7 +57735,32 @@ var render = function() {
                 ? _c("br")
                 : _vm._e()
             ]
-          })
+          }),
+          _vm._v(" "),
+          _vm.currentPartIndex < _vm.allPartsKeys[_vm.allPartsKeys.length - 1]
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "alpheios-alignment-editor-align-text-single-link"
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "alpheios-alignment-editor-align-text-parts-link",
+                      on: {
+                        click: function($event) {
+                          return _vm.clickPart(_vm.currentPartIndex + 1)
+                        }
+                      }
+                    },
+                    [_vm._v("next")]
+                  )
+                ]
+              )
+            : _vm._e()
         ],
         2
       ),

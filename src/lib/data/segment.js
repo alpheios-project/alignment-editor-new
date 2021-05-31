@@ -15,6 +15,7 @@ export default class Segment {
 
     if (tokens) {
       this.checkAndUpdateTokens(tokens)
+      this.uploadParts = this.defineUploadParts(tokens)
     }
   }
 
@@ -36,6 +37,43 @@ export default class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
+  }
+
+  defineUploadParts () {
+    const charMax = 1000
+    const parts = {}
+    let partNum = 1
+    this.tokens.forEach((token, tokenIndex) => {
+      if (!parts[partNum]) {
+        parts[partNum] = { sentences: [], tokens: [], len: 0 }
+      }
+
+      if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
+        parts[partNum].sentences.push(token.sentenceIndex)
+      }
+
+      parts[partNum].tokens.push(token)
+      parts[partNum].len += token.len
+
+      token.update({ uploadPart: partNum })
+
+      if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
+        // console.info('partNum - ', partNum, tokenIndex, this.tokens.length, parts[partNum].len, this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex, this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex))
+        if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
+          partNum++
+        } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex > (this.tokens.length - 1))) {
+            partNum++
+          }
+        }
+      }
+    })
+    console.info('parts - ', parts)
+    return parts
+  }
+
+  partsTokens (partIndex) {
+    return this.uploadParts[partIndex].tokens
   }
 
   /**

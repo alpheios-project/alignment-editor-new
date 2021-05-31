@@ -13,6 +13,7 @@ export default class Token {
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
+    this.len = this.word ? this.word.length : 0
   }
 
   /**
@@ -35,9 +36,10 @@ export default class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  update ({ word, idWord, segmentIndex, hasLineBreak }) {
+  update ({ word, idWord, segmentIndex, hasLineBreak, uploadPart }) {
     if (word !== undefined) {
       this.word = word
+      this.len = this.word.length
     }
 
     if (idWord !== undefined) {
@@ -50,6 +52,10 @@ export default class Token {
 
     if (hasLineBreak !== undefined) {
       this.hasLineBreak = hasLineBreak
+    }
+
+    if (uploadPart !== undefined) {
+      this.uploadPart = uploadPart
     }
 
     return true

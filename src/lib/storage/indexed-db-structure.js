@@ -107,7 +107,8 @@ export default class IndexedDBStructure {
           { indexName: 'ID', keyPath: 'ID', unique: true },
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
-          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false },
+          { indexName: 'alTextIdSegIdSentId', keyPath: 'alTextIdSegIdSentId', unique: false }
         ]
       },
       serialize: this.serializeTokens.bind(this)
@@ -268,6 +269,7 @@ export default class IndexedDBStructure {
                 alignmentID: data.id,
                 userID: data.userID,
                 alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
+                alTextIdSegIdSentId: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.sentenceIndex}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
