@@ -74,7 +74,7 @@ export default {
       return this.$textC.getDocSource(this.textType, this.textId)
     },
     sourceMetaValues () {
-      return this.$store.state.alignmentUpdated && this.metadataTerm.value.sort()
+      return this.$store.state.docSourceUpdated && this.metadataTerm.value.sort()
     },
     showDeleteIcon () {
       return this.metadataTerm.property.multivalued && this.value && (this.value.length > 0)
@@ -94,20 +94,17 @@ export default {
       if (this.metadataTerm.property.multivalued && (typeEvent === 'change')) { return }
       if (!this.metadataTerm.property.multivalued && (typeEvent === 'enter')) { return }
 
-      if (!this.value) { return }
-
-      if (this.metadataTerm.template) {
-        this.docSource.addMetadata(this.metadataTerm.property, this.value)
-      } else {
-        this.metadataTerm.saveValue(this.value)
-      }
-      this.$textC.changeMetadataTerm()
+      this.$textC.changeMetadataTerm(this.metadataTerm, this.value, this.textType, this.textId)
 
       if (this.metadataTerm.property.multivalued) { this.clearValue() }
     },
     activateValue (termValIndex) {
       this.value = this.metadataTerm.value[termValIndex]
-      this.metadataTerm.deleteValueByIndex(termValIndex)
+      this.deleteValueByIndex(termValIndex)
+      this.$textC.deleteValueByIndex(this.metadataTerm, termValIndex, this.textType, this.textId)
+    },
+    deleteValueByIndex (termValIndex) {
+      this.metadataTerm.value.splice(termValIndex, 1)
     },
     clearValue () {
       this.value = null

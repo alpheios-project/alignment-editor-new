@@ -21,10 +21,21 @@
         }
     }
 
+    .alpheios-alignment-editor-modal-metadata {
+        color: map.get($theme, 'body-text-color');
+    }
+    
     .alpheios-alignment-editor-metadata-item span.alpheios-alignment-editor-metadata-item__label-help {
         color: map.get($theme, 'main-menu-text-color-hover');
         background: map.get($theme, 'main-menu-background-color-hover');
         border-color: map.get($theme, 'main-menu-border-color-hover');
+    }
+
+    .alpheios-alignment-editor-alignments-table_link  {
+        color: map.get($theme, 'text-link-color');
+        &:hover {
+            color: map.get($theme, 'text-link-color-hover');
+        }
     }
 
     .alpheios-menu-button,
@@ -39,6 +50,25 @@
             color: map.get($theme, 'main-menu-text-color-hover');
             background: map.get($theme, 'main-menu-background-color-hover');
             border-color: map.get($theme, 'main-menu-border-color-hover');
+        }
+
+
+        &:disabled {
+            color: map.get($theme, 'main-menu-text-color-disabled');
+            background: map.get($theme, 'main-menu-background-color-disabled');
+            border-color: map.get($theme, 'main-menu-border-color-disabled');
+        }
+    }
+
+    .alpheios-actions-menu-button-align {
+        color: map.get($theme, 'align-button-color');
+        background: map.get($theme, 'align-button-background');
+        border-color: map.get($theme, 'align-button-border');
+
+        &:hover {
+            color: map.get($theme, 'align-button-color-hover');
+            background: map.get($theme, 'align-button-background-hover');
+            border-color: map.get($theme, 'align-button-border-hover');
         }
 
 
@@ -85,8 +115,8 @@
     }
 
     .alpheios-alignment-editor-align-define-container-inner {
-        color: map.get($theme, 'align-editor-text-color');
-        background: map.get($theme, 'editors-text-blocks-background');
+          color: map.get($theme, 'align-editor-text-color');
+          background: map.get($theme, 'editors-text-blocks-background');
 
         .alpheios-alignment-editor-align-segment-data {
             border-bottom-color: map.get($theme, 'align-editor-inner-border-color');

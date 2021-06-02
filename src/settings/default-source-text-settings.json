@@ -36,11 +36,11 @@
         "defaultValue": "eng",
         "labelsList": {
           "origin": {
-            "selectLabel": "Origin Language:",
+            "selectLabel": "Original Language:",
             "inputLabel": "Or Other Language:"
           },
           "target": {
-            "selectLabel": "Target Language:",
+            "selectLabel": "Translation Language:",
             "inputLabel": "Or Other Language:"
           }
         },

@@ -61,7 +61,7 @@ describe('app.test.js', () => {
   it('2 App - should contain MainMenu, TextEditor, AlignEditor', () => {
     let cmp = shallowMount(App)
     expect(cmp.findComponent(MainMenu)).toBeTruthy()
-    expect(cmp.findComponent(OptionsBlock)).toBeTruthy()
+    // expect(cmp.findComponent(OptionsBlock)).toBeTruthy()
     expect(cmp.findComponent(TextEditor)).toBeTruthy()
     expect(cmp.findComponent(AlignEditor)).toBeTruthy()
     expect(cmp.findComponent(TokensEditor)).toBeTruthy()
@@ -78,12 +78,12 @@ describe('app.test.js', () => {
     expect(cmp.vm.$textC.downloadData).toHaveBeenCalled()
   })
 
-  it('4 App - uploadData - executes textC.uploadDocSourceFromFileAll, updateOriginTextEditor, updateTargetTextEditor', () => {
+  it('4 App - uploadDataFromFile - executes textC.uploadDocSourceFromFileAll, updateOriginTextEditor, updateTargetTextEditor', () => {
     let cmp = shallowMount(App)
 
     jest.spyOn(cmp.vm.$textC, 'uploadDocSourceFromFileAll')
     
-    cmp.vm.uploadData('test data', 'tsv')
+    cmp.vm.uploadDataFromFile('test data', 'tsv')
     expect(cmp.vm.$textC.uploadDocSourceFromFileAll).toHaveBeenCalledWith('test data', 'alpheiosRemoteTokenizer', 'plainSourceUploadAll')
   })
 
@@ -126,11 +126,11 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
-    cmp.vm.$textC.updateTargetDocSource = jest.fn()
+    cmp.vm.$textC.addNewTarget = jest.fn()
     jest.spyOn(cmp.vm, 'showSourceTextEditor')
     
     cmp.vm.addTarget()
-    expect(cmp.vm.$textC.updateTargetDocSource).toHaveBeenCalled()
+    expect(cmp.vm.$textC.addNewTarget).toHaveBeenCalled()
     expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
   })
 
@@ -138,12 +138,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -156,7 +156,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
     expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
@@ -173,7 +173,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeTruthy()
     expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
@@ -187,7 +187,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
@@ -197,12 +197,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -215,7 +215,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeTruthy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeTruthy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
@@ -225,12 +225,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -243,7 +243,7 @@ describe('app.test.js', () => {
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeTruthy()
 
-    expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
+    // expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeTruthy()

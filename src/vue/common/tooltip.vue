@@ -76,12 +76,14 @@ export default {
       background-color: #fff;
       border: 1px solid #757575;
       border-radius: 10px;
-      z-index: 1000;
+      z-index: 10000;
       opacity: 0;
       transition: opacity .6s;
       display: none;
       font-size: 12px;
       text-align: center;
+      font-weight: normal;
+      color: #000;
 
       text-transform: initial;
       white-space: normal;

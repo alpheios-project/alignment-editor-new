@@ -26,22 +26,27 @@ export default class UploadDTSAPI {
   }
 
   static async getCollection (linkData) {
-    if (cachedContent[linkData.id]) {
-      return cachedContent[linkData.id]
+    const cachedIndex = linkData.page ? `${linkData.id}-${linkData.page}` : linkData.id
+
+    if (cachedContent[cachedIndex]) {
+      return cachedContent[cachedIndex]
     }
 
     const data = await ClientAdapters.dtsapiGroup.dtsapi({
       method: 'getCollection',
       params: {
         baseUrl: linkData.baseUrl,
-        id: !linkData.skipId ? linkData.id : null
+        id: !linkData.skipId ? linkData.id : null,
+        page: linkData.page
       }
     })
 
     if (this.hasErrors(data)) { return }
 
-    cachedContent[linkData.id] = data.result.links
-    return data.result.links
+    const formattedPagination = data.result.pagination ? Object.assign({ id: data.result.id, baseUrl: data.result.baseUrl }, data.result.pagination) : null
+    cachedContent[cachedIndex] = { links: data.result.links, pagination: formattedPagination }
+
+    return { links: data.result.links, pagination: formattedPagination }
   }
 
   static async getNavigation (linkData) {
@@ -60,8 +65,11 @@ export default class UploadDTSAPI {
 
     if (this.hasErrors(data)) { return }
 
-    cachedContent[linkData.id] = linkData.resource.refsLinks
-    return linkData.resource.refsLinks
+    if (linkData.resource && linkData.resource.refs) {
+      cachedContent[linkData.id] = linkData.resource.refsLinks
+      return linkData.resource.refsLinks
+    }
+    return []
   }
 
   static async getDocument (linkData, refParams) {

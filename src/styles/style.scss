@@ -4,6 +4,7 @@
 @import "button";
 @import "checkbox";
 @import "modal";
+@import "animated_text";
 
 @import "themes/themes-styles";
 
@@ -12,7 +13,21 @@
         box-sizing: border-box;
     }
     font-family: 'Source Sans Pro', sans-serif;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
 }
 
+
+body.alpheios-initial-page {
+    background-color: #bce5f0;
+
+    .header.alpheios-header {
+        display: none;
+    }
+
+    .alpheios-alignment-app-menu-open-icon {
+        svg {
+            fill: #fff;
+        }
+    }
+}
 

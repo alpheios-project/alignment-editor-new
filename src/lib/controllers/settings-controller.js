@@ -1,4 +1,4 @@
-import { Options, LocalStorageArea, PsEvent } from 'alpheios-data-models'
+import { Options, LocalStorageArea, PsEvent, TempStorageArea } from 'alpheios-data-models'
 
 import DefaultAppSettings from '@/settings/default-app-settings.json'
 import DefaultSourceTextSettings from '@/settings/default-source-text-settings.json'
@@ -15,6 +15,7 @@ export default class SettingsController {
   constructor (store) {
     this.store = store
     this.storageAdapter = LocalStorageArea
+    this.textPropsStorageAdapter = TempStorageArea
 
     this.defaultSettings = {
       app: DefaultAppSettings,
@@ -23,6 +24,7 @@ export default class SettingsController {
 
     this.options = {}
 
+    Langs.collectLangsData()
     this.valuesClassesList = {
       Langs: Langs.all
     }
@@ -49,6 +51,10 @@ export default class SettingsController {
 
   get useSpecificEnglishTokenizer () {
     return this.options.app && this.options.app.items.useSpecificEnglishTokenizer ? this.options.app.items.useSpecificEnglishTokenizer.currentValue : false
+  }
+
+  get showSummaryPopup () {
+    return this.options.app && this.options.app.items.showSummaryPopup ? this.options.app.items.showSummaryPopup.currentValue : false
   }
 
   /**
@@ -82,7 +88,6 @@ export default class SettingsController {
     Object.values(this.options).forEach(optionsGroup => {
       optionsGroup.checkAndUploadValuesFromArray(this.valuesClassesList)
     })
-    this.store.commit('incrementOptionsUpdated')
     this.submitEventUpdateTheme()
   }
 
@@ -104,7 +109,6 @@ export default class SettingsController {
 
     await Promise.all(optionsPromises)
     this.submitEventUpdateTheme()
-    this.store.commit('incrementOptionsUpdated')
   }
 
   /**
@@ -113,6 +117,15 @@ export default class SettingsController {
    */
   async uploadRemoteSettings () {
     this.options.tokenize = await TokenizeController.uploadOptions(this.storageAdapter)
+
+    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.text) {
+      delete this.options.tokenize.alpheiosRemoteTokenizer.text.items.tbsegstart
+      delete this.options.tokenize.alpheiosRemoteTokenizer.text.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    }
+    if (this.options.tokenize && this.options.tokenize.alpheiosRemoteTokenizer && this.options.tokenize.alpheiosRemoteTokenizer.tei) {
+      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.items.tbsegstart
+      delete this.options.tokenize.alpheiosRemoteTokenizer.tei.defaults.items.tbsegstart // it is deleted because treebank support would be developed later
+    }
     this.store.commit('incrementOptionsUpdated')
   }
 
@@ -146,19 +159,16 @@ export default class SettingsController {
    * @param {Number} indexText - the number of the text with the type (used for targets)
    * @returns {Options}
    */
-  async cloneTextEditorOptions (typeText, indexText) {
+  cloneTextEditorOptions (typeText, indexText) {
     const clonedOpts = {
-      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.storageAdapter)
+      sourceText: this.options.sourceText.clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
     }
 
     if (this.hasTokenizerOptions) {
       Object.keys(this.options.tokenize[this.tokenizerOptionValue]).forEach(sourceType => {
-        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.storageAdapter)
+        clonedOpts[sourceType] = this.options.tokenize[this.tokenizerOptionValue][sourceType].clone(`${typeText}-${indexText}`, this.textPropsStorageAdapter)
       })
     }
-    const optionPromises = Object.values(clonedOpts).map(clonedOpt => clonedOpt.load())
-    await Promise.all(optionPromises)
-
     return clonedOpts
   }
 
@@ -197,16 +207,10 @@ export default class SettingsController {
    * @param {Object} localTextEditorOptions
    *        {Options} localTextEditorOptions.sourceText
    */
-  async resetLocalTextEditorOptions (localTextEditorOptions) {
-    await localTextEditorOptions.sourceText.reset()
-    localTextEditorOptions.sourceText.checkAndUploadValuesFromArray(this.valuesClassesList)
-    if (localTextEditorOptions.text) {
-      await localTextEditorOptions.text.reset()
-    }
-    if (localTextEditorOptions.tei) {
-      await localTextEditorOptions.tei.reset()
-    }
+  resetLocalTextEditorOptions (textType, textId) {
+    const clonedOpts = this.cloneTextEditorOptions(textType, textId)
     this.store.commit('incrementOptionsUpdated')
+    return clonedOpts
   }
 
   /**

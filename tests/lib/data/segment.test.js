@@ -73,13 +73,13 @@ describe('token.test.js', () => {
 
   it('3 Segment - convertToJSON / convertFromJSON', () => {
     const token = new Token({
-      textType: 'origin', idWord: '1-0-0', word: 'male', beforeWord: '(', afterWord: ')', hasLineBreak: true
+      textType: 'origin', idWord: '1-0-0', word: 'male', beforeWord: '(', afterWord: ')', hasLineBreak: true, tokenIndex: 0
     }, 1, 'originId')
   
     const segment = new Segment({
       index: 1, textType: 'origin', lang: 'lat', direction: 'ltr', docSourceId: 'originId', tokens: [ token ]
     })
-    
+
     const jsonResult = segment.convertToJSON()
 
     expect(jsonResult).toHaveProperty('index', 1)
@@ -87,9 +87,12 @@ describe('token.test.js', () => {
     expect(jsonResult).toHaveProperty('lang', 'lat')
     expect(jsonResult).toHaveProperty('direction', 'ltr')
     expect(jsonResult).toHaveProperty('docSourceId', 'originId')
-    expect(jsonResult).toHaveProperty('tokens', [ token.convertToJSON() ])
+    expect(jsonResult).toHaveProperty('tokens', [ token.convertToJSON(0) ])
 
     const resSegment = Segment.convertFromJSON(jsonResult)
+
+    console.info('jsonResult - ', jsonResult.tokens)
+    console.info('token - ', token)
 
     expect(resSegment).toHaveProperty('index', 1)
     expect(resSegment).toHaveProperty('textType', 'origin')
