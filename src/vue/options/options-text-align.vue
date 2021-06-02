@@ -5,6 +5,7 @@
     </template>
     <template v-slot:body >
         <div class="alpheios-alignment-editor-modal-options-block">
+          <option-item-block :optionItem = "maxCharactersPerPart" />
         </div>
     </template>
     <template v-slot:footer>
@@ -28,6 +29,8 @@ import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import Modal from '@/vue/common/modal.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
+import SettingsController from '@/lib/controllers/settings-controller'
+
 export default {
   name: 'OptionsTextAlign',
   components: {
@@ -47,11 +50,14 @@ export default {
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
+    },
+    maxCharactersPerPart () {
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerPart
     }
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await SettingsController.resetAllOptions()
     }
   }
 }

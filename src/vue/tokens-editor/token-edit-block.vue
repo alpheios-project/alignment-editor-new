@@ -29,6 +29,7 @@ import Tooltip from '@/vue/common/tooltip.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import HistoryStep from '@/lib/data/history/history-step.js'
+import SettingsController from '@/lib/controllers/settings-controller'
 
 export default {
   name: 'TokenEditBlock',
@@ -142,7 +143,7 @@ export default {
       return this.$store.state.alignmentUpdated && this.$tokensEC.isEditableToken(this.token)
     }, 
     allowedUpdateTokenWord () {
-      return this.$store.state.optionsUpdated && this.$settingsC.allowUpdateTokenWordOptionValue
+      return this.$store.state.optionsUpdated && SettingsController.allowUpdateTokenWordOptionValue
     }
   },
   methods: {

@@ -110,6 +110,9 @@ export default {
     }
   },
   watch: {
+    '$store.state.reuploadTextsParts' () {
+      this.currentPartIndex = 1
+    }
   },
   computed: {
     l10n () {
@@ -201,10 +204,10 @@ export default {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allPartsKeys () {
-      return  this.$store.state.tokenUpdated ? Object.keys(this.segment.uploadParts) : {}
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? Object.keys(this.segment.uploadParts) : {}
     },
     allTokens () {
-      return  this.$store.state.tokenUpdated ? this.segment.partsTokens(this.currentPartIndex) : []
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? this.segment.partsTokens(this.currentPartIndex) : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1

@@ -13,6 +13,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import Vuex from 'vuex'
+import SettingsController from '@/lib/controllers/settings-controller'
 
 describe('app-controller.test.js', () => {
 
@@ -110,7 +111,7 @@ describe('app-controller.test.js', () => {
 
     await appC.init()
     expect(appC.defineColorTheme).toHaveBeenLastCalledWith({
-      theme: appC.settingsC.themeOptionValue, 
+      theme: SettingsController.themeOptionValue, 
       themesList: []
     })
   })

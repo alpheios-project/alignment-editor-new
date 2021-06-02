@@ -53,6 +53,8 @@ import OptionsBlock from '@/vue/options/options-block.vue'
 
 import NavbarIcon from '@/inline-icons/navbar.svg'
 
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'App',
   components: {
@@ -83,6 +85,11 @@ export default {
       showOnlyWaitingSummary: false
     }
   },
+  watch: {
+    '$store.state.redefineUploadParts' () {
+      this.$textC.defineUploadPartsForTexts()
+    }
+  },
   computed: {
   },
   mounted () {
@@ -96,7 +103,7 @@ export default {
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: SettingsController.themeOptionValue
         }
       }
       this.$textC.downloadData(downloadType, additional)
@@ -107,7 +114,7 @@ export default {
     */
     uploadDataFromFile (fileData, extension) {
       if (fileData) {
-        const alignment = this.$textC.uploadDataFromFile(fileData, this.$settingsC.tokenizerOptionValue, extension)
+        const alignment = this.$textC.uploadDataFromFile(fileData, SettingsController.tokenizerOptionValue, extension)
 
         if (alignment instanceof Alignment) {
           return this.startOver(alignment)
@@ -140,14 +147,14 @@ export default {
     },
 
     showSummaryPopup () {
-      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
+      this.showOnlyWaitingSummary = !SettingsController.showSummaryPopup
       this.showSummaryModal = true
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
-      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
+      const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
       this.showSummaryModal = false
       if (result) {
         this.$tokensEC.loadAlignment(this.$textC.alignment)

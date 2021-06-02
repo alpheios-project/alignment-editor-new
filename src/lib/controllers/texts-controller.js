@@ -29,8 +29,8 @@ export default class TextsController {
     return Boolean(this.alignment) && this.alignment.readyForTokenize
   }
 
-  checkSize (maxCharactersPerTextValue) {
-    return Boolean(this.alignment) && this.alignment.checkSize(maxCharactersPerTextValue)
+  checkSize () {
+    return Boolean(this.alignment) && this.alignment.checkSize(StorageController.maxCharactersPerTextValue)
   }
 
   /**
@@ -473,5 +473,10 @@ export default class TextsController {
 
     const result = await StorageController.select(data)
     return result
+  }
+
+  defineUploadPartsForTexts () {
+    this.alignment.defineUploadPartsForTexts()
+    this.store.commit('incrementReuploadTextsParts')
   }
 }

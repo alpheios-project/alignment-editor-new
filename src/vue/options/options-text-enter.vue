@@ -33,6 +33,8 @@ import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import Modal from '@/vue/common/modal.vue'
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'OptionsTextEnter',
   components: {
@@ -51,19 +53,19 @@ export default {
       return L10nSingleton
     },
     themeOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.theme
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.theme
     },
     tokenizerOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.tokenizer
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.tokenizer
     },
     maxCharactersOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.maxCharactersPerText
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.maxCharactersPerText
     },
     useSpecificEnglishTokenizerOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.useSpecificEnglishTokenizer
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.useSpecificEnglishTokenizer
     },
     showSummaryPopupOptionItem () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
     },
     versionData () {
       return `${this.$store.state.libName} ${this.$store.state.libVersion} (${this.$store.state.libBuildNameForDisplay})`
@@ -71,7 +73,7 @@ export default {
   },
   methods: {
     async resetOptions () {
-      await this.$settingsC.resetAllOptions()
+      await SettingsController.resetAllOptions()
     }
   }
 }

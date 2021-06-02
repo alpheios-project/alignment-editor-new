@@ -17,6 +17,7 @@ import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 import SourceText from '@/lib/data/source-text'
 
 import Vuex from "vuex"
+import SettingsController from '@/lib/controllers/settings-controller'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -41,7 +42,7 @@ describe('text-editor-single-block.test.js', () => {
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
 
-    await appC.defineSettingsController()
+    await appC.defineSettingsController(appC.store)
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
@@ -72,7 +73,7 @@ describe('text-editor-single-block.test.js', () => {
     appC.textC.alignment.updateTargetDocSource(targetDocSource1)
     appC.textC.alignment.updateTargetDocSource(targetDocSource2)
 
-    appC.settingsC.options.app.items.tokenizer.currentValue = 'simpleLocalTokenizer'
+    SettingsController.allOptions.app.items.tokenizer.currentValue = 'simpleLocalTokenizer'
   })
 
   it('1 TextEditorSingleBlock - renders a vue instance (min requirements)', () => {

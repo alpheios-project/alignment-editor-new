@@ -66,6 +66,8 @@ import Waiting from '@/vue/common/waiting.vue'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 import CheckIcon from '@/inline-icons/check.svg'
 
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'SummaryPopup',
   components: {
@@ -113,7 +115,7 @@ export default {
       return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.targetsLangData
     },
     showSummaryPopupOpt () {
-      return this.$store.state.optionsUpdated && this.$settingsC.options.app.items.showSummaryPopup
+      return this.$store.state.optionsUpdated && SettingsController.allOptions.app.items.showSummaryPopup
     }
   },
   methods: {

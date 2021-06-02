@@ -26,6 +26,8 @@ import Modal from '@/vue/common/modal.vue'
 import DownloadController from '@/lib/controllers/download-controller.js'
 import Tooltip from '@/vue/common/tooltip.vue'
 
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 export default {
   name: 'SavePopup',
   components: {
@@ -70,7 +72,7 @@ export default {
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
         additional = {
-          theme: this.$settingsC.themeOptionValue
+          theme: SettingsController.themeOptionValue
         }
       }
       this.$textC.downloadData(this.currentDownloadType, additional)

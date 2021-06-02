@@ -70,6 +70,7 @@
 </template>
 <script>
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
+import SettingsController from '@/lib/controllers/settings-controller'
 
 export default {
   name: 'OptionItemBlock',
@@ -136,7 +137,7 @@ export default {
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && this.optionItem.values)) ? this.optionItem.textValues()[0].text : null
+      return (this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
       if (this.optionItem.boolean) { return 'boolean' }
@@ -195,9 +196,9 @@ export default {
       if (this.optionItem.selectInput) {
         this.selected = this.selectedSI
       }
-
       this.optionItem.setValue(this.selected)
-      this.$settingsC.changeOption(this.optionItem)
+      
+      SettingsController.changeOption(this.optionItem)
       if (this.emitUpdateData) {
         this.$emit('updateData')
       }

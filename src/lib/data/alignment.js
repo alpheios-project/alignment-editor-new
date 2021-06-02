@@ -11,6 +11,8 @@ import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
 import DetectTextController from '@/lib/controllers/detect-text-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
+
 import ConvertUtility from '@/lib/utility/convert-utility.js'
 
 export default class Alignment {
@@ -259,7 +261,7 @@ export default class Alignment {
    * @param {String} tokenizer - method's name
    * @returns {Boolean}
    */
-  async createAlignedTexts (useSpecificEnglishTokenizer = false) {
+  async createAlignedTexts () {
     if (!this.readyForTokenize) {
       console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_TOKENIZATION_CANCELLED'))
       NotificationSingleton.addNotification({
@@ -270,14 +272,14 @@ export default class Alignment {
     }
 
     if (!this.origin.alignedText) {
-      const originResult = await this.createOriginAlignedText(useSpecificEnglishTokenizer)
+      const originResult = await this.createOriginAlignedText(SettingsController.useSpecificEnglishTokenizer)
       if (!originResult) { return false }
     }
 
     for (let i = 0; i < Object.keys(this.targets).length; i++) {
       const id = Object.keys(this.targets)[i]
       if (!this.targets[id].alignedText) {
-        const targetResult = await this.createTargetAlignedText(id, i, useSpecificEnglishTokenizer)
+        const targetResult = await this.createTargetAlignedText(id, i, SettingsController.useSpecificEnglishTokenizer)
         if (!targetResult) { return false }
       }
     }
@@ -285,7 +287,7 @@ export default class Alignment {
     return true
   }
 
-  async createOriginAlignedText (useSpecificEnglishTokenizer = false) {
+  async createOriginAlignedText (useSpecificEnglishTokenizer) {
     this.origin.alignedText = new AlignedText({
       docSource: this.origin.docSource,
       tokenPrefix: '1'
@@ -304,7 +306,7 @@ export default class Alignment {
     return true
   }
 
-  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer = false) {
+  async createTargetAlignedText (targetId, index, useSpecificEnglishTokenizer) {
     this.targets[targetId].alignedText = new AlignedText({
       docSource: this.targets[targetId].docSource,
       tokenPrefix: (index + 2)
@@ -1220,5 +1222,12 @@ export default class Alignment {
   checkDetectedProps (textType, docSourceId) {
     const sourceText = this.getDocSource(textType, docSourceId)
     return Boolean(sourceText && sourceText.detectedLang)
+  }
+
+  defineUploadPartsForTexts () {
+    this.origin.alignedText.segments.forEach(segment => segment.defineUploadParts())
+    Object.values(this.targets).forEach(target => {
+      target.alignedText.segments.forEach(segment => segment.defineUploadParts())
+    })
   }
 }

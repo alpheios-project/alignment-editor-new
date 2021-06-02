@@ -7,6 +7,7 @@ import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
 import Vuex from "vuex"
+import SettingsController from '@/lib/controllers/settings-controller'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -30,11 +31,10 @@ describe('language-options-block.test.js', () => {
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    SettingsController.create(appC.store)
+    await appC.defineSettingsController(appC.store)
 
-    await appC.defineSettingsController()
-    await appC.settingsC.init()
-
-    localTextEditorOptions = await appC.settingsC.cloneTextEditorOptions('target', 0)
+    localTextEditorOptions = await SettingsController.cloneTextEditorOptions('target', 0)
     localTextEditorOptions.ready = true
   })
 

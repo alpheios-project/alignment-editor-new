@@ -84,6 +84,14 @@
           "text": "No"
         }
       ]
+    },
+    "maxCharactersPerPart": {
+      "defaultValue": 1000,
+      "labelText": "Max characters per part (recommended for performance)",
+      "number": true,
+      "minValue": 1,
+      "maxValue": 50000,
+      "values": []
     }
   }
 }

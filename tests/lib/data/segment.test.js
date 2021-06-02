@@ -10,13 +10,14 @@ describe('token.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
   
-  beforeAll(() => {
+  beforeAll(async () => {
     const appC = new AppController({
       appId: 'alpheios-alignment-editor'
     })
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
   })
 
   beforeEach(() => {

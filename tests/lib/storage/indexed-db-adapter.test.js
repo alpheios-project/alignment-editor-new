@@ -7,6 +7,8 @@ import IndexedDBAdapter from '@/lib/storage/indexed-db-adapter.js'
 import GrcEngKat from '@tests/lib/storage/alignments/grc-eng-kat.json'
 import ConvertUtility from '@/lib/utility/convert-utility.js'
 
+import AppController from '@/lib/controllers/app-controller.js'
+
 import IndexedDB from 'fake-indexeddb'
 import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 
@@ -17,6 +19,14 @@ describe('indexed-db-structure.test.js', () => {
   
   let alignment1
   beforeAll(async () => {
+    const appC = new AppController({
+      appId: 'alpheios-alignment-editor'
+    })
+    appC.defineStore()
+    appC.defineL10Support()
+    appC.defineNotificationSupport(appC.store)
+    await appC.defineSettingsController()
+
     alignment1 = Alignment.convertFromJSON(GrcEngKat)
 
     window.indexedDB = IndexedDB

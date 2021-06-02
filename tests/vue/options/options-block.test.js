@@ -7,6 +7,7 @@ import OptionsBlock from '@/vue/options/options-block.vue'
 import OptionItemBlock from '@/vue/options/option-item-block.vue'
 
 import Vuex from "vuex"
+import SettingsController from '@/lib/controllers/settings-controller'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -31,9 +32,8 @@ describe('options-block.test.js', () => {
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
 
-    await appC.defineSettingsController()
-    await appC.settingsC.init()
-    appC.settingsC.options.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
+    await appC.defineSettingsController(appC.store)
+    SettingsController.allOptions.app.items.tokenizer.currentValue = 'alpheiosRemoteTokenizer'
   })
 
   it('1 OptionsBlock - renders a vue instance (min requirements)', () => {
@@ -57,6 +57,6 @@ describe('options-block.test.js', () => {
     })
     
     const optionItems = cmp.findAll(OptionItemBlock)
-    expect(optionItems.length).toEqual(6)
+    expect(optionItems.length).toEqual(7)
   })
 })

@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import Token from '@/lib/data/token'
 import Langs from '@/lib/data/langs/langs'
+import SettingsController from '@/lib/controllers/settings-controller'
 
 export default class Segment {
   constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
@@ -15,7 +16,7 @@ export default class Segment {
 
     if (tokens) {
       this.checkAndUpdateTokens(tokens)
-      this.uploadParts = this.defineUploadParts(tokens)
+      this.defineUploadParts()
     }
   }
 
@@ -40,7 +41,7 @@ export default class Segment {
   }
 
   defineUploadParts () {
-    const charMax = 1000
+    const charMax = SettingsController.maxCharactersPerPart
     const parts = {}
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
@@ -58,7 +59,6 @@ export default class Segment {
       token.update({ uploadPart: partNum })
 
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
-        // console.info('partNum - ', partNum, tokenIndex, this.tokens.length, parts[partNum].len, this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex, this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex))
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
@@ -68,7 +68,7 @@ export default class Segment {
         }
       }
     })
-    console.info('parts - ', parts)
+    this.uploadParts = parts
     return parts
   }
 
