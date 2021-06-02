@@ -47,17 +47,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-actions-menu {
-    display: inline-block;
-    width: 50%;
-    vertical-align: middle;
-    text-align: right;
-    padding-right: 10px;
-  }
-
   .alpheios-alignment-editor-actions-menu__buttons{
-    padding: 5px 0 10px;
+    padding: 5px 0 15px;
     text-align: left;
-    display: inline-block;
   }
 </style>

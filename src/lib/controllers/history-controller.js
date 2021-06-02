@@ -1,5 +1,3 @@
-import StorageController from '@/lib/controllers/storage-controller.js'
-
 export default class HistoryController {
   constructor (store) {
     this.store = store
@@ -61,7 +59,6 @@ export default class HistoryController {
       result = this.alignment.activateGroupByGroupIndex(this.alignment.alignmentGroups.length - 1)
     }
     if (result) {
-      StorageController.update(this.alignment, true)
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps + 1
       return result
@@ -84,7 +81,6 @@ export default class HistoryController {
       result = this.alignment.redoActiveGroup()
     }
     if (result) {
-      StorageController.update(this.alignment, true)
       this.store.commit('incrementAlignmentUpdated')
       this.undoneSteps = this.undoneSteps - 1
       return result

@@ -69,21 +69,6 @@
           "text": "No"
         }
       ]
-    },
-    "showSummaryPopup": {
-      "defaultValue": true,
-      "labelText": "Show language check before text would be prepared",
-      "boolean": true,
-      "values": [
-        {
-          "value": true,
-          "text": "Yes"
-        },
-        {
-          "value": false,
-          "text": "No"
-        }
-      ]
     }
   }
 }

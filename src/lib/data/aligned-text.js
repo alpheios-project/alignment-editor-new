@@ -13,8 +13,6 @@ export default class AlignedText {
     this.direction = docSource.direction
     this.lang = docSource.lang
 
-    this.langName = this.defineLangName()
-
     this.sourceType = docSource.sourceType
     this.tokenization = docSource.tokenization
     this.tokenPrefix = tokenPrefix || this.defaultTokenPrefix
@@ -35,18 +33,14 @@ export default class AlignedText {
     return this.segments ? this.segments.length : 0
   }
 
-  defineLangName () {
+  get langName () {
     const langData = Langs.all.find(langData => langData.value === this.lang)
-    const res = langData ? langData.text : this.lang
-    return res
+    return langData ? langData.text : this.lang
   }
 
   updateLanguage (lang) {
-    if (lang !== this.lang) {
-      this.lang = lang
-      this.segments.forEach(segment => segment.updateLanguage(lang))
-      this.langName = this.defineLangName()
-    }
+    this.lang = lang
+    this.segments.forEach(segment => segment.updateLanguage(lang))
   }
 
   /**
@@ -118,11 +112,10 @@ export default class AlignedText {
         textType: data.textType,
         direction: data.direction,
         lang: data.lang,
-        sourceType: data.sourceType,
+        lansourceTypeg: data.sourceType,
         tokenization: data.tokenization
-      },
-      tokenPrefix: data.tokenPrefix
-    })
+      }
+    }, data.tokenPrefix)
     alignedText.segments = data.segments.map(seg => Segment.convertFromJSON(seg))
 
     return alignedText
@@ -139,37 +132,5 @@ export default class AlignedText {
         }
       })
     }
-  }
-
-  convertToIndexedDB () {
-    return {
-      textId: this.id,
-      textType: this.textType,
-      direction: this.direction,
-      lang: this.lang,
-      sourceType: this.sourceType,
-      tokenPrefix: this.tokenPrefix,
-      tokenization: this.tokenization,
-      segments: this.segments.map(seg => seg.convertToJSON())
-    }
-  }
-
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
-    const alignedText = new AlignedText({
-      docSource: {
-        id: dbData.textId,
-        textType: dbData.textType,
-        direction: dbData.direction,
-        lang: dbData.lang,
-        lansourceTypeg: dbData.sourceType,
-        tokenization: dbData.tokenization
-      },
-      tokenPrefix: dbData.tokenPrefix
-    })
-    const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
-
-    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens))
-
-    return alignedText
   }
 }

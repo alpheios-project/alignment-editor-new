@@ -45,10 +45,7 @@ describe('aligned-groups-controller.test.js', () => {
   it('2 AlignedGroupsController - createAlignedTexts prints error and doesn\'t init tokenization if alignment is not ready, executes clearAlignedTexts', async () => {
     const alignedGC = new AlignedGroupsController(appC.store)
     
-    const alignment = new Alignment() // texts are not defined properly
-    alignment.updateOriginDocSource({ text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }})
-    alignment.updateTargetDocSource({ text: '', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }})
-
+    const alignment = new Alignment({ text: 'origin', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}, { text: '', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}) // texts are not defined properly
     jest.spyOn(alignment, 'createAlignedTexts')
 
     const result = await alignedGC.createAlignedTexts(alignment)
@@ -62,9 +59,10 @@ describe('aligned-groups-controller.test.js', () => {
   it('3 AlignedGroupsController - createAlignedTexts prints error and doesn\'t init tokenization if alignment.createAlignedTexts is failed because of different amount of segments', async () => {
     const alignedGC = new AlignedGroupsController(appC.store)
     
-    const alignment = new Alignment() // texts are not defined properly
-    alignment.updateOriginDocSource({ text: 'some origin text\u2028for origin test', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }})
-    alignment.updateTargetDocSource({ text: 'some target text', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }})
+    const alignment = new Alignment(
+      { text: 'some origin text\u2028for origin test', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}, 
+      { text: 'some target text', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }}
+    ) // texts are not defined properly
 
     jest.spyOn(alignment, 'createAlignedTexts')
     jest.spyOn(alignment, 'clearAlignedTexts')
@@ -87,10 +85,7 @@ describe('aligned-groups-controller.test.js', () => {
       text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
-
+    const alignment = new Alignment(originDocSource, targetDocSource)
     jest.spyOn(alignment, 'createAlignedTexts')
     
     const result = await alignedGC.createAlignedTexts(alignment)
@@ -108,9 +103,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     expect(alignedGC.hasOriginAlignedText).toBeFalsy()
     expect(alignedGC.hasTargetAlignedTexts).toBeFalsy()
@@ -131,9 +124,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -169,9 +160,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -214,9 +203,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -258,9 +245,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -300,9 +285,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -345,9 +328,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -398,9 +379,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -466,9 +445,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     await alignedGC.createAlignedTexts(alignment)
 
@@ -492,9 +469,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -527,9 +502,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -560,9 +533,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -595,9 +566,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -633,9 +602,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -658,9 +625,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -697,9 +662,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -740,9 +703,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -784,9 +745,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -822,9 +781,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -861,9 +818,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -893,9 +848,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 
@@ -932,9 +885,7 @@ describe('aligned-groups-controller.test.js', () => {
     const targetDocSource = new SourceText('target', {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
 
     alignment.updateTargetDocSource(new SourceText('target', { text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" } }))
 

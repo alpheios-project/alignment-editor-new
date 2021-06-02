@@ -1,11 +1,6 @@
 {
     "ALIGN_EDITOR_HEADING": {
-      "message": "Align text",
-      "description": "A heading for align editor",
-      "component": "AlignEditor"
-    },
-    "ALIGN_EDITOR_LINK": {
-      "message": "Align",
+      "message": "Define Alignment Groups",
       "description": "A heading for align editor",
       "component": "AlignEditor"
     },

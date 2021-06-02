@@ -5,12 +5,12 @@
       "component": "Alignment"
     },
     "ALIGNMENT_ERROR_ADD_TARGET_SOURCE": {
-      "message": "First you should define original source text.",
+      "message": "First you should define origin source text.",
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },
     "ALIGNMENT_ERROR_ADD_TO_ALIGNMENT": {
-      "message": "Choose another token please - from the same segment, translation text.",
+      "message": "Choose another token please - from the same segment, target text.",
       "description": "An error message for alignment workflow",
       "component": "Alignment"
     },
@@ -31,12 +31,12 @@
       "component": "Alignment"
     },
     "ALIGNMENT_ORIGIN_NOT_TOKENIZED": {
-      "message": "Original source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "message": "Origin source text was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
       "description": "A error message - create aligned texts",
       "component": "Alignment"
     },
     "ALIGNMENT_TARGET_NOT_TOKENIZED": {
-      "message": "Translation source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
+      "message": "Target source text № {textnum} was not tokenized due to the errors in tokenization service. All tokenization results were cancelled.",
       "description": "A error message - create aligned texts",
       "component": "Alignment",
       "params": ["textnum"]

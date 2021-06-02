@@ -1,6 +1,5 @@
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
-import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class TokensEditController {
   /**
@@ -8,10 +7,6 @@ export default class TokensEditController {
    */
   constructor (store) {
     this.store = store
-  }
-
-  startOver (alignment) {
-    this.loadAlignment(alignment)
   }
 
   /**
@@ -33,7 +28,6 @@ export default class TokensEditController {
 
     if (this.alignment.updateTokenWord(token, word)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
       return true
     }
     return false
@@ -50,7 +44,6 @@ export default class TokensEditController {
 
     if (this.alignment.mergeToken(token, direction)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
       return true
     }
     return false
@@ -82,7 +75,6 @@ export default class TokensEditController {
     }
 
     if (this.alignment.splitToken(token, tokenWord)) {
-      StorageController.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -98,7 +90,6 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.addLineBreakAfterToken(token)) {
-      StorageController.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -114,7 +105,6 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.removeLineBreakAfterToken(token)) {
-      StorageController.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -131,7 +121,6 @@ export default class TokensEditController {
     if (!this.checkEditable(token)) { return false }
 
     if (this.alignment.moveToSegment(token, direction)) {
-      StorageController.update(this.alignment, true)
       this.store.commit('incrementTokenUpdated')
       return true
     }
@@ -245,7 +234,6 @@ export default class TokensEditController {
   insertTokens (tokensText, textType, textId, insertType) {
     if (this.alignment.insertTokens(tokensText, textType, textId, insertType)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
       return true
     }
     return false
@@ -261,7 +249,6 @@ export default class TokensEditController {
 
     if (this.alignment.deleteToken(token)) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
       return true
     }
     return false
@@ -270,7 +257,6 @@ export default class TokensEditController {
   undoTokensEditStep () {
     if (this.alignment.undoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
       return true
     }
     return false
@@ -279,7 +265,6 @@ export default class TokensEditController {
   redoTokensEditStep () {
     if (this.alignment.redoTokensEditStep()) {
       this.store.commit('incrementTokenUpdated')
-      StorageController.update(this.alignment, true)
       return true
     }
     return false

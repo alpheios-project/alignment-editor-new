@@ -1,35 +1,11 @@
 <template>
-  <div class="alpheios-alignment-tokens-editor-block alpheios-alignment-editor-container">
-      <h2 class="alpheios-alignment-text-editor-block__header">
-        <span class="alpheios-alignment-text-editor-block__part">
-          <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showSourceTextEditor')">{{ l10n.getMsgS('TEXT_EDITOR_LINK') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-link" @click="$emit('showAlignmentGroupsEditor')">{{ l10n.getMsgS('ALIGN_EDITOR_LINK') }}</span>
-          <span class="alpheios-alignment-text-editor-block__header-label">{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }}</span>
-        </span>
-        <span class="alpheios-alignment-text-editor-block__part">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-help"
-              @click="showModalHelp = true">
-              HELP
-          </button>
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-options"
-              @click="showModalOptions = true">
-              Options
-          </button>
-        </span>
-        <span class="alpheios-alignment-text-editor-block__part">
-          <button class="alpheios-editor-button-tertiary alpheios-actions-menu-button" id="alpheios-actions-menu-button__enter-save"
-              @click="showModalSave = true">
-              Save locally
-          </button>
-        </span>
-      </h2>
+  <div class="alpheios-alignment-editor-container">
+    <div class="alpheios-alignment-editor-header">
+      <h2>{{ l10n.getMsgS('TOKENS_EDITOR_HEADING') }}</h2>
+    </div>
 
     <tokens-editor-inner-block v-if="renderTokensEditor"/>
-    <help-popup :showModal="showModalHelp" @closeModal = "showModalHelp = false">
-      <template v-slot:content > <help-block-edit /> </template>
-    </help-popup>
-    <save-popup :showModal="showModalSave" @closeModal = "showModalSave = false" />
-    <options-text-edit-popup :showModal="showModalOptions" @closeModal = "showModalOptions = false" />
+    
   </div>
 </template>
 <script>
@@ -38,19 +14,11 @@ import Vue from '@vue-runtime'
 import TokensEditInnerBlock from '@/vue/tokens-editor/tokens-editor-inner-block.vue'
 
 import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
-import HelpPopup from '@/vue/common/help-popup.vue'
-import SavePopup from '@/vue/common/save-popup.vue'
-import HelpBlockEdit from '@/vue/help-blocks/eng/help-block-edit.vue'
-import OptionsTextEdit from '@/vue/options/options-text-edit.vue'
 
 export default {
   name: 'TokensEditor',
   components: {
-    TokensEditorInnerBlock: TokensEditInnerBlock,
-    helpPopup: HelpPopup,
-    savePopup: SavePopup,
-    helpBlockEdit: HelpBlockEdit,
-    optionsTextEditPopup: OptionsTextEdit
+    TokensEditorInnerBlock: TokensEditInnerBlock
   },
   props: {
     renderEditor: {
@@ -60,10 +28,7 @@ export default {
   },
   data () {
     return {
-      renderTokensEditor: false,
-      showModalHelp: false,
-      showModalOptions: false,
-      showModalSave: false
+      renderTokensEditor: false
     }
   },
   watch: {
@@ -87,8 +52,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-tokens-editor-block.alpheios-alignment-editor-container {
-    padding: 20px 30px 20px 40px;  
+  .alpheios-alignment-editor-header {
+    margin: 15px 0;
   }
-
 </style>

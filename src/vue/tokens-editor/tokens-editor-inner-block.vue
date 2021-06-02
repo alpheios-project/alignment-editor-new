@@ -59,9 +59,6 @@ export default {
   watch: {
     '$store.state.alignmentRestarted' () {
       this.shownTabsInited = false
-    },
-    '$store.state.uploadCheck' () {
-      this.shownTabsInited = false
     }
   },
   computed: {
@@ -156,11 +153,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-tokens-edit-editor-container {
-    margin-top: 15px;
-  }
   .alpheios-alignment-editor-tokens-edit-editor-container-inner {
-
+    margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     background: #F8F8F8;

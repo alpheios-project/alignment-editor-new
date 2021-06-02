@@ -24,26 +24,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_ZHO": {
-      "message": "Chinese",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_AAR": {
-      "message": "Afar",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_ABK": {
-      "message": "Abkhazian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_AKA": {
-      "message": "Akan",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_AFR": {
       "message": "Afrikaans",
       "description": "Language name for available languages list",
@@ -85,11 +65,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_ASM": {
-      "message": "Assamese",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_AST": {
       "message": "Asturian",
       "description": "Language name for available languages list",
@@ -97,11 +72,6 @@
     },
     "LANG_AVE": {
       "message": "Avestan",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_AYM": {
-      "message": "Aymara",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -115,16 +85,7 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_BAK": {
-      "message": "Bashkir",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_BEL": {
-      "message": "Belarusian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
+
     "LANG_BEN": {
       "message": "Bengali",
       "description": "Language name for available languages list",
@@ -132,16 +93,6 @@
     },
     "LANG_BER": {
       "message": "Berber",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_BIH": {
-      "message": "Bihari",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_BIS": {
-      "message": "Bislama",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -160,11 +111,7 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_BUG": {
-      "message": "Buginese",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
+
     "LANG_CHU": {
       "message": "Bulgarian (Old, Old Church Slavonic)",
       "description": "Language name for available languages list",
@@ -180,18 +127,8 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_CEB": {
-      "message": "Cebuano",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_CHG": {
       "message": "Chagatai",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_CHR": {
-      "message": "Cherokee",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -203,16 +140,6 @@
 
     "LANG_COR": {
       "message": "Cornish",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_COS": {
-      "message": "Corsican",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_CRS": {
-      "message": "Seselwa",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -228,16 +155,6 @@
     },
     "LANG_DAN": {
       "message": "Danish",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_DIV": {
-      "message": "Dhivehi",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_DZO": {
-      "message": "Dzongkha",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -278,21 +195,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_EPO": {
-      "message": "Esperanto",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_FAO": {
-      "message": "Faroese",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_FIJ": {
-      "message": "Fijian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_FIN": {
       "message": "Finnish",
       "description": "Language name for available languages list",
@@ -313,50 +215,9 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_FRR": {
-      "message": "Frisian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_GLG": {
-      "message": "Galician",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_GRN": {
-      "message": "Guarani",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
 
     "LANG_GEZ": {
       "message": "Ge'ez",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_HAT": {
-      "message": "Haitian Creole",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_HAU": {
-      "message": "Hausa",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_HAW": {
-      "message": "Hawaiian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_HMN": {
-      "message": "Hmong",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_LUG": {
-      "message": "Ganda",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -396,13 +257,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-
-    "LANG_KAL": {
-      "message": "Greenlandic",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
     "LANG_GUJ": {
       "message": "Gujarati",
       "description": "Language name for available languages list",
@@ -429,16 +283,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_IBO": {
-      "message": "Igbo",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_IKU": {
-      "message": "Inuktitut",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_ISL": {
       "message": "Icelandic",
       "description": "Language name for available languages list",
@@ -449,28 +293,9 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_INA": {
-      "message": "Interlingua",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_ILE": {
-      "message": "Interlingue",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_IPK": {
-      "message": "Inupiaq",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
+
     "LANG_GLE": {
       "message": "Irish (Modern)",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_GLV": {
-      "message": "Manx",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -505,27 +330,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_KAZ": {
-      "message": "Kazakh",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_KAS": {
-      "message": "Kashmiri",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_KIN": {
-      "message": "Kinyarwanda",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_KHA": {
-      "message": "Khasi",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_KHM": {
       "message": "Khmer (Central)",
       "description": "Language name for available languages list",
@@ -536,104 +340,29 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_TLH": {
-      "message": "Klingon",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_KUR": {
       "message": "Kurdish",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_KIR": {
-      "message": "Kyrgyz",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
+
     "LANG_LAD": {
       "message": "Ladino",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_LAO": {
-      "message": "Laothian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_LAV": {
-      "message": "Latvian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_LIM": {
-      "message": "Limbu",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_LIN": {
-      "message": "Lingala",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
     "LANG_LIT": {
       "message": "Lithuanian",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_LTZ": {
-      "message": "Luxembourgish",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_MAC": {
-      "message": "Macedonian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
     "LANG_MSA": {
       "message": "Malay",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-
-    "LANG_MLG": {
-      "message": "Malagasy",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_MAL": {
-      "message": "Malayalam",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_MLT": {
-      "message": "Maltese",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_MAO": {
-      "message": "Maori",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_MAR": {
       "message": "Marathi",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_MFE": {
-      "message": "Mauritian Creole",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_MON": {
-      "message": "Mongolian",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -648,13 +377,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-
-    "LANG_NAU": {
-      "message": "Nauru",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
     "LANG_NWC": {
       "message": "Newari",
       "description": "Language name for available languages list",
@@ -670,13 +392,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-
-    "LANG_NBL": {
-      "message": "Ndebele",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
     "LANG_NOB": {
       "message": "Norwegian (Bokmål)",
       "description": "Language name for available languages list",
@@ -685,27 +400,6 @@
 
     "LANG_NNO": {
       "message": "Norwegian (Nynorsk)",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_NYA": {
-      "message": "Nyanja",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_OCI": {
-      "message": "Occitan",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_ORI": {
-      "message": "Oriya",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_ORM": {
-      "message": "Oromo",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -729,16 +423,7 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_NSO": {
-      "message": "Pedi",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_PER": {
-      "message": "Persian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
+
     "LANG_FAS": {
       "message": "Persian (Farsi)",
       "description": "Language name for available languages list",
@@ -780,19 +465,8 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_QUE": {
-      "message": "Quechua",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
     "LANG_RAJ": {
       "message": "Rajasthani",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_ROH": {
-      "message": "Rhaeto Romance",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -807,23 +481,8 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_RUN": {
-      "message": "Rundi",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_RUS": {
       "message": "Russian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_SMO": {
-      "message": "Samoan",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_SAG": {
-      "message": "Sango",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -848,11 +507,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_SOT": {
-      "message": "Sesotho",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_SCN": {
       "message": "Sicilian",
       "description": "Language name for available languages list",
@@ -865,16 +519,6 @@
     },
     "LANG_SIN": {
       "message": "Sinhalese (Sinhala)",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_SSW": {
-      "message": "Siswant",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_SNA": {
-      "message": "Shona",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -894,11 +538,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_SOM": {
-      "message": "Somali",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_SPA": {
       "message": "Spanish (Castilian)",
       "description": "Language name for available languages list",
@@ -906,11 +545,6 @@
     },
     "LANG_SUX": {
       "message": "Sumerian",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_SUN": {
-      "message": "Sundanese",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -977,26 +611,6 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_TIR": {
-      "message": "Tigrinya",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_TOG": {
-      "message": "Tonga",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_TSO": {
-      "message": "Tsonga",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_TSN": {
-      "message": "Tswana",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_TUR": {
       "message": "Turkish (Modern)",
       "description": "Language name for available languages list",
@@ -1017,11 +631,7 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_UIG": {
-      "message": "Uighur",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
+
     "LANG_UKR": {
       "message": "Ukrainian",
       "description": "Language name for available languages list",
@@ -1037,24 +647,8 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_VEN": {
-      "message": "Venda",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_VIE": {
       "message": "Vietnamese",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-
-    "LANG_VOL": {
-      "message": "Volapuk",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_WAR": {
-      "message": "Waray Philippines",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
@@ -1068,28 +662,8 @@
       "description": "Language name for available languages list",
       "component": "TextEditor"
     },
-    "LANG_WOL": {
-      "message": "Wolof",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_XHO": {
-      "message": "Xhosa",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
     "LANG_YID": {
       "message": "Yiddish",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_YOR": {
-      "message": "Yoruba",
-      "description": "Language name for available languages list",
-      "component": "TextEditor"
-    },
-    "LANG_ZHA": {
-      "message": "Zhuang",
       "description": "Language name for available languages list",
       "component": "TextEditor"
     }

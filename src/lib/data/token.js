@@ -1,7 +1,7 @@
 import HistoryStep from '@/lib/data/history/history-step.js'
 
 export default class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -12,7 +12,6 @@ export default class Token {
 
     this.segmentIndex = segmentIndex
     this.docSourceId = docSourceId
-    this.tokenIndex = tokenIndex
   }
 
   /**
@@ -86,7 +85,7 @@ export default class Token {
    *          { Number } segmentIndex
    *          { String } docSourceId
    */
-  convertToJSON (tokenIndex) {
+  convertToJSON () {
     return {
       textType: this.textType,
       idWord: this.idWord,
@@ -96,8 +95,7 @@ export default class Token {
       hasLineBreak: this.hasLineBreak,
       segmentIndex: this.segmentIndex,
       docSourceId: this.docSourceId,
-      sentenceIndex: this.sentenceIndex,
-      tokenIndex
+      sentenceIndex: this.sentenceIndex
     }
   }
 
@@ -122,8 +120,7 @@ export default class Token {
       beforeWord: data.beforeWord,
       afterWord: data.afterWord,
       hasLineBreak: data.hasLineBreak,
-      sentenceIndex: data.sentenceIndex,
-      tokenIndex: data.tokenIndex
+      sentenceIndex: data.sentenceIndex
     }, data.segmentIndex, data.docSourceId)
   }
 

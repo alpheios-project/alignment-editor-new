@@ -7,7 +7,6 @@ import AlignedGroupsController from '@/lib/controllers/aligned-groups-controller
 import TokensEditController from '@/lib/controllers/tokens-edit-controller.js'
 import HistoryController from '@/lib/controllers/history-controller.js'
 import SettingsController from '@/lib/controllers/settings-controller.js'
-import StorageController from '@/lib/controllers/storage-controller.js'
 
 import StoreDefinition from '@/lib/store/store-definition'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
@@ -37,8 +36,6 @@ export default class AppController {
     this.defineStore()
     this.defineL10Support()
     this.defineNotificationSupport()
-    this.defineStorageController()
-
     await this.defineSettingsController()
 
     if (this.settingsC.themeOptionValue) {
@@ -165,9 +162,5 @@ export default class AppController {
   defineNotificationSupport () {
     const notificationSingleton = new NotificationSingleton(this.store)
     return notificationSingleton
-  }
-
-  defineStorageController () {
-    StorageController.definedDBAdapter()
   }
 }

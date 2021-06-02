@@ -272,7 +272,9 @@ describe('settings-controller.test.js', () => {
 
     settingsC.options.tokenize = fixtureForRemoteSettings()
 
-    let resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
+    const resultOptions = await settingsC.cloneTextEditorOptions('origin', 0)
+
+    await resultOptions.sourceText.reset()
 
     expect(resultOptions.sourceText.items.language.currentValue).toEqual('eng')
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
@@ -288,9 +290,8 @@ describe('settings-controller.test.js', () => {
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('rtl')
     expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('tei')
 
-    resultOptions = settingsC.resetLocalTextEditorOptions('origin', 0)
+    await settingsC.resetLocalTextEditorOptions(resultOptions)
 
-    console.info('resultOptions.sourceText.items.language - ', resultOptions.sourceText.items.language)
     expect(resultOptions.sourceText.items.language.currentValue).toEqual('eng')
     expect(resultOptions.sourceText.items.direction.currentValue).toEqual('ltr')
     expect(resultOptions.sourceText.items.sourceType.currentValue).toEqual('text')
@@ -329,5 +330,4 @@ describe('settings-controller.test.js', () => {
     expect(settingsC.options.sourceText.items.direction.currentValue).toEqual('ltr')
     expect(settingsC.options.sourceText.items.sourceType.currentValue).toEqual('text')
   })
-
 })

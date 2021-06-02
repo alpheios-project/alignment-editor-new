@@ -42,7 +42,7 @@ describe('alignment.test.js', () => {
     expect(alignment.activeAlignmentGroup).toBeNull()   
   })
 
-  it.skip('2 Alignment - constructor origin.docSource and target.docSource if they are pased', () => {
+  it('2 Alignment - constructor origin.docSource and target.docSource if they are pased', () => {
     const originDocSource = new SourceText('origin', {
       text: 'some text', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
@@ -91,10 +91,7 @@ describe('alignment.test.js', () => {
       text: 'some target text\u2028for target test', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource1)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    const alignment = new Alignment(originDocSource1, targetDocSource1)
     await alignment.createAlignedTexts('simpleLocalTokenizer')
 
     // both should have equal segments
@@ -140,7 +137,6 @@ describe('alignment.test.js', () => {
     const targetDocSource1 = new SourceText('target', {
       text: 'target some text1', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-
     const targetDocSource3 = new SourceText('target', {
       text: 'target some text3', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
@@ -167,7 +163,6 @@ describe('alignment.test.js', () => {
     targetDocSource1.update({ text: 'target some text2' })
     alignment.updateTargetDocSource(targetDocSource1)
 
-
     expect(alignment.targets[targetId1].docSource.text).toEqual('target some text2')
     expect(alignment.targets[targetId2].docSource.text).toEqual('target some text3')
     
@@ -184,9 +179,7 @@ describe('alignment.test.js', () => {
       text: 'target some text3', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource1)
-    alignment.updateTargetDocSource(targetDocSource1)
+    let alignment = new Alignment(originDocSource1, targetDocSource1)
 
     alignment.deleteText('origin', originDocSource1.id)
     expect(alignment.origin.docSource.id).toEqual(originDocSource1.id) // was not delete, because it is not a target
@@ -222,10 +215,9 @@ describe('alignment.test.js', () => {
     alignment.updateTargetDocSource(targetDocSourceIncorect)
 
     let result = await alignment.createAlignedTexts()
-    
     expect(result).toBeFalsy() // target text is not fully defined
     expect(alignment.origin.alignedText).not.toBeDefined()
-    // expect(Object.values(alignment.targets)[0].alignedText).not.toBeDefined()
+    expect(Object.values(alignment.targets)[0].alignedText).not.toBeDefined()
 
 
     alignment.updateTargetDocSource(targetDocSourceCorect1)
@@ -234,8 +226,6 @@ describe('alignment.test.js', () => {
     alignment.deleteText('target', targetDocSourceIncorect.id)
 
     result = await alignment.createAlignedTexts()
-
-    // console.info(alignment.targets)
     expect(result).toBeTruthy() // defined two correct aligned texts
     expect(alignment.origin.alignedText).toEqual(expect.any(AlignedText))
     expect(Object.values(alignment.targets)[0].alignedText).toEqual(expect.any(AlignedText))
@@ -253,10 +243,8 @@ describe('alignment.test.js', () => {
       text: 'target some text2', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
 
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
 
     await alignment.createAlignedTexts()
@@ -283,10 +271,7 @@ describe('alignment.test.js', () => {
       text: 'target some text2', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
 
     await alignment.createAlignedTexts()
@@ -311,10 +296,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     expect(alignment.allTargetTextsIds).toEqual([ targetDocSource1.id ])
 
     alignment.updateTargetDocSource(targetDocSource2)    
@@ -338,10 +320,7 @@ describe('alignment.test.js', () => {
     })
 
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
     await alignment.createAlignedTexts()
 
@@ -380,10 +359,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)    
     await alignment.createAlignedTexts('simpleLocalTokenizer')
 
@@ -415,10 +391,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -461,10 +434,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -503,10 +473,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -541,10 +508,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -592,10 +556,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -632,10 +593,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -681,10 +639,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -729,10 +684,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -773,10 +725,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -818,10 +767,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -863,10 +809,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -908,10 +851,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -953,10 +893,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -998,10 +935,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1048,10 +982,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1100,10 +1031,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1147,10 +1075,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1203,10 +1128,7 @@ describe('alignment.test.js', () => {
     const targetDocSource2 = new SourceText('target', {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1260,10 +1182,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1302,10 +1221,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1355,10 +1271,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')
@@ -1399,10 +1312,7 @@ describe('alignment.test.js', () => {
       text: 'ome target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    let alignment = new Alignment()
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource1)
-
+    let alignment = new Alignment(originDocSource, targetDocSource1)
     alignment.updateTargetDocSource(targetDocSource2)
 
     await alignment.createAlignedTexts('simpleLocalTokenizer')

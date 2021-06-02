@@ -224,7 +224,6 @@ export default {
     width: 48%;
     display: inline-block;
     vertical-align: top;
-    padding-right: 10px;
   }
   input.alpheios-alignment-input, 
   .alpheios-alignment-select, 

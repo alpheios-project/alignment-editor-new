@@ -49,10 +49,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
-
+    let alignment = new Alignment(originDocSource, targetDocSource)
     alignment.undoInActiveGroup = jest.fn()
 
     historyC.startTracking(alignment)
@@ -75,9 +72,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     alignment.undoActiveGroup = jest.fn()
     
     historyC.startTracking(alignment)
@@ -99,9 +94,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
 
     alignment.activateGroupByGroupIndex = jest.fn()
@@ -127,9 +120,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
     alignment.redoInActiveGroup = jest.fn()
 
@@ -154,9 +145,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
     alignment.returnActiveGroupToList = jest.fn()
 
@@ -180,9 +169,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     const targetId = Object.keys(alignment.targets)[0]
     jest.spyOn(alignment, 'redoActiveGroup')
 
@@ -241,9 +228,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     alignment.updateTargetDocSource(targetDocSource2)   
 
     const targetId1 = Object.keys(alignment.targets)[0]
@@ -291,9 +276,7 @@ describe('history-controller.test.js', () => {
       text: 'some target text\u2028for target test', sourceType: 'text', direction: 'ltr', lang: 'eng', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    let alignment = new Alignment(originDocSource, targetDocSource)
     alignment.updateTargetDocSource(targetDocSource2)   
 
     const targetId1 = Object.keys(alignment.targets)[0]

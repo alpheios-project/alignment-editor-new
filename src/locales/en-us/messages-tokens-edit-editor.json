@@ -1,23 +1,18 @@
 {
     "TOKENS_EDITOR_HEADING": {
-      "message": "Edit text",
+      "message": "Edit tokens in Origin and Target texts",
       "description": "A heading for text editor",
-      "component": "TokensEditor"
-    },
-    "TOKENS_EDITOR_LINK": {
-      "message": "Edit",
-      "description": "A heading for text editor",
-      "component": "TokensEditor"
+      "component": "AlignEditor"
     },
     "TOKENS_EDITOR_HIDE": {
       "message": "hide",
       "description": "A label for hide/show links",
-      "component": "TokensEditor"
+      "component": "AlignEditor"
     },
     "TOKENS_EDITOR_SHOW": {
       "message": "show",
       "description": "A label for hide/show links",
-      "component": "TokensEditor"
+      "component": "AlignEditor"
     },
     "ACTION_BUTTON_UPDATE_TOKEN": {
       "message": "Update a token",
@@ -55,12 +50,12 @@
       "component": "ActionsMenuTokenEdit"
     },
     "TOKENS_EDIT_IS_NOT_EDITABLE_TOOLTIP": {
-      "message": "This token is inside a created alignment group, you should ungroup it first in the alignment editor.",
+      "message": "This token is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",
       "component": "TokensEditController"
     },
     "TOKENS_EDIT_IS_NOT_EDITABLE_MERGETO_TOOLTIP": {
-      "message": "The token that is the translation of merging is inside a created alignment group, you should ungroup it first.",
+      "message": "The token that is the target of merging is inside a created alignment group, you should ungroup it first.",
       "description": "An error message for token edit workflow",
       "component": "Alignment"
     },

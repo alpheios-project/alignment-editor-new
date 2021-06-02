@@ -5,10 +5,6 @@ export default class Metadata {
     this.properties = {}
   }
 
-  get isEmpty () {
-    return Object.values(MetadataTerm.property).every(property => !this.hasProperty(property))
-  }
-
   isSupportedProperty (property) {
     return Object.values(MetadataTerm.property).includes(property)
   }
@@ -17,32 +13,15 @@ export default class Metadata {
     return Boolean(this.properties[property.label])
   }
 
-  addProperty (property, value, metaId) {
+  addProperty (property, value) {
     if (!this.isSupportedProperty(property)) {
       return false
     }
-
-    if (!this.hasProperty(property) && value) {
-      this.properties[property.label] = new MetadataTerm(property, value, metaId)
-      return true
-    } else if (this.hasProperty(property)) {
-      if (value) { this.getProperty(property).saveValue(value) } else { delete this.properties[property.label] }
+    if (!this.hasProperty(property)) {
+      this.properties[property.label] = new MetadataTerm(property, value)
       return true
     }
-    return false
-  }
-
-  deleteValueByIndex (metadataItem, termValIndex) {
-    if (!this.isSupportedProperty(metadataItem.property)) {
-      return false
-    }
-
-    metadataItem.deleteValueByIndex(termValIndex)
-
-    if (metadataItem.getValue().length === 0) {
-      delete this.properties[metadataItem.property.label]
-    }
-    return true
+    return this.getProperty(property).saveValue(value)
   }
 
   getProperty (property) {
@@ -88,22 +67,6 @@ export default class Metadata {
       const metaItem = MetadataTerm.convertFromJSON(prop)
       metadata.addProperty(metaItem.property, metaItem.value)
     })
-    return metadata
-  }
-
-  convertToIndexedDB () {
-    return {
-      properties: Object.values(this.properties).map(prop => prop.convertToIndexedDB())
-    }
-  }
-
-  static convertFromIndexedDB (data) {
-    const metadata = new Metadata()
-    data.forEach(prop => {
-      const metaItem = MetadataTerm.convertFromIndexedDB(prop)
-      metadata.addProperty(metaItem.property, metaItem.value, metaItem.id)
-    })
-
     return metadata
   }
 }

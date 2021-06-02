@@ -36,12 +36,12 @@ describe('texts-controller.test.js', () => {
   it('1 TextsController - createAlignment defines alignment object ', () => {
     const textsC = new TextsController(appC.store)
 
-    textsC.createAlignment()
+    textsC.createAlignment(null, null)
 
     expect(textsC.alignment).toBeInstanceOf(Alignment)
   })
 
-  it('2 TextsController - couldStartAlign returns true if all texts defined properly', async () => {
+  it('2 TextsController - couldStartAlign returns true if all texts defined properly', () => {
     const textsC = new TextsController(appC.store)
 
     const originDocSource = new SourceText('origin', {
@@ -51,17 +51,12 @@ describe('texts-controller.test.js', () => {
       text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    textsC.createAlignment()
-    await textsC.updateOriginDocSource(originDocSource)
-    await textsC.updateTargetDocSource(targetDocSource)
+    textsC.createAlignment(originDocSource, targetDocSource)
 
     expect(textsC.couldStartAlign).toBeTruthy()
+    textsC.updateTargetDocSource({ text: '', direction: 'ltr', lang: 'lat' })
 
-    const targetId = Object.keys(textsC.alignment.targets)[0]
-
-    await textsC.updateTargetDocSource({ text: '', direction: 'ltr', lang: 'lat', id: targetId }, targetId)
     expect(textsC.couldStartAlign).toBeFalsy()
-
   })
 
   it('3 TextsController - updateOriginDocSource creates alignment if it is not created yet ', () => {
@@ -76,13 +71,13 @@ describe('texts-controller.test.js', () => {
     textsC.updateOriginDocSource(originDocSource)
 
     expect(textsC.alignment).toBeDefined()
-    expect(textsC.createAlignment).toHaveBeenCalled()
+    expect(textsC.createAlignment).toHaveBeenCalledWith(originDocSource, null)
   })
 
   it('4 TextsController - updateOriginDocSource updates origin document source to an existed alignment object ', () => {
     const textsC = new TextsController(appC.store)
 
-    textsC.createAlignment()
+    textsC.createAlignment(null, null)
 
     jest.spyOn(textsC, 'createAlignment')
     jest.spyOn(textsC.alignment, 'updateOriginDocSource')
@@ -100,7 +95,7 @@ describe('texts-controller.test.js', () => {
   it('5 TextsController - updateTargetDocSource updates target document source to an existed alignment object ', () => {
     const textsC = new TextsController(appC.store)
 
-    textsC.createAlignment()
+    textsC.createAlignment(null, null)
 
     jest.spyOn(textsC, 'createAlignment')
     jest.spyOn(textsC.alignment, 'updateTargetDocSource')
@@ -122,7 +117,7 @@ describe('texts-controller.test.js', () => {
       text: 'originDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    textsC.updateOriginDocSource(originDocSource)
+    textsC.createAlignment(originDocSource, null)
 
     const targetDocSource = {
       text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
@@ -148,6 +143,7 @@ describe('texts-controller.test.js', () => {
     expect(textsC.allTargetTextsIds.length).toEqual(1)
   })
 
+
   it('7 TextsController - originDocSource returns origin document source if alignment is defined otherwise it returns null ', () => {
     const textsC = new TextsController(appC.store)
 
@@ -170,7 +166,7 @@ describe('texts-controller.test.js', () => {
 
     textsC.updateOriginDocSource(originDocSource)
 
-    expect(textsC.allTargetTextsIds.length).toEqual(0)
+    expect(textsC.allTargetTextsIds.length).toEqual(1)
 
     const targetDocSource = {
       text: 'targetDocSource', direction: 'ltr', lang: 'eng', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }

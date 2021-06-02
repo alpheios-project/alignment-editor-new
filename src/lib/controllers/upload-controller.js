@@ -6,7 +6,6 @@ import SourceText from '@/lib/data/source-text'
 
 import UploadFileCSV from '@/lib/upload/upload-file-csv.js'
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
-import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class UploadController {
   /**
@@ -20,8 +19,7 @@ export default class UploadController {
       plainSourceUploadAll: { method: this.plainSourceUploadAll, allTexts: true, name: 'plainSourceUploadAll', label: 'Short from csv', extensions: ['csv', 'tsv'] },
       plainSourceUploadSingle: { method: this.plainSourceUploadSingle, allTexts: false, extensions: ['csv', 'tsv', 'xml', 'txt'] },
       jsonSimpleUploadAll: { method: this.jsonSimpleUploadAll, allTexts: true, name: 'jsonSimpleUploadAll', label: 'Full from json', extensions: ['json'] },
-      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] },
-      indexedDBUpload: { method: this.indexedDBUploadSingle, allTexts: true, name: 'indexedDBUploadSingle', label: 'IndexedDB', extensions: ['indexedDB-alignment'] }
+      dtsAPIUpload: { method: this.dtsAPIUploadSingle, allTexts: false, name: 'dtsAPIUploadSingle', label: 'DTS API', extensions: ['xml'] }
     }
   }
 
@@ -150,7 +148,7 @@ export default class UploadController {
     return Alignment.convertFromJSON(fileJSON)
   }
 
-  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams } = {}) {
+  static async dtsAPIUploadSingle ({ linkData, objType = 'collection', refParams = {} } = {}) {
     if (objType === 'collection') {
       const content = await UploadDTSAPI.getCollection(linkData)
       return content
@@ -161,11 +159,5 @@ export default class UploadController {
       const docXML = await UploadDTSAPI.getDocument(linkData, refParams)
       return docXML
     }
-  }
-
-  static async indexedDBUploadSingle (alData) {
-    const dbData = await StorageController.select(alData, 'alignmentByAlIDQuery')
-    const alignment = await Alignment.convertFromIndexedDB(dbData)
-    return alignment
   }
 }

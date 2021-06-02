@@ -1,6 +1,5 @@
 <template>
   <div class="alpheios-alignment-editor-align-groups-editor-container">
-    <actions-menu-align-editor  />
     <editor-tabs 
       v-if="allTokenizedTargetTextsIds.length > 1"
       :tabs = "allTokenizedTargetTextsIds" @selectTab = "selectTab"
@@ -14,13 +13,13 @@
       >
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-origin">
           <segment-block 
-                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs" :isFirst = "segmentData.isFirst"
+                  :segment = "segmentData.origin" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
           />
         </div>
 
         <div class="alpheios-alignment-editor-align-segment-data-item alpheios-alignment-editor-align-segment-data-target">
           <segment-block v-for="(segmentTarget, targetId) in segmentData.targets" :key="getIndex('target',segmentData.index, targetId)"
-                  :segment = "segmentTarget" :isFirst = "segmentData.isFirst"
+                  :segment = "segmentTarget" 
                   :isLast = "lastTargetId && (targetId === lastTargetId)" :currentTargetId = "currentTargetId" :amountOfShownTabs = "amountOfShownTabs"
                   v-show="isShownTab(targetId)"
           />
@@ -34,14 +33,12 @@
 import Vue from '@vue-runtime'
 import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import EditorTabs from '@/vue/common/editor-tabs.vue'
-import ActionsMenuAlignEditor from '@/vue/align-editor/actions-menu-align-editor.vue'
 
 export default {
   name: 'AlignEditorViewMode',
   components: {
     segmentBlock: SegmentBlock,
-    editorTabs: EditorTabs,
-    actionsMenuAlignEditor: ActionsMenuAlignEditor
+    editorTabs: EditorTabs
   },
   props: {
   },
@@ -49,14 +46,6 @@ export default {
     return {
       shownTabs: [],
       shownTabsInited: false
-    }
-  },
-  watch: {
-    '$store.state.alignmentRestarted' () {
-      this.shownTabsInited = false
-    },
-    '$store.state.uploadCheck' () {
-      this.shownTabsInited = false
     }
   },
   computed: {
@@ -68,14 +57,12 @@ export default {
      */
     allTokenizedTargetTextsIds () {
       const allTokenizedTargetTextsIds = this.$textC.allTokenizedTargetTextsIds
-
       if (!this.shownTabsInited) {
         this.shownTabs = allTokenizedTargetTextsIds.slice(0, 1)
         this.shownTabsInited = true
         this.$historyC.updateMode(this.shownTabs) 
       }
-    
-      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
+      return this.$store.state.alignmentUpdated ? allTokenizedTargetTextsIds : []
     },
 
     /**
@@ -85,7 +72,6 @@ export default {
      *          {Object} targets - key {String} - targetId, value {Segment} - target segment by index and argetId
      */
     allAlignedTextsSegments () {
-      
       return this.$store.state.alignmentUpdated && this.$store.state.tokenUpdated  ? this.$alignedGC.allAlignedTextsSegments : []
     },
 
@@ -150,10 +136,8 @@ export default {
 }
 </script>
 <style lang="scss">
-  .alpheios-alignment-editor-align-groups-editor-container {
-    padding-top: 20px;
-  }
   .alpheios-alignment-editor-align-define-container-inner {
+    margin-top: 15px;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     background: #F8F8F8;
@@ -192,7 +176,6 @@ export default {
     }
     .alpheios-alignment-editor-align-segment-data-item {
       display: table-cell;
-      vertical-align: top;
     }
   }
 

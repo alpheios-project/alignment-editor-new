@@ -144,9 +144,7 @@ export default class DownloadController {
     })
 
     const now = DownloadController.timeNow.bind(new Date())()
-
-    const filePrefixName = data.origin.alignedText ? 'full-alignment' : 'alignment'
-    const fileName = `${now}-${filePrefixName}-${data.origin.docSource.lang}-${langs.join('-')}`
+    const fileName = `${now}-full-alignment-${data.origin.docSource.lang}-${langs.join('-')}`
     return DownloadFileJSON.download(data, fileName)
   }
 

@@ -48,9 +48,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     tokensEC.loadAlignment(alignment)
 
     expect(tokensEC.store).toBeInstanceOf(Vuex.Store)
@@ -68,9 +66,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     tokensEC.loadAlignment(alignment)
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -96,9 +92,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     const targetIds = alignment.allTargetTextsIds
     tokensEC.loadAlignment(alignment)
 
@@ -127,9 +121,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     tokensEC.loadAlignment(alignment)
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -157,9 +149,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     const targetIds = alignment.allTargetTextsIds
     tokensEC.loadAlignment(alignment)
 
@@ -190,9 +180,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     tokensEC.loadAlignment(alignment)
 
     const alignedGC = new AlignedGroupsController(appC.store)
@@ -220,9 +208,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     const targetIds = alignment.allTargetTextsIds
     tokensEC.loadAlignment(alignment)
 
@@ -251,9 +237,7 @@ describe('tokens-edit-controller.test.js', () => {
       text: 'target one there', sourceType: 'text', tokenization: { tokenizer: "simpleLocalTokenizer" }
     })
 
-    const alignment = new Alignment() 
-    alignment.updateOriginDocSource(originDocSource)
-    alignment.updateTargetDocSource(targetDocSource)
+    const alignment = new Alignment(originDocSource, targetDocSource)
     const targetIds = alignment.allTargetTextsIds
     tokensEC.loadAlignment(alignment)
 

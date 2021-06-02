@@ -5,12 +5,12 @@
       "component": "MainMenu"
     },
     "MAIN_MENU_UPLOAD_TITLE": {
-      "message": "Resume previous alignment",
+      "message": "Upload",
       "description": "Button in main menu",
       "component": "MainMenu"
     },
     "MAIN_MENU_ALIGN_TITLE": {
-      "message": "Prepare texts for alignment",
+      "message": "Align",
       "description": "Button in main menu",
       "component": "MainMenu"
     },
@@ -25,7 +25,7 @@
       "component": "MainMenu"
     },
     "MAIN_MENU_ADD_TARGET_TITLE": {
-      "message": "Add translation",
+      "message": "Add target",
       "description": "Button in main menu",
       "component": "MainMenu"
     },
@@ -40,27 +40,7 @@
       "component": "MainMenu"
     },
     "MAIN_MENU_CLEAR_TEXT": {
-      "message": "Start new alignment",
-      "description": "Button in main menu",
-      "component": "MainMenu"
-    },
-    "MAIN_MENU_TEXT_ENTER_LINK": {
-      "message": "Enter Text",
-      "description": "Button in main menu",
-      "component": "MainMenu"
-    },
-    "MAIN_MENU_TEXT_ALIGN_LINK": {
-      "message": "Align Text",
-      "description": "Button in main menu",
-      "component": "MainMenu"
-    },
-    "MAIN_MENU_TEXT_EDIT_LINK": {
-      "message": "Edit Text",
-      "description": "Button in main menu",
-      "component": "MainMenu"
-    },
-    "MAIN_MENU_CHOOSE_FILE": {
-      "message": "Choose a file",
+      "message": "Clear text",
       "description": "Button in main menu",
       "component": "MainMenu"
     }

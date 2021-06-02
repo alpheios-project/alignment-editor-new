@@ -5,7 +5,6 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
-import StorageController from '@/lib/controllers/storage-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -17,8 +16,8 @@ export default class TextsController {
    * @param {String} originDocSource
    * @param {String} targetDocSource
    */
-  createAlignment () {
-    this.alignment = new Alignment()
+  createAlignment (originDocSource, targetDocSource) {
+    this.alignment = new Alignment(originDocSource, targetDocSource)
     return this.alignment
   }
 
@@ -38,64 +37,30 @@ export default class TextsController {
    * If an alignment is not created yet, it would be created.
    * @param {Object} originDocSource
    */
-  async updateOriginDocSource (originDocSource) {
-    if (!this.alignment) { this.createAlignment() }
-
-    const resultUpdate = this.alignment.updateOriginDocSource(originDocSource)
-    if (!resultUpdate) {
-      return { resultUpdate }
+  updateOriginDocSource (originDocSource) {
+    if (!this.alignment) {
+      this.createAlignment(originDocSource, null)
+    } else {
+      this.alignment.updateOriginDocSource(originDocSource)
     }
-
-    this.store.commit('incrementDocSourceUpdated')
-    const resultDetect = await this.alignment.updateLangDocSource('origin')
-    if (resultDetect) {
-      this.store.commit('incrementDocSourceLangDetected')
-    }
-
-    StorageController.update(this.alignment)
-    return { resultUpdate, resultDetect }
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   /**
    * Uploads target source document to the alignment object.
    * @param {Object} targetDocSource
    */
-  async updateTargetDocSource (targetDocSource, targetId) {
+  updateTargetDocSource (targetDocSource, targetId) {
     if (!this.alignment) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
       NotificationSingleton.addNotification({
         text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
         type: 'error'
       })
-      return
+    } else {
+      this.alignment.updateTargetDocSource(targetDocSource, targetId)
+      this.store.commit('incrementAlignmentUpdated')
     }
-
-    const finalTargetId = this.alignment.updateTargetDocSource(targetDocSource, targetId)
-    if (!finalTargetId) {
-      return { resultUpdate: false }
-    }
-    this.store.commit('incrementDocSourceUpdated')
-
-    const resultDetect = await this.alignment.updateLangDocSource('target', finalTargetId)
-    if (resultDetect) {
-      this.store.commit('incrementDocSourceLangDetected')
-    }
-    StorageController.update(this.alignment)
-    return { resultUpdate: true, resultDetect, finalTargetId }
-  }
-
-  async addNewTarget () {
-    if (!this.alignment) {
-      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_ERROR_WRONG_ALIGNMENT_STEP'),
-        type: 'error'
-      })
-      return
-    }
-    const finalTargetId = this.alignment.addNewTarget()
-    this.store.commit('incrementDocSourceUpdated')
-    return finalTargetId
   }
 
   /**
@@ -112,9 +77,7 @@ export default class TextsController {
       })
     } else {
       this.alignment.deleteText(textType, id)
-      this.store.commit('incrementDocSourceLangDetected')
-      this.store.commit('incrementDocSourceUpdated')
-      StorageController.update(this.alignment, true)
+      this.store.commit('incrementUploadCheck')
     }
   }
 
@@ -135,10 +98,6 @@ export default class TextsController {
    */
   get allTargetTextsIds () {
     return this.alignment ? this.alignment.allTargetTextsIds : []
-  }
-
-  get allTargetTextsIdsNumbered () {
-    return this.alignment ? this.alignment.allTargetTextsIdsNumbered : []
   }
 
   /**
@@ -190,21 +149,7 @@ export default class TextsController {
     return true
   }
 
-  async uploadDataFromDB (alData) {
-    if (!alData) {
-      console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'))
-      NotificationSingleton.addNotification({
-        text: L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_DB_DATA'),
-        type: NotificationSingleton.types.ERROR
-      })
-      return
-    }
-
-    const alignment = await UploadController.upload('indexedDBUpload', alData)
-    return alignment
-  }
-
-  uploadDataFromFile (fileData, tokenizerOptionValue, extension) {
+  uploadData (fileData, tokenizerOptionValue, extension) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -221,15 +166,11 @@ export default class TextsController {
       jsonSimpleUploadAll: this.uploadFullDataJSON.bind(this)
     }
 
-    const alignment = uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
-    StorageController.update(alignment, true)
-    return alignment
+    return uploadPrepareMethods[uploadType](fileData, tokenizerOptionValue, uploadType)
   }
 
   uploadFullDataJSON (fileData, tokenizerOptionValue, uploadType) {
-    const result = UploadController.upload(uploadType, fileData)
-    this.store.commit('incrementUploadCheck')
-    return result
+    return UploadController.upload(uploadType, fileData)
   }
 
   /**
@@ -242,9 +183,7 @@ export default class TextsController {
     const result = UploadController.upload(uploadType, { fileData, tokenization })
     if (result) {
       this.updateOriginDocSource(result.originDocSource)
-      result.targetDocSources.forEach(targetDocSource => {
-        this.updateTargetDocSource(targetDocSource)
-      })
+      result.targetDocSources.forEach(targetDocSource => this.updateTargetDocSource(targetDocSource))
 
       this.store.commit('incrementUploadCheck')
       return true
@@ -256,7 +195,7 @@ export default class TextsController {
    * Parses data from file and updated source document texts in the alignment
    * @param {String} fileData - a content of the uploaded file
    */
-  async uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
+  uploadDocSourceFromFileSingle (fileData, { textType, textId, tokenization }) {
     if (!fileData) {
       console.error(L10nSingleton.getMsgS('TEXTS_CONTROLLER_EMPTY_FILE_DATA'))
       NotificationSingleton.addNotification({
@@ -271,15 +210,11 @@ export default class TextsController {
     const result = UploadController.upload(uploadType, { fileData, textType, textId, tokenization })
     if (result) {
       if (textType === 'origin') {
-        const resultUpdate = await this.updateOriginDocSource(result)
-        if (!resultUpdate) { return false }
-
+        this.updateOriginDocSource(result)
         this.store.commit('incrementUploadCheck')
         return true
       } else {
-        const resultUpdate = await this.updateTargetDocSource(result, textId)
-        if (!resultUpdate) { return false }
-
+        this.updateTargetDocSource(result, textId)
         this.store.commit('incrementUploadCheck')
         return true
       }
@@ -435,43 +370,11 @@ export default class TextsController {
   /**
    * A simple event for any change in metadata
    */
-  changeMetadataTerm (metadataTermData, value, textType, textId) {
-    const result = this.alignment.changeMetadataTerm(metadataTermData, value, textType, textId)
-    if (result) {
-      this.store.commit('incrementDocSourceUpdated')
-      StorageController.update(this.alignment, true)
-    }
-  }
-
-  deleteValueByIndex (metadataTerm, termValIndex, textType, textId) {
-    const result = this.alignment.deleteValueByIndex(metadataTerm, termValIndex, textType, textId)
-
-    if (result) {
-      this.store.commit('incrementDocSourceUpdated')
-      StorageController.update(this.alignment, true)
-    }
+  changeMetadataTerm () {
+    this.store.commit('incrementAlignmentUpdated')
   }
 
   get originDocSourceDefined () {
     return this.alignment.originDocSourceDefined
-  }
-
-  checkDetectedProps (textType, docSourceId) {
-    return this.alignment.checkDetectedProps(textType, docSourceId)
-  }
-
-  get originalLangData () {
-    return this.alignment.originalLangData
-  }
-
-  get targetsLangData () {
-    return this.alignment.targetsLangData
-  }
-
-  async uploadFromAllAlignmentsDB () {
-    const data = { userID: Alignment.defaultUserID }
-
-    const result = await StorageController.select(data)
-    return result
   }
 }
