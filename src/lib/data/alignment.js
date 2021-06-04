@@ -1184,7 +1184,7 @@ export default class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.uploadParts)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -1228,6 +1228,41 @@ export default class Alignment {
     this.origin.alignedText.segments.forEach(segment => segment.defineUploadParts())
     Object.values(this.targets).forEach(target => {
       target.alignedText.segments.forEach(segment => segment.defineUploadParts())
+    })
+  }
+
+  getAlignedText (textType, textId) {
+    if (textType === 'origin') { return this.origin.alignedText }
+    return this.targets[textId].alignedText
+  }
+
+  partIsUploaded (textType, textId, segmentIndex, partNum) {
+    const alignedText = this.getAlignedText(textType, textId)
+    const segment = alignedText.segments[segmentIndex - 1]
+    return segment.partIsUploaded(partNum)
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNum) {
+    const alignedText = this.getAlignedText(textType, textId)
+    const segment = alignedText.segments[segmentIndex - 1]
+
+    return segment.partsTokens(partNum)
+  }
+
+  uploadTokensFromDB (textType, textId, segmentIndex, dbData) {
+    const alignedText = this.getAlignedText(textType, textId)
+    const segment = alignedText.segments[segmentIndex - 1]
+
+    segment.uploadTokensFromDB(dbData)
+  }
+
+  limitTokensToPartNum (partNum) {
+    if (this.origin.alignedText) {
+      this.origin.alignedText.limitTokensToPartNum(partNum)
+    }
+
+    this.allTargetTextsIds.forEach(targetId => {
+      this.targets[targetId].alignedText.limitTokensToPartNum(partNum)
     })
   }
 }

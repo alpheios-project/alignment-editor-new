@@ -6,6 +6,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import NotificationSingleton from '@/lib/notifications/notification-singleton'
 import TokenizeController from '@/lib/controllers/tokenize-controller.js'
 import StorageController from '@/lib/controllers/storage-controller.js'
+import SettingsController from '@/lib/controllers/settings-controller.js'
 
 export default class TextsController {
   constructor (store) {
@@ -30,7 +31,7 @@ export default class TextsController {
   }
 
   checkSize () {
-    return Boolean(this.alignment) && this.alignment.checkSize(StorageController.maxCharactersPerTextValue)
+    return Boolean(this.alignment) && this.alignment.checkSize(SettingsController.maxCharactersPerTextValue)
   }
 
   /**
@@ -478,5 +479,23 @@ export default class TextsController {
   defineUploadPartsForTexts () {
     this.alignment.defineUploadPartsForTexts()
     this.store.commit('incrementReuploadTextsParts')
+    StorageController.update(this.alignment, true)
+    this.alignment.limitTokensToPartNum(1)
+  }
+
+  async getSegmentPart (textType, textId, segmentIndex, partNum) {
+    if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNum)) {
+      const selectParams = {
+        alignmentID: this.alignment.id,
+        textId,
+        segmentIndex,
+        partNum
+      }
+      const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
+      // console.info('dbData - ', dbData)
+      this.alignment.uploadTokensFromDB(textType, textId, segmentIndex, dbData)
+    }
+
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNum)
   }
 }

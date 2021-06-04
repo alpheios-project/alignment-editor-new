@@ -5,7 +5,7 @@ import Langs from '@/lib/data/langs/langs'
 import SettingsController from '@/lib/controllers/settings-controller'
 
 export default class Segment {
-  constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, uploadParts } = {}) {
     this.id = id || uuidv4()
     this.index = index
     this.textType = textType
@@ -16,6 +16,11 @@ export default class Segment {
 
     if (tokens) {
       this.checkAndUpdateTokens(tokens)
+    }
+
+    if (uploadParts) {
+      this.uploadParts = uploadParts
+    } else {
       this.defineUploadParts()
     }
   }
@@ -43,10 +48,12 @@ export default class Segment {
   defineUploadParts () {
     const charMax = SettingsController.maxCharactersPerPart
     const parts = {}
+    const uploadParts = []
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
       if (!parts[partNum]) {
-        parts[partNum] = { sentences: [], tokens: [], len: 0 }
+        parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
+        uploadParts.push(partNum)
       }
 
       if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
@@ -54,9 +61,10 @@ export default class Segment {
       }
 
       parts[partNum].tokens.push(token)
+      parts[partNum].tokensIdWord.push(token.idWord)
       parts[partNum].len += token.len
 
-      token.update({ uploadPart: partNum })
+      token.update({ partNum })
 
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
@@ -68,12 +76,17 @@ export default class Segment {
         }
       }
     })
-    this.uploadParts = parts
+    this.uploadParts = uploadParts
+    // console.info('upload-parts', this.uploadParts)
     return parts
   }
 
-  partsTokens (partIndex) {
-    return this.uploadParts[partIndex].tokens
+  partsTokens (partNum) {
+    return this.tokens.filter(token => token.partNum === partNum)
+  }
+
+  partIsUploaded (partNum) {
+    return this.tokens.some(token => token.partNum === partNum)
   }
 
   /**
@@ -190,7 +203,19 @@ export default class Segment {
     })
   }
 
-  static convertFromIndexedDB (data, dbTokens) {
+  convertToIndexedDB () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
+      uploadParts: this.uploadParts ? this.uploadParts.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+    }
+  }
+
+  static convertFromIndexedDB (data, dbTokens, dbUploadParts) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
     return new Segment({
@@ -199,7 +224,17 @@ export default class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => Token.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+      tokens: tokensDbDataFiltered.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
+      uploadParts: dbUploadParts.filter(uploadPart => (data.docSourceId === uploadPart.textId) && (data.index === uploadPart.segmentIndex)).map(uploadPart => parseInt(uploadPart.partNum)).sort((a, b) => a - b)
     })
+  }
+
+  uploadTokensFromDB (dbData) {
+    this.tokens = dbData.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+    return true
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.tokens = this.partsTokens(partNum)
   }
 }

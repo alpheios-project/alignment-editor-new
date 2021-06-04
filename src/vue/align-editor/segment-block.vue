@@ -204,10 +204,7 @@ export default {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allPartsKeys () {
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? Object.keys(this.segment.uploadParts) : {}
-    },
-    allTokens () {
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? this.segment.partsTokens(this.currentPartIndex) : []
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.uploadParts ? this.segment.uploadParts : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -232,6 +229,17 @@ export default {
     hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
       return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    }
+  },
+  asyncComputed: {
+    async allTokens () {
+      let result
+
+      if (this.segment.uploadParts) {
+        result = await this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
+      }
+
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? result : []
     }
   },
   methods: {

@@ -1,5 +1,7 @@
 import App from '@/vue/app.vue'
 import Vue from '@vue-runtime'
+import AsyncComputed from 'vue-async-computed'
+
 import Vuex from 'vuex'
 
 import TextsController from '@/lib/controllers/texts-controller.js'
@@ -98,6 +100,7 @@ export default class AppController {
    */
   defineStore () {
     Vue.use(Vuex)
+    Vue.use(AsyncComputed)
     this.store = new Vuex.Store(StoreDefinition.defaultDefinition)
   }
 

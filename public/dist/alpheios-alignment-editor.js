@@ -28710,6 +28710,300 @@ module.exports = v4;
 
 /***/ }),
 
+/***/ "../node_modules/vue-async-computed/dist/vue-async-computed.esm.js":
+/*!*************************************************************************!*\
+  !*** ../node_modules/vue-async-computed/dist/vue-async-computed.esm.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function setAsyncState(vm, stateObject, state) {
+  vm.$set(vm.$data._asyncComputed[stateObject], 'state', state);
+  vm.$set(vm.$data._asyncComputed[stateObject], 'updating', state === 'updating');
+  vm.$set(vm.$data._asyncComputed[stateObject], 'error', state === 'error');
+  vm.$set(vm.$data._asyncComputed[stateObject], 'success', state === 'success');
+}
+
+function getterOnly(fn) {
+  if (typeof fn === 'function') return fn;
+
+  return fn.get;
+}
+
+function hasOwnProperty(object, property) {
+  return Object.prototype.hasOwnProperty.call(object, property);
+}
+
+function isComputedLazy(item) {
+  return hasOwnProperty(item, 'lazy') && item.lazy;
+}
+
+function isLazyActive(vm, key) {
+  return vm[lazyActivePrefix + key];
+}
+
+var lazyActivePrefix = 'async_computed$lazy_active$',
+    lazyDataPrefix = 'async_computed$lazy_data$';
+
+function initLazy(data, key, value) {
+  data[lazyActivePrefix + key] = false;
+  data[lazyDataPrefix + key] = value;
+}
+
+function makeLazyComputed(key) {
+  return {
+    get: function get() {
+      this[lazyActivePrefix + key] = true;
+      return this[lazyDataPrefix + key];
+    },
+    set: function set(value) {
+      this[lazyDataPrefix + key] = value;
+    }
+  };
+}
+
+function silentSetLazy(vm, key, value) {
+  vm[lazyDataPrefix + key] = value;
+}
+function silentGetLazy(vm, key) {
+  return vm[lazyDataPrefix + key];
+}
+
+var getGetterWatchedByArray = function getGetterWatchedByArray(computedAsyncProperty) {
+  return function getter() {
+    var _this = this;
+
+    computedAsyncProperty.watch.forEach(function (key) {
+      // Check if nested key is watched.
+      var splittedByDot = key.split('.');
+      if (splittedByDot.length === 1) {
+        // If not, just access it.
+        // eslint-disable-next-line no-unused-expressions
+        _this[key];
+      } else {
+        // Access the nested propety.
+        try {
+          var start = _this;
+          splittedByDot.forEach(function (part) {
+            start = start[part];
+          });
+        } catch (error) {
+          console.error('AsyncComputed: bad path: ', key);
+          throw error;
+        }
+      }
+    });
+    return computedAsyncProperty.get.call(this);
+  };
+};
+
+var getGetterWatchedByFunction = function getGetterWatchedByFunction(computedAsyncProperty) {
+  return function getter() {
+    computedAsyncProperty.watch.call(this);
+    return computedAsyncProperty.get.call(this);
+  };
+};
+
+function getWatchedGetter(computedAsyncProperty) {
+  if (typeof computedAsyncProperty.watch === 'function') {
+    return getGetterWatchedByFunction(computedAsyncProperty);
+  } else if (Array.isArray(computedAsyncProperty.watch)) {
+    computedAsyncProperty.watch.forEach(function (key) {
+      if (typeof key !== 'string') {
+        throw new Error('AsyncComputed: watch elemnts must be strings');
+      }
+    });
+    return getGetterWatchedByArray(computedAsyncProperty);
+  } else {
+    throw Error('AsyncComputed: watch should be function or an array');
+  }
+}
+
+var DidNotUpdate = typeof Symbol === 'function' ? Symbol('did-not-update') : {};
+
+var getGetterWithShouldUpdate = function getGetterWithShouldUpdate(asyncProprety, currentGetter) {
+  return function getter() {
+    return asyncProprety.shouldUpdate.call(this) ? currentGetter.call(this) : DidNotUpdate;
+  };
+};
+
+var shouldNotUpdate = function shouldNotUpdate(value) {
+  return DidNotUpdate === value;
+};
+
+var prefix = '_async_computed$';
+
+var AsyncComputed = {
+  install: function install(Vue, pluginOptions) {
+    pluginOptions = pluginOptions || {};
+
+    Vue.config.optionMergeStrategies.asyncComputed = Vue.config.optionMergeStrategies.computed;
+
+    Vue.mixin({
+      data: function data() {
+        return {
+          _asyncComputed: {}
+        };
+      },
+
+      computed: {
+        $asyncComputed: function $asyncComputed() {
+          return this.$data._asyncComputed;
+        }
+      },
+      beforeCreate: function beforeCreate() {
+        var asyncComputed = this.$options.asyncComputed || {};
+
+        if (!Object.keys(asyncComputed).length) return;
+
+        for (var key in asyncComputed) {
+          var getter = getterFn(key, asyncComputed[key]);
+          this.$options.computed[prefix + key] = getter;
+        }
+
+        this.$options.data = initDataWithAsyncComputed(this.$options, pluginOptions);
+      },
+      created: function created() {
+        for (var key in this.$options.asyncComputed || {}) {
+          var item = this.$options.asyncComputed[key],
+              value = generateDefault.call(this, item, pluginOptions);
+          if (isComputedLazy(item)) {
+            silentSetLazy(this, key, value);
+          } else {
+            this[key] = value;
+          }
+        }
+
+        for (var _key in this.$options.asyncComputed || {}) {
+          handleAsyncComputedPropetyChanges(this, _key, pluginOptions, Vue);
+        }
+      }
+    });
+  }
+};
+
+function handleAsyncComputedPropetyChanges(vm, key, pluginOptions, Vue) {
+  var promiseId = 0;
+  var watcher = function watcher(newPromise) {
+    var thisPromise = ++promiseId;
+
+    if (shouldNotUpdate(newPromise)) return;
+
+    if (!newPromise || !newPromise.then) {
+      newPromise = Promise.resolve(newPromise);
+    }
+    setAsyncState(vm, key, 'updating');
+
+    newPromise.then(function (value) {
+      if (thisPromise !== promiseId) return;
+      setAsyncState(vm, key, 'success');
+      vm[key] = value;
+    }).catch(function (err) {
+      if (thisPromise !== promiseId) return;
+
+      setAsyncState(vm, key, 'error');
+      Vue.set(vm.$data._asyncComputed[key], 'exception', err);
+      if (pluginOptions.errorHandler === false) return;
+
+      var handler = pluginOptions.errorHandler === undefined ? console.error.bind(console, 'Error evaluating async computed property:') : pluginOptions.errorHandler;
+
+      if (pluginOptions.useRawError) {
+        handler(err, vm, err.stack);
+      } else {
+        handler(err.stack);
+      }
+    });
+  };
+  Vue.set(vm.$data._asyncComputed, key, {
+    exception: null,
+    update: function update() {
+      if (!vm._isDestroyed) {
+        watcher(getterOnly(vm.$options.asyncComputed[key]).apply(vm));
+      }
+    }
+  });
+  setAsyncState(vm, key, 'updating');
+  vm.$watch(prefix + key, watcher, { immediate: true });
+}
+
+function initDataWithAsyncComputed(options, pluginOptions) {
+  var optionData = options.data;
+  var asyncComputed = options.asyncComputed || {};
+
+  return function vueAsyncComputedInjectedDataFn(vm) {
+    var data = (typeof optionData === 'function' ? optionData.call(this, vm) : optionData) || {};
+    for (var key in asyncComputed) {
+      var item = this.$options.asyncComputed[key];
+
+      var value = generateDefault.call(this, item, pluginOptions);
+      if (isComputedLazy(item)) {
+        initLazy(data, key, value);
+        this.$options.computed[key] = makeLazyComputed(key);
+      } else {
+        data[key] = value;
+      }
+    }
+    return data;
+  };
+}
+
+function getterFn(key, fn) {
+  if (typeof fn === 'function') return fn;
+
+  var getter = fn.get;
+
+  if (hasOwnProperty(fn, 'watch')) {
+    getter = getWatchedGetter(fn);
+  }
+
+  if (hasOwnProperty(fn, 'shouldUpdate')) {
+    getter = getGetterWithShouldUpdate(fn, getter);
+  }
+
+  if (isComputedLazy(fn)) {
+    var nonLazy = getter;
+    getter = function lazyGetter() {
+      if (isLazyActive(this, key)) {
+        return nonLazy.call(this);
+      } else {
+        return silentGetLazy(this, key);
+      }
+    };
+  }
+  return getter;
+}
+
+function generateDefault(fn, pluginOptions) {
+  var defaultValue = null;
+
+  if ('default' in fn) {
+    defaultValue = fn.default;
+  } else if ('default' in pluginOptions) {
+    defaultValue = pluginOptions.default;
+  }
+
+  if (typeof defaultValue === 'function') {
+    return defaultValue.call(this);
+  } else {
+    return defaultValue;
+  }
+}
+
+/* istanbul ignore if */
+if (typeof window !== 'undefined' && window.Vue) {
+  // Auto install in dist mode
+  window.Vue.use(AsyncComputed);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AsyncComputed);
+
+
+/***/ }),
+
 /***/ "../node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!*********************************************************************!*\
   !*** ../node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -38873,18 +39167,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AppController)
 /* harmony export */ });
 /* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/vue/app.vue */ "./vue/app.vue");
-/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
-/* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
-/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
-/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
-/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
-/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
-/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
-/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
-/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
-/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+/* harmony import */ var _vue_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @vue-runtime */ "../node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var vue_async_computed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-async-computed */ "../node_modules/vue-async-computed/dist/vue-async-computed.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuex */ "../node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/lib/controllers/texts-controller.js */ "./lib/controllers/texts-controller.js");
+/* harmony import */ var _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/lib/controllers/aligned-groups-controller.js */ "./lib/controllers/aligned-groups-controller.js");
+/* harmony import */ var _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/controllers/tokens-edit-controller.js */ "./lib/controllers/tokens-edit-controller.js");
+/* harmony import */ var _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/history-controller.js */ "./lib/controllers/history-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+/* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_store_store_definition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/lib/store/store-definition */ "./lib/store/store-definition.js");
+/* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
+/* harmony import */ var _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/lib/l10n/l10n-singleton.js */ "./lib/l10n/l10n-singleton.js");
+/* harmony import */ var _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/locales/locales.js */ "./locales/locales.js");
+
+
 
 
 
@@ -38928,8 +39225,8 @@ class AppController {
 
     await this.defineSettingsController()
 
-    if (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.themeOptionValue) {
-      this.defineColorTheme({ theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.themeOptionValue, themesList: [] })
+    if (_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.themeOptionValue) {
+      this.defineColorTheme({ theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.themeOptionValue, themesList: [] })
     }
     if (this.pageSettings && this.pageSettings.appId) {
       this.attachVueComponents()
@@ -38960,12 +39257,12 @@ class AppController {
     this.defineTokensEditController()
     this.defineHistoryController()
 
-    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default({ store: this.store })
+    const rootVi = new _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default({ store: this.store })
     const mountEl = document.getElementById(this.pageSettings.appId)
     const appContainer = document.createElement('div')
 
     const appContainerEl = mountEl.appendChild(appContainer)
-    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
+    const AppComponent = _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.extend(_vue_app_vue__WEBPACK_IMPORTED_MODULE_0__.default)
 
     this._viAppComp = new AppComponent({
       parent: rootVi
@@ -38977,56 +39274,57 @@ class AppController {
   }
 
   defineEvents () {
-    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.evt.SETTINGS_CONTROLLER_THEME_UPDATED.sub(this.defineColorTheme.bind(this))
   }
 
   /**
    * Inits Vuex Store
    */
   defineStore () {
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.use(vuex__WEBPACK_IMPORTED_MODULE_12__.default)
-    this.store = new vuex__WEBPACK_IMPORTED_MODULE_12__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_7__.default.defaultDefinition)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.use(vuex__WEBPACK_IMPORTED_MODULE_13__.default)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.use(vue_async_computed__WEBPACK_IMPORTED_MODULE_1__.default)
+    this.store = new vuex__WEBPACK_IMPORTED_MODULE_13__.default.Store(_lib_store_store_definition__WEBPACK_IMPORTED_MODULE_8__.default.defaultDefinition)
   }
 
   /**
    * Creates SettingsController and attaches to Vue components
    */
   async defineSettingsController () {
-    await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.init(this.store)
+    await _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.init(this.store)
 
-    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_5__.default.uploadRemoteSettings()
+    _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.uploadRemoteSettings()
   }
 
   /**
    * Creates TextController and attaches to Vue components
    */
   defineTextController () {
-    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_1__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$textC = this.textC
+    this.textC = new _lib_controllers_texts_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$textC = this.textC
   }
 
   /**
    * Creates AlignedGroupsController and attaches to Vue components
    */
   defineAlignedGroupsController () {
-    this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_2__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$alignedGC = this.alignedGC
+    this.alignedGC = new _lib_controllers_aligned_groups_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$alignedGC = this.alignedGC
   }
 
   /**
    * Creates TokensEditController and attaches to Vue components
    */
   defineTokensEditController () {
-    this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_3__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$tokensEC = this.tokensEC
+    this.tokensEC = new _lib_controllers_tokens_edit_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$tokensEC = this.tokensEC
   }
 
   /**
    * Creates HistoryController and attaches to Vue components
    */
   defineHistoryController () {
-    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_4__.default(this.store)
-    _vue_runtime__WEBPACK_IMPORTED_MODULE_11__.default.prototype.$historyC = this.historyC
+    this.historyC = new _lib_controllers_history_controller_js__WEBPACK_IMPORTED_MODULE_5__.default(this.store)
+    _vue_runtime__WEBPACK_IMPORTED_MODULE_12__.default.prototype.$historyC = this.historyC
   }
 
   /**
@@ -39034,11 +39332,11 @@ class AppController {
    */
   defineL10Support () {
     const config = {
-      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.en_US,
-      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_10__.default.predefinedLocales())
+      defaultLocale: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.en_US,
+      messageBundles: _locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.bundleArr(_locales_locales_js__WEBPACK_IMPORTED_MODULE_11__.default.predefinedLocales())
     }
 
-    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_9__.default()
+    const l10n = new _lib_l10n_l10n_singleton_js__WEBPACK_IMPORTED_MODULE_10__.default()
     config.messageBundles.forEach(mb => l10n.addMessageBundle(mb))
     l10n.setLocale(config.defaultLocale)
     return l10n
@@ -39048,12 +39346,12 @@ class AppController {
    * Defines NotificatinSingleton instance
    */
   defineNotificationSupport () {
-    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_8__.default(this.store)
+    const notificationSingleton = new _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_9__.default(this.store)
     return notificationSingleton
   }
 
   defineStorageController () {
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.definedDBAdapter()
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.definedDBAdapter()
   }
 }
 
@@ -39841,6 +40139,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_notifications_notification_singleton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/lib/notifications/notification-singleton */ "./lib/notifications/notification-singleton.js");
 /* harmony import */ var _lib_controllers_tokenize_controller_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/lib/controllers/tokenize-controller.js */ "./lib/controllers/tokenize-controller.js");
 /* harmony import */ var _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/lib/controllers/storage-controller.js */ "./lib/controllers/storage-controller.js");
+/* harmony import */ var _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/lib/controllers/settings-controller.js */ "./lib/controllers/settings-controller.js");
+
 
 
 
@@ -39873,7 +40173,7 @@ class TextsController {
   }
 
   checkSize () {
-    return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.maxCharactersPerTextValue)
+    return Boolean(this.alignment) && this.alignment.checkSize(_lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_7__.default.maxCharactersPerTextValue)
   }
 
   /**
@@ -40321,6 +40621,24 @@ class TextsController {
   defineUploadPartsForTexts () {
     this.alignment.defineUploadPartsForTexts()
     this.store.commit('incrementReuploadTextsParts')
+    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    this.alignment.limitTokensToPartNum(1)
+  }
+
+  async getSegmentPart (textType, textId, segmentIndex, partNum) {
+    if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNum)) {
+      const selectParams = {
+        alignmentID: this.alignment.id,
+        textId,
+        segmentIndex,
+        partNum
+      }
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(selectParams, 'tokensByPartNum')
+      // console.info('dbData - ', dbData)
+      this.alignment.uploadTokensFromDB(textType, textId, segmentIndex, dbData)
+    }
+
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNum)
   }
 }
 
@@ -42118,11 +42436,11 @@ class AlignedText {
       sourceType: this.sourceType,
       tokenPrefix: this.tokenPrefix,
       tokenization: this.tokenization,
-      segments: this.segments.map(seg => seg.convertToJSON())
+      segments: this.segments.map(seg => seg.convertToIndexedDB())
     }
   }
 
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbUploadParts) {
     const alignedText = new AlignedText({
       docSource: {
         id: dbData.textId,
@@ -42136,9 +42454,13 @@ class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbUploadParts))
 
     return alignedText
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
   }
 }
 
@@ -43616,7 +43938,7 @@ class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens)
+        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.uploadParts)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -43660,6 +43982,41 @@ class Alignment {
     this.origin.alignedText.segments.forEach(segment => segment.defineUploadParts())
     Object.values(this.targets).forEach(target => {
       target.alignedText.segments.forEach(segment => segment.defineUploadParts())
+    })
+  }
+
+  getAlignedText (textType, textId) {
+    if (textType === 'origin') { return this.origin.alignedText }
+    return this.targets[textId].alignedText
+  }
+
+  partIsUploaded (textType, textId, segmentIndex, partNum) {
+    const alignedText = this.getAlignedText(textType, textId)
+    const segment = alignedText.segments[segmentIndex - 1]
+    return segment.partIsUploaded(partNum)
+  }
+
+  getSegmentPart (textType, textId, segmentIndex, partNum) {
+    const alignedText = this.getAlignedText(textType, textId)
+    const segment = alignedText.segments[segmentIndex - 1]
+
+    return segment.partsTokens(partNum)
+  }
+
+  uploadTokensFromDB (textType, textId, segmentIndex, dbData) {
+    const alignedText = this.getAlignedText(textType, textId)
+    const segment = alignedText.segments[segmentIndex - 1]
+
+    segment.uploadTokensFromDB(dbData)
+  }
+
+  limitTokensToPartNum (partNum) {
+    if (this.origin.alignedText) {
+      this.origin.alignedText.limitTokensToPartNum(partNum)
+    }
+
+    this.allTargetTextsIds.forEach(targetId => {
+      this.targets[targetId].alignedText.limitTokensToPartNum(partNum)
     })
   }
 }
@@ -44416,7 +44773,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Segment {
-  constructor ({ id, index, textType, lang, direction, tokens, docSourceId } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, uploadParts } = {}) {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.index = index
     this.textType = textType
@@ -44427,6 +44784,11 @@ class Segment {
 
     if (tokens) {
       this.checkAndUpdateTokens(tokens)
+    }
+
+    if (uploadParts) {
+      this.uploadParts = uploadParts
+    } else {
       this.defineUploadParts()
     }
   }
@@ -44454,10 +44816,12 @@ class Segment {
   defineUploadParts () {
     const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
     const parts = {}
+    const uploadParts = []
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
       if (!parts[partNum]) {
-        parts[partNum] = { sentences: [], tokens: [], len: 0 }
+        parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
+        uploadParts.push(partNum)
       }
 
       if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
@@ -44465,9 +44829,10 @@ class Segment {
       }
 
       parts[partNum].tokens.push(token)
+      parts[partNum].tokensIdWord.push(token.idWord)
       parts[partNum].len += token.len
 
-      token.update({ uploadPart: partNum })
+      token.update({ partNum })
 
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
@@ -44479,12 +44844,17 @@ class Segment {
         }
       }
     })
-    this.uploadParts = parts
+    this.uploadParts = uploadParts
+    // console.info('upload-parts', this.uploadParts)
     return parts
   }
 
-  partsTokens (partIndex) {
-    return this.uploadParts[partIndex].tokens
+  partsTokens (partNum) {
+    return this.tokens.filter(token => token.partNum === partNum)
+  }
+
+  partIsUploaded (partNum) {
+    return this.tokens.some(token => token.partNum === partNum)
   }
 
   /**
@@ -44601,7 +44971,19 @@ class Segment {
     })
   }
 
-  static convertFromIndexedDB (data, dbTokens) {
+  convertToIndexedDB () {
+    return {
+      index: this.index,
+      textType: this.textType,
+      lang: this.lang,
+      direction: this.direction,
+      docSourceId: this.docSourceId,
+      tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
+      uploadParts: this.uploadParts ? this.uploadParts.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+    }
+  }
+
+  static convertFromIndexedDB (data, dbTokens, dbUploadParts) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
     return new Segment({
@@ -44610,8 +44992,18 @@ class Segment {
       lang: data.lang,
       direction: data.direction,
       docSourceId: data.docSourceId,
-      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromJSON(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+      tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
+      uploadParts: dbUploadParts.filter(uploadPart => (data.docSourceId === uploadPart.textId) && (data.index === uploadPart.segmentIndex)).map(uploadPart => parseInt(uploadPart.partNum)).sort((a, b) => a - b)
     })
+  }
+
+  uploadTokensFromDB (dbData) {
+    this.tokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+    return true
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.tokens = this.partsTokens(partNum)
   }
 }
 
@@ -44829,7 +45221,7 @@ class SourceText {
     if (jsonData.textId) {
       sourceText.id = jsonData.textId
     }
-
+    sourceText.skipDetected = true
     return sourceText
   }
 
@@ -44877,6 +45269,7 @@ class SourceText {
     }
 
     const sourceText = new SourceText(dbData.textType, textParams, dbData.textId, dbData.lang !== null)
+    sourceText.skipDetected = true
     return sourceText
   }
 }
@@ -44899,7 +45292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Token {
-  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex } = {}, segmentIndex, docSourceId) {
+  constructor ({ textType, idWord, word, beforeWord, afterWord, hasLineBreak, sentenceIndex, tokenIndex, partNum } = {}, segmentIndex, docSourceId) {
     this.textType = textType
     this.idWord = idWord
     this.word = word
@@ -44912,6 +45305,7 @@ class Token {
     this.docSourceId = docSourceId
     this.tokenIndex = tokenIndex
     this.len = this.word ? this.word.length : 0
+    this.partNum = partNum
   }
 
   /**
@@ -44934,7 +45328,7 @@ class Token {
    * @param {String} word - new word
    * @param {String} idWord - new idWord
    */
-  update ({ word, idWord, segmentIndex, hasLineBreak, uploadPart }) {
+  update ({ word, idWord, segmentIndex, hasLineBreak, partNum }) {
     if (word !== undefined) {
       this.word = word
       this.len = this.word.length
@@ -44952,8 +45346,8 @@ class Token {
       this.hasLineBreak = hasLineBreak
     }
 
-    if (uploadPart !== undefined) {
-      this.uploadPart = uploadPart
+    if (partNum !== undefined) {
+      this.partNum = partNum
     }
 
     return true
@@ -45040,6 +45434,36 @@ class Token {
       afterWord: this.afterWord,
       hasLineBreak: this.hasLineBreak,
       sentenceIndex: this.sentenceIndex
+    }
+  }
+
+  static convertFromIndexedDB (data) {
+    return new Token({
+      textType: data.textType,
+      idWord: data.idWord,
+      word: data.word,
+      beforeWord: data.beforeWord,
+      afterWord: data.afterWord,
+      hasLineBreak: data.hasLineBreak,
+      sentenceIndex: data.sentenceIndex,
+      tokenIndex: data.tokenIndex,
+      partNum: data.partNum
+    }, data.segmentIndex, data.docSourceId)
+  }
+
+  convertToIndexedDB (tokenIndex) {
+    return {
+      textType: this.textType,
+      idWord: this.idWord,
+      word: this.word,
+      beforeWord: this.beforeWord,
+      afterWord: this.afterWord,
+      hasLineBreak: this.hasLineBreak,
+      segmentIndex: this.segmentIndex,
+      docSourceId: this.docSourceId,
+      sentenceIndex: this.sentenceIndex,
+      partNum: this.partNum,
+      tokenIndex
     }
   }
 }
@@ -46033,7 +46457,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class IndexedDBStructure {
   static get dbVersion () {
-    return 2
+    return 4
   }
 
   static get dbName () {
@@ -46047,6 +46471,7 @@ class IndexedDBStructure {
       metadata: this.metadataStructure,
       alignedText: this.alignedTextStructure,
       segments: this.segmentsStructure,
+      uploadParts: this.uploadPartsStructure,
       tokens: this.tokensStructure,
       alGroups: this.alGroupsStructure
     }
@@ -46131,6 +46556,22 @@ class IndexedDBStructure {
     }
   }
 
+  static get uploadPartsStructure () {
+    return {
+      name: 'ALEditorUploadParts',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+        ]
+      },
+      serialize: this.serializeUploadParts.bind(this)
+    }
+  }
+
   static get tokensStructure () {
     return {
       name: 'ALEditorTokens',
@@ -46141,7 +46582,8 @@ class IndexedDBStructure {
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
           { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false },
-          { indexName: 'alTextIdSegIdSentId', keyPath: 'alTextIdSegIdSentId', unique: false }
+          { indexName: 'alTextIdSegIdPartNum', keyPath: 'alTextIdSegIdPartNum', unique: false },
+          { indexName: 'alIDPartNum', keyPath: 'alIDPartNum', unique: false }
         ]
       },
       serialize: this.serializeTokens.bind(this)
@@ -46285,6 +46727,36 @@ class IndexedDBStructure {
     return finalData
   }
 
+  static serializeUploadParts (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            for (const uploadPartItem of segmentItem.uploadParts) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${uploadPartItem.partNum}`
+
+              finalData.push({
+                ID: uniqueID,
+                alignmentID: data.id,
+                userID: data.userID,
+                alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
+                textId: dataItem.textId,
+                segmentIndex: uploadPartItem.segmentIndex,
+                partNum: uploadPartItem.partNum
+              })
+            }
+          }
+        }
+      }
+      return finalData
+    }
+  }
+
   static serializeTokens (data) {
     const finalData = []
 
@@ -46302,7 +46774,8 @@ class IndexedDBStructure {
                 alignmentID: data.id,
                 userID: data.userID,
                 alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
-                alTextIdSegIdSentId: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.sentenceIndex}`,
+                alTextIdSegIdPartNum: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
+                alIDPartNum: `${data.id}-${tokenItem.partNum}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
@@ -46312,6 +46785,7 @@ class IndexedDBStructure {
                 docSourceId: segmentItem.docSourceId,
                 sentenceIndex: tokenItem.sentenceIndex,
                 tokenIndex: tokenItem.tokenIndex,
+                partNum: tokenItem.partNum,
 
                 beforeWord: tokenItem.beforeWord,
                 afterWord: tokenItem.afterWord,
@@ -46362,7 +46836,8 @@ class IndexedDBStructure {
   static prepareSelectQuery (typeQuery, indexData) {
     const typeQueryList = {
       allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
-      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this)
+      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this),
+      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
   }
@@ -46445,10 +46920,23 @@ class IndexedDBStructure {
         }
       },
       {
-        objectStoreName: this.allObjectStoreData.tokens.name,
+        objectStoreName: this.allObjectStoreData.uploadParts.name,
         condition: {
           indexName: 'alignmentID',
           value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'uploadParts'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alIDPartNum',
+          value: `${indexData.alignmentID}-1`,
           type: 'only'
         },
         resultType: 'multiple',
@@ -46473,6 +46961,21 @@ class IndexedDBStructure {
     ]
   }
 
+  static prepareTokensByPartNumQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alTextIdSegIdPartNum',
+          value: `${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  /** ** Delete quires */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
@@ -46507,6 +47010,14 @@ class IndexedDBStructure {
     },
     {
       objectStoreName: this.allObjectStoreData.segments.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.uploadParts.name,
       condition: {
         indexName: 'alignmentID',
         value: alignmentID,
@@ -46554,7 +47065,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210602625" : 0
+    return  true ? "i353-upload-by-part.20210604479" : 0
   }
 
   static get libName () {
@@ -47878,10 +48389,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allPartsKeys () {
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? Object.keys(this.segment.uploadParts) : {}
-    },
-    allTokens () {
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? this.segment.partsTokens(this.currentPartIndex) : []
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.uploadParts ? this.segment.uploadParts : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -47906,6 +48414,20 @@ __webpack_require__.r(__webpack_exports__);
     hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
       return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
+    }
+  },
+  asyncComputed: {
+    async allTokens () {
+      let result
+
+      if (this.segment.uploadParts) {
+        result = await this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
+      }
+
+      // console.info('SB allTokens - ', result)
+      // console.info('SB allTokens - 1', this.$store.state.tokenUpdated, this.$store.state.reuploadTextsParts)
+      // console.info('SB allTokens - 2', this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? result : [])
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? result : []
     }
   },
   methods: {
@@ -50904,6 +51426,9 @@ __webpack_require__.r(__webpack_exports__);
     docSourceEditAvailable () {
       return Boolean(this.$store.state.docSourceUpdated) && 
              !this.$textC.sourceTextIsAlreadyTokenized(this.textType, this.textId)
+    },
+    hasTokenizerOptions () {
+      return this.$store.state.optionsUpdated && _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_2__.default.hasTokenizerOptions
     }
   }
 });
@@ -51247,7 +51772,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     showLangNotDetected () {
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
-      return this.$store.state.docSourceLangDetected && docSource && (!docSource.detectedLang && docSource.text.length > 0)
+      return this.$store.state.docSourceLangDetected && docSource && (!docSource.skipDetected && !docSource.detectedLang && docSource.text.length > 0)
     },
     showAddTranslation () {
       return this.$store.state.docSourceUpdated && (this.textType === 'target') && (this.index === (this.$textC.allTargetTextsIds.length - 1)) && (this.text.length > 0)
@@ -61531,7 +62056,7 @@ var render = function() {
               key: "body",
               fn: function() {
                 return [
-                  _vm.SettingsController.hasTokenizerOptions
+                  _vm.hasTokenizerOptions
                     ? _c("tokenize-options-block", {
                         attrs: {
                           localOptions: _vm.localOptions,
@@ -61551,7 +62076,7 @@ var render = function() {
           ],
           null,
           false,
-          2288372246
+          888962049
         )
       })
     : _vm._e()
@@ -64573,7 +65098,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/options/option-item-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/options/option-item-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-async-computed":"^3.9.0","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

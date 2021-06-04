@@ -150,11 +150,11 @@ export default class AlignedText {
       sourceType: this.sourceType,
       tokenPrefix: this.tokenPrefix,
       tokenization: this.tokenization,
-      segments: this.segments.map(seg => seg.convertToJSON())
+      segments: this.segments.map(seg => seg.convertToIndexedDB())
     }
   }
 
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens) {
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbUploadParts) {
     const alignedText = new AlignedText({
       docSource: {
         id: dbData.textId,
@@ -168,8 +168,12 @@ export default class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbUploadParts))
 
     return alignedText
+  }
+
+  limitTokensToPartNum (partNum) {
+    this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
   }
 }

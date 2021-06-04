@@ -1,6 +1,6 @@
 export default class IndexedDBStructure {
   static get dbVersion () {
-    return 2
+    return 4
   }
 
   static get dbName () {
@@ -14,6 +14,7 @@ export default class IndexedDBStructure {
       metadata: this.metadataStructure,
       alignedText: this.alignedTextStructure,
       segments: this.segmentsStructure,
+      uploadParts: this.uploadPartsStructure,
       tokens: this.tokensStructure,
       alGroups: this.alGroupsStructure
     }
@@ -98,6 +99,22 @@ export default class IndexedDBStructure {
     }
   }
 
+  static get uploadPartsStructure () {
+    return {
+      name: 'ALEditorUploadParts',
+      structure: {
+        keyPath: 'ID',
+        indexes: [
+          { indexName: 'ID', keyPath: 'ID', unique: true },
+          { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
+          { indexName: 'userID', keyPath: 'userID', unique: false },
+          { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
+        ]
+      },
+      serialize: this.serializeUploadParts.bind(this)
+    }
+  }
+
   static get tokensStructure () {
     return {
       name: 'ALEditorTokens',
@@ -108,7 +125,8 @@ export default class IndexedDBStructure {
           { indexName: 'alignmentID', keyPath: 'alignmentID', unique: false },
           { indexName: 'userID', keyPath: 'userID', unique: false },
           { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false },
-          { indexName: 'alTextIdSegIdSentId', keyPath: 'alTextIdSegIdSentId', unique: false }
+          { indexName: 'alTextIdSegIdPartNum', keyPath: 'alTextIdSegIdPartNum', unique: false },
+          { indexName: 'alIDPartNum', keyPath: 'alIDPartNum', unique: false }
         ]
       },
       serialize: this.serializeTokens.bind(this)
@@ -252,6 +270,36 @@ export default class IndexedDBStructure {
     return finalData
   }
 
+  static serializeUploadParts (data) {
+    const finalData = []
+
+    if (data.origin.alignedText) {
+      const dataItems = Object.values(data.targets).map(target => target.alignedText)
+      dataItems.unshift(data.origin.alignedText)
+
+      for (const dataItem of dataItems) {
+        if (dataItem.segments && dataItem.segments.length > 0) {
+          for (const segmentItem of dataItem.segments) {
+            for (const uploadPartItem of segmentItem.uploadParts) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${uploadPartItem.partNum}`
+
+              finalData.push({
+                ID: uniqueID,
+                alignmentID: data.id,
+                userID: data.userID,
+                alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
+                textId: dataItem.textId,
+                segmentIndex: uploadPartItem.segmentIndex,
+                partNum: uploadPartItem.partNum
+              })
+            }
+          }
+        }
+      }
+      return finalData
+    }
+  }
+
   static serializeTokens (data) {
     const finalData = []
 
@@ -269,7 +317,8 @@ export default class IndexedDBStructure {
                 alignmentID: data.id,
                 userID: data.userID,
                 alTextIdSegIndex: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}`,
-                alTextIdSegIdSentId: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.sentenceIndex}`,
+                alTextIdSegIdPartNum: `${data.id}-${dataItem.textId}-${tokenItem.segmentIndex}-${tokenItem.partNum}`,
+                alIDPartNum: `${data.id}-${tokenItem.partNum}`,
                 textId: dataItem.textId,
 
                 textType: tokenItem.textType,
@@ -279,6 +328,7 @@ export default class IndexedDBStructure {
                 docSourceId: segmentItem.docSourceId,
                 sentenceIndex: tokenItem.sentenceIndex,
                 tokenIndex: tokenItem.tokenIndex,
+                partNum: tokenItem.partNum,
 
                 beforeWord: tokenItem.beforeWord,
                 afterWord: tokenItem.afterWord,
@@ -329,7 +379,8 @@ export default class IndexedDBStructure {
   static prepareSelectQuery (typeQuery, indexData) {
     const typeQueryList = {
       allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
-      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this)
+      alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this),
+      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
   }
@@ -412,10 +463,23 @@ export default class IndexedDBStructure {
         }
       },
       {
-        objectStoreName: this.allObjectStoreData.tokens.name,
+        objectStoreName: this.allObjectStoreData.uploadParts.name,
         condition: {
           indexName: 'alignmentID',
           value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple',
+        mergeData: {
+          mergeBy: ['alignmentID', 'textId'],
+          uploadTo: 'uploadParts'
+        }
+      },
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alIDPartNum',
+          value: `${indexData.alignmentID}-1`,
           type: 'only'
         },
         resultType: 'multiple',
@@ -440,6 +504,21 @@ export default class IndexedDBStructure {
     ]
   }
 
+  static prepareTokensByPartNumQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alTextIdSegIdPartNum',
+          value: `${indexData.alignmentID}-${indexData.textId}-${indexData.segmentIndex}-${indexData.partNum}`,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  /** ** Delete quires */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
@@ -474,6 +553,14 @@ export default class IndexedDBStructure {
     },
     {
       objectStoreName: this.allObjectStoreData.segments.name,
+      condition: {
+        indexName: 'alignmentID',
+        value: alignmentID,
+        type: 'only'
+      }
+    },
+    {
+      objectStoreName: this.allObjectStoreData.uploadParts.name,
       condition: {
         indexName: 'alignmentID',
         value: alignmentID,
