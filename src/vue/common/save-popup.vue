@@ -67,7 +67,7 @@ export default {
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
-    downloadData () {
+    async downloadData () {
       this.$emit('closeModal')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
@@ -75,7 +75,7 @@ export default {
           theme: SettingsController.themeOptionValue
         }
       }
-      this.$textC.downloadData(this.currentDownloadType, additional)
+      await this.$textC.downloadData(this.currentDownloadType, additional)
       
     }
   }

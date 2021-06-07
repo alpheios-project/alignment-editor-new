@@ -176,4 +176,9 @@ export default class AlignedText {
   limitTokensToPartNum (partNum) {
     this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
   }
+
+  uploadSegmentTokensFromDB (segmentIndex, dbData) {
+    const segment = this.segments[segmentIndex - 1]
+    segment.uploadSegmentTokensFromDB(dbData)
+  }
 }

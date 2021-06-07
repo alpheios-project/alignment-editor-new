@@ -272,12 +272,12 @@ describe('texts-controller.test.js', () => {
     expect(textsC.updateTargetDocSource).not.toHaveBeenCalled()
   })
 
-  it('13 TextsController - downloadData executes DownloadController.download', () => {
+  it('13 TextsController - downloadData executes DownloadController.download', async () => {
     const textsC = new TextsController(appC.store)
 
     DownloadController.download = jest.fn()
 
-    textsC.downloadData('plainSourceDownloadAll')
+    await textsC.downloadData('plainSourceDownloadAll')
     
     expect(DownloadController.download).toHaveBeenCalled()
   })

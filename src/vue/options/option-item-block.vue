@@ -33,7 +33,7 @@
 
     <div class="alpheios-alignment-checkbox-block alpheios-alignment-option-item__control" v-if="optionType === 'boolean'">
       <input type="checkbox" v-model="selected" :id="itemId" @change = "changeOption">
-      <label :for="itemId">{{ checkboxLabel }}
+      <label :for="itemId" >{{ checkboxLabel }}
         <span v-html="labelText" v-if="showCheckboxTitle"></span>
       </label>
     </div>
@@ -137,7 +137,7 @@ export default {
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
+      return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
       if (this.optionItem.boolean) { return 'boolean' }

@@ -44,7 +44,7 @@
 
             <div class="alpheios-editor-summary-show-option">
               <span class="alpheios-editor-summary-show-option-item">
-                <option-item-block :optionItem = "showSummaryPopupOpt" :showLabelText = "showLabelTextOpt" />
+                <option-item-block :optionItem = "showSummaryPopupOpt" :showLabelText = "showLabelTextOpt" :showCheckboxTitle = "showLabelTextOpt"/>
               </span>
               <span class="alpheios-editor-summary-show-option-label">{{ l10n.getMsgS('SUMMARY_POPUP_SHOW_OPTION_LABEL') }}</span>
             </div>

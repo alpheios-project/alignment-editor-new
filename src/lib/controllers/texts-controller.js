@@ -292,16 +292,16 @@ export default class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType, additional = {}) {
+  async downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
       htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType, additional)
-
-    return DownloadController.download(result.downloadType, result.data)
+    const result = await downloadPrepareMethods[downloadType](downloadType, additional)
+    await DownloadController.download(result.downloadType, result.data)
+    return true
   }
 
   downloadShortData (downloadType) {
@@ -314,8 +314,11 @@ export default class TextsController {
     }
   }
 
-  downloadFullData (downloadType) {
-    const data = this.alignment.convertToJSON()
+  async downloadFullData (downloadType) {
+    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const alignment = await Alignment.convertFromIndexedDB(dbData)
+
+    const data = alignment.convertToJSON()
     return {
       downloadType, data
     }
@@ -476,14 +479,18 @@ export default class TextsController {
     return result
   }
 
-  defineUploadPartsForTexts () {
+  async defineUploadPartsForTexts () {
+    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    this.alignment = await Alignment.convertFromIndexedDB(dbData)
+
     this.alignment.defineUploadPartsForTexts()
-    this.store.commit('incrementReuploadTextsParts')
-    StorageController.update(this.alignment, true)
+    await StorageController.update(this.alignment, true)
     this.alignment.limitTokensToPartNum(1)
+
+    this.store.commit('incrementReuploadTextsParts')
   }
 
-  async getSegmentPart (textType, textId, segmentIndex, partNum) {
+  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNum) {
     if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNum)) {
       const selectParams = {
         alignmentID: this.alignment.id,
@@ -492,10 +499,16 @@ export default class TextsController {
         partNum
       }
       const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
-      // console.info('dbData - ', dbData)
-      this.alignment.uploadTokensFromDB(textType, textId, segmentIndex, dbData)
+      this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
+      this.store.commit('incrementUploadPartNum')
     }
+  }
 
+  getSegmentPart (textType, textId, segmentIndex, partNum) {
     return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNum)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
   }
 }

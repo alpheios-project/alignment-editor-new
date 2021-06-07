@@ -86,8 +86,8 @@ export default {
     }
   },
   watch: {
-    '$store.state.redefineUploadParts' () {
-      this.$textC.defineUploadPartsForTexts()
+    async '$store.state.redefineUploadParts' () {
+      await this.$textC.defineUploadPartsForTexts()
     }
   },
   computed: {
@@ -99,14 +99,14 @@ export default {
     /**
      * Starts download workflow
      */
-    downloadData (downloadType) {
+    async downloadData (downloadType) {
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
           theme: SettingsController.themeOptionValue
         }
       }
-      this.$textC.downloadData(downloadType, additional)
+      await this.$textC.downloadData(downloadType, additional)
     },
 
     /**

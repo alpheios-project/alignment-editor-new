@@ -1236,24 +1236,22 @@ export default class Alignment {
     return this.targets[textId].alignedText
   }
 
-  partIsUploaded (textType, textId, segmentIndex, partNum) {
+  getSegment (textType, textId, segmentIndex) {
     const alignedText = this.getAlignedText(textType, textId)
-    const segment = alignedText.segments[segmentIndex - 1]
-    return segment.partIsUploaded(partNum)
+    return alignedText.segments[segmentIndex - 1]
+  }
+
+  partIsUploaded (textType, textId, segmentIndex, partNum) {
+    return this.getSegment(textType, textId, segmentIndex).partIsUploaded(partNum)
   }
 
   getSegmentPart (textType, textId, segmentIndex, partNum) {
-    const alignedText = this.getAlignedText(textType, textId)
-    const segment = alignedText.segments[segmentIndex - 1]
-
-    return segment.partsTokens(partNum)
+    return this.getSegment(textType, textId, segmentIndex).partsTokens(partNum)
   }
 
-  uploadTokensFromDB (textType, textId, segmentIndex, dbData) {
+  uploadSegmentTokensFromDB (textType, textId, segmentIndex, dbData) {
     const alignedText = this.getAlignedText(textType, textId)
-    const segment = alignedText.segments[segmentIndex - 1]
-
-    segment.uploadTokensFromDB(dbData)
+    alignedText.uploadSegmentTokensFromDB(segmentIndex, dbData)
   }
 
   limitTokensToPartNum (partNum) {

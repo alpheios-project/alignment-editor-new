@@ -8,6 +8,7 @@
 
             <metadata-icons :text-type = "textType" :text-id = "segment.docSourceId" @showModalMetadata = "showModalMetadata = true" />
           </p>
+          <!--
           <p class="alpheios-alignment-editor-align-text-parts" v-if="allPartsKeys.length > 1">
             <span class="alpheios-alignment-editor-align-text-parts-link" 
                   :class = "{ 'alpheios-alignment-editor-align-text-parts-link-current': currentPartIndex === parseInt(partKey) }"
@@ -17,6 +18,7 @@
                   {{ partKey }}
             </span>
           </p>
+          -->
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex > allPartsKeys[0]">
               <span class="alpheios-alignment-editor-align-text-parts-link" @click="clickPart(currentPartIndex-1)">prev</span>
@@ -72,9 +74,19 @@ export default {
       required: false
     },
 
-    segment: {
-      type: Object,
+    segmentIndex: {
+      type: Number,
       required: true
+    },
+
+    textType: {
+      type: String,
+      required: false
+    },
+
+    textId: {
+      type: String,
+      required: false
     },
 
     isLast : {
@@ -121,8 +133,8 @@ export default {
     /**
      * @returns {String} - origin/target
      */
-    textType () {
-      return this.segment.textType
+    segment () {
+      return this.$store.state.reuploadTextsParts && this.$textC.getSegment(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * @returns {String} - ltr/rtl
@@ -140,7 +152,7 @@ export default {
      * @returns {String} css id for html layout
      */
     cssId () {
-      return this.getCssId(this.textType, this.targetId, this.segment.index)
+      return this.getCssId(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
@@ -156,9 +168,9 @@ export default {
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       } else {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       }
       return result
     },
@@ -192,13 +204,7 @@ export default {
      * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
      */
     targetIdIndex () {
-      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    },
-    /**
-     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
-     */
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+      return this.textType === 'target' ? this.allTargetTextsIds.indexOf(this.textId) : null
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
@@ -229,17 +235,15 @@ export default {
     hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
       return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
-    }
-  },
-  asyncComputed: {
-    async allTokens () {
+    },
+
+    allTokens () {
       let result
 
       if (this.segment.uploadParts) {
-        result = await this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
+        result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
       }
-
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? result : []
+      return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
     }
   },
   methods: {
@@ -273,7 +277,7 @@ export default {
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
         
         for (let i = 0; i < scrollData.length; i++) {
-          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segmentIndex)
           const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
           ScrollUtility.makeScrollTo(tokId, segId)
@@ -315,9 +319,10 @@ export default {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
 
-    clickPart (partIndex) {
+    async clickPart (partIndex) {
       if (this.currentPartIndex !== parseInt(partIndex)) {
         this.currentPartIndex = parseInt(partIndex)
+        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, this.currentPartIndex)
       }
     }
   }

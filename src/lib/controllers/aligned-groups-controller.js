@@ -52,6 +52,7 @@ export default class AlignedGroupsController {
     StorageController.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    this.alignment.limitTokensToPartNum(1)
     return resultAlignment
   }
 

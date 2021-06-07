@@ -38904,6 +38904,7 @@ class AlignedGroupsController {
     _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_2__.default.update(this.alignment)
 
     document.dispatchEvent(new Event('AlpheiosAlignmentGroupsWorkflowStarted'))
+    this.alignment.limitTokensToPartNum(1)
     return resultAlignment
   }
 
@@ -40434,16 +40435,16 @@ class TextsController {
    * Prepares and download source data
    * @returns {Boolean} - true - download was successful, false - was not
    */
-  downloadData (downloadType, additional = {}) {
+  async downloadData (downloadType, additional = {}) {
     const downloadPrepareMethods = {
       plainSourceDownloadAll: this.downloadShortData.bind(this),
       jsonSimpleDownloadAll: this.downloadFullData.bind(this),
       htmlDownloadAll: this.htmlDownloadAll.bind(this)
     }
 
-    const result = downloadPrepareMethods[downloadType](downloadType, additional)
-
-    return _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+    const result = await downloadPrepareMethods[downloadType](downloadType, additional)
+    await _lib_controllers_download_controller_js__WEBPACK_IMPORTED_MODULE_1__.default.download(result.downloadType, result.data)
+    return true
   }
 
   downloadShortData (downloadType) {
@@ -40456,8 +40457,11 @@ class TextsController {
     }
   }
 
-  downloadFullData (downloadType) {
-    const data = this.alignment.convertToJSON()
+  async downloadFullData (downloadType) {
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    const alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+
+    const data = alignment.convertToJSON()
     return {
       downloadType, data
     }
@@ -40618,14 +40622,18 @@ class TextsController {
     return result
   }
 
-  defineUploadPartsForTexts () {
+  async defineUploadPartsForTexts () {
+    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+    this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+
     this.alignment.defineUploadPartsForTexts()
-    this.store.commit('incrementReuploadTextsParts')
-    _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
+    await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
     this.alignment.limitTokensToPartNum(1)
+
+    this.store.commit('incrementReuploadTextsParts')
   }
 
-  async getSegmentPart (textType, textId, segmentIndex, partNum) {
+  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNum) {
     if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNum)) {
       const selectParams = {
         alignmentID: this.alignment.id,
@@ -40634,11 +40642,17 @@ class TextsController {
         partNum
       }
       const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(selectParams, 'tokensByPartNum')
-      // console.info('dbData - ', dbData)
-      this.alignment.uploadTokensFromDB(textType, textId, segmentIndex, dbData)
+      this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
+      this.store.commit('incrementUploadPartNum')
     }
+  }
 
+  getSegmentPart (textType, textId, segmentIndex, partNum) {
     return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNum)
+  }
+
+  getSegment (textType, textId, segmentIndex) {
+    return this.alignment.getSegment(textType, textId, segmentIndex)
   }
 }
 
@@ -42462,6 +42476,11 @@ class AlignedText {
   limitTokensToPartNum (partNum) {
     this.segments.forEach(segment => segment.limitTokensToPartNum(partNum))
   }
+
+  uploadSegmentTokensFromDB (segmentIndex, dbData) {
+    const segment = this.segments[segmentIndex - 1]
+    segment.uploadSegmentTokensFromDB(dbData)
+  }
 }
 
 
@@ -43990,24 +44009,22 @@ class Alignment {
     return this.targets[textId].alignedText
   }
 
-  partIsUploaded (textType, textId, segmentIndex, partNum) {
+  getSegment (textType, textId, segmentIndex) {
     const alignedText = this.getAlignedText(textType, textId)
-    const segment = alignedText.segments[segmentIndex - 1]
-    return segment.partIsUploaded(partNum)
+    return alignedText.segments[segmentIndex - 1]
+  }
+
+  partIsUploaded (textType, textId, segmentIndex, partNum) {
+    return this.getSegment(textType, textId, segmentIndex).partIsUploaded(partNum)
   }
 
   getSegmentPart (textType, textId, segmentIndex, partNum) {
-    const alignedText = this.getAlignedText(textType, textId)
-    const segment = alignedText.segments[segmentIndex - 1]
-
-    return segment.partsTokens(partNum)
+    return this.getSegment(textType, textId, segmentIndex).partsTokens(partNum)
   }
 
-  uploadTokensFromDB (textType, textId, segmentIndex, dbData) {
+  uploadSegmentTokensFromDB (textType, textId, segmentIndex, dbData) {
     const alignedText = this.getAlignedText(textType, textId)
-    const segment = alignedText.segments[segmentIndex - 1]
-
-    segment.uploadTokensFromDB(dbData)
+    alignedText.uploadSegmentTokensFromDB(segmentIndex, dbData)
   }
 
   limitTokensToPartNum (partNum) {
@@ -44833,20 +44850,18 @@ class Segment {
       parts[partNum].len += token.len
 
       token.update({ partNum })
-
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
-          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex > (this.tokens.length - 1))) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex < (this.tokens.length - 1))) {
             partNum++
           }
         }
       }
     })
     this.uploadParts = uploadParts
-    // console.info('upload-parts', this.uploadParts)
-    return parts
+    return true
   }
 
   partsTokens (partNum) {
@@ -44997,7 +45012,7 @@ class Segment {
     })
   }
 
-  uploadTokensFromDB (dbData) {
+  uploadSegmentTokensFromDB (dbData) {
     this.tokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     return true
   }
@@ -46836,8 +46851,10 @@ class IndexedDBStructure {
   static prepareSelectQuery (typeQuery, indexData) {
     const typeQueryList = {
       allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
+      alignmentByAlIDQueryAllTokens: this.prepareAlignmentByAlIDQueryAllTokens.bind(this),
       alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this),
-      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this)
+      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this),
+      allTokensByAlIDQuery: this.prepareAllTokensByAlIDQueryQuery.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
   }
@@ -46857,6 +46874,24 @@ class IndexedDBStructure {
   }
 
   static prepareAlignmentByAlIDQuery (indexData) {
+    return this.prepareAlignmentByAlIDQueryTemp(indexData, 1)
+  }
+
+  static prepareAlignmentByAlIDQueryAllTokens (indexData) {
+    return this.prepareAlignmentByAlIDQueryTemp(indexData)
+  }
+
+  static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
+    const tokensCondition = partNum ? {
+      indexName: 'alIDPartNum',
+      value: `${indexData.alignmentID}-1`,
+      type: 'only'
+    } : {
+      indexName: 'alignmentID',
+      value: indexData.alignmentID,
+      type: 'only'
+    }
+
     return [
       {
         objectStoreName: this.allObjectStoreData.common.name,
@@ -46934,11 +46969,7 @@ class IndexedDBStructure {
       },
       {
         objectStoreName: this.allObjectStoreData.tokens.name,
-        condition: {
-          indexName: 'alIDPartNum',
-          value: `${indexData.alignmentID}-1`,
-          type: 'only'
-        },
+        condition: tokensCondition,
         resultType: 'multiple',
         mergeData: {
           mergeBy: ['alignmentID', 'textId'],
@@ -46975,7 +47006,21 @@ class IndexedDBStructure {
     ]
   }
 
-  /** ** Delete quires */
+  static prepareAllTokensByAlIDQueryQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  /** ** Delete queries */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)
@@ -47065,7 +47110,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210604479" : 0
+    return  true ? "i353-upload-by-part.20210607578" : 0
   }
 
   static get libName () {
@@ -47105,6 +47150,7 @@ class StoreDefinition {
         maxCharactersUpdated: 1,
         redefineUploadParts: 1,
         reuploadTextsParts: 1,
+        uploadPartNum: 1,
 
         docSourceUpdated: 1,
         docSourceLangDetected: 1,
@@ -47164,6 +47210,9 @@ class StoreDefinition {
         },
         incrementReuploadTextsParts (state) {
           state.reuploadTextsParts++
+        },
+        incrementUploadPartNum (state) {
+          state.uploadPartNum++
         }
       }
     }
@@ -47941,6 +47990,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -48230,6 +48281,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -48257,9 +48310,19 @@ __webpack_require__.r(__webpack_exports__);
       required: false
     },
 
-    segment: {
-      type: Object,
+    segmentIndex: {
+      type: Number,
       required: true
+    },
+
+    textType: {
+      type: String,
+      required: false
+    },
+
+    textId: {
+      type: String,
+      required: false
     },
 
     isLast : {
@@ -48306,8 +48369,8 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * @returns {String} - origin/target
      */
-    textType () {
-      return this.segment.textType
+    segment () {
+      return this.$store.state.reuploadTextsParts && this.$textC.getSegment(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * @returns {String} - ltr/rtl
@@ -48325,7 +48388,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {String} css id for html layout
      */
     cssId () {
-      return this.getCssId(this.textType, this.targetId, this.segment.index)
+      return this.getCssId(this.textType, this.textId, this.segmentIndex)
     },
     /**
      * Styles for creating a html table layout with different background-colors for different targetIds
@@ -48341,9 +48404,9 @@ __webpack_require__.r(__webpack_exports__);
     cssStyle () {
       let result 
       if (this.textType === 'target') {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       } else {
-        result = `order: ${this.segment.index};`
+        result = `order: ${this.segmentIndex};`
       }
       return result
     },
@@ -48377,13 +48440,7 @@ __webpack_require__.r(__webpack_exports__);
      * @returns {Number | Null} - if it is a target segment, then it returns targetId order index, otherwise - null
      */
     targetIdIndex () {
-      return this.targetId ? this.allTargetTextsIds.indexOf(this.targetId) : null
-    },
-    /**
-     * @returns {String | Null} - if it is a target segment, returns targetId otherwise null
-     */
-    targetId () {
-      return (this.segment.textType === 'target') ? this.segment.docSourceId : null
+      return this.textType === 'target' ? this.allTargetTextsIds.indexOf(this.textId) : null
     },
     alignmentGroupsWorkflowAvailable () {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
@@ -48414,20 +48471,15 @@ __webpack_require__.r(__webpack_exports__);
     hasMetadata () {
       const docSource = this.$textC.getDocSource(this.textType, this.segment.docSourceId)
       return this.$store.state.docSourceUpdated && docSource && !docSource.hasEmptyMetadata
-    }
-  },
-  asyncComputed: {
-    async allTokens () {
+    },
+
+    allTokens () {
       let result
 
       if (this.segment.uploadParts) {
-        result = await this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
+        result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
       }
-
-      // console.info('SB allTokens - ', result)
-      // console.info('SB allTokens - 1', this.$store.state.tokenUpdated, this.$store.state.reuploadTextsParts)
-      // console.info('SB allTokens - 2', this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? result : [])
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts ? result : []
+      return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
     }
   },
   methods: {
@@ -48461,7 +48513,7 @@ __webpack_require__.r(__webpack_exports__);
         const textTypeSeg = (token.textType === 'target') ? 'origin' : 'target'
         
         for (let i = 0; i < scrollData.length; i++) {
-          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segment.index)
+          const segId = this.getCssId(textTypeSeg, scrollData[i].targetId, this.segmentIndex)
           const tokId = `token-${scrollData[i].minOpositeTokenId}`
 
           _lib_utility_scroll_utility_js__WEBPACK_IMPORTED_MODULE_2__.default.makeScrollTo(tokId, segId)
@@ -48503,9 +48555,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
 
-    clickPart (partIndex) {
+    async clickPart (partIndex) {
       if (this.currentPartIndex !== parseInt(partIndex)) {
         this.currentPartIndex = parseInt(partIndex)
+        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, this.currentPartIndex)
       }
     }
   }
@@ -48776,8 +48829,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    '$store.state.redefineUploadParts' () {
-      this.$textC.defineUploadPartsForTexts()
+    async '$store.state.redefineUploadParts' () {
+      await this.$textC.defineUploadPartsForTexts()
     }
   },
   computed: {
@@ -48789,14 +48842,14 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Starts download workflow
      */
-    downloadData (downloadType) {
+    async downloadData (downloadType) {
       let additional = {}
       if (downloadType === 'htmlDownloadAll') {
         additional = {
           theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_11__.default.themeOptionValue
         }
       }
-      this.$textC.downloadData(downloadType, additional)
+      await this.$textC.downloadData(downloadType, additional)
     },
 
     /**
@@ -49338,7 +49391,7 @@ __webpack_require__.r(__webpack_exports__);
     downloadTypeId (dTypeName) {
       return `alpheios-save-popup-download-block__radio_${dTypeName}`
     },
-    downloadData () {
+    async downloadData () {
       this.$emit('closeModal')
       let additional = {}
       if (this.currentDownloadType === 'htmlDownloadAll') {
@@ -49346,7 +49399,7 @@ __webpack_require__.r(__webpack_exports__);
           theme: _lib_controllers_settings_controller_js__WEBPACK_IMPORTED_MODULE_4__.default.themeOptionValue
         }
       }
-      this.$textC.downloadData(this.currentDownloadType, additional)
+      await this.$textC.downloadData(this.currentDownloadType, additional)
       
     }
   }
@@ -50225,7 +50278,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.optionItem.labelText
     },
     checkboxLabel () {
-      return (this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
+      return (this.showCheckboxTitle && this.$store.state.optionsUpdated && (this.optionItem && this.optionItem.boolean && Boolean(this.optionItem.values))) ? this.optionItem.textValues()[0] : null
     },
     optionType () {
       if (this.optionItem.boolean) { return 'boolean' }
@@ -57986,10 +58039,12 @@ var render = function() {
                 [
                   _c("segment-block", {
                     attrs: {
-                      segment: segmentData.origin,
                       currentTargetId: _vm.currentTargetId,
                       amountOfShownTabs: _vm.amountOfShownTabs,
-                      isFirst: segmentData.isFirst
+                      isFirst: segmentData.isFirst,
+                      segmentIndex: segmentData.origin.index,
+                      textType: "origin",
+                      textId: segmentData.origin.docSourceId
                     }
                   })
                 ],
@@ -58014,8 +58069,10 @@ var render = function() {
                     ],
                     key: _vm.getIndex("target", segmentData.index, targetId),
                     attrs: {
-                      segment: segmentTarget,
                       isFirst: segmentData.isFirst,
+                      segmentIndex: segmentTarget.index,
+                      textType: "target",
+                      textId: segmentTarget.docSourceId,
                       isLast: _vm.lastTargetId && targetId === _vm.lastTargetId,
                       currentTargetId: _vm.currentTargetId,
                       amountOfShownTabs: _vm.amountOfShownTabs
@@ -58268,34 +58325,6 @@ var render = function() {
               })
             ],
             1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.allPartsKeys.length > 1
-        ? _c(
-            "p",
-            { staticClass: "alpheios-alignment-editor-align-text-parts" },
-            _vm._l(_vm.allPartsKeys, function(partKey) {
-              return _c(
-                "span",
-                {
-                  key: partKey,
-                  staticClass:
-                    "alpheios-alignment-editor-align-text-parts-link",
-                  class: {
-                    "alpheios-alignment-editor-align-text-parts-link-current":
-                      _vm.currentPartIndex === parseInt(partKey)
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.clickPart(partKey)
-                    }
-                  }
-                },
-                [_vm._v("\n              " + _vm._s(partKey) + "\n        ")]
-              )
-            }),
-            0
           )
         : _vm._e(),
       _vm._v(" "),
@@ -61286,7 +61315,8 @@ var render = function() {
                                   _c("option-item-block", {
                                     attrs: {
                                       optionItem: _vm.showSummaryPopupOpt,
-                                      showLabelText: _vm.showLabelTextOpt
+                                      showLabelText: _vm.showLabelTextOpt,
+                                      showCheckboxTitle: _vm.showLabelTextOpt
                                     }
                                   })
                                 ],
@@ -65098,7 +65128,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/options/option-item-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-async-computed":"^3.9.0","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.2","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.2","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.27.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.3","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.16","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.0","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.0","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.12","vue-async-computed":"^3.9.0","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.12","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.37.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

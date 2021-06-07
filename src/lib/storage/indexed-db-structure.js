@@ -379,8 +379,10 @@ export default class IndexedDBStructure {
   static prepareSelectQuery (typeQuery, indexData) {
     const typeQueryList = {
       allAlignmentsByUserID: this.prepareAllAlignmentsByUserIDQuery.bind(this),
+      alignmentByAlIDQueryAllTokens: this.prepareAlignmentByAlIDQueryAllTokens.bind(this),
       alignmentByAlIDQuery: this.prepareAlignmentByAlIDQuery.bind(this),
-      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this)
+      tokensByPartNum: this.prepareTokensByPartNumQuery.bind(this),
+      allTokensByAlIDQuery: this.prepareAllTokensByAlIDQueryQuery.bind(this)
     }
     return typeQueryList[typeQuery](indexData)
   }
@@ -400,6 +402,24 @@ export default class IndexedDBStructure {
   }
 
   static prepareAlignmentByAlIDQuery (indexData) {
+    return this.prepareAlignmentByAlIDQueryTemp(indexData, 1)
+  }
+
+  static prepareAlignmentByAlIDQueryAllTokens (indexData) {
+    return this.prepareAlignmentByAlIDQueryTemp(indexData)
+  }
+
+  static prepareAlignmentByAlIDQueryTemp (indexData, partNum) {
+    const tokensCondition = partNum ? {
+      indexName: 'alIDPartNum',
+      value: `${indexData.alignmentID}-1`,
+      type: 'only'
+    } : {
+      indexName: 'alignmentID',
+      value: indexData.alignmentID,
+      type: 'only'
+    }
+
     return [
       {
         objectStoreName: this.allObjectStoreData.common.name,
@@ -477,11 +497,7 @@ export default class IndexedDBStructure {
       },
       {
         objectStoreName: this.allObjectStoreData.tokens.name,
-        condition: {
-          indexName: 'alIDPartNum',
-          value: `${indexData.alignmentID}-1`,
-          type: 'only'
-        },
+        condition: tokensCondition,
         resultType: 'multiple',
         mergeData: {
           mergeBy: ['alignmentID', 'textId'],
@@ -518,7 +534,21 @@ export default class IndexedDBStructure {
     ]
   }
 
-  /** ** Delete quires */
+  static prepareAllTokensByAlIDQueryQuery (indexData) {
+    return [
+      {
+        objectStoreName: this.allObjectStoreData.tokens.name,
+        condition: {
+          indexName: 'alignmentID',
+          value: indexData.alignmentID,
+          type: 'only'
+        },
+        resultType: 'multiple'
+      }
+    ]
+  }
+
+  /** ** Delete queries */
   static prepareDeleteQuery (typeQuery, indexData) {
     const typeQueryList = {
       alignmentDataByID: this.prepareDeleteAlignmentDataByID.bind(this)

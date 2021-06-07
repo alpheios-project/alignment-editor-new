@@ -92,7 +92,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
     expect(cmp.isVueInstance()).toBeTruthy()
@@ -103,7 +105,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
@@ -116,7 +120,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
@@ -130,13 +136,17 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment // index 1
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
     expect(cmp.vm.cssId).toEqual('alpheios-align-text-segment-origin-1')
     cmp.setProps({
-      segment: targetSegment // index 2, targetId[1]
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target'
     })
 
     await Vue.nextTick()
@@ -148,14 +158,18 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment // index 1
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
     expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 1;`))
     expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.originColor};`))
     cmp.setProps({
-      segment: targetSegment // index 2, targetId[0]
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target'
     })
 
     await Vue.nextTick()
@@ -168,7 +182,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         isLast: false
       }
     })
@@ -177,7 +193,9 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.cssClass).toHaveProperty('alpheios-align-text-segment-origin-last', false)
 
     cmp.setProps({
-      segment: targetSegment,
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target',
       isLast: true
     })
     await Vue.nextTick()
@@ -189,23 +207,25 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin'
       }
     })
 
     // we have an origin segment
     expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
     expect(cmp.vm.targetIdIndex).toBeNull()
-    expect(cmp.vm.targetId).toBeNull()
 
     cmp.setProps({
-      segment: targetSegment
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target'
     })
     await Vue.nextTick()
     // we have a target segment
     expect(cmp.vm.allTargetTextsIds).toEqual(allTargetTextsIds)
     expect(cmp.vm.targetIdIndex).toEqual(1)
-    expect(cmp.vm.targetId).toEqual(allTargetTextsIds[1])
   })    
 
 
@@ -214,7 +234,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[0]
       }
     })
@@ -237,7 +259,9 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.$alignedGC.clickToken).not.toHaveBeenLastCalledWith(originToken, null)
 
     cmp.setProps({
-      segment: targetSegment,
+      segmentIndex: targetSegment.index,
+      textId: targetSegment.docSourceId,
+      textType: 'target',
       currentTargetId: allTargetTextsIds[1]
     })
     await Vue.nextTick()
@@ -255,7 +279,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[0]
       }
     })
@@ -285,7 +311,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[0]
       }
     })
@@ -303,7 +331,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[1]
       }
     })
@@ -326,7 +356,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[1]
       }
     })
@@ -344,7 +376,9 @@ describe('segment-block.test.js', () => {
       store: appC.store,
       localVue,
       propsData: {
-        segment: originSegment,
+        segmentIndex: originSegment.index,
+        textId: originSegment.docSourceId,
+        textType: 'origin',
         currentTargetId: allTargetTextsIds[1]
       }
     })

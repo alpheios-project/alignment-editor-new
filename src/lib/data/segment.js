@@ -65,20 +65,18 @@ export default class Segment {
       parts[partNum].len += token.len
 
       token.update({ partNum })
-
       if ((parts[partNum].len > charMax) && (tokenIndex < (this.tokens.length - 5))) {
         if (this.tokens[tokenIndex + 1].sentenceIndex !== token.sentenceIndex) {
           partNum++
         } else if ((parts[partNum].len > (2 * charMax)) && (this.tokens[tokenIndex + 1].sentenceIndex === token.sentenceIndex)) {
-          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex > (this.tokens.length - 1))) {
+          if (this.tokens[tokenIndex + 2] && (this.tokens[tokenIndex + 2].sentenceIndex === token.sentenceIndex) && (tokenIndex < (this.tokens.length - 1))) {
             partNum++
           }
         }
       }
     })
     this.uploadParts = uploadParts
-    // console.info('upload-parts', this.uploadParts)
-    return parts
+    return true
   }
 
   partsTokens (partNum) {
@@ -229,7 +227,7 @@ export default class Segment {
     })
   }
 
-  uploadTokensFromDB (dbData) {
+  uploadSegmentTokensFromDB (dbData) {
     this.tokens = dbData.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
     return true
   }
