@@ -21,7 +21,7 @@
           -->
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex > allPartsKeys[0]">
-              <span class="alpheios-alignment-editor-align-text-parts-link" @click="clickPart(currentPartIndex-1)">prev</span>
+              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadPartByNum(currentPartIndex-1)">prev</span>
             </p>
 
             <template v-for = "(token, tokenIndex) in allTokens">
@@ -40,7 +40,7 @@
             </template>
             
             <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex < allPartsKeys[allPartsKeys.length-1]">
-              <span class="alpheios-alignment-editor-align-text-parts-link" @click="clickPart(currentPartIndex+1)">next</span>  
+              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadPartByNum(currentPartIndex+1)">next</span>  
             </p>
           </div>
 
@@ -319,10 +319,10 @@ export default {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
 
-    async clickPart (partIndex) {
+    async uploadPartByNum (partIndex) {
       if (this.currentPartIndex !== parseInt(partIndex)) {
+        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, parseInt(partIndex))
         this.currentPartIndex = parseInt(partIndex)
-        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, this.currentPartIndex)
       }
     }
   }

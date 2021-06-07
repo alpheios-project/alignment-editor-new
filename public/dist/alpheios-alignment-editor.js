@@ -47110,7 +47110,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210607578" : 0
+    return  true ? "i353-upload-by-part.20210607586" : 0
   }
 
   static get libName () {
@@ -48555,10 +48555,10 @@ __webpack_require__.r(__webpack_exports__);
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
 
-    async clickPart (partIndex) {
+    async uploadPartByNum (partIndex) {
       if (this.currentPartIndex !== parseInt(partIndex)) {
+        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, parseInt(partIndex))
         this.currentPartIndex = parseInt(partIndex)
-        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, this.currentPartIndex)
       }
     }
   }
@@ -58351,7 +58351,7 @@ var render = function() {
                         "alpheios-alignment-editor-align-text-parts-link",
                       on: {
                         click: function($event) {
-                          return _vm.clickPart(_vm.currentPartIndex - 1)
+                          return _vm.uploadPartByNum(_vm.currentPartIndex - 1)
                         }
                       }
                     },
@@ -58410,7 +58410,7 @@ var render = function() {
                         "alpheios-alignment-editor-align-text-parts-link",
                       on: {
                         click: function($event) {
-                          return _vm.clickPart(_vm.currentPartIndex + 1)
+                          return _vm.uploadPartByNum(_vm.currentPartIndex + 1)
                         }
                       }
                     },
