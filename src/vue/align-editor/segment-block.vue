@@ -123,7 +123,7 @@ export default {
   },
   watch: {
     '$store.state.reuploadTextsParts' () {
-      this.currentPartIndex = [ 1 ]
+      this.currentPartIndexes = [ 1 ]
     }
   },
   computed: {
@@ -210,7 +210,7 @@ export default {
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allPartsKeys () {
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.uploadParts ? this.segment.uploadParts : []
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -240,7 +240,7 @@ export default {
     allTokens () {
       let result
 
-      if (this.segment.uploadParts) {
+      if (this.segment.allPartNums) {
         result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []

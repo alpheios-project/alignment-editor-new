@@ -1,6 +1,6 @@
 export default class IndexedDBStructure {
   static get dbVersion () {
-    return 4
+    return 5
   }
 
   static get dbName () {
@@ -14,7 +14,7 @@ export default class IndexedDBStructure {
       metadata: this.metadataStructure,
       alignedText: this.alignedTextStructure,
       segments: this.segmentsStructure,
-      uploadParts: this.uploadPartsStructure,
+      partNums: this.partNumsStructure,
       tokens: this.tokensStructure,
       alGroups: this.alGroupsStructure
     }
@@ -99,9 +99,9 @@ export default class IndexedDBStructure {
     }
   }
 
-  static get uploadPartsStructure () {
+  static get partNumsStructure () {
     return {
-      name: 'ALEditorUploadParts',
+      name: 'ALEditorPartNums',
       structure: {
         keyPath: 'ID',
         indexes: [
@@ -111,7 +111,7 @@ export default class IndexedDBStructure {
           { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
         ]
       },
-      serialize: this.serializeUploadParts.bind(this)
+      serialize: this.serializePartNums.bind(this)
     }
   }
 
@@ -270,7 +270,7 @@ export default class IndexedDBStructure {
     return finalData
   }
 
-  static serializeUploadParts (data) {
+  static serializePartNums (data) {
     const finalData = []
 
     if (data.origin.alignedText) {
@@ -280,8 +280,8 @@ export default class IndexedDBStructure {
       for (const dataItem of dataItems) {
         if (dataItem.segments && dataItem.segments.length > 0) {
           for (const segmentItem of dataItem.segments) {
-            for (const uploadPartItem of segmentItem.uploadParts) {
-              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${uploadPartItem.partNum}`
+            for (const partNumItem of segmentItem.partNums) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${partNumItem.partNum}`
 
               finalData.push({
                 ID: uniqueID,
@@ -289,8 +289,8 @@ export default class IndexedDBStructure {
                 userID: data.userID,
                 alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
                 textId: dataItem.textId,
-                segmentIndex: uploadPartItem.segmentIndex,
-                partNum: uploadPartItem.partNum
+                segmentIndex: partNumItem.segmentIndex,
+                partNum: partNumItem.partNum
               })
             }
           }
@@ -483,7 +483,7 @@ export default class IndexedDBStructure {
         }
       },
       {
-        objectStoreName: this.allObjectStoreData.uploadParts.name,
+        objectStoreName: this.allObjectStoreData.partNums.name,
         condition: {
           indexName: 'alignmentID',
           value: indexData.alignmentID,
@@ -492,7 +492,7 @@ export default class IndexedDBStructure {
         resultType: 'multiple',
         mergeData: {
           mergeBy: ['alignmentID', 'textId'],
-          uploadTo: 'uploadParts'
+          uploadTo: 'partNums'
         }
       },
       {
@@ -590,7 +590,7 @@ export default class IndexedDBStructure {
       }
     },
     {
-      objectStoreName: this.allObjectStoreData.uploadParts.name,
+      objectStoreName: this.allObjectStoreData.partNums.name,
       condition: {
         indexName: 'alignmentID',
         value: alignmentID,

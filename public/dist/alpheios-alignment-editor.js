@@ -39661,7 +39661,7 @@ class SettingsController {
     if (optionNameParts[2] === 'theme') {
       this.submitEventUpdateTheme()
     } else if (optionNameParts[2] === 'maxCharactersPerPart') {
-      _instance.store.commit('incrementRedefineUploadParts')
+      _instance.store.commit('incrementRedefineAllPartNums')
     }
     _instance.store.commit('incrementOptionsUpdated')
   }
@@ -40321,14 +40321,13 @@ class TextsController {
     return result
   }
 
-  async defineUploadPartsForTexts () {
+  async defineAllPartNumsForTexts () {
     const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
     this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
 
-    this.alignment.defineUploadPartsForTexts()
+    this.alignment.defineAllPartNumsForTexts()
     await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
     this.alignment.limitTokensToPartNumAllTexts(1)
-
     this.store.commit('incrementReuploadTextsParts')
   }
 
@@ -40604,7 +40603,7 @@ class TokenizeController {
         sentenceIndex++
       }
     }
-    segment.defineUploadParts()
+    segment.defineAllPartNums()
   }
 }
 
@@ -41470,7 +41469,7 @@ class TokensEditActions {
     const segment = this.getSegmentByToken(token)
     const tokenIndex = segment.getTokenIndex(token)
 
-    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(tokenIndex)) : (!segment.isLastTokenInSegment(tokenIndex))
+    const check = (direction === _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.directions.PREV) ? (!segment.isFirstTokenInSegment(token)) : (!segment.isLastTokenInSegment(token))
 
     if (check) {
       return {
@@ -42157,7 +42156,7 @@ class AlignedText {
     }
   }
 
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbUploadParts) {
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbAllPartNums) {
     const alignedText = new AlignedText({
       docSource: {
         id: dbData.textId,
@@ -42171,7 +42170,7 @@ class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbUploadParts))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
 
     return alignedText
   }
@@ -43660,7 +43659,7 @@ class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.uploadParts)
+        const alignedText = await _lib_data_aligned_text__WEBPACK_IMPORTED_MODULE_2__.default.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.partNums)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -43700,10 +43699,10 @@ class Alignment {
     return Boolean(sourceText && sourceText.detectedLang)
   }
 
-  defineUploadPartsForTexts () {
-    this.origin.alignedText.segments.forEach(segment => segment.defineUploadParts())
+  defineAllPartNumsForTexts () {
+    this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     Object.values(this.targets).forEach(target => {
-      target.alignedText.segments.forEach(segment => segment.defineUploadParts())
+      target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     })
   }
 
@@ -44497,7 +44496,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Segment {
-  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, uploadParts } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
     this.id = id || (0,uuid__WEBPACK_IMPORTED_MODULE_0__.v4)()
     this.index = index
     this.textType = textType
@@ -44510,19 +44509,26 @@ class Segment {
       this.checkAndUpdateTokens(tokens)
     }
 
-    if (uploadParts) {
-      this.uploadParts = uploadParts
+    if (allPartNums) {
+      this.allPartNums = allPartNums
+      this.getCurrentPartNums()
     } else {
-      this.defineUploadParts()
+      this.defineAllPartNums()
     }
   }
 
+  /**
+   * @returns {String} - language name or language code if there is no such code in the Langs list
+   */
   defineLangName () {
     const langData = _lib_data_langs_langs__WEBPACK_IMPORTED_MODULE_2__.default.all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
 
+  /**
+   * @param {String} lang - language code
+   */
   updateLanguage (lang) {
     this.lang = lang
     this.langName = this.defineLangName()
@@ -44535,23 +44541,30 @@ class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default) ? token : new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
-    this.getCurrentPartNums()
   }
 
+  /**
+   * Extracts current partNums from tokens
+   */
   getCurrentPartNums () {
     const partNumsSet = new Set(this.tokens.map(token => token.partNum))
     this.currentPartNums = [...partNumsSet]
   }
 
-  defineUploadParts () {
+  /**
+   * Divides segment tokens to parts based on SettingsController.maxCharactersPerPart,
+   * updates partNum for each token,
+   * updates allPartNums
+   */
+  defineAllPartNums () {
     const charMax = _lib_controllers_settings_controller__WEBPACK_IMPORTED_MODULE_3__.default.maxCharactersPerPart
     const parts = {}
-    const uploadParts = []
+    const allPartNums = []
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
       if (!parts[partNum]) {
         parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
-        uploadParts.push(partNum)
+        allPartNums.push(partNum)
       }
 
       if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
@@ -44573,16 +44586,24 @@ class Segment {
         }
       }
     })
-    this.uploadParts = uploadParts
-    return true
+    this.allPartNums = allPartNums
+    this.getCurrentPartNums()
   }
 
+  /**
+   * Retrieves tokens for the given partNum
+   * @param {Array|Number} partNum
+   * @returns {Array[Token]}
+   */
   partsTokens (partNum) {
     return this.tokens.filter(token => Array.isArray(partNum) ? partNum.includes(token.partNum) : token.partNum === partNum)
   }
 
+  /**
+   * @param {Number} partNum
+   * @returns {Boolean}
+   */
   partIsUploaded (partNum) {
-    // return this.tokens.some(token => token.partNum === partNum)
     return this.currentPartNums.includes(partNum)
   }
 
@@ -44599,7 +44620,8 @@ class Segment {
    * @param {Number} tokenIndex
    * @returns {Boolean}
    */
-  isFirstTokenInSegment (tokenIndex) {
+  isFirstTokenInSegment (token) {
+    const tokenIndex = this.getTokenIndex(token)
     return (tokenIndex === 0)
   }
 
@@ -44607,7 +44629,8 @@ class Segment {
    * @param {Number} tokenIndex
    * @returns {Boolean}
    */
-  isLastTokenInSegment (tokenIndex) {
+  isLastTokenInSegment (token) {
+    const tokenIndex = this.getTokenIndex(token)
     return (tokenIndex === (this.tokens.length - 1))
   }
 
@@ -44640,7 +44663,8 @@ class Segment {
     const newToken = new _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default({
       textType: this.textType,
       idWord: newIdWord,
-      word: word
+      word: word,
+      partNum: 1
     }, this.index, this.docSourceId)
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
@@ -44710,11 +44734,11 @@ class Segment {
       direction: this.direction,
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
-      uploadParts: this.uploadParts ? this.uploadParts.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+      partNums: this.allPartNums ? this.allPartNums.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
     }
   }
 
-  static convertFromIndexedDB (data, dbTokens, dbUploadParts) {
+  static convertFromIndexedDB (data, dbTokens, dbAllPartNums) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
     return new Segment({
@@ -44724,12 +44748,12 @@ class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: tokensDbDataFiltered.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
-      uploadParts: dbUploadParts.filter(uploadPart => (data.docSourceId === uploadPart.textId) && (data.index === uploadPart.segmentIndex)).map(uploadPart => parseInt(uploadPart.partNum)).sort((a, b) => a - b)
+      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex)).map(partNum => parseInt(partNum.partNum)).sort((a, b) => a - b)
     })
   }
 
   uploadSegmentTokensFromDB (dbData) {
-    const newTokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token))// .sort((a, b) => a.tokenIndex - b.tokenIndex)
+    const newTokens = dbData.map(token => _lib_data_token__WEBPACK_IMPORTED_MODULE_1__.default.convertFromIndexedDB(token))
     this.tokens.push(...newTokens)
     this.tokens.sort((a, b) => {
       if (a.partNum === b.partNum) {
@@ -46200,7 +46224,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class IndexedDBStructure {
   static get dbVersion () {
-    return 4
+    return 5
   }
 
   static get dbName () {
@@ -46214,7 +46238,7 @@ class IndexedDBStructure {
       metadata: this.metadataStructure,
       alignedText: this.alignedTextStructure,
       segments: this.segmentsStructure,
-      uploadParts: this.uploadPartsStructure,
+      partNums: this.partNumsStructure,
       tokens: this.tokensStructure,
       alGroups: this.alGroupsStructure
     }
@@ -46299,9 +46323,9 @@ class IndexedDBStructure {
     }
   }
 
-  static get uploadPartsStructure () {
+  static get partNumsStructure () {
     return {
-      name: 'ALEditorUploadParts',
+      name: 'ALEditorPartNums',
       structure: {
         keyPath: 'ID',
         indexes: [
@@ -46311,7 +46335,7 @@ class IndexedDBStructure {
           { indexName: 'alTextIdSegId', keyPath: 'alTextIdSegId', unique: false }
         ]
       },
-      serialize: this.serializeUploadParts.bind(this)
+      serialize: this.serializePartNums.bind(this)
     }
   }
 
@@ -46470,7 +46494,7 @@ class IndexedDBStructure {
     return finalData
   }
 
-  static serializeUploadParts (data) {
+  static serializePartNums (data) {
     const finalData = []
 
     if (data.origin.alignedText) {
@@ -46480,8 +46504,8 @@ class IndexedDBStructure {
       for (const dataItem of dataItems) {
         if (dataItem.segments && dataItem.segments.length > 0) {
           for (const segmentItem of dataItem.segments) {
-            for (const uploadPartItem of segmentItem.uploadParts) {
-              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${uploadPartItem.partNum}`
+            for (const partNumItem of segmentItem.partNums) {
+              const uniqueID = `${data.userID}-${data.id}-${dataItem.textId}-${segmentItem.index}-${partNumItem.partNum}`
 
               finalData.push({
                 ID: uniqueID,
@@ -46489,8 +46513,8 @@ class IndexedDBStructure {
                 userID: data.userID,
                 alTextIdSegId: `${data.id}-${dataItem.textId}-${segmentItem.index}`,
                 textId: dataItem.textId,
-                segmentIndex: uploadPartItem.segmentIndex,
-                partNum: uploadPartItem.partNum
+                segmentIndex: partNumItem.segmentIndex,
+                partNum: partNumItem.partNum
               })
             }
           }
@@ -46683,7 +46707,7 @@ class IndexedDBStructure {
         }
       },
       {
-        objectStoreName: this.allObjectStoreData.uploadParts.name,
+        objectStoreName: this.allObjectStoreData.partNums.name,
         condition: {
           indexName: 'alignmentID',
           value: indexData.alignmentID,
@@ -46692,7 +46716,7 @@ class IndexedDBStructure {
         resultType: 'multiple',
         mergeData: {
           mergeBy: ['alignmentID', 'textId'],
-          uploadTo: 'uploadParts'
+          uploadTo: 'partNums'
         }
       },
       {
@@ -46790,7 +46814,7 @@ class IndexedDBStructure {
       }
     },
     {
-      objectStoreName: this.allObjectStoreData.uploadParts.name,
+      objectStoreName: this.allObjectStoreData.partNums.name,
       condition: {
         indexName: 'alignmentID',
         value: alignmentID,
@@ -46838,7 +46862,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210608353" : 0
+    return  true ? "i353-upload-by-part.20210608653" : 0
   }
 
   static get libName () {
@@ -46876,7 +46900,7 @@ class StoreDefinition {
         resetOptions: 1,
         tokenUpdated: 1,
         maxCharactersUpdated: 1,
-        redefineUploadParts: 1,
+        redefineAllPartNums: 1,
         reuploadTextsParts: 1,
         uploadPartNum: 1,
 
@@ -46933,8 +46957,8 @@ class StoreDefinition {
         incrementDocSourceLangDetected (state) {
           state.docSourceLangDetected++
         },
-        incrementRedefineUploadParts (state) {
-          state.redefineUploadParts++
+        incrementRedefineAllPartNums (state) {
+          state.redefineAllPartNums++
         },
         incrementReuploadTextsParts (state) {
           state.reuploadTextsParts++
@@ -48087,7 +48111,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     '$store.state.reuploadTextsParts' () {
-      this.currentPartIndex = [ 1 ]
+      this.currentPartIndexes = [ 1 ]
     }
   },
   computed: {
@@ -48174,7 +48198,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowAvailable
     },
     allPartsKeys () {
-      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.uploadParts ? this.segment.uploadParts : []
+      return  this.$store.state.tokenUpdated && this.$store.state.reuploadTextsParts && this.segment.allPartNums ? this.segment.allPartNums : []
     },
     amountOfSegments () {
       return this.$store.state.alignmentUpdated ? this.$alignedGC.getAmountOfSegments(this.segment) : 1
@@ -48204,7 +48228,7 @@ __webpack_require__.r(__webpack_exports__);
     allTokens () {
       let result
 
-      if (this.segment.uploadParts) {
+      if (this.segment.allPartNums) {
         result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
@@ -48586,9 +48610,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    async '$store.state.redefineUploadParts' () {
+    async '$store.state.redefineAllPartNums' () {
       this.showWaitingModal = true
-      await this.$textC.defineUploadPartsForTexts()
+      await this.$textC.defineAllPartNumsForTexts()
       this.showWaitingModal = false
     }
   },
@@ -65009,7 +65033,7 @@ render._withStripped = true
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/controllers/settings-controller.test.js","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
+module.exports = JSON.parse('{"name":"alpheios-alignment-editor","version":"1.4.1","libName":"Alpheios Translation Alignment editor","description":"The Alpheios Translation Alignment editor allows you to create word-by-word alignments between two texts.","main":"src/index.js","scripts":{"build":"npm run build-output && npm run build-regular","build-output":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config-output.mjs","build-regular":"npm run lint && node --experimental-modules ./node_modules/alpheios-node-build/dist/build.mjs -m webpack -M all -p vue -c config.mjs","lint":"eslint --no-eslintrc -c eslint-standard-conf.json --fix src/**/*.js","test":"jest tests --coverage","test-lib":"jest tests/lib --coverage","test-vue":"jest tests/vue --coverage","test-a":"jest tests/lib/data/segment.test.js --coverage","test-b":"jest tests/vue/align-editor/segment-block.test.js --coverage","test-c":"jest tests/lib/storage/indexed-db-adapter.test.js --coverage","test-d":"jest tests/_output/vue/app.test.js --coverage","github-build":"node --experimental-modules --experimental-json-modules ./github-build.mjs","dev":"npm run build && http-server -c-1 -p 8888 & onchange src -- npm run build"},"repository":{"type":"git","url":"git+https://github.com/alpheios-project/alignment-editor-new.git"},"author":"The Alpheios Project, Ltd.","license":"ISC","devDependencies":{"@actions/core":"^1.3.0","@babel/core":"^7.14.3","@babel/plugin-proposal-object-rest-spread":"^7.14.4","@babel/plugin-transform-modules-commonjs":"^7.14.0","@babel/plugin-transform-runtime":"^7.14.3","@babel/preset-env":"^7.14.4","@babel/register":"^7.13.16","@babel/runtime":"^7.14.0","@vue/test-utils":"^1.2.0","alpheios-core":"github:alpheios-project/alpheios-core#incr-3.3.x","alpheios-messaging":"github:alpheios-project/alpheios-messaging","alpheios-node-build":"github:alpheios-project/node-build#v3","babel-core":"^7.0.0-bridge.0","babel-eslint":"^10.1.0","babel-jest":"^26.6.3","babel-loader":"^8.2.2","babel-plugin-dynamic-import-node":"^2.3.3","babel-plugin-module-resolver":"^4.1.0","bytes":"^3.1.0","command-line-args":"^5.1.1","coveralls":"^3.1.0","css-loader":"^3.6.0","eslint":"^7.28.0","eslint-config-standard":"^14.1.1","eslint-plugin-import":"^2.23.4","eslint-plugin-jsdoc":"^27.0.7","eslint-plugin-node":"^11.1.0","eslint-plugin-promise":"^4.3.1","eslint-plugin-standard":"^4.0.2","eslint-plugin-vue":"^6.2.2","eslint-scope":"^5.1.1","fake-indexeddb":"^3.1.2","file-loader":"^6.2.0","git-branch":"^2.0.1","http-server":"^0.12.3","imagemin":"^7.0.1","imagemin-jpegtran":"^7.0.0","imagemin-optipng":"^8.0.0","imagemin-svgo":"^8.0.0","imports-loader":"^1.2.0","inspectpack":"^4.7.1","intl-messageformat":"^9.6.18","jest":"^26.6.3","mini-css-extract-plugin":"^0.9.0","optimize-css-assets-webpack-plugin":"^5.0.6","papaparse":"^5.3.1","postcss-import":"^12.0.1","postcss-loader":"^3.0.0","postcss-safe-important":"^1.2.1","postcss-scss":"^2.1.1","raw-loader":"^4.0.2","sass":"^1.34.1","sass-loader":"^8.0.2","source-map-loader":"^1.1.3","stream":"0.0.2","style-loader":"^1.3.0","terser-webpack-plugin":"^3.1.0","uuid":"^3.4.0","v-video-embed":"^1.0.8","vue":"^2.6.14","vue-eslint-parser":"^7.6.0","vue-jest":"^3.0.7","vue-loader":"^15.9.7","vue-multiselect":"^2.1.6","vue-style-loader":"^4.1.3","vue-svg-loader":"^0.16.0","vue-template-compiler":"^2.6.14","vue-template-loader":"^1.1.0","vuedraggable":"^2.24.3","webpack":"^5.38.1","webpack-bundle-analyzer":"^3.9.0","webpack-cleanup-plugin":"^0.5.1","webpack-merge":"^4.2.2"},"jest":{"verbose":true,"globals":{"DEVELOPMENT_MODE_BUILD":true},"moduleNameMapper":{"^@[/](.+)":"<rootDir>/src/$1","^@tests[/](.+)":"<rootDir>/tests/$1","^@vue-runtime$":"vue/dist/vue.runtime.common.js","^@vuedraggable":"<rootDir>/node_modules/vuedraggable/dist/vuedraggable.umd.min.js","alpheios-client-adapters":"<rootDir>/node_modules/alpheios-core/packages/client-adapters/dist/alpheios-client-adapters.js","alpheios-data-models":"<rootDir>/node_modules/alpheios-core/packages/data-models/dist/alpheios-data-models.js","alpheios-l10n":"<rootDir>/node_modules/alpheios-core/packages/l10n/dist/alpheios-l10n.js"},"testPathIgnorePatterns":["<rootDir>/node_modules/"],"transform":{"^.+\\\\.jsx?$":"babel-jest",".*\\\\.(vue)$":"vue-jest",".*\\\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":"<rootDir>/fileTransform.js","^.*\\\\.svg$":"<rootDir>/svgTransform.js"},"moduleFileExtensions":["js","json","vue"]},"eslintConfig":{"extends":["standard","plugin:jsdoc/recommended","plugin:vue/essential"],"env":{"browser":true,"node":true},"parserOptions":{"parser":"babel-eslint","ecmaVersion":2019,"sourceType":"module","allowImportExportEverywhere":true},"rules":{"no-prototype-builtins":"warn","dot-notation":"warn","accessor-pairs":"warn"}},"eslintIgnore":["**/dist","**/support"],"dependencies":{"vuex":"^3.6.2"}}');
 
 /***/ }),
 

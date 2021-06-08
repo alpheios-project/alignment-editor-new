@@ -93,9 +93,9 @@ export default {
     }
   },
   watch: {
-    async '$store.state.redefineUploadParts' () {
+    async '$store.state.redefineAllPartNums' () {
       this.showWaitingModal = true
-      await this.$textC.defineUploadPartsForTexts()
+      await this.$textC.defineAllPartNumsForTexts()
       this.showWaitingModal = false
     }
   },

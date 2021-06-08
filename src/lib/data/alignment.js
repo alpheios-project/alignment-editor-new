@@ -1184,7 +1184,7 @@ export default class Alignment {
 
     if (dbData.alignedText) {
       for (const alignedTextData of dbData.alignedText) {
-        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.uploadParts)
+        const alignedText = await AlignedText.convertFromIndexedDB(alignedTextData, dbData.segments, dbData.tokens, dbData.partNums)
         if (alignedText.textType === 'origin') {
           alignment.origin.alignedText = alignedText
         } else {
@@ -1224,10 +1224,10 @@ export default class Alignment {
     return Boolean(sourceText && sourceText.detectedLang)
   }
 
-  defineUploadPartsForTexts () {
-    this.origin.alignedText.segments.forEach(segment => segment.defineUploadParts())
+  defineAllPartNumsForTexts () {
+    this.origin.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     Object.values(this.targets).forEach(target => {
-      target.alignedText.segments.forEach(segment => segment.defineUploadParts())
+      target.alignedText.segments.forEach(segment => segment.defineAllPartNums())
     })
   }
 

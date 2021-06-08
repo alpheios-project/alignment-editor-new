@@ -154,7 +154,7 @@ export default class AlignedText {
     }
   }
 
-  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbUploadParts) {
+  static convertFromIndexedDB (dbData, dbSegments, dbTokens, dbAllPartNums) {
     const alignedText = new AlignedText({
       docSource: {
         id: dbData.textId,
@@ -168,7 +168,7 @@ export default class AlignedText {
     })
     const segmentsDbDataFiltered = dbSegments.filter(segmentItem => segmentItem.docSourceId === dbData.textId)
 
-    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbUploadParts))
+    alignedText.segments = segmentsDbDataFiltered.map(seg => Segment.convertFromIndexedDB(seg, dbTokens, dbAllPartNums))
 
     return alignedText
   }

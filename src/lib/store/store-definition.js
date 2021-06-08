@@ -42,7 +42,7 @@ export default class StoreDefinition {
         resetOptions: 1,
         tokenUpdated: 1,
         maxCharactersUpdated: 1,
-        redefineUploadParts: 1,
+        redefineAllPartNums: 1,
         reuploadTextsParts: 1,
         uploadPartNum: 1,
 
@@ -99,8 +99,8 @@ export default class StoreDefinition {
         incrementDocSourceLangDetected (state) {
           state.docSourceLangDetected++
         },
-        incrementRedefineUploadParts (state) {
-          state.redefineUploadParts++
+        incrementRedefineAllPartNums (state) {
+          state.redefineAllPartNums++
         },
         incrementReuploadTextsParts (state) {
           state.reuploadTextsParts++

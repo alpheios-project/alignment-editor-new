@@ -222,6 +222,6 @@ export default class TokenizeController {
         sentenceIndex++
       }
     }
-    segment.defineUploadParts()
+    segment.defineAllPartNums()
   }
 }

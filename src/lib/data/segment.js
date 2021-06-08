@@ -5,7 +5,7 @@ import Langs from '@/lib/data/langs/langs'
 import SettingsController from '@/lib/controllers/settings-controller'
 
 export default class Segment {
-  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, uploadParts } = {}) {
+  constructor ({ id, index, textType, lang, direction, tokens, docSourceId, allPartNums } = {}) {
     this.id = id || uuidv4()
     this.index = index
     this.textType = textType
@@ -18,19 +18,26 @@ export default class Segment {
       this.checkAndUpdateTokens(tokens)
     }
 
-    if (uploadParts) {
-      this.uploadParts = uploadParts
+    if (allPartNums) {
+      this.allPartNums = allPartNums
+      this.getCurrentPartNums()
     } else {
-      this.defineUploadParts()
+      this.defineAllPartNums()
     }
   }
 
+  /**
+   * @returns {String} - language name or language code if there is no such code in the Langs list
+   */
   defineLangName () {
     const langData = Langs.all.find(langData => langData.value === this.lang)
     const res = langData ? langData.text : this.lang
     return res
   }
 
+  /**
+   * @param {String} lang - language code
+   */
   updateLanguage (lang) {
     this.lang = lang
     this.langName = this.defineLangName()
@@ -43,23 +50,30 @@ export default class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
-    this.getCurrentPartNums()
   }
 
+  /**
+   * Extracts current partNums from tokens
+   */
   getCurrentPartNums () {
     const partNumsSet = new Set(this.tokens.map(token => token.partNum))
     this.currentPartNums = [...partNumsSet]
   }
 
-  defineUploadParts () {
+  /**
+   * Divides segment tokens to parts based on SettingsController.maxCharactersPerPart,
+   * updates partNum for each token,
+   * updates allPartNums
+   */
+  defineAllPartNums () {
     const charMax = SettingsController.maxCharactersPerPart
     const parts = {}
-    const uploadParts = []
+    const allPartNums = []
     let partNum = 1
     this.tokens.forEach((token, tokenIndex) => {
       if (!parts[partNum]) {
         parts[partNum] = { sentences: [], tokens: [], tokensIdWord: [], len: 0 }
-        uploadParts.push(partNum)
+        allPartNums.push(partNum)
       }
 
       if (!parts[partNum].sentences.includes(token.sentenceIndex)) {
@@ -81,16 +95,24 @@ export default class Segment {
         }
       }
     })
-    this.uploadParts = uploadParts
-    return true
+    this.allPartNums = allPartNums
+    this.getCurrentPartNums()
   }
 
+  /**
+   * Retrieves tokens for the given partNum
+   * @param {Array|Number} partNum
+   * @returns {Array[Token]}
+   */
   partsTokens (partNum) {
     return this.tokens.filter(token => Array.isArray(partNum) ? partNum.includes(token.partNum) : token.partNum === partNum)
   }
 
+  /**
+   * @param {Number} partNum
+   * @returns {Boolean}
+   */
   partIsUploaded (partNum) {
-    // return this.tokens.some(token => token.partNum === partNum)
     return this.currentPartNums.includes(partNum)
   }
 
@@ -107,7 +129,8 @@ export default class Segment {
    * @param {Number} tokenIndex
    * @returns {Boolean}
    */
-  isFirstTokenInSegment (tokenIndex) {
+  isFirstTokenInSegment (token) {
+    const tokenIndex = this.getTokenIndex(token)
     return (tokenIndex === 0)
   }
 
@@ -115,7 +138,8 @@ export default class Segment {
    * @param {Number} tokenIndex
    * @returns {Boolean}
    */
-  isLastTokenInSegment (tokenIndex) {
+  isLastTokenInSegment (token) {
+    const tokenIndex = this.getTokenIndex(token)
     return (tokenIndex === (this.tokens.length - 1))
   }
 
@@ -148,7 +172,8 @@ export default class Segment {
     const newToken = new Token({
       textType: this.textType,
       idWord: newIdWord,
-      word: word
+      word: word,
+      partNum: 1
     }, this.index, this.docSourceId)
 
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
@@ -218,11 +243,11 @@ export default class Segment {
       direction: this.direction,
       docSourceId: this.docSourceId,
       tokens: this.tokens.map((token, tokenIndex) => token.convertToIndexedDB(tokenIndex)),
-      uploadParts: this.uploadParts ? this.uploadParts.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
+      partNums: this.allPartNums ? this.allPartNums.map(partNum => { return { partNum, segmentIndex: this.index } }) : []
     }
   }
 
-  static convertFromIndexedDB (data, dbTokens, dbUploadParts) {
+  static convertFromIndexedDB (data, dbTokens, dbAllPartNums) {
     const tokensDbDataFiltered = dbTokens.filter(tokenItem => (data.docSourceId === tokenItem.textId) && (data.index === tokenItem.segmentIndex))
 
     return new Segment({
@@ -232,12 +257,12 @@ export default class Segment {
       direction: data.direction,
       docSourceId: data.docSourceId,
       tokens: tokensDbDataFiltered.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex),
-      uploadParts: dbUploadParts.filter(uploadPart => (data.docSourceId === uploadPart.textId) && (data.index === uploadPart.segmentIndex)).map(uploadPart => parseInt(uploadPart.partNum)).sort((a, b) => a - b)
+      allPartNums: dbAllPartNums.filter(partNum => (data.docSourceId === partNum.textId) && (data.index === partNum.segmentIndex)).map(partNum => parseInt(partNum.partNum)).sort((a, b) => a - b)
     })
   }
 
   uploadSegmentTokensFromDB (dbData) {
-    const newTokens = dbData.map(token => Token.convertFromIndexedDB(token))// .sort((a, b) => a.tokenIndex - b.tokenIndex)
+    const newTokens = dbData.map(token => Token.convertFromIndexedDB(token))
     this.tokens.push(...newTokens)
     this.tokens.sort((a, b) => {
       if (a.partNum === b.partNum) {
