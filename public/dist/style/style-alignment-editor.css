@@ -1231,19 +1231,6 @@ button.alpheios-app-menu-link:-moz-focusring {
   display: block;
   fill: #c6c6c6;
 }
-.alpheios-editor__waiting {
-  text-align: center;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-}
-.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
 .alpheios-alignment-option-item {
   display: inline-block;
   width: 100%;
@@ -1340,6 +1327,23 @@ button.alpheios-app-menu-link:-moz-focusring {
   fill: #000;
 }
 .alpheios-alignment-editor-modal-summary .alpheios-modal-body {
+  border: 0;
+  padding: 10px 0;
+}
+.alpheios-editor__waiting {
+  text-align: center;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+.alpheios-editor__waiting .alpheios-editor__waiting-gif img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.alpheios-alignment-editor-modal-waiting .alpheios-modal-body {
   border: 0;
   padding: 10px 0;
 }

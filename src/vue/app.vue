@@ -33,6 +33,7 @@
 
       <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
       />
+      <waiting-popup :showModal="showWaitingModal" @closeModal = "showWaitingModal = false" />
   </div>
 </template>
 <script>
@@ -43,6 +44,8 @@ import Alignment from '@/lib/data/alignment'
 import InitialScreen from '@/vue/initial-screen.vue'
 import MainMenu from '@/vue/main-menu.vue'
 import SummaryPopup from '@/vue/summary-popup.vue'
+
+import WaitingPopup from '@/vue/common/waiting-popup.vue'
 
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
@@ -66,7 +69,9 @@ export default {
     optionsBlock: OptionsBlock,
     navbarIcon: NavbarIcon,
     initialScreen: InitialScreen,
-    summaryPopup: SummaryPopup
+    summaryPopup: SummaryPopup,
+    waitingPopup: WaitingPopup
+
   },
   data () {
     return {     
@@ -82,12 +87,16 @@ export default {
       updateCurrentPage: 'initial-screen',
 
       showSummaryModal: false,
-      showOnlyWaitingSummary: false
+      showOnlyWaitingSummary: false,
+
+      showWaitingModal: false
     }
   },
   watch: {
     async '$store.state.redefineUploadParts' () {
+      this.showWaitingModal = true
       await this.$textC.defineUploadPartsForTexts()
+      this.showWaitingModal = false
     }
   },
   computed: {
@@ -146,16 +155,20 @@ export default {
       this.$historyC.undo()
     },
 
-    showSummaryPopup () {
-      this.showOnlyWaitingSummary = !SettingsController.showSummaryPopup
-      this.showSummaryModal = true
+    async showSummaryPopup () {
+      if (!SettingsController.showSummaryPopup) {
+        await this.alignTexts()
+      } else {
+        this.showSummaryModal = true
+      }
     },
     /**
      * Starts align workflow
      */
     async alignTexts () {
+      this.showWaitingModal = true
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment)
-      this.showSummaryModal = false
+      this.showWaitingModal = false
       if (result) {
         this.$tokensEC.loadAlignment(this.$textC.alignment)
         this.showAlignmentGroupsEditor()

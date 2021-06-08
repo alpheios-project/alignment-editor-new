@@ -43,6 +43,12 @@ export default class Segment {
   checkAndUpdateTokens (tokens) {
     this.tokens = tokens.map(token => (token instanceof Token) ? token : new Token(token, this.index, this.docSourceId))
     this.lastTokenIdWord = this.tokens[this.tokens.length - 1] ? this.tokens[this.tokens.length - 1].idWord : null
+    this.getCurrentPartNums()
+  }
+
+  getCurrentPartNums () {
+    const partNumsSet = new Set(this.tokens.map(token => token.partNum))
+    this.currentPartNums = [...partNumsSet]
   }
 
   defineUploadParts () {
@@ -80,11 +86,12 @@ export default class Segment {
   }
 
   partsTokens (partNum) {
-    return this.tokens.filter(token => token.partNum === partNum)
+    return this.tokens.filter(token => Array.isArray(partNum) ? partNum.includes(token.partNum) : token.partNum === partNum)
   }
 
   partIsUploaded (partNum) {
-    return this.tokens.some(token => token.partNum === partNum)
+    // return this.tokens.some(token => token.partNum === partNum)
+    return this.currentPartNums.includes(partNum)
   }
 
   /**
@@ -147,6 +154,8 @@ export default class Segment {
     if (updateLastToken) { this.lastTokenIdWord = newIdWord }
 
     if (this.insertToken(newToken, tokenIndex + 1)) {
+      const tokenForDefinePart = (tokenIndex === -1) ? this.tokens[0] : this.tokens[tokenIndex]
+      newToken.update({ partNum: tokenForDefinePart.partNum })
       return newToken
     }
     return false
@@ -228,11 +237,23 @@ export default class Segment {
   }
 
   uploadSegmentTokensFromDB (dbData) {
-    this.tokens = dbData.map(token => Token.convertFromIndexedDB(token)).sort((a, b) => a.tokenIndex - b.tokenIndex)
+    const newTokens = dbData.map(token => Token.convertFromIndexedDB(token))// .sort((a, b) => a.tokenIndex - b.tokenIndex)
+    this.tokens.push(...newTokens)
+    this.tokens.sort((a, b) => {
+      if (a.partNum === b.partNum) {
+        return a.tokenIndex - b.tokenIndex
+      } else {
+        return a.partNum - b.partNum
+      }
+    })
+
+    this.getCurrentPartNums()
     return true
   }
 
   limitTokensToPartNum (partNum) {
     this.tokens = this.partsTokens(partNum)
+    this.getCurrentPartNums()
+    return true
   }
 }

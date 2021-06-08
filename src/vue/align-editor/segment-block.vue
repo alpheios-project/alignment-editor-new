@@ -20,8 +20,8 @@
           </p>
           -->
           <div class="alpheios-alignment-editor-align-text-segment-tokens" :id = "cssId" :style="cssStyleSeg" :dir = "direction" :lang = "lang" >
-            <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex > allPartsKeys[0]">
-              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadPartByNum(currentPartIndex-1)">prev</span>
+            <p class="alpheios-alignment-editor-align-text-single-link" v-if="showPrev">
+              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadPrevPart">prev</span>
             </p>
 
             <template v-for = "(token, tokenIndex) in allTokens">
@@ -39,8 +39,8 @@
               <br v-if="$store.state.tokenUpdated && token.hasLineBreak" />
             </template>
             
-            <p class="alpheios-alignment-editor-align-text-single-link" v-if="currentPartIndex < allPartsKeys[allPartsKeys.length-1]">
-              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadPartByNum(currentPartIndex+1)">next</span>  
+            <p class="alpheios-alignment-editor-align-text-single-link" v-if="showNext">
+              <span class="alpheios-alignment-editor-align-text-parts-link" @click="uploadNextPart">next</span>  
             </p>
           </div>
 
@@ -118,12 +118,12 @@ export default {
       showUpDown: false,
       minMaxHeight: 500,
       showModalMetadata: false,
-      currentPartIndex: 1
+      currentPartIndexes: [ 1 ]
     }
   },
   watch: {
     '$store.state.reuploadTextsParts' () {
-      this.currentPartIndex = 1
+      this.currentPartIndex = [ 1 ]
     }
   },
   computed: {
@@ -241,9 +241,17 @@ export default {
       let result
 
       if (this.segment.uploadParts) {
-        result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndex)
+        result = this.$textC.getSegmentPart(this.textType, this.segment.docSourceId, this.segment.index, this.currentPartIndexes)
       }
       return  this.$store.state.tokenUpdated && this.$store.state.uploadPartNum && this.$store.state.reuploadTextsParts ? result : []
+    },
+
+    showPrev () {
+      return Math.min(...this.currentPartIndexes) > this.allPartsKeys[0]
+    },
+
+    showNext () {
+      return Math.max(...this.currentPartIndexes) < this.allPartsKeys[this.allPartsKeys.length-1]
     }
   },
   methods: {
@@ -319,11 +327,24 @@ export default {
       return this.$alignedGC.isFirstInActiveGroup(token, this.currentTargetId)
     },
 
-    async uploadPartByNum (partIndex) {
-      if (this.currentPartIndex !== parseInt(partIndex)) {
-        await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, parseInt(partIndex))
-        this.currentPartIndex = parseInt(partIndex)
-      }
+    async uploadPrevPart () {
+      let partNums = []
+      partNums.push(this.currentPartIndexes[0]-1)
+      partNums.push(this.currentPartIndexes[0])
+      await this.uploadPartByNum(partNums)
+      this.currentPartIndexes = partNums
+    },
+    
+    async uploadNextPart () {
+      let partNums = []
+      partNums.push(this.currentPartIndexes[this.currentPartIndexes.length - 1])
+      partNums.push(this.currentPartIndexes[this.currentPartIndexes.length - 1]+1)
+      await this.uploadPartByNum(partNums)
+      this.currentPartIndexes = partNums
+    },
+
+    async uploadPartByNum (partNums) {
+      await this.$textC.checkAndUploadSegmentsFromDB(this.textType, this.textId, this.segmentIndex, partNums)
     }
   }
 

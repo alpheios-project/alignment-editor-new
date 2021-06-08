@@ -485,27 +485,31 @@ export default class TextsController {
 
     this.alignment.defineUploadPartsForTexts()
     await StorageController.update(this.alignment, true)
-    this.alignment.limitTokensToPartNum(1)
+    this.alignment.limitTokensToPartNumAllTexts(1)
 
     this.store.commit('incrementReuploadTextsParts')
   }
 
-  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNum) {
-    if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNum)) {
-      const selectParams = {
-        alignmentID: this.alignment.id,
-        textId,
-        segmentIndex,
-        partNum
+  async checkAndUploadSegmentsFromDB (textType, textId, segmentIndex, partNums) {
+    this.alignment.limitTokensToPartNumSegment(textType, textId, segmentIndex, partNums)
+
+    for (let i = 0; i < partNums.length; i++) {
+      if (!this.alignment.partIsUploaded(textType, textId, segmentIndex, partNums[i])) {
+        const selectParams = {
+          alignmentID: this.alignment.id,
+          textId,
+          segmentIndex,
+          partNum: partNums[i]
+        }
+        const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
+        this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
       }
-      const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
-      this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
-      this.store.commit('incrementUploadPartNum')
     }
+    this.store.commit('incrementUploadPartNum')
   }
 
-  getSegmentPart (textType, textId, segmentIndex, partNum) {
-    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNum)
+  getSegmentPart (textType, textId, segmentIndex, partNums) {
+    return this.alignment.getSegmentPart(textType, textId, segmentIndex, partNums)
   }
 
   getSegment (textType, textId, segmentIndex) {

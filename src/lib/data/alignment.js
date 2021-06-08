@@ -1254,7 +1254,7 @@ export default class Alignment {
     alignedText.uploadSegmentTokensFromDB(segmentIndex, dbData)
   }
 
-  limitTokensToPartNum (partNum) {
+  limitTokensToPartNumAllTexts (partNum) {
     if (this.origin.alignedText) {
       this.origin.alignedText.limitTokensToPartNum(partNum)
     }
@@ -1262,5 +1262,9 @@ export default class Alignment {
     this.allTargetTextsIds.forEach(targetId => {
       this.targets[targetId].alignedText.limitTokensToPartNum(partNum)
     })
+  }
+
+  limitTokensToPartNumSegment (textType, textId, segmentIndex, partNums) {
+    return this.getSegment(textType, textId, segmentIndex).limitTokensToPartNum(partNums)
   }
 }
