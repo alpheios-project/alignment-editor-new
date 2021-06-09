@@ -1267,4 +1267,8 @@ export default class Alignment {
   limitTokensToPartNumSegment (textType, textId, segmentIndex, partNums) {
     return this.getSegment(textType, textId, segmentIndex).limitTokensToPartNum(partNums)
   }
+
+  get hasAllPartsUploaded () {
+    return this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded)
+  }
 }

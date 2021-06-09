@@ -40322,12 +40322,16 @@ class TextsController {
   }
 
   async defineAllPartNumsForTexts () {
-    const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-    this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
-
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
+    }
     this.alignment.defineAllPartNumsForTexts()
     await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.update(this.alignment, true)
-    this.alignment.limitTokensToPartNumAllTexts(1)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
     this.store.commit('incrementReuploadTextsParts')
   }
 
@@ -42183,6 +42187,10 @@ class AlignedText {
     const segment = this.segments[segmentIndex - 1]
     segment.uploadSegmentTokensFromDB(dbData)
   }
+
+  get hasAllPartsUploaded () {
+    return this.segments.every(segment => segment.hasAllPartsUploaded)
+  }
 }
 
 
@@ -43742,6 +43750,10 @@ class Alignment {
   limitTokensToPartNumSegment (textType, textId, segmentIndex, partNums) {
     return this.getSegment(textType, textId, segmentIndex).limitTokensToPartNum(partNums)
   }
+
+  get hasAllPartsUploaded () {
+    return this.origin.alignedText.hasAllPartsUploaded && Object.values(this.targets).every(target => target.alignedText.hasAllPartsUploaded)
+  }
 }
 
 
@@ -44771,6 +44783,11 @@ class Segment {
     this.tokens = this.partsTokens(partNum)
     this.getCurrentPartNums()
     return true
+  }
+
+  get hasAllPartsUploaded () {
+    return this.allPartNums.length === this.currentPartNums.length &&
+           this.allPartNums.forEach(partNum => this.currentPartNums.includes(partNum))
   }
 }
 
@@ -46862,7 +46879,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210608653" : 0
+    return  true ? "i353-upload-by-part.20210609596" : 0
   }
 
   static get libName () {

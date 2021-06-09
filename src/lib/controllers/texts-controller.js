@@ -480,12 +480,17 @@ export default class TextsController {
   }
 
   async defineAllPartNumsForTexts () {
-    const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
-    this.alignment = await Alignment.convertFromIndexedDB(dbData)
+    const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
 
+    if (!allPartsAlreadyUploaded) {
+      const dbData = await StorageController.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
+      this.alignment = await Alignment.convertFromIndexedDB(dbData)
+    }
     this.alignment.defineAllPartNumsForTexts()
     await StorageController.update(this.alignment, true)
-    this.alignment.limitTokensToPartNumAllTexts(1)
+    if (!allPartsAlreadyUploaded) {
+      this.alignment.limitTokensToPartNumAllTexts(1)
+    }
     this.store.commit('incrementReuploadTextsParts')
   }
 

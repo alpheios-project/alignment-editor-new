@@ -95,6 +95,7 @@ export default class Segment {
         }
       }
     })
+    // console.info('defineAllPartNums parts', this.textType, this.index, charMax, Object.keys(parts))
     this.allPartNums = allPartNums
     this.getCurrentPartNums()
   }
@@ -225,6 +226,7 @@ export default class Segment {
    * @returns { Segment }
    */
   static convertFromJSON (data) {
+
     return new Segment({
       index: data.index,
       textType: data.textType,
@@ -280,5 +282,10 @@ export default class Segment {
     this.tokens = this.partsTokens(partNum)
     this.getCurrentPartNums()
     return true
+  }
+
+  get hasAllPartsUploaded () {
+    return this.allPartNums.length === this.currentPartNums.length &&
+           this.allPartNums.every(partNum => this.currentPartNums.includes(partNum))
   }
 }

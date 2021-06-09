@@ -58,14 +58,18 @@ export default class AlignedText {
     const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new Segment({
-        index: segment.index,
-        tokens: segment.tokens,
-        textType: docSource.textType,
-        lang: docSource.lang,
-        direction: docSource.direction,
-        docSourceId: docSource.id
-      }))
+      
+      this.segments = result.segments.map(segment => {
+        return new Segment({
+          index: segment.index,
+          tokens: segment.tokens,
+          textType: docSource.textType,
+          lang: docSource.lang,
+          direction: docSource.direction,
+          docSourceId: docSource.id
+        })
+      }
+      )
       return true
     }
     return false
@@ -180,5 +184,9 @@ export default class AlignedText {
   uploadSegmentTokensFromDB (segmentIndex, dbData) {
     const segment = this.segments[segmentIndex - 1]
     segment.uploadSegmentTokensFromDB(dbData)
+  }
+
+  get hasAllPartsUploaded () {
+    return this.segments.every(segment => segment.hasAllPartsUploaded)
   }
 }
