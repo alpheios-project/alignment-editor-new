@@ -145,16 +145,4 @@ describe('tokenize-options-block.test.js', () => {
     expect(optionItems.length).toEqual(1 + Object.keys(localTextEditorOptions.text.items).length + Object.keys(localTextEditorOptions.tei.items).length)
   })
 
-  it('3 TokenizeOptionsBlock - updateData emits updateText event', () => {
-    let cmp = shallowMount(TokenizeOptionsBlock, {
-        store: appC.store,
-        localVue,
-        propsData: {
-          localOptions: localTextEditorOptions
-        }
-      })
-
-    cmp.vm.updateData()
-    expect(cmp.emitted()['updateText']).toBeTruthy()
-  })
 })
