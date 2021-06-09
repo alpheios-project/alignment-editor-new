@@ -13,5 +13,20 @@
       "message": "About Alpheios",
       "description": "Title of the build info block",
       "component": "OptionsBlock"
+    },
+    "OPTIONS_TITLE_TEXT_ENTER": {
+      "message": "Options for Text Enter",
+      "description": "Title of the options popup",
+      "component": "OptionsTextEnter"
+    },
+    "OPTIONS_TITLE_TEXT_ALIGN": {
+      "message": "Options for Text Align",
+      "description": "Title of the options popup",
+      "component": "OptionsTextEdit"
+    },
+    "OPTIONS_TITLE_TEXT_EDIT": {
+      "message": "Options for Text Edit",
+      "description": "Title of the options popup",
+      "component": "OptionsTextEdit"
     }
 }

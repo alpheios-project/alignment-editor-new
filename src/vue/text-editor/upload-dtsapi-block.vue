@@ -19,16 +19,25 @@
                @click = "showDescriptionDetails = !showDescriptionDetails">
                {{ descriptionTitle }} 
             </p>
-            <ul v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details" v-html="descriptionDetails">
-            
-            </ul>
+            <div v-show = "showDescriptionDetails" class = "alpheios-editor-content-description__details" v-html="descriptionDetails"></div>
+          </div>
+          
+          <dts-api-pagination v-if="pagination" v-show="!showWaiting"
+            :first = "pagination.first"  :previous = "pagination.previous"
+            :last = "pagination.last"    :next = "pagination.next"
+            :current = "pagination.current"
+            @getPage = "getPage"
+          />
+
+          <div v-if="showEntireDocument" class="alpheios-editor-content-link" v-show="!showWaiting">
+            <span class="alpheios-editor-content-link__text" @click = "getEntireDocument">{{ l10n.getMsgS("UPLOAD_DTSAPI_ENTIRE_DOCUMENT") }}</span>
           </div>
           <ul class="alpheios-editor-content-list" :class = "cssClasses" v-show="!showWaiting">
             <li class="alpheios-editor-content-link"
               v-for = "(linkData, linkIndex) in content" :key = "linkIndex"
             >
-              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)">{{ linkData.title }}</span>
-              <span v-if="linkData.type === 'resource'" class="alpheios-editor-content-link__text" @click = "getNavigation(linkData)">{{ linkData.title }}</span>
+              <span v-if="linkData.type === 'collection'" class="alpheios-editor-content-link__text" @click = "getCollection(linkData)" v-html="linkData.title"></span>
+              <span v-if="linkData.type === 'resource'" class="alpheios-editor-content-link__text" @click = "getNavigation(linkData)" v-html="linkData.title"></span>
               
               <span v-if="linkData.type === 'document'" class="alpheios-editor-content-link__checkbox">
                 <input type="checkbox" :id="contentRefId(linkIndex)" :value="linkIndex" v-model="checkedRefs">
@@ -49,6 +58,7 @@ import L10nSingleton from '@/lib/l10n/l10n-singleton.js'
 import UploadController from '@/lib/controllers/upload-controller.js'
 
 import UploadDTSAPI from '@/lib/upload/upload-dts-api.js'
+import DtsApiPagination from '@/vue/text-editor/dts-api-pagination.vue'
 import Modal from '@/vue/common/modal.vue'
 import Waiting from '@/vue/common/waiting.vue'
 
@@ -57,11 +67,12 @@ export default {
   name: 'UploadDTSAPIBlock',
   components: {
     modal: Modal,
-    waiting: Waiting
+    waiting: Waiting,
+    dtsApiPagination: DtsApiPagination
   },
   props: {
     showModal: {
-    type: Boolean,
+      type: Boolean,
       required: false,
       default: false
     }
@@ -70,6 +81,7 @@ export default {
     return {
       homeLinks: [],
       content: [],
+      pagination: null,
       contentUpdated: 1,
       showWaiting: false,
       breadcrumbs: [],
@@ -113,7 +125,10 @@ export default {
       return this.breadcrumbs.length > 1
     },
     showDescription () {
-      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') && this.content.length > 1 
+      return !this.showWaiting && this.contentAvailable && (this.content.length > 0) && (this.content[0].type === 'document') 
+    },
+    showEntireDocument () {
+      return this.content && (this.content.length > 0) && (this.content[0].type === 'document')
     }
   },
   methods: {
@@ -126,7 +141,7 @@ export default {
      */
     crumbClass (crumb) {
       return {
-        'alpheios-editor-content-breadcrumbs__link': Boolean(crumb.content) && crumb.content.length > 0
+        'alpheios-editor-content-breadcrumbs__link': (Boolean(crumb.content) && crumb.content.length > 0) || (Boolean(crumb.content && crumb.content.links) && crumb.content.links.length > 0)
       }
     },
 
@@ -173,9 +188,13 @@ export default {
      */
     updateContent (content = null, showWaiting = false) {
       if (content) {
+        const finalContent = content.links ? content.links : content
         this.content.splice(0, this.content.length)
-        this.content.push(...content)
+        this.content.push(...finalContent)
+
+        this.pagination = content.pagination ?  Object.assign({}, this.pagination, content.pagination) : null
       }
+
       this.showWaiting = showWaiting
       this.contentUpdated++
     },
@@ -188,8 +207,15 @@ export default {
      *        {String} title - title for the link
      */
     updateBreadcrumbs(linkData) {
-      this.breadcrumbs[this.breadcrumbs.length - 1].content = [ ...this.content ]
-      this.breadcrumbs.push({ title: linkData.title })
+      if (linkData.title) {
+        let contentData = {
+          links: this.content,
+          pagination: this.pagination
+        }
+
+        this.breadcrumbs[this.breadcrumbs.length - 1].content = contentData
+        this.breadcrumbs.push({ title: linkData.title, page: linkData.page })
+      }
     },
 
     /**
@@ -203,7 +229,6 @@ export default {
     async getCollection (linkData) {     
       this.updateBreadcrumbs(linkData)
       this.clearContent()
-
       const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'collection'})
       this.updateContent(content)
     },
@@ -256,9 +281,35 @@ export default {
       }
     },
 
+    async getEntireDocument () {
+      const linkData = this.content[0]
+      this.showWaiting = true
+
+      const result = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'document'})
+
+      this.showWaiting = false
+      if (result) {
+        this.$emit('uploadFromDTSAPI', result)
+        this.$emit('closeModal')
+        return true
+      }
+    },
+
     closeModal () {
       this.checkedRefs.splice(0, this.checkedRefs.length)
       this.$emit('closeModal')
+    },
+
+    async getPage (pageNum) {
+      const linkData = {
+        id: this.pagination.id,
+        baseUrl: this.pagination.baseUrl,
+        page: pageNum
+      }
+      this.updateBreadcrumbs(linkData)
+      this.clearContent()
+      const content = await UploadController.upload('dtsAPIUpload', {linkData, objType: 'collection'})
+      this.updateContent(content)
     }
   }
 }
@@ -306,7 +357,7 @@ export default {
 }
 
 .alpheios-editor-content-breadcrumbs {
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   padding: 0;
 
   li {

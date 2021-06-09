@@ -1,5 +1,5 @@
 <template>
-  <div class="alpheios-alignment-notification-bar" id="alpheios-notification-bar">
+  <div class="alpheios-alignment-notification-bar" id="alpheios-notification-bar" v-if="messages && messages.length > 0">
       <div v-for="(message, mesIndex) in messages" :key="mesIndex"
            class="alpheios-alignment-notification-bar-message" :class="notificationClass(message)">
            {{ message.text }}
@@ -44,6 +44,7 @@ export default {
 <style lang="scss">
     .alpheios-alignment-notification-bar {
         padding: 15px 15px 0;
+        margin-left: 30px;
 
         .alpheios-alignment-notification-bar-message {
             padding: 10px 30px 10px 10px;
@@ -68,8 +69,8 @@ export default {
             }
 
             &.alpheios-alignment-notification-bar-message___system_error {
-                background:rgba(198, 6, 35, 0.31);
-                color: #c60623;
+                background:rgba(198, 6, 35, 0.6);
+                color: #fff;
                 border-color: #c60623;
 
                 .alpheios-alignment-notification-bar__close-btn {
@@ -90,8 +91,8 @@ export default {
             }
 
             &.alpheios-alignment-notification-bar-message___error {
-                background:rgba(198, 73, 6, 0.31);
-                color: #C64906;
+                background:rgba(198, 73, 6, 0.6);
+                color: #fff;
                 border-color: #C64906;
 
                 .alpheios-alignment-notification-bar__close-btn {

@@ -86,7 +86,7 @@ describe('segment-block.test.js', () => {
       return activeAlignmentGroup
     }
   })
-/*
+
   it('1 SegmentBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
@@ -124,7 +124,7 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.direction).toEqual(originSegment.direction)
     expect(cmp.vm.lang).toEqual(originSegment.lang)
   })
-*/
+
   it('5 SegmentBlock - cssId - defines unique id for HTML layout', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
@@ -152,13 +152,15 @@ describe('segment-block.test.js', () => {
       }
     })
 
-    expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 1; background: ${cmp.vm.originColor};`))
+    expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 1;`))
+    expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.originColor};`))
     cmp.setProps({
       segment: targetSegment // index 2, targetId[0]
     })
 
     await Vue.nextTick()
-    expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 2; background: ${cmp.vm.colors[1]};`)) // color for the second target
+    expect(cmp.vm.cssStyle).toEqual(expect.stringContaining(`order: 2;`)) // color for the second target
+    expect(cmp.vm.cssStyleSeg).toEqual(expect.stringContaining(`background: ${cmp.vm.colors[1]};`)) // color for the second target
   })
 
   it('7 SegmentBlock - cssClass - contains class alpheios-align-text-segment-${segment.textType} and contains alpheios-align-text-segment-${segment.textType}-last if it is the last', async () => {

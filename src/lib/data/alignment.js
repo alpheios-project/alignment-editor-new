@@ -10,20 +10,15 @@ import HistoryStep from '@/lib/data/history/history-step.js'
 import TokensEditHistory from '@/lib/data/history/tokens-edit-history.js'
 
 import TokensEditActions from '@/lib/data/actions/tokens-edit-actions.js'
+import DetectTextController from '@/lib/controllers/detect-text-controller.js'
 
 export default class Alignment {
   /**
-   * We could create an empty alignment
-   * @param {SourceText | null} originDocSource
-   * @param {SourceText | null} targetDocSource
    */
-  constructor (originDocSource, targetDocSource) {
+  constructor () {
     this.id = uuidv4()
     this.origin = {}
     this.targets = {}
-
-    this.updateOriginDocSource(originDocSource)
-    this.updateTargetDocSource(targetDocSource)
 
     this.alignmentGroups = []
     this.activeAlignmentGroup = null
@@ -77,6 +72,24 @@ export default class Alignment {
     return Boolean(this.origin.docSource)
   }
 
+  createNewDocSource (textType, docSource, targetId = null, skipTextCheck = false) {
+    if (skipTextCheck || (docSource.text && docSource.text.length > 0)) {
+      return new SourceText(textType, docSource, targetId)
+    }
+    return false
+  }
+
+  async updateLangDocSource (textType, targetId) {
+    const docSource = this.getDocSource(textType, targetId)
+
+    if (docSource && docSource.readyForLangDetection) {
+      const langData = await DetectTextController.detectTextProperties(docSource)
+      docSource.updateDetectedLang(langData)
+      return true
+    }
+    return false
+  }
+
   /**
    * Updates/adds origin docSource
    * @param {SourceText | Object} docSource
@@ -88,16 +101,15 @@ export default class Alignment {
     }
 
     if (!this.originDocSourceDefined) {
-      if (docSource instanceof SourceText) {
-        this.origin.docSource = docSource
-      } else {
-        this.origin.docSource = new SourceText('origin', docSource)
-      }
+      const docResult = this.createNewDocSource('origin', docSource)
+      if (!docResult) { return false }
+      this.origin.docSource = docResult
     } else {
       this.origin.docSource.update(docSource)
-      if (this.origin.alignedText) {
-        this.origin.alignedText.updateLanguage(docSource.lang)
-      }
+    }
+
+    if (this.origin.alignedText) {
+      this.origin.alignedText.updateLanguage(docSource.lang)
     }
     return true
   }
@@ -109,6 +121,8 @@ export default class Alignment {
    * @returns {Boolean}
    */
   updateTargetDocSource (docSource, targetId = null) {
+    if (!docSource) { return false }
+
     if (!this.origin.docSource) {
       if (docSource) {
         console.error(L10nSingleton.getMsgS('ALIGNMENT_ERROR_ADD_TARGET_SOURCE'))
@@ -120,20 +134,19 @@ export default class Alignment {
       return false
     }
 
-    if (!targetId || (docSource && !this.targets[docSource.id])) {
-      if (!(docSource instanceof SourceText)) {
-        docSource = new SourceText('target', docSource, targetId)
-      }
-      this.targets[docSource.id] = {
-        docSource
-      }
+    if ((docSource && !this.targets[docSource.id]) || !docSource.id) {
+      docSource = this.createNewDocSource('target', docSource, targetId)
+      if (!docSource) { return false }
+
+      this.targets[docSource.id] = { docSource: docSource }
     } else {
       this.targets[docSource.id].docSource.update(docSource)
-      if (this.targets[docSource.id].alignedText) {
-        this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
-      }
     }
-    return true
+
+    if (this.targets[docSource.id].alignedText) {
+      this.targets[docSource.id].alignedText.updateLanguage(docSource.lang)
+    }
+    return docSource.id
   }
 
   /**
@@ -142,9 +155,23 @@ export default class Alignment {
    * @param {String} id - docSourceId
    */
   deleteText (textType, id) {
-    if ((textType === 'target') && (this.allTargetTextsIds.length > 1)) {
+    if ((textType === 'origin') || ((textType === 'target') && this.allTargetTextsIds.length === 1)) {
+      const docSource = this.getDocSource(textType, id)
+      if (docSource) { docSource.clear() }
+    } else {
       delete this.targets[id]
     }
+  }
+
+  addNewTarget () {
+    const docSource = this.createNewDocSource('target', {}, null, true)
+    this.targets[docSource.id] = { docSource }
+    return docSource.id
+  }
+
+  getDocSource (textType, id) {
+    if (textType === 'origin') { return this.originDocSource }
+    return this.targetDocSource(id)
   }
 
   /**
@@ -156,6 +183,24 @@ export default class Alignment {
 
   get originDocSourceHasText () {
     return this.originDocSource && Boolean(this.originDocSource.text)
+  }
+
+  get originalLangData () {
+    return {
+      langData: this.originDocSource.langData,
+      tokenized: Boolean(this.origin.alignedText),
+      isTei: this.originDocSource.isTei
+    }
+  }
+
+  get targetsLangData () {
+    return Object.keys(this.targets).map(targetId => {
+      return {
+        langData: this.targets[targetId].docSource.langData,
+        tokenized: Boolean(this.targets[targetId].alignedText),
+        isTei: this.targets[targetId].docSource.isTei
+      }
+    }).reverse()
   }
 
   /**
@@ -278,6 +323,10 @@ export default class Alignment {
     return Object.keys(this.targets)
   }
 
+  get allTargetTextsIdsNumbered () {
+    return Object.keys(this.targets).map((targetId, targetIndex) => { return { targetId, targetIndex } }).reverse()
+  }
+
   /**
    * All segments from aligned origin and target texts
    * @returns {Array[Object]}
@@ -289,11 +338,12 @@ export default class Alignment {
   get allAlignedTextsSegments () {
     let allSegments = [] // eslint-disable-line prefer-const
 
-    this.origin.alignedText.segments.forEach(segment => {
+    this.origin.alignedText.segments.forEach((segment, segInd) => {
       allSegments.push({
         index: segment.index,
         origin: segment,
-        targets: {}
+        targets: {},
+        isFirst: (segInd === 0)
       })
     })
 
@@ -974,8 +1024,8 @@ export default class Alignment {
     return {
       origin,
       targets,
-      alignmentGroups,
-      activeAlignmentGroup: null
+      alignmentGroups/*,
+      activeAlignmentGroup: null */
     }
   }
 

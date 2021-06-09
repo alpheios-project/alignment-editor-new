@@ -5,6 +5,10 @@ export default class Metadata {
     this.properties = {}
   }
 
+  get isEmpty () {
+    return Object.values(MetadataTerm.property).every(property => !this.hasProperty(property))
+  }
+
   isSupportedProperty (property) {
     return Object.values(MetadataTerm.property).includes(property)
   }

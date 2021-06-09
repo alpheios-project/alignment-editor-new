@@ -6,78 +6,35 @@
       </span>
       <div class="alpheios-alignment-app-menu__buttons">
         <div class="alpheios-alignment-app-menu__buttons-blocks">
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-options" 
-                  @click="showOptions" >
-                  Options
-          </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-source-editor" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-source-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'text-editor-page' }"
                   @click="showSourceTextEditor" >
-                  Source Text Editor
+                  {{ l10n.getMsgS('MAIN_MENU_TEXT_ENTER_LINK') }}
           </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-alignment-groups-editor" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-alignment-groups-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'align-editor-page' }"
                   @click="showAlignmentGroupsEditor" :disabled="!alignEditAvailable">
-                  Alignment Groups Editor
+                  {{ l10n.getMsgS('MAIN_MENU_TEXT_ALIGN_LINK') }}
           </button>
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" 
+          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-tokens-editor" :class="{ 'alpheios-app-menu-link-current': currentPage === 'tokens-editor-page' }"
                   @click="showTokensEditor" :disabled="!alignEditAvailable">
-                  Tokens Editor
+                  {{ l10n.getMsgS('MAIN_MENU_TEXT_EDIT_LINK') }}
           </button>
         </div>
         <div class="alpheios-alignment-app-menu__buttons-actions">
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-add-target" 
-                  @click="addTarget" :disabled="!addTargetAvailable" >
-                  {{ l10n.getMsgS('MAIN_MENU_ADD_TARGET_TITLE') }}
-          </button>
-
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-download" 
-                  @click="downloadTexts" :disabled="!downloadAvailable" >
-                  {{ l10n.getMsgS('MAIN_MENU_DOWNLOAD_TITLE') }}
-          </button>
-
-          <div class="alpheios-alignment-app-menu__download-block" id="alpheios-main-menu-download-block" v-show="showDownloadBlock &&  downloadAvailable" >
-            <p class="alpheios-main-menu-download-block-radio-block">
-              <span v-for="dType in downloadTypes" :key="dType.name" class="alpheios-main-menu-download-block-radio-block_item" >
-                  <input type="radio" :id="downloadTypeId(dType.name)" :value="dType.name" v-model="currentDownloadType" >
-                  <tooltip :tooltipText = "dType.tooltip" tooltipDirection = "top-left">
-                    <label :for="downloadTypeId(dType.name)">{{ dType.label }}</label>
-                  </tooltip>
-              </span>
-            </p>
-            <span class="alpheios-main-menu-download-block_item alpheios-token-edit-actions-button">
-                <download-icon @click="downloadData"/>
-            </span>
-          </div>
 
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-upload" 
-                  @click="uploadTexts"  :disabled="!docSourceEditAvailable" >
+                  @click="uploadTexts"  >
                   {{ l10n.getMsgS('MAIN_MENU_UPLOAD_TITLE') }}
           </button>
 
-          <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock &&  docSourceEditAvailable" >
+          <div class="alpheios-alignment-app-menu__upload-block" id="alpheios-main-menu-upload-block" v-show="showUploadBlock" >
             <span class="alpheios-main-menu-upload-block_item">
-              <input type="file" id = "alpheiosfileupload" ref="alpheiosfileupload" class="alpheios-fileupload" @change="changeFileUpload">
-              <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">Choose a file</label>
+              <input type="file" id = "alpheiosfileupload" ref="alpheiosfileupload" class="alpheios-fileupload" @change="loadTextFromFile">
+              <label for="alpheiosfileupload" class="alpheios-fileupload-label alpheios-editor-button-tertiary alpheios-actions-menu-button">
+                {{ l10n.getMsgS('MAIN_MENU_CHOOSE_FILE') }}                
+              </label>
             </span>
-            <span class="alpheios-main-menu-upload-block_item alpheios-token-edit-actions-button">
-              <upload-icon @click="loadTextFromFile"/>
-            </span>
-            <p class="alpheios-fileupload-filename" v-if="uploadFileName">{{ uploadFileName }}</p>
           </div>
-
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-align" 
-                  @click="alignTexts" :disabled="!alignAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_ALIGN_TITLE') }}
-          </button>
           
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-undo" 
-                  @click="undoAction" :disabled="!undoAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_UNDO_TITLE') }}
-          </button>
-
-          <button class="alpheios-app-menu-link" id ="alpheios-main-menu-redo" 
-                  @click="redoAction" :disabled="!redoAvailable">
-                  {{ l10n.getMsgS('MAIN_MENU_REDO_TITLE') }}
-          </button>
           <button class="alpheios-app-menu-link" id ="alpheios-main-menu-clear-all" 
                   @click="clearAll">
                   {{ l10n.getMsgS('MAIN_MENU_CLEAR_TEXT') }}
@@ -109,6 +66,11 @@ export default {
     menuShow: {
       type: Number,
       required: true
+    },
+    updateCurrentPage: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data () {
@@ -117,7 +79,8 @@ export default {
       showUploadBlock: false,
       showDownloadBlock: false,
       currentDownloadType: null,
-      uploadFileName: null
+      uploadFileName: null,
+      currentPage: 'initial-page'
     }
   },
   mounted () {  
@@ -126,6 +89,9 @@ export default {
   watch: {
     menuShow () {
       this.menuShown = true
+    },
+    updateCurrentPage (value) {
+      this.currentPage = value
     }
   },
   computed: {
@@ -133,7 +99,7 @@ export default {
       return L10nSingleton
     },
     alignAvailable () {
-      return this.$store.state.alignmentUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
     },
     undoAvailable () {
       return this.alignEditAvailable && this.$historyC.undoAvailable
@@ -142,16 +108,16 @@ export default {
       return this.alignEditAvailable && this.$historyC.redoAvailable
     },
     downloadAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.originDocSourceHasText
+      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.originDocSourceHasText
     },
     docSourceEditAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && !this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && !this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     alignEditAvailable () {
-      return this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
+      return this.$store.state.docSourceUpdated && this.$store.state.alignmentUpdated && this.$alignedGC.alignmentGroupsWorkflowStarted
     },
     addTargetAvailable () {
-      return Boolean(this.$store.state.alignmentUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
+      return Boolean(this.$store.state.docSourceUpdated) && this.$textC.allTargetTextsIds && (this.$textC.allTargetTextsIds.length > 0)
     },
     downloadTypes () {
       return Boolean(this.$store.state.alignmentUpdated) && 
@@ -188,6 +154,7 @@ export default {
       reader.onload = e => {
         this.$emit("upload-data", e.target.result, extension)
         this.showUploadBlock = false
+        this.$refs.alpheiosfileupload.value = ''
         this.closeMenu()
       }
       reader.readAsText(file)
@@ -202,6 +169,7 @@ export default {
       this.showUploadBlock = false
       this.showDownloadBlock = false
       this.$emit('clear-all')
+      this.currentPage = 'initial-page'
       this.closeMenu()
     },
     
@@ -213,7 +181,7 @@ export default {
       this.$emit('add-target')
       this.closeMenu()
     },
-
+    
     alignTexts () {
       this.$emit('align-texts')
       this.closeMenu()
@@ -244,21 +212,25 @@ export default {
 
     showOptions () {
       this.$emit('showOptions')
+      this.currentPage = 'options-page'
       this.closeMenu()
     },
 
     showSourceTextEditor () {
       this.$emit('showSourceTextEditor')
+      this.currentPage = 'text-editor-page'
       this.closeMenu()
     },
 
     showAlignmentGroupsEditor () {
       this.$emit('showAlignmentGroupsEditor')
+      this.currentPage = 'align-editor-page'
       this.closeMenu()
     },
 
     showTokensEditor () {
       this.$emit('showTokensEditor')
+      this.currentPage = 'tokens-editor-page'
       this.closeMenu()
     }
   }
@@ -269,7 +241,7 @@ export default {
       height: 100%; 
       width: 250px; 
       position: fixed; 
-      z-index: 100;
+      z-index: 10000;
       top: 0; 
       left: -250px;
       background-color: #e0e0e0; 
@@ -308,8 +280,7 @@ export default {
     white-space: nowrap;
   }
 
-  .alpheios-alignment-app-menu__upload-block,
-  .alpheios-alignment-app-menu__download-block {
+  .alpheios-alignment-app-menu__upload-block {
     text-align: left;
 
     padding: 10px 0;
@@ -317,33 +288,12 @@ export default {
     border-bottom: 2px solid #ddd;
   }
 
-  .alpheios-main-menu-download-block-radio-block {
-    display: inline-block;
-    width: 70%;
-    vertical-align: middle;
-
-    .alpheios-main-menu-download-block-radio-block_item {
-      display: block;
-      white-space: nowrap;
-    }
-  }
-
-  .alpheios-main-menu-download-block_item {
-    display: inline-block;
-    width: 25%;
-    vertical-align: middle;
-    text-align: right;
-    overflow: hidden;
-  }
-
-  .alpheios-main-menu-download-block-radio-block_item,
   .alpheios-main-menu-upload-block-radio-block_item,
   .alpheios-main-menu-upload-block_item {
     padding-right: 20px; 
   }
 
-  .alpheios-main-menu-upload-block_item,
-  .alpheios-main-menu-download-block_item {
+  .alpheios-main-menu-upload-block_item {
     &.alpheios-token-edit-actions-button {
       width: 30px;
       height: 30px;
@@ -364,6 +314,11 @@ export default {
     background: transparent;
     border: 0;
     outline: 0;
+
+    &.alpheios-app-menu-link-current {
+      font-weight: bold;
+      text-shadow: 1px 1px #eee;
+    }
   }
 
   button.alpheios-app-menu-link::-moz-focus-inner {

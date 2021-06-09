@@ -8,6 +8,7 @@ import EnUsTokensEditEditor from '@/locales/en-us/messages-tokens-edit-editor.js
 import EnUsMainMenu from '@/locales/en-us/messages-main-menu.json'
 import EnUsOptionsBlock from '@/locales/en-us/messages-options-block.json'
 import EnUsMetadataTerm from '@/locales/en-us/messages-metadata-terms.json'
+import EnUsInitialScreen from '@/locales/en-us/messages-initial-screen.json'
 
 import EnGb from '@/locales/en-gb/messages.json'
 
@@ -16,7 +17,7 @@ import MessageBundle from '@/lib/l10n/message-bundle'
 const localeEnUs = 'en-US'
 const localeEnGb = 'en-GB'
 const availableMessages = {
-  [localeEnUs]: [EnUsCommon, EnUsControllers, EnUsTextEditor, EnUsMainMenu, EnUsAlignedGroupsEditor, EnUsTokensEditEditor, EnUsLanguages, EnUsOptionsBlock, EnUsMetadataTerm],
+  [localeEnUs]: [EnUsCommon, EnUsControllers, EnUsTextEditor, EnUsMainMenu, EnUsAlignedGroupsEditor, EnUsTokensEditEditor, EnUsLanguages, EnUsOptionsBlock, EnUsMetadataTerm, EnUsInitialScreen],
   [localeEnGb]: [EnGb]
 }
 

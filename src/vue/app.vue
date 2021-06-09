@@ -6,7 +6,7 @@
       <main-menu 
         @download-data = "downloadData"
         @upload-data = "uploadData"
-        @align-texts = "alignTexts"
+        @align-texts = "showSummaryPopup"
         @redo-action = "redoAction"
         @undo-action = "undoAction"
         @add-target = "addTarget"
@@ -18,14 +18,19 @@
         @showTokensEditor = "showTokensEditor"
 
         :menuShow = "menuShow"
+        :updateCurrentPage = "updateCurrentPage"
       />
       <notification-bar />
+      <initial-screen v-show="showInitialScreenBlock" @upload-data = "uploadData" @new-alignment="showSourceTextEditor"/>
       <options-block v-show="shownOptionsBlock" />
-      <text-editor v-show="showSourceTextEditorBlock"
+      <text-editor v-show="showSourceTextEditorBlock" @add-translation="addTarget" @align-text="showSummaryPopup" @showAlignmentGroupsEditor = "showAlignmentGroupsEditor" @showTokensEditor = "showTokensEditor"
       />
-      <align-editor v-show="showAlignmentGroupsEditorBlock"
+      <align-editor v-show="showAlignmentGroupsEditorBlock" @showSourceTextEditor = "showSourceTextEditor" @showTokensEditor = "showTokensEditor"
       />
-      <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor"
+      <tokens-editor v-show="showTokensEditorBlock" :renderEditor = "renderTokensEditor" @showSourceTextEditor = "showSourceTextEditor"  @showAlignmentGroupsEditor = "showAlignmentGroupsEditor"
+      />
+
+      <summary-popup :showModal="showSummaryModal" :showOnlyWaiting = "showOnlyWaitingSummary" @closeModal = "showSummaryModal = false" @start-align = "alignTexts"
       />
   </div>
 </template>
@@ -34,7 +39,10 @@ import NotificationSingleton from '@/lib/notifications/notification-singleton'
 
 import Alignment from '@/lib/data/alignment'
 
+import InitialScreen from '@/vue/initial-screen.vue'
 import MainMenu from '@/vue/main-menu.vue'
+import SummaryPopup from '@/vue/summary-popup.vue'
+
 import NotificationBar from '@/vue/notification-bar.vue'
 import TextEditor from '@/vue/text-editor/text-editor.vue'
 import AlignEditor from '@/vue/align-editor/align-editor.vue'
@@ -53,20 +61,31 @@ export default {
     tokensEditor: TokensEditor,
     notificationBar: NotificationBar,
     optionsBlock: OptionsBlock,
-    navbarIcon: NavbarIcon
+    navbarIcon: NavbarIcon,
+    initialScreen: InitialScreen,
+    summaryPopup: SummaryPopup
   },
   data () {
     return {     
+      showInitialScreenBlock: true,
       shownOptionsBlock: false,
-      showSourceTextEditorBlock: true,
+      showSourceTextEditorBlock: false,
       showAlignmentGroupsEditorBlock: false,
       showTokensEditorBlock: false,
 
+      pageClasses: [ 'initial-page', 'options-page', 'text-editor-page', 'align-editor-page', 'tokens-editor-page' ],
       menuShow: 1,
-      renderTokensEditor: 1
+      renderTokensEditor: 1,
+      updateCurrentPage: 'initial-screen',
+
+      showSummaryModal: false,
+      showOnlyWaitingSummary: false
     }
   },
   computed: {
+  },
+  mounted () {
+    this.showInitialScreen()
   },
   methods: {
     /**
@@ -86,11 +105,15 @@ export default {
     * Starts upload workflow
     */
     uploadData (fileData, extension) {
-      const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
+      if (fileData) {
+        const alignment = this.$textC.uploadData(fileData, this.$settingsC.tokenizerOptionValue, extension)
 
-      if (alignment instanceof Alignment) {
-        this.startOver(alignment)
-      }
+        if (alignment instanceof Alignment) {
+          return this.startOver(alignment)
+        }
+      } 
+      
+      this.showSourceTextEditor()
     },
     /**
      * Starts redo action
@@ -104,11 +127,17 @@ export default {
     undoAction () {
       this.$historyC.undo()
     },
+
+    showSummaryPopup () {
+      this.showOnlyWaitingSummary = !this.$settingsC.showSummaryPopup
+      this.showSummaryModal = true
+    },
     /**
      * Starts align workflow
      */
     async alignTexts () {
       const result = await this.$alignedGC.createAlignedTexts(this.$textC.alignment, this.$settingsC.useSpecificEnglishTokenizer)
+      this.showSummaryModal = false
       if (result) {
         this.showAlignmentGroupsEditor()
       }
@@ -117,7 +146,7 @@ export default {
      * Add aditional block for defining another target text
      */
     addTarget () {
-      this.$textC.updateTargetDocSource()
+      this.$textC.addNewTarget()
       this.showSourceTextEditor()
     },
     /**
@@ -128,6 +157,10 @@ export default {
       this.showSourceTextEditorBlock = false
       this.showAlignmentGroupsEditorBlock = false
       this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('options-page')
+      this.updateCurrentPage = 'options-page'
     },
 
     showSourceTextEditor () {
@@ -135,6 +168,10 @@ export default {
       this.showSourceTextEditorBlock = true
       this.showAlignmentGroupsEditorBlock = false
       this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('text-editor-page')
+      this.updateCurrentPage = 'text-editor-page'
     },
 
     showAlignmentGroupsEditor () {
@@ -142,6 +179,10 @@ export default {
       this.showSourceTextEditorBlock = false
       this.showAlignmentGroupsEditorBlock = true
       this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('align-editor-page')
+      this.updateCurrentPage = 'align-editor-page'
     },
 
     showTokensEditor () {
@@ -149,10 +190,32 @@ export default {
       this.showSourceTextEditorBlock = false
       this.showAlignmentGroupsEditorBlock = false
       this.showTokensEditorBlock = true
+      this.showInitialScreenBlock = false
+
+      this.setPageClassToBody('tokens-editor-page')
+      this.updateCurrentPage = 'tokens-editor-page'
 
       this.renderTokensEditor++
     },
 
+    showInitialScreen () {
+      this.shownOptionsBlock = false
+      this.showSourceTextEditorBlock = false
+      this.showAlignmentGroupsEditorBlock = false
+      this.showTokensEditorBlock = false
+      this.showInitialScreenBlock = true
+
+      this.setPageClassToBody('initial-page')
+      this.updateCurrentPage = 'initial-page'
+    },
+
+    setPageClassToBody (currentPageClass) {
+      this.pageClasses.forEach(pageClass => {
+        document.body.classList.remove(`alpheios-${pageClass}`)
+      })
+
+      document.body.classList.add(`alpheios-${currentPageClass}`)
+    },
     /**
      * Clear and start alignment over
      */
@@ -179,7 +242,7 @@ export default {
       } else {
         this.$textC.store.commit('incrementAlignmentRestarted')
       }
-      this.$textC.store.commit('incrementAlignmentUpdated')
+      this.$textC.store.commit('incrementDocSourceUpdated')
 
       if ((alignment instanceof Alignment) && alignment.hasOriginAlignedTexts) {
         this.showAlignmentGroupsEditor()

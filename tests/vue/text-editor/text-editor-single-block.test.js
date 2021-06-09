@@ -14,6 +14,8 @@ import TokenizeOptionsBlock from '@/vue/text-editor/tokenize-options-block.vue'
 import DirectionOptionsBlock from '@/vue/text-editor/direction-options-block.vue'
 import LanguageOptionsBlock from '@/vue/text-editor/language-options-block.vue'
 
+import SourceText from '@/lib/data/source-text'
+
 import Vuex from "vuex"
 
 const localVue = createLocalVue()
@@ -47,6 +49,28 @@ describe('text-editor-single-block.test.js', () => {
 
     appC.textC.createAlignment()
     appC.historyC.startTracking(appC.textC.alignment)
+
+    const originDocSource = new SourceText('origin', {
+      text: 'some origin text\u2028for origin test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
+    })
+
+    const targetDocSource1 = new SourceText('target', {
+      text: 'some target1 text\u2028for target1 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
+    })
+
+    const targetDocSource2 = new SourceText('target', {
+      text: 'some target2 text\u2028for target2 test', direction: 'ltr', lang: 'lat', sourceType: 'text', tokenization: {
+        tokenizer: 'simpleLocalTokenizer'
+      }
+    })
+
+    appC.textC.alignment.updateOriginDocSource(originDocSource)
+    appC.textC.alignment.updateTargetDocSource(targetDocSource1)
+    appC.textC.alignment.updateTargetDocSource(targetDocSource2)
 
     appC.settingsC.options.app.items.tokenizer.currentValue = 'simpleLocalTokenizer'
   })
@@ -104,9 +128,6 @@ describe('text-editor-single-block.test.js', () => {
         }
       })
 
-    expect(cmp.vm.localTextEditorOptions).toEqual({ ready: false })
-    await cmp.vm.prepareDefaultTextEditorOptions()
-
     expect(cmp.vm.localTextEditorOptions).toEqual({ ready: true, sourceText: expect.any(Options)})
 
     // at the start these options equal to default values
@@ -114,7 +135,6 @@ describe('text-editor-single-block.test.js', () => {
     expect(cmp.vm.language).toEqual('eng')
     expect(cmp.vm.sourceType).toEqual('text')
   })
-
   
   it('5 TextEditorSingleBlock - textTypeFormatted, textBlockTitle uses textType', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
@@ -125,8 +145,8 @@ describe('text-editor-single-block.test.js', () => {
           textId: 'targetIdTest'
         }
       })
-    expect(cmp.vm.textTypeFormatted).toEqual('Target')
-    expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Target'))
+    expect(cmp.vm.textTypeFormatted).toEqual('Translation')
+    expect(cmp.vm.textBlockTitle).toEqual(expect.stringContaining('Translation'))
   })
 
   it('6 TextEditorSingleBlock - if we have multiple target texts then showIndex, showDeleteIcon = true, indexData is equal to target order', () => {
@@ -151,18 +171,7 @@ describe('text-editor-single-block.test.js', () => {
       lang: 'lat'
     })
 
-    // we have only one target
-    expect(cmp.vm.showIndex).toBeFalsy() 
-    expect(cmp.vm.showDeleteIcon).toBeFalsy() 
-    expect(cmp.vm.indexData).toEqual('') 
-
-    cmp.vm.$textC.updateTargetDocSource({
-      text: 'join if you choose, and the various to bring the feathers,',
-      lang: 'lat'
-    })
-
-    // we have only two targets
-
+    // we have two targets
     expect(cmp.vm.showIndex).toBeTruthy() 
     expect(cmp.vm.showDeleteIcon).toBeTruthy() 
     expect(cmp.vm.indexData).toEqual('1. ') 
@@ -179,7 +188,7 @@ describe('text-editor-single-block.test.js', () => {
       }
     })
 
-    cmp.vm.text = 'some origin text'
+    cmp.vm.text = 'some'
 
     await cmp.vm.prepareDefaultTextEditorOptions()
     expect(cmp.vm.direction).toEqual('ltr')
@@ -190,10 +199,10 @@ describe('text-editor-single-block.test.js', () => {
     jest.spyOn(cmp.vm.$textC, 'updateTargetDocSource')
 
 
-    cmp.vm.updateText()
+    await cmp.vm.updateText()
 
     expect(cmp.vm.$textC.updateOriginDocSource).toHaveBeenCalledWith({
-      text: 'some origin text',
+      text: 'some',
       direction: 'ltr',
       lang: 'eng',
       sourceType: 'text',
@@ -217,13 +226,8 @@ describe('text-editor-single-block.test.js', () => {
 
     await cmp.vm.prepareDefaultTextEditorOptions()
 
-    expect(cmp.vm.text).toBeNull()
-    expect(cmp.vm.direction).toEqual('ltr')
-    expect(cmp.vm.language).toEqual('eng')
-    expect(cmp.vm.sourceType).toEqual('text')
-
-    cmp.vm.$textC.updateOriginDocSource({
-      text: 'Humano capiti cervicem pictor equinam',
+    await cmp.vm.$textC.updateOriginDocSource({
+      text: 'Huma',
       direction: 'rtl',
       lang: 'grc'
     })
@@ -231,24 +235,46 @@ describe('text-editor-single-block.test.js', () => {
 
     await Vue.nextTick()
 
-    expect(cmp.vm.text).toEqual('Humano capiti cervicem pictor equinam')
+    expect(cmp.vm.text).toEqual('Huma')
     expect(cmp.vm.direction).toEqual('rtl')
     expect(cmp.vm.language).toEqual('grc')
     expect(cmp.vm.sourceType).toEqual('text')
 
   })
 
-  it('9 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target', () => {
+  it('9 TextEditorSingleBlock - deleteText uses $textC.deleteText to remove target for translations text more than the first', () => {
     let cmp = shallowMount(TextEditorSingleBlock,{
       store: appC.store,
       localVue,
       propsData: {
         textType: 'target',
-        textId: 'targetIdTest1'
+        textId: 'targetIdTest1',
+        index: 1
       }
     })
 
     jest.spyOn(cmp.vm.$textC, 'deleteText')
+    cmp.vm.text = 'some'
+
+    cmp.vm.deleteText()
+
+    expect(cmp.vm.$textC.deleteText).toHaveBeenCalledWith('target', 'targetIdTest1')
+  })
+
+
+  it('10 TextEditorSingleBlock - deleteText clears text for first target', () => {
+    let cmp = shallowMount(TextEditorSingleBlock,{
+      store: appC.store,
+      localVue,
+      propsData: {
+        textType: 'target',
+        textId: 'targetIdTest1',
+        index: 0
+      }
+    })
+
+    jest.spyOn(cmp.vm.$textC, 'deleteText')
+    cmp.vm.text = 'some'
 
     cmp.vm.deleteText()
 

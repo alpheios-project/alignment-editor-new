@@ -126,11 +126,11 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.$textC).toEqual(expect.any(TextsController))
-    cmp.vm.$textC.updateTargetDocSource = jest.fn()
+    cmp.vm.$textC.addNewTarget = jest.fn()
     jest.spyOn(cmp.vm, 'showSourceTextEditor')
     
     cmp.vm.addTarget()
-    expect(cmp.vm.$textC.updateTargetDocSource).toHaveBeenCalled()
+    expect(cmp.vm.$textC.addNewTarget).toHaveBeenCalled()
     expect(cmp.vm.showSourceTextEditor).toHaveBeenCalled()
   })
 
@@ -138,12 +138,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -197,12 +197,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 
@@ -225,12 +225,12 @@ describe('app.test.js', () => {
     let cmp = shallowMount(App)
 
     expect(cmp.vm.shownOptionsBlock).toBeFalsy()
-    expect(cmp.vm.showSourceTextEditorBlock).toBeTruthy()
+    expect(cmp.vm.showSourceTextEditorBlock).toBeFalsy()
     expect(cmp.vm.showAlignmentGroupsEditorBlock).toBeFalsy()
     expect(cmp.vm.showTokensEditorBlock).toBeFalsy()
 
     expect(cmp.findComponent(OptionsBlock).isVisible()).toBeFalsy()
-    expect(cmp.findComponent(TextEditor).isVisible()).toBeTruthy()
+    expect(cmp.findComponent(TextEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(AlignEditor).isVisible()).toBeFalsy()
     expect(cmp.findComponent(TokensEditor).isVisible()).toBeFalsy()
 

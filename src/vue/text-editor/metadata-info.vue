@@ -28,12 +28,11 @@ export default {
 }
 </script>
 <style lang="scss">
-    .alpheios-alignment-editor-metadata__info-title {
+    p.alpheios-alignment-editor-metadata__info-title {
         cursor: pointer;
         color: #90a959;
         text-decoration: underline;
-        // background: #90a959;
-        // border-color: #6a9fb5;
+        margin: 0;
     }
 
     .alpheios-alignment-editor-metadata__info-details {
