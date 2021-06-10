@@ -1626,7 +1626,7 @@ p.alpheios-alignment-editor-tokenize-options__details-toggle {
 .alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-text-blocks-single__icons.alpheios-alignment-editor-text-blocks-single__metadata_icon_has_data svg {
   stroke: #2a9900;
 }
-.alpheios-alignment-editor-text-blocks-single p.alpheios-alignment-editor-red {
+.alpheios-alignment-editor-text-blocks-single span.alpheios-alignment-editor-red {
   color: #99002a;
 }
 .alpheios-alignment-editor-text-blocks-single .alpheios-alignment-editor-text-blocks-single__lang-icon {

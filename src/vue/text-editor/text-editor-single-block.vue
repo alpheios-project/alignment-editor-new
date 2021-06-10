@@ -277,7 +277,7 @@ export default {
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
     },
     textCharactersAmount () {
@@ -308,7 +308,7 @@ export default {
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.maxCharactersForTheText)
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
@@ -362,7 +362,6 @@ export default {
     },
 
     async updateTextFromTextBlock () {
-      console.info('updateTextFromTextBlock - started', this.text)
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       if (!docSource && (this.text.length === 0)) { return }
 
@@ -386,7 +385,6 @@ export default {
      * Emits update-text event with data from properties
      */
     async updateText () {
-      console.info('updateText - started', this.text)
       if (this.text) {
         const params = {
           text: this.text,
@@ -422,7 +420,6 @@ export default {
     },
 
     async deleteText () {
-      console.info('deleteText - started', this.text)
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
@@ -558,7 +555,7 @@ export default {
           }
         }
 
-        p.alpheios-alignment-editor-red {
+        span.alpheios-alignment-editor-red {
           color: #99002a;
         }
 

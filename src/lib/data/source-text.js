@@ -153,7 +153,7 @@ export default class SourceText {
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.text && (this.text.length <= maxCharactersPerTextValue)
+    return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
 
   /**

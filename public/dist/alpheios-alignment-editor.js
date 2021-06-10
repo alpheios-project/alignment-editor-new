@@ -421,16 +421,114 @@
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/error.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/error.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/fast-memoize/lib/index.js":
+/*!***********************************************************!*\
+  !*** ../node_modules/@formatjs/fast-memoize/lib/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ memoize),
+/* harmony export */   "strategies": () => (/* binding */ strategies)
+/* harmony export */ });
+//
+// Main
+//
+function memoize(fn, options) {
+    var cache = options && options.cache ? options.cache : cacheDefault;
+    var serializer = options && options.serializer ? options.serializer : serializerDefault;
+    var strategy = options && options.strategy ? options.strategy : strategyDefault;
+    return strategy(fn, {
+        cache: cache,
+        serializer: serializer,
+    });
+}
+//
+// Strategy
+//
+function isPrimitive(value) {
+    return (value == null || typeof value === 'number' || typeof value === 'boolean'); // || typeof value === "string" 'unsafe' primitive for our needs
+}
+function monadic(fn, cache, serializer, arg) {
+    var cacheKey = isPrimitive(arg) ? arg : serializer(arg);
+    var computedValue = cache.get(cacheKey);
+    if (typeof computedValue === 'undefined') {
+        computedValue = fn.call(this, arg);
+        cache.set(cacheKey, computedValue);
+    }
+    return computedValue;
+}
+function variadic(fn, cache, serializer) {
+    var args = Array.prototype.slice.call(arguments, 3);
+    var cacheKey = serializer(args);
+    var computedValue = cache.get(cacheKey);
+    if (typeof computedValue === 'undefined') {
+        computedValue = fn.apply(this, args);
+        cache.set(cacheKey, computedValue);
+    }
+    return computedValue;
+}
+function assemble(fn, context, strategy, cache, serialize) {
+    return strategy.bind(context, fn, cache, serialize);
+}
+function strategyDefault(fn, options) {
+    var strategy = fn.length === 1 ? monadic : variadic;
+    return assemble(fn, this, strategy, options.cache.create(), options.serializer);
+}
+function strategyVariadic(fn, options) {
+    return assemble(fn, this, variadic, options.cache.create(), options.serializer);
+}
+function strategyMonadic(fn, options) {
+    return assemble(fn, this, monadic, options.cache.create(), options.serializer);
+}
+//
+// Serializer
+//
+var serializerDefault = function () {
+    return JSON.stringify(arguments);
+};
+//
+// Cache
+//
+function ObjectWithoutPrototypeCache() {
+    this.cache = Object.create(null);
+}
+ObjectWithoutPrototypeCache.prototype.has = function (key) {
+    return key in this.cache;
+};
+ObjectWithoutPrototypeCache.prototype.get = function (key) {
+    return this.cache[key];
+};
+ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
+    this.cache[key] = value;
+};
+var cacheDefault = {
+    create: function create() {
+        // @ts-ignore
+        return new ObjectWithoutPrototypeCache();
+    },
+};
+var strategies = {
+    variadic: strategyVariadic,
+    monadic: strategyMonadic,
+};
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ErrorKind = void 0;
+
+/***/ }),
+
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/error.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/error.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ErrorKind": () => (/* binding */ ErrorKind)
+/* harmony export */ });
 var ErrorKind;
 (function (ErrorKind) {
     /** Argument is unclosed (e.g. `{0`) */
@@ -493,52 +591,72 @@ var ErrorKind;
     ErrorKind[ErrorKind["UNMATCHED_CLOSING_TAG"] = 26] = "UNMATCHED_CLOSING_TAG";
     /** The opening tag has unmatched closing tag. (e.g. `<bold>foo`) */
     ErrorKind[ErrorKind["UNCLOSED_TAG"] = 27] = "UNCLOSED_TAG";
-})(ErrorKind = exports.ErrorKind || (exports.ErrorKind = {}));
+})(ErrorKind || (ErrorKind = {}));
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/index.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/index.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/index.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/index.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parse": () => (/* binding */ parse),
+/* harmony export */   "SKELETON_TYPE": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.SKELETON_TYPE),
+/* harmony export */   "TYPE": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.TYPE),
+/* harmony export */   "createLiteralElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.createNumberElement),
+/* harmony export */   "isArgumentElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isArgumentElement),
+/* harmony export */   "isDateElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isDateElement),
+/* harmony export */   "isDateTimeSkeleton": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isDateTimeSkeleton),
+/* harmony export */   "isLiteralElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isLiteralElement),
+/* harmony export */   "isNumberElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isNumberElement),
+/* harmony export */   "isNumberSkeleton": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isNumberSkeleton),
+/* harmony export */   "isPluralElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isPoundElement),
+/* harmony export */   "isSelectElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isSelectElement),
+/* harmony export */   "isTagElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isTagElement),
+/* harmony export */   "isTimeElement": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_2__.isTimeElement)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/lib/error.js");
+/* harmony import */ var _parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parser */ "../node_modules/@formatjs/icu-messageformat-parser/lib/parser.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/lib/types.js");
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parse = void 0;
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var error_1 = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/error.js");
-var parser_1 = __webpack_require__(/*! ./parser */ "../node_modules/@formatjs/icu-messageformat-parser/parser.js");
-var types_1 = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js");
+
+
+
 function pruneLocation(els) {
     els.forEach(function (el) {
         delete el.location;
-        if (types_1.isSelectElement(el) || types_1.isPluralElement(el)) {
+        if ((0,_types__WEBPACK_IMPORTED_MODULE_2__.isSelectElement)(el) || (0,_types__WEBPACK_IMPORTED_MODULE_2__.isPluralElement)(el)) {
             for (var k in el.options) {
                 delete el.options[k].location;
                 pruneLocation(el.options[k].value);
             }
         }
-        else if (types_1.isNumberElement(el) && types_1.isNumberSkeleton(el.style)) {
+        else if ((0,_types__WEBPACK_IMPORTED_MODULE_2__.isNumberElement)(el) && (0,_types__WEBPACK_IMPORTED_MODULE_2__.isNumberSkeleton)(el.style)) {
             delete el.style.location;
         }
-        else if ((types_1.isDateElement(el) || types_1.isTimeElement(el)) &&
-            types_1.isDateTimeSkeleton(el.style)) {
+        else if (((0,_types__WEBPACK_IMPORTED_MODULE_2__.isDateElement)(el) || (0,_types__WEBPACK_IMPORTED_MODULE_2__.isTimeElement)(el)) &&
+            (0,_types__WEBPACK_IMPORTED_MODULE_2__.isDateTimeSkeleton)(el.style)) {
             delete el.style.location;
         }
-        else if (types_1.isTagElement(el)) {
+        else if ((0,_types__WEBPACK_IMPORTED_MODULE_2__.isTagElement)(el)) {
             pruneLocation(el.children);
         }
     });
 }
 function parse(message, opts) {
     if (opts === void 0) { opts = {}; }
-    opts = tslib_1.__assign({ shouldParseSkeletons: true }, opts);
-    var result = new parser_1.Parser(message, opts).parse();
+    opts = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({ shouldParseSkeletons: true, requiresOtherClause: true }, opts);
+    var result = new _parser__WEBPACK_IMPORTED_MODULE_1__.Parser(message, opts).parse();
     if (result.err) {
-        var error = SyntaxError(error_1.ErrorKind[result.err.kind]);
+        var error = SyntaxError(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind[result.err.kind]);
         // @ts-expect-error Assign to error object
         error.location = result.err.location;
         // @ts-expect-error Assign to error object
@@ -550,27 +668,35 @@ function parse(message, opts) {
     }
     return result.val;
 }
-exports.parse = parse;
-tslib_1.__exportStar(__webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js"), exports);
+
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/parser.js":
-/*!********************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/parser.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/parser.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/parser.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Parser": () => (/* binding */ Parser)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/lib/error.js");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/lib/types.js");
+/* harmony import */ var _regex_generated__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-messageformat-parser/lib/regex.generated.js");
+/* harmony import */ var _formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @formatjs/icu-skeleton-parser */ "../node_modules/@formatjs/icu-skeleton-parser/lib/index.js");
+var _a;
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Parser = void 0;
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var error_1 = __webpack_require__(/*! ./error */ "../node_modules/@formatjs/icu-messageformat-parser/error.js");
-var types_1 = __webpack_require__(/*! ./types */ "../node_modules/@formatjs/icu-messageformat-parser/types.js");
-var regex_generated_1 = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js");
-var icu_skeleton_parser_1 = __webpack_require__(/*! @formatjs/icu-skeleton-parser */ "../node_modules/@formatjs/icu-skeleton-parser/index.js");
+
+
+
+
+var SPACE_SEPARATOR_START_REGEX = new RegExp("^" + _regex_generated__WEBPACK_IMPORTED_MODULE_2__.SPACE_SEPARATOR_REGEX.source + "*");
+var SPACE_SEPARATOR_END_REGEX = new RegExp(_regex_generated__WEBPACK_IMPORTED_MODULE_2__.SPACE_SEPARATOR_REGEX.source + "*$");
 function createLocation(start, end) {
     return { start: start, end: end };
 }
@@ -594,7 +720,14 @@ var isSafeInteger = hasNativeIsSafeInteger
 // IE11 does not support y and u.
 var REGEX_SUPPORTS_U_AND_Y = true;
 try {
-    RE('([^\\p{White_Space}\\p{Pattern_Syntax}]*)', 'yu');
+    var re = RE('([^\\p{White_Space}\\p{Pattern_Syntax}]*)', 'yu');
+    /**
+     * legacy Edge or Xbox One browser
+     * Unicode flag support: supported
+     * Pattern_Syntax support: not supported
+     * See https://github.com/formatjs/formatjs/issues/2822
+     */
+    REGEX_SUPPORTS_U_AND_Y = ((_a = re.exec('a')) === null || _a === void 0 ? void 0 : _a[0]) === 'a';
 }
 catch (_) {
     REGEX_SUPPORTS_U_AND_Y = false;
@@ -672,7 +805,7 @@ var trimStart = hasTrimStart
         }
     : // Ponyfill
         function trimStart(s) {
-            return s.replace(regex_generated_1.SPACE_SEPARATOR_START_REGEX, '');
+            return s.replace(SPACE_SEPARATOR_START_REGEX, '');
         };
 var trimEnd = hasTrimEnd
     ? // Native
@@ -681,7 +814,7 @@ var trimEnd = hasTrimEnd
         }
     : // Ponyfill
         function trimEnd(s) {
-            return s.replace(regex_generated_1.SPACE_SEPARATOR_END_REGEX, '');
+            return s.replace(SPACE_SEPARATOR_END_REGEX, '');
         };
 // Prevent minifier to translate new RegExp to literal form that might cause syntax error on IE11.
 function RE(s, flag) {
@@ -748,7 +881,7 @@ var Parser = /** @class */ (function () {
                 var position = this.clonePosition();
                 this.bump();
                 elements.push({
-                    type: types_1.TYPE.pound,
+                    type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.pound,
                     location: createLocation(position, this.clonePosition()),
                 });
             }
@@ -760,7 +893,7 @@ var Parser = /** @class */ (function () {
                     break;
                 }
                 else {
-                    return this.error(error_1.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(this.clonePosition(), this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(this.clonePosition(), this.clonePosition()));
                 }
             }
             else if (char === 60 /* `<` */ &&
@@ -809,7 +942,7 @@ var Parser = /** @class */ (function () {
             // Self closing tag
             return {
                 val: {
-                    type: types_1.TYPE.literal,
+                    type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.literal,
                     value: "<" + tagName + "/>",
                     location: createLocation(startPosition, this.clonePosition()),
                 },
@@ -826,20 +959,20 @@ var Parser = /** @class */ (function () {
             var endTagStartPosition = this.clonePosition();
             if (this.bumpIf('</')) {
                 if (this.isEOF() || !_isAlpha(this.char())) {
-                    return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
                 }
                 var closingTagNameStartPosition = this.clonePosition();
                 var closingTagName = this.parseTagName();
                 if (tagName !== closingTagName) {
-                    return this.error(error_1.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(closingTagNameStartPosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNMATCHED_CLOSING_TAG, createLocation(closingTagNameStartPosition, this.clonePosition()));
                 }
                 this.bumpSpace();
                 if (!this.bumpIf('>')) {
-                    return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_TAG, createLocation(endTagStartPosition, this.clonePosition()));
                 }
                 return {
                     val: {
-                        type: types_1.TYPE.tag,
+                        type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.tag,
                         value: tagName,
                         children: children,
                         location: createLocation(startPosition, this.clonePosition()),
@@ -848,11 +981,11 @@ var Parser = /** @class */ (function () {
                 };
             }
             else {
-                return this.error(error_1.ErrorKind.UNCLOSED_TAG, createLocation(startPosition, this.clonePosition()));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNCLOSED_TAG, createLocation(startPosition, this.clonePosition()));
             }
         }
         else {
-            return this.error(error_1.ErrorKind.INVALID_TAG, createLocation(startPosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_TAG, createLocation(startPosition, this.clonePosition()));
         }
     };
     /**
@@ -889,7 +1022,7 @@ var Parser = /** @class */ (function () {
         }
         var location = createLocation(start, this.clonePosition());
         return {
-            val: { type: types_1.TYPE.literal, value: value, location: location },
+            val: { type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.literal, value: value, location: location },
             err: null,
         };
     };
@@ -982,20 +1115,20 @@ var Parser = /** @class */ (function () {
         this.bump(); // `{`
         this.bumpSpace();
         if (this.isEOF()) {
-            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
         }
         if (this.char() === 125 /* `}` */) {
             this.bump();
-            return this.error(error_1.ErrorKind.EMPTY_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EMPTY_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
         }
         // argument name
         var value = this.parseIdentifierIfPossible().value;
         if (!value) {
-            return this.error(error_1.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
         }
         this.bumpSpace();
         if (this.isEOF()) {
-            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
         }
         switch (this.char()) {
             // Simple argument: `{name}`
@@ -1003,7 +1136,7 @@ var Parser = /** @class */ (function () {
                 this.bump(); // `}`
                 return {
                     val: {
-                        type: types_1.TYPE.argument,
+                        type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.argument,
                         // value does not include the opening and closing braces.
                         value: value,
                         location: createLocation(openingBracePosition, this.clonePosition()),
@@ -1016,12 +1149,12 @@ var Parser = /** @class */ (function () {
                 this.bump(); // `,`
                 this.bumpSpace();
                 if (this.isEOF()) {
-                    return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
                 }
                 return this.parseArgumentOptions(nestingLevel, expectingCloseTag, value, openingBracePosition);
             }
             default:
-                return this.error(error_1.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.MALFORMED_ARGUMENT, createLocation(openingBracePosition, this.clonePosition()));
         }
     };
     /**
@@ -1049,7 +1182,7 @@ var Parser = /** @class */ (function () {
         switch (argType) {
             case '':
                 // Expecting a style string number, date, time, plural, selectordinal, or select.
-                return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
             case 'number':
             case 'date':
             case 'time': {
@@ -1067,7 +1200,7 @@ var Parser = /** @class */ (function () {
                     }
                     var style = trimEnd(result.val);
                     if (style.length === 0) {
-                        return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_STYLE, createLocation(this.clonePosition(), this.clonePosition()));
+                        return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_STYLE, createLocation(this.clonePosition(), this.clonePosition()));
                     }
                     var styleLocation = createLocation(styleStartPosition, this.clonePosition());
                     styleAndLocation = { style: style, styleLocation: styleLocation };
@@ -1087,23 +1220,23 @@ var Parser = /** @class */ (function () {
                             return result;
                         }
                         return {
-                            val: { type: types_1.TYPE.number, value: value, location: location_1, style: result.val },
+                            val: { type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.number, value: value, location: location_1, style: result.val },
                             err: null,
                         };
                     }
                     else {
                         if (skeleton.length === 0) {
-                            return this.error(error_1.ErrorKind.EXPECT_DATE_TIME_SKELETON, location_1);
+                            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_DATE_TIME_SKELETON, location_1);
                         }
                         var style = {
-                            type: types_1.SKELETON_TYPE.dateTime,
+                            type: _types__WEBPACK_IMPORTED_MODULE_1__.SKELETON_TYPE.dateTime,
                             pattern: skeleton,
                             location: styleAndLocation.styleLocation,
                             parsedOptions: this.shouldParseSkeletons
-                                ? icu_skeleton_parser_1.parseDateTimeSkeleton(skeleton)
+                                ? (0,_formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__.parseDateTimeSkeleton)(skeleton)
                                 : {},
                         };
-                        var type = argType === 'date' ? types_1.TYPE.date : types_1.TYPE.time;
+                        var type = argType === 'date' ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.date : _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.time;
                         return {
                             val: { type: type, value: value, location: location_1, style: style },
                             err: null,
@@ -1114,10 +1247,10 @@ var Parser = /** @class */ (function () {
                 return {
                     val: {
                         type: argType === 'number'
-                            ? types_1.TYPE.number
+                            ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.number
                             : argType === 'date'
-                                ? types_1.TYPE.date
-                                : types_1.TYPE.time,
+                                ? _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.date
+                                : _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.time,
                         value: value,
                         location: location_1,
                         style: (_a = styleAndLocation === null || styleAndLocation === void 0 ? void 0 : styleAndLocation.style) !== null && _a !== void 0 ? _a : null,
@@ -1134,7 +1267,7 @@ var Parser = /** @class */ (function () {
                 var typeEndPosition_1 = this.clonePosition();
                 this.bumpSpace();
                 if (!this.bumpIf(',')) {
-                    return this.error(error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_OPTIONS, createLocation(typeEndPosition_1, tslib_1.__assign({}, typeEndPosition_1)));
+                    return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_SELECT_ARGUMENT_OPTIONS, createLocation(typeEndPosition_1, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, typeEndPosition_1)));
                 }
                 this.bumpSpace();
                 // Parse offset:
@@ -1149,10 +1282,10 @@ var Parser = /** @class */ (function () {
                 var pluralOffset = 0;
                 if (argType !== 'select' && identifierAndLocation.value === 'offset') {
                     if (!this.bumpIf(':')) {
-                        return this.error(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, createLocation(this.clonePosition(), this.clonePosition()));
+                        return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, createLocation(this.clonePosition(), this.clonePosition()));
                     }
                     this.bumpSpace();
-                    var result = this.tryParseDecimalInteger(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, error_1.ErrorKind.INVALID_PLURAL_ARGUMENT_OFFSET_VALUE);
+                    var result = this.tryParseDecimalInteger(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_OFFSET_VALUE, _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_PLURAL_ARGUMENT_OFFSET_VALUE);
                     if (result.err) {
                         return result;
                     }
@@ -1173,7 +1306,7 @@ var Parser = /** @class */ (function () {
                 if (argType === 'select') {
                     return {
                         val: {
-                            type: types_1.TYPE.select,
+                            type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.select,
                             value: value,
                             options: fromEntries(optionsResult.val),
                             location: location_2,
@@ -1184,7 +1317,7 @@ var Parser = /** @class */ (function () {
                 else {
                     return {
                         val: {
-                            type: types_1.TYPE.plural,
+                            type: _types__WEBPACK_IMPORTED_MODULE_1__.TYPE.plural,
                             value: value,
                             options: fromEntries(optionsResult.val),
                             offset: pluralOffset,
@@ -1196,14 +1329,14 @@ var Parser = /** @class */ (function () {
                 }
             }
             default:
-                return this.error(error_1.ErrorKind.INVALID_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
+                return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_ARGUMENT_TYPE, createLocation(typeStartPosition, typeEndPosition));
         }
     };
     Parser.prototype.tryParseArgumentClose = function (openingBracePosition) {
         // Parse: {value, number, ::currency/GBP }
         //
         if (this.isEOF() || this.char() !== 125 /* `}` */) {
-            return this.error(error_1.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_ARGUMENT_CLOSING_BRACE, createLocation(openingBracePosition, this.clonePosition()));
         }
         this.bump(); // `}`
         return { val: true, err: null };
@@ -1223,7 +1356,7 @@ var Parser = /** @class */ (function () {
                     this.bump();
                     var apostrophePosition = this.clonePosition();
                     if (!this.bumpUntil("'")) {
-                        return this.error(error_1.ErrorKind.UNCLOSED_QUOTE_IN_ARGUMENT_STYLE, createLocation(apostrophePosition, this.clonePosition()));
+                        return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.UNCLOSED_QUOTE_IN_ARGUMENT_STYLE, createLocation(apostrophePosition, this.clonePosition()));
                     }
                     this.bump();
                     break;
@@ -1258,18 +1391,18 @@ var Parser = /** @class */ (function () {
     Parser.prototype.parseNumberSkeletonFromString = function (skeleton, location) {
         var tokens = [];
         try {
-            tokens = icu_skeleton_parser_1.parseNumberSkeletonFromString(skeleton);
+            tokens = (0,_formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__.parseNumberSkeletonFromString)(skeleton);
         }
         catch (e) {
-            return this.error(error_1.ErrorKind.INVALID_NUMBER_SKELETON, location);
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_NUMBER_SKELETON, location);
         }
         return {
             val: {
-                type: types_1.SKELETON_TYPE.number,
+                type: _types__WEBPACK_IMPORTED_MODULE_1__.SKELETON_TYPE.number,
                 tokens: tokens,
                 location: location,
                 parsedOptions: this.shouldParseSkeletons
-                    ? icu_skeleton_parser_1.parseNumberSkeleton(tokens)
+                    ? (0,_formatjs_icu_skeleton_parser__WEBPACK_IMPORTED_MODULE_3__.parseNumberSkeleton)(tokens)
                     : {},
             },
             err: null,
@@ -1299,7 +1432,7 @@ var Parser = /** @class */ (function () {
                 var startPosition = this.clonePosition();
                 if (parentArgType !== 'select' && this.bumpIf('=')) {
                     // Try parse `={number}` selector
-                    var result = this.tryParseDecimalInteger(error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, error_1.ErrorKind.INVALID_PLURAL_ARGUMENT_SELECTOR);
+                    var result = this.tryParseDecimalInteger(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.INVALID_PLURAL_ARGUMENT_SELECTOR);
                     if (result.err) {
                         return result;
                     }
@@ -1313,8 +1446,8 @@ var Parser = /** @class */ (function () {
             // Duplicate selector clauses
             if (parsedSelectors.has(selector)) {
                 return this.error(parentArgType === 'select'
-                    ? error_1.ErrorKind.DUPLICATE_SELECT_ARGUMENT_SELECTOR
-                    : error_1.ErrorKind.DUPLICATE_PLURAL_ARGUMENT_SELECTOR, selectorLocation);
+                    ? _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.DUPLICATE_SELECT_ARGUMENT_SELECTOR
+                    : _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.DUPLICATE_PLURAL_ARGUMENT_SELECTOR, selectorLocation);
             }
             if (selector === 'other') {
                 hasOtherClause = true;
@@ -1326,8 +1459,8 @@ var Parser = /** @class */ (function () {
             var openingBracePosition = this.clonePosition();
             if (!this.bumpIf('{')) {
                 return this.error(parentArgType === 'select'
-                    ? error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT
-                    : error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT, createLocation(this.clonePosition(), this.clonePosition()));
+                    ? _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR_FRAGMENT
+                    : _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR_FRAGMENT, createLocation(this.clonePosition(), this.clonePosition()));
             }
             var fragmentResult = this.parseMessage(nestingLevel + 1, parentArgType, expectCloseTag);
             if (fragmentResult.err) {
@@ -1352,11 +1485,11 @@ var Parser = /** @class */ (function () {
         }
         if (options.length === 0) {
             return this.error(parentArgType === 'select'
-                ? error_1.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR
-                : error_1.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, createLocation(this.clonePosition(), this.clonePosition()));
+                ? _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_SELECT_ARGUMENT_SELECTOR
+                : _error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.EXPECT_PLURAL_ARGUMENT_SELECTOR, createLocation(this.clonePosition(), this.clonePosition()));
         }
         if (this.requiresOtherClause && !hasOtherClause) {
-            return this.error(error_1.ErrorKind.MISSING_OTHER_CLAUSE, createLocation(this.clonePosition(), this.clonePosition()));
+            return this.error(_error__WEBPACK_IMPORTED_MODULE_0__.ErrorKind.MISSING_OTHER_CLAUSE, createLocation(this.clonePosition(), this.clonePosition()));
         }
         return { val: options, err: null };
     };
@@ -1522,7 +1655,7 @@ var Parser = /** @class */ (function () {
     };
     return Parser;
 }());
-exports.Parser = Parser;
+
 /**
  * This check if codepoint is alphabet (lower & uppercase)
  * @param codepoint
@@ -1827,34 +1960,50 @@ function _isPatternSyntax(c) {
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js":
-/*!*****************************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/regex.generated.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/regex.generated.js":
+/*!*********************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/regex.generated.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.WHITE_SPACE_REGEX = exports.SPACE_SEPARATOR_END_REGEX = exports.SPACE_SEPARATOR_START_REGEX = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SPACE_SEPARATOR_REGEX": () => (/* binding */ SPACE_SEPARATOR_REGEX),
+/* harmony export */   "WHITE_SPACE_REGEX": () => (/* binding */ WHITE_SPACE_REGEX)
+/* harmony export */ });
 // @generated from regex-gen.ts
-exports.SPACE_SEPARATOR_START_REGEX = /^[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]*/i;
-exports.SPACE_SEPARATOR_END_REGEX = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]*$/i;
-exports.WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
+var SPACE_SEPARATOR_REGEX = /[ \xA0\u1680\u2000-\u200A\u202F\u205F\u3000]/;
+var WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-messageformat-parser/types.js":
-/*!*******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-messageformat-parser/types.js ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-messageformat-parser/lib/types.js":
+/*!***********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-messageformat-parser/lib/types.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.createNumberElement = exports.createLiteralElement = exports.isDateTimeSkeleton = exports.isNumberSkeleton = exports.isTagElement = exports.isPoundElement = exports.isPluralElement = exports.isSelectElement = exports.isTimeElement = exports.isDateElement = exports.isNumberElement = exports.isArgumentElement = exports.isLiteralElement = exports.SKELETON_TYPE = exports.TYPE = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TYPE": () => (/* binding */ TYPE),
+/* harmony export */   "SKELETON_TYPE": () => (/* binding */ SKELETON_TYPE),
+/* harmony export */   "isLiteralElement": () => (/* binding */ isLiteralElement),
+/* harmony export */   "isArgumentElement": () => (/* binding */ isArgumentElement),
+/* harmony export */   "isNumberElement": () => (/* binding */ isNumberElement),
+/* harmony export */   "isDateElement": () => (/* binding */ isDateElement),
+/* harmony export */   "isTimeElement": () => (/* binding */ isTimeElement),
+/* harmony export */   "isSelectElement": () => (/* binding */ isSelectElement),
+/* harmony export */   "isPluralElement": () => (/* binding */ isPluralElement),
+/* harmony export */   "isPoundElement": () => (/* binding */ isPoundElement),
+/* harmony export */   "isTagElement": () => (/* binding */ isTagElement),
+/* harmony export */   "isNumberSkeleton": () => (/* binding */ isNumberSkeleton),
+/* harmony export */   "isDateTimeSkeleton": () => (/* binding */ isDateTimeSkeleton),
+/* harmony export */   "createLiteralElement": () => (/* binding */ createLiteralElement),
+/* harmony export */   "createNumberElement": () => (/* binding */ createNumberElement)
+/* harmony export */ });
 var TYPE;
 (function (TYPE) {
     /**
@@ -1894,66 +2043,54 @@ var TYPE;
      * XML-like tag
      */
     TYPE[TYPE["tag"] = 8] = "tag";
-})(TYPE = exports.TYPE || (exports.TYPE = {}));
+})(TYPE || (TYPE = {}));
 var SKELETON_TYPE;
 (function (SKELETON_TYPE) {
     SKELETON_TYPE[SKELETON_TYPE["number"] = 0] = "number";
     SKELETON_TYPE[SKELETON_TYPE["dateTime"] = 1] = "dateTime";
-})(SKELETON_TYPE = exports.SKELETON_TYPE || (exports.SKELETON_TYPE = {}));
+})(SKELETON_TYPE || (SKELETON_TYPE = {}));
 /**
  * Type Guards
  */
 function isLiteralElement(el) {
     return el.type === TYPE.literal;
 }
-exports.isLiteralElement = isLiteralElement;
 function isArgumentElement(el) {
     return el.type === TYPE.argument;
 }
-exports.isArgumentElement = isArgumentElement;
 function isNumberElement(el) {
     return el.type === TYPE.number;
 }
-exports.isNumberElement = isNumberElement;
 function isDateElement(el) {
     return el.type === TYPE.date;
 }
-exports.isDateElement = isDateElement;
 function isTimeElement(el) {
     return el.type === TYPE.time;
 }
-exports.isTimeElement = isTimeElement;
 function isSelectElement(el) {
     return el.type === TYPE.select;
 }
-exports.isSelectElement = isSelectElement;
 function isPluralElement(el) {
     return el.type === TYPE.plural;
 }
-exports.isPluralElement = isPluralElement;
 function isPoundElement(el) {
     return el.type === TYPE.pound;
 }
-exports.isPoundElement = isPoundElement;
 function isTagElement(el) {
     return el.type === TYPE.tag;
 }
-exports.isTagElement = isTagElement;
 function isNumberSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === SKELETON_TYPE.number);
 }
-exports.isNumberSkeleton = isNumberSkeleton;
 function isDateTimeSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === SKELETON_TYPE.dateTime);
 }
-exports.isDateTimeSkeleton = isDateTimeSkeleton;
 function createLiteralElement(value) {
     return {
         type: TYPE.literal,
         value: value,
     };
 }
-exports.createLiteralElement = createLiteralElement;
 function createNumberElement(value, style) {
     return {
         type: TYPE.number,
@@ -1961,21 +2098,21 @@ function createNumberElement(value, style) {
         style: style,
     };
 }
-exports.createNumberElement = createNumberElement;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/date-time.js":
-/*!******************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/date-time.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/date-time.js":
+/*!**********************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/date-time.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parseDateTimeSkeleton = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseDateTimeSkeleton": () => (/* binding */ parseDateTimeSkeleton)
+/* harmony export */ });
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
  * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
@@ -2097,46 +2234,54 @@ function parseDateTimeSkeleton(skeleton) {
     });
     return result;
 }
-exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/index.js":
-/*!**************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/index.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/index.js":
+/*!******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/index.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseDateTimeSkeleton": () => (/* reexport safe */ _date_time__WEBPACK_IMPORTED_MODULE_0__.parseDateTimeSkeleton),
+/* harmony export */   "parseNumberSkeleton": () => (/* reexport safe */ _number__WEBPACK_IMPORTED_MODULE_1__.parseNumberSkeleton),
+/* harmony export */   "parseNumberSkeletonFromString": () => (/* reexport safe */ _number__WEBPACK_IMPORTED_MODULE_1__.parseNumberSkeletonFromString)
+/* harmony export */ });
+/* harmony import */ var _date_time__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./date-time */ "../node_modules/@formatjs/icu-skeleton-parser/lib/date-time.js");
+/* harmony import */ var _number__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./number */ "../node_modules/@formatjs/icu-skeleton-parser/lib/number.js");
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-tslib_1.__exportStar(__webpack_require__(/*! ./date-time */ "../node_modules/@formatjs/icu-skeleton-parser/date-time.js"), exports);
-tslib_1.__exportStar(__webpack_require__(/*! ./number */ "../node_modules/@formatjs/icu-skeleton-parser/number.js"), exports);
+
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/number.js":
-/*!***************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/number.js ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/number.js":
+/*!*******************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/number.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseNumberSkeletonFromString": () => (/* binding */ parseNumberSkeletonFromString),
+/* harmony export */   "parseNumberSkeleton": () => (/* binding */ parseNumberSkeleton)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _regex_generated__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-skeleton-parser/lib/regex.generated.js");
 
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.parseNumberSkeleton = exports.parseNumberSkeletonFromString = void 0;
-var tslib_1 = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-var regex_generated_1 = __webpack_require__(/*! ./regex.generated */ "../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js");
+
 function parseNumberSkeletonFromString(skeleton) {
     if (skeleton.length === 0) {
         throw new Error('Number skeleton cannot be empty');
     }
     // Parse the skeleton
     var stringTokens = skeleton
-        .split(regex_generated_1.WHITE_SPACE_REGEX)
+        .split(_regex_generated__WEBPACK_IMPORTED_MODULE_0__.WHITE_SPACE_REGEX)
         .filter(function (x) { return x.length > 0; });
     var tokens = [];
     for (var _i = 0, stringTokens_1 = stringTokens; _i < stringTokens_1.length; _i++) {
@@ -2156,7 +2301,6 @@ function parseNumberSkeletonFromString(skeleton) {
     }
     return tokens;
 }
-exports.parseNumberSkeletonFromString = parseNumberSkeletonFromString;
 function icuUnitToEcma(unit) {
     return unit.replace(/^(.*?)-/, '');
 }
@@ -2314,10 +2458,10 @@ function parseNumberSkeleton(tokens) {
                 result.compactDisplay = 'long';
                 continue;
             case 'scientific':
-                result = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, result), { notation: 'scientific' }), token.options.reduce(function (all, opt) { return (tslib_1.__assign(tslib_1.__assign({}, all), parseNotationOptions(opt))); }, {}));
+                result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), { notation: 'scientific' }), token.options.reduce(function (all, opt) { return ((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, all), parseNotationOptions(opt))); }, {}));
                 continue;
             case 'engineering':
-                result = tslib_1.__assign(tslib_1.__assign(tslib_1.__assign({}, result), { notation: 'engineering' }), token.options.reduce(function (all, opt) { return (tslib_1.__assign(tslib_1.__assign({}, all), parseNotationOptions(opt))); }, {}));
+                result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), { notation: 'engineering' }), token.options.reduce(function (all, opt) { return ((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, all), parseNotationOptions(opt))); }, {}));
                 continue;
             case 'notation-simple':
                 result.notation = 'standard';
@@ -2393,43 +2537,43 @@ function parseNumberSkeleton(tokens) {
                 return '';
             });
             if (token.options.length) {
-                result = tslib_1.__assign(tslib_1.__assign({}, result), parseSignificantPrecision(token.options[0]));
+                result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), parseSignificantPrecision(token.options[0]));
             }
             continue;
         }
         // https://unicode-org.github.io/icu/userguide/format_parse/numbers/skeletons.html#significant-digits-precision
         if (SIGNIFICANT_PRECISION_REGEX.test(token.stem)) {
-            result = tslib_1.__assign(tslib_1.__assign({}, result), parseSignificantPrecision(token.stem));
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), parseSignificantPrecision(token.stem));
             continue;
         }
         var signOpts = parseSign(token.stem);
         if (signOpts) {
-            result = tslib_1.__assign(tslib_1.__assign({}, result), signOpts);
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), signOpts);
         }
         var conciseScientificAndEngineeringOpts = parseConciseScientificAndEngineeringStem(token.stem);
         if (conciseScientificAndEngineeringOpts) {
-            result = tslib_1.__assign(tslib_1.__assign({}, result), conciseScientificAndEngineeringOpts);
+            result = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, result), conciseScientificAndEngineeringOpts);
         }
     }
     return result;
 }
-exports.parseNumberSkeleton = parseNumberSkeleton;
 
 
 /***/ }),
 
-/***/ "../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js":
-/*!************************************************************************!*\
-  !*** ../node_modules/@formatjs/icu-skeleton-parser/regex.generated.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ "../node_modules/@formatjs/icu-skeleton-parser/lib/regex.generated.js":
+/*!****************************************************************************!*\
+  !*** ../node_modules/@formatjs/icu-skeleton-parser/lib/regex.generated.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.WHITE_SPACE_REGEX = void 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "WHITE_SPACE_REGEX": () => (/* binding */ WHITE_SPACE_REGEX)
+/* harmony export */ });
 // @generated from regex-gen.ts
-exports.WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
+var WHITE_SPACE_REGEX = /[\t-\r \x85\u200E\u200F\u2028\u2029]/i;
 
 
 /***/ }),
@@ -25413,160 +25557,6 @@ Emitter.prototype.hasListeners = function(event){
 
 /***/ }),
 
-/***/ "../node_modules/fast-memoize/src/index.js":
-/*!*************************************************!*\
-  !*** ../node_modules/fast-memoize/src/index.js ***!
-  \*************************************************/
-/***/ ((module) => {
-
-//
-// Main
-//
-
-function memoize (fn, options) {
-  var cache = options && options.cache
-    ? options.cache
-    : cacheDefault
-
-  var serializer = options && options.serializer
-    ? options.serializer
-    : serializerDefault
-
-  var strategy = options && options.strategy
-    ? options.strategy
-    : strategyDefault
-
-  return strategy(fn, {
-    cache: cache,
-    serializer: serializer
-  })
-}
-
-//
-// Strategy
-//
-
-function isPrimitive (value) {
-  return value == null || typeof value === 'number' || typeof value === 'boolean' // || typeof value === "string" 'unsafe' primitive for our needs
-}
-
-function monadic (fn, cache, serializer, arg) {
-  var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
-
-  var computedValue = cache.get(cacheKey)
-  if (typeof computedValue === 'undefined') {
-    computedValue = fn.call(this, arg)
-    cache.set(cacheKey, computedValue)
-  }
-
-  return computedValue
-}
-
-function variadic (fn, cache, serializer) {
-  var args = Array.prototype.slice.call(arguments, 3)
-  var cacheKey = serializer(args)
-
-  var computedValue = cache.get(cacheKey)
-  if (typeof computedValue === 'undefined') {
-    computedValue = fn.apply(this, args)
-    cache.set(cacheKey, computedValue)
-  }
-
-  return computedValue
-}
-
-function assemble (fn, context, strategy, cache, serialize) {
-  return strategy.bind(
-    context,
-    fn,
-    cache,
-    serialize
-  )
-}
-
-function strategyDefault (fn, options) {
-  var strategy = fn.length === 1 ? monadic : variadic
-
-  return assemble(
-    fn,
-    this,
-    strategy,
-    options.cache.create(),
-    options.serializer
-  )
-}
-
-function strategyVariadic (fn, options) {
-  var strategy = variadic
-
-  return assemble(
-    fn,
-    this,
-    strategy,
-    options.cache.create(),
-    options.serializer
-  )
-}
-
-function strategyMonadic (fn, options) {
-  var strategy = monadic
-
-  return assemble(
-    fn,
-    this,
-    strategy,
-    options.cache.create(),
-    options.serializer
-  )
-}
-
-//
-// Serializer
-//
-
-function serializerDefault () {
-  return JSON.stringify(arguments)
-}
-
-//
-// Cache
-//
-
-function ObjectWithoutPrototypeCache () {
-  this.cache = Object.create(null)
-}
-
-ObjectWithoutPrototypeCache.prototype.has = function (key) {
-  return (key in this.cache)
-}
-
-ObjectWithoutPrototypeCache.prototype.get = function (key) {
-  return this.cache[key]
-}
-
-ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
-  this.cache[key] = value
-}
-
-var cacheDefault = {
-  create: function create () {
-    return new ObjectWithoutPrototypeCache()
-  }
-}
-
-//
-// API
-//
-
-module.exports = memoize
-module.exports.strategies = {
-  variadic: strategyVariadic,
-  monadic: strategyMonadic
-}
-
-
-/***/ }),
-
 /***/ "../node_modules/intl-messageformat/lib/index.js":
 /*!*******************************************************!*\
   !*** ../node_modules/intl-messageformat/lib/index.js ***!
@@ -25616,10 +25606,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "IntlMessageFormat": () => (/* binding */ IntlMessageFormat)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "../node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/index.js");
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fast-memoize */ "../node_modules/fast-memoize/src/index.js");
-/* harmony import */ var fast_memoize__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fast_memoize__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/lib/index.js");
+/* harmony import */ var _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @formatjs/fast-memoize */ "../node_modules/@formatjs/fast-memoize/lib/index.js");
 /* harmony import */ var _formatters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./formatters */ "../node_modules/intl-messageformat/lib/src/formatters.js");
 /*
 Copyright (c) 2014, Yahoo! Inc. All rights reserved.
@@ -25666,9 +25654,6 @@ function createFastMemoizeCache(store) {
         },
     };
 }
-// @ts-ignore this is to deal with rollup's default import shenanigans
-var _memoizeIntl = (fast_memoize__WEBPACK_IMPORTED_MODULE_1___default()) || fast_memoize__WEBPACK_IMPORTED_MODULE_1__;
-var memoizeIntl = _memoizeIntl;
 function createDefaultFormatters(cache) {
     if (cache === void 0) { cache = {
         number: {},
@@ -25676,7 +25661,7 @@ function createDefaultFormatters(cache) {
         pluralRules: {},
     }; }
     return {
-        getNumberFormat: memoizeIntl(function () {
+        getNumberFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25685,9 +25670,9 @@ function createDefaultFormatters(cache) {
             return new ((_a = Intl.NumberFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.number),
-            strategy: memoizeIntl.strategies.variadic,
+            strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
-        getDateTimeFormat: memoizeIntl(function () {
+        getDateTimeFormat: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25696,9 +25681,9 @@ function createDefaultFormatters(cache) {
             return new ((_a = Intl.DateTimeFormat).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.dateTime),
-            strategy: memoizeIntl.strategies.variadic,
+            strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
-        getPluralRules: memoizeIntl(function () {
+        getPluralRules: (0,_formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.default)(function () {
             var _a;
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -25707,7 +25692,7 @@ function createDefaultFormatters(cache) {
             return new ((_a = Intl.PluralRules).bind.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([void 0], args)))();
         }, {
             cache: createFastMemoizeCache(cache.pluralRules),
-            strategy: memoizeIntl.strategies.variadic,
+            strategy: _formatjs_fast_memoize__WEBPACK_IMPORTED_MODULE_1__.strategies.variadic,
         }),
     };
 }
@@ -25776,7 +25761,8 @@ var IntlMessageFormat = /** @class */ (function () {
     Object.defineProperty(IntlMessageFormat, "defaultLocale", {
         get: function () {
             if (!IntlMessageFormat.memoizedDefaultLocale) {
-                IntlMessageFormat.memoizedDefaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+                IntlMessageFormat.memoizedDefaultLocale =
+                    new Intl.NumberFormat().resolvedOptions().locale;
             }
             return IntlMessageFormat.memoizedDefaultLocale;
         },
@@ -25932,8 +25918,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "isFormatXMLElementFn": () => (/* binding */ isFormatXMLElementFn),
 /* harmony export */   "formatToParts": () => (/* binding */ formatToParts)
 /* harmony export */ });
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/index.js");
-/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _formatjs_icu_messageformat_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @formatjs/icu-messageformat-parser */ "../node_modules/@formatjs/icu-messageformat-parser/lib/index.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./error */ "../node_modules/intl-messageformat/lib/src/error.js");
 
 
@@ -26124,7 +26109,7 @@ originalMessage) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* @license
 Papa Parse
-v5.3.0
+v5.3.1
 https://github.com/mholt/PapaParse
 License: MIT
 */
@@ -26413,7 +26398,7 @@ License: MIT
 			if (!_input.length || Array.isArray(_input[0]))
 				return serialize(null, _input, _skipEmptyLines);
 			else if (typeof _input[0] === 'object')
-				return serialize(_columns || objectKeys(_input[0]), _input, _skipEmptyLines);
+				return serialize(_columns || Object.keys(_input[0]), _input, _skipEmptyLines);
 		}
 		else if (typeof _input === 'object')
 		{
@@ -26428,7 +26413,9 @@ License: MIT
 				if (!_input.fields)
 					_input.fields =  Array.isArray(_input.data[0])
 						? _input.fields
-						: objectKeys(_input.data[0]);
+						: typeof _input.data[0] === 'object'
+							? Object.keys(_input.data[0])
+							: [];
 
 				if (!(Array.isArray(_input.data[0])) && typeof _input.data[0] !== 'object')
 					_input.data = [_input.data];	// handles input like [1,2,3] or ['asdf']
@@ -26485,17 +26472,6 @@ License: MIT
 				_escapeFormulae = _config.escapeFormulae;
 		}
 
-
-		/** Turns an object's keys into an array */
-		function objectKeys(obj)
-		{
-			if (typeof obj !== 'object')
-				return [];
-			var keys = [];
-			for (var key in obj)
-				keys.push(key);
-			return keys;
-		}
 
 		/** The double for loop that iterates the data and writes out a CSV string including header row */
 		function serialize(fields, data, skipEmptyLines)
@@ -27132,8 +27108,8 @@ License: MIT
 		// One goal is to minimize the use of regular expressions...
 		var MAX_FLOAT = Math.pow(2, 53);
 		var MIN_FLOAT = -MAX_FLOAT;
-		var FLOAT = /^\s*-?(\d+\.?|\.\d+|\d+\.\d+)(e[-+]?\d+)?\s*$/;
-		var ISO_DATE = /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
+		var FLOAT = /^\s*-?(\d+\.?|\.\d+|\d+\.\d+)([eE][-+]?\d+)?\s*$/;
+		var ISO_DATE = /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))$/;
 		var self = this;
 		var _stepCounter = 0;	// Number of times step was called (number of rows parsed)
 		var _rowCounter = 0;	// Number of rows that have been parsed so far
@@ -27750,27 +27726,11 @@ License: MIT
 				// Next delimiter comes before next newline, so we've reached end of field
 				if (nextDelim !== -1 && (nextDelim < nextNewline || nextNewline === -1))
 				{
-					// we check, if we have quotes, because delimiter char may be part of field enclosed in quotes
-					if (quoteSearch > nextDelim) {
-						// we have quotes, so we try to find the next delimiter not enclosed in quotes and also next starting quote char
-						var nextDelimObj = getNextUnquotedDelimiter(nextDelim, quoteSearch, nextNewline);
-
-						// if we have next delimiter char which is not enclosed in quotes
-						if (nextDelimObj && typeof nextDelimObj.nextDelim !== 'undefined') {
-							nextDelim = nextDelimObj.nextDelim;
-							quoteSearch = nextDelimObj.quoteSearch;
-							row.push(input.substring(cursor, nextDelim));
-							cursor = nextDelim + delimLen;
-							// we look for next delimiter char
-							nextDelim = input.indexOf(delim, cursor);
-							continue;
-						}
-					} else {
-						row.push(input.substring(cursor, nextDelim));
-						cursor = nextDelim + delimLen;
-						nextDelim = input.indexOf(delim, cursor);
-						continue;
-					}
+					row.push(input.substring(cursor, nextDelim));
+					cursor = nextDelim + delimLen;
+					// we look for next delimiter char
+					nextDelim = input.indexOf(delim, cursor);
+					continue;
 				}
 
 				// End of row
@@ -27874,40 +27834,6 @@ License: MIT
 				step(returnable());
 				data = [];
 				errors = [];
-			}
-
-			/** Gets the delimiter character, which is not inside the quoted field */
-			function getNextUnquotedDelimiter(nextDelim, quoteSearch, newLine) {
-				var result = {
-					nextDelim: undefined,
-					quoteSearch: undefined
-				};
-				// get the next closing quote character
-				var nextQuoteSearch = input.indexOf(quoteChar, quoteSearch + 1);
-
-				// if next delimiter is part of a field enclosed in quotes
-				if (nextDelim > quoteSearch && nextDelim < nextQuoteSearch && (nextQuoteSearch < newLine || newLine === -1)) {
-					// get the next delimiter character after this one
-					var nextNextDelim = input.indexOf(delim, nextQuoteSearch);
-
-					// if there is no next delimiter, return default result
-					if (nextNextDelim === -1) {
-						return result;
-					}
-					// find the next opening quote char position
-					if (nextNextDelim > nextQuoteSearch) {
-						nextQuoteSearch = input.indexOf(quoteChar, nextQuoteSearch + 1);
-					}
-					// try to get the next delimiter position
-					result = getNextUnquotedDelimiter(nextNextDelim, nextQuoteSearch, newLine);
-				} else {
-					result = {
-						nextDelim: nextDelim,
-						quoteSearch: quoteSearch
-					};
-				}
-
-				return result;
 			}
 		};
 
@@ -28841,8 +28767,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /*!
- * Vue.js v2.6.12
- * (c) 2014-2020 Evan You
+ * Vue.js v2.6.14
+ * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -30535,13 +30461,14 @@ function assertProp (
       type = [type];
     }
     for (var i = 0; i < type.length && !valid; i++) {
-      var assertedType = assertType(value, type[i]);
+      var assertedType = assertType(value, type[i], vm);
       expectedTypes.push(assertedType.expectedType || '');
       valid = assertedType.valid;
     }
   }
 
-  if (!valid) {
+  var haveExpectedTypes = expectedTypes.some(function (t) { return t; });
+  if (!valid && haveExpectedTypes) {
     warn(
       getInvalidTypeMessage(name, value, expectedTypes),
       vm
@@ -30559,9 +30486,9 @@ function assertProp (
   }
 }
 
-var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
+var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol|BigInt)$/;
 
-function assertType (value, type) {
+function assertType (value, type, vm) {
   var valid;
   var expectedType = getType(type);
   if (simpleCheckRE.test(expectedType)) {
@@ -30576,7 +30503,12 @@ function assertType (value, type) {
   } else if (expectedType === 'Array') {
     valid = Array.isArray(value);
   } else {
-    valid = value instanceof type;
+    try {
+      valid = value instanceof type;
+    } catch (e) {
+      warn('Invalid prop type: "' + String(type) + '" is not a constructor', vm);
+      valid = false;
+    }
   }
   return {
     valid: valid,
@@ -30584,13 +30516,15 @@ function assertType (value, type) {
   }
 }
 
+var functionTypeCheckRE = /^\s*function (\w+)/;
+
 /**
  * Use function string name to check built-in types,
  * because a simple equality check will fail when running
  * across different vms / iframes.
  */
 function getType (fn) {
-  var match = fn && fn.toString().match(/^\s*function (\w+)/);
+  var match = fn && fn.toString().match(functionTypeCheckRE);
   return match ? match[1] : ''
 }
 
@@ -30615,18 +30549,19 @@ function getInvalidTypeMessage (name, value, expectedTypes) {
     " Expected " + (expectedTypes.map(capitalize).join(', '));
   var expectedType = expectedTypes[0];
   var receivedType = toRawType(value);
-  var expectedValue = styleValue(value, expectedType);
-  var receivedValue = styleValue(value, receivedType);
   // check if we need to specify expected value
-  if (expectedTypes.length === 1 &&
-      isExplicable(expectedType) &&
-      !isBoolean(expectedType, receivedType)) {
-    message += " with value " + expectedValue;
+  if (
+    expectedTypes.length === 1 &&
+    isExplicable(expectedType) &&
+    isExplicable(typeof value) &&
+    !isBoolean(expectedType, receivedType)
+  ) {
+    message += " with value " + (styleValue(value, expectedType));
   }
   message += ", got " + receivedType + " ";
   // check if we need to specify received value
   if (isExplicable(receivedType)) {
-    message += "with value " + receivedValue + ".";
+    message += "with value " + (styleValue(value, receivedType)) + ".";
   }
   return message
 }
@@ -30641,9 +30576,9 @@ function styleValue (value, type) {
   }
 }
 
+var EXPLICABLE_TYPES = ['string', 'number', 'boolean'];
 function isExplicable (value) {
-  var explicitTypes = ['string', 'number', 'boolean'];
-  return explicitTypes.some(function (elem) { return value.toLowerCase() === elem; })
+  return EXPLICABLE_TYPES.some(function (elem) { return value.toLowerCase() === elem; })
 }
 
 function isBoolean () {
@@ -30847,7 +30782,7 @@ if (true) {
   var allowedGlobals = makeMap(
     'Infinity,undefined,NaN,isFinite,isNaN,' +
     'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
-    'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' +
+    'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt,' +
     'require' // for Webpack/Browserify
   );
 
@@ -31373,6 +31308,12 @@ function isWhitespace (node) {
 
 /*  */
 
+function isAsyncPlaceholder (node) {
+  return node.isComment && node.asyncFactory
+}
+
+/*  */
+
 function normalizeScopedSlots (
   slots,
   normalSlots,
@@ -31429,9 +31370,10 @@ function normalizeScopedSlot(normalSlots, key, fn) {
     res = res && typeof res === 'object' && !Array.isArray(res)
       ? [res] // single vnode
       : normalizeChildren(res);
+    var vnode = res && res[0];
     return res && (
-      res.length === 0 ||
-      (res.length === 1 && res[0].isComment) // #9658
+      !vnode ||
+      (res.length === 1 && vnode.isComment && !isAsyncPlaceholder(vnode)) // #9658, #10391
     ) ? undefined
       : res
   };
@@ -31504,26 +31446,28 @@ function renderList (
  */
 function renderSlot (
   name,
-  fallback,
+  fallbackRender,
   props,
   bindObject
 ) {
   var scopedSlotFn = this.$scopedSlots[name];
   var nodes;
-  if (scopedSlotFn) { // scoped slot
+  if (scopedSlotFn) {
+    // scoped slot
     props = props || {};
     if (bindObject) {
       if ( true && !isObject(bindObject)) {
-        warn(
-          'slot v-bind without argument expects an Object',
-          this
-        );
+        warn('slot v-bind without argument expects an Object', this);
       }
       props = extend(extend({}, bindObject), props);
     }
-    nodes = scopedSlotFn(props) || fallback;
+    nodes =
+      scopedSlotFn(props) ||
+      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
   } else {
-    nodes = this.$slots[name] || fallback;
+    nodes =
+      this.$slots[name] ||
+      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
   }
 
   var target = props && props.slot;
@@ -31573,6 +31517,7 @@ function checkKeyCodes (
   } else if (eventKeyName) {
     return hyphenate(eventKeyName) !== key
   }
+  return eventKeyCode === undefined
 }
 
 /*  */
@@ -32104,8 +32049,10 @@ function createComponent (
 }
 
 function createComponentInstanceForVnode (
-  vnode, // we know it's MountedComponentVNode but flow doesn't
-  parent // activeInstance in lifecycle state
+  // we know it's MountedComponentVNode but flow doesn't
+  vnode,
+  // activeInstance in lifecycle state
+  parent
 ) {
   var options = {
     _isComponent: true,
@@ -32245,7 +32192,7 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if ( true && isDef(data) && isDef(data.nativeOn)) {
+      if ( true && isDef(data) && isDef(data.nativeOn) && data.tag !== 'component') {
         warn(
           ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
           context
@@ -32569,12 +32516,6 @@ function resolveAsyncComponent (
       ? factory.loadingComp
       : factory.resolved
   }
-}
-
-/*  */
-
-function isAsyncPlaceholder (node) {
-  return node.isComment && node.asyncFactory
 }
 
 /*  */
@@ -32945,7 +32886,8 @@ function updateChildComponent (
   var hasDynamicScopedSlot = !!(
     (newScopedSlots && !newScopedSlots.$stable) ||
     (oldScopedSlots !== emptyObject && !oldScopedSlots.$stable) ||
-    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key)
+    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key) ||
+    (!newScopedSlots && vm.$scopedSlots.$key)
   );
 
   // Any static slot children from the parent may have changed during parent's
@@ -33399,11 +33341,8 @@ Watcher.prototype.run = function run () {
       var oldValue = this.value;
       this.value = value;
       if (this.user) {
-        try {
-          this.cb.call(this.vm, value, oldValue);
-        } catch (e) {
-          handleError(e, this.vm, ("callback for watcher \"" + (this.expression) + "\""));
-        }
+        var info = "callback for watcher \"" + (this.expression) + "\"";
+        invokeWithErrorHandling(this.cb, this.vm, [value, oldValue], this.vm, info);
       } else {
         this.cb.call(this.vm, value, oldValue);
       }
@@ -33625,6 +33564,8 @@ function initComputed (vm, computed) {
         warn(("The computed property \"" + key + "\" is already defined in data."), vm);
       } else if (vm.$options.props && key in vm.$options.props) {
         warn(("The computed property \"" + key + "\" is already defined as a prop."), vm);
+      } else if (vm.$options.methods && key in vm.$options.methods) {
+        warn(("The computed property \"" + key + "\" is already defined as a method."), vm);
       }
     }
   }
@@ -33778,11 +33719,10 @@ function stateMixin (Vue) {
     options.user = true;
     var watcher = new Watcher(vm, expOrFn, cb, options);
     if (options.immediate) {
-      try {
-        cb.call(vm, watcher.value);
-      } catch (error) {
-        handleError(error, vm, ("callback for immediate watcher \"" + (watcher.expression) + "\""));
-      }
+      var info = "callback for immediate watcher \"" + (watcher.expression) + "\"";
+      pushTarget();
+      invokeWithErrorHandling(cb, vm, [watcher.value], vm, info);
+      popTarget();
     }
     return function unwatchFn () {
       watcher.teardown();
@@ -34081,6 +34021,8 @@ function initAssetRegisters (Vue) {
 
 
 
+
+
 function getComponentName (opts) {
   return opts && (opts.Ctor.options.name || opts.tag)
 }
@@ -34102,9 +34044,9 @@ function pruneCache (keepAliveInstance, filter) {
   var keys = keepAliveInstance.keys;
   var _vnode = keepAliveInstance._vnode;
   for (var key in cache) {
-    var cachedNode = cache[key];
-    if (cachedNode) {
-      var name = getComponentName(cachedNode.componentOptions);
+    var entry = cache[key];
+    if (entry) {
+      var name = entry.name;
       if (name && !filter(name)) {
         pruneCacheEntry(cache, key, keys, _vnode);
       }
@@ -34118,9 +34060,9 @@ function pruneCacheEntry (
   keys,
   current
 ) {
-  var cached$$1 = cache[key];
-  if (cached$$1 && (!current || cached$$1.tag !== current.tag)) {
-    cached$$1.componentInstance.$destroy();
+  var entry = cache[key];
+  if (entry && (!current || entry.tag !== current.tag)) {
+    entry.componentInstance.$destroy();
   }
   cache[key] = null;
   remove(keys, key);
@@ -34138,6 +34080,32 @@ var KeepAlive = {
     max: [String, Number]
   },
 
+  methods: {
+    cacheVNode: function cacheVNode() {
+      var ref = this;
+      var cache = ref.cache;
+      var keys = ref.keys;
+      var vnodeToCache = ref.vnodeToCache;
+      var keyToCache = ref.keyToCache;
+      if (vnodeToCache) {
+        var tag = vnodeToCache.tag;
+        var componentInstance = vnodeToCache.componentInstance;
+        var componentOptions = vnodeToCache.componentOptions;
+        cache[keyToCache] = {
+          name: getComponentName(componentOptions),
+          tag: tag,
+          componentInstance: componentInstance,
+        };
+        keys.push(keyToCache);
+        // prune oldest entry
+        if (this.max && keys.length > parseInt(this.max)) {
+          pruneCacheEntry(cache, keys[0], keys, this._vnode);
+        }
+        this.vnodeToCache = null;
+      }
+    }
+  },
+
   created: function created () {
     this.cache = Object.create(null);
     this.keys = [];
@@ -34152,12 +34120,17 @@ var KeepAlive = {
   mounted: function mounted () {
     var this$1 = this;
 
+    this.cacheVNode();
     this.$watch('include', function (val) {
       pruneCache(this$1, function (name) { return matches(val, name); });
     });
     this.$watch('exclude', function (val) {
       pruneCache(this$1, function (name) { return !matches(val, name); });
     });
+  },
+
+  updated: function updated () {
+    this.cacheVNode();
   },
 
   render: function render () {
@@ -34193,12 +34166,9 @@ var KeepAlive = {
         remove(keys, key);
         keys.push(key);
       } else {
-        cache[key] = vnode;
-        keys.push(key);
-        // prune oldest entry
-        if (this.max && keys.length > parseInt(this.max)) {
-          pruneCacheEntry(cache, keys[0], keys, this._vnode);
-        }
+        // delay setting the cache until update
+        this.vnodeToCache = vnode;
+        this.keyToCache = key;
       }
 
       vnode.data.keepAlive = true;
@@ -34281,7 +34251,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.12';
+Vue.version = '2.6.14';
 
 /*  */
 
@@ -34318,7 +34288,7 @@ var isBooleanAttr = makeMap(
   'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' +
   'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
   'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' +
-  'required,reversed,scoped,seamless,selected,sortable,translate,' +
+  'required,reversed,scoped,seamless,selected,sortable,' +
   'truespeed,typemustmatch,visible'
 );
 
@@ -34442,7 +34412,7 @@ var isHTMLTag = makeMap(
 // contain child elements.
 var isSVG = makeMap(
   'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
-  'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
+  'foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
   'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
   true
 );
@@ -34645,7 +34615,8 @@ var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function sameVnode (a, b) {
   return (
-    a.key === b.key && (
+    a.key === b.key &&
+    a.asyncFactory === b.asyncFactory && (
       (
         a.tag === b.tag &&
         a.isComment === b.isComment &&
@@ -34653,7 +34624,6 @@ function sameVnode (a, b) {
         sameInputType(a, b)
       ) || (
         isTrue(a.isAsyncPlaceholder) &&
-        a.asyncFactory === b.asyncFactory &&
         isUndef(b.asyncFactory.error)
       )
     )
@@ -35543,7 +35513,7 @@ function updateAttrs (oldVnode, vnode) {
     cur = attrs[key];
     old = oldAttrs[key];
     if (old !== cur) {
-      setAttr(elm, key, cur);
+      setAttr(elm, key, cur, vnode.data.pre);
     }
   }
   // #4391: in IE9, setting type can reset value for input[type=radio]
@@ -35563,8 +35533,8 @@ function updateAttrs (oldVnode, vnode) {
   }
 }
 
-function setAttr (el, key, value) {
-  if (el.tagName.indexOf('-') > -1) {
+function setAttr (el, key, value, isInPre) {
+  if (isInPre || el.tagName.indexOf('-') > -1) {
     baseSetAttr(el, key, value);
   } else if (isBooleanAttr(key)) {
     // set attribute for blank value
@@ -44295,7 +44265,7 @@ class SourceText {
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.text && (this.text.length <= maxCharactersPerTextValue)
+    return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
 
   /**
@@ -45141,7 +45111,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i389-some-fixes.20210519395" : 0
+    return  true ? "dev.20210610670" : 0
   }
 
   static get libName () {
@@ -49598,7 +49568,7 @@ __webpack_require__.r(__webpack_exports__);
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
     },
     textCharactersAmount () {
@@ -49629,7 +49599,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.docSourceUpdated && (this.showUploadMenu || this.showTextProps)
     },
     alignAvailable () {
-      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.$settingsC.maxCharactersPerTextValue)
+      return this.$store.state.docSourceUpdated && this.$store.state.optionsUpdated && this.$store.state.alignmentUpdated && this.$textC.couldStartAlign && this.$textC.checkSize(this.maxCharactersForTheText)
     },
     describeButtonId () {
       return `alpheios-actions-menu-button__describe-${this.textType}-${this.textId}-id`
@@ -49683,7 +49653,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async updateTextFromTextBlock () {
-      console.info('updateTextFromTextBlock - started', this.text)
       const docSource = this.$textC.getDocSource(this.textType, this.textId)
       if (!docSource && (this.text.length === 0)) { return }
 
@@ -49707,7 +49676,6 @@ __webpack_require__.r(__webpack_exports__);
      * Emits update-text event with data from properties
      */
     async updateText () {
-      console.info('updateText - started', this.text)
       if (this.text) {
         const params = {
           text: this.text,
@@ -49743,7 +49711,6 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     async deleteText () {
-      console.info('deleteText - started', this.text)
       this.text = ''
       this.$refs.fileupload.value = ''
       this.prepareDefaultTextEditorOptions()
@@ -56129,7 +56096,7 @@ var render = function() {
             return null
           }
           $event.preventDefault()
-          return _vm.clickToken($event)
+          return _vm.clickToken.apply(null, arguments)
         },
         mouseover: _vm.addHoverToken,
         mouseleave: _vm.removeHoverToken
@@ -59166,7 +59133,7 @@ var render = function() {
               ) {
                 return null
               }
-              return _vm.goToPage($event)
+              return _vm.goToPage.apply(null, arguments)
             },
             input: function($event) {
               if ($event.target.composing) {
@@ -61433,7 +61400,7 @@ var render = function() {
             ) {
               return null
             }
-            return _vm.insertTokens($event)
+            return _vm.insertTokens.apply(null, arguments)
           },
           input: function($event) {
             if ($event.target.composing) {
