@@ -95,7 +95,6 @@ export default class Segment {
         }
       }
     })
-    // console.info('defineAllPartNums parts', this.textType, this.index, charMax, Object.keys(parts))
     this.allPartNums = allPartNums
     this.getCurrentPartNums()
   }
@@ -226,7 +225,6 @@ export default class Segment {
    * @returns { Segment }
    */
   static convertFromJSON (data) {
-
     return new Segment({
       index: data.index,
       textType: data.textType,

@@ -7,9 +7,12 @@ import SegmentBlock from '@/vue/align-editor/segment-block.vue'
 import TokenBlock from '@/vue/align-editor/token-block.vue'
 import Token from '@/lib/data/token'
 import SourceText from '@/lib/data/source-text'
+import Alignment from '@/lib/data/alignment'
 import Vue from '@vue-runtime'
 
 import SettingsController from '@/lib/controllers/settings-controller'
+import IndexedDB from 'fake-indexeddb'
+import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 
 import Vuex from "vuex"
 
@@ -21,8 +24,15 @@ describe('segment-block.test.js', () => {
   console.log = function () {}
   console.warn = function () {}
 
-  let appC, originSegment, allTargetTextsIds, targetSegment, targetSegment1, createAlignmentGroup
-    
+  let appC, originSegment, allTargetTextsIds, targetSegment, targetSegment1, createAlignmentGroup, userID
+  beforeAll(async () => {
+    userID = Alignment.defaultUserID
+
+    window.indexedDB = IndexedDB
+    window.IDBKeyRange = IDBKeyRange
+
+  })
+
   beforeEach(async () => {
     jest.spyOn(console, 'error')
     jest.spyOn(console, 'log')
@@ -35,8 +45,9 @@ describe('segment-block.test.js', () => {
     appC.defineStore()
     appC.defineL10Support()
     appC.defineNotificationSupport(appC.store)
+    appC.defineStorageController()
 
-    await appC.defineSettingsController()
+    await appC.defineSettingsController(appC.store)
     appC.defineTextController(appC.store)
     appC.defineAlignedGroupsController(appC.store)
     appC.defineTokensEditController(appC.store)
@@ -88,7 +99,7 @@ describe('segment-block.test.js', () => {
       return activeAlignmentGroup
     }
   })
-/*
+
   it('1 SegmentBlock - renders a vue instance (min requirements)', () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
@@ -380,7 +391,7 @@ describe('segment-block.test.js', () => {
     expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[0].token, allTargetTextsIds[1])).toBeTruthy() // first origin token
     expect(cmp.vm.isFirstInActiveGroup(alGroup.steps[1].token, allTargetTextsIds[1])).toBeFalsy() // target token
   })
-*/
+
   it('13 SegmentBlock - allPartsKeys, currentPartIndexes, allTokens, click next, click prev', async () => {
     let cmp = shallowMount(SegmentBlock, {
       store: appC.store,
@@ -420,11 +431,15 @@ describe('segment-block.test.js', () => {
     await cmp.vm.uploadNextPart()
 
     expect(cmp.vm.currentPartIndexes).toEqual([ 2, 3 ])
+    // console.info('tokens', cmp.vm.allTokens)
+    expect(cmp.vm.allTokens.length).toEqual(4)
+    expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Jahren', 'entstanden', 'Materie', 'Energie' ])
 
-    console.info('allPartsKeys', cmp.vm.allPartsKeys)
-    console.info('currentPartIndexes', cmp.vm.currentPartIndexes)
+    // click prev
+    await cmp.vm.uploadPrevPart()
 
-    console.info('tokens', cmp.vm.allTokens)
-
+    expect(cmp.vm.currentPartIndexes).toEqual([ 1, 2 ])
+    expect(cmp.vm.allTokens.length).toEqual(7)
+    expect(cmp.vm.allTokens.map(token => token.word)).toEqual([ 'Vor', 'rund', '13', '5', 'Milliarden', 'Jahren', 'entstanden'])
   })
 })

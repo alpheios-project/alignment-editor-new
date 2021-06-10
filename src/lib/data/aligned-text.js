@@ -58,7 +58,6 @@ export default class AlignedText {
     const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
-      
       this.segments = result.segments.map(segment => {
         return new Segment({
           index: segment.index,

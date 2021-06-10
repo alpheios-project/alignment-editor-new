@@ -506,6 +506,7 @@ export default class TextsController {
           partNum: partNums[i]
         }
         const dbData = await StorageController.select(selectParams, 'tokensByPartNum')
+
         this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
       }
     }

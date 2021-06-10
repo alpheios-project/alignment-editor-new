@@ -40323,6 +40323,7 @@ class TextsController {
 
   async defineAllPartNumsForTexts () {
     const allPartsAlreadyUploaded = this.alignment.hasAllPartsUploaded
+
     if (!allPartsAlreadyUploaded) {
       const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select({ alignmentID: this.alignment.id }, 'alignmentByAlIDQueryAllTokens')
       this.alignment = await _lib_data_alignment__WEBPACK_IMPORTED_MODULE_0__.default.convertFromIndexedDB(dbData)
@@ -40347,6 +40348,7 @@ class TextsController {
           partNum: partNums[i]
         }
         const dbData = await _lib_controllers_storage_controller_js__WEBPACK_IMPORTED_MODULE_6__.default.select(selectParams, 'tokensByPartNum')
+
         this.alignment.uploadSegmentTokensFromDB(textType, textId, segmentIndex, dbData)
       }
     }
@@ -42064,14 +42066,17 @@ class AlignedText {
     const result = await tokenizeMethod(docSource, this.tokenPrefix, useSpecificEnglishTokenizer)
 
     if (result && result.segments) {
-      this.segments = result.segments.map(segment => new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
-        index: segment.index,
-        tokens: segment.tokens,
-        textType: docSource.textType,
-        lang: docSource.lang,
-        direction: docSource.direction,
-        docSourceId: docSource.id
-      }))
+      this.segments = result.segments.map(segment => {
+        return new _lib_data_segment__WEBPACK_IMPORTED_MODULE_1__.default({
+          index: segment.index,
+          tokens: segment.tokens,
+          textType: docSource.textType,
+          lang: docSource.lang,
+          direction: docSource.direction,
+          docSourceId: docSource.id
+        })
+      }
+      )
       return true
     }
     return false
@@ -44787,7 +44792,7 @@ class Segment {
 
   get hasAllPartsUploaded () {
     return this.allPartNums.length === this.currentPartNums.length &&
-           this.allPartNums.forEach(partNum => this.currentPartNums.includes(partNum))
+           this.allPartNums.every(partNum => this.currentPartNums.includes(partNum))
   }
 }
 
@@ -46879,7 +46884,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210609596" : 0
+    return  true ? "i353-upload-by-part.20210610399" : 0
   }
 
   static get libName () {
