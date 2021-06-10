@@ -34,6 +34,14 @@ export default class AlignmentGroup {
     return this.alignmentGroupActions.target
   }
 
+  get originPartNums () {
+    return this.alignmentGroupActions.originPartNums
+  }
+
+  get targetPartNums () {
+    return this.alignmentGroupActions.targetPartNums
+  }
+
   /**
    * @returns {Number} amount of tokens saved in the group
    */

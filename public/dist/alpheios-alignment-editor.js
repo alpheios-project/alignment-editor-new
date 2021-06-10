@@ -41143,6 +41143,8 @@ class AlignmentGroupActions {
     this.origin = []
     this.target = []
     this.alignmentGroupHistory = alignmentGroupHistory
+    this.originPartNums = []
+    this.targetPartNums = []
   }
 
   // calculated props
@@ -41256,6 +41258,7 @@ class AlignmentGroupActions {
     this.alignmentGroupHistory.truncateSteps()
     this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.ADD)
 
+    this.checkAndUpdatePartNums(token.textType)
     this.defineFirstStepToken()
     return true
   }
@@ -41276,6 +41279,7 @@ class AlignmentGroupActions {
 
     if (tokenIndex >= 0) {
       this[token.textType].splice(tokenIndex, 1)
+      this.checkAndUpdatePartNums(token.textType)
 
       this.alignmentGroupHistory.addStep(token, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.REMOVE)
       this.defineFirstStepToken()
@@ -41292,6 +41296,9 @@ class AlignmentGroupActions {
   merge (tokensGroup, indexDeleted) {
     this.origin.push(...tokensGroup.origin)
     this.target.push(...tokensGroup.target)
+
+    this.checkAndUpdatePartNums('origin')
+    this.checkAndUpdatePartNums('target')
 
     this.alignmentGroupHistory.addStep(tokensGroup, _lib_data_history_history_step_js__WEBPACK_IMPORTED_MODULE_0__.default.types.MERGE, { indexDeleted })
   }
@@ -41321,6 +41328,8 @@ class AlignmentGroupActions {
         this.target.splice(tokenIndex, 1)
       }
     }
+    this.checkAndUpdatePartNums('origin')
+    this.checkAndUpdatePartNums('target')
     this.defineFirstStepToken()
     return {
       tokensGroup,
@@ -41328,6 +41337,9 @@ class AlignmentGroupActions {
     }
   }
 
+  checkAndUpdatePartNums (textType) {
+    console.info('al-group-actions - ', textType, this)
+  }
   // step actions
 
   removeStepAdd (step) {
@@ -42251,6 +42263,14 @@ class AlignmentGroup {
 
   get target () {
     return this.alignmentGroupActions.target
+  }
+
+  get originPartNums () {
+    return this.alignmentGroupActions.originPartNums
+  }
+
+  get targetPartNums () {
+    return this.alignmentGroupActions.targetPartNums
   }
 
   /**
@@ -43230,6 +43250,7 @@ class Alignment {
     if (limitByTargetId) {
       this.hoveredGroups = this.hoveredGroups.filter(alGroup => alGroup.targetId === limitByTargetId)
     }
+    console.info('this.alignmentGroups - ', this.alignmentGroups)
     return this.hoveredGroups
   }
 
@@ -46884,7 +46905,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210610399" : 0
+    return  true ? "i353-upload-by-part.20210610649" : 0
   }
 
   static get libName () {
