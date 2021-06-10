@@ -144,4 +144,8 @@ describe('tokenize-options-block.test.js', () => {
     const optionItems = cmp.findAll(OptionItemBlock)
     expect(optionItems.length).toEqual(1 + Object.keys(localTextEditorOptions.text.items).length + Object.keys(localTextEditorOptions.tei.items).length)
   })
+<<<<<<< HEAD
+=======
+
+>>>>>>> e64368ddd9820404e0e54f2f829c0773f24b098d
 })
