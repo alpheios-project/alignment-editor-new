@@ -279,7 +279,7 @@ export default {
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
     },
     textCharactersAmount () {

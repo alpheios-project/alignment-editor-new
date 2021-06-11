@@ -44999,7 +44999,7 @@ class SourceText {
   }
 
   checkSize (maxCharactersPerTextValue) {
-    return this.text && (this.text.length <= maxCharactersPerTextValue)
+    return this.text && (this.text.length > 0) && (this.isTei || (this.text.length <= maxCharactersPerTextValue))
   }
 
   /**
@@ -46905,7 +46905,7 @@ __webpack_require__.r(__webpack_exports__);
 class StoreDefinition {
   // A build name info will be injected by webpack into the BUILD_NAME but need to have a fallback in case it fails
   static get libBuildName () {
-    return  true ? "i353-upload-by-part.20210610649" : 0
+    return  true ? "i353-upload-by-part.20210611373" : 0
   }
 
   static get libName () {
@@ -51656,7 +51656,7 @@ __webpack_require__.r(__webpack_exports__);
     charactersClasses () {
       return {
         'alpheios-alignment-editor-hidden' : (this.textCharactersAmount === 0),
-        'alpheios-alignment-editor-red' : this.textCharactersAmount > this.maxCharactersForTheText
+        'alpheios-alignment-editor-red' : this.sourceType === 'text' && (this.textCharactersAmount > this.maxCharactersForTheText)
       }
     },
     textCharactersAmount () {
